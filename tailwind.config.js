@@ -1,8 +1,18 @@
 module.exports = {
-  purge: [],
+  mode: "jit",
+
+  purge: {
+    enabled: true,
+    content: ["./src/**/*.js", "./src/**/*.mdx", "./src/**/*.tsx"],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      strokeWidth: {
+        3: "3",
+        4: "4",
+      },
+    },
   },
   variants: {
     extend: {},
