@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-tailwind-storybook-typescript",
-  "version": "0.1.0",
+  "name": "dashboard",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -30,6 +30,7 @@
     "@storybook/builder-webpack5": "^6.3.9",
     "@storybook/manager-webpack5": "^6.3.9",
     "@storybook/react": "^6.3.9",
+    "@types/node": "^16.10.2",
     "@types/react": "17.0.27",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
