@@ -10,6 +10,8 @@ import {
   YAxis,
 } from "recharts";
 
+const LineColor = ["#4F46E5", "#BE185D"];
+
 interface ChartData {
   [index: string | number]: string | number;
 }
@@ -19,15 +21,9 @@ const defaultData: ChartData[] = [];
 for (let num = 20; num >= 0; num--) {
   defaultData.push({
     date: subDays(new Date(), num).toISOString().substr(0, 10),
-    price: 1 + Math.random() * 2,
-  });
-}
-const defaultData2: ChartData[] = [];
-
-for (let num = 20; num >= 0; num--) {
-  defaultData2.push({
-    date: subDays(new Date(), num).toISOString().substr(0, 10),
-    price: 1 + Math.random() * 2,
+    uv: 12 + Math.random(),
+    dhji4r: 12 + Math.random(),
+    price: num,
   });
 }
 
@@ -59,21 +55,29 @@ export const ChartArea: React.FC<ChartAreaProps> = ({
     ? "bg-gray-900"
     : "bg-white";
 
-  const stroke = strokeColor ? strokeColor : dark ? "#4F46E5" : "#4338CA";
+  const keys = Object.keys(data[0]);
 
-  const xLabel = Object.keys(data[0])[1];
-  const yLabel = Object.keys(data[0])[0];
+  const xLabel = keys[keys.length - 1];
+  const yLabel = keys[0];
+  if (keys.length > 2) {
+    keys.pop();
+    keys.shift();
+  }
 
   return (
     <div className={`box-shadow-01 p-8 ${bgColor} rounded-xl`}>
       <ResponsiveContainer width={width} height={height}>
         <LineChart data={data} className="bg-[#B4764]">
-          <Line
-            type="monotone"
-            dataKey={xLabel}
-            strokeWidth={strokeWidth}
-            stroke={stroke}
-          />
+          {keys.map((item, i) => (
+            <Line
+              key={item}
+              type="monotone"
+              dataKey={item}
+              strokeWidth={strokeWidth}
+              stroke={LineColor[i]}
+            />
+          ))}
+
           <XAxis
             type="category"
             dataKey={yLabel}
@@ -81,6 +85,7 @@ export const ChartArea: React.FC<ChartAreaProps> = ({
             tickLine={false}
             tickMargin={15}
             tickCount={5}
+            padding={{ left: 30, right: 30 }}
             tickFormatter={(str) => {
               const date = parseISO(str);
               if (date.getDate() % 5 === 0) return format(date, "MMM, d");
