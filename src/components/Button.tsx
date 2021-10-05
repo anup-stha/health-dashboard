@@ -1,7 +1,7 @@
 import React from "react";
 import "./button.css";
 
-interface ButtonProps {
+export interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
@@ -26,6 +26,8 @@ interface ButtonProps {
 
 /**
  * Primary UI component for user interaction
+ * @param {ButtonProps} props component props
+ * @return {React.ReactElement} A React UI component
  */
 export const Button = ({
   primary = false,
@@ -34,6 +36,7 @@ export const Button = ({
   label,
   ...props
 }: ButtonProps) => {
+  // eslint-disable-next-line no-unused-vars
   const mode = primary
     ? "storybook-button--primary"
     : "storybook-button--secondary";
