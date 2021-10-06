@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-tailwind-storybook-typescript",
-  "version": "0.1.0",
+  "name": "dashboard",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@storybook/addon-docs": "^6.3.9",
+    "@types/recharts": "^1.8.20",
     "date-fns": "^2.24.0",
     "next": "11.1.2",
     "react": "17.0.2",

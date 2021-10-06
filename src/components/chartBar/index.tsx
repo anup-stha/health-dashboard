@@ -3,10 +3,9 @@ import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
 import * as React from "react";
 import {
-  CartesianGrid,
+  Bar,
+  BarChart,
   Legend,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -15,7 +14,7 @@ import {
 import { ChartData } from "types";
 
 const defaultData: ChartData[] = [];
-for (let num = 30; num >= 10; num--) {
+for (let num = 10; num >= 0; num--) {
   defaultData.push({
     date: subDays(new Date(), num).toISOString().substr(0, 10),
     pu: num * Math.random(),
@@ -46,7 +45,7 @@ export interface ChartAreaProps {
   yLabelFormatter?: (value: any) => string;
 }
 
-export const ChartLine: React.FC<ChartAreaProps> = ({
+export const ChartBar: React.FC<ChartAreaProps> = ({
   data = defaultData,
   strokeColor,
   strokeWidth = 3,
@@ -80,16 +79,9 @@ export const ChartLine: React.FC<ChartAreaProps> = ({
   return (
     <div className={`box-shadow-01 p-8 ${bgColor} rounded-xl`}>
       <ResponsiveContainer width={width} height={height}>
-        <LineChart data={data} className="bg-[#B4764]">
+        <BarChart data={data} className="bg-[#B4764]">
           {keys.map((item, i) => (
-            <Line
-              key={item}
-              name={item}
-              type="monotone"
-              dataKey={item}
-              strokeWidth={strokeWidth}
-              stroke={LineColor[i]}
-            />
+            <Bar key={item} name={item} dataKey={item} fill={LineColor[i]} />
           ))}
 
           <XAxis
@@ -105,7 +97,7 @@ export const ChartLine: React.FC<ChartAreaProps> = ({
           />
 
           <YAxis
-            dataKey="price"
+            dataKey={yLabel}
             axisLine={false}
             tickMargin={10}
             tickLine={false}
@@ -114,14 +106,29 @@ export const ChartLine: React.FC<ChartAreaProps> = ({
             tickFormatter={(number) => `${number.toFixed(2)}`}
           />
 
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />} cursor={{ opacity: "0.1" }} />
 
-          <CartesianGrid opacity={dark ? 0.05 : 0.25} strokeDasharray="3 3" />
           <Legend verticalAlign="top" height={36} />
-        </LineChart>
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default ChartLine;
+export default ChartBar;
+
+const CustomTooltip = ({ active, payload, label, xUnit }: any) => {
+  if (active) {
+    return (
+      <div className="tooltip">
+        <h4>{format(parseISO(label), "eeee, d MMM, yyy")}</h4>
+        <p>
+          {payload[0].value}
+          {payload[1].value}
+          {xUnit}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
