@@ -1,11 +1,11 @@
-import { ChartArea } from "components/chartArea";
+import { LineChart } from "components/charts/LineChartVictory";
 import type { NextPage } from "next";
 import * as React from "react";
 
 const Home: NextPage = () => {
   return (
-    <div className="w-full p-20">
-      <ChartArea dark={false} />
+    <div className="w-full flex flex-col space-y-20 p-2">
+      <LineChart />
     </div>
   );
 };

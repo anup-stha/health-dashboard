@@ -20,8 +20,13 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2015"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/charts/LineChartVictory/data.js"
+  ],
   "exclude": ["node_modules"]
 }
