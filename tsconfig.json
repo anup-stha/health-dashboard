@@ -22,11 +22,6 @@
     "strict": true,
     "target": "es2015"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/components/charts/LineChartVictory/data.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/data.js"],
   "exclude": ["node_modules"]
 }

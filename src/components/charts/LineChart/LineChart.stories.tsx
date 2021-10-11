@@ -1,16 +1,22 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { dat3, data4 } from "components/data";
 import React from "react";
 import { LineChart } from "./index";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Charts/lineChart",
+  title: "Charts/LineChart",
   component: LineChart,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    color: { control: "color" },
-    strokeColor: { control: "color" },
-    backgroundColor: { control: "color" },
+    datas: Object,
+
+    curveType: {
+      defaultValue: "straight",
+    },
+    backgroundColor: {
+      control: "color",
+    },
   },
 } as ComponentMeta<typeof LineChart>;
 
@@ -19,5 +25,14 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
   <LineChart {...args} />
 );
 
-export const lineChart = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const categoryLineChart = Template.bind({});
+categoryLineChart.args = {
+  datas: dat3,
+  xAxisType: "category",
+};
+
+export const DateLineChart = Template.bind({});
+DateLineChart.args = {
+  datas: data4,
+  xAxisType: "datetime",
+};

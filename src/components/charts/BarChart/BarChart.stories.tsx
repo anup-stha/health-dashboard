@@ -1,23 +1,33 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { dat3 } from "components/data";
 import React from "react";
-import { ApexLineChart } from "./index";
+import { BarChart } from "./index";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Charts/ApexLineChart",
-  component: ApexLineChart,
+  title: "Charts/BarChart",
+  component: BarChart,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     color: { control: "color" },
-    strokeColor: { control: "color" },
-    backgroundColor: { control: "color" },
+    datas: Object,
+    curveType: {
+      defaultValue: "straight",
+      control: {
+        type: "radio",
+      },
+    },
   },
-} as ComponentMeta<typeof ApexLineChart>;
+} as ComponentMeta<typeof BarChart>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof ApexLineChart> = (args) => (
-  <ApexLineChart {...args} />
+const Template: ComponentStory<typeof BarChart> = (args) => (
+  <BarChart {...args} />
 );
 
-export const apexLineChart = Template.bind({});
+export const barChart = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
+
+barChart.args = {
+  datas: dat3,
+};

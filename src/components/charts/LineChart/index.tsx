@@ -4,51 +4,40 @@ import _ from "lodash";
 import * as React from "react";
 import { useState } from "react";
 import Chart from "react-apexcharts";
-import { data4 } from "../LineChartVictory/data";
 
 type LineChartProps = {
   color?: string[];
-  datas?: any | any[];
-  xAxisType?: any;
+  datas: any | any[];
+  xAxisType: "numeric" | "datetime" | "category";
   logarithmic?: boolean;
   reversed?: boolean;
   opposite?: boolean;
+  curveType?: "smooth" | "straight";
 };
 
-type DateData = {
-  [key: string]: string | number;
-};
+// type xyDataType = {
+//   x: string | Date;
+//   y: number;
+// };
 
-export const ApexLineChart: React.FC<LineChartProps> = ({
+// type DataType = {
+//   name: string;
+//   data: xyDataType[];
+// };
+
+// type ChartDataType =xyDataType | DataType | any[]
+
+export const LineChart: React.FC<LineChartProps> = ({
   color = ["#7358C3", "#FF668F", "green"],
-  datas = data4,
-  xAxisType = "timescale",
+  datas,
+  xAxisType,
   logarithmic = false,
   reversed = false,
   opposite = false,
+  curveType = "straight",
 }) => {
-  const chartData: any = [];
-  console.log(datas);
-  //   if (xAxisType === "datetime") {
-  //     const temp = datas.map((data: DateData[]) => {
-  //       const [xkey, yKey] = Object.keys(data[0]);
-
-  //       console.log(xkey, yKey);
-  //       const sortedData = data.sort(
-  //         (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
-  //       );
-
-  //       return sortedData.map((element) => ({
-  //         x: element[xkey],
-  //         y: element[yKey],
-  //       }));
-  //     });
-
-  //     chartData.push(temp[0], temp[1]);
-  //   }
-
-  const chartData1 =
-    xAxisType !== "timescale"
+  const chartData =
+    xAxisType !== "datetime"
       ? datas.map((data: any) => {
           const dataArray: any = [];
           {
@@ -66,12 +55,12 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
             };
           }
         })
-      : datas.map((data: any) => ({
-          x: data.date,
-          y: data.value,
-        }));
-
-  console.log(chartData1);
+      : {
+          data: datas.map((data: any) => ({
+            x: data.date,
+            y: data.value,
+          })),
+        };
 
   const [options, setOptions] = useState<ApexOptions>({
     chart: {
@@ -79,25 +68,26 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
       type: "area",
       zoom: {
         enabled: true,
-        type: "x",
+        type: "xy",
       },
     },
     colors: color,
     stroke: {
-      curve: "straight",
+      curve: curveType,
       width: 3,
     },
     markers: {
       shape: "circle",
-      size: 6,
+      size: 4,
       colors: ["white"],
       fillOpacity: 0,
-      strokeWidth: 3,
+      strokeWidth: 2,
       strokeColors: color,
     },
     legend: {
       position: "top",
     },
+
     fill: {
       type: "gradient",
       gradient: {
@@ -109,7 +99,7 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
             {
               offset: 0,
               color: color[0],
-              opacity: 0.15,
+              opacity: 0.35,
             },
             {
               offset: 100,
@@ -121,7 +111,7 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
             {
               offset: 0,
               color: color[1],
-              opacity: 0.15,
+              opacity: 0.35,
             },
             {
               offset: 100,
@@ -133,7 +123,7 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
             {
               offset: 0,
               color: color[2],
-              opacity: 0.15,
+              opacity: 0.35,
             },
             {
               offset: 100,
@@ -155,13 +145,14 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
       reversed,
       opposite,
     },
+    // title: {
+    //   text: "Line Chart",
+    // },
   });
+
+  console.log([chartData]);
   const [state, setState] = useState({
-    series: [
-      {
-        data: chartData1,
-      },
-    ],
+    series: xAxisType === "datetime" ? [chartData] : chartData,
   });
 
   return (
@@ -176,5 +167,3 @@ export const ApexLineChart: React.FC<LineChartProps> = ({
     </div>
   );
 };
-
-export default ApexLineChart;
