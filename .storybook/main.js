@@ -13,6 +13,7 @@ module.exports = {
         backgrounds: false,
       },
     },
+    "@storybook/addon-docs",
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({

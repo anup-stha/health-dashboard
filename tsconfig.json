@@ -23,6 +23,6 @@
     "target": "es2019",
     "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/data.js"],
   "exclude": ["node_modules"]
 }
