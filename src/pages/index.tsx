@@ -1,8 +1,9 @@
+import { LoginPage } from "@/modules/auth/LoginPage";
 import type { NextPage } from "next";
 import * as React from "react";
 
 const Home: NextPage = () => {
-  return <div className="w-full flex flex-col space-y-20 p-2"></div>;
+  return <LoginPage />;
 };
 
 export default Home;
