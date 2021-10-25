@@ -1,7 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
+@import "../components/Table/Table.scss";
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 
 html,
@@ -10,6 +10,10 @@ body {
   margin: 0;
 
   @apply bg-gray-50 font-Nunito;
+}
+
+* {
+  @apply font-Nunito;
 }
 
 input::-ms-reveal,
@@ -50,4 +54,17 @@ html {
   html {
     font-size: 80%;
   }
+}
+
+// PAGINATION
+.inactive_item {
+  @apply text-gray-500 hover:bg-gray-200 cursor-pointer py-sm px-sm hover:text-gray-800 rounded-lg  sm:text-2xl;
+}
+
+.active_item {
+  @apply text-gray-800 bg-gray-200 shadow-E100 cursor-pointer py-6 px-6 hover:bg-gray-400 rounded-lg  sm:text-2xl;
+}
+
+.button-nav {
+  @apply cursor-pointer rounded-lg py-6 px-4 shadow-E100 bg-gray-100  hover:bg-gray-300 active:inset-4 active:bg-gray-300;
 }
