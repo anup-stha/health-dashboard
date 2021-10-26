@@ -52,11 +52,21 @@ html {
   }
 }
 
+@media (min-width: 112.5em) {
+  html {
+    font-size: 120%;
+  }
+}
+
 // login
 .bg-transition {
   animation: widthAnimation 1s ease-in-out;
   animation-delay: 0.1s;
   animation-fill-mode: backwards;
+  @media (max-width: 37.5em) {
+    animation: slideIn 1.4s ease-in;
+    transform: translateX(-100vw);
+  }
 }
 
 .bg-out-transition {
@@ -81,9 +91,29 @@ html {
   }
 }
 
+@keyframes slideIn {
+  0% {
+    opacity: 1;
+    transform: translateX(0vw);
+    @apply w-full;
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(0vw);
+    @apply w-full;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-200vw);
+    @apply w-0;
+  }
+}
+
 @keyframes widthAnimation {
   0% {
-    @apply w-full rounded-3xl;
+    @apply w-full rounded-2xl max-w-8xl;
   }
 
   50% {
@@ -101,7 +131,7 @@ html {
   }
 
   100% {
-    @apply opacity-100;
+    @apply opacity-100 w-full;
   }
 }
 
