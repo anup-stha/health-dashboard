@@ -1,4 +1,5 @@
-import React, { JSXElementConstructor, ReactElement } from "react";
+import React, { JSXElementConstructor, ReactElement, useState } from "react";
+import { ListBox } from "../Listbox";
 
 export interface TableProps {
   data: Object[];
@@ -18,11 +19,23 @@ export const Table: React.FC<TableProps> = ({
   tableRowComponent,
   tableMobileViewComponent,
 }) => {
+  const [selectedItem, setSelectedItem] = useState<string | number>("table");
+  const items = ["table", "card"];
+
   return (
     <>
+      <div className="mb-6">
+        <ListBox
+          items={items}
+          selected={selectedItem}
+          setSelected={setSelectedItem}
+          onlyMobile={true}
+        />
+      </div>
+
       <div
         className={`w-full px-6 bg-white rounded-sm shadow-E200 sm:overflow-x-auto ${
-          tableMobileViewComponent && "sm:hidden"
+          selectedItem === "table" ? "sm:block" : "sm:hidden"
         } `}
       >
         <table className="w-full ">
@@ -50,8 +63,8 @@ export const Table: React.FC<TableProps> = ({
           </tbody>
         </table>
       </div>
-      {tableMobileViewComponent ? (
-        <div className="hidden w-full sm:flex sm:flex-col sm:space-y-12">
+      {tableMobileViewComponent && selectedItem === "card" ? (
+        <div className="hidden w-full sm:flex sm:flex-col sm:space-y-6">
           {data &&
             data.map((data: any) =>
               React.cloneElement(tableMobileViewComponent, {

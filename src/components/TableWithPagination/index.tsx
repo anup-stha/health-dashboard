@@ -22,7 +22,7 @@ export const TableWithPagination: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col items-center p-8 sm:p-0">
+    <div className="px-2 py-2">
       <Table
         data={data}
         tableHeadings={["Name", "Status", "Email", "Country", "Active"]}

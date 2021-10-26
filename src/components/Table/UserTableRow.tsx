@@ -62,7 +62,7 @@ export const UserCardView = ({ data, key }: any) => {
   return (
     <div
       key={key}
-      className="hidden w-full px-4 py-6 bg-white sm:block sm:text-lg rounded-xl shadow-E200"
+      className="hidden w-full px-4 py-6 bg-white rounded-sm sm:block sm:text-base shadow-E200"
     >
       <div className="flex flex-col space-y-12">
         <div className="flex items-center justify-between">

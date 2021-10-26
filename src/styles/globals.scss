@@ -58,11 +58,11 @@ html {
 
 // PAGINATION
 .inactive_item {
-  @apply text-gray-500 hover:bg-gray-200 cursor-pointer py-sm px-sm hover:text-gray-800 rounded-lg  sm:text-2xl;
+  @apply text-gray-500 hover:bg-gray-200 cursor-pointer p-6 hover:text-gray-800 rounded-lg  sm:text-xl;
 }
 
 .active_item {
-  @apply text-gray-800 bg-gray-200 shadow-E100 cursor-pointer py-6 px-6 hover:bg-gray-400 rounded-lg  sm:text-2xl;
+  @apply text-gray-800 bg-gray-200 shadow-E100 cursor-pointer p-6 hover:bg-gray-400 rounded-lg  sm:text-xl;
 }
 
 .button-nav {

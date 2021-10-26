@@ -1,5 +1,7 @@
+/* eslint-disable require-jsdoc */
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
+import { action } from "@storybook/addon-actions";
 
 type paginationProps = {
   totalPageNumber: number;
@@ -24,6 +26,7 @@ export const Pagination = ({
   const leftClickHandler = () => {
     if (pageIndex <= 1) {
       setPageIndex(1);
+      action("click")("Page Not Found");
       return;
     }
     setPageIndex(pageIndex - 1);
@@ -32,8 +35,11 @@ export const Pagination = ({
   const rightClickHandler = () => {
     if (pageIndex >= totalPageNumber) {
       setPageIndex(totalPageNumber);
+      action("click")("Page Not Found");
+
       return;
     }
+    action("click")("Next Page");
     setPageIndex(pageIndex + 1);
   };
 
@@ -63,7 +69,7 @@ export const Pagination = ({
 
   return (
     <div className="flex items-center justify-center mx-auto my-4 leading-6 text-gray-800">
-      <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-4 sm:flex-col sm:space-y-4 sm:px-0 sm:text-2xl">
+      <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-2 sm:flex-col sm:space-y-4 sm:px-0 sm:text-xl">
         <ul className="flex items-center space-x-2 sm:space-x-2">
           <li>
             <button className="button-nav" onClick={leftClickHandler}>
@@ -75,7 +81,10 @@ export const Pagination = ({
             <li
               key={page}
               className={pageIndex !== page ? "inactive_item" : "active_item"}
-              onClick={() => setPageIndex(page)}
+              onClick={() => {
+                action("Navigate to Page")(page);
+                setPageIndex(page);
+              }}
             >
               {page}
             </li>
@@ -88,7 +97,7 @@ export const Pagination = ({
           </li>
         </ul>
         <form
-          className="flex items-center space-x-4 text-gray-600 sm:text-2xl"
+          className="flex items-center space-x-4 text-gray-600 sm:text-xl"
           onSubmit={(e) => {
             e.preventDefault();
 
