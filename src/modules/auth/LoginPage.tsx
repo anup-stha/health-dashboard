@@ -9,42 +9,33 @@ import { useTokenStore } from "@/modules/auth/useTokenStore";
 import { LoginRequest } from "@/types";
 import { PrimaryInput } from "./../../components/Input/index";
 
+import { Field, Form, Formik, FormikHelpers } from "formik";
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
 export const LoginPage = () => {
   const router = useRouter();
   const hasTokens = useTokenStore(
     (s: any) => !!(s.accessToken && s.refreshToken)
   );
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-
-  const request: LoginRequest = {
-    username: email,
-    password: password,
-  };
 
   React.useEffect(() => {
     hasTokens && router.push("/dashboard");
   }, [hasTokens, router]);
 
-  const onLogin = async (e: any) => {
-    e.preventDefault();
-    setLoading(true);
-    console.log(email, password);
+  const onLogin = async (email: string, password: string) => {
+    const request: LoginRequest = { username: email, password };
     await loginUser(request)
       .then((response) => {
         useTokenStore.getState().setTokens({
           accessToken: response.data.auth.access_token,
           refreshToken: response.data.auth.refresh_token,
         });
-        setLoading(false);
-        setEmail("");
-        setPassword("");
       })
       .catch((error) => {
-        setLoading(false);
-        setEmail("");
-        setPassword("");
         console.log(error);
       });
   };
@@ -85,26 +76,54 @@ export const LoginPage = () => {
                 registration.
               </p>
             </div>
-
-            <form className="w-full space-y-8" onSubmit={(e) => onLogin(e)}>
-              <div className="space-y-6 ">
-                <PrimaryInput
-                  type="email"
-                  id="Email"
-                  value={email}
-                  onChange={(e: any) => setEmail(e.target.value)}
-                />
-                <PrimaryInput
-                  type="password"
-                  id="Password"
-                  value={password}
-                  onChange={(e: any) => setPassword(e.target.value)}
-                />
-              </div>
-              <Button type="loading" loading={loading}>
-                Login
-              </Button>
-            </form>
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              validate={(values) => {
+                const errors = {} as any;
+                if (!values.email) {
+                  errors.email = "Email Is Required";
+                } else if (
+                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                ) {
+                  errors.email = "Invalid email address";
+                }
+                return errors;
+              }}
+              onSubmit={(
+                values: FormData,
+                { setSubmitting }: FormikHelpers<FormData>
+              ) => {
+                setTimeout(() => {
+                  onLogin(values.email, values.password);
+                  setSubmitting(false);
+                }, 200);
+              }}
+            >
+              {({ isSubmitting, errors }) => {
+                console.log(isSubmitting);
+                return (
+                  <Form className="w-full space-y-8">
+                    <div className="space-y-6 ">
+                      <Field
+                        name="email"
+                        component={PrimaryInput}
+                        error={errors.email}
+                        placeholder={"Enter Email"}
+                      />
+                      <Field
+                        name="password"
+                        type="password"
+                        placeholder="Enter Password"
+                        component={PrimaryInput}
+                      />
+                    </div>
+                    <Button type="loading" loading={isSubmitting}>
+                      Login
+                    </Button>
+                  </Form>
+                );
+              }}
+            </Formik>
 
             <p className="text-base font-medium text-gray-600">
               * By logging in you accept our
