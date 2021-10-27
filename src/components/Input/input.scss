@@ -46,15 +46,15 @@
     transition: all 0.3s;
   }
 
-  // &_container:placeholder-shown + &_label {
-  //   opacity: 0;
-  //   visibility: hidden;
-  //   transform: translateY(4rem);
-  // }
+  &_container:placeholder-shown + &_label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4rem);
+  }
   &_label {
     order: -1;
   }
-  // &_textarea {
-  //   height: 16rem;
-  // }
+  &_textarea {
+    height: 16rem;
+  }
 }

@@ -1,3 +1,4 @@
+import { Field, Formik } from "formik";
 import { Eye, EyeClosed } from "phosphor-react";
 import React, { useState } from "react";
 import ErrorPop from "../PopOver";
@@ -10,7 +11,7 @@ type InputProps = React.HTMLProps<HTMLInputElement> & {
   showLabel: boolean;
 };
 
-export const PrimaryInput: React.FC<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
   id,
   error,
   type,
@@ -28,9 +29,8 @@ export const PrimaryInput: React.FC<InputProps> = ({
     <div className={className}>
       <div className={`relative w-full input`}>
         {error && <ErrorPop error={error} />}
-        {((field && field.name) || type) === "password" && (
+        {(field.name || type) === "password" && (
           <button
-            type="button"
             onClick={(e) => {
               e.preventDefault();
               setShowPassword(!showPassword);
@@ -77,5 +77,23 @@ export const PrimaryInput: React.FC<InputProps> = ({
         )}
       </div>
     </div>
+  );
+};
+
+export const LoginInput: React.FC<any> = ({
+  name,
+  component,
+  error,
+  placeholder,
+}) => {
+  return (
+    <Formik initialValues={{ email: "", password: "" }} onSubmit={() => {}}>
+      <Field
+        name={name}
+        component={component}
+        error={error}
+        placeholder={placeholder}
+      />
+    </Formik>
   );
 };

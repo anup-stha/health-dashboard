@@ -1,43 +1,35 @@
-import React from "react";
-import Image from "next/image";
-import LoginAvatar from "/public/login-icon.svg";
-import { CaretCircleRight } from "phosphor-react";
-import { Button } from "@/components/Button";
-import { useRouter } from "next/dist/client/router";
 import { loginUser } from "@/lib/requests";
 import { useTokenStore } from "@/modules/auth/useTokenStore";
 import { LoginRequest } from "@/types";
-import { PrimaryInput } from "./../../components/Input/index";
-
-import { Field, Form, Formik, FormikHelpers } from "formik";
-
-interface FormData {
-  email: string;
-  password: string;
-}
+import { useRouter } from "next/dist/client/router";
+import Image from "next/image";
+import { CaretCircleRight } from "phosphor-react";
+import React from "react";
+import LoginForm from "./LoginForm";
+import LoginAvatar from "/public/login-icon.svg";
 
 export const LoginPage = () => {
   const router = useRouter();
-  const hasTokens = useTokenStore(
-    (s: any) => !!(s.accessToken && s.refreshToken)
-  );
-
-  React.useEffect(() => {
-    hasTokens && router.push("/dashboard");
-  }, [hasTokens, router]);
 
   const onLogin = async (email: string, password: string) => {
     const request: LoginRequest = { username: email, password };
-    await loginUser(request)
-      .then((response) => {
-        useTokenStore.getState().setTokens({
-          accessToken: response.data.auth.access_token,
-          refreshToken: response.data.auth.refresh_token,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+    return new Promise(
+      async (resolve, reject) =>
+        await loginUser(request)
+          .then((response) => {
+            useTokenStore.getState().setTokens({
+              accessToken: response.data.auth.access_token,
+              refreshToken: response.data.auth.refresh_token,
+            });
+            router.push("/dashboard");
+            resolve("Logged In");
+          })
+          .catch((error) => {
+            reject(error.response.data.detail);
+            console.log(error.response);
+          })
+    );
   };
 
   return (
@@ -65,7 +57,7 @@ export const LoginPage = () => {
             className="filter drop-shadow-2xl text-gray-850"
           />
         </div>
-        <div className="flex items-center w-3/5 px-20 py-32 rounded-tl-none rounded-bl-none sm:px-8 sm:bg-green-50 sm:rounded-none sm:w-full sm:h-full sm:py-6 lg:px-12 rounded-3xl bg-out-transition fadeInLogin ">
+        <div className="flex items-center w-3/5 px-20 py-32 rounded-tl-none rounded-bl-none sm:px-8 sm:bg-green-50 sm:rounded-none sm:justify-center sm:w-full sm:h-full sm:py-6 lg:px-12 rounded-3xl bg-out-transition fadeInLogin ">
           <div className="flex flex-col justify-between h-full bg-white sm:h-auto lg:justify-center sm:px-8 sm:shadow-E400 sm:py-8 lg:gap-y-16 sm:gap-y-12 sm:rounded-xl">
             <div className="flex flex-col text-left">
               <p className="text-5xl font-medium text-gray-800 sm:text-4xl">
@@ -76,54 +68,7 @@ export const LoginPage = () => {
                 registration.
               </p>
             </div>
-            <Formik
-              initialValues={{ email: "", password: "" }}
-              validate={(values) => {
-                const errors = {} as any;
-                if (!values.email) {
-                  errors.email = "Email Is Required";
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
-                  errors.email = "Invalid email address";
-                }
-                return errors;
-              }}
-              onSubmit={(
-                values: FormData,
-                { setSubmitting }: FormikHelpers<FormData>
-              ) => {
-                setTimeout(() => {
-                  onLogin(values.email, values.password);
-                  setSubmitting(false);
-                }, 200);
-              }}
-            >
-              {({ isSubmitting, errors }) => {
-                console.log(isSubmitting);
-                return (
-                  <Form className="w-full space-y-8">
-                    <div className="space-y-6 ">
-                      <Field
-                        name="email"
-                        component={PrimaryInput}
-                        error={errors.email}
-                        placeholder={"Enter Email"}
-                      />
-                      <Field
-                        name="password"
-                        type="password"
-                        placeholder="Enter Password"
-                        component={PrimaryInput}
-                      />
-                    </div>
-                    <Button type="loading" loading={isSubmitting}>
-                      Login
-                    </Button>
-                  </Form>
-                );
-              }}
-            </Formik>
+            <LoginForm onLogin={onLogin} />
 
             <p className="text-base font-medium text-gray-600">
               * By logging in you accept our
