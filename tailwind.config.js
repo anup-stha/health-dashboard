@@ -8,12 +8,16 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
+      "3xl": { min: "112.5em" },
       "2xl": { max: "112.5em" },
       lg: { max: "75em" },
       md: { max: "56.25em" },
       sm: { max: "37.5em" },
     },
     extend: {
+      maxWidth: {
+        "8xl": "100rem",
+      },
       spacing: {
         zero: "0rem",
         tiny: "0.8rem",
