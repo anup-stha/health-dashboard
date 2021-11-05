@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: ["plugin:react/recommended", "google", "prettier"],
   parser: "@typescript-eslint/parser",
+
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -13,7 +14,10 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  rules: {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+  },
   settings: {
     react: {
       version: "latest",

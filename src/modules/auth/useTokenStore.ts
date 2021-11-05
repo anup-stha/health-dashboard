@@ -34,6 +34,7 @@ const store = combine(getDefaultValues(), (set) => ({
     try {
       localStorage.removeItem(accessTokenKey);
       localStorage.removeItem(refreshTokenKey);
+      localStorage.removeItem("@sunya/sidebar-open-state");
     } catch {}
     set({ accessToken: "", refreshToken: "" });
   },

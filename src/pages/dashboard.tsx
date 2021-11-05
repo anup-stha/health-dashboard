@@ -1,26 +1,30 @@
-import { Button } from "@/components/Button";
-import { logoutUser } from "@/lib/requests";
-import { useTokenStore } from "@/modules/auth/useTokenStore";
-import React, { useState } from "react";
+import { Sidebar } from "@/routes/Sidebar";
+import { addons, mockChannel } from "@storybook/addons";
+import React from "react";
 import withAuth from "./../hoc/withAuthentication";
 
+addons.setChannel(mockChannel());
+
 const Dashboard: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const onLogOut = async () => {
-    setLoading(true);
-    await logoutUser()
-      .then(() => {
-        useTokenStore.getState().removeTokens();
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
-  };
+  // const [loading, setLoading] = useState(false);
+  // const onLogOut = async () => {
+  //   setLoading(true);
+  //   await logoutUser()
+  //     .then(() => {
+  //       useTokenStore.getState().removeTokens();
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <DashboardLayout>
-      <Button onClick={onLogOut} loading={loading}>
+      {/* <Button onClick={onLogOut} loading={loading}>
         Log Out
-      </Button>
+      </Button> */}
+      <div className="flex ">
+        <Sidebar />
+      </div>
     </DashboardLayout>
   );
 };
@@ -29,6 +33,6 @@ const DashLayout: React.FC = ({ children }) => {
   return <div suppressHydrationWarning={true}>{children}</div>;
 };
 
-const DashboardLayout = withAuth(DashLayout);
+export const DashboardLayout = withAuth(DashLayout);
 
 export default Dashboard;
