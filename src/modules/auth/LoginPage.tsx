@@ -19,8 +19,8 @@ export const LoginPage = () => {
         await loginUser(request)
           .then((response) => {
             useTokenStore.getState().setTokens({
-              accessToken: response.data.auth.access_token,
-              refreshToken: response.data.auth.refresh_token,
+              accessToken: response.data.access,
+              refreshToken: response.data.refresh,
             });
             router.push("/dashboard");
             resolve("Logged In");

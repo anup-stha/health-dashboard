@@ -115,15 +115,12 @@ export type EntitySubscription = BaseSubscription & {
 };
 
 export type LoginResponse = {
-  auth: AuthToken;
-  user: BaseUser;
-  user_subscription: UserSubscription;
-  entity_subscription: EntitySubscription;
-  subscription_type: SubscriptionType;
+  access: string;
+  refresh: string;
 };
 
 export type LogoutRequest = {
-  refresh_token: string;
+  refresh: string;
 };
 
 export type LoginRefreshRequest = {
@@ -131,5 +128,41 @@ export type LoginRefreshRequest = {
 };
 
 export type LoginRefreshResponse = {
-  access_token: string;
+  access: string;
 };
+
+export type OrganizationListType = OrganizationDetailType[];
+
+export type OrganizationDetailType = {
+  id: number;
+  meta: Object;
+  createdAt: string;
+  name: string;
+  active: boolean;
+  verified: boolean;
+  updatedAt: string;
+  createdBy: string;
+  owner: number | string;
+  ownerName: string;
+};
+
+export type User = {
+  id: string | number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string | null;
+  userType: "organization" | "staff" | "patient" | "superuser";
+  username: string;
+};
+
+export type UserRequest = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  user_type: "organization" | "staff" | "patient" | "superuser" | any;
+  username: string;
+};
+
+export type UserList = User[];

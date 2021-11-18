@@ -2,6 +2,7 @@ import { useState } from "react";
 import MockLogo from "./healthy-lifestyle-logo.png";
 import Image from "next/image";
 import {
+  Activity,
   CaretLeft,
   CaretRight,
   ChartLineUp,
@@ -28,6 +29,12 @@ const StaffSideBarRoutes = [
     icon: <ChartLineUp />,
     state: "inactive",
     link: "/stat",
+  },
+  {
+    title: "Organization",
+    icon: <Activity />,
+    state: "inactive",
+    link: "/organisations",
   },
   {
     title: "Users",

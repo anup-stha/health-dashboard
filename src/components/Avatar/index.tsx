@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import Avatar from "./Ed.png";
 
 type AvatarProps = {
-  name: string;
+  name?: string;
   image?: string;
   email?: string;
 };
@@ -10,17 +11,27 @@ type AvatarProps = {
 export const DefaultAvatar: React.FC<AvatarProps> = ({ name, image }) => {
   return (
     <div className="flex items-center space-x-4">
-      {image && (
+      {image ? (
         <Image
           src={image}
           alt={name}
           className="rounded-full"
-          height="32"
-          width="32"
+          height="48"
+          width="48"
+        />
+      ) : (
+        <Image
+          src={Avatar}
+          alt={name}
+          className="rounded-full"
+          height="48"
+          width="48"
         />
       )}
 
-      <span className="">{name}</span>
+      <span className="truncate sm:text-lg sm:font-semibold sm:text-gray-700">
+        {name}
+      </span>
     </div>
   );
 };
@@ -32,9 +43,17 @@ export const AvatarWithEmail: React.FC<AvatarProps> = ({
 }) => {
   return (
     <div className="flex items-center space-x-4">
-      {image && (
+      {image ? (
         <Image
           src={image}
+          alt={name}
+          className="rounded-full"
+          height="48"
+          width="48"
+        />
+      ) : (
+        <Image
+          src={Avatar}
           alt={name}
           className="rounded-full"
           height="48"

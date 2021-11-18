@@ -24,6 +24,8 @@ const Dashboard: React.FC = () => {
       </Button> */}
       <div className="flex ">
         <Sidebar />
+
+        <div className={"ml-[20%] mt-24 mr-8"}></div>
       </div>
     </DashboardLayout>
   );

@@ -2,7 +2,10 @@ import React from "react";
 import { Pagination } from "../Pagination";
 import { Table } from "../Table/Table";
 import useSWR from "swr";
-import { UserCardView, UserTableRowComponent } from "../Table/UserTableRow";
+import {
+  UserCardView,
+  UserTableRowComponent,
+} from "../Table/DefaultUserTableRow";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 

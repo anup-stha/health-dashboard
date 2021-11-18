@@ -4,6 +4,7 @@ type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   loading?: boolean;
   children: React.ReactNode;
   width?: "full";
+  type?: any;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -12,10 +13,11 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   onClick,
   width,
+  type,
 }: ButtonProps) => {
   return (
     <button
-      type="submit"
+      type={type}
       onClick={onClick}
       disabled={disabled ?? loading}
       className={`flex items-center px-12 py-3 ${

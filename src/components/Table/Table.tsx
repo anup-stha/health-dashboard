@@ -11,6 +11,8 @@ export interface TableProps {
     any,
     string | JSXElementConstructor<any>
   >;
+  setData?: any;
+  setEdit?: any;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -18,6 +20,8 @@ export const Table: React.FC<TableProps> = ({
   tableHeadings,
   tableRowComponent,
   tableMobileViewComponent,
+  setData,
+  setEdit,
 }) => {
   const [selectedItem, setSelectedItem] = useState<string | number>("table");
   const items = ["table", "card"];
@@ -58,6 +62,8 @@ export const Table: React.FC<TableProps> = ({
                 React.cloneElement(tableRowComponent, {
                   key: data.id,
                   data: data,
+                  setData: setData,
+                  setEdit: setEdit,
                 })
               )}
           </tbody>
