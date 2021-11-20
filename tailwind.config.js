@@ -13,6 +13,7 @@ module.exports = {
       lg: { max: "75em" },
       md: { max: "56.25em" },
       sm: { max: "37.5em" },
+      height: { raw: "(max-height: 700px)" },
     },
     extend: {
       maxWidth: {
@@ -38,7 +39,7 @@ module.exports = {
       },
       colors: {
         ...colors,
-        gray: { ...colors.warmGray, 850: "#383838" },
+        gray: { ...colors.trueGray, 850: "#383838" },
 
         green: colors.green,
         yellow: {
@@ -68,7 +69,8 @@ module.exports = {
         E200: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
         E300: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 8px 12px 0px rgba(9,30,66,0.15)",
         E400: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 10px 18px 0px rgba(9,30,66,0.15)",
-        E500: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 18px 28px 0px rgba(9,30,66,0.15)",
+        E500: "0px 0px 1px 0px rgba(9,30,66,1), 0px 18px 28px 0px rgba(9,30,66,0.05)",
+        E600: "0px 0px 1px 0px rgba(9,30,66,0.4), 0px 18px 28px 0px rgba(9,30,66,0.25)",
         E900: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 18px 28px 0px rgba(9,30,66,0.35)",
       },
       borderRadius: {
@@ -78,7 +80,7 @@ module.exports = {
         default: "0.5rem",
       },
       fontFamily: {
-        Nunito: "Nunito",
+        Nunito: "Raleway",
       },
     },
   },

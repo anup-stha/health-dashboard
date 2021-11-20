@@ -25,8 +25,11 @@ const publicAgent = axios.create({
 privateAgent.interceptors.request.use(
   (config) => {
     const accessToken = useTokenStore.getState().accessToken;
-    if (accessToken && config.headers)
+    if (accessToken && config.headers) {
       config.headers["Authorization"] = `JWT ${accessToken}`;
+      config.headers["Access-Control-Allow-Credentials"] = "true";
+    }
+
     return config;
   },
   (error) => {
@@ -76,6 +79,10 @@ export const logOut = (): Promise<AxiosResponse> => {
   const refresh = useTokenStore.getState().refreshToken;
   const body: LogoutRequest = { refresh: refresh };
   return privateAgent.post("auth/revoke/", body);
+};
+
+export const verifyToken = (token: string): Promise<AxiosResponse> => {
+  return publicAgent.post("auth/verify/", { token });
 };
 
 export const createUser = (body: UserRequest): Promise<AxiosResponse<User>> => {

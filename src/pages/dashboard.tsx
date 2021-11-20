@@ -1,11 +1,9 @@
-import { Sidebar } from "@/routes/Sidebar";
-import { addons, mockChannel } from "@storybook/addons";
-import React from "react";
-import withAuth from "./../hoc/withAuthentication";
+import { NextPage } from "next";
+import withAuth from "../hoc/withAuth";
+import MainLayout from "@/layout/MainLayout";
+import { ImageAvatar } from "@/components/Avatar";
 
-addons.setChannel(mockChannel());
-
-const Dashboard: React.FC = () => {
+const Dashboard: NextPage = () => {
   // const [loading, setLoading] = useState(false);
   // const onLogOut = async () => {
   //   setLoading(true);
@@ -16,25 +14,26 @@ const Dashboard: React.FC = () => {
   //     })
   //     .catch((error) => console.log(error));
   // };
-
-  return (
-    <DashboardLayout>
-      {/* <Button onClick={onLogOut} loading={loading}>
+  {
+    /* <Button onClick={onLogOut} loading={loading}>
         Log Out
-      </Button> */}
-      <div className="flex ">
+      </Button> */
+  }
+  {
+    /* <div className="flex ">
         <Sidebar />
 
         <div className={"ml-[20%] mt-24 mr-8"}></div>
+      </div> */
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex items-center h-[80vh] justify-center">
+        <ImageAvatar />
       </div>
-    </DashboardLayout>
+    </MainLayout>
   );
 };
 
-const DashLayout: React.FC = ({ children }) => {
-  return <div suppressHydrationWarning={true}>{children}</div>;
-};
-
-export const DashboardLayout = withAuth(DashLayout);
-
-export default Dashboard;
+export default withAuth(Dashboard);

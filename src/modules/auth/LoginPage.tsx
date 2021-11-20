@@ -33,8 +33,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen py-20 overflow-hidden bg-green-50 lg:py-64 md:px-8 sm:p-0 ">
-      <div className="flex w-full h-full bg-white max-w-6xl rounded-3xl shadow-E400 3xl:max-w-[80%] sm:max-w-none">
+    <div className="flex items-center justify-center w-full h-[100vh] height:h-full height:overflow-y-scroll  py-20 overflow-hidden bg-green-50 lg:py-64 md:px-8 sm:p-0 ">
+      <div className="flex w-full h-full bg-white max-w-6xl rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none">
         <div className="flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
           <Image
             src={LoginAvatar}

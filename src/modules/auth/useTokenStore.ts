@@ -4,8 +4,8 @@ import create from "zustand";
 import { combine } from "zustand/middleware";
 import { devtools } from "zustand/middleware";
 
-const accessTokenKey = "@sunya/access-token";
-const refreshTokenKey = "@sunya/refresh-token";
+export const accessTokenKey = "@sunya/access-token";
+export const refreshTokenKey = "@sunya/refresh-token";
 const tokenDataKey = "@sunya/token-data";
 
 const getDefaultValues = () => {
@@ -38,14 +38,13 @@ const store = combine(getDefaultValues(), (set) => ({
       localStorage.setItem(accessTokenKey, token.accessToken);
       localStorage.setItem(refreshTokenKey, token.refreshToken);
     } catch {}
-    set({ ...token, tokenData: data });
+    set({ ...token, tokenData: data.user_type });
   },
   removeTokens: () => {
     try {
       localStorage.removeItem(accessTokenKey);
       localStorage.removeItem(refreshTokenKey);
       localStorage.removeItem("@sunya/sidebar-open-state");
-      localStorage.removeItem(tokenDataKey);
     } catch {}
     set({ accessToken: "", refreshToken: "", tokenData: "" });
   },
