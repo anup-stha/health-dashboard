@@ -44,7 +44,7 @@ const Organization: NextPage = () => {
                 "Active Status",
                 "Verified",
                 "Added Date",
-                "Created By",
+                "Owner",
               ]}
               tableRowComponent={<OrgTableRow />}
               tableMobileViewComponent={<OrgCard />}

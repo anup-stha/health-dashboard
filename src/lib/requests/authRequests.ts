@@ -52,7 +52,7 @@ privateAgent.interceptors.response.use(
       originalRequest._retry = true;
       const refreshRequest: LoginRefreshRequest = { refresh: refreshToken };
       return axios
-        .post(`${baseURL}auth/refresh/`, refreshRequest)
+        .post(`${baseURL}/auth/refresh/`, refreshRequest)
         .then((res: any) => {
           if (res.status === 200) {
             const tokenData: string = res.data.access;
