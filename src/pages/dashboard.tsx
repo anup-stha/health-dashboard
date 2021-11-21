@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import withAuth from "../hoc/withAuth";
+import withAuth from "@/hoc/withAuth";
 import MainLayout from "@/layout/MainLayout";
 import { ImageAvatar } from "@/components/Avatar";
 
