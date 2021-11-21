@@ -3,27 +3,30 @@ import React, { useState, useEffect } from "react";
 import { useTokenStore } from "../modules/auth/useTokenStore";
 
 const withAuth = (WrappedComponent: React.FC) => {
-  const RequireAuthentication = (props: React.ComponentProps<any>) => {
-    const store = useTokenStore.getState().accessToken;
-    const [isAuthenticated, setIsAuthenticated] = useState(!!store);
+  const RequireAuthentication = (props: React.Props<any>) => {
+    const storeAccessToken = useTokenStore.getState().accessToken;
+    const [isAuthenticated, setIsAuthenticated] = useState(!!storeAccessToken);
     const router = useRouter();
 
     useEffect(() => {
-      console.log(store);
-      setIsAuthenticated(!!store);
+      setIsAuthenticated(!!storeAccessToken);
       return useTokenStore.subscribe(
         () => {
           router.push(`/`);
         },
         (s) => s.refreshToken
       );
-    }, [store]);
+    }, [storeAccessToken]);
 
     useEffect(() => {
       if (!isAuthenticated) router.push(`/`);
     }, [isAuthenticated]);
 
-    return store ? <WrappedComponent {...props} /> : <div>Loading</div>;
+    return storeAccessToken ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <div>Loading</div>
+    );
   };
   return RequireAuthentication;
 };

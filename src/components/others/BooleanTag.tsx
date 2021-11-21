@@ -18,7 +18,7 @@ export const BooleanTag: React.FC<BooleanTagProps> = ({
       {type === "error" ? (
         condition ? (
           <span
-            className={`px-4 py-1  font-bold text-green-400 bg-green-50 rounded-3xl`}
+            className={`px-4 py-1  font-bold text-green-500 bg-green-50 rounded-3xl`}
           >
             {trueStatement}
           </span>

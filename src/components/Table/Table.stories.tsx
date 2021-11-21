@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Table } from "./Table";
-import { UserCardView, UserTableRowComponent } from "./UserTableRow";
+import { UserCardView, UserTableRowComponent } from "./DefaultUserTableRow";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

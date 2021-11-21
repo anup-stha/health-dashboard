@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import ErrorPop from "../PopOver";
 
 type InputProps = React.HTMLProps<HTMLInputElement> & {
-  field: any;
-  error: string;
-  props: any;
+  field?: any;
+  error?: string;
+  props?: any;
   className?: string;
-  showLabel: boolean;
+  showLabel?: boolean;
 };
 
 export const PrimaryInput: React.FC<InputProps> = ({
