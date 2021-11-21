@@ -17,6 +17,7 @@ export type toastProps = {
 export const defaultToastStyles: CSSProperties = {
   padding: "0.8rem 1.8rem 0.8rem 1.8rem",
   fontSize: "1.5rem",
+  display: "inline-flex",
 };
 
 export const alert = ({

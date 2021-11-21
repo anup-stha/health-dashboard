@@ -33,8 +33,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-[100vh] height:h-full height:overflow-y-scroll  py-20 overflow-hidden bg-green-50 lg:py-64 md:px-8 sm:p-0 ">
-      <div className="flex w-full h-full bg-white max-w-6xl rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none">
+    <div className="flex items-center justify-center w-full h-screen py-20 overflow-scroll bg-green-50 lg:py-8 md:px-8 sm:p-0 ">
+      <div className="flex w-full bg-white max-w-6xl rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none h-full">
         <div className="flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
           <Image
             src={LoginAvatar}
@@ -60,7 +60,7 @@ export const LoginPage = () => {
         <div className="flex items-center w-3/5 px-20 py-32 rounded-tl-none rounded-bl-none sm:px-8 sm:bg-green-50 sm:rounded-none sm:justify-center sm:w-full sm:h-full sm:py-6 lg:px-12 rounded-3xl bg-out-transition fadeInLogin ">
           <div className="flex flex-col justify-between h-full bg-white sm:h-auto lg:justify-center sm:px-8 sm:shadow-E400 sm:py-8 lg:gap-y-16 sm:gap-y-12 sm:rounded-xl">
             <div className="flex flex-col text-left">
-              <p className="text-5xl font-medium text-gray-800 sm:text-4xl">
+              <p className="text-5xl font-medium text-gray-800 sm:text-4xl lg:text-3xl">
                 Hello! Welcome Back
               </p>
               <p className=" text-[1.4rem] font-light text-gray-850 lg:text-lg ">

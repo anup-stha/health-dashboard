@@ -1,6 +1,6 @@
-import { Sidebar } from "@/routes/SideBar";
-import { SideBarToggleButton as ToggleButton } from "@/routes/SideBar/SidebarToggleButton";
-import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
+import { Sidebar } from "@/routes/sidebar";
+import { SideBarToggleButton as ToggleButton } from "../routes/sidebar/SidebarToggleButton";
+import { useSideBarStore } from "../routes/sidebar/useSideBarStore";
 import { MainHeader } from "./MainHeader";
 
 const MainLayout = ({ children }: any) => {

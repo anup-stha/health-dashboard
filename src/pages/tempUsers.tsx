@@ -1,5 +1,5 @@
-import { Sidebar } from "@/routes/SideBar";
-import { useSideBarStore } from "@/routes/Sidebar/useSideBarStore";
+import { Sidebar } from "@/routes/sidebar";
+import { useSideBarStore } from "@/routes/sidebar/useSideBarStore";
 import { NextPage } from "next";
 import { addons, mockChannel } from "@storybook/addons";
 import {

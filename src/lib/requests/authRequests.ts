@@ -27,7 +27,6 @@ privateAgent.interceptors.request.use(
     const accessToken = useTokenStore.getState().accessToken;
     if (accessToken && config.headers) {
       config.headers["Authorization"] = `JWT ${accessToken}`;
-      config.headers["Access-Control-Allow-Credentials"] = "true";
     }
 
     return config;

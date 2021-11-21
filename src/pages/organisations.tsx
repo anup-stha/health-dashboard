@@ -32,19 +32,24 @@ const Organization: NextPage = () => {
   return (
     <MainLayout>
       {!error ? (
-        <div className="px-12 py-4">
-          <Table
-            data={organizationList}
-            tableHeadings={[
-              "Organisation Name",
-              "Active Status",
-              "Verified",
-              "Added Date",
-              "Created By",
-            ]}
-            tableRowComponent={<OrgTableRow />}
-            tableMobileViewComponent={<OrgCard />}
-          />{" "}
+        <div className="flex flex-col">
+          <div>
+            <h1>Organisations</h1>
+          </div>
+          <div className="px-12 py-4">
+            <Table
+              data={organizationList}
+              tableHeadings={[
+                "Organisation Name",
+                "Active Status",
+                "Verified",
+                "Added Date",
+                "Created By",
+              ]}
+              tableRowComponent={<OrgTableRow />}
+              tableMobileViewComponent={<OrgCard />}
+            />{" "}
+          </div>
         </div>
       ) : (
         <Image src={ErrorImage} alt="Error" />
