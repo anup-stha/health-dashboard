@@ -5,7 +5,9 @@ import {
   LoginRequest,
   LoginResponse,
   LogoutRequest,
+  OrganizationDetailType,
   OrganizationListType,
+  OrganizationRequestType,
   User,
   UserList,
   UserRequest,
@@ -111,4 +113,17 @@ export const editUser = (
   id: string | number
 ): Promise<AxiosResponse<User>> => {
   return privateAgent.put(`users/${id}/`, body);
+};
+
+export const addOrganisations = (
+  organisation: OrganizationRequestType
+): Promise<AxiosResponse<OrganizationDetailType>> => {
+  return privateAgent.post("organisations/", organisation);
+};
+
+export const editOrganisations = (
+  organisation: OrganizationRequestType,
+  id: string | number
+): Promise<AxiosResponse<OrganizationDetailType>> => {
+  return privateAgent.put(`organisations/${id}/`, organisation);
 };

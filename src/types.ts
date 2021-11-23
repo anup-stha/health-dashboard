@@ -134,8 +134,8 @@ export type LoginRefreshResponse = {
 export type OrganizationListType = OrganizationDetailType[];
 
 export type OrganizationDetailType = {
-  id: number;
-  meta: Object;
+  id: string | number;
+  meta: OrgaisationMeta;
   createdAt: string;
   name: string;
   active: boolean;
@@ -144,6 +144,14 @@ export type OrganizationDetailType = {
   createdBy: string;
   owner: number | string;
   ownerName: string;
+};
+
+export type OrganizationRequestType = {
+  meta: OrgaisationMeta;
+  name: string;
+  active: boolean;
+  verified: boolean;
+  owner: string;
 };
 
 export type User = {
@@ -166,3 +174,17 @@ export type UserRequest = {
 };
 
 export type UserList = User[];
+
+export type OrgaisationMeta = {
+  logo?: string;
+  description?: string;
+  website?: string;
+  phone?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+  address?: string;
+  municipality?: string;
+  ward?: string;
+};

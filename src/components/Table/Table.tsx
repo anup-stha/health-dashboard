@@ -13,6 +13,7 @@ export interface TableProps {
   >;
   setData?: any;
   setEdit?: any;
+  setOrganisationList?: any;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -22,6 +23,7 @@ export const Table: React.FC<TableProps> = ({
   tableMobileViewComponent,
   setData,
   setEdit,
+  setOrganisationList,
 }) => {
   const [selectedItem, setSelectedItem] = useState<string | number>("table");
   const items = ["table", "card"];
@@ -64,6 +66,7 @@ export const Table: React.FC<TableProps> = ({
                   data: data,
                   setData: setData,
                   setEdit: setEdit,
+                  setOrganisationList: setOrganisationList,
                 })
               )}
           </tbody>

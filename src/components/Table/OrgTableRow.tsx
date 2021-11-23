@@ -2,14 +2,20 @@ import { OrganizationDetailType } from "@/types";
 import { format } from "date-fns";
 import { Copy, Edit, MoreVertical } from "react-feather";
 import { DefaultAvatar } from "../Avatar";
+import { OrganisationModal } from "../model";
 import { BooleanTag } from "../others/BooleanTag";
 
 type OrgTableRowType = {
   data?: OrganizationDetailType;
   key?: any;
+  setOrganisationList?: any;
 };
 
-export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
+export const OrgTableRow: React.FC<OrgTableRowType> = ({
+  data,
+  key,
+  setOrganisationList,
+}) => {
   return data ? (
     <tr
       key={key}
@@ -30,11 +36,10 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
       <td>
         <BooleanTag
           type="error"
-          condition={data && data.active}
+          condition={data && data.verified}
           trueStatement="Verified"
           falseStatement="Not Verified"
         />
-        {data.verified}
       </td>
       <td>{format(Date.parse(data?.createdAt), "dd MMM yyyy")}</td>
 
@@ -45,9 +50,35 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
             name="copy"
             className="text-gray-400 cursor-pointer hover:text-gray-800"
           />
-          <Edit
-            name="edit"
-            className="text-gray-400 cursor-pointer hover:text-gray-800"
+          {/* <OrganisationUpdateModal
+            initialValues={{
+              org_name: data.name,
+              active: true,
+              verified: false,
+              owner: "sunya",
+            }}
+            id={data.id}
+          /> */}
+          <OrganisationModal
+            type="update"
+            initialValues={{
+              name: data.name,
+              active: data.active,
+              verified: data.verified,
+              owner: "sunya",
+              description: data.meta.description,
+              website: data.meta.website,
+              phone: data.meta.phone,
+              address: data.meta.address,
+              zip: data.meta.zip,
+              ward: data.meta.ward,
+              municipality: data.meta.municipality,
+              city: data.meta.city,
+              country: data.meta.country,
+              state: data.meta.state,
+            }}
+            orgId={data.id}
+            setOrganisationList={setOrganisationList}
           />
           <MoreVertical
             name="more-vertical"

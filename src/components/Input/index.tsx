@@ -8,6 +8,7 @@ type InputProps = React.HTMLProps<HTMLInputElement> & {
   props?: any;
   className?: string;
   showLabel?: boolean;
+  checkboxLabel?: string;
 };
 
 export const PrimaryInput: React.FC<InputProps> = ({
@@ -72,10 +73,63 @@ export const PrimaryInput: React.FC<InputProps> = ({
         />
         {showLabel && (
           <label htmlFor={id} className="input_label">
-            {id}
+            {placeholder}
           </label>
         )}
       </div>
+    </div>
+  );
+};
+
+export const CheckBoxInput: React.FC<InputProps> = ({
+  field,
+  props,
+
+  checkboxLabel,
+}) => {
+  return (
+    <label className="inline-flex items-center mt-3">
+      <input
+        type="checkbox"
+        className="form-checkbox h-8 w-8 shadow-E300 border-2 border-green-500 text-green-500 rounded-md focus:ring-green-600 focus:ring-2 focus:ring-opacity-50"
+        {...field}
+        {...props}
+      />
+      <span className="ml-4 text-gray-800 text-xl font-semibold  capitalize">
+        {field.name}
+      </span>
+    </label>
+  );
+};
+
+export const LabelInput: React.FC<InputProps> = ({
+  id,
+  error,
+  type,
+  value,
+  onChange,
+  field,
+  props,
+  className,
+  placeholder,
+}) => {
+  return (
+    <div className="relative w-full input">
+      <input
+        className={error ? "input_error" : "input_container"}
+        required
+        value={value}
+        onChange={(e) => {
+          onChange && onChange(e);
+        }}
+        placeholder={placeholder}
+        {...field}
+        {...props}
+      />
+
+      <label htmlFor={id} className="input_label capitalize">
+        {field.name}
+      </label>
     </div>
   );
 };
