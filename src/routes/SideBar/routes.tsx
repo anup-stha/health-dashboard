@@ -1,6 +1,6 @@
 import { Buildings, ChartLineUp, HouseSimple, Users } from "phosphor-react";
 
-export const OrganizationNavRoutes = [
+export const OrganisationNavRoutes = [
   {
     title: "Dashboard",
     icon: <HouseSimple />,
@@ -14,7 +14,7 @@ export const OrganizationNavRoutes = [
     link: "/stats",
   },
   {
-    title: "Organization",
+    title: "Organisation",
     icon: <Buildings />,
     state: "inactive",
     link: "/organisations",

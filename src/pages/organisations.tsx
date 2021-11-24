@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { addons, mockChannel } from "@storybook/addons";
 import { listOrganisations } from "@/lib/requests/authRequests";
 import { useEffect, useState } from "react";
-import { OrganizationListType } from "@/types";
 import { Table } from "@/components/Table/Table";
 import { OrgCard, OrgTableRow } from "@/components/Table/OrgTableRow";
 import MainLayout from "@/layout/MainLayout";
@@ -10,6 +9,7 @@ import withAuth from "@/hoc/withAuth";
 import ErrorImage from "@/styles/server-error.svg";
 import Image from "next/image";
 import { OrganisationModal } from "@/components/model";
+import { useOrgStore } from "@/modules/organisations/useOrgStore";
 
 // import OrganisationAddModal from "@/components/model";
 
@@ -19,7 +19,7 @@ interface Map {
   [key: string]: any;
 }
 
-const OrganizationInitialFormData: Map = {
+const OrganisationInitialFormData: Map = {
   name: "",
   active: false,
   verified: false,
@@ -37,20 +37,29 @@ const OrganizationInitialFormData: Map = {
   ward: "",
 };
 
-export type OrganisationIntialFormDataType = typeof OrganizationInitialFormData;
+export type OrganisationIntialFormDataType = typeof OrganisationInitialFormData;
 
-const Organization: NextPage = () => {
-  const [organizationList, setOrganizationList] =
-    useState<OrganizationListType>([]);
+const Organisation: NextPage = () => {
+  const {
+    organisationList: orgList,
+    setOrgList,
+    loading,
+    toggleLoading,
+  } = useOrgStore();
+
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const listOrg = async () => {
+      toggleLoading();
       await listOrganisations()
-        .then((response) => setOrganizationList(response.data))
+        .then((response) => {
+          setOrgList(response.data);
+          toggleLoading();
+        })
         .catch((error) => setError(true));
     };
-    listOrg();
+    orgList.length === 0 && listOrg();
   }, []);
 
   /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
@@ -66,12 +75,11 @@ const Organization: NextPage = () => {
               </h1>
               <OrganisationModal
                 type="add"
-                initialValues={OrganizationInitialFormData}
-                setOrganisationList={setOrganizationList}
+                initialValues={OrganisationInitialFormData}
               />
             </div>
             <Table
-              data={organizationList}
+              data={orgList}
               tableHeadings={[
                 "Organisation Name",
                 "Active Status",
@@ -79,7 +87,7 @@ const Organization: NextPage = () => {
                 "Added Date",
                 "Owner",
               ]}
-              setOrganisationList={setOrganizationList}
+              loading={loading}
               tableRowComponent={<OrgTableRow />}
               tableMobileViewComponent={<OrgCard />}
             />
@@ -92,4 +100,4 @@ const Organization: NextPage = () => {
   );
 };
 
-export default withAuth(Organization);
+export default withAuth(Organisation);

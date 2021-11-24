@@ -5,9 +5,9 @@ import {
   LoginRequest,
   LoginResponse,
   LogoutRequest,
-  OrganizationDetailType,
-  OrganizationListType,
-  OrganizationRequestType,
+  OrganisationDetailType,
+  OrganisationListType,
+  OrganisationRequestType,
   User,
   UserList,
   UserRequest,
@@ -34,7 +34,7 @@ privateAgent.interceptors.request.use(
     return config;
   },
   (error) => {
-    Promise.reject(error);
+    useTokenStore.getState().removeTokens();
   }
 );
 
@@ -64,6 +64,9 @@ privateAgent.interceptors.response.use(
             });
             return privateAgent(originalRequest);
           }
+        })
+        .catch(() => {
+          useTokenStore.getState().removeTokens();
         });
     }
     return Promise.reject(error);
@@ -99,7 +102,7 @@ export const listUserList = (): Promise<AxiosResponse<UserList>> => {
 };
 
 export const listOrganisations = (): Promise<
-  AxiosResponse<OrganizationListType>
+  AxiosResponse<OrganisationListType>
 > => {
   return privateAgent.get("organisations/");
 };
@@ -116,14 +119,20 @@ export const editUser = (
 };
 
 export const addOrganisations = (
-  organisation: OrganizationRequestType
-): Promise<AxiosResponse<OrganizationDetailType>> => {
+  organisation: OrganisationRequestType
+): Promise<AxiosResponse<OrganisationDetailType>> => {
   return privateAgent.post("organisations/", organisation);
 };
 
 export const editOrganisations = (
-  organisation: OrganizationRequestType,
+  organisation: OrganisationRequestType,
   id: string | number
-): Promise<AxiosResponse<OrganizationDetailType>> => {
+): Promise<AxiosResponse<OrganisationDetailType>> => {
   return privateAgent.put(`organisations/${id}/`, organisation);
+};
+
+export const deleteOrganisations = (
+  id: string | number
+): Promise<AxiosResponse<OrganisationDetailType>> => {
+  return privateAgent.delete(`organisations/${id}/`);
 };

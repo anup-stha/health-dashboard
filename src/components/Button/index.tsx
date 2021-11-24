@@ -65,3 +65,35 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export const GrayButton: React.FC<ButtonProps> = ({
+  children,
+  extraClassName,
+  onClick,
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-gray-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-gray-600 shadow-E400 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+};
+
+export const WarningButton: React.FC<ButtonProps> = ({
+  children,
+  extraClassName,
+  onClick,
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-red-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-red-600 shadow-E400 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+};

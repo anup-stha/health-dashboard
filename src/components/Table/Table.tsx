@@ -14,6 +14,7 @@ export interface TableProps {
   setData?: any;
   setEdit?: any;
   setOrganisationList?: any;
+  loading?: boolean;
 }
 
 export const Table: React.FC<TableProps> = ({
@@ -24,11 +25,14 @@ export const Table: React.FC<TableProps> = ({
   setData,
   setEdit,
   setOrganisationList,
+  loading,
 }) => {
   const [selectedItem, setSelectedItem] = useState<string | number>("table");
   const items = ["table", "card"];
 
-  return (
+  return loading ? (
+    <div>Loading</div>
+  ) : (
     <>
       <div className="mb-6">
         <ListBox

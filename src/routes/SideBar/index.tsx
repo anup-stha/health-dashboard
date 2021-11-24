@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { SideBarNavItem as NavItem } from "@/routes/SideBar/SidebarNavItem";
-import { OrganizationNavRoutes as NavRoutes } from "./routes";
+import { OrganisationNavRoutes as NavRoutes } from "./routes";
 
 import Avatar from "@/styles/avatar.svg";
 import SuperUserIlustration from "@/styles/superuser-illustration.svg";

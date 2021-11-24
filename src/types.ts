@@ -131,9 +131,9 @@ export type LoginRefreshResponse = {
   access: string;
 };
 
-export type OrganizationListType = OrganizationDetailType[];
+export type OrganisationListType = OrganisationDetailType[];
 
-export type OrganizationDetailType = {
+export type OrganisationDetailType = {
   id: string | number;
   meta: OrgaisationMeta;
   createdAt: string;
@@ -146,7 +146,7 @@ export type OrganizationDetailType = {
   ownerName: string;
 };
 
-export type OrganizationRequestType = {
+export type OrganisationRequestType = {
   meta: OrgaisationMeta;
   name: string;
   active: boolean;
@@ -160,7 +160,7 @@ export type User = {
   lastName: string;
   email: string;
   phone: string | null;
-  userType: "organization" | "staff" | "patient" | "superuser";
+  userType: "Organisation" | "staff" | "patient" | "superuser";
   username: string;
 };
 
@@ -169,7 +169,7 @@ export type UserRequest = {
   last_name: string;
   email: string;
   phone: string | null;
-  user_type: "organization" | "staff" | "patient" | "superuser" | any;
+  user_type: "Organisation" | "staff" | "patient" | "superuser" | any;
   username: string;
 };
 

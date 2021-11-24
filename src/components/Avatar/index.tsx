@@ -35,7 +35,7 @@ export const DefaultAvatar: React.FC<AvatarProps> = ({ name, image }) => {
       )}
 
       <span className="truncate sm:text-lg sm:font-semibold sm:text-gray-700">
-        {name}
+        {name?.substring(0, 20)}...
       </span>
     </div>
   );

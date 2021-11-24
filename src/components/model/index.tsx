@@ -1,31 +1,28 @@
-import {
-  addOrganisations,
-  editOrganisations,
-  listOrganisations,
-} from "@/lib/requests/authRequests";
 import { Dialog, Transition } from "@headlessui/react";
-import { Field, Formik } from "formik";
+import { Field, Formik, FormikHelpers } from "formik";
 import { PlusCircle } from "phosphor-react";
 import React, { Fragment, useState } from "react";
 import { Edit } from "react-feather";
 import { Button } from "../Button";
 import { CheckBoxInput, LabelInput } from "../Input";
 import { OrganisationIntialFormDataType } from "@/pages/organisations";
+import { useOrgStore } from "@/modules/organisations/useOrgStore";
+import { onAddOrg, onEditOrg } from "@/lib/requests/orgRequests";
+import { alert } from "../Alert";
 
-interface OrganizationModalProps {
+interface OrganisationModalProps {
   type: "add" | "update";
   initialValues: OrganisationIntialFormDataType;
   orgId?: number | string;
-  setOrganisationList?: any;
 }
 
-export const OrganisationModal: React.FC<OrganizationModalProps> = ({
+export const OrganisationModal: React.FC<OrganisationModalProps> = ({
   type,
   initialValues,
   orgId,
-  setOrganisationList,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { toggleLoading } = useOrgStore();
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -86,13 +83,80 @@ export const OrganisationModal: React.FC<OrganizationModalProps> = ({
                   as="h3"
                   className="text-4xl font-medium leading-6 text-gray-900"
                 >
-                  {type === "add" ? "Add" : "Update"} Organization
+                  {type === "add" ? "Add" : "Update"} Organisation
                 </Dialog.Title>
 
                 <Formik
                   initialValues={initialValues}
-                  onSubmit={(values) => {
-                    console.log(values);
+                  onSubmit={async (
+                    values,
+                    { setSubmitting }: FormikHelpers<any>
+                  ) => {
+                    type === "add" ? toggleLoading() : null;
+                    type === "add"
+                      ? await alert({
+                          type: "promise",
+                          promise: onAddOrg({
+                            meta: {
+                              description: values.description,
+                              website: values.website,
+                              phone: values.phone,
+                              address: values.address,
+                              zip: values.zip,
+                              ward: values.ward,
+                              municipality: values.municipality,
+                              city: values.city,
+                              country: values.country,
+                              state: values.state,
+                            },
+                            active: values.active,
+                            owner: "1",
+                            verified: values.verified,
+                            name: values.name,
+                          }),
+                          msgs: {
+                            loading: "Adding Organization",
+                            success: () => {
+                              closeModal();
+                              return "Added Organization";
+                            },
+                            error: (data: any) => `${data}`,
+                          },
+                        })
+                      : await alert({
+                          type: "promise",
+                          promise: onEditOrg(
+                            {
+                              meta: {
+                                description: values.description,
+                                website: values.website,
+                                phone: values.phone,
+                                address: values.address,
+                                zip: values.zip,
+                                ward: values.ward,
+                                municipality: values.municipality,
+                                city: values.city,
+                                country: values.country,
+                                state: values.state,
+                              },
+                              active: values.active,
+                              owner: "1",
+                              verified: values.verified,
+                              name: values.name,
+                            },
+                            orgId ? orgId : "0"
+                          ),
+                          msgs: {
+                            loading: "Updating Organization",
+                            success: () => {
+                              closeModal();
+                              return "Updated Organization";
+                            },
+                            error: (data: any) => `${data}`,
+                          },
+                        });
+                    type === "add" ? toggleLoading() : null;
+                    setSubmitting(false);
                   }}
                 >
                   {({ values, handleSubmit, handleChange }) => {
@@ -104,7 +168,7 @@ export const OrganisationModal: React.FC<OrganizationModalProps> = ({
                         <Field
                           name="name"
                           component={LabelInput}
-                          placeholder={"Enter Organization Name"}
+                          placeholder={"Enter Organisation Name"}
                         />
                         <div className="flex space-x-4 items-center">
                           <Field
@@ -193,87 +257,11 @@ export const OrganisationModal: React.FC<OrganizationModalProps> = ({
                         </div>
 
                         {type === "add" ? (
-                          <Button
-                            onClick={() => {
-                              const addOrg = async () => {
-                                await addOrganisations({
-                                  meta: {
-                                    description: values.description,
-                                    website: values.website,
-                                    phone: values.phone,
-                                    address: values.address,
-                                    zip: values.zip,
-                                    ward: values.ward,
-                                    municipality: values.municipality,
-                                    city: values.city,
-                                    country: values.country,
-                                    state: values.state,
-                                  },
-                                  active: values.active,
-                                  owner: "1",
-                                  verified: values.verified,
-                                  name: values.name,
-                                })
-                                  .then((response) => {
-                                    const listOrg = async () => {
-                                      await listOrganisations().then(
-                                        (response) => {
-                                          console.log(response);
-                                          setOrganisationList(response.data);
-                                        }
-                                      );
-                                    };
-                                    listOrg();
-                                  })
-                                  .catch((error) => console.log(error));
-                              };
-                              closeModal();
-                              addOrg();
-                            }}
-                          >
+                          <Button>
                             <span> Add </span>
                           </Button>
                         ) : (
-                          <Button
-                            onClick={() => {
-                              const editOrg = async () => {
-                                await editOrganisations(
-                                  {
-                                    meta: {
-                                      description: values.description,
-                                      website: values.website,
-                                      phone: values.phone,
-                                      address: values.address,
-                                      zip: values.zip,
-                                      ward: values.ward,
-                                      municipality: values.municipality,
-                                      city: values.city,
-                                      country: values.country,
-                                      state: values.state,
-                                    },
-                                    active: values.active,
-                                    owner: "1",
-                                    verified: values.verified,
-                                    name: values.name,
-                                  },
-                                  orgId ? orgId : 0
-                                )
-                                  .then((response) => {
-                                    const listOrg = async () => {
-                                      await listOrganisations().then(
-                                        (response) => {
-                                          setOrganisationList(response.data);
-                                          closeModal();
-                                        }
-                                      );
-                                    };
-                                    listOrg();
-                                  })
-                                  .catch((error) => console.log(error));
-                              };
-                              editOrg();
-                            }}
-                          >
+                          <Button>
                             <span> Update </span>
                           </Button>
                         )}
