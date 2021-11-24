@@ -26,8 +26,8 @@ export const LoginPage = () => {
             resolve("Logged In");
           })
           .catch((error) => {
-            reject(error.response.data.detail);
-            console.log(error.response);
+            reject(error.response ? error.response.data.detail : error);
+            console.log(error);
           })
     );
   };
