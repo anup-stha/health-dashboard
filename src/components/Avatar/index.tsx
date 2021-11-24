@@ -83,7 +83,7 @@ export const ImageAvatar: React.FC = () => {
       .then(() => {
         useTokenStore.getState().removeTokens();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => useTokenStore.getState().removeTokens());
   };
   return (
     <Popover className="relative">

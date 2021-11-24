@@ -136,3 +136,10 @@ export const deleteOrganisations = (
 ): Promise<AxiosResponse<OrganisationDetailType>> => {
   return privateAgent.delete(`organisations/${id}/`);
 };
+
+export const toggleActiveOrg = (
+  body: any,
+  id: string | number
+): Promise<AxiosResponse<any>> => {
+  return privateAgent.put(`organisations/${id}/`, body);
+};
