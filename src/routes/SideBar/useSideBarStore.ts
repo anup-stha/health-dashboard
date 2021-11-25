@@ -1,4 +1,4 @@
-import { isServer } from "@/lib/isServer";
+import { isServer } from "@/services/isServer";
 import create from "zustand";
 
 const openState = "@sunya/sidebar-open-state";

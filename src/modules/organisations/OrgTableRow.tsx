@@ -1,16 +1,16 @@
 import { OrganisationDetailType } from "@/types";
 import { format } from "date-fns";
-import { Copy, Delete, Edit, MoreVertical } from "react-feather";
-import { DefaultAvatar } from "../Avatar";
-import { OrganisationModal } from "../model";
-import { BooleanTag } from "../others/BooleanTag";
+import { Copy, Edit, MoreVertical, Trash } from "react-feather";
+import { DefaultAvatar } from "../../components/Avatar";
+import { OrganisationModal } from "./orgModal";
+import { BooleanTag } from "../../components/others/BooleanTag";
 import { toast } from "react-hot-toast";
-import { GrayButton, WarningButton } from "../Button";
-import { alert } from "../Alert";
-import { onDeleteOrg } from "@/lib/requests/orgRequests";
+import { GrayButton, WarningButton } from "../../components/Button";
+import { alert } from "../../components/Alert";
+import { onDeleteOrg } from "@/services/requests/orgRequests";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { toggleActiveOrg } from "@/lib/requests/authRequests";
+import { toggleActiveOrg } from "@/services/requests/authRequests";
 import { useOrgStore } from "@/modules/organisations/useOrgStore";
 
 type OrgTableRowType = {
@@ -36,7 +36,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
         />
         {data.active}
       </td>
-      <td>
+      <td className="whitespace-nowrap">
         <BooleanTag
           type="error"
           condition={data && data.verified}
@@ -69,7 +69,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
             }}
             orgId={data.id}
           />
-          <Delete
+          <Trash
             name="delete"
             className="text-gray-400 cursor-pointer hover:text-gray-800"
             onClick={() =>
@@ -124,7 +124,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
                 <Popover.Button>
                   <MoreVertical
                     name="more-vertical"
-                    className="text-gray-400 cursor-pointer hover:text-gray-800"
+                    className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-2"
                   />
                   <Transition
                     as={Fragment}
@@ -135,7 +135,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 -translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-6 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                    <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-0 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
                       <div className="overflow-hidden  ">
                         <a
                           onClick={async () => {

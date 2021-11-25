@@ -1,14 +1,15 @@
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Field, Formik, FormikHelpers } from "formik";
 import { PlusCircle } from "phosphor-react";
-import React, { Fragment, useState } from "react";
 import { Edit } from "react-feather";
-import { Button } from "../Button";
-import { CheckBoxInput, LabelInput } from "../Input";
-import { OrganisationIntialFormDataType } from "@/pages/organisations";
+
+import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { LabelInput } from "@/components/Input";
 import { useOrgStore } from "@/modules/organisations/useOrgStore";
-import { onAddOrg, onEditOrg } from "@/lib/requests/orgRequests";
-import { alert } from "../Alert";
+import { onAddOrg, onEditOrg } from "@/services/requests/orgRequests";
+import { OrganisationIntialFormDataType } from "@/modules/organisations";
 
 interface OrganisationModalProps {
   type: "add" | "update";
@@ -49,16 +50,8 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
           onClose={closeModal}
         >
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-          <div className="min-h-screen  px-4 py-12 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+          <div className="min-h-screen md:px-16 text-center">
+            <Transition.Child as={Fragment}>
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
@@ -109,9 +102,9 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
                               country: values.country,
                               state: values.state,
                             },
-                            active: values.active,
+                            active: false,
                             owner: "1",
-                            verified: values.verified,
+                            verified: false,
                             name: values.name,
                           }),
                           msgs: {
@@ -139,9 +132,7 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
                                 country: values.country,
                                 state: values.state,
                               },
-                              active: values.active,
                               owner: "1",
-                              verified: values.verified,
                               name: values.name,
                             },
                             orgId ? orgId : "0"
@@ -159,7 +150,7 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
                     setSubmitting(false);
                   }}
                 >
-                  {({ values, handleSubmit, handleChange }) => {
+                  {({ handleSubmit }) => {
                     return (
                       <form
                         onSubmit={handleSubmit}
@@ -170,25 +161,6 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
                           component={LabelInput}
                           placeholder={"Enter Organisation Name"}
                         />
-                        <div className="flex space-x-4 items-center">
-                          <Field
-                            name="owner"
-                            component={LabelInput}
-                            placeholder={"Enter Owner Name"}
-                          />
-                          <div className="flex space-x-4 mt-3">
-                            <Field
-                              name="active"
-                              type="checkbox"
-                              component={CheckBoxInput}
-                            />
-                            <Field
-                              name="verified"
-                              type="checkbox"
-                              component={CheckBoxInput}
-                            />
-                          </div>
-                        </div>
 
                         <Field
                           name="description"

@@ -1,4 +1,4 @@
-import { deleteUser } from "@/lib/requests/authRequests";
+import { deleteUser } from "@/services/requests/authRequests";
 import { User } from "@/types";
 import { Copy, Delete, Edit } from "react-feather";
 import { AvatarWithEmail } from "../Avatar";

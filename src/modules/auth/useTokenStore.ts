@@ -1,4 +1,4 @@
-import { isServer } from "@/lib/isServer";
+import { isServer } from "@/services/isServer";
 import jwtDecode from "jwt-decode";
 import create from "zustand";
 import { combine } from "zustand/middleware";

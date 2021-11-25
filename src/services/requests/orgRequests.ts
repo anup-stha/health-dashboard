@@ -12,15 +12,12 @@ export const onAddOrg = async (body: OrganisationRequestType) => {
       await addOrganisations(body)
         .then(async (response) => {
           useOrgStore.getState().getOrgListFromServer();
+
           resolve("Succesfully Added");
         })
         .catch((error) => {
-          console.log(error);
-          reject(
-            new Error(
-              "There were some problems adding your organisation. Please try later"
-            )
-          );
+          reject(new Error(error.message));
+          useOrgStore.getState().setLoadingFalse();
         })
   );
 };
@@ -34,10 +31,11 @@ export const onDeleteOrg = async (id: string | number) => {
           resolve("Succesfully Deleted");
         })
         .catch((error) => {
-          console.log(error);
+          useOrgStore.getState().setLoadingFalse();
+
           reject(
             new Error(
-              "There were some problems adding your organisation. Please try later"
+              "There were some problems deleting your organisation. Please try later"
             )
           );
         })
@@ -57,6 +55,7 @@ export const onEditOrg = async (
         })
         .catch((error) => {
           console.log(error);
+          useOrgStore.getState().setLoadingFalse();
           reject(
             new Error(
               "There were some problems editing your organisation. Please try later"

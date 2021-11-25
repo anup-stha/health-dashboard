@@ -149,8 +149,8 @@ export type OrganisationDetailType = {
 export type OrganisationRequestType = {
   meta: OrgaisationMeta;
   name: string;
-  active: boolean;
-  verified: boolean;
+  active?: boolean;
+  verified?: boolean;
   owner: string;
 };
 

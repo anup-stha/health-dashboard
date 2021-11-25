@@ -1,4 +1,4 @@
-import { loginUser } from "@/lib/requests";
+import { loginUser } from "@/services/requests";
 import { useTokenStore } from "@/modules/auth/useTokenStore";
 import { LoginRequest } from "@/types";
 import { useRouter } from "next/dist/client/router";

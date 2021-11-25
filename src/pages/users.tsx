@@ -1,6 +1,6 @@
-import { addOrganisations } from "@/lib/requests/authRequests";
+import { addOrganisations } from "@/services/requests/authRequests";
 import type { NextPage } from "next";
-import MainLayout from "../layout/MainLayout";
+import { MainLayout } from "../layout/MainLayout";
 
 const UserPage: NextPage = () => {
   return (

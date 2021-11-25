@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 
 import withAuth from "@/hoc/withAuth";
-import MainLayout from "@/layout/MainLayout";
+import { MainLayout } from "@/layout/MainLayout";
 
 import error from "../styles/404.svg";
 

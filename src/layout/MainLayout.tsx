@@ -3,7 +3,7 @@ import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarTo
 import { useSideBarStore } from "../routes/SideBar/useSideBarStore";
 import { MainHeader } from "./MainHeader";
 
-const MainLayout = ({ children }: any) => {
+export const MainLayout = ({ children }: any) => {
   const { open } = useSideBarStore();
 
   return (
@@ -12,7 +12,9 @@ const MainLayout = ({ children }: any) => {
       <ToggleButton />
       <div
         className={`${
-          open ? " relative w-5/6 ml-[16.67%]" : "relative w-full pl-24"
+          open
+            ? " relative w-5/6 ml-[16.67%] md:w-full md:ml-0"
+            : "relative w-full pl-24"
         } transition-all duration-200 `}
       >
         <MainHeader />
@@ -21,5 +23,3 @@ const MainLayout = ({ children }: any) => {
     </div>
   );
 };
-
-export default MainLayout;

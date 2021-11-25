@@ -44,11 +44,11 @@ export const Table: React.FC<TableProps> = ({
       </div>
 
       <div
-        className={`w-full px-6 bg-white rounded-sm shadow-E200 sm:overflow-x-auto ${
+        className={`w-full px-6 bg-white rounded-sm shadow-E200 overflow-x-auto ${
           selectedItem === "table" ? "sm:block" : "sm:hidden"
         } `}
       >
-        <table className="w-full ">
+        <table className="w-full">
           <thead>
             <tr className="px-2 border-b border-gray-200">
               {tableHeadings &&

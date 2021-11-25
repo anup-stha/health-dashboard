@@ -5,7 +5,7 @@ import Avatar from "./Ed.png";
 import AvatarImage from "@/styles/avatar.svg";
 import { Popover, Transition } from "@headlessui/react";
 import { useTokenStore } from "@/modules/auth/useTokenStore";
-import { logoutUser } from "@/lib/requests";
+import { logoutUser } from "@/services/requests";
 
 type AvatarProps = {
   name?: string;
@@ -35,7 +35,7 @@ export const DefaultAvatar: React.FC<AvatarProps> = ({ name, image }) => {
       )}
 
       <span className="truncate sm:text-lg sm:font-semibold sm:text-gray-700">
-        {name?.substring(0, 20)}...
+        {name}
       </span>
     </div>
   );
