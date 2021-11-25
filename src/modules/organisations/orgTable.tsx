@@ -13,6 +13,7 @@ export const OrgTable = () => {
         "Active Status",
         "Verified",
         "Added Date",
+        "Phone",
         "Owner",
       ]}
       loading={loading}

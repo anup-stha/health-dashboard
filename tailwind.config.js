@@ -58,7 +58,7 @@ module.exports = {
       },
       colors: {
         ...colors,
-        gray: { ...colors.trueGray, 850: "#383838" },
+        gray: { ...colors.coolGray, 850: "#383838" },
 
         green: colors.green,
         yellow: {

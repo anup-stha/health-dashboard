@@ -45,8 +45,9 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({ data, key }) => {
         />
       </td>
       <td>{format(Date.parse(data?.createdAt), "dd MMM yyyy")}</td>
-
+      <td className="">{data && data.meta.phone}</td>
       <td className="capitalize">{data && data.ownerName}</td>
+
       <td className="px-0 py-4">
         <div className="flex items-center space-x-4">
           <OrganisationModal
