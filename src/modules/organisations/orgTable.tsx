@@ -1,24 +1,22 @@
-import { Table } from "@/components/Table/Table";
-import { OrgCard, OrgTableRow } from "./OrgTableRow";
+import { TableView } from "@/components/Table";
+import { OrgTableRow } from "./OrgTableRow";
 import { useOrgStore } from "./useOrgStore";
 
 export const OrgTable = () => {
   const { orgList, loading } = useOrgStore();
 
   return (
-    <Table
+    <TableView
       data={orgList}
       tableHeadings={[
-        "Organisation Name",
-        "Active Status",
+        "Organization Name",
+        "Active",
         "Verified",
-        "Added Date",
         "Phone",
-        "Owner",
+        "Owner Name",
       ]}
       loading={loading}
       tableRowComponent={<OrgTableRow />}
-      tableMobileViewComponent={<OrgCard />}
     />
   );
 };

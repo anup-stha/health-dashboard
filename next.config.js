@@ -8,6 +8,6 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["cdn.fakercloud.com"],
+    domains: ["cdn.fakercloud.com", "i.pravatar.cc"],
   },
 };
