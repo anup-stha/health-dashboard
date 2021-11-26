@@ -65,7 +65,7 @@ export const Pagination = ({
     else if (page <= 3)
       setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
     else setPageArray([page - 4, page - 3, page - 2, page - 1, page]);
-  }, [pageIndex, totalPageNumber]);
+  }, [pageIndex, totalPageNumber, setPageIndex]);
 
   return (
     <div className="flex items-center justify-center mx-auto my-4 leading-6 text-gray-800">

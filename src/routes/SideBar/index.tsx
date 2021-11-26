@@ -28,6 +28,7 @@ export const Sidebar: React.FC = () => {
                 layout="fill"
                 className="absolute"
                 objectFit="contain"
+                alt="Error"
               />
             </div>
             <div className="flex flex-col">
@@ -47,6 +48,7 @@ export const Sidebar: React.FC = () => {
                 layout="fill"
                 className="absolute"
                 objectFit="contain"
+                alt="Avatar"
               />
             </div>
           </div>

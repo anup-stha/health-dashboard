@@ -16,11 +16,11 @@ const withAuth = (WrappedComponent: React.FC) => {
         },
         (s) => s.refreshToken
       );
-    }, [storeAccessToken]);
+    }, [storeAccessToken, router]);
 
     useEffect(() => {
       if (!isAuthenticated) router.push(`/`);
-    }, [isAuthenticated]);
+    }, [isAuthenticated, router]);
 
     return storeAccessToken ? (
       <WrappedComponent {...props} />

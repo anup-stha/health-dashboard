@@ -2,10 +2,10 @@
 import React, { Fragment } from "react";
 import Image from "next/image";
 import Avatar from "./Ed.png";
-import AvatarImage from "@/styles/avatar.svg";
+import AvatarImage from "../../styles/avatar.svg";
 import { Popover, Transition } from "@headlessui/react";
-import { useTokenStore } from "@/modules/auth/useTokenStore";
-import { logoutUser } from "@/services/requests";
+import { useTokenStore } from "../../modules/auth/useTokenStore";
+import { logoutUser } from "../../services/requests";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
 
@@ -99,6 +99,7 @@ export const ImageAvatar: React.FC = () => {
                   src={AvatarImage}
                   layout="fill"
                   className="absolute"
+                  alt="Avatar"
                   objectFit="contain"
                 />
               </div>

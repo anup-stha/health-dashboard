@@ -1,12 +1,18 @@
 import Skeleton from "react-loading-skeleton";
 
-export const OrgTableLoadingState = () => {
+type OrgTableLoadingStateProps = {
+  count?: number;
+};
+
+export const OrgTableLoadingState: React.FC<OrgTableLoadingStateProps> = ({
+  count,
+}) => {
   return (
     <>
       <tr>
         <td className="flex space-x-2 items-center">
-          <div className="w-24 inline-block">
-            <Skeleton duration={2} circle={true} height={62} />
+          <div className=" inline-block">
+            <Skeleton duration={2} circle={true} height={64} width={64} />
           </div>
           <div className="w-full">
             <Skeleton count={2} duration={2} />
@@ -30,8 +36,8 @@ export const OrgTableLoadingState = () => {
       </tr>
       <tr>
         <td className="flex space-x-2 items-center">
-          <div className="w-24 inline-block">
-            <Skeleton duration={2} circle={true} height={62} />
+          <div className=" inline-block">
+            <Skeleton duration={2} circle={true} height={64} width={64} />
           </div>
           <div className="w-full">
             <Skeleton count={2} duration={2} />
@@ -55,8 +61,8 @@ export const OrgTableLoadingState = () => {
       </tr>
       <tr>
         <td className="flex space-x-2 items-center">
-          <div className="w-24 inline-block">
-            <Skeleton duration={2} circle={true} height={62} />
+          <div className=" inline-block">
+            <Skeleton duration={2} circle={true} height={64} width={64} />
           </div>
           <div className="w-full">
             <Skeleton count={2} duration={2} />
@@ -80,8 +86,8 @@ export const OrgTableLoadingState = () => {
       </tr>
       <tr>
         <td className="flex space-x-2 items-center">
-          <div className="w-24 inline-block">
-            <Skeleton duration={2} circle={true} height={62} />
+          <div className=" inline-block">
+            <Skeleton duration={2} circle={true} height={64} width={64} />
           </div>
           <div className="w-full">
             <Skeleton count={2} duration={2} />

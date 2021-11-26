@@ -10,7 +10,7 @@ const Statistics: NextPage = () => {
   return (
     <MainLayout>
       <div className="flex items-center justify-center h-[80vh]">
-        <Image src={error} />
+        <Image src={error} alt="Error" />
       </div>
     </MainLayout>
   );

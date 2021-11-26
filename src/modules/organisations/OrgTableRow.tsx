@@ -1,7 +1,7 @@
 import { OrganisationDetailType } from "@/types";
 import { format } from "date-fns";
-import { Copy, Edit, MoreVertical, Trash } from "react-feather";
-import { DefaultAvatar } from "../../components/Avatar";
+import { MoreVertical, Trash } from "react-feather";
+
 import { OrganisationModal } from "./orgModal";
 import { BooleanTag } from "../../components/others/BooleanTag";
 import { toast } from "react-hot-toast";
@@ -28,7 +28,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
   key,
   loading,
 }) => {
-  return loading === false ? (
+  return !loading ? (
     data ? (
       <tr key={key}>
         <td className="px-6 py-4 whitespace-nowrap">
@@ -41,6 +41,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
                 layout="fill"
                 objectFit="cover"
                 className=" rounded-full"
+                alt="Profile"
               />
             </div>
             <div className="ml-4">
@@ -227,61 +228,8 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
           </div>
         </td>
       </tr>
-    ) : (
-      <tr> </tr>
-    )
+    ) : null
   ) : (
     <OrgTableLoadingState />
-  );
-};
-
-export const OrgCard: React.FC<OrgTableRowType> = ({ data, key }) => {
-  return data ? (
-    <div
-      key={key}
-      className="hidden w-full px-4 py-6 bg-white rounded-sm sm:block sm:text-base shadow-E200"
-    >
-      <div className="flex flex-col space-y-12">
-        <div className="flex items-center justify-between">
-          <DefaultAvatar name={data && data.name} />
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex space-x-4">
-            <div>
-              <BooleanTag
-                type="warning"
-                condition={data?.active}
-                trueStatement="Doctor"
-                falseStatement="Patient"
-              />
-            </div>
-            <div>
-              <BooleanTag
-                type="error"
-                condition={data.verified}
-                trueStatement="Active"
-                falseStatement="InActive"
-              />
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Copy
-              name="copy"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
-            />
-            <Edit
-              name="edit"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
-            />
-            <MoreVertical
-              name="more-vertical"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div>Loading</div>
   );
 };

@@ -118,6 +118,7 @@ export const LabelInput: React.FC<InputProps> = ({
       <input
         className={error ? "input_error" : "input_container"}
         required
+        type={type ?? "text"}
         value={value}
         onChange={(e) => {
           onChange && onChange(e);

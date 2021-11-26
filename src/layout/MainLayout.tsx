@@ -18,7 +18,9 @@ export const MainLayout = ({ children }: any) => {
         } transition-all duration-200 `}
       >
         <MainHeader />
-        <div className="relative">{children}</div>
+        <div className="3xl:flex 3xl:items-center 3xl:justify-center">
+          {children}
+        </div>
       </div>
     </div>
   );

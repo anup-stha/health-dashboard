@@ -27,8 +27,9 @@ const Organisation: NextPage = () => {
           setError(error);
         });
     };
+
     orgList.length === 0 && listOrg();
-  }, []);
+  }, [orgList.length, setError, setOrgList, toggleLoading]);
 
   /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
 

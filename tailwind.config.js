@@ -8,8 +8,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
-      "3xl": { min: "112.5em" },
-      "2xl": { max: "112.5em" },
+      "3xl": { min: "150em" },
+      "2xl": { max: "150em" },
+      xl: { max: "112.5em" },
       lg: { max: "75em" },
       md: { max: "56.25em" },
       sm: { max: "37.5em" },
@@ -58,7 +59,7 @@ module.exports = {
       },
       colors: {
         ...colors,
-        gray: { ...colors.coolGray, 850: "#383838" },
+        gray: { ...colors.gray, 850: "#383838" },
 
         green: colors.green,
         yellow: {
