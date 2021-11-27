@@ -123,7 +123,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
               title="You are about to delete a organisation"
               subTitles={[
                 "This will delete your organisation forever",
-                "Are you sure",
+                "Are you sure ?",
               ]}
             />
             <Popover className="relative">
