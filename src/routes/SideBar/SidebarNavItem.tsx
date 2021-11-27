@@ -40,6 +40,7 @@ export const SideBarNavItem: React.FC<SideBarNavItemProps> = ({
           }
         >
           {children}
+
           {open && (
             <span className="text-xl font-bold sm:text-lg">{title}</span>
           )}

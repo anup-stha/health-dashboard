@@ -1,7 +1,7 @@
 td {
-  @apply p-4;
+  @apply px-4;
 }
 
 table {
-  @apply sm:whitespace-nowrap sm:overflow-auto sm:block sm:py-4;
+  @apply sm:whitespace-nowrap;
 }

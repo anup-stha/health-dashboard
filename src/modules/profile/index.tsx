@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FacebookLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
 import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import CoverImage from "../../../public/assets/cover.png";
-import PasswordModal from "./passwordModal";
+import { PasswordModal } from "./passwordModal";
 
 export const ProfilePage: React.FC = () => {
   return (

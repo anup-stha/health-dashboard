@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect } from "react";
+import Head from "next/head";
 
 import withAuth from "@/hoc/withAuth";
 import OrganisationPage from "@/modules/organisations";
@@ -33,7 +34,14 @@ const Organisation: NextPage = () => {
 
   /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
 
-  return <OrganisationPage />;
+  return (
+    <>
+      <Head>
+        <title>Organisations</title>
+      </Head>
+      <OrganisationPage />
+    </>
+  );
 };
 
 export default withAuth(Organisation);

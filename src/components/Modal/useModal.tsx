@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from "react";
-import { Button, IButtonProps, IModalProps, ModalContainer } from ".";
+import {
+  Button,
+  IButtonProps,
+  IModalProps,
+  IModalTitleProps,
+  ModalContent,
+  ModalTitle,
+} from ".";
 
 interface IModalContext {
   isOpen: boolean;
@@ -7,15 +14,17 @@ interface IModalContext {
 }
 
 interface IModalComposition {
-  Container: React.FC<IModalProps>;
+  Content: React.FC<IModalProps>;
   Button: React.FC<IButtonProps>;
+  Title: React.FC<IModalTitleProps>;
 }
 
-const ModalContext = React.createContext<IModalContext | undefined>(undefined);
+export const ModalContext = React.createContext<IModalContext | undefined>(
+  undefined
+);
 
 const Modal: React.FC & IModalComposition = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const memoizedContextValue = useMemo(
     () => ({
       isOpen,
@@ -39,7 +48,8 @@ export const useModal = (): IModalContext => {
   return context;
 };
 
-Modal.Container = ModalContainer;
+Modal.Content = ModalContent;
 Modal.Button = Button;
+Modal.Title = ModalTitle;
 
 export { Modal };

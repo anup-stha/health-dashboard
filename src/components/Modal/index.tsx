@@ -1,14 +1,20 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useModal } from "./useModal";
 
 export type IModalProps = {
   title?: string;
   children: React.ReactNode;
+  width?: "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl";
 };
 
-export const ModalContainer: React.FC<IModalProps> = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const ModalContent: React.FC<IModalProps> = ({
+  title,
+  children,
+  width = "3xl",
+}) => {
+  const { setIsOpen, isOpen } = useModal();
+
   const closeModal = () => setIsOpen(false);
 
   return (
@@ -34,20 +40,15 @@ export const ModalContainer: React.FC<IModalProps> = ({ title, children }) => {
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
+            enterFrom="opacity-0 scale-95 -translate-y-32"
+            enterTo="opacity-100 scale-100 translate-y-0"
+            leave="ease-in duration-100"
+            leaveFrom="opacity-100 scale-100 translate-y-0"
+            leaveTo="opacity-0 scale-90 -translate-y-32"
           >
-            <div className="inline-block w-full max-w-3xl p-10 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
-              <Dialog.Title
-                as="h3"
-                className="text-4xl font-medium leading-6 text-gray-900"
-              >
-                {title}
-              </Dialog.Title>
-
+            <div
+              className={`trans inline-block w-full max-w-${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+            >
               {children}
             </div>
           </Transition.Child>
@@ -58,11 +59,39 @@ export const ModalContainer: React.FC<IModalProps> = ({ title, children }) => {
 };
 
 export interface IButtonProps {
+  type: "close" | "open";
+  children: React.ReactNode;
+  onClick?: any;
+}
+
+export const Button: React.FC<IButtonProps> = ({ children, type, onClick }) => {
+  const { setIsOpen } = useModal();
+
+  const onClickFn = async () => {
+    await onClick().then(() => setIsOpen(false));
+  };
+
+  return (
+    <span
+      onClick={
+        onClick
+          ? () => onClickFn()
+          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
+      }
+    >
+      {children}
+    </span>
+  );
+};
+
+export interface IModalTitleProps {
   children: React.ReactNode;
 }
 
-export const Button: React.FC<IButtonProps> = ({ children }) => {
-  const { setIsOpen } = useModal();
-
-  return <button onClick={() => setIsOpen(true)}>{children}</button>;
+export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
+  return (
+    <div className="text-4xl font-medium tracking-wider text-gray-900">
+      {children}
+    </div>
+  );
 };

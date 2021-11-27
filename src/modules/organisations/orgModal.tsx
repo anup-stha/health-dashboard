@@ -65,11 +65,11 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
+              enterFrom="opacity-0 scale-95 -translate-y-32"
+              enterTo="opacity-100 scale-100 translate-y-0"
+              leave="ease-in duration-100"
+              leaveFrom="opacity-100 scale-100 translate-y-0"
+              leaveTo="opacity-0 scale-90 -translate-y-32"
             >
               <div className="inline-block w-full max-w-3xl p-10 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
                 <Dialog.Title

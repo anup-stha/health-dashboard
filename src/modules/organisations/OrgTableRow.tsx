@@ -1,11 +1,10 @@
 import { OrganisationDetailType } from "@/types";
 import { format } from "date-fns";
-import { MoreVertical, Trash } from "react-feather";
+import { MoreVertical } from "react-feather";
 
 import { OrganisationModal } from "./orgModal";
 import { BooleanTag } from "../../components/others/BooleanTag";
-import { toast } from "react-hot-toast";
-import { GrayButton, WarningButton } from "../../components/Button";
+
 import { alert } from "../../components/Alert";
 import { onDeleteOrg } from "@/services/requests/orgRequests";
 import { Popover, Transition } from "@headlessui/react";
@@ -16,6 +15,8 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { OrgTableLoadingState } from "@/components/state/TableLoadingState";
+
+import { DeleteModal } from "@/components/Modal/DeleteModal";
 
 type OrgTableRowType = {
   data?: OrganisationDetailType;
@@ -54,7 +55,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
             </div>
           </div>
         </td>
-        <td>
+        <td className="whitespace-nowrap text-lg">
           <BooleanTag
             type="error"
             condition={data && data.active}
@@ -63,7 +64,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
           />
           {data.active}
         </td>
-        <td className="whitespace-nowrap">
+        <td className="whitespace-nowrap text-lg">
           <BooleanTag
             type="error"
             condition={data && data.verified}
@@ -105,54 +106,25 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
               }}
               orgId={data.id}
             />
-            <Trash
-              name="delete"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
-              onClick={() =>
-                toast.custom(
-                  (t) => (
-                    <div
-                      className={`${
-                        t.visible ? "animate-enter" : "animate-leave"
-                      } max-w-md space-y-4 px-8 py-6 flex-col items-center text-center w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 `}
-                    >
-                      <p className="text-2xl font-bold">
-                        Do you want to delete {data.name} ?
-                      </p>
-                      <div className="flex space-x-4">
-                        <div className="">
-                          <WarningButton
-                            onClick={async () => {
-                              toast.dismiss(t.id);
-                              await alert({
-                                type: "promise",
-                                promise: onDeleteOrg(data.id),
-                                msgs: {
-                                  loading: `Deleting ${data.name}`,
-                                  success: () => {
-                                    return `Deleted ${data.name}`;
-                                  },
-                                  error: (data: any) => `${data}`,
-                                },
-                              });
-                            }}
-                          >
-                            Delete
-                          </WarningButton>
-                        </div>
-                        <div className="">
-                          <GrayButton onClick={() => toast.dismiss(t.id)}>
-                            Cancel
-                          </GrayButton>
-                        </div>
-                      </div>
-                    </div>
-                  ),
-                  {
-                    duration: Infinity,
-                  }
-                )
-              }
+            <DeleteModal
+              onDelete={async () => {
+                await alert({
+                  type: "promise",
+                  promise: onDeleteOrg(data.id),
+                  msgs: {
+                    loading: `Deleting ${data.name}`,
+                    success: () => {
+                      return `Deleted ${data.name}`;
+                    },
+                    error: (data: any) => `${data}`,
+                  },
+                });
+              }}
+              title="You are about to delete a organisation"
+              subTitles={[
+                "This will delete your organisation forever",
+                "Are you sure",
+              ]}
             />
             <Popover className="relative">
               {({ open }: any) => (
@@ -212,7 +184,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
                             className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
                           >
                             <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
-                              <p className=" font-medium  ">
+                              <p className=" font-medium whitespace-nowrap  ">
                                 Set as{" "}
                                 {!data.verified ? "Verified" : "Unverified"}
                               </p>
