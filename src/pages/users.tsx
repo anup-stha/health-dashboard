@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
+import withAuth from "@/hoc/withAuth";
 import type { NextPage } from "next";
 import { MainLayout } from "../layout/MainLayout";
 
@@ -22,4 +23,4 @@ const UserPage: NextPage = () => {
   );
 };
 
-export default UserPage;
+export default withAuth(UserPage);

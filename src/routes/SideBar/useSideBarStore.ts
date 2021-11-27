@@ -1,30 +1,20 @@
-import { isServer } from "@/services/isServer";
 import create from "zustand";
+import { combine, devtools, persist } from "zustand/middleware";
 
 const openState = "@sunya/sidebar-open-state";
 
-interface SideBarState {
-  open: boolean;
-  toggleOpen: () => void;
-}
+const initialState = {
+  open: false,
+};
 
-const stringToBoolean = (str: string | null) =>
-  str === "false" ? false : true;
-
-export const useSideBarStore = create<SideBarState>((set) => ({
-  open:
-    !isServer &&
-    (localStorage.getItem(openState) === undefined
-      ? false
-      : stringToBoolean(localStorage.getItem(openState))),
-
+export const store = combine(initialState, (set) => ({
   toggleOpen: () => {
     set((state) => {
-      localStorage.setItem(openState, (!state.open).toString());
-
-      return {
-        open: !state.open,
-      };
+      open: !state.open;
     });
   },
 }));
+
+export const useSideBarStore = create(
+  devtools(persist(store, { name: openState }))
+);

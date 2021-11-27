@@ -28,7 +28,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
             <TrashSimple />
           </div>
 
-          <div className="space-y-1 flex flex-col items-center">
+          <div className="space-y-1 flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold text-black">
               {title && "You are about to delete a organisation"}
             </h1>
