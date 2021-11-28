@@ -132,7 +132,7 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
                   <Popover.Button>
                     <MoreVertical
                       name="more-vertical"
-                      className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-2"
+                      className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-1"
                     />
                     <Transition
                       as={Fragment}

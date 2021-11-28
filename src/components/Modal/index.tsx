@@ -62,9 +62,15 @@ export interface IButtonProps {
   type: "close" | "open";
   children: React.ReactNode;
   onClick?: any;
+  width?: "full" | "auto";
 }
 
-export const Button: React.FC<IButtonProps> = ({ children, type, onClick }) => {
+export const Button: React.FC<IButtonProps> = ({
+  children,
+  type,
+  onClick,
+  width,
+}) => {
   const { setIsOpen } = useModal();
 
   const onClickFn = async () => {
@@ -72,15 +78,16 @@ export const Button: React.FC<IButtonProps> = ({ children, type, onClick }) => {
   };
 
   return (
-    <span
+    <div
       onClick={
         onClick
           ? () => onClickFn()
           : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
       }
+      className={`w-${width}`}
     >
       {children}
-    </span>
+    </div>
   );
 };
 

@@ -2,12 +2,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { SideBarNavItem as NavItem } from "@/routes/SideBar/SidebarNavItem";
-import { OrganisationNavRoutes as NavRoutes } from "./routes";
+import { AdminNavRoutes as NavRoutes } from "./routes";
 
 import Avatar from "@/styles/avatar.svg";
 import SuperUserIlustration from "@/styles/superuser-illustration.svg";
 import { useSideBarStore } from "./useSideBarStore";
-import { Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
+import React from "react";
 
 export const Sidebar: React.FC = () => {
   const { open } = useSideBarStore();
@@ -71,16 +72,75 @@ export const Sidebar: React.FC = () => {
 
         <div className="w-full">
           <ul className="flex flex-col w-full gap-y-2">
-            {NavRoutes.map((route) => (
-              <NavItem
-                link={route.link}
-                state={route.link === router.pathname ? "active" : "inactive"}
-                title={route.title}
-                key={route.title}
-              >
-                {route.icon}
-              </NavItem>
-            ))}
+            {NavRoutes.map((route) =>
+              route.link ? (
+                <NavItem
+                  link={route.link}
+                  state={route.link === router.pathname ? "active" : "inactive"}
+                  title={route.title}
+                  key={route.title}
+                >
+                  {route.icon}
+                </NavItem>
+              ) : (
+                route.sublinks && (
+                  <Menu>
+                    {({ open }) => {
+                      return (
+                        <>
+                          <Menu.Button>
+                            <NavItem
+                              mainItem={
+                                router.pathname === route.sublinks[0].link
+                                  ? true
+                                  : false
+                              }
+                              state={
+                                route.link === router.pathname
+                                  ? "active"
+                                  : "inactive"
+                              }
+                              title={route.title}
+                              key={route.title}
+                            >
+                              {route.icon}
+                            </NavItem>
+                          </Menu.Button>
+                          <Menu.Items
+                            static={
+                              route.sublinks &&
+                              route.sublinks[0].link === router.pathname
+                                ? true
+                                : open
+                            }
+                          >
+                            {route.sublinks &&
+                              route.sublinks.map((route, index) => (
+                                <React.Fragment key={index}>
+                                  <Menu.Item>
+                                    <NavItem
+                                      link={route.link}
+                                      state={
+                                        route.link === router.pathname
+                                          ? "active"
+                                          : "inactive"
+                                      }
+                                      title={route.title}
+                                      key={route.title}
+                                    >
+                                      {route.icon}
+                                    </NavItem>
+                                  </Menu.Item>
+                                </React.Fragment>
+                              ))}
+                          </Menu.Items>
+                        </>
+                      );
+                    }}
+                  </Menu>
+                )
+              )
+            )}
           </ul>
         </div>
       </div>

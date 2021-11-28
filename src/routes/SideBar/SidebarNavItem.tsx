@@ -3,9 +3,10 @@ import { useSideBarStore } from "./useSideBarStore";
 
 type SideBarNavItemProps = {
   state?: "active" | "inactive";
-  link: string;
+  link?: string;
   children: React.ReactNode;
   title: string;
+  mainItem?: boolean;
 };
 
 export const SideBarNavItem: React.FC<SideBarNavItemProps> = ({
@@ -13,30 +14,39 @@ export const SideBarNavItem: React.FC<SideBarNavItemProps> = ({
   link,
   children,
   title,
+  mainItem,
 }) => {
   const activeStyles =
-    "text-gray-900 bg-gray-200  py-4 rounded-lg cursor-pointer hover:bg-gray-200 group";
+    "text-gray-900 bg-gray-200  py-3 rounded-lg cursor-pointer hover:bg-gray-200 ";
   const inactiveStyles =
-    "text-gray-600 hover:text-gray-900 py-4 rounded-lg cursor-pointer hover:bg-white group";
+    "text-gray-600 hover:text-gray-900 py-3 rounded-lg cursor-pointer hover:bg-white ";
+  const mainItemStyles =
+    "text-gray-600 hover:text-gray-900 py-3 rounded-lg cursor-pointer bg-white ";
 
   const { open } = useSideBarStore();
   const router = useRouter();
 
   return (
     <li
-      className={state === "active" ? activeStyles : inactiveStyles}
-      onClick={() => router.push(link)}
+      className={
+        state === "active"
+          ? activeStyles
+          : mainItem
+          ? mainItemStyles
+          : inactiveStyles
+      }
+      onClick={() => link && router.push(link)}
     >
       <div
         className={`flex relative ${
           open
-            ? "items-start justify-start px-4"
-            : "items-center px-4 delay-300"
+            ? "items-start justify-start px-4 group"
+            : "items-center px-4 delay-300 group"
         }`}
       >
         <span
           className={
-            open ? "flex items-center gap-x-4" : "flex items-center gap-x-4"
+            open ? " flex items-center gap-x-4" : " flex items-center gap-x-4"
           }
         >
           {children}

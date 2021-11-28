@@ -20,7 +20,9 @@
     "@heroicons/react": "^1.0.5",
     "@storybook/addon-docs": "^6.3.10",
     "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/line-clamp": "^0.2.2",
     "@types/lodash": "^4.14.175",
+    "add": "^2.0.6",
     "apexcharts": "^3.28.3",
     "axios": "^0.23.0",
     "date-fns": "^2.24.0",
@@ -39,6 +41,7 @@
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0",
     "swr": "^1.0.1",
+    "yarn": "^1.22.17",
     "zustand": "^3.6.0"
   },
   "devDependencies": {

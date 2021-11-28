@@ -1,18 +1,18 @@
-import { Buildings, ChartLineUp, HouseSimple, Users } from "phosphor-react";
+import { Buildings, HouseSimple, Sliders, Users } from "phosphor-react";
 
-export const OrganisationNavRoutes = [
+export const AdminNavRoutes = [
   {
     title: "Dashboard",
     icon: <HouseSimple />,
     state: "active",
     link: "/dashboard",
   },
-  {
-    title: "Statistics",
-    icon: <ChartLineUp />,
-    state: "inactive",
-    link: "/stats",
-  },
+  // {
+  //   title: "Statistics",
+  //   icon: <ChartLineUp />,
+  //   state: "inactive",
+  //   link: "/stats",
+  // },
   {
     title: "Organisation",
     icon: <Buildings />,
@@ -20,9 +20,15 @@ export const OrganisationNavRoutes = [
     link: "/organisations",
   },
   {
-    title: "Users",
-    icon: <Users />,
-    state: "inactive",
-    link: "/users",
+    title: "Settings",
+    icon: <Sliders />,
+    sublinks: [
+      {
+        title: "Roles",
+        state: "inactive",
+        icon: <Users />,
+        link: "/admin/roles",
+      },
+    ],
   },
 ];

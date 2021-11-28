@@ -20,8 +20,8 @@ export const TableView: React.FC<TableViewPropsType> = ({
     <div className="flex flex-col">
       <div className="sm:-mx-8 lg:-mx-8">
         <div className="py-2 align-middle  min-w-full  sm:px-6 lg:px-8">
-          <div className="shadow-E500 overflow-x-auto overflow-y-hidden rounded-sm sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
+          <div className="shadow-E500 lg:overflow-x-auto lg:overflow-y-scroll  h-full z-0 rounded-sm sm:rounded-lg">
+            <table className="min-w-full divide-y divide-gray-200 ">
               <thead className="bg-gray-50">
                 <tr>
                   {headings.map((heading, index) => (

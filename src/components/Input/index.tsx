@@ -11,6 +11,15 @@ type InputProps = React.HTMLProps<HTMLInputElement> & {
   checkboxLabel?: string;
 };
 
+type TextAreaProps = React.HTMLProps<HTMLTextAreaElement> & {
+  field?: any;
+  error?: string;
+  props?: any;
+  className?: string;
+  showLabel?: boolean;
+  checkboxLabel?: string;
+};
+
 export const PrimaryInput: React.FC<InputProps> = ({
   id,
   error,
@@ -117,6 +126,43 @@ export const LabelInput: React.FC<InputProps> = ({
     <div className="relative w-full input">
       <input
         className={error ? "input_error" : "input_container"}
+        required
+        type={type ?? "text"}
+        value={value}
+        onChange={(e) => {
+          onChange && onChange(e);
+        }}
+        placeholder={placeholder}
+        {...field}
+        {...props}
+      />
+
+      <label htmlFor={id} className="input_label capitalize">
+        {field.name}
+      </label>
+    </div>
+  );
+};
+
+export const LabelTextArea: React.FC<TextAreaProps> = ({
+  id,
+  error,
+  type,
+  value,
+  onChange,
+  field,
+  props,
+  className,
+  placeholder,
+}) => {
+  return (
+    <div className="relative w-full input">
+      <textarea
+        className={
+          error
+            ? "input_error overflow-hidden h-32"
+            : "input_container overflow-hidden h-32"
+        }
         required
         type={type ?? "text"}
         value={value}

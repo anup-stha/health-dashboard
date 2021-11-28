@@ -8,7 +8,7 @@
 
 html,
 body {
-  padding: 0 !important;
+  padding: 0;
   margin: 0;
 
   @apply bg-gray-50 font-Nunito;
@@ -16,6 +16,7 @@ body {
 
 * {
   @apply font-Nunito tracking-wide;
+  line-height: normal;
 }
 
 input::-ms-reveal,
