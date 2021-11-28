@@ -9,9 +9,9 @@ const initialState = {
 
 export const store = combine(initialState, (set) => ({
   toggleOpen: () => {
-    set((state) => {
-      open: !state.open;
-    });
+    set((state) => ({
+      open: !state.open,
+    }));
   },
 }));
 
