@@ -12,4 +12,5 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </SkeletonTheme>
   );
 };
+
 export default MyApp;

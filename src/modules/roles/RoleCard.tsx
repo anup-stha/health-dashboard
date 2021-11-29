@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Warning } from "phosphor-react";
+import { useRouter } from "next/router";
 
 type RoleCardPropsType = {
   id: number;
@@ -15,6 +16,8 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
   description,
   permissionCount,
 }) => {
+  const router = useRouter();
+
   const containerStyle = `relative flex flex-col items-start justify-between overflow-hidden h-64 w-[32%] bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`;
   return permissionCount !== 0 ? (
     <div className={containerStyle}>
@@ -41,7 +44,12 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
-          <Button buttonSize="small">View</Button>
+          <Button
+            buttonSize="small"
+            onClick={() => router.push(`/admin/roles/${id}`)}
+          >
+            View
+          </Button>
           <div className="py-4 px-4 text-xl  font-medium text-gray-600 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200 cursor-pointer">
             Edit Permissions
           </div>
@@ -76,7 +84,12 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
-          <Button buttonSize="small">View</Button>
+          <Button
+            buttonSize="small"
+            onClick={() => router.push(`/admin/roles/${id}`)}
+          >
+            View
+          </Button>
           <div className="py-4 px-4 text-xl  font-medium text-gray-600 hover:text-white hover:bg-gray-600 rounded-md transition-colors duration-200 cursor-pointer">
             Edit Permissions
           </div>

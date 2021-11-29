@@ -102,3 +102,19 @@ export const WarningButton: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export const InfoButton: React.FC<ButtonProps> = ({
+  children,
+  extraClassName,
+  onClick,
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+};

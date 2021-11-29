@@ -14,6 +14,7 @@ const Dashboard: NextPage = () => {
   //     })
   //     .catch((error) => console.log(error));
   // };
+
   return (
     <MainLayout>
       <div className="flex items-center h-[80vh] justify-center">
