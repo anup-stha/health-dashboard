@@ -8,6 +8,7 @@ type RoleCardPropsType = {
   title: string;
   description: string;
   permissionCount: number;
+  memberLimit: number;
 };
 
 export const RoleCard: React.FC<RoleCardPropsType> = ({
@@ -15,22 +16,24 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
   title,
   description,
   permissionCount,
+  memberLimit,
 }) => {
   const router = useRouter();
 
-  const containerStyle = `relative flex flex-col items-start justify-between overflow-hidden h-64 w-[32%] bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`;
   return permissionCount !== 0 ? (
-    <div className={containerStyle}>
+    <div
+      className={`relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`}
+    >
       <div className="space-y-2">
         <div className="flex flex-col justify-between">
-          <h1 className="text-3xl font-semibold text-gray-800 h-">{title}</h1>
+          <h1 className="text-3xl font-semibold text-gray-800">{title}</h1>
           <div className="self-start text-lg text-gray-500 font-normal">
-            Total Permissions: {permissionCount}
+            Member Limit: {memberLimit} | Permissions: {permissionCount}
           </div>
         </div>
 
         <p className="text-lg font-medium text-gray-700 w-4/5 line-clamp-2">
-          {description}
+          {description} {/** 92 CHARS */}
         </p>
       </div>
       <div className="absolute -right-10 -bottom-4">
@@ -48,17 +51,14 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
             buttonSize="small"
             onClick={() => router.push(`/admin/roles/${id}`)}
           >
-            View
-          </Button>
-          <div className="py-4 px-4 text-xl  font-medium text-gray-600 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200 cursor-pointer">
             Edit Permissions
-          </div>
+          </Button>
         </div>
       </div>
     </div>
   ) : (
     <div
-      className={`relative flex flex-col items-start justify-between overflow-hidden h-64 w-[32%] bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-80 ring-1 ring-red-500 ring-opacity-10`}
+      className={`relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-80 ring-1 ring-red-500 ring-opacity-10`}
     >
       <div className="space-y-2">
         <div className="flex flex-col justify-between space-y-2">
@@ -88,11 +88,8 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
             buttonSize="small"
             onClick={() => router.push(`/admin/roles/${id}`)}
           >
-            View
-          </Button>
-          <div className="py-4 px-4 text-xl  font-medium text-gray-600 hover:text-white hover:bg-gray-600 rounded-md transition-colors duration-200 cursor-pointer">
             Edit Permissions
-          </div>
+          </Button>
         </div>
       </div>
     </div>

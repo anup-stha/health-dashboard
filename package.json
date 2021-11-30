@@ -42,6 +42,7 @@
     "sass-loader": "^12.1.0",
     "swr": "^1.0.1",
     "yarn": "^1.22.17",
+    "yup": "^0.32.11",
     "zustand": "^3.6.0"
   },
   "devDependencies": {

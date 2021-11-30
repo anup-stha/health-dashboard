@@ -2,7 +2,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-500 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
 
     &:focus {
       outline: none;
@@ -19,7 +19,7 @@
   }
 
   &_error {
-    @apply text-lg text-gray-500 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-500 border-solid w-full shadow-E200 block;
 
     &:focus {
       outline: none;

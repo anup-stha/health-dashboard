@@ -15,11 +15,11 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   onClick,
   width,
-  type,
+  type = "submit",
   buttonSize = "large",
 }: ButtonProps) => {
   const buttonPadding =
-    buttonSize === "small" ? "px-8 py-4 shadow-lg" : "px-12 py-4 shadow-E400";
+    buttonSize === "small" ? "px-8 py-4 shadow-md" : "px-12 py-4 shadow-E400";
 
   return (
     <button

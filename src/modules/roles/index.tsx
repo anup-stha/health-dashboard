@@ -9,13 +9,15 @@ const userRoleJSON = [
     description:
       "Developer has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 0,
+    memberLimit: 31,
   },
   {
     id: 1,
     title: "Super Admin",
     description:
-      "Super Admin has complete access to all objects, folders, role and groups in the system",
+      "Super Admin has complete access to all objects, folders, role and groups in the system Super Admin has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 40,
+    memberLimit: 12,
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ const userRoleJSON = [
     description:
       "Developer has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 12,
+    memberLimit: 21,
   },
 
   {
@@ -31,6 +34,7 @@ const userRoleJSON = [
     description:
       "Developer has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 12,
+    memberLimit: 11,
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ const userRoleJSON = [
     description:
       "Developer has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 12,
+    memberLimit: 31,
   },
   {
     id: 6,
@@ -45,6 +50,7 @@ const userRoleJSON = [
     description:
       "Developer has complete access to all objects, folders, role and groups in the system",
     permissionsCount: 12,
+    memberLimit: 20,
   },
 ];
 
@@ -58,7 +64,7 @@ const RolePage = () => {
             Click on any role to add, update or delete permissions
           </p>
         </div>
-        <div className="w-full py-12 flex flex-wrap gap-[1%] gap-y-5">
+        <div className="w-full py-12 grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-6">
           {userRoleJSON.map((role) => (
             <RoleCard
               key={role.id}
@@ -66,6 +72,7 @@ const RolePage = () => {
               title={role.title}
               description={role.description}
               permissionCount={role.permissionsCount}
+              memberLimit={role.memberLimit}
             />
           ))}
           <RoleModal type="add" />
