@@ -6,7 +6,7 @@ import RoleModal from "@/modules/roles/roleModal";
 
 const RoleDetailPage = () => {
   return (
-    <MainLayout>
+    <MainLayout name={["Role", "Permission"]}>
       <div className="px-10 py-10 overflow-visible sm:p-8">
         <div className="flex flex-col space-y-8">
           <div className="flex items-end space-x-2 ">

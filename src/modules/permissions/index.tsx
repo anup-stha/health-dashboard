@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/Button";
+import PermissionSaveModal from "./permissionSaveModal";
 
-const plans = [
+export const permissions = [
   {
     id: 1,
     name: "User Permission",
@@ -11,7 +12,7 @@ const plans = [
   },
   {
     id: 2,
-    name: "Edit PermissionEdit PermissionEdit PermissionEdit PermissionEdit Permission",
+    name: "Edit Permission",
     description: "lorem ipsum lorem Lorem ipsum dolor sit amet consectetur ",
   },
   {
@@ -47,11 +48,10 @@ const plans = [
 ];
 
 export const Permissions = () => {
-  const [selected, setSelected] = useState<typeof plans[0][]>([
-    plans[0],
-    plans[4],
+  const [selected, setSelected] = useState<typeof permissions[0][]>([
+    permissions[0],
+    permissions[4],
   ]);
-  const initialLength = useRef(selected.length);
 
   const inactiveClass =
     "h-40 w-full bg-white shadow-md flex flex-col rounded-md p-4";
@@ -59,7 +59,7 @@ export const Permissions = () => {
     "h-40 w-full bg-white shadow-E100 flex flex-col rounded-md p-4 ring-2 ring-opacity-90 ring-green-600 text-white transition-all duration-100";
 
   const selectHandler = (id: any) => {
-    const clickedItem = plans.filter((element) => element.id === id)[0];
+    const clickedItem = permissions.filter((element) => element.id === id)[0];
     const alreadyClickedItem = selected.filter((element) => element.id === id);
 
     if (alreadyClickedItem.length === 0) {
@@ -81,7 +81,7 @@ export const Permissions = () => {
         </p>
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 3xl:flex 3xl:flex-wrap gap-6">
-        {plans.map((select) => {
+        {permissions.map((select) => {
           const isItemSelected = selected.some(
             (element) => element.id === select.id
           );
@@ -127,11 +127,9 @@ export const Permissions = () => {
         })}
       </div>
       <div className="self-start">
-        {selected.length >= initialLength.current ? (
-          <Button>Add Permissions</Button>
-        ) : (
-          <Button>Remove Permissions</Button>
-        )}
+        <PermissionSaveModal
+          modalOpenButton={<Button>Save Permissions</Button>}
+        />
       </div>
     </div>
   );

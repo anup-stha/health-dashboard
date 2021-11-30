@@ -4,8 +4,10 @@ import {
   IButtonProps,
   IModalProps,
   IModalTitleProps,
+  IScrollableProps,
   ModalContent,
   ModalTitle,
+  Scrollable,
 } from ".";
 
 interface IModalContext {
@@ -17,6 +19,7 @@ interface IModalComposition {
   Content: React.FC<IModalProps>;
   Button: React.FC<IButtonProps>;
   Title: React.FC<IModalTitleProps>;
+  Scrollable: React.FC<IScrollableProps>;
 }
 
 export const ModalContext = React.createContext<IModalContext | undefined>(
@@ -51,5 +54,6 @@ export const useModal = (): IModalContext => {
 Modal.Content = ModalContent;
 Modal.Button = Button;
 Modal.Title = ModalTitle;
+Modal.Scrollable = Scrollable;
 
 export { Modal };

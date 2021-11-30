@@ -7,7 +7,7 @@ export const SideBarToggleButton = () => {
   return (
     <div
       onClick={() => toggleOpen()}
-      className={`z-50 fixed w-12 h-12 top-11 bg-green-500 text-3xl ${
+      className={`z-50 fixed w-12 h-12 top-8 bg-green-500 text-3xl ${
         !open
           ? "left-28 sm:left-[6.5rem]"
           : "left-[17.25%] translate-x-[-50%] sm:left-[55%] md:left-[37.5%] lg:left-[28%]"

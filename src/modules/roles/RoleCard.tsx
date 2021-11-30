@@ -49,7 +49,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             buttonSize="small"
-            onClick={() => router.push(`/admin/roles/${id}`)}
+            onClick={() => router.push(`/roles/${id}/`, "/roles/permissions")}
           >
             Edit Permissions
           </Button>
@@ -86,7 +86,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             buttonSize="small"
-            onClick={() => router.push(`/admin/roles/${id}`)}
+            onClick={() => router.push(`/roles/${id}`)}
           >
             Edit Permissions
           </Button>

@@ -27,7 +27,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
           />
         )}
       </Modal.Button>
-      <Modal.Content width="2xl">
+      <Modal.Content width="3xl">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="text-8xl text-red-500">
             <TrashSimple />

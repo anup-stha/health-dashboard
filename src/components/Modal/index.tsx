@@ -96,8 +96,16 @@ export interface IModalTitleProps {
 }
 
 export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
+  return <div className="text-4xl font-medium text-gray-900">{children}</div>;
+};
+
+export interface IScrollableProps {
+  children: React.ReactNode;
+}
+
+export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
   return (
-    <div className="text-4xl font-medium tracking-wider text-gray-900">
+    <div className="overflow-y-scroll min-h-[50vh] h-[50vh] p-0.5 sidebar">
       {children}
     </div>
   );
