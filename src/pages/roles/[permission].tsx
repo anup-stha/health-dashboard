@@ -1,5 +1,6 @@
 import { WarningButton } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
+import withAuth from "@/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 import { Permissions } from "@/modules/permissions";
 import RoleModal from "@/modules/roles/roleModal";
@@ -66,4 +67,4 @@ const RoleDetailPage = () => {
   );
 };
 
-export default RoleDetailPage;
+export default withAuth(RoleDetailPage);

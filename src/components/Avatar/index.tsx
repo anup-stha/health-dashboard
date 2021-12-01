@@ -4,7 +4,7 @@ import Image from "next/image";
 import Avatar from "./Ed.png";
 import AvatarImage from "../../styles/avatar.svg";
 import { Popover, Transition } from "@headlessui/react";
-import { useTokenStore } from "../../modules/auth/useTokenStore";
+import { useAuthStore } from "../../modules/auth/useTokenStore";
 import { logoutUser } from "../../services/requests";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
@@ -83,9 +83,9 @@ export const ImageAvatar: React.FC = () => {
   const onLogOut = async () => {
     await logoutUser()
       .then(() => {
-        useTokenStore.getState().removeTokens();
+        useAuthStore.getState().removeUserData();
       })
-      .catch((error) => useTokenStore.getState().removeTokens());
+      .catch((error) => useAuthStore.getState().removeUserData());
   };
   const { push } = useRouter();
   return (

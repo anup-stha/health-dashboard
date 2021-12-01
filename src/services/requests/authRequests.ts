@@ -1,17 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { useTokenStore } from "@/modules/auth/useTokenStore";
-import {
-  LoginRefreshRequest,
-  LoginRequest,
-  LoginResponse,
-  LogoutRequest,
-  OrganisationDetailType,
-  OrganisationListType,
-  OrganisationRequestType,
-  User,
-  UserList,
-  UserRequest,
-} from "@/types";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { LoginRequest, LoginResponse } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/v1/";
@@ -26,15 +14,15 @@ const publicAgent = axios.create({
 
 privateAgent.interceptors.request.use(
   (config) => {
-    const accessToken = useTokenStore.getState().accessToken;
-    if (accessToken && config.headers) {
-      config.headers["Authorization"] = `JWT ${accessToken}`;
+    const token = useAuthStore.getState().token;
+    if (token && config.headers) {
+      config.headers["Authorization"] = `${token}`;
     }
 
     return config;
   },
   (error) => {
-    useTokenStore.getState().removeTokens();
+    useAuthStore.getState().removeUserData();
   }
 );
 
@@ -45,28 +33,26 @@ privateAgent.interceptors.response.use(
   },
   function (error) {
     const originalRequest = error.config;
-    const refreshToken = useTokenStore.getState().refreshToken;
-    if (
-      refreshToken &&
-      error?.response?.status === 401 &&
-      !originalRequest._retry
-    ) {
+    const token = useAuthStore.getState().token;
+    if (token && error?.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshRequest: LoginRefreshRequest = { refresh: refreshToken };
+      const axiosConfig = {
+        headers: {
+          Authorization: token,
+        },
+      };
+
       return axios
-        .post(`${baseURL}/auth/refresh/`, refreshRequest)
+        .post(`${baseURL}auth/refresh/`, axiosConfig)
         .then((res: any) => {
           if (res.status === 200) {
-            const tokenData: string = res.data.access;
-            useTokenStore.getState().setTokens({
-              accessToken: tokenData,
-              refreshToken: refreshToken,
-            });
+            const tokenData = res.data.data;
+            useAuthStore.getState().setToken(tokenData);
             return privateAgent(originalRequest);
           }
         })
         .catch(() => {
-          useTokenStore.getState().removeTokens();
+          useAuthStore.getState().removeUserData();
         });
     }
     return Promise.reject(error);
@@ -76,70 +62,41 @@ privateAgent.interceptors.response.use(
 export const login = (
   loginRequest: LoginRequest
 ): Promise<AxiosResponse<LoginResponse>> => {
-  return publicAgent.post(`auth/login/`, loginRequest);
+  return publicAgent.post(`auth/login`, loginRequest);
 };
 
 export const logOut = (): Promise<AxiosResponse> => {
-  const refresh = useTokenStore.getState().refreshToken;
-  const body: LogoutRequest = { refresh: refresh };
-  return privateAgent.post("auth/revoke/", body);
+  return privateAgent.post("auth/logout/");
 };
 
-export const verifyToken = (token: string): Promise<AxiosResponse> => {
-  return publicAgent.post("auth/verify/", { token });
-};
+// export const listOrganisations = (): Promise<
+//   AxiosResponse<OrganisationListType>
+// > => {
+//   return privateAgent.get("organisations/");
+// };
 
-export const createUser = (body: UserRequest): Promise<AxiosResponse<User>> => {
-  return privateAgent.post("users/", body);
-};
+// export const addOrganisations = (
+//   organisation: OrganisationRequestType
+// ): Promise<AxiosResponse<OrganisationDetailType>> => {
+//   return privateAgent.post("organisations/", organisation);
+// };
 
-export const listUserDetails = ({ id }: any): Promise<AxiosResponse<User>> => {
-  return privateAgent.get(`users/${id}/`);
-};
+// export const editOrganisations = (
+//   organisation: OrganisationRequestType,
+//   id: string | number
+// ): Promise<AxiosResponse<OrganisationDetailType>> => {
+//   return privateAgent.put(`organisations/${id}/`, organisation);
+// };
 
-export const listUserList = (): Promise<AxiosResponse<UserList>> => {
-  return privateAgent.get(`users/`);
-};
+// export const deleteOrganisations = (
+//   id: string | number
+// ): Promise<AxiosResponse<OrganisationDetailType>> => {
+//   return privateAgent.delete(`organisations/${id}/`);
+// };
 
-export const listOrganisations = (): Promise<
-  AxiosResponse<OrganisationListType>
-> => {
-  return privateAgent.get("organisations/");
-};
-
-export const deleteUser = (id: string | number): Promise<AxiosResponse> => {
-  return privateAgent.delete(`users/${id}/`);
-};
-
-export const editUser = (
-  body: UserRequest,
-  id: string | number
-): Promise<AxiosResponse<User>> => {
-  return privateAgent.put(`users/${id}/`, body);
-};
-
-export const addOrganisations = (
-  organisation: OrganisationRequestType
-): Promise<AxiosResponse<OrganisationDetailType>> => {
-  return privateAgent.post("organisations/", organisation);
-};
-
-export const editOrganisations = (
-  organisation: OrganisationRequestType,
-  id: string | number
-): Promise<AxiosResponse<OrganisationDetailType>> => {
-  return privateAgent.put(`organisations/${id}/`, organisation);
-};
-
-export const deleteOrganisations = (
-  id: string | number
-): Promise<AxiosResponse<OrganisationDetailType>> => {
-  return privateAgent.delete(`organisations/${id}/`);
-};
-
-export const toggleActiveOrg = (
-  body: any,
-  id: string | number
-): Promise<AxiosResponse<any>> => {
-  return privateAgent.put(`organisations/${id}/`, body);
-};
+// export const toggleActiveOrg = (
+//   body: any,
+//   id: string | number
+// ): Promise<AxiosResponse<any>> => {
+//   return privateAgent.put(`organisations/${id}/`, body);
+// };

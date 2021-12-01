@@ -1,122 +1,22 @@
 /* eslint-disable no-unused-vars */
+
+import { number } from "yup/lib/locale";
+
 /* eslint-disable camelcase */
 export interface ChartData {
   [index: string | number]: string | number | any;
 }
 
+type Id = string | number;
 enum Gender {
   Male = "male",
   Female = "female",
   Other = "other",
 }
 
-enum SubscriptionType {
-  User = "user_subscription",
-  Entity = "entity_subscription",
-}
-
-export type LoginRequest = {
-  username: string;
-  password: string;
-};
-
 export type AuthToken = {
   access_token: string;
   refresh_token: string;
-};
-
-export type BaseUser = {
-  username: string;
-  phone: string;
-  email: string;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
-  gender: Gender;
-  dob: string;
-  age: number;
-  landline: string;
-  address: string;
-  municipality: string;
-  district: string;
-  nationality: string;
-  marital_status: string;
-  date_joined: string;
-  updated_at: string;
-  pwd_change_code: string;
-  is_active: boolean;
-  is_email_verified: boolean;
-  is_phone_verified: boolean;
-  is_staff: boolean;
-  is_admin: boolean;
-};
-
-export type SubscriptionStats = {
-  patient_count: number;
-  vital_tests_count: number;
-};
-
-type SubscriptionPlan = {
-  id: string;
-  plan_name: string;
-  num_of_tests: number;
-  sync_limit: number;
-  unlimites_tests: boolean;
-  slug: string;
-  plan_description: string;
-  grace_period: string;
-};
-
-type PlanCost = {
-  id: string;
-  plan: SubscriptionPlan;
-  unlimites_tests: boolean;
-  slug: string;
-  recurrence_period: number;
-  recurrence_unit: string;
-  display_recurrent_unit_text: string;
-  display_billing_frequency_text: string;
-  cost: number;
-};
-
-type VitalResource = {
-  id: number;
-  start_date: string;
-  end_date: string;
-  max_tests: number;
-  unlimited_tests: boolean;
-  remaining_tests: number;
-};
-
-type Resource = {
-  id: number;
-  vital: VitalResource;
-};
-
-type BaseSubscription = {
-  id: string;
-  resource: Resource;
-  subscription: PlanCost;
-  date_billing_start: string;
-  date_billing_end: string;
-  date_billing_last: string;
-  date_billing_next: string;
-  active: boolean;
-  cancelled: boolean;
-};
-
-export type UserSubscription = BaseSubscription & {
-  user: string;
-};
-
-export type EntitySubscription = BaseSubscription & {
-  entity: string;
-  users_quota: number;
-};
-
-export type LoginResponse = {
-  access: string;
-  refresh: string;
 };
 
 export type LogoutRequest = {
@@ -154,7 +54,7 @@ export type OrganisationRequestType = {
   owner: string;
 };
 
-export type User = {
+export type UserType = {
   id: string | number;
   firstName: string;
   lastName: string;
@@ -187,4 +87,48 @@ export type OrgaisationMeta = {
   address?: string;
   municipality?: string;
   ward?: string;
+};
+
+type StatusType = {
+  status: boolean;
+  message: string;
+};
+
+type Permission = {
+  id: Id;
+  name: string;
+  description: string;
+};
+
+type Role = {
+  id: Id;
+  name: string;
+  member_limit: number;
+  public: boolean;
+  permission: Permission[];
+};
+
+export type User = {
+  id: Id;
+  email: string;
+  member_id: string | number;
+  name: string;
+  phone: string;
+  address: string;
+  image: string;
+  active: boolean;
+  verified: boolean;
+  role: Role;
+};
+
+export type LoginResponse = StatusType & {
+  data: {
+    token: string;
+    user: User;
+  };
+};
+
+export type LoginRequest = {
+  email: string;
+  password: string;
 };

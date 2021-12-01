@@ -1,47 +1,56 @@
-import type { NextPage } from "next";
-import { useEffect } from "react";
-import Head from "next/head";
+// import type { NextPage } from "next";
+// import { useEffect } from "react";
+// import Head from "next/head";
 
-import withAuth from "@/hoc/withAuth";
-import OrganisationPage from "@/modules/organisations";
-import { useOrgStore } from "@/modules/organisations/useOrgStore";
-import { listOrganisations } from "@/services/requests/authRequests";
+import { MainLayout } from "@/layout/MainLayout";
 
-const Organisation: NextPage = () => {
-  const {
-    orgList: orgList,
-    setOrgList,
-    toggleLoading,
-    setError,
-  } = useOrgStore();
+// import withAuth from "@/hoc/withAuth";
+// import OrganisationPage from "@/modules/organisations";
+// import { useOrgStore } from "@/modules/organisations/useOrgStore";
+// import { listOrganisations } from "@/services/requests/authRequests";
 
-  useEffect(() => {
-    const listOrg = async () => {
-      toggleLoading();
-      await listOrganisations()
-        .then((response) => {
-          setOrgList(response.data);
-          toggleLoading();
-        })
-        .catch((error) => {
-          toggleLoading();
-          setError(error);
-        });
-    };
+// cconst Organisation: NextPage = () => {
+//   const {
+//   const {
+//     orgList: orgList,
+//     setOrgList,
+//     toggleLoading,
+//     setError,
+//   } = useOrgStore();
 
-    orgList.length === 0 && listOrg();
-  }, []);
+//   useEffect(() => {
+//     const listOrg = async () => {
+//       toggleLoading();
+//       await listOrganisations()
+//         .then((response) => {
+//           setOrgList(response.data);
+//           toggleLoading();
+//         })
+//         .catch((error) => {
+//           toggleLoading();
+//           setError(error);
+//         });
+//     };
 
-  /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
+//     orgList.length === 0 && listOrg();
+//   }, []);
 
-  return (
-    <>
-      <Head>
-        <title>Organisations</title>
-      </Head>
-      <OrganisationPage />
-    </>
-  );
+//   /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
+
+//   return (
+//     <>
+//       <Head>
+//         <title>Organisations</title>
+//       </Head>
+//       <OrganisationPage />
+//     </>
+//   );
+// };
+
+// export default withAuth(Organisation);
+
+const Organisations = () => {
+  return <MainLayout></MainLayout>;
 };
 
-export default withAuth(Organisation);
+export default Organisations;

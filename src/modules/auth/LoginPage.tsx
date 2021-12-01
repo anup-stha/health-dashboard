@@ -1,32 +1,29 @@
 import { loginUser } from "@/services/requests";
-import { useTokenStore } from "@/modules/auth/useTokenStore";
 import { LoginRequest } from "@/types";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
 import LoginForm from "./LoginForm";
+import { useAuthStore } from "./useTokenStore";
 import LoginAvatar from "/public/login-icon.svg";
 
 export const LoginPage = () => {
   const router = useRouter();
 
   const onLogin = async (email: string, password: string) => {
-    const request: LoginRequest = { username: email, password };
+    const request: LoginRequest = { email, password };
 
     return new Promise(
       async (resolve, reject) =>
         await loginUser(request)
           .then((response) => {
-            useTokenStore.getState().setTokens({
-              accessToken: response.data.access,
-              refreshToken: response.data.refresh,
-            });
+            useAuthStore.getState().setUserData(response.data);
             router.push("/dashboard");
             resolve("Logged In");
           })
           .catch((error) => {
-            reject(error.response ? error.response.data.detail : error);
+            reject(new Error("Invalid email or password"));
             console.log(error);
           })
     );

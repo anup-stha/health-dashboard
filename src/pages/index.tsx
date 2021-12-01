@@ -1,20 +1,18 @@
-import { LoginPage } from "@/modules/auth/LoginPage";
-import { useTokenStore } from "@/modules/auth/useTokenStore";
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as React from "react";
+import { LoginPage } from "@/modules/auth/LoginPage";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const hasTokens = useTokenStore(
-    (s: any) => !!(s.accessToken && s.refreshToken)
-  );
+  const hasTokens = useAuthStore((s) => !!s.token);
 
-  React.useEffect(() => {
+  useEffect(() => {
     hasTokens && router.push("/dashboard");
   }, [hasTokens, router]);
 
-  return !hasTokens ? <LoginPage /> : <div>Loading</div>;
+  return !hasTokens ? <LoginPage /> : <div>loading</div>;
 };
 
 export default Home;
