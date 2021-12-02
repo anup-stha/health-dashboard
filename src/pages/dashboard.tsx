@@ -1,24 +1,15 @@
 import { NextPage } from "next";
 import withAuth from "@/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
-import { ImageAvatar } from "@/components/Avatar";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 const Dashboard: NextPage = () => {
-  // const [loading, setLoading] = useState(false);
-  // const onLogOut = async () => {
-  //   setLoading(true);
-  //   await logoutUser()
-  //     .then(() => {
-  //       useTokenStore.getState().removeTokens();
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const role = useAuthStore().user.role;
 
   return (
     <MainLayout>
-      <div className="flex items-center h-[80vh] justify-center">
-        <ImageAvatar />
+      <div className="flex items-center h-[80vh] justify-center text-5xl font-bold">
+        You have {role && role.name} access
       </div>
     </MainLayout>
   );

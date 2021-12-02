@@ -100,7 +100,8 @@ module.exports = {
         default: "0.5rem",
       },
       fontFamily: {
-        Nunito: "Raleway",
+        Raleway: "Raleway",
+        Inter: "Inter",
       },
     },
   },

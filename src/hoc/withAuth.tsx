@@ -1,20 +1,15 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useAuthStore } from "../modules/auth/useTokenStore";
+import Error from "next/error";
 
 const withAuth = (WrappedComponent: React.FC) => {
   const RequireAuthentication = (props: React.Props<any>) => {
-    // const storeAccessToken = useTokenStore.getState().accessToken;
-    // const [isAuthenticated, setIsAuthenticated] = useState(!!storeAccessToken);
-    // const router = useRouter();
-
-    // useEffect(() => {
-    //   if (!isAuthenticated) router.push(`/`);
-    // }, [isAuthenticated, router]);
-
     const accessToken = useAuthStore.getState().token;
+
     const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
     const router = useRouter();
+    console.log(router.pathname);
 
     useEffect(() => {
       setIsAuthenticated(!!accessToken);
@@ -33,7 +28,11 @@ const withAuth = (WrappedComponent: React.FC) => {
       }
     }, [isAuthenticated, router, accessToken]);
 
-    return accessToken ? <WrappedComponent {...props} /> : <div>Loading</div>;
+    return accessToken ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <Error statusCode={404} />
+    );
   };
   return RequireAuthentication;
 };

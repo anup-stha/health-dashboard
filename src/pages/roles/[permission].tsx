@@ -1,13 +1,14 @@
 import { WarningButton } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import withAuth from "@/hoc/withAuth";
+import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { Permissions } from "@/modules/permissions";
 import RoleModal from "@/modules/roles/roleModal";
 
 const RoleDetailPage = () => {
   return (
-    <MainLayout name={["Role", "Permission"]}>
+    <MainLayout>
       <div className="px-10 py-10 overflow-visible sm:p-8">
         <div className="flex flex-col space-y-8">
           <div className="flex items-end space-x-2 ">
@@ -67,4 +68,4 @@ const RoleDetailPage = () => {
   );
 };
 
-export default withAuth(RoleDetailPage);
+export default withRole(withAuth(RoleDetailPage));

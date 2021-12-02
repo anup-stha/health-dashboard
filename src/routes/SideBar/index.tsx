@@ -1,23 +1,20 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
-
-import { SideBarNavItem as NavItem } from "@/routes/SideBar/SidebarNavItem";
-import { AdminNavRoutes as NavRoutes } from "./routes";
-
 import Avatar from "@/styles/avatar.svg";
 import SuperUserIlustration from "@/styles/superuser-illustration.svg";
 import { useSideBarStore } from "./useSideBarStore";
-import { Menu, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import React from "react";
+import { NavBar } from "./NavBar";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 export const Sidebar: React.FC = () => {
   const { open } = useSideBarStore();
-  const router = useRouter();
+  const { user } = useAuthStore();
   return (
     <nav
       className={`${
-        open ? "w-1/6 p-6 sm:w-1/2 md:w-1/3 lg:w-1/4" : "w-24 p-4"
-      } transition-all duration-100 h-screen min-h-0 z-30 fixed shadow-E600 bg-warmGray-100 space-y-12 sidebar  text-3xl flex flex-col justify-between `}
+        open ? "w-1/6 px-4 py-6 sm:w-1/2 md:w-1/3 lg:w-1/4" : "w-24 p-4"
+      } transition-all duration-100 h-screen min-h-0 z-30 fixed shadow-E600 bg-white space-y-12 sidebar  text-3xl flex flex-col justify-between `}
       style={{
         scrollbarWidth: "none",
         msOverflowStyle: "none",
@@ -35,7 +32,7 @@ export const Sidebar: React.FC = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-xs">
+              <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
                 <div className="w-16 h-16 object-contain  relative">
                   <Image
                     src={Avatar}
@@ -47,10 +44,10 @@ export const Sidebar: React.FC = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-black font-semibold text-xl overflow-hidden truncate">
-                    Admin Person
+                    {user.name}
                   </span>
-                  <span className="text-gray-500 font-semibold tracking-wider text-sm ">
-                    Superuser
+                  <span className="text-gray-500 font-semibold tracking-wider text-base ">
+                    {user.role && user.role.name}
                   </span>
                 </div>
               </div>
@@ -69,80 +66,7 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
         )}
-
-        <div className="w-full">
-          <ul className="flex flex-col w-full gap-y-2">
-            {NavRoutes.map((route) =>
-              route.link ? (
-                <NavItem
-                  link={route.link}
-                  state={route.link === router.pathname ? "active" : "inactive"}
-                  title={route.title}
-                  key={route.title}
-                >
-                  {route.icon}
-                </NavItem>
-              ) : (
-                route.sublinks && (
-                  <Menu>
-                    {({ open }) => {
-                      return (
-                        <>
-                          <Menu.Button>
-                            <NavItem
-                              mainItem={
-                                router.pathname === route.sublinks[0].link
-                                  ? true
-                                  : false
-                              }
-                              state={
-                                route.link === router.pathname
-                                  ? "active"
-                                  : "inactive"
-                              }
-                              title={route.title}
-                              key={route.title}
-                            >
-                              {route.icon}
-                            </NavItem>
-                          </Menu.Button>
-                          <Menu.Items
-                            static={
-                              route.sublinks &&
-                              route.sublinks[0].link === router.pathname
-                                ? true
-                                : open
-                            }
-                          >
-                            {route.sublinks &&
-                              route.sublinks.map((route, index) => (
-                                <React.Fragment key={index}>
-                                  <Menu.Item>
-                                    <NavItem
-                                      link={route.link}
-                                      state={
-                                        route.link === router.pathname
-                                          ? "active"
-                                          : "inactive"
-                                      }
-                                      title={route.title}
-                                      key={route.title}
-                                    >
-                                      {route.icon}
-                                    </NavItem>
-                                  </Menu.Item>
-                                </React.Fragment>
-                              ))}
-                          </Menu.Items>
-                        </>
-                      );
-                    }}
-                  </Menu>
-                )
-              )
-            )}
-          </ul>
-        </div>
+        <NavBar />
       </div>
       {open && (
         <Transition appear show={open} as="div">

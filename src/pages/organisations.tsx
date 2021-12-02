@@ -2,6 +2,8 @@
 // import { useEffect } from "react";
 // import Head from "next/head";
 
+import withAuth from "@/hoc/withAuth";
+import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 
 // import withAuth from "@/hoc/withAuth";
@@ -53,4 +55,4 @@ const Organisations = () => {
   return <MainLayout></MainLayout>;
 };
 
-export default Organisations;
+export default withRole(withAuth(Organisations));
