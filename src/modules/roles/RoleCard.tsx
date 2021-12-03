@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Warning } from "phosphor-react";
 import { useRouter } from "next/router";
+import { useRoleStore } from "./useRoleStore";
 
 type RoleCardPropsType = {
   id: number | string;
@@ -21,8 +22,6 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
   isPublic,
 }) => {
   const router = useRouter();
-  console.log(router.pathname);
-
   return permissionCount !== 0 ? (
     <div
       className={`relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`}
@@ -43,7 +42,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="absolute -right-10 -bottom-4">
         <div className="w-44 h-44 relative">
           <Image
-            src={`/assets/avatar${Math.floor(Math.random() * 5) + 1}.svg`}
+            src={`/assets/avatar${Math.floor(Math.random() * 3) + 1}.svg`}
             alt="Super User Admin Image"
             layout="fill"
           />
@@ -53,7 +52,10 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             buttonSize="small"
-            onClick={() => router.push(`/roles/${id}/`)}
+            onClick={() => {
+              useRoleStore.getState().setSelectedId(Number(id));
+              router.push(`/roles/${id}`);
+            }}
           >
             Edit Permissions
           </Button>
@@ -80,7 +82,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="absolute -right-10 -bottom-4">
         <div className="w-44 h-44 relative">
           <Image
-            src={`/assets/avatar${id}.svg`}
+            src={`/assets/avatar${1}.svg`}
             alt="Super User Admin Image"
             layout="fill"
           />
@@ -90,7 +92,10 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             buttonSize="small"
-            onClick={() => router.push(`/roles/${id}`)}
+            onClick={() => {
+              useRoleStore.getState().setSelectedId(Number(id));
+              router.push(`/roles/${id}`);
+            }}
           >
             Edit Permissions
           </Button>

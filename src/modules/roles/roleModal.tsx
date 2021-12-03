@@ -1,12 +1,17 @@
 import { Button, InfoButton } from "@/components/Button";
 import { LabelInput, LabelTextArea, Switch } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
-import { addRole, updateRole } from "@/services/requests/authRequests";
+import {
+  addRole,
+  listRole,
+  updateRole,
+} from "@/services/requests/authRequests";
 import { Field, Formik } from "formik";
 import { useRouter } from "next/router";
 import { Plus } from "phosphor-react";
-import { useEffect, useState } from "react";
+
 import * as Yup from "yup";
+
 import { useRoleStore } from "./useRoleStore";
 
 type RoleModalProps = {
@@ -19,23 +24,12 @@ const RoleSchema = Yup.object().shape({
 
 const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
   const router = useRouter();
-  const [role, setRole] = useState(
-    router.query.permission
-      ? useRoleStore
-          .getState()
-          .roleList.filter((element) => element.id == router.query.permission)
-      : [{ name: "", desc: "", member_limit: "", public: false }]
-  );
 
-  useEffect(() => {
-    setRole(
-      useRoleStore
-        .getState()
-        .roleList.filter((element) => element.id == router.query.permission)
-    );
-  }, [router]);
-
-  const { roleList } = useRoleStore();
+  const role = useRoleStore
+    .getState()
+    .roleList.filter(
+      (element) => element.id == useRoleStore.getState().selectedId
+    )[0];
 
   const initialValues =
     type === "add"
@@ -46,10 +40,10 @@ const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
           public: false,
         }
       : {
-          title: role[0] ? role[0].name : "",
-          description: role[0] ? role[0].desc : "",
-          memberLimit: role[0] ? role[0].member_limit : "",
-          public: role[0] ? role[0].public : false,
+          title: role ? role.name : "",
+          description: role ? role.desc : "",
+          memberLimit: role ? role.member_limit : "",
+          public: role ? role.public : false,
         };
 
   return (
@@ -96,11 +90,14 @@ const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
                   description: values.description,
                 }).then((response) => {
                   console.log(response);
-                  const updatedRole = response.data.data;
-                  const index = roleList.findIndex(
-                    (element) => element.id === updatedRole.id
-                  );
-                  role.splice(index, 1, updatedRole);
+                  async () => {
+                    const listRoles = async () => {
+                      await listRole().then((response) => {
+                        useRoleStore.getState().setRoleList(response.data.data);
+                      });
+                    };
+                    listRoles();
+                  };
                 });
           }}
         >
