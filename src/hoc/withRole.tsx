@@ -2,7 +2,6 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { adminRoutes } from "@/routes/SideBar/routes";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Error from "next/error";
 
 export const withRole = (WrappedComponent: React.FC) => {
   const RequirePermission = (props: React.Props<any>) => {
@@ -23,11 +22,7 @@ export const withRole = (WrappedComponent: React.FC) => {
         }
       }
     }, [router, role, rolePermitted]);
-    return rolePermitted ? (
-      <WrappedComponent {...props} />
-    ) : (
-      <Error statusCode={404} />
-    );
+    return rolePermitted ? <WrappedComponent {...props} /> : <div>Loading</div>;
   };
   return RequirePermission;
 };

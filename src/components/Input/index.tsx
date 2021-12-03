@@ -180,3 +180,38 @@ export const LabelTextArea: React.FC<TextAreaProps> = ({
     </div>
   );
 };
+
+export const Switch: React.FC<InputProps> = ({
+  id,
+  error,
+  type,
+  value,
+  onChange,
+  field,
+  props,
+  className,
+  placeholder,
+  checked,
+}) => {
+  return (
+    <div className="  mb-12">
+      <label htmlFor={field.name} className="flex items-center cursor-pointer">
+        <div className="input_label capitalize mr-4">{placeholder}</div>
+
+        <div className="relative">
+          <input
+            id={field.name}
+            type="checkbox"
+            className="sr-only"
+            checked={checked}
+            {...field}
+            {...props}
+          />
+          <div className="w-14 h-6 bg-gray-400 rounded-full shadow-inner"></div>
+
+          <div className="dot absolute w-8 h-8 bg-red-500 rounded-full shadow -left-1 -top-1 transition"></div>
+        </div>
+      </label>
+    </div>
+  );
+};

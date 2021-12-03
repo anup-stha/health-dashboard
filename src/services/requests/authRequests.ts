@@ -1,5 +1,10 @@
 import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { LoginRequest, LoginResponse } from "@/types";
+import {
+  LoginRequest,
+  LoginResponse,
+  RoleGetRequestResponse,
+  RolePostRequestResponse,
+} from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/v1/";
@@ -62,11 +67,59 @@ privateAgent.interceptors.response.use(
 export const login = (
   loginRequest: LoginRequest
 ): Promise<AxiosResponse<LoginResponse>> => {
-  return publicAgent.post(`auth/login`, loginRequest);
+  return publicAgent.post(`auth/login`, {
+    email: loginRequest.email,
+    password: loginRequest.password,
+    device_type: "w",
+  });
 };
 
 export const logOut = (): Promise<AxiosResponse> => {
   return privateAgent.post("auth/logout/");
+};
+
+export const listRole = (): Promise<AxiosResponse<RoleGetRequestResponse>> => {
+  return privateAgent.get("role/");
+};
+
+export const addRole = ({
+  name,
+  memberLimit,
+  isPublic,
+  description,
+}: {
+  name: string;
+  memberLimit: number;
+  isPublic: boolean;
+  description: string;
+}): Promise<AxiosResponse<RolePostRequestResponse>> => {
+  return privateAgent.post("role/store/", {
+    name,
+    member_limit: memberLimit,
+    public: isPublic ? 1 : 0,
+    desc: description,
+  });
+};
+
+export const updateRole = ({
+  id,
+  name,
+  memberLimit,
+  isPublic,
+  description,
+}: {
+  id: string | number;
+  name: string;
+  memberLimit: number;
+  isPublic: boolean;
+  description: string;
+}): Promise<AxiosResponse<RolePostRequestResponse>> => {
+  return privateAgent.post(`role/update/${id}`, {
+    name,
+    member_limit: memberLimit,
+    public: isPublic ? 1 : 0,
+    desc: description,
+  });
 };
 
 // export const listOrganisations = (): Promise<

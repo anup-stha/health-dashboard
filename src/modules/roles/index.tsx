@@ -1,60 +1,11 @@
 import { MainLayout } from "@/layout/MainLayout";
 import { RoleCard } from "./RoleCard";
 import RoleModal from "./roleModal";
-
-const userRoleJSON = [
-  {
-    id: 3,
-    title: "Assistant Developer",
-    description:
-      "Developer has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 0,
-    memberLimit: 31,
-  },
-  {
-    id: 1,
-    title: "Super Admin",
-    description:
-      "Super Admin has complete access to all objects, folders, role and groups in the system Super Admin has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 40,
-    memberLimit: 12,
-  },
-  {
-    id: 2,
-    title: "Main Developer",
-    description:
-      "Developer has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 12,
-    memberLimit: 21,
-  },
-
-  {
-    id: 4,
-    title: "Marketing",
-    description:
-      "Developer has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 12,
-    memberLimit: 11,
-  },
-  {
-    id: 5,
-    title: "Account",
-    description:
-      "Developer has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 12,
-    memberLimit: 31,
-  },
-  {
-    id: 6,
-    title: "Support",
-    description:
-      "Developer has complete access to all objects, folders, role and groups in the system",
-    permissionsCount: 12,
-    memberLimit: 20,
-  },
-];
+import { useRoleStore } from "./useRoleStore";
 
 const RolePage = () => {
+  const roleList = useRoleStore().roleList;
+
   return (
     <MainLayout>
       <div className="px-10 py-10 overflow-visible sm:p-8">
@@ -65,14 +16,15 @@ const RolePage = () => {
           </p>
         </div>
         <div className="w-full py-12 grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-6">
-          {userRoleJSON.map((role) => (
+          {roleList.map((role) => (
             <RoleCard
               key={role.id}
               id={role.id}
-              title={role.title}
-              description={role.description}
-              permissionCount={role.permissionsCount}
-              memberLimit={role.memberLimit}
+              title={role.name}
+              description={role.desc}
+              permissionCount={role.permissions.length}
+              memberLimit={role.member_limit}
+              isPublic={role.public}
             />
           ))}
           <RoleModal type="add" />

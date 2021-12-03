@@ -4,11 +4,12 @@ import { Warning } from "phosphor-react";
 import { useRouter } from "next/router";
 
 type RoleCardPropsType = {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   permissionCount: number;
   memberLimit: number;
+  isPublic: boolean;
 };
 
 export const RoleCard: React.FC<RoleCardPropsType> = ({
@@ -17,8 +18,10 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
   description,
   permissionCount,
   memberLimit,
+  isPublic,
 }) => {
   const router = useRouter();
+  console.log(router.pathname);
 
   return permissionCount !== 0 ? (
     <div
@@ -28,7 +31,8 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex flex-col justify-between">
           <h1 className="text-3xl font-semibold text-gray-800">{title}</h1>
           <div className="self-start text-lg text-gray-500 font-normal">
-            Member Limit: {memberLimit} | Permissions: {permissionCount}
+            Member Limit: {memberLimit} | Permissions: {permissionCount} |{" "}
+            {isPublic ? "Public" : "Not Public"}
           </div>
         </div>
 
@@ -39,7 +43,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="absolute -right-10 -bottom-4">
         <div className="w-44 h-44 relative">
           <Image
-            src={`/assets/avatar${id}.svg`}
+            src={`/assets/avatar${Math.floor(Math.random() * 5) + 1}.svg`}
             alt="Super User Admin Image"
             layout="fill"
           />
@@ -49,7 +53,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             buttonSize="small"
-            onClick={() => router.push(`/roles/${id}/`, "/roles/permissions")}
+            onClick={() => router.push(`/roles/${id}/`)}
           >
             Edit Permissions
           </Button>

@@ -1,21 +1,57 @@
 import { Button, InfoButton } from "@/components/Button";
-import { LabelInput, LabelTextArea } from "@/components/Input";
+import { LabelInput, LabelTextArea, Switch } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
+import { addRole, updateRole } from "@/services/requests/authRequests";
 import { Field, Formik } from "formik";
+import { useRouter } from "next/router";
 import { Plus } from "phosphor-react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { useRoleStore } from "./useRoleStore";
 
 type RoleModalProps = {
   type?: "add" | "edit";
 };
 
 const RoleSchema = Yup.object().shape({
-  description: Yup.string()
-    .required("Required")
-    .max(92, "Too long, Maximum 92 Characters"),
+  description: Yup.string().max(92, "Too long, Maximum 92 Characters"),
 });
 
 const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
+  const router = useRouter();
+  const [role, setRole] = useState(
+    router.query.permission
+      ? useRoleStore
+          .getState()
+          .roleList.filter((element) => element.id == router.query.permission)
+      : [{ name: "", desc: "", member_limit: "", public: false }]
+  );
+
+  useEffect(() => {
+    setRole(
+      useRoleStore
+        .getState()
+        .roleList.filter((element) => element.id == router.query.permission)
+    );
+  }, [router]);
+
+  const { roleList } = useRoleStore();
+
+  const initialValues =
+    type === "add"
+      ? {
+          title: "",
+          description: "",
+          memberLimit: "",
+          public: false,
+        }
+      : {
+          title: role[0] ? role[0].name : "",
+          description: role[0] ? role[0].desc : "",
+          memberLimit: role[0] ? role[0].member_limit : "",
+          public: role[0] ? role[0].public : false,
+        };
+
   return (
     <Modal>
       {type === "add" ? (
@@ -36,30 +72,62 @@ const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
       <Modal.Content title="Add Role">
         <Modal.Title>{type === "add" ? "Add" : "Edit"} A Role</Modal.Title>
         <Formik
-          initialValues={{
-            title: "",
-            description: "",
-            memberLimit: "",
-          }}
+          initialValues={initialValues}
           validationSchema={RoleSchema}
-          onSubmit={(values) => console.log(values.title)}
+          onSubmit={(values) => {
+            type === "add"
+              ? addRole({
+                  name: values.title,
+                  memberLimit: Number(values.memberLimit),
+                  isPublic: values.public,
+                  description: values.description,
+                }).then((response) => {
+                  const list = useRoleStore.getState().roleList;
+                  useRoleStore
+                    .getState()
+                    .setRoleList([response.data.data, ...list]);
+                })
+              : router.query.permission &&
+                updateRole({
+                  id: router.query.permission[0],
+                  name: values.title,
+                  memberLimit: Number(values.memberLimit),
+                  isPublic: values.public,
+                  description: values.description,
+                }).then((response) => {
+                  console.log(response);
+                  const updatedRole = response.data.data;
+                  const index = roleList.findIndex(
+                    (element) => element.id === updatedRole.id
+                  );
+                  role.splice(index, 1, updatedRole);
+                });
+          }}
         >
-          {({ errors, handleSubmit }) => {
+          {({ values, errors, handleSubmit }) => {
             console.log(errors);
             return (
               <form className="space-y-8" onSubmit={handleSubmit}>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <Field
                     name="title"
                     type="text"
                     component={LabelInput}
                     placeholder={"Enter Role Title"}
                   />
+                  <div className="flex items-end space-x-4">
+                    <Field
+                      name="memberLimit"
+                      type="number"
+                      component={LabelInput}
+                      placeholder={"Enter Role Member Limit"}
+                    />
+                  </div>
                   <Field
-                    name="memberLimit"
-                    type="number"
-                    component={LabelInput}
-                    placeholder={"Enter Role Member Limit"}
+                    name="public"
+                    component={Switch}
+                    placeholder="Public"
+                    checked={values.public}
                   />
                   <Field
                     name="description"

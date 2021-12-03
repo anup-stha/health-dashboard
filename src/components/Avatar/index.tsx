@@ -80,14 +80,16 @@ export const AvatarWithEmail: React.FC<AvatarProps> = ({
 };
 
 export const ImageAvatar: React.FC = () => {
+  const { push } = useRouter();
+
   const onLogOut = async () => {
     await logoutUser()
       .then(() => {
+        push("/");
         useAuthStore.getState().removeUserData();
       })
       .catch((error) => useAuthStore.getState().removeUserData());
   };
-  const { push } = useRouter();
   return (
     <Popover className="relative">
       {({ open }) => (
@@ -124,7 +126,6 @@ export const ImageAvatar: React.FC = () => {
                 <div className="overflow-hidden  ">
                   <a
                     onClick={() => {
-                      console.log("Profile");
                       push("/profile");
                     }}
                     className="bg-white flex items-center  transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"

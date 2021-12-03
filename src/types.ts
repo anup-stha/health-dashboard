@@ -100,12 +100,14 @@ type Permission = {
   description: string;
 };
 
-type Role = {
+export type Role = {
   id: Id;
   name: string;
+  desc: string;
   member_limit: number;
   public: boolean;
-  permission: Permission[];
+  permissions: Permission[];
+  member_detail_categories: Array<any>;
 };
 
 export type User = {
@@ -131,4 +133,12 @@ export type LoginResponse = StatusType & {
 export type LoginRequest = {
   email: string;
   password: string;
+};
+
+export type RoleGetRequestResponse = StatusType & {
+  data: Role[];
+};
+
+export type RolePostRequestResponse = StatusType & {
+  data: Role;
 };
