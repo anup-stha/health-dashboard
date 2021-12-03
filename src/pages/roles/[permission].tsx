@@ -5,15 +5,42 @@ import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { Permissions } from "@/modules/permissions";
 import RoleModal from "@/modules/roles/roleModal";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { listRoleDetails } from "@/services/requests/authRequests";
+import { GetServerSidePropsContext } from "next";
+import { useEffect } from "react";
 
-const RoleDetailPage = () => {
-  return (
+const RoleDetailPage = ({ idX }: any) => {
+  const {
+    loading,
+    setLoading,
+    getRoleListFromServer,
+    setSelectedRole,
+    selectedRole,
+  } = useRoleStore();
+
+  useEffect(() => {
+    const listRoles = async () => {
+      await getRoleListFromServer()
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
+    };
+    const getRoleDetail = async () => {
+      await listRoleDetails(idX).then((response) =>
+        setSelectedRole(response.data.data)
+      );
+    };
+    listRoles();
+    idX && getRoleDetail();
+  }, []);
+
+  return !loading ? (
     <MainLayout>
       <div className="px-10 py-10 overflow-visible sm:p-8">
         <div className="flex flex-col space-y-8">
           <div className="flex items-end space-x-2 ">
             <h1 className="text-5xl font-semibold text-gray-900">
-              Super Admin
+              {selectedRole.name}
             </h1>
           </div>
           <hr />
@@ -39,7 +66,7 @@ const RoleDetailPage = () => {
                   Please be certain.
                 </p>
               </div>
-              <RoleModal type="edit" />
+              <RoleModal type="edit" id={idX} />
             </div>
             <div className="bg-white shadow-E500 w-2/3 py-10 px-8 rounded-sm flex justify-between items-center">
               <div>
@@ -65,7 +92,17 @@ const RoleDetailPage = () => {
         </div>
       </div>
     </MainLayout>
-  );
+  ) : null;
 };
 
 export default withRole(withAuth(RoleDetailPage));
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  return {
+    props: {
+      idX: context.query.permission,
+    },
+  };
+};

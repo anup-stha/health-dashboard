@@ -82,6 +82,10 @@ export const listRole = (): Promise<AxiosResponse<RoleGetRequestResponse>> => {
   return privateAgent.get("role/");
 };
 
+export const listRoleDetails = (id: any): Promise<AxiosResponse<any>> => {
+  return privateAgent.get(`role/detail/${id}`);
+};
+
 export const addRole = ({
   name,
   memberLimit,
@@ -120,6 +124,10 @@ export const updateRole = ({
     public: isPublic ? 1 : 0,
     desc: description,
   });
+};
+
+export const getAllPermissions = (): Promise<AxiosResponse<any>> => {
+  return privateAgent.post("permission/");
 };
 
 // export const listOrganisations = (): Promise<

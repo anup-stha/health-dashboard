@@ -1,35 +1,26 @@
 import { Button, InfoButton } from "@/components/Button";
 import { LabelInput, LabelTextArea, Switch } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
-import {
-  addRole,
-  listRole,
-  updateRole,
-} from "@/services/requests/authRequests";
+import { addRole, updateRole } from "@/services/requests/authRequests";
 import { Field, Formik } from "formik";
-import { useRouter } from "next/router";
 import { Plus } from "phosphor-react";
-
 import * as Yup from "yup";
-
 import { useRoleStore } from "./useRoleStore";
 
 type RoleModalProps = {
   type?: "add" | "edit";
+  id?: number | string;
 };
 
 const RoleSchema = Yup.object().shape({
   description: Yup.string().max(92, "Too long, Maximum 92 Characters"),
 });
 
-const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
-  const router = useRouter();
+const RoleModal: React.FC<RoleModalProps> = ({ type, id }) => {
+  const roles = useRoleStore.getState().roleList;
+  const role = roles.filter((element) => element.id == id)[0];
 
-  const role = useRoleStore
-    .getState()
-    .roleList.filter(
-      (element) => element.id == useRoleStore.getState().selectedId
-    )[0];
+  console.log(roles, role);
 
   const initialValues =
     type === "add"
@@ -40,10 +31,10 @@ const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
           public: false,
         }
       : {
-          title: role ? role.name : "",
-          description: role ? role.desc : "",
-          memberLimit: role ? role.member_limit : "",
-          public: role ? role.public : false,
+          title: role.name,
+          description: role.desc,
+          memberLimit: role.member_limit,
+          public: role.public,
         };
 
   return (
@@ -81,28 +72,27 @@ const RoleModal: React.FC<RoleModalProps> = ({ type }) => {
                     .getState()
                     .setRoleList([response.data.data, ...list]);
                 })
-              : router.query.permission &&
+              : id &&
                 updateRole({
-                  id: router.query.permission[0],
+                  id: Number(id),
                   name: values.title,
                   memberLimit: Number(values.memberLimit),
                   isPublic: values.public,
                   description: values.description,
                 }).then((response) => {
                   console.log(response);
-                  async () => {
-                    const listRoles = async () => {
-                      await listRole().then((response) => {
-                        useRoleStore.getState().setRoleList(response.data.data);
-                      });
-                    };
-                    listRoles();
-                  };
+
+                  const updatedArray = roles.map((role) =>
+                    role.id === response.data.data.id
+                      ? response.data.data
+                      : role
+                  );
+                  console.log(updatedArray);
+                  useRoleStore.getState().setRoleList(updatedArray);
                 });
           }}
         >
           {({ values, errors, handleSubmit }) => {
-            console.log(errors);
             return (
               <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="space-y-6">

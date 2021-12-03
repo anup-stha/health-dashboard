@@ -8,9 +8,11 @@ import { useEffect } from "react";
 const Roles = () => {
   useEffect(() => {
     const listRoles = async () => {
-      await listRole().then((response) => {
-        useRoleStore.getState().setRoleList(response.data.data);
-      });
+      await listRole()
+        .then((response) => {
+          useRoleStore.getState().setRoleList(response.data.data);
+        })
+        .catch((error) => console.log(error));
     };
     listRoles();
   }, []);
