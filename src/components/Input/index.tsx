@@ -1,6 +1,6 @@
 import { Eye, EyeClosed } from "phosphor-react";
 import React, { useState } from "react";
-import ErrorPop from "../PopOver";
+import InputErrorPop from "../PopOver";
 
 type InputProps = React.HTMLProps<HTMLInputElement> & {
   field?: any;
@@ -9,6 +9,7 @@ type InputProps = React.HTMLProps<HTMLInputElement> & {
   className?: string;
   showLabel?: boolean;
   checkboxLabel?: string;
+  ref?: any;
 };
 
 type TextAreaProps = React.HTMLProps<HTMLTextAreaElement> & {
@@ -37,7 +38,7 @@ export const PrimaryInput: React.FC<InputProps> = ({
   return (
     <div className={className}>
       <div className={`relative w-full input`}>
-        {error && <ErrorPop error={error} />}
+        {error && <InputErrorPop error={error} />}
         {((field && field.name) || type) === "password" && (
           <button
             type="button"
@@ -215,3 +216,74 @@ export const Switch: React.FC<InputProps> = ({
     </div>
   );
 };
+type ExtraInputProps = {
+  label?: string;
+  error?: string;
+};
+
+type HookInputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> &
+  ExtraInputProps;
+
+export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
+  ({ label, error, ...props }, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    return (
+      <div className={` w-full input`}>
+        {props.type === "password" && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowPassword(!showPassword);
+            }}
+            className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
+          >
+            <div className="relative flex ">
+              <div
+                className={`${
+                  !showPassword ? "absolute opacity-100" : "opacity-0"
+                }`}
+              >
+                <Eye size={16} />
+              </div>
+              <div
+                className={`${
+                  showPassword ? "absolute opacity-100" : "opacity-0"
+                } `}
+              >
+                <EyeClosed size={16} />
+              </div>
+            </div>
+          </button>
+        )}
+        <div className="relative w-full">
+          <input
+            {...props}
+            className={error ? "input_error relative" : "input_container"}
+            ref={ref}
+            type={
+              props.type === "password"
+                ? showPassword
+                  ? "text"
+                  : "password"
+                : props.type
+            }
+          />
+          {error && <InputErrorPop error={error} />}
+        </div>
+
+        {/* // {showLabel && ( */}
+        <label htmlFor={props.id} className="input_label text-gray-700">
+          {label}
+        </label>
+        {/* // )} **/}
+      </div>
+    );
+  }
+);
+
+HookInput.displayName = "PrimaryInput";

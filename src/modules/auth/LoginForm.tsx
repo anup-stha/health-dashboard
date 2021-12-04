@@ -1,71 +1,72 @@
-import { Form, Formik, FormikHelpers } from "formik";
 import React from "react";
-import { Field } from "formik";
-import { PrimaryInput } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { alert } from "@/components/Alert";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
-interface FormData {
+import { HookInput } from "@/components/Input";
+import { Button } from "@/components/Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { alert } from "@/components/Alert";
+import { login } from "@/services/requests/authRequests";
+
+interface LoginFormValues {
   email: string;
   password: string;
 }
 
-const LoginForm: React.FC<any> = ({ onLogin }) => {
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .matches(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      "Not a valid Email"
+    )
+    .email("Not a Valid Email")
+    .required("Required field"),
+  password: yup.string().min(8).max(32).required(),
+});
+
+const LoginForm: React.FC<any> = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<LoginFormValues>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
+
   return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      validate={(values) => {
-        const errors = {} as any;
-        if (!values.email) {
-          errors.email = "Email Is Required";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address";
-        }
-        return errors;
-      }}
-      onSubmit={async (
-        values: FormData,
-        { setSubmitting }: FormikHelpers<FormData>
-      ) => {
+    <form
+      onSubmit={handleSubmit(async (data) => {
         await alert({
-          type: "promise",
-          promise: onLogin(values.email, values.password),
+          promise: login(data).then(() => reset()),
           msgs: {
             loading: "Logging In",
-            success: "Login Successfull",
-            error: (data) => `${data}`,
           },
+          id: "Login Toast",
         });
-
-        setSubmitting(false);
-      }}
+      })}
+      className="space-y-8"
     >
-      {({ isSubmitting, errors }) => {
-        return (
-          <Form className="w-full space-y-8">
-            <div className="space-y-6 ">
-              <Field
-                name="email"
-                component={PrimaryInput}
-                error={errors.email}
-                placeholder={"Enter Email"}
-              />
-              <Field
-                name="password"
-                type="password"
-                placeholder="Enter Password"
-                component={PrimaryInput}
-              />
-            </div>
-            <Button type="loading" loading={isSubmitting}>
-              Login
-            </Button>
-          </Form>
-        );
-      }}
-    </Formik>
+      <div className="space-y-4">
+        <HookInput
+          label="Email"
+          type="email"
+          placeholder="Enter email"
+          {...register("email")}
+          error={errors.email?.message}
+        />
+        <HookInput
+          label="Password"
+          type="password"
+          placeholder="Enter Password"
+          {...register("password")}
+          error={errors.password?.message}
+        />
+      </div>
+      <Button loading={isSubmitting}>Log In</Button>
+    </form>
   );
 };
 

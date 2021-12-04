@@ -2,7 +2,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
 
     &:focus {
       outline: none;
@@ -11,20 +11,20 @@
     }
 
     &:focus:invalid {
-      @apply border-b-2 border-0 border-red-400;
+      @apply border-b-2 border-0 border-red-600;
     }
     &::-webkit-input-placeholder {
-      @apply text-gray-500;
+      @apply text-gray-700;
     }
   }
 
   &_error {
-    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-700 border-solid w-full shadow-E200 block;
 
     &:focus {
       outline: none;
       box-shadow: 0 1rem 4rem rgba(black, 0.2);
-      @apply border-b-4 border-0 border-red-500 bg-white text-gray-700;
+      @apply border-b-4 border-0 border-red-700 bg-white text-gray-700;
     }
 
     &:focus:invalid {
@@ -38,7 +38,7 @@
   &_label {
     margin-left: 0.1rem;
 
-    @apply text-gray-800 font-semibold text-lg;
+    @apply text-gray-500 font-semibold text-lg;
     display: block;
     transition: all 0.3s;
   }

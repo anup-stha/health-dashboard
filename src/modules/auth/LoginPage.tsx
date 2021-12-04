@@ -1,34 +1,10 @@
-import { loginUser } from "@/services/requests";
-import { LoginRequest } from "@/types";
-import { useRouter } from "next/dist/client/router";
+import React from "react";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
-import React from "react";
 import LoginForm from "./LoginForm";
-import { useAuthStore } from "./useTokenStore";
 import LoginAvatar from "/public/login-icon.svg";
 
 export const LoginPage = () => {
-  const router = useRouter();
-
-  const onLogin = async (email: string, password: string) => {
-    const request: LoginRequest = { email, password };
-
-    return new Promise(
-      async (resolve, reject) =>
-        await loginUser(request)
-          .then((response) => {
-            useAuthStore.getState().setUserData(response.data);
-            router.push("/dashboard");
-            resolve("Logged In");
-          })
-          .catch((error) => {
-            reject(new Error("Invalid email or password"));
-            console.log(error);
-          })
-    );
-  };
-
   return (
     <div className="flex items-center justify-center w-full h-screen py-20 overflow-scroll bg-green-50 lg:py-8 md:px-8 sm:p-0 ">
       <div className="flex w-full bg-white max-w-6xl rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none h-full">
@@ -65,21 +41,22 @@ export const LoginPage = () => {
                 registration.
               </p>
             </div>
-            <LoginForm onLogin={onLogin} />
+            <LoginForm />
 
             <p className="text-base font-medium text-gray-600">
               * By logging in you accept our
               <a
-                className="text-green-500 cursor-pointer"
+                className="text-green-500 cursor-pointer hover:text-green-600"
                 href="https://sunyahealth-landing.vercel.app/privacy"
                 target="_blank"
                 rel="noreferrer"
               >
+                {" "}
                 Privacy Policy
               </a>{" "}
               and{" "}
               <a
-                className="text-green-500 cursor-pointer"
+                className="text-green-500 cursor-pointer hover:text-green-600"
                 href="https://sunyahealth-landing.vercel.app/terms"
                 target="_blank"
                 rel="noreferrer"

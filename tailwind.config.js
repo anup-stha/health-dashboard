@@ -73,12 +73,8 @@ module.exports = {
         },
         red: {
           50: "#ffebe6",
-          500: "#bf2600",
-          400: "#de350b",
-          300: "#ff5630",
-          200: "#ff7452",
-          100: "#ff8f73",
           75: "#ffbdad",
+          ...colors.red,
         },
 
         white: "#fff",

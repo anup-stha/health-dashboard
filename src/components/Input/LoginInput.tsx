@@ -1,7 +1,7 @@
 import { Field, Formik } from "formik";
 import { Eye, EyeClosed } from "phosphor-react";
 import React, { useState } from "react";
-import ErrorPop from "../PopOver";
+import InputErrorPop from "../PopOver";
 
 type InputProps = React.HTMLProps<HTMLInputElement> & {
   field: any;
@@ -28,7 +28,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className={className}>
       <div className={`relative w-full input`}>
-        {error && <ErrorPop error={error} />}
+        {error && <InputErrorPop error={error} />}
         {(field.name || type) === "password" && (
           <button
             onClick={(e) => {

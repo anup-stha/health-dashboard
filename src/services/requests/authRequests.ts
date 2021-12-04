@@ -1,77 +1,31 @@
-import { useAuthStore } from "@/modules/auth/useTokenStore";
+import Router from "next/router";
+import { AxiosResponse } from "axios";
+
+import { publicAgent, privateAgent } from ".";
 import {
   LoginRequest,
   LoginResponse,
   RoleGetRequestResponse,
   RolePostRequestResponse,
 } from "@/types";
-import axios, { AxiosResponse } from "axios";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/v1/";
-
-const privateAgent = axios.create({
-  baseURL,
-});
-
-const publicAgent = axios.create({
-  baseURL,
-});
-
-privateAgent.interceptors.request.use(
-  (config) => {
-    const token = useAuthStore.getState().token;
-    if (token && config.headers) {
-      config.headers["Authorization"] = `${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    useAuthStore.getState().removeUserData();
-  }
-);
-
-// response interceptor to refresh token on receiving token expired error
-privateAgent.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  function (error) {
-    const originalRequest = error.config;
-    const token = useAuthStore.getState().token;
-    if (token && error?.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      const axiosConfig = {
-        headers: {
-          Authorization: token,
-        },
-      };
-
-      return axios
-        .post(`${baseURL}auth/refresh/`, axiosConfig)
-        .then((res: any) => {
-          if (res.status === 200) {
-            const tokenData = res.data.data;
-            useAuthStore.getState().setToken(tokenData);
-            return privateAgent(originalRequest);
-          }
-        })
-        .catch(() => {
-          useAuthStore.getState().removeUserData();
-        });
-    }
-    return Promise.reject(error);
-  }
-);
-
-export const login = (
-  loginRequest: LoginRequest
-): Promise<AxiosResponse<LoginResponse>> => {
-  return publicAgent.post(`auth/login`, {
-    email: loginRequest.email,
-    password: loginRequest.password,
-    device_type: "w",
-  });
+export const login = (loginRequest: LoginRequest) => {
+  return new Promise((resolve, reject) =>
+    publicAgent
+      .post<LoginResponse>(`/auth/login`, {
+        email: loginRequest.email,
+        password: loginRequest.password,
+      })
+      .then((response) => {
+        useAuthStore.getState().setUserData(response.data);
+        Router.push("/dashboard");
+        resolve("Logged In Succesfully");
+      })
+      .catch((error) => {
+        reject(error.message);
+      })
+  );
 };
 
 export const logOut = (): Promise<AxiosResponse> => {
