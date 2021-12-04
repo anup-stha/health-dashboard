@@ -17,7 +17,7 @@ const AlertComponent: React.FC<toastProps> = ({ type }) => {
       <button
         onClick={() => {
           action("Click")(type);
-          alert({ type, promise: toastPromise() });
+          alert({ type, promise: toastPromise(), id: "Test" });
         }}
       >
         Launch Toast
