@@ -233,33 +233,6 @@ export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
 
     return (
       <div className={` w-full input`}>
-        {props.type === "password" && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowPassword(!showPassword);
-            }}
-            className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
-          >
-            <div className="relative flex ">
-              <div
-                className={`${
-                  !showPassword ? "absolute opacity-100" : "opacity-0"
-                }`}
-              >
-                <Eye size={16} />
-              </div>
-              <div
-                className={`${
-                  showPassword ? "absolute opacity-100" : "opacity-0"
-                } `}
-              >
-                <EyeClosed size={16} />
-              </div>
-            </div>
-          </button>
-        )}
         <div className="relative w-full">
           <input
             {...props}
@@ -273,6 +246,33 @@ export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
                 : props.type
             }
           />
+          {props.type === "password" && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowPassword(!showPassword);
+              }}
+              className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
+            >
+              <div className="relative flex ">
+                <div
+                  className={`${
+                    !showPassword ? "absolute opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <Eye size={18} weight="bold" />
+                </div>
+                <div
+                  className={`${
+                    showPassword ? "absolute opacity-100" : "opacity-0"
+                  } `}
+                >
+                  <EyeClosed size={18} weight="bold" />
+                </div>
+              </div>
+            </button>
+          )}
           {error && <InputErrorPop error={error} />}
         </div>
 

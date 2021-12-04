@@ -22,7 +22,6 @@ const schema = yup.object().shape({
     )
     .email("Not a Valid Email")
     .required("Required field"),
-  password: yup.string().min(8).max(32).required(),
 });
 
 const LoginForm: React.FC<any> = () => {

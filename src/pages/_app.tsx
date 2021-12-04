@@ -4,7 +4,7 @@ import "../styles/globals.scss";
 import { resolveValue, Toast, Toaster } from "react-hot-toast";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { CheckCircle, WarningOctagon } from "phosphor-react";
+import { CheckCircle, WarningCircle } from "phosphor-react";
 import { Transition } from "@headlessui/react";
 import { Oval } from "react-loading-icons";
 
@@ -36,7 +36,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                         <span className="text-2xl font-Inter font-medium text-gray-700 dark:text-green-400">
                           Loading
                         </span>
-                        <p className="max-w-2xl text-xl font-Inter text-gray-500  dark:text-gray-200 tracking-wider line-clamp-2 ">
+                        <p className="max-w-2xl text-xl font-Inter text-gray-500  dark:text-gray-200  line-clamp-2 ">
                           {resolveValue(t.message, t)}
                         </p>
                       </div>
@@ -55,7 +55,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 >
                   <div className="flex bg-white max-w-3xl min-w-[30rem] rounded-lg shadow-md dark:bg-gray-800">
                     <div className="flex items-center justify-center px-4 bg-red-500 text-white shadow-lg rounded-l-lg">
-                      <WarningOctagon weight="fill" size={32} />
+                      <WarningCircle weight="fill" size={32} />
                     </div>
 
                     <div className="px-4 py-3">
@@ -63,7 +63,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                         <span className="text-2xl font-Inter font-medium text-red-600 dark:text-green-400">
                           Error
                         </span>
-                        <p className="max-w-lg text-xl font-Inter text-gray-500 dark:text-gray-200 tracking-wider line-clamp-2 ">
+                        <p className="max-w-lg text-xl font-Inter text-gray-500 dark:text-gray-200  line-clamp-2 ">
                           {resolveValue(t.message, t)}
                         </p>
                       </div>
@@ -90,7 +90,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                         <span className="text-2xl font-Inter font-medium text-emerald-600 dark:text-green-400">
                           Error
                         </span>
-                        <p className="max-w-2xl text-xl font-Inter text-gray-500 dark:text-gray-200 tracking-wider line-clamp-2 ">
+                        <p className="max-w-2xl text-xl font-Inter text-gray-500 dark:text-gray-200  line-clamp-2 ">
                           {resolveValue(t.message, t)}
                         </p>
                       </div>
