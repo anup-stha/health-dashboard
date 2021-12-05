@@ -5,7 +5,7 @@ import Head from "next/head";
 import withAuth from "@/hoc/withAuth";
 import OrganisationPage from "@/modules/member";
 import { withRole } from "@/hoc/withRole";
-import { getMemberList } from "@/services/requests/userRequests";
+import { getMemberList } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/member/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 

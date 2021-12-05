@@ -12,10 +12,7 @@ export const withRole = (WrappedComponent: React.FC) => {
 
     useEffect(() => {
       if (role) {
-        if (
-          role.name === "Superadmin" &&
-          adminRoutes.includes(router.pathname)
-        ) {
+        if (role.id === 1 && adminRoutes.includes(router.pathname)) {
           setRolePermitted(true);
         } else {
           router.push("/404");

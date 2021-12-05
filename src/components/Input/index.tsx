@@ -238,6 +238,7 @@ export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
             {...props}
             className={error ? "input_error relative" : "input_container"}
             ref={ref}
+            required
             type={
               props.type === "password"
                 ? showPassword

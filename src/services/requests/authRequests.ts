@@ -14,7 +14,7 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
     publicAgent
-      .post<LoginResponse>(`/auth/login`, {
+      .post<LoginResponse>(`auth/login`, {
         email: loginRequest.email,
         password: loginRequest.password,
         device_type: "w",

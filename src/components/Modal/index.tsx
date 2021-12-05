@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useModal } from "./useModal";
+import { Button as UIButton } from "../Button";
 
 export type IModalProps = {
   title?: string;
@@ -63,6 +64,7 @@ export interface IButtonProps {
   children: React.ReactNode;
   onClick?: any;
   width?: "full" | "auto";
+  variant?: "button" | "div" | "icon";
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -70,14 +72,29 @@ export const Button: React.FC<IButtonProps> = ({
   type,
   onClick,
   width,
+  variant,
 }) => {
   const { setIsOpen } = useModal();
 
-  const onClickFn = async () => {
+  const onClickFn = async (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e && e.preventDefault();
     await onClick().then(() => setIsOpen(false));
   };
 
-  return (
+  return variant === "button" ? (
+    <UIButton
+      type="submit"
+      onClick={
+        onClick
+          ? (e: any) => onClickFn(e)
+          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
+      }
+    >
+      {children}
+    </UIButton>
+  ) : (
     <div
       onClick={
         onClick

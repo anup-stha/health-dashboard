@@ -1,4 +1,4 @@
-import { OrganisationModal } from "@/modules/member/orgModal";
+import { MemberModal } from "@/modules/member/memberModal";
 import { MainLayout } from "@/layout/MainLayout";
 import { OrgTable } from "./memberTable";
 import { MemberRoleDropdown } from "./memberRoleDropDown";
@@ -37,7 +37,7 @@ const OrganisationPage = () => {
 
             <div className="flex space-x-4">
               <MemberRoleDropdown />
-              <OrganisationModal
+              <MemberModal
                 type="add"
                 initialValues={OrganisationInitialFormData}
               />

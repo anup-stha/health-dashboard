@@ -16,11 +16,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 
 import { DeleteModal } from "@/components/Modal/DeleteModal";
-import { memberStore } from "./memberStore";
 
 import Link from "next/link";
 import { CaretDoubleRight } from "phosphor-react";
-import { OrganisationModal } from "./orgModal";
+import { MemberModal } from "./memberModal";
 
 type OrgTableRowType = {
   data?: Member;
@@ -97,7 +96,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
 
         <td className="px-0 py-4">
           <div className="flex items-center space-x-4">
-            <OrganisationModal type="update" orgId={data.id} />
+            <MemberModal type="update" orgId={data.id} />
             <DeleteModal
               onDelete={async () => {
                 // await alert({
@@ -149,7 +148,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                               //     },
                               //     data.id
                               //   );
-                              memberStore.getState().getMemberListFromServer();
+                              // memberStore.getState().getMemberListFromServer();
                             }}
                             className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
                           >
@@ -172,7 +171,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                               //     },
                               //     data.id
                               //   );
-                              memberStore.getState().getMemberListFromServer();
+                              // memberStore.getState().getMemberListFromServer();
                             }}
                             className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
                           >

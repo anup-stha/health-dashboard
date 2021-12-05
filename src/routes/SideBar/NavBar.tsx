@@ -7,7 +7,7 @@ export const NavBar = () => {
   const role = useAuthStore().user.role;
   console.log(role);
   const navBarRoutes = role
-    ? role.name === "Superadmin"
+    ? role.id === 1
       ? superAdminNavRoutes
       : role.name === "Organization"
       ? orgNavRoutes

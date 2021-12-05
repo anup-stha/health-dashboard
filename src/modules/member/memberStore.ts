@@ -1,15 +1,15 @@
 import create from "zustand";
 import { MemberList, MemberListResponse } from "@/types";
 import { combine, devtools } from "zustand/middleware";
-import { getMemberList } from "@/services/requests/userRequests";
+import { getMemberList } from "@/services/requests/memberRequests";
 
 const initialState = {
   memberList: [] as MemberList,
   pagination: {},
   loading: false,
   selectedRole: {
-    id: 1,
-    name: "Superadmin",
+    id: 0,
+    name: "Choose any role",
   },
   status: {
     state: false,
@@ -19,7 +19,6 @@ const initialState = {
 
 export const store = combine(initialState, (set) => ({
   setMemberList: (res: MemberListResponse) => {
-    console.log(res);
     set({
       status: { state: res.status, message: res.message },
       memberList: res.data.list,
@@ -48,8 +47,8 @@ export const store = combine(initialState, (set) => ({
     });
   },
 
-  getMemberListFromServer: async () => {
-    await getMemberList(1)
+  getMemberListFromServer: async (id: string | number) => {
+    await getMemberList(id)
       .then((res) =>
         set({
           status: { state: res.data.status, message: res.data.message },

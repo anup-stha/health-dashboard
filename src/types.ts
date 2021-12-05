@@ -149,7 +149,7 @@ export type RolePostRequestResponse = StatusType & {
   data: Role;
 };
 
-export type Member = {
+export type BasicMember = {
   id: Id;
   uuid: string;
   name: string;
@@ -160,9 +160,26 @@ export type Member = {
   address: string;
   active: boolean;
   verified: boolean;
-  ref_key: string;
+  ref_key?: string;
+};
+
+export type Member = BasicMember & {
   role: RoleSummary;
 };
+
+export type OrgMemberAddRequest = {
+  name: string;
+  role_id: number;
+  address: string;
+  lat?: number;
+  lng?: number;
+  phone: string;
+  ref_key?: string | number;
+  email: string;
+  password: string;
+};
+
+export type OrgMemberAddResponse = { data: BasicMember & { role: Role } };
 
 export type MemberList = Member[];
 export type Pagination = {
