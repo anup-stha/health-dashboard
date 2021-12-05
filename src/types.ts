@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { number } from "yup/lib/locale";
+import { number, string } from "yup/lib/locale";
 
 /* eslint-disable camelcase */
 export interface ChartData {
@@ -100,6 +100,12 @@ type Permission = {
   description: string;
 };
 
+export type RoleSummary = {
+  id: Id;
+  name: string;
+  desc: string;
+};
+
 export type Role = {
   id: Id;
   name: string;
@@ -141,4 +147,36 @@ export type RoleGetRequestResponse = StatusType & {
 
 export type RolePostRequestResponse = StatusType & {
   data: Role;
+};
+
+export type Member = {
+  id: Id;
+  uuid: string;
+  name: string;
+  lat: number;
+  lng: number;
+  phone: string;
+  image: string;
+  address: string;
+  active: boolean;
+  verified: boolean;
+  ref_key: string;
+  role: RoleSummary;
+};
+
+export type MemberList = Member[];
+export type Pagination = {
+  total: number;
+  count: number;
+  path: string;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+};
+
+export type MemberListResponse = StatusType & {
+  data: {
+    list: MemberList;
+    pagination: Pagination;
+  };
 };

@@ -42,6 +42,7 @@ const LoginForm: React.FC<any> = () => {
           promise: login(data).then(() => reset()),
           msgs: {
             loading: "Logging In",
+            success: "Logged In Successfully",
           },
           id: "Login Toast",
         });

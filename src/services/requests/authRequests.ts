@@ -5,6 +5,7 @@ import { publicAgent, privateAgent } from ".";
 import {
   LoginRequest,
   LoginResponse,
+  LogoutRequest,
   RoleGetRequestResponse,
   RolePostRequestResponse,
 } from "@/types";
@@ -16,6 +17,7 @@ export const login = (loginRequest: LoginRequest) => {
       .post<LoginResponse>(`/auth/login`, {
         email: loginRequest.email,
         password: loginRequest.password,
+        device_type: "w",
       })
       .then((response) => {
         useAuthStore.getState().setUserData(response.data);
@@ -28,8 +30,21 @@ export const login = (loginRequest: LoginRequest) => {
   );
 };
 
-export const logOut = (): Promise<AxiosResponse> => {
-  return privateAgent.post("auth/logout/");
+export const logOut = () => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<LogoutRequest>("auth/logout/")
+      .then(() => {
+        useAuthStore.getState().removeUserData();
+        Router.push("/");
+        resolve("Logged Out Successfully");
+      })
+      .catch(() => {
+        useAuthStore.getState().removeUserData();
+        Router.push("/");
+        resolve("Logged Out Successfully");
+      })
+  );
 };
 
 export const listRole = (): Promise<AxiosResponse<RoleGetRequestResponse>> => {

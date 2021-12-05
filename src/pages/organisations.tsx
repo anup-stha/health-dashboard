@@ -1,58 +1,43 @@
-// import type { NextPage } from "next";
-// import { useEffect } from "react";
-// import Head from "next/head";
+import type { NextPage } from "next";
+import { useEffect } from "react";
+import Head from "next/head";
 
 import withAuth from "@/hoc/withAuth";
+import OrganisationPage from "@/modules/member";
 import { withRole } from "@/hoc/withRole";
-import { MainLayout } from "@/layout/MainLayout";
+import { getMemberList } from "@/services/requests/userRequests";
+import { memberStore } from "@/modules/member/memberStore";
 
-// import withAuth from "@/hoc/withAuth";
-// import OrganisationPage from "@/modules/organisations";
-// import { useOrgStore } from "@/modules/organisations/useOrgStore";
-// import { listOrganisations } from "@/services/requests/authRequests";
+const Members: NextPage = () => {
+  const { memberList, setMemberList, toggleLoading, setError } = memberStore();
 
-// cconst Organisation: NextPage = () => {
-//   const {
-//   const {
-//     orgList: orgList,
-//     setOrgList,
-//     toggleLoading,
-//     setError,
-//   } = useOrgStore();
+  useEffect(() => {
+    const listMember = async () => {
+      toggleLoading();
+      await getMemberList(1)
+        .then((response) => {
+          setMemberList(response.data);
+          toggleLoading();
+        })
+        .catch((error) => {
+          toggleLoading();
+          setError(error);
+        });
+    };
 
-//   useEffect(() => {
-//     const listOrg = async () => {
-//       toggleLoading();
-//       await listOrganisations()
-//         .then((response) => {
-//           setOrgList(response.data);
-//           toggleLoading();
-//         })
-//         .catch((error) => {
-//           toggleLoading();
-//           setError(error);
-//         });
-//     };
+    listMember();
+  }, []);
 
-//     orgList.length === 0 && listOrg();
-//   }, []);
+  console.log(memberList);
 
-//   /**  !open ? "ml-36 mt-24 mb-8 mr-12" : "ml-[20%] mt-24 mr-12 mb-8" */
-
-//   return (
-//     <>
-//       <Head>
-//         <title>Organisations</title>
-//       </Head>
-//       <OrganisationPage />
-//     </>
-//   );
-// };
-
-// export default withAuth(Organisation);
-
-const Organisations = () => {
-  return <MainLayout></MainLayout>;
+  return (
+    <>
+      <Head>
+        <title>Members</title>
+      </Head>
+      <OrganisationPage />
+    </>
+  );
 };
 
-export default withRole(withAuth(Organisations));
+export default withRole(withAuth(Members));

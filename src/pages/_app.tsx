@@ -10,7 +10,7 @@ import { Oval } from "react-loading-icons";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <SkeletonTheme baseColor="#D4D4D8" highlightColor="#A1A1AA">
+    <SkeletonTheme>
       <Component {...pageProps} />{" "}
       <Toaster gutter={24}>
         {(t: Toast) => {
@@ -88,7 +88,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     <div className="px-4 py-3">
                       <div className="flex flex-col">
                         <span className="text-2xl font-Inter font-medium text-emerald-600 dark:text-green-400">
-                          Error
+                          Success
                         </span>
                         <p className="max-w-2xl text-xl font-Inter text-gray-500 dark:text-gray-200  line-clamp-2 ">
                           {resolveValue(t.message, t)}

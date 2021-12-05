@@ -4,10 +4,10 @@ import Image from "next/image";
 import Avatar from "./Ed.png";
 import AvatarImage from "../../styles/avatar.svg";
 import { Popover, Transition } from "@headlessui/react";
-import { useAuthStore } from "../../modules/auth/useTokenStore";
 import { logoutUser } from "../../services/requests";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
+import { alert } from "../Alert";
 
 type AvatarProps = {
   name?: string;
@@ -83,12 +83,14 @@ export const ImageAvatar: React.FC = () => {
   const { push } = useRouter();
 
   const onLogOut = async () => {
-    await logoutUser()
-      .then(() => {
-        push("/");
-        useAuthStore.getState().removeUserData();
-      })
-      .catch((error) => useAuthStore.getState().removeUserData());
+    await alert({
+      promise: logoutUser(),
+      msgs: {
+        loading: "Logging Out",
+        success: "Logged Out Successfully",
+      },
+      id: "Login Toast",
+    });
   };
   return (
     <Popover className="relative">
