@@ -45,6 +45,7 @@ privateAgent.interceptors.response.use(
       return axios
         .post(`${baseURL}auth/refresh/`, axiosConfig)
         .then((res: any) => {
+          console.log(res);
           if (res.status === 200) {
             console.log(res);
             const tokenData = res.data.data;

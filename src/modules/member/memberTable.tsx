@@ -1,6 +1,6 @@
 import { TableView } from "@/components/Table";
 import { memberStore } from "./memberStore";
-import { OrgTableRow } from "./OrgTableRow";
+import { MemberTableRow } from "./memberTableRow";
 
 export const OrgTable = () => {
   const { memberList, loading } = memberStore();
@@ -16,7 +16,7 @@ export const OrgTable = () => {
         "Address",
       ]}
       loading={loading}
-      tableRowComponent={<OrgTableRow />}
+      tableRowComponent={<MemberTableRow />}
     />
   );
 };

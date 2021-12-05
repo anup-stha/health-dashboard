@@ -18,13 +18,17 @@ import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { memberStore } from "./memberStore";
 
+import Link from "next/link";
+import { CaretDoubleRight } from "phosphor-react";
+import { OrganisationModal } from "./orgModal";
+
 type OrgTableRowType = {
   data?: Member;
   key?: string | number;
   loading?: boolean;
 };
 
-export const OrgTableRow: React.FC<OrgTableRowType> = ({
+export const MemberTableRow: React.FC<OrgTableRowType> = ({
   data,
   key,
   loading,
@@ -80,33 +84,20 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
             {data.address}
           </div>
           <div className="text-lg text-gray-500 font-medium">
-            {/* {format(Date.parse(data?.role), "dd MMM yyyy")} */}
-            {data.role.name}
+            <Link
+              href={`https://maps.google.com/?q=${data.lat},${data.lng}`}
+              passHref
+            >
+              <span className="flex items-center cursor-pointer hover:text-gray-800">
+                Google Maps <CaretDoubleRight size={16} />
+              </span>
+            </Link>
           </div>
         </td>
 
         <td className="px-0 py-4">
           <div className="flex items-center space-x-4">
-            {/* <OrganisationModal
-              type="update"
-              initialValues={{
-                name: data.name,
-                active: data.active,
-                verified: data.verified,
-                owner: "sunya",
-                description: data.meta.description,
-                website: data.meta.website,
-                phone: data.meta.phone,
-                address: data.meta.address,
-                zip: data.meta.zip,
-                ward: data.meta.ward,
-                municipality: data.meta.municipality,
-                city: data.meta.city,
-                country: data.meta.country,
-                state: data.meta.state,
-              }}
-              orgId={data.id}
-            /> */}
+            <OrganisationModal type="update" orgId={data.id} />
             <DeleteModal
               onDelete={async () => {
                 // await alert({
@@ -122,9 +113,9 @@ export const OrgTableRow: React.FC<OrgTableRowType> = ({
                 // });
                 console.log("ok");
               }}
-              title="You are about to delete a organisation"
+              title="You are about to delete a member"
               subTitles={[
-                "This will delete your organisation forever",
+                "This will delete your member forever",
                 "Are you sure ?",
               ]}
             />

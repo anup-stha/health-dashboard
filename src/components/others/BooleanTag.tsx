@@ -24,7 +24,7 @@ export const BooleanTag: React.FC<BooleanTagProps> = ({
           </span>
         ) : (
           <span
-            className={`px-4 py-1  font-bold bg-red-50 text-red-700 rounded-3xl`}
+            className={`px-4 py-1 bg-red-50 font-semibold text-red-500 rounded-3xl`}
           >
             {falseStatement}
           </span>

@@ -7,6 +7,10 @@ const initialState = {
   memberList: [] as MemberList,
   pagination: {},
   loading: false,
+  selectedRole: {
+    id: 1,
+    name: "Superadmin",
+  },
   status: {
     state: false,
     message: "",
@@ -30,6 +34,9 @@ export const store = combine(initialState, (set) => ({
   },
   setLoadingFalse: () => {
     set(() => ({ loading: false }));
+  },
+  setSelectedRole: (role: { id: number; name: string }) => {
+    set(() => ({ selectedRole: { id: role.id, name: role.name } }));
   },
 
   setError: (message: string) => {

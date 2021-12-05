@@ -7,14 +7,16 @@ import OrganisationPage from "@/modules/member";
 import { withRole } from "@/hoc/withRole";
 import { getMemberList } from "@/services/requests/userRequests";
 import { memberStore } from "@/modules/member/memberStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 const Members: NextPage = () => {
-  const { memberList, setMemberList, toggleLoading, setError } = memberStore();
+  const { memberList, setMemberList, toggleLoading, setError, selectedRole } =
+    memberStore();
 
   useEffect(() => {
     const listMember = async () => {
       toggleLoading();
-      await getMemberList(1)
+      await getMemberList(selectedRole.id)
         .then((response) => {
           setMemberList(response.data);
           toggleLoading();
@@ -26,7 +28,8 @@ const Members: NextPage = () => {
     };
 
     listMember();
-  }, []);
+    useRoleStore.getState().getRoleListFromServer();
+  }, [selectedRole]);
 
   console.log(memberList);
 

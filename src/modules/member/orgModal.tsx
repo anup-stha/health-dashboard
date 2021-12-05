@@ -13,7 +13,7 @@ import { OrganisationIntialFormDataType } from "@/modules/member";
 
 interface OrganisationModalProps {
   type: "add" | "update";
-  initialValues: OrganisationIntialFormDataType;
+  initialValues?: OrganisationIntialFormDataType;
   orgId?: number | string;
 }
 
@@ -32,7 +32,7 @@ export const OrganisationModal: React.FC<OrganisationModalProps> = ({
     <>
       {type === "add" ? (
         <Button onClick={openModal}>
-          <span> Add Organisation </span>
+          <span> Add Members </span>
           <PlusCircle weight="fill" size={24} />
         </Button>
       ) : (

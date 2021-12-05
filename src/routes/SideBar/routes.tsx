@@ -1,4 +1,4 @@
-import { Buildings, HouseSimple, Sliders, Users } from "phosphor-react";
+import { HouseSimple, Sliders, UserList, Users } from "phosphor-react";
 import React from "react";
 
 const convertToLink = (
@@ -43,9 +43,9 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   },
   {
     id: 2,
-    title: "Organisation",
-    icon: <Buildings size={24} />,
-    link: "/organisations",
+    title: "Members",
+    icon: <UserList size={24} />,
+    link: "/members",
   },
   {
     id: 3,
