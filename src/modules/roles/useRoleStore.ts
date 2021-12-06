@@ -9,6 +9,7 @@ const initialState = {
   loading: true,
   selectedRole: {} as Role,
   allPermission: [],
+  memberCategoryList: [] as any[],
 };
 
 const store = combine(initialState, (set) => ({
@@ -21,8 +22,11 @@ const store = combine(initialState, (set) => ({
   setSelectedId: (id: number) => {
     set({ selectedId: id });
   },
-  setSelectedRole: (role: any) => {
-    set({ selectedRole: role });
+  setSelectedRole: (role: Role) => {
+    set({
+      selectedRole: role,
+      memberCategoryList: role.member_detail_categories,
+    });
   },
 
   getRoleListFromServer: async () => {
@@ -33,6 +37,10 @@ const store = combine(initialState, (set) => ({
       .catch((error) => {
         console.log(error);
       });
+  },
+
+  addMemberDetail: (data: any) => {
+    set({ memberCategoryList: data });
   },
 
   setAllPermission: (permission: any) => {

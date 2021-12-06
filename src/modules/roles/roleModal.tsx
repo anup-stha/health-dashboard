@@ -80,14 +80,12 @@ const RoleModal: React.FC<RoleModalProps> = ({ type, id }) => {
                   isPublic: values.public,
                   description: values.description,
                 }).then((response) => {
-                  console.log(response);
-
                   const updatedArray = roles.map((role) =>
                     role.id === response.data.data.id
                       ? response.data.data
                       : role
                   );
-                  console.log(updatedArray);
+
                   useRoleStore.getState().setRoleList(updatedArray);
                 });
           }}

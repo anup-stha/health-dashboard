@@ -3,12 +3,14 @@ import React from "react";
 
 type TableViewPropsType = {
   data: any;
+  width?: "full" | string;
   tableHeadings?: string[];
   tableRowComponent?: ReactElement<any, string | JSXElementConstructor<any>>;
-  loading: boolean;
+  loading?: boolean;
 };
 
 export const TableView: React.FC<TableViewPropsType> = ({
+  width = "full",
   data: tableData,
   tableHeadings,
   tableRowComponent,
@@ -19,7 +21,11 @@ export const TableView: React.FC<TableViewPropsType> = ({
   return (
     <div className="flex flex-col">
       <div className="sm:-mx-8 lg:-mx-8">
-        <div className="py-2 align-middle  min-w-full  sm:px-6 lg:px-8">
+        <div
+          className={`py-2 align-middle ${
+            width === "full" ? "min-w-full" : width
+          } sm:px-6 lg:px-8`}
+        >
           <div className="shadow-E500 lg:overflow-x-auto lg:overflow-y-scroll  h-full z-0 rounded-sm sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200 ">
               <thead className="bg-gray-50">
@@ -49,13 +55,12 @@ export const TableView: React.FC<TableViewPropsType> = ({
                         loading,
                       })
                   : tableData.map((data: any, index: number) => {
-                      console.log(data[headings[index]]);
                       return (
                         <tr key={index}>
                           {Object.values(data).map((d: any, index) => (
                             <td
                               key={index}
-                              className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850"
+                              className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto"
                             >
                               {d.toString()}
                             </td>

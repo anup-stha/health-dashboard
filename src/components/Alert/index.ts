@@ -23,8 +23,15 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
       promise,
       {
         loading: msgs.loading ?? "Loading Content",
-        success: msgs.success ? msgs.success : (data) => `${data}`,
-        error: msgs.error ? msgs.error : (data: any) => `${data.data.message}`,
+        success: msgs.success
+          ? msgs.success
+          : (data) => {
+              console.log(data);
+              return `${data}`;
+            },
+        error: msgs.error
+          ? msgs.error
+          : (data: any) => `${data.data.message ?? "Error"}`,
       },
       { id: id }
     )

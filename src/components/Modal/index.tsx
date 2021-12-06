@@ -86,6 +86,7 @@ export const Button: React.FC<IButtonProps> = ({
   return variant === "button" ? (
     <UIButton
       type="submit"
+      buttonSize="small"
       onClick={
         onClick
           ? (e: any) => onClickFn(e)

@@ -25,7 +25,7 @@ export const login = (loginRequest: LoginRequest) => {
         resolve("Logged In Succesfully");
       })
       .catch((error) => {
-        reject(error.message);
+        reject(error.response);
       })
   );
 };

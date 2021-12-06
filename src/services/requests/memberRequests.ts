@@ -1,4 +1,5 @@
 import { memberStore } from "@/modules/member/memberStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   MemberListResponse,
   NormalMemberAddReq,
@@ -44,4 +45,38 @@ export const postOrgMember = (body: OrgMemberAddReq) => {
         reject(error.response);
       })
   );
+};
+
+export const postMemberCategory = (body: any) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .post("member/detail/category/store", body)
+      .then((response: any) => {
+        const memberDetail = useRoleStore.getState().memberCategoryList;
+        useRoleStore
+          .getState()
+          .addMemberDetail([...memberDetail, response.data.data]);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const updateMemberCategory = (body: any, id: number) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .post(`member/detail/category/store/update/${id}`, body)
+      .then((response: any) => {
+        // const memberDetail = useRoleStore.getState().memberCategoryList;
+        // useRoleStore
+        //   .getState()
+        //   .addMemberDetail([...memberDetail, response.data.data]);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
 };

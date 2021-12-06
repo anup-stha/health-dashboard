@@ -3,6 +3,7 @@ import { DeleteModal } from "@/components/Modal/DeleteModal";
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
+import { MemberField } from "@/modules/member/memberDetailCategory";
 import { Permissions } from "@/modules/permissions";
 import RoleModal from "@/modules/roles/roleModal";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
@@ -43,6 +44,8 @@ const RoleDetailPage = ({ idX }: any) => {
               {selectedRole.name}
             </h1>
           </div>
+          <hr />
+          <MemberField />
           <hr />
           <Permissions />
           <hr />
