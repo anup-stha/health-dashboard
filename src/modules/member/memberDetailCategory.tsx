@@ -26,6 +26,7 @@ export const MemberField = () => {
       <div>
         <TableView
           loading={false}
+          tableHeadings={["name", "slug", "value Type", "Required"]}
           data={memberCategoryList}
           width="w-3/4"
           tableRowComponent={<MemberFieldTableRow />}
@@ -38,14 +39,18 @@ export const MemberField = () => {
 export const MemberFieldTableRow = ({ data, key }: any) => {
   return (
     <tr key={key}>
-      {Object.values(data).map((d: any, index) => (
-        <td
-          key={index}
-          className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto"
-        >
-          {d.toString()}
-        </td>
-      ))}
+      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
+        {data.name}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
+        {data.slug}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
+        {data.value_type}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
+        {data.required ? "true" : "false"}
+      </td>
     </tr>
   );
 };

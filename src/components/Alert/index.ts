@@ -31,7 +31,7 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
             },
         error: msgs.error
           ? msgs.error
-          : (data: any) => `${data.data.message ?? "Error"}`,
+          : (data: any) => `${data ? data.data.message : "Error"}`,
       },
       { id: id }
     )
