@@ -167,7 +167,7 @@ export type Member = BasicMember & {
   role: RoleSummary;
 };
 
-export type OrgMemberAddRequest = {
+export type NormalMemberAddReq = {
   name: string;
   role_id: number;
   address: string;
@@ -179,7 +179,17 @@ export type OrgMemberAddRequest = {
   password: string;
 };
 
-export type OrgMemberAddResponse = { data: BasicMember & { role: Role } };
+export type NormalMemberAddRes = { data: BasicMember & { role: Role } };
+
+export type OrgMemberAddReq = {
+  name: string;
+  role_id: number;
+  address: string;
+  lat?: number;
+  lng?: number;
+  phone: string;
+  ref_key?: string | number;
+};
 
 export type MemberList = Member[];
 export type Pagination = {

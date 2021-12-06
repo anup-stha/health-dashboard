@@ -22,7 +22,7 @@ export const ModalContent: React.FC<IModalProps> = ({
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-50 overflow-y-auto"
+        className="fixed inset-0 z-50 overflow-y-auto transition-all duration-1000"
         onClose={closeModal}
       >
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
