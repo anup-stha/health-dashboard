@@ -22,7 +22,7 @@ export const ModalContent: React.FC<IModalProps> = ({
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-50 overflow-y-auto transition-all duration-1000"
+        className="fixed inset-0 z-50 overflow-y-auto"
         onClose={closeModal}
       >
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
@@ -40,10 +40,10 @@ export const ModalContent: React.FC<IModalProps> = ({
           </span>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-100"
             enterFrom="opacity-0 scale-95 -translate-y-32"
             enterTo="opacity-100 scale-100 translate-y-0"
-            leave="ease-in duration-100"
+            leave="ease-in duration-75"
             leaveFrom="opacity-100 scale-100 translate-y-0"
             leaveTo="opacity-0 scale-90 -translate-y-32"
           >

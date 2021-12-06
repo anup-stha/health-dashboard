@@ -27,9 +27,9 @@ const RoleDetailPage = ({ idX }: any) => {
         .catch(() => setLoading(false));
     };
     const getRoleDetail = async () => {
-      await listRoleDetails(idX).then((response) =>
-        setSelectedRole(response.data.data)
-      );
+      await listRoleDetails(idX)
+        .then((response) => setSelectedRole(response.data.data))
+        .catch(() => {});
     };
     listRoles();
     idX && getRoleDetail();
