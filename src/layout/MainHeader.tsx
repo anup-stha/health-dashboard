@@ -19,7 +19,7 @@ export const MainHeader: React.FC = () => {
         <ImageAvatar />
       </div>
       {router.asPath !== "/dashboard" && (
-        <div className="bg-gray-50 h-12  w-full flex border-t-2 border-gray-100 px-10">
+        <div className="bg-white h-12  w-full flex border-t-2 border-gray-100 px-10">
           <Breadcrumbs />
         </div>
       )}

@@ -58,14 +58,14 @@ export const MemberModal: React.FC<MemberModalProps> = ({ type }) => {
                         : "pr-8 py-2 text-gray-500"
                     }`}
                   >
-                    {tab === "normal" ? "Normal User" : "Organisation User"}
+                    {tab === "org" ? "Organisation User " : "Normal User"}
                   </div>
                 </div>
               ))}
               <div className="w-full h-0.5 bg-gray-100 absolute bottom-0 z-[-1]"></div>
             </div>
 
-            {selectedTab === "normal" ? (
+            {selectedTab === "org" ? (
               <form className="space-y-8">
                 <div className="space-y-4">
                   <HookInput

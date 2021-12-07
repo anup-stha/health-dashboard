@@ -118,7 +118,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                 "Are you sure ?",
               ]}
             />
-            <Popover className="relative">
+            <Popover className="">
               {({ open }: any) => (
                 <>
                   <Popover.Button>
@@ -135,7 +135,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 -translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-0 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                      <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-20 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
                         <div className="overflow-hidden  ">
                           <a
                             onClick={async () => {

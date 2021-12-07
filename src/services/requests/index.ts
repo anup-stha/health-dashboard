@@ -41,13 +41,10 @@ privateAgent.interceptors.response.use(
           Authorization: token,
         },
       };
-
       return axios
-        .post(`${baseURL}auth/refresh/`, axiosConfig)
+        .post(`${baseURL}auth/refresh/`, null, axiosConfig)
         .then((res: any) => {
-          console.log(res);
           if (res.status === 200) {
-            console.log(res);
             const tokenData = res.data.data;
             useAuthStore.getState().setToken(tokenData);
             return privateAgent(originalRequest);

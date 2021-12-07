@@ -24,17 +24,17 @@ export const TableView: React.FC<TableViewPropsType> = ({
         <div
           className={`py-2 align-middle ${
             width === "full" ? "min-w-full" : width
-          } sm:px-6 lg:px-8`}
+          } sm:px-6 lg:px-8 relative`}
         >
-          <div className="shadow-E500 lg:overflow-x-auto lg:overflow-y-scroll  h-full z-0 rounded-sm sm:rounded-lg">
+          <div className="lg:overflow-x-auto lg:overflow-y-scroll h-full z-0 overflow-hidden rounded-lg sm:rounded-sm shadow-E500">
             <table className="min-w-full divide-y divide-gray-200 ">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-100">
                 <tr>
                   {headings.map((heading, index) => (
                     <th
                       scope="col"
                       key={index}
-                      className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-500 uppercase tracking-wider"
+                      className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
                     >
                       {heading}
                     </th>

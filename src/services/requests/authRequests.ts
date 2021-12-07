@@ -10,6 +10,7 @@ import {
   RolePostRequestResponse,
 } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -96,7 +97,49 @@ export const updateRole = ({
 };
 
 export const getAllPermissions = (): Promise<AxiosResponse<any>> => {
-  return privateAgent.post("permission/");
+  return privateAgent.get("permission/");
+};
+
+const getRoleDetail = async (idX: any) => {
+  await listRoleDetails(idX)
+    .then((response) => {
+      useRoleStore.getState().setSelectedPermission({
+        current: response.data.data.permissions,
+
+        initial: response.data.data.permissions,
+        selected: [],
+        deselected: [],
+      });
+    })
+    .catch(() => {});
+};
+
+export const addPermissionToRole = (id: any, permId: any) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<any>(`role/assign/${id}/permission`, {
+        permissions: permId,
+      })
+      .then(() => {
+        getRoleDetail(id);
+        resolve("Saved");
+      })
+      .catch((error) => reject(error.response))
+  );
+};
+
+export const removePermissionFromRole = (id: any, permId: any) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<any>(`role/remove/${id}/permission/${permId}`, {
+        permissions: permId,
+      })
+      .then(() => {
+        getRoleDetail(id);
+        resolve("Removed");
+      })
+      .catch((error) => reject(error.response))
+  );
 };
 
 // export const listOrganisations = (): Promise<

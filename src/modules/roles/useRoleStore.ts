@@ -1,20 +1,31 @@
 import { getAllPermissions, listRole } from "@/services/requests/authRequests";
 import { Role } from "@/types";
 import create from "zustand";
-import { combine, devtools, persist } from "zustand/middleware";
+import { combine, devtools } from "zustand/middleware";
 
 const initialState = {
   roleList: [] as Role[],
   selectedId: 0 as number | string,
   loading: true,
+  allLoading: true,
   selectedRole: {} as Role,
-  allPermission: [],
+  allPermission: [] as any[],
   memberCategoryList: [] as any[],
+  selectedPermission: {
+    all: [] as any[],
+    initial: [] as any[],
+    current: [] as any[],
+    selected: [] as any[],
+    deselected: [] as any[],
+  },
 };
 
 const store = combine(initialState, (set) => ({
   setLoading: (loading: boolean) => {
     set({ loading: loading });
+  },
+  setAllLoading: (loading: boolean) => {
+    set({ allLoading: loading });
   },
   setRoleList: (list: Role[]) => {
     set({ roleList: list });
@@ -47,6 +58,23 @@ const store = combine(initialState, (set) => ({
     set({ allPermission: permission });
   },
 
+  setSelectedPermission: ({
+    current,
+    initial,
+    selected,
+    deselected,
+    all,
+  }: any) => {
+    set((state) => ({
+      selectedPermission: {
+        current: current ?? state.selectedPermission.current,
+        initial: initial ?? state.selectedPermission.initial,
+        selected: selected ?? state.selectedPermission.selected,
+        deselected: deselected ?? state.selectedPermission.deselected,
+        all: all ?? state.selectedPermission.all,
+      },
+    }));
+  },
   getAllPermission: async (): Promise<any> => {
     await getAllPermissions().then((response) =>
       useRoleStore.getState().setAllPermission(response.data.data)
@@ -55,6 +83,4 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useRoleStore = create(
-  devtools(persist(store, { name: "roles" }), "role")
-);
+export const useRoleStore = create(devtools(store, "role"));

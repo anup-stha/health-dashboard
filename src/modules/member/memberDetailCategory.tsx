@@ -39,7 +39,7 @@ export const MemberField = () => {
 export const MemberFieldTableRow = ({ data, key }: any) => {
   return (
     <tr key={key}>
-      <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
+      <td className="px-6 py-4 whitespace-nowrap text-xl font-semibold text-gray-850 w-auto">
         {data.name}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
@@ -49,7 +49,7 @@ export const MemberFieldTableRow = ({ data, key }: any) => {
         {data.value_type}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto">
-        {data.required ? "true" : "false"}
+        {data.required ? "Yes" : "No"}
       </td>
     </tr>
   );

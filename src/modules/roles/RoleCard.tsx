@@ -42,7 +42,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="absolute -right-10 -bottom-4">
         <div className="w-44 h-44 relative">
           <Image
-            src={`/assets/avatar${Math.floor(Math.random() * 3) + 1}.svg`}
+            src={`/assets/avatar${1}.svg`}
             alt="Super User Admin Image"
             layout="fill"
           />

@@ -14,6 +14,7 @@ export const OrgTable = () => {
         "Verified Status",
         "Phone Number",
         "Address",
+        "",
       ]}
       loading={loading}
       tableRowComponent={<MemberTableRow />}
