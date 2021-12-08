@@ -67,12 +67,21 @@ export const postMemberCategory = (body: any) => {
 export const updateMemberCategory = (body: any, id: number) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .post(`member/detail/category/store/update/${id}`, body)
+      .post(`member/detail/category/update/${id}`, body)
       .then((response: any) => {
         // const memberDetail = useRoleStore.getState().memberCategoryList;
         // useRoleStore
         //   .getState()
         //   .addMemberDetail([...memberDetail, response.data.data]);
+        const updatedArray = useRoleStore
+          .getState()
+          .memberCategoryList.map((category) =>
+            category.id === response.data.data.id
+              ? response.data.data
+              : category
+          );
+
+        useRoleStore.getState().addMemberDetail(updatedArray);
         resolve(response.data.message);
       })
       .catch((error) => {

@@ -1,5 +1,5 @@
 import { getAllPermissions, listRole } from "@/services/requests/authRequests";
-import { Role } from "@/types";
+import { memberDetailCategory, Role } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
@@ -10,7 +10,7 @@ const initialState = {
   allLoading: true,
   selectedRole: {} as Role,
   allPermission: [] as any[],
-  memberCategoryList: [] as any[],
+  memberCategoryList: [] as memberDetailCategory[],
   selectedPermission: {
     all: [] as any[],
     initial: [] as any[],

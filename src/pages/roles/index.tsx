@@ -1,23 +1,28 @@
+import { RolePageLoadingState } from "@/components/state/rolePageLoadingState";
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
+import { MainLayout } from "@/layout/MainLayout";
 import RolePage from "@/modules/roles";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { listRole } from "@/services/requests/authRequests";
 import { useEffect } from "react";
 
 const Roles = () => {
+  const { getRoleListFromServer, setAllLoading, allLoading } = useRoleStore();
+
   useEffect(() => {
     const listRoles = async () => {
-      await listRole()
-        .then((response) => {
-          useRoleStore.getState().setRoleList(response.data.data);
-        })
-        .catch((error) => console.log(error));
+      await getRoleListFromServer()
+        .then(() => setAllLoading(false))
+        .catch(() => setAllLoading(false));
     };
     listRoles();
   }, []);
 
-  return <RolePage />;
+  return (
+    <MainLayout>
+      {!allLoading ? <RolePage /> : <RolePageLoadingState count={1} />}
+    </MainLayout>
+  );
 };
 
 export default withRole(withAuth(Roles));

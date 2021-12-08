@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { login } from "./authRequests";
 import { logOut } from "./authRequests";
 
-const baseURL = process.env.NEXT_PUBLIC_TEMP_URL ?? "";
+const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export const privateAgent = axios.create({
   baseURL,
@@ -51,7 +51,6 @@ privateAgent.interceptors.response.use(
           }
         })
         .catch((error) => {
-          console.log(error);
           useAuthStore.getState().removeUserData();
           toast.error("Credentials Has Expired! Please Log In Again!!");
         });

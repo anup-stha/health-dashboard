@@ -1,6 +1,5 @@
 import Router from "next/router";
 import { AxiosResponse } from "axios";
-
 import { publicAgent, privateAgent } from ".";
 import {
   LoginRequest,

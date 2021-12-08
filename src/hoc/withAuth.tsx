@@ -27,7 +27,7 @@ const withAuth = (WrappedComponent: React.FC) => {
       }
     }, [isAuthenticated, router, accessToken]);
 
-    return accessToken ? <WrappedComponent {...props} /> : <div>Loading</div>;
+    return accessToken ? <WrappedComponent {...props} /> : <div></div>;
   };
   return RequireAuthentication;
 };

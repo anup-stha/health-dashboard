@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { number, string } from "yup/lib/locale";
+import { boolean, number, string } from "yup/lib/locale";
 
 /* eslint-disable camelcase */
 export interface ChartData {
@@ -206,4 +206,12 @@ export type MemberListResponse = StatusType & {
     list: MemberList;
     pagination: Pagination;
   };
+};
+
+export type memberDetailCategory = {
+  id: number;
+  name: string;
+  slug: string;
+  value_type: string;
+  required: boolean;
 };

@@ -1,5 +1,6 @@
 import { WarningButton } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
+import { PermissionPageLoadingState } from "@/components/state/PermissionLoadingState";
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
@@ -60,7 +61,6 @@ const RoleDetailPage = ({ idX }: any) => {
 
   return (
     <MainLayout>
-      {" "}
       {loading === false && allLoading === false ? (
         <div className="px-10 py-10 overflow-visible sm:p-8">
           <div className="flex flex-col space-y-8">
@@ -69,22 +69,22 @@ const RoleDetailPage = ({ idX }: any) => {
                 {selectedRole.name}
               </h1>
             </div>
-            <hr />
-            <MemberField />
+
             <hr />
             <Permissions />
             <hr />
+
             <div className="space-y-6">
               <div>
                 <h1 className="text-3xl font-semibold text-gray-900">
-                  Danger Zone
+                  Alert Zone
                 </h1>
                 <p className="text-lg font-semibold text-gray-500">
                   Please be careful with anything you do here
                 </p>
-              </div>
-
-              <div className="bg-white shadow-E500 w-2/3 py-10 px-8 rounded-sm flex justify-between items-center">
+              </div>{" "}
+              <MemberField />
+              <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
                 <div>
                   <h1 className="text-2xl font-semibold text-gray-900">
                     Edit this role
@@ -96,7 +96,7 @@ const RoleDetailPage = ({ idX }: any) => {
                 </div>
                 <RoleModal type="edit" id={idX} />
               </div>
-              <div className="bg-white shadow-E500 w-2/3 py-10 px-8 rounded-sm flex justify-between items-center">
+              <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
                 <div>
                   <h1 className="text-2xl font-semibold text-gray-900">
                     Delete this role
@@ -120,7 +120,7 @@ const RoleDetailPage = ({ idX }: any) => {
           </div>
         </div>
       ) : (
-        <div>Loading</div>
+        <PermissionPageLoadingState count={1} />
       )}
     </MainLayout>
   );

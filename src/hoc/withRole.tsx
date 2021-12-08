@@ -19,7 +19,7 @@ export const withRole = (WrappedComponent: React.FC) => {
         }
       }
     }, [router, role, rolePermitted]);
-    return rolePermitted ? <WrappedComponent {...props} /> : <div>Loading</div>;
+    return rolePermitted ? <WrappedComponent {...props} /> : <div></div>;
   };
   return RequirePermission;
 };
