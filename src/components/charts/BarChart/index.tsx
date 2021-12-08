@@ -97,7 +97,6 @@ export const BarChart: React.FC<BarChartProps> = ({
     // },
   });
 
-  console.log([chartData]);
   const [state, setState] = useState({
     series: xAxisType === "datetime" ? [chartData] : chartData,
   });

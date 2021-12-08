@@ -26,7 +26,6 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
         success: msgs.success
           ? msgs.success
           : (data) => {
-              console.log(data);
               return `${data}`;
             },
         error: msgs.error

@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import Head from "next/head";
 
 import withAuth from "@/hoc/withAuth";
-import OrganisationPage from "@/modules/member";
+import { MemberPage } from "@/modules/members";
 import { withRole } from "@/hoc/withRole";
 import { getMemberList } from "@/services/requests/memberRequests";
-import { memberStore } from "@/modules/member/memberStore";
+import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 const Members: NextPage = () => {
-  const { memberList, setMemberList, toggleLoading, setError, selectedRole } =
+  const { setMemberList, toggleLoading, setError, selectedRole } =
     memberStore();
 
   useEffect(() => {
@@ -31,14 +31,12 @@ const Members: NextPage = () => {
     useRoleStore.getState().getRoleListFromServer();
   }, [selectedRole]);
 
-  console.log(memberList);
-
   return (
     <>
       <Head>
         <title>Members</title>
       </Head>
-      <OrganisationPage />
+      <MemberPage />
     </>
   );
 };

@@ -7,7 +7,11 @@ import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useEffect } from "react";
 
 const Roles = () => {
-  const { getRoleListFromServer, setAllLoading, allLoading } = useRoleStore();
+  const {
+    getRoleListFromServer,
+    setAllLoading,
+    allRoleLoading: allLoading,
+  } = useRoleStore();
 
   useEffect(() => {
     const listRoles = async () => {

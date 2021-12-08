@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-
-import { boolean, number, string } from "yup/lib/locale";
-
 /* eslint-disable camelcase */
 export interface ChartData {
   [index: string | number]: string | number | any;
@@ -94,7 +91,7 @@ type StatusType = {
   message: string;
 };
 
-type Permission = {
+export type Permission = {
   id: Id;
   name: string;
   description: string;
@@ -141,12 +138,27 @@ export type LoginRequest = {
   password: string;
 };
 
-export type RoleGetRequestResponse = StatusType & {
+export type RoleListResponse = StatusType & {
   data: Role[];
 };
 
-export type RolePostRequestResponse = StatusType & {
+export type RoleDetailResponse = StatusType & {
   data: Role;
+};
+
+export type RoleAddBody = {
+  name: string;
+  memberLimit: number;
+  isPublic: boolean;
+  description: string;
+};
+
+export type RoleUpdateBody = {
+  id: Id;
+  name: string;
+  memberLimit: number;
+  isPublic: boolean;
+  description: string;
 };
 
 export type BasicMember = {
@@ -167,7 +179,7 @@ export type Member = BasicMember & {
   role: RoleSummary;
 };
 
-export type NormalMemberAddReq = {
+export type OrgMemberAddReq = {
   name: string;
   role_id: number;
   address: string;
@@ -179,9 +191,9 @@ export type NormalMemberAddReq = {
   password: string;
 };
 
-export type NormalMemberAddRes = { data: BasicMember & { role: Role } };
+export type OrgMemberAddRes = { data: BasicMember & { role: Role } };
 
-export type OrgMemberAddReq = {
+export type NormalMemberAddReq = {
   name: string;
   role_id: number;
   address: string;
@@ -208,10 +220,44 @@ export type MemberListResponse = StatusType & {
   };
 };
 
-export type memberDetailCategory = {
+export type MemberDetailCategoryBody = {
+  role_id: number;
+  name: string;
+  value_type: string;
+  required: 1 | 0 | true | false;
+};
+
+export type MemberDetailCategory = {
   id: number;
   name: string;
   slug: string;
   value_type: string;
-  required: boolean;
+  required: 1 | 0 | true | false;
 };
+
+export type MemberDetailCategoryUpdateBody = {
+  name: string;
+  value_type: string;
+  required: 1 | 0 | true | false;
+};
+
+export type MemberDetailCategoryUpdate = {
+  id: number;
+  name: string;
+  value_type: string;
+  required: 1 | 0 | true | false;
+};
+
+export type MemberDetailCategoryAddResponse = StatusType & {
+  data: MemberDetailCategory;
+};
+
+export type MemberDetailCategoryUpdateResponse = StatusType & {
+  data: MemberDetailCategoryUpdate;
+};
+
+export type PermissionListResponse = StatusType & {
+  data: Permission[];
+};
+
+export type NullDataResponse = StatusType & { data: null };

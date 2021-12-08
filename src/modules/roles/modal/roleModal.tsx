@@ -1,11 +1,11 @@
 import { Button, InfoButton } from "@/components/Button";
 import { LabelInput, LabelTextArea, Switch } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
-import { addRole, updateRole } from "@/services/requests/authRequests";
+import { addRole, updateRole } from "@/services/requests/roleRequests";
 import { Field, Formik } from "formik";
 import { Plus } from "phosphor-react";
 import * as Yup from "yup";
-import { useRoleStore } from "./useRoleStore";
+import { useRoleStore } from "../useRoleStore";
 
 type RoleModalProps = {
   type?: "add" | "edit";
@@ -20,8 +20,6 @@ const RoleModal: React.FC<RoleModalProps> = ({ type, id }) => {
   const roles = useRoleStore.getState().roleList;
   const role = roles.filter((element) => element.id == id)[0];
 
-  console.log(roles, role);
-
   const initialValues =
     type === "add"
       ? {
@@ -31,7 +29,7 @@ const RoleModal: React.FC<RoleModalProps> = ({ type, id }) => {
           public: false,
         }
       : {
-          title: role.name,
+          title: role.name ?? "",
           description: role.desc,
           memberLimit: role.member_limit,
           public: role.public,

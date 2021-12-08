@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Warning } from "phosphor-react";
 import { useRouter } from "next/router";
-import { useRoleStore } from "./useRoleStore";
+import { useRoleStore } from "../useRoleStore";
 
 type RoleCardPropsType = {
   id: number | string;

@@ -8,7 +8,6 @@ const withAuth = (WrappedComponent: React.FC) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
     const router = useRouter();
-    console.log(router.pathname);
 
     useEffect(() => {
       setIsAuthenticated(!!accessToken);

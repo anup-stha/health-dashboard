@@ -1,22 +1,40 @@
-import { getAllPermissions, listRole } from "@/services/requests/authRequests";
-import { memberDetailCategory, Role } from "@/types";
+import { getAllPermissions } from "@/services/requests/roleRequests";
+import { listRole } from "@/services/requests/roleRequests";
+import { MemberDetailCategory, Permission, Role } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
-const initialState = {
-  roleList: [] as Role[],
-  selectedId: 0 as number | string,
-  loading: true,
-  allLoading: true,
-  selectedRole: {} as Role,
-  allPermission: [] as any[],
-  memberCategoryList: [] as memberDetailCategory[],
+type roleInitialStateProps = {
+  roleList: Role[];
+  selectedId: string | number;
+  loading: boolean;
+  allRoleLoading: boolean;
+  selectedRole: Role;
+  allPermission: Permission[];
+  memberCategoryList: MemberDetailCategory[];
   selectedPermission: {
-    all: [] as any[],
-    initial: [] as any[],
-    current: [] as any[],
-    selected: [] as any[],
-    deselected: [] as any[],
+    all: Permission[];
+    initial: Permission[];
+    current: Permission[];
+    selected: number[];
+    deselected: number[];
+  };
+};
+
+const initialState: roleInitialStateProps = {
+  roleList: [],
+  selectedId: 0,
+  loading: true,
+  allRoleLoading: true,
+  selectedRole: {} as Role,
+  allPermission: [],
+  memberCategoryList: [],
+  selectedPermission: {
+    all: [],
+    initial: [],
+    current: [],
+    selected: [],
+    deselected: [],
   },
 };
 
@@ -25,7 +43,7 @@ const store = combine(initialState, (set) => ({
     set({ loading: loading });
   },
   setAllLoading: (loading: boolean) => {
-    set({ allLoading: loading });
+    set({ allRoleLoading: loading });
   },
   setRoleList: (list: Role[]) => {
     set({ roleList: list });
@@ -45,9 +63,7 @@ const store = combine(initialState, (set) => ({
       .then((response) => {
         useRoleStore.getState().setRoleList(response.data.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(() => {});
   },
 
   addMemberDetail: (data: any) => {

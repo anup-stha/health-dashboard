@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import { useRoleStore } from "../roles/useRoleStore";
-import { memberStore } from "./memberStore";
+import { useRoleStore } from "../../roles/useRoleStore";
+import { memberStore } from "../memberStore";
 
 export const MemberRoleDropdown = () => {
   const roleList = useRoleStore

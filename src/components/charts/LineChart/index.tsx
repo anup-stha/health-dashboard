@@ -150,7 +150,6 @@ export const LineChart: React.FC<LineChartProps> = ({
     // },
   });
 
-  console.log([chartData]);
   const [state, setState] = useState({
     series: xAxisType === "datetime" ? [chartData] : chartData,
   });

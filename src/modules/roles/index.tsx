@@ -1,5 +1,5 @@
-import { RoleCard } from "./RoleCard";
-import RoleModal from "./roleModal";
+import { RoleCard } from "./cards/RoleCard";
+import RoleModal from "./modal/roleModal";
 import { useRoleStore } from "./useRoleStore";
 
 const RolePage = () => {

@@ -5,7 +5,6 @@ import { orgNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
   const role = useAuthStore().user.role;
-  console.log(role);
   const navBarRoutes = role
     ? role.id === 1
       ? superAdminNavRoutes

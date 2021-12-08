@@ -1,25 +1,16 @@
-import { Member } from "@/types";
-import { MoreVertical } from "react-feather";
-
-// import { OrganisationModal } from "./orgModal";
-import { BooleanTag } from "../../components/others/BooleanTag";
-
-// import { alert } from "../../components/Alert";
-// import { onDeleteOrg } from "@/services/requests/orgRequests";
-import { Popover, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-// import { toggleActiveOrg } from "@/services/requests/authRequests";
-
-import Image from "next/image";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
-
 import { DeleteModal } from "@/components/Modal/DeleteModal";
-
+import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
+import { Member } from "@/types";
+import { Popover, Transition } from "@headlessui/react";
+import Image from "next/image";
 import Link from "next/link";
 import { CaretDoubleRight } from "phosphor-react";
-import { MemberModal } from "./memberModal";
+import { Fragment } from "react";
+import { MoreVertical } from "react-feather";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { BooleanTag } from "../../../components/others/BooleanTag";
+import { MemberModal } from "../modal/memberModal";
 
 type OrgTableRowType = {
   data?: Member;
@@ -110,7 +101,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                 //     error: (data: any) => `${data}`,
                 //   },
                 // });
-                console.log("ok");
               }}
               title="You are about to delete a member"
               subTitles={[

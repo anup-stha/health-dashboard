@@ -1,19 +1,18 @@
-import { WarningButton } from "@/components/Button";
-import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { PermissionPageLoadingState } from "@/components/state/PermissionLoadingState";
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
-import { MemberField } from "@/modules/member/memberDetailCategory";
 import { Permissions } from "@/modules/permissions";
-import RoleModal from "@/modules/roles/roleModal";
+import { DeleteZone } from "@/modules/roles/others/DeleteZone";
+import { RoleMemberCategory } from "@/modules/roles/others/roleMemberCategory";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   getAllPermissions,
   listRoleDetails,
-} from "@/services/requests/authRequests";
+} from "@/services/requests/roleRequests";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
+import { UpdateZone } from "../../modules/roles/others/UpdateZone";
 
 const RoleDetailPage = ({ idX }: any) => {
   const {
@@ -23,7 +22,7 @@ const RoleDetailPage = ({ idX }: any) => {
     setSelectedRole,
     selectedRole,
     setSelectedPermission,
-    allLoading,
+    allRoleLoading: allLoading,
     setAllLoading,
   } = useRoleStore();
 
@@ -66,7 +65,7 @@ const RoleDetailPage = ({ idX }: any) => {
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <h1 className="text-5xl font-semibold text-gray-900">
-                {selectedRole.name}
+                {selectedRole && selectedRole.name}
               </h1>
             </div>
 
@@ -83,38 +82,9 @@ const RoleDetailPage = ({ idX }: any) => {
                   Please be careful with anything you do here
                 </p>
               </div>{" "}
-              <MemberField />
-              <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
-                <div>
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    Edit this role
-                  </h1>
-                  <p className="text-lg font-semibold text-gray-500">
-                    Once you edit a role, you cannot edit this role for 3 days.
-                    Please be certain.
-                  </p>
-                </div>
-                <RoleModal type="edit" id={idX} />
-              </div>
-              <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
-                <div>
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    Delete this role
-                  </h1>
-                  <p className="text-lg font-semibold text-gray-500">
-                    Once you delete a repository, there is no going back. Please
-                    be certain.
-                  </p>
-                </div>
-                <DeleteModal
-                  closeButton={<WarningButton>Delete</WarningButton>}
-                  title="You are about to delete this role"
-                  subTitles={[
-                    "This will delete your role forever",
-                    "Are you sure ?",
-                  ]}
-                />
-              </div>
+              <RoleMemberCategory />
+              <UpdateZone idX={idX} />
+              <DeleteZone />
             </div>
             <hr />
           </div>

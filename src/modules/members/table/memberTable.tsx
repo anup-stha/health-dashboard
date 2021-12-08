@@ -1,8 +1,8 @@
 import { TableView } from "@/components/Table";
-import { memberStore } from "./memberStore";
+import { memberStore } from "../memberStore";
 import { MemberTableRow } from "./memberTableRow";
 
-export const OrgTable = () => {
+export const MemberTable = () => {
   const { memberList, loading } = memberStore();
 
   return (

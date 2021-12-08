@@ -1,15 +1,9 @@
-import Router from "next/router";
-import { AxiosResponse } from "axios";
-import { publicAgent, privateAgent } from ".";
-import {
-  LoginRequest,
-  LoginResponse,
-  LogoutRequest,
-  RoleGetRequestResponse,
-  RolePostRequestResponse,
-} from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { LoginRequest, LoginResponse, LogoutRequest } from "@/types";
+import Router from "next/router";
+import { privateAgent, publicAgent } from ".";
+import { listRoleDetails } from "./roleRequests";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -31,7 +25,7 @@ export const login = (loginRequest: LoginRequest) => {
 };
 
 export const logOut = () => {
-  return new Promise((resolve, reject) =>
+  return new Promise((resolve) =>
     privateAgent
       .post<LogoutRequest>("auth/logout/")
       .then(() => {
@@ -47,98 +41,17 @@ export const logOut = () => {
   );
 };
 
-export const listRole = (): Promise<AxiosResponse<RoleGetRequestResponse>> => {
-  return privateAgent.get("role/");
-};
-
-export const listRoleDetails = (id: any): Promise<AxiosResponse<any>> => {
-  return privateAgent.get(`role/detail/${id}`);
-};
-
-export const addRole = ({
-  name,
-  memberLimit,
-  isPublic,
-  description,
-}: {
-  name: string;
-  memberLimit: number;
-  isPublic: boolean;
-  description: string;
-}): Promise<AxiosResponse<RolePostRequestResponse>> => {
-  return privateAgent.post("role/store/", {
-    name,
-    member_limit: memberLimit,
-    public: isPublic ? 1 : 0,
-    desc: description,
-  });
-};
-
-export const updateRole = ({
-  id,
-  name,
-  memberLimit,
-  isPublic,
-  description,
-}: {
-  id: string | number;
-  name: string;
-  memberLimit: number;
-  isPublic: boolean;
-  description: string;
-}): Promise<AxiosResponse<RolePostRequestResponse>> => {
-  return privateAgent.post(`role/update/${id}`, {
-    name,
-    member_limit: memberLimit,
-    public: isPublic ? 1 : 0,
-    desc: description,
-  });
-};
-
-export const getAllPermissions = (): Promise<AxiosResponse<any>> => {
-  return privateAgent.get("permission/");
-};
-
-const getRoleDetail = async (idX: any) => {
+export const getRoleDetail = async (idX: number) => {
   await listRoleDetails(idX)
     .then((response) => {
       useRoleStore.getState().setSelectedPermission({
         current: response.data.data.permissions,
-
         initial: response.data.data.permissions,
         selected: [],
         deselected: [],
       });
     })
     .catch(() => {});
-};
-
-export const addPermissionToRole = (id: any, permId: any) => {
-  return new Promise((resolve, reject) =>
-    privateAgent
-      .post<any>(`role/assign/${id}/permission`, {
-        permissions: permId,
-      })
-      .then(() => {
-        getRoleDetail(id);
-        resolve("Saved");
-      })
-      .catch((error) => reject(error.response))
-  );
-};
-
-export const removePermissionFromRole = (id: any, permId: any) => {
-  return new Promise((resolve, reject) =>
-    privateAgent
-      .post<any>(`role/remove/${id}/permission/${permId}`, {
-        permissions: permId,
-      })
-      .then(() => {
-        getRoleDetail(id);
-        resolve("Removed");
-      })
-      .catch((error) => reject(error.response))
-  );
 };
 
 // export const listOrganisations = (): Promise<

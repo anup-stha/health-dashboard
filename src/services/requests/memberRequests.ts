@@ -1,10 +1,14 @@
-import { memberStore } from "@/modules/member/memberStore";
+import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
+  MemberDetailCategoryBody,
+  MemberDetailCategoryAddResponse,
   MemberListResponse,
-  NormalMemberAddReq,
-  NormalMemberAddRes,
   OrgMemberAddReq,
+  OrgMemberAddRes,
+  NormalMemberAddReq,
+  MemberDetailCategoryUpdateBody,
+  MemberDetailCategoryUpdateResponse,
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
@@ -15,10 +19,10 @@ export const getMemberList = (
   return privateAgent.get(`/member/list/${id}`);
 };
 
-export const postNormalMember = (body: NormalMemberAddReq) => {
+export const addOrgMember = (body: OrgMemberAddReq) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .post<NormalMemberAddRes>("user/store", body)
+      .post<OrgMemberAddRes>("user/store", body)
       .then((response) => {
         memberStore
           .getState()
@@ -31,10 +35,10 @@ export const postNormalMember = (body: NormalMemberAddReq) => {
   );
 };
 
-export const postOrgMember = (body: OrgMemberAddReq) => {
+export const addNormalMember = (body: NormalMemberAddReq) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .post<NormalMemberAddRes>("member/store", body)
+      .post<OrgMemberAddRes>("member/store", body)
       .then((response) => {
         memberStore
           .getState()
@@ -47,11 +51,14 @@ export const postOrgMember = (body: OrgMemberAddReq) => {
   );
 };
 
-export const postMemberCategory = (body: any) => {
+export const postMemberCategory = (body: MemberDetailCategoryBody) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .post("member/detail/category/store", body)
-      .then((response: any) => {
+      .post<MemberDetailCategoryAddResponse>(
+        "member/detail/category/store",
+        body
+      )
+      .then((response) => {
         const memberDetail = useRoleStore.getState().memberCategoryList;
         useRoleStore
           .getState()
@@ -64,15 +71,17 @@ export const postMemberCategory = (body: any) => {
   });
 };
 
-export const updateMemberCategory = (body: any, id: number) => {
+export const updateMemberCategory = (
+  body: MemberDetailCategoryUpdateBody,
+  id: number
+) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .post(`member/detail/category/update/${id}`, body)
-      .then((response: any) => {
-        // const memberDetail = useRoleStore.getState().memberCategoryList;
-        // useRoleStore
-        //   .getState()
-        //   .addMemberDetail([...memberDetail, response.data.data]);
+      .post<MemberDetailCategoryUpdateResponse>(
+        `member/detail/category/update/${id}`,
+        body
+      )
+      .then((response) => {
         const updatedArray = useRoleStore
           .getState()
           .memberCategoryList.map((category) =>
