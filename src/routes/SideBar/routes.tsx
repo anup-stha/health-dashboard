@@ -1,4 +1,10 @@
-import { HouseSimple, Sliders, UserList, Users } from "phosphor-react";
+import {
+  HouseSimple,
+  Sliders,
+  TestTube,
+  UserList,
+  Users,
+} from "phosphor-react";
 import React from "react";
 
 const convertToLink = (
@@ -57,6 +63,12 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         title: "Roles",
         icon: <Users size={24} />,
         link: "/roles",
+      },
+      {
+        id: 2,
+        title: "Tests",
+        icon: <TestTube size={24} />,
+        link: "/tests",
       },
     ],
   },

@@ -26,9 +26,12 @@ const Members: NextPage = () => {
           setError(error);
         });
     };
+    const getRoles = async () => {
+      await useRoleStore.getState().getRoleListFromServer();
+    };
 
     listMember();
-    useRoleStore.getState().getRoleListFromServer();
+    getRoles();
   }, [selectedRole]);
 
   return (

@@ -1,4 +1,3 @@
-import { Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
 import { useState } from "react";
@@ -37,7 +36,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           }`}
         >
           <span
-            className={`flex items-center gap-x-2 w-full ${
+            className={`flex items-center gap-x-4 w-full ${
               expand || isPathSelected ? "text-gray-800" : ""
             }`}
           >
@@ -45,7 +44,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
             {open && (
               <div className={`flex items-center justify-between w-full`}>
-                <span className={`text-xl font-bold sm:text-lg `}>
+                <span className={`text-xl font-semibold sm:text-lg `}>
                   {subRoutes.title}
                 </span>
                 <CaretDown weight="bold" size={24} />
@@ -60,44 +59,33 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           )}
         </div>
       </li>
-      <Transition
-        show={expand}
-        enter="transition-transform duration-100"
-        enterFrom="-translate-y-12 opacity-0"
-        enterTo="translate-y-0 opacity-100"
-        leave="transition-transform duration-100"
-        leaveFrom="translate-y-0 opacity-100"
-        leaveTo="-translate-y-24 opacity-0"
-      >
-        {expand && (
-          <div
-            className={
-              open ? "opeborder-gray-400 border-l-2 ml-8 space-y-2" : ""
-            }
-          >
-            {expand &&
-              subRoutes.children &&
-              subRoutes.children.map((route) => {
-                if (route.children) {
-                  return (
-                    <NavDropdown
-                      subRoutes={route}
-                      key={`${route.id}-${route.title}`}
-                    />
-                  );
-                }
 
+      {expand && (
+        <div
+          className={open ? "border-gray-300 border-l-2 ml-8 space-y-2" : ""}
+        >
+          {expand &&
+            subRoutes.children &&
+            subRoutes.children.map((route) => {
+              if (route.children) {
                 return (
-                  <NavItem
+                  <NavDropdown
+                    subRoutes={route}
                     key={`${route.id}-${route.title}`}
-                    route={route}
-                    containerClassName={open ? `pl-4` : ""}
                   />
                 );
-              })}
-          </div>
-        )}
-      </Transition>
+              }
+
+              return (
+                <NavItem
+                  key={`${route.id}-${route.title}`}
+                  route={route}
+                  containerClassName={open ? `pl-4` : ""}
+                />
+              );
+            })}
+        </div>
+      )}
     </ul>
   );
 };

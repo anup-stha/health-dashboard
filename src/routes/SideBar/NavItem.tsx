@@ -37,11 +37,11 @@ export const NavItem: React.FC<NavItemProps> = ({
               : "items-center px-4 delay-300 group"
           }`}
         >
-          <span className="flex items-center gap-x-2">
+          <span className="flex items-center gap-x-4">
             <div>{route.icon}</div>
 
             {open && (
-              <span className="text-xl font-bold sm:text-lg">
+              <span className="text-xl font-semibold sm:text-lg">
                 {route.title}
               </span>
             )}

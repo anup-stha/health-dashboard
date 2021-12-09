@@ -13,12 +13,12 @@ export const MainLayout = ({ children }: any) => {
       <div
         className={`${
           open
-            ? " relative w-5/6 ml-[16.67%] md:w-full md:ml-0"
+            ? " relative w-full pl-[18%] md:w-full md:ml-0"
             : "relative w-full pl-24"
         } transition-all duration-200 `}
       >
         <MainHeader />
-        <div className="3xl:flex 3xl:items-center 3xl:justify-center pt-36">
+        <div className="3xl:flex 3xl:items-center 3xl:justify-center pt-32">
           {children}
         </div>
       </div>

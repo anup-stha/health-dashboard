@@ -9,17 +9,17 @@ export const MainHeader: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-20 h-36 bg-white shadow-E200 ${
-        !open ? "pl-24" : "pl-[16.67%]"
+      className={`fixed top-0 left-0 w-full z-20  bg-white shadow-E200 ${
+        !open ? "pl-24" : "pl-[18%]"
       } `}
     >
-      <div className="h-24 flex items-center justify-between px-12">
+      <div className="h-20 flex items-center justify-between px-12">
         <div>{/* Put Logo Her */}</div>
 
         <ImageAvatar />
       </div>
       {router.asPath !== "/dashboard" && (
-        <div className="bg-white h-12  w-full flex border-t-2 border-gray-100 px-10">
+        <div className="bg-white h-12 w-full flex border-t-2 border-gray-100 px-10">
           <Breadcrumbs />
         </div>
       )}
