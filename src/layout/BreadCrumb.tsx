@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import _ from "lodash";
 
 // const convertBreadcrumb = (string: string) => {
 //   return string
@@ -38,7 +39,7 @@ const Breadcrumbs = () => {
 
       const pathArray = linkPath.map((path, i) => {
         return {
-          label: removeBracesIfAny(labelPath[i]),
+          label: !_.isNaN(+path) ? removeBracesIfAny(labelPath[i]) : path,
           href: "/" + linkPath.slice(0, i + 1).join("/"),
         };
       });

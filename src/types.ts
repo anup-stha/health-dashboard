@@ -261,3 +261,65 @@ export type PermissionListResponse = StatusType & {
 };
 
 export type NullDataResponse = StatusType & { data: null };
+
+export type AddTestBody = {
+  name: string;
+  desc: string;
+  slug: string;
+  public: 1 | 0 | true | false;
+};
+export type AddTestCategoryBody = {
+  name: string;
+  desc: string;
+  slug: string;
+  test_category_id: number;
+  public: 1 | 0 | true | false;
+};
+
+export type AddTestCategorySubBody = AddTestBody & {
+  test_category_id: 1 | 0;
+};
+
+export type AddTestResponse = StatusType & {
+  data: {
+    id: Id;
+    name: string;
+    desc: string;
+    slug: string;
+    public: boolean;
+    sub_categories: Array<TestSubCategory>;
+  };
+};
+
+export type TestSubCategory = {
+  id: Id;
+  name: string;
+  desc: string;
+  slug: string;
+  public: boolean;
+  category_id: Id;
+};
+
+export type AddTestCategoryResponse = StatusType & {
+  data: {
+    id: Id;
+    name: string;
+    desc: string;
+    slug: string;
+    public: boolean;
+    category_id: Id;
+  };
+};
+
+export type Test = {
+  id: Id;
+  name: string;
+  desc: string;
+  slug: string;
+  public: boolean;
+  sub_categories: Array<TestSubCategory>;
+};
+
+export type ListTestResponse = StatusType & {
+  data: Test[];
+};
