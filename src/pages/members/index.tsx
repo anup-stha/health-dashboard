@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 
 import withAuth from "@/hoc/withAuth";
@@ -9,10 +9,13 @@ import { getMemberList } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { listRole } from "@/services/requests/roleRequests";
+import { MainLayout } from "@/layout/MainLayout";
 
 const Members: NextPage = () => {
-  const { setMemberList, toggleLoading, setError, selectedRole } =
+  const { setMemberList, toggleLoading, setError, selectedRole, memberList } =
     memberStore();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const listMember = async () => {
@@ -28,34 +31,27 @@ const Members: NextPage = () => {
         });
     };
     const getRoles = async () => {
+      setLoading(true);
       await listRole()
         .then((response) => {
           useRoleStore.getState().setRoleList(response.data.data);
+          setLoading(false);
         })
-        .catch(() => {});
+        .catch(() => {
+          setLoading(false);
+        });
     };
-    getRoles();
+    useRoleStore.getState().roleList.length === 0 && getRoles();
 
-    listMember();
+    memberList.length === 0 && listMember();
   }, [selectedRole]);
-
-  useEffect(() => {
-    const getRoles = async () => {
-      await listRole()
-        .then((response) => {
-          useRoleStore.getState().setRoleList(response.data.data);
-        })
-        .catch(() => {});
-    };
-    getRoles();
-  }, []);
 
   return (
     <>
       <Head>
         <title>Members</title>
       </Head>
-      <MemberPage />
+      {!loading ? <MemberPage /> : <MainLayout></MainLayout>}
     </>
   );
 };

@@ -1,3 +1,5 @@
+import withAuth from "@/hoc/withAuth";
+import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { TestDetails } from "@/modules/tests/testDetails";
 import { testStore } from "@/modules/tests/testStore";
@@ -29,7 +31,7 @@ const Test: NextPage<any> = ({ idX }) => {
   );
 };
 
-export default Test;
+export default withAuth(withRole(Test));
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext

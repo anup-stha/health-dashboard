@@ -18,7 +18,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
 }) => {
   const headings = tableHeadings ? tableHeadings : Object.keys(tableData[0]);
 
-  return (
+  return !loading ? (
     <div className="flex flex-col">
       <div className="sm:-mx-8 lg:-mx-8">
         <div
@@ -30,16 +30,15 @@ export const TableView: React.FC<TableViewPropsType> = ({
             <table className="min-w-full divide-y divide-gray-200 ">
               <thead className="bg-gray-100">
                 <tr>
-                  {!loading &&
-                    headings.map((heading, index) => (
-                      <th
-                        scope="col"
-                        key={index}
-                        className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        {heading}
-                      </th>
-                    ))}
+                  {headings.map((heading, index) => (
+                    <th
+                      scope="col"
+                      key={index}
+                      className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
+                    >
+                      {heading}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -76,5 +75,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
         </div>
       </div>
     </div>
+  ) : (
+    <div></div>
   );
 };

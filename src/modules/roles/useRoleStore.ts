@@ -61,7 +61,7 @@ const store = combine(initialState, (set) => ({
   getRoleListFromServer: async () => {
     await listRole()
       .then((response) => {
-        useRoleStore.getState().setRoleList(response.data.data);
+        set({ roleList: response.data.data });
       })
       .catch(() => {});
   },

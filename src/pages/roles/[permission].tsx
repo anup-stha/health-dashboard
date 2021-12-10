@@ -56,7 +56,7 @@ const RoleDetailPage = ({ idX }: any) => {
     listRoles();
     listAllPermissions();
     idX && getRoleDetail();
-  }, []);
+  }, [idX]);
 
   return (
     <MainLayout>

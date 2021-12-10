@@ -4,12 +4,14 @@ import { Member } from "@/types";
 import { Popover, Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { CaretDoubleRight } from "phosphor-react";
 import { Fragment } from "react";
 import { MoreVertical } from "react-feather";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BooleanTag } from "../../../components/others/BooleanTag";
+import { memberStore } from "../memberStore";
 import { MemberModal } from "../modal/memberModal";
 
 type OrgTableRowType = {
@@ -23,6 +25,9 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
   key,
   loading,
 }) => {
+  const router = useRouter();
+  const { selectedRole } = memberStore();
+
   return !loading ? (
     data ? (
       <tr key={key}>
@@ -126,6 +131,22 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                       leaveTo="opacity-0 -translate-y-1"
                     >
                       <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-20 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                        <div
+                          className="overflow-hidden"
+                          onClick={() =>
+                            router.push(
+                              `/members/profile?id=${data.id}&role=${selectedRole.id}`
+                            )
+                          }
+                        >
+                          <a className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70">
+                            <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
+                              <p className=" font-medium whitespace-nowrap  ">
+                                View Profile
+                              </p>
+                            </div>
+                          </a>
+                        </div>
                         <div className="overflow-hidden  ">
                           <a
                             onClick={async () => {

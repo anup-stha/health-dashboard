@@ -68,7 +68,9 @@ const Breadcrumbs = () => {
                 : "capitalize hover:text-gray-800 -mt-1 px-4"
             }
           >
-            <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
+            <Link href={breadcrumb.href}>
+              {decodeURI(breadcrumb.label).split("?")[0]}
+            </Link>
           </li>
         );
       })}

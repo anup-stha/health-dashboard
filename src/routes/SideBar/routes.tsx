@@ -1,5 +1,6 @@
 import {
   HouseSimple,
+  Polygon,
   Sliders,
   TestTube,
   UserList,
@@ -39,7 +40,11 @@ export type RouteObjectType =
       children?: RouteObjectType[];
     };
 
-const adminExtraRoute = ["/roles/[permission]"];
+const adminExtraRoute = [
+  "/roles/[permission]",
+  "/tests/[test]",
+  "/members/[profile]",
+];
 export const superAdminNavRoutes: RouteObjectType[] = [
   {
     id: 1,
@@ -69,6 +74,12 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         title: "Tests",
         icon: <TestTube size={24} />,
         link: "/tests",
+      },
+      {
+        id: 3,
+        title: "Subscriptions",
+        icon: <Polygon size={24} />,
+        link: "/subscriptions",
       },
     ],
   },

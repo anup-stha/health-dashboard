@@ -16,7 +16,7 @@ export const listTest = (): Promise<AxiosResponse<ListTestResponse>> => {
 export const addTest = (body: AddTestBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .post<AddTestResponse>(`test/category/store/`, {
+      .post<AddTestResponse>(`test/category/`, {
         ...body,
         public: body.public ? 1 : 0,
       })
@@ -33,7 +33,7 @@ export const addTest = (body: AddTestBody) => {
 export const addTestCategory = (body: AddTestCategoryBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .post<AddTestCategoryResponse>(`test/subcategory/store`, {
+      .post<AddTestCategoryResponse>(`test/subcategory/`, {
         ...body,
         public: body.public ? 1 : 0,
       })

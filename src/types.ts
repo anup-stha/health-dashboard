@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+import { string } from "yup/lib/locale";
+
 /* eslint-disable camelcase */
 export interface ChartData {
   [index: string | number]: string | number | any;
@@ -322,4 +325,32 @@ export type Test = {
 
 export type ListTestResponse = StatusType & {
   data: Test[];
+};
+
+export type Subscription = {
+  id: Id;
+  price: string;
+  slug: string;
+  interval_type: string;
+  interval_value: string;
+  grace_period: number;
+  sync_limit: number;
+};
+
+export type SubscriptionListResponse = StatusType & {
+  data: Subscription[];
+};
+
+export type SubscriptionAddResponse = StatusType & {
+  data: Subscription;
+};
+
+export type SubscriptionBody = {
+  name: string;
+  price: string | number;
+  interval_type: number;
+  interval_value: number;
+  grace_period: number;
+  sync_limit: number;
+  role_id: number;
 };

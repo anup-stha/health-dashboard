@@ -1,4 +1,3 @@
-import { MainLayout } from "@/layout/MainLayout";
 import Image from "next/image";
 import { FacebookLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
 import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
@@ -7,7 +6,7 @@ import { PasswordModal } from "./passwordModal";
 
 export const ProfilePage: React.FC = () => {
   return (
-    <MainLayout>
+    <>
       <div className="flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
         <div className="relative w-3/4 bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
           <div className="relative w-full h-52 z-0">
@@ -141,6 +140,6 @@ export const ProfilePage: React.FC = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
