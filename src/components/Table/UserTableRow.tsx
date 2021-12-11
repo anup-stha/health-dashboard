@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/11/21, 9:58 AM
+ *
+ *
+ */
+
 // import { deleteUser } from "@/services/requests/authRequests";
 // import { User } from "@/types";
 // import { Copy, Delete, Edit } from "react-feather";

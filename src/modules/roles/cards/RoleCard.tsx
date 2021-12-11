@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/11/21, 9:58 AM
+ *
+ *
+ */
+
 import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Warning } from "phosphor-react";

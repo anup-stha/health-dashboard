@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/11/21, 9:58 AM
+ *
+ *
+ */
+
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";

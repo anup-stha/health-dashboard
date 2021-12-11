@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/11/21, 9:58 AM
+ *
+ *
+ */
+
 import { Sidebar } from "@/routes/SideBar";
 import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarToggleButton";
 import { useSideBarStore } from "../routes/SideBar/useSideBarStore";

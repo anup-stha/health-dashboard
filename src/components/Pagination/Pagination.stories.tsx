@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/11/21, 10:03 AM
+ *
+ *
+ */
+
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { Pagination } from "./index";
