@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 9:25 AM
  *
  *
  */
 
-import type { JSXElementConstructor, ReactElement } from "react";
+import type {JSXElementConstructor, ReactElement} from "react";
 import React from "react";
 
 type TableViewPropsType = {
@@ -49,6 +49,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
                   ))}
                 </tr>
               </thead>
+
               <tbody className="bg-white divide-y divide-gray-200">
                 {tableRowComponent
                   ? loading === false

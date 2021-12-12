@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 9:46 AM
  *
  *
  */
@@ -20,7 +20,7 @@ import { listRole } from "@/services/requests/roleRequests";
 import { MainLayout } from "@/layout/MainLayout";
 
 const Members: NextPage = () => {
-  const { setMemberList, toggleLoading, setError, selectedRole, memberList } =
+  const { setMemberList, toggleLoading, setError, selectedRole } =
     memberStore();
 
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ const Members: NextPage = () => {
     };
     useRoleStore.getState().roleList.length === 0 && getRoles();
 
-    memberList.length === 0 && listMember();
+    listMember();
   }, [selectedRole]);
 
   return (

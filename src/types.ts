@@ -1,14 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 9:24 AM
  *
  *
  */
 
 /* eslint-disable no-unused-vars */
-
-import { string } from "yup/lib/locale";
 
 /* eslint-disable camelcase */
 export interface ChartData {
@@ -16,6 +14,7 @@ export interface ChartData {
 }
 
 type Id = string | number;
+
 enum Gender {
   Male = "male",
   Female = "female",
