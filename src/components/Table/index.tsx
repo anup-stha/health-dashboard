@@ -6,7 +6,7 @@
  *
  */
 
-import type {JSXElementConstructor, ReactElement} from "react";
+import type { JSXElementConstructor, ReactElement } from "react";
 import React from "react";
 
 type TableViewPropsType = {
