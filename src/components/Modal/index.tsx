@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:31 PM
+ * Last Modified 12/12/21, 6:47 PM
  *
  *
  */
@@ -95,6 +95,7 @@ export const Button: React.FC<IButtonProps> = ({
     <UIButton
       type="submit"
       buttonSize="small"
+      onClick={() => (type === "open" ? setIsOpen(true) : setIsOpen(false))}
       onSubmit={
         onClick
           ? (e: any) => onClickFn(e)

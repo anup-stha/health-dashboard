@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 6:47 PM
  *
  *
  */
@@ -9,7 +9,8 @@
 import { Modal } from "@/components/Modal/useModal";
 import { Edit } from "react-feather";
 import { memberStore } from "../members/memberStore";
-import { SubscriptionForm } from "./subscriptionAddForm";
+import React from "react";
+import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
 
 type subscriptionModalProps = {
   type: "add" | "edit";
