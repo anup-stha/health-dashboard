@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 11:43 AM
  *
  *
  */
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 
 import { HookInput } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { alert } from "@/components/Alert";
 import { login } from "@/services/requests/authRequests";
 

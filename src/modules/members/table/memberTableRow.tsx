@@ -1,26 +1,25 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 1:22 PM
  *
  *
  */
 
-import { DeleteModal } from "@/components/Modal/DeleteModal";
-import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 import { Member } from "@/types";
-import { Popover, Transition } from "@headlessui/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { CaretDoubleRight } from "phosphor-react";
-import { Fragment } from "react";
-import { MoreVertical } from "react-feather";
-import Skeleton from "react-loading-skeleton";
+import React, { Fragment } from "react";
+import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BooleanTag } from "../../../components/others/BooleanTag";
 import { memberStore } from "../memberStore";
-import { MemberModal } from "../modal/memberModal";
+import { CaretDoubleRight } from "phosphor-react";
+import { MemberModal } from "@/modules/members/modal/memberModal";
+import { Popover, Transition } from "@headlessui/react";
+import { MoreVertical } from "react-feather";
+import { DeleteModal } from "@/components/Modal/DeleteModal";
+import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 
 type OrgTableRowType = {
   data?: Member;
@@ -54,13 +53,20 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             </div>
             <div className="ml-4">
               <div className="text-xl font-semibold text-gray-900 w-full">
-                {!loading ? data.name : <Skeleton count={5} duration={2} />}
+                {data.name}
               </div>
               <div className="text-lg font-medium text-gray-500">
-                sunya@health.com
+                {data.email}
               </div>
             </div>
           </div>
+        </td>
+        <td className="whitespace-nowrap text-lg">
+          {data.can_login ? (
+            <BooleanTag type="info" trueStatement={"Can Login "} />
+          ) : (
+            <BooleanTag type="info" trueStatement={"Cannot Login"} />
+          )}
         </td>
         <td className="whitespace-nowrap text-lg">
           <BooleanTag
@@ -69,7 +75,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             trueStatement="Active"
             falseStatement="InActive"
           />
-          {data.active}
         </td>
         <td className="whitespace-nowrap text-lg">
           <BooleanTag
@@ -138,7 +143,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 -translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-20 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                      <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-16 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
                         <div
                           className="overflow-hidden"
                           onClick={() =>
@@ -151,53 +156,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                             <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
                               <p className=" font-medium whitespace-nowrap  ">
                                 View Profile
-                              </p>
-                            </div>
-                          </a>
-                        </div>
-                        <div className="overflow-hidden  ">
-                          <a
-                            onClick={async () => {
-                              //   await toggleActiveOrg(
-                              //     {
-                              //       name: data.name,
-                              //       owner: data.owner,
-                              //       meta: data.meta,
-                              //       active: !data.active,
-                              //     },
-                              //     data.id
-                              //   );
-                              // memberStore.getState().getMemberListFromServer();
-                            }}
-                            className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
-                          >
-                            <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
-                              <p className=" font-medium">
-                                Set as {!data.active ? "Active" : "Inactive"}
-                              </p>
-                            </div>
-                          </a>
-                        </div>
-                        <div className="overflow-hidden">
-                          <a
-                            onClick={async () => {
-                              //   await toggleActiveOrg(
-                              //     {
-                              //       name: data.name,
-                              //       owner: data.owner,
-                              //       meta: data.meta,
-                              //       verified: !data.verified,
-                              //     },
-                              //     data.id
-                              //   );
-                              // memberStore.getState().getMemberListFromServer();
-                            }}
-                            className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
-                          >
-                            <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
-                              <p className=" font-medium whitespace-nowrap  ">
-                                Set as{" "}
-                                {!data.verified ? "Verified" : "Unverified"}
                               </p>
                             </div>
                           </a>

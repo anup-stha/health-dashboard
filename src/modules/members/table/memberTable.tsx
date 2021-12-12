@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 11:57 AM
  *
  *
  */
@@ -31,6 +31,7 @@ export const MemberTable = () => {
       data={memberList}
       tableHeadings={[
         "Member Name",
+        "Can Login",
         "Active Status",
         "Verified Status",
         "Phone Number",

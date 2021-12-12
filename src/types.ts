@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 9:24 AM
+ * Last Modified 12/12/21, 12:37 PM
  *
  *
  */
@@ -183,6 +183,8 @@ export type BasicMember = {
   active: boolean;
   verified: boolean;
   ref_key?: string;
+  email: string;
+  can_login: boolean;
 };
 
 export type Member = BasicMember & {
@@ -270,7 +272,7 @@ export type PermissionListResponse = StatusType & {
   data: Permission[];
 };
 
-export type NullDataResponse = StatusType & { data: null };
+export type NullDataResponse = StatusType & { data: null | "" };
 
 export type AddTestBody = {
   name: string;

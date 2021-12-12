@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 1:39 PM
  *
  *
  */
@@ -24,7 +24,7 @@ export const login = (loginRequest: LoginRequest) => {
       .then((response) => {
         useAuthStore.getState().setUserData(response.data);
         Router.push("/dashboard");
-        resolve("Logged In Succesfully");
+        resolve("Logged In Successfully");
       })
       .catch((error) => {
         reject(error.response);

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 1:49 PM
  *
  *
  */
@@ -12,25 +12,40 @@ import { MainLayout } from "@/layout/MainLayout";
 import { PasswordModal } from "@/modules/profile/passwordModal";
 import Image from "next/image";
 
-import { FacebookLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
 import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import CoverImage from "../../../public/assets/cover.png";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { useEffect, useState } from "react";
-import { listSubscription } from "@/services/requests/subscriptionRequests";
+import React, { useEffect, useState } from "react";
+import {
+  assignSubscriptionToMember,
+  listSubscription,
+} from "@/services/requests/subscriptionRequests";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
 import { listRoleDetails } from "@/services/requests/roleRequests";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
 import { Button } from "@/components/Button";
 import { alert } from "@/components/Alert";
-import { assignSubscriptionToMember } from "@/services/requests/subscriptionRequests";
+import {
+  getMemberList,
+  toggleActiveForMember,
+  toggleVerifiedForMember,
+} from "@/services/requests/memberRequests";
+import { memberStore } from "@/modules/members/memberStore";
+import { BooleanTag } from "@/components/others/BooleanTag";
+import { Member } from "@/types";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const [role, setRole] = useState<any>({});
   const [roleLoading, setRoleLoading] = useState(false);
+  const [active, setActive] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [selectedMemberDetails, setSelectedMemberDetails] = useState(
+    {} as Member
+  );
   const router = useRouter();
 
+  const { toggleLoading, setError, loading: memberLoading } = memberStore();
   const {
     setLoading,
     setSubscriptionList,
@@ -69,9 +84,32 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     listSubscriptionFn(Number(idX.role));
   }, []);
 
+  useEffect(() => {
+    const listMember = async () => {
+      toggleLoading();
+      await getMemberList(idX.role)
+        .then((response) => {
+          const details = response.data.data.list.filter(
+            (member) => member.id === Number(idX.id)
+          )[0];
+
+          setSelectedMemberDetails(details);
+          setActive(details.active);
+          setVerified(details.verified);
+          toggleLoading();
+        })
+        .catch((error) => {
+          toggleLoading();
+          setError(error);
+        });
+    };
+
+    listMember();
+  }, []);
+
   return (
     <MainLayout>
-      {loading || roleLoading ? (
+      {loading || roleLoading || memberLoading ? (
         <div>Loading</div>
       ) : (
         <>
@@ -102,7 +140,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   </div>
                   <div className="flex flex-col mt-10">
                     <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-                      Drakin Plywood
+                      {selectedMemberDetails.name}
                     </h1>
                     <p className="text-gray-500 font-semibold text-xl sm:text-lg">
                       {role.name}
@@ -111,25 +149,28 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                 </div>
                 <div className="px-6 py-6 min-h-[10rem] sm:px-2">
                   <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 ">
-                    <div className="sm:hidden"></div>
-                    <div className="flex items-center gap-1 sm:mt-24 sm:ml-4">
-                      <p className="text-gray-800 text-xl font-semibold">
-                        Share
-                      </p>
-                      <FacebookLogo
-                        size={32}
-                        weight="fill"
-                        className="text-blue-600 cursor-pointer"
+                    r<div className="sm:hidden"></div>
+                    <div className="flex items-center gap-2 sm:mt-24 sm:ml-4 text-lg">
+                      <BooleanTag
+                        type="error"
+                        condition={active}
+                        trueStatement="Active"
+                        falseStatement="InActive"
                       />
-                      <TwitterLogo
-                        size={32}
-                        weight="fill"
-                        className="text-blue-400 cursor-pointer"
+                      <BooleanTag
+                        type="error"
+                        condition={verified}
+                        trueStatement="Verified"
+                        falseStatement="Not Verified"
                       />
-                      <LinkedinLogo
-                        size={32}
-                        weight="fill"
-                        className="text-blue-700 cursor-pointer"
+
+                      <BooleanTag
+                        type="info"
+                        trueStatement={
+                          selectedMemberDetails.can_login
+                            ? "Can Login"
+                            : "Cannot Login"
+                        }
                       />
                     </div>
                   </div>
@@ -228,7 +269,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                                   Number(selectedSubscription.id)
                                 ),
                                 msgs: {
-                                  loading: "Assiging Subscription",
+                                  loading: "Assigning Subscription",
                                 },
                                 id: "assign-subscription",
                               });
@@ -245,12 +286,51 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
             </div>
 
             <div className="w-1/4 h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
-              <div className="hover:text-gray-850 p-6 border-b-2 border-gray-200 text-gray-500 text-xl font-semibold cursor-pointer">
-                Update Public Profile Info
+              <div
+                className="hover:text-gray-800 p-6 border-b-2 border-gray-200 text-gray-500 text-xl font-semibold cursor-pointer "
+                onClick={async () => {
+                  await alert({
+                    type: "promise",
+                    promise: toggleActiveForMember(
+                      Number(idX.id),
+                      selectedMemberDetails.active ? 0 : 1
+                    ).then(() => setActive(!active)),
+                    msgs: {
+                      loading: "Updating Status",
+                      success: "Active Status Updated",
+                    },
+                    id: "toggle-active",
+                  });
+                }}
+              >
+                Mark As {active ? "Inactive" : "Active"}
+              </div>
+              <div
+                className="hover:text-gray-800 p-6 border-b-2 border-gray-200 text-gray-500 text-xl font-semibold cursor-pointer"
+                onClick={async () => {
+                  await alert({
+                    type: "promise",
+                    promise: toggleVerifiedForMember(
+                      Number(idX.id),
+                      selectedMemberDetails.verified ? 0 : 1
+                    ).then((res) => {
+                      setVerified(!verified);
+                    }),
+
+                    msgs: {
+                      loading: "Updating Status",
+                      success: "Verified Status Updated",
+                    },
+                    id: "toggle-active",
+                  });
+                }}
+              >
+                Mark As {verified ? "Not Verified" : "Verified"}
               </div>
               <PasswordModal />
+
               <div className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850">
-                Log Out
+                Update Public Profile Info
               </div>
             </div>
           </div>

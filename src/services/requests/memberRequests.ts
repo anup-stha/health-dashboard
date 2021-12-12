@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 1:43 PM
  *
  *
  */
@@ -9,14 +9,15 @@
 import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
-  MemberDetailCategoryBody,
   MemberDetailCategoryAddResponse,
-  MemberListResponse,
-  OrgMemberAddReq,
-  OrgMemberAddRes,
-  NormalMemberAddReq,
+  MemberDetailCategoryBody,
   MemberDetailCategoryUpdateBody,
   MemberDetailCategoryUpdateResponse,
+  MemberListResponse,
+  NormalMemberAddReq,
+  NullDataResponse,
+  OrgMemberAddReq,
+  OrgMemberAddRes,
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
@@ -35,7 +36,7 @@ export const addOrgMember = (body: OrgMemberAddReq) => {
         memberStore
           .getState()
           .getMemberListFromServer(response.data.data.role.id);
-        resolve("Added Succesfully");
+        resolve("Added Successfully");
       })
       .catch((error) => {
         reject(error.response);
@@ -99,6 +100,39 @@ export const updateMemberCategory = (
           );
 
         useRoleStore.getState().addMemberDetail(updatedArray);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const toggleActiveForMember = (memberId: number, active: 1 | 0) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .patch<NullDataResponse>(`member/active`, {
+        member_id: memberId,
+        active,
+      })
+      .then((response) => {
+        console.log(response);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .patch<NullDataResponse>(`member/verified`, {
+        member_id: memberId,
+        verified,
+      })
+      .then((response) => {
         resolve(response.data.message);
       })
       .catch((error) => {
