@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 2:08 PM
  *
  *
  */
 
 import create from "zustand";
-import { MemberList, MemberListResponse } from "@/types";
+import { MemberList, MemberListResponse, Role } from "@/types";
 import { combine, devtools } from "zustand/middleware";
 import { getMemberList } from "@/services/requests/memberRequests";
 
@@ -18,7 +18,7 @@ const initialState = {
   selectedRole: {
     id: 0,
     name: "Choose any role",
-  },
+  } as Role,
   status: {
     state: false,
     message: "",
@@ -42,8 +42,10 @@ export const store = combine(initialState, (set) => ({
   setLoadingFalse: () => {
     set(() => ({ loading: false }));
   },
-  setSelectedRole: (role: { id: number; name: string }) => {
-    set(() => ({ selectedRole: { id: role.id, name: role.name } }));
+  setSelectedRole: (role: Role) => {
+    set(() => ({
+      selectedRole: role,
+    }));
   },
 
   setError: (message: string) => {

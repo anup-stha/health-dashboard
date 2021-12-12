@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 6:40 PM
  *
  *
  */
@@ -82,7 +82,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           type === "add"
             ? await alert({
                 promise: addSubscription({
-                  role_id: selectedRole.id,
+                  role_id: Number(selectedRole.id),
                   name: data.name,
                   price: Number(data.price),
 

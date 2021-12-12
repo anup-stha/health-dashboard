@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 6:31 PM
  *
  *
  */
@@ -95,7 +95,7 @@ export const Button: React.FC<IButtonProps> = ({
     <UIButton
       type="submit"
       buttonSize="small"
-      onClick={
+      onSubmit={
         onClick
           ? (e: any) => onClickFn(e)
           : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
@@ -131,7 +131,7 @@ export interface IScrollableProps {
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
   return (
-    <div className="overflow-y-scroll min-h-[50vh] h-[50vh] p-0.5 sidebar">
+    <div className="overflow-y-scroll max-h-[50vh] p-0.5 sidebar">
       {children}
     </div>
   );

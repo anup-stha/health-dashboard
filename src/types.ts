@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 12:37 PM
+ * Last Modified 12/12/21, 3:50 PM
  *
  *
  */
@@ -120,7 +120,7 @@ export type Role = {
   member_limit: number;
   public: boolean;
   permissions: Permission[];
-  member_detail_categories: Array<any>;
+  member_detail_categories: MemberDetailCategory[];
 };
 
 export type User = {

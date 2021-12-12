@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 1:43 PM
+ * Last Modified 12/12/21, 6:24 PM
  *
  *
  */
@@ -131,6 +131,37 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
       .patch<NullDataResponse>(`member/verified`, {
         member_id: memberId,
         verified,
+      })
+      .then((response) => {
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const addDetailsToMember = (
+  roleId: number,
+  memberId: number,
+  data: Object
+) => {
+  const values = Object.values(data);
+  const keys = Object.keys(data);
+  const requestBody: any[] = [];
+  requestBody.push(
+    ...keys.map((element, index) => ({
+      detail_cat_id: element.split("-")[0],
+      value: values[index],
+    }))
+  );
+
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .post<any>("member/detail", {
+        member_id: memberId,
+        role_id: roleId,
+        data: requestBody,
       })
       .then((response) => {
         resolve(response.data.message);

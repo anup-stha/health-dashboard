@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 2:52 PM
  *
  *
  */
@@ -49,7 +49,7 @@ export const NormalMemberAddForm = () => {
               name: data.name,
               address: data.address,
               phone: data.phone,
-              role_id: id,
+              role_id: Number(id),
             }).then(() => reset()),
             msgs: {
               loading: "Adding Member",

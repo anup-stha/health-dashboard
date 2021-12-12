@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 1:49 PM
+ * Last Modified 12/12/21, 6:38 PM
  *
  *
  */
@@ -15,29 +15,35 @@ import Image from "next/image";
 import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import CoverImage from "../../../public/assets/cover.png";
 import { GetServerSidePropsContext, NextPage } from "next";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   assignSubscriptionToMember,
   listSubscription,
 } from "@/services/requests/subscriptionRequests";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
-import { listRoleDetails } from "@/services/requests/roleRequests";
+import { listRole, listRoleDetails } from "@/services/requests/roleRequests";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
 import { Button } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import {
+  addDetailsToMember,
   getMemberList,
   toggleActiveForMember,
   toggleVerifiedForMember,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { Member } from "@/types";
+import { Member, MemberDetailCategory, Role } from "@/types";
+import { useForm } from "react-hook-form";
+import { Modal } from "@/components/Modal/useModal";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { HookInput } from "@/components/Input";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
-  const [role, setRole] = useState<any>({});
+  const [role, setRole] = useState<any>({} as Role);
   const [roleLoading, setRoleLoading] = useState(false);
+  const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
   const [selectedMemberDetails, setSelectedMemberDetails] = useState(
@@ -45,7 +51,14 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   );
   const router = useRouter();
 
-  const { toggleLoading, setError, loading: memberLoading } = memberStore();
+  const {
+    toggleLoading,
+    setError,
+    loading: memberLoading,
+
+    setMemberList,
+  } = memberStore();
+
   const {
     setLoading,
     setSubscriptionList,
@@ -93,6 +106,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
             (member) => member.id === Number(idX.id)
           )[0];
 
+          setMemberList(response.data);
           setSelectedMemberDetails(details);
           setActive(details.active);
           setVerified(details.verified);
@@ -104,12 +118,33 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
         });
     };
 
+    const getRoles = async () => {
+      setSelectedRoleLoading(true);
+      await listRole()
+        .then((response) => {
+          useRoleStore.getState().setRoleList(response.data.data);
+
+          useRoleStore
+            .getState()
+            .setSelectedRole(
+              response.data.data.filter(
+                (role) => role.id === Number(idX.role)
+              )[0]
+            );
+
+          setSelectedRoleLoading(false);
+        })
+        .catch(() => {
+          setSelectedRoleLoading(false);
+        });
+    };
+    getRoles();
     listMember();
   }, []);
 
   return (
     <MainLayout>
-      {loading || roleLoading || memberLoading ? (
+      {loading || roleLoading || memberLoading || selectedRoleLoading ? (
         <div>Loading</div>
       ) : (
         <>
@@ -328,10 +363,10 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                 Mark As {verified ? "Not Verified" : "Verified"}
               </div>
               <PasswordModal />
-
-              <div className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850">
-                Update Public Profile Info
-              </div>
+              <MemberDetailAddModal
+                memberData={selectedMemberDetails}
+                selectedRole={role}
+              />
             </div>
           </div>
         </>
@@ -350,4 +385,66 @@ export const getServerSideProps = async (
       idX: context.query,
     },
   };
+};
+
+export const MemberDetailAddModal = ({ memberData }: any) => {
+  const selectedRole = useRoleStore.getState().selectedRole;
+  const { register, handleSubmit } = useForm();
+
+  return (
+    <Modal>
+      <Modal.Button type={"open"}>
+        <div className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+          Update Public Profile Info
+        </div>
+      </Modal.Button>
+      <Modal.Content>
+        <Modal.Title>
+          Update {memberData.name}
+          {"'s"} Details
+        </Modal.Title>
+        <form className="space-y-8">
+          <Modal.Scrollable>
+            <div className="space-y-4">
+              {selectedRole.member_detail_categories &&
+                selectedRole.member_detail_categories.map(
+                  (category: MemberDetailCategory) => (
+                    <Fragment key={category.id}>
+                      <HookInput
+                        label={category.name}
+                        type={category.value_type}
+                        required={category.required ? true : false}
+                        placeholder={`Enter ${category.name}`}
+                        {...register(`${category.id}-${category.slug}`)}
+                      />
+                    </Fragment>
+                  )
+                )}
+            </div>
+          </Modal.Scrollable>{" "}
+          <Modal.Button
+            type={"open"}
+            variant={"button"}
+            onClick={handleSubmit(
+              async (values) =>
+                await alert({
+                  type: "promise",
+                  promise: addDetailsToMember(
+                    Number(selectedRole.id),
+                    memberData.id,
+                    values
+                  ),
+                  msgs: {
+                    loading: "Adding Member Details",
+                  },
+                  id: "member-detail-add",
+                })
+            )}
+          >
+            Update Details
+          </Modal.Button>
+        </form>
+      </Modal.Content>
+    </Modal>
+  );
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/12/21, 2:07 PM
  *
  *
  */
@@ -15,11 +15,7 @@ import { memberStore } from "../memberStore";
 export const MemberRoleDropdown = () => {
   const roleList = useRoleStore
     .getState()
-    .roleList.map((element) => ({
-      id: element.id,
-      name: element.name,
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .roleList.sort((a, b) => a.name.localeCompare(b.name));
 
   const { selectedRole: selected, setSelectedRole: setSelected } =
     memberStore();
