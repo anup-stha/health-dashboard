@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 11:14 AM
  *
  *
  */
@@ -14,6 +14,7 @@ import {
 } from "@/services/requests/memberRequests";
 import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
+import { alert } from "@/components/Alert";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -63,7 +64,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
 
       <Modal.Button
         type="close"
-        variant="button"
+        variant="button-submit"
         onClick={handleSubmit(async (data) => {
           type === "add"
             ? await alert({

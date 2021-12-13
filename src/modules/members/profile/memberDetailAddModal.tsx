@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 7:38 AM
+ * Last Modified 12/13/21, 11:20 AM
  *
  *
  */
@@ -52,7 +52,7 @@ export const MemberDetailAddModal = ({ memberData }: any) => {
           </Modal.Scrollable>{" "}
           <Modal.Button
             type={"open"}
-            variant={"button"}
+            variant={"button-submit"}
             onClick={handleSubmit(
               async (values) =>
                 await alert({

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:39 PM
+ * Last Modified 12/13/21, 11:02 AM
  *
  *
  */
@@ -53,7 +53,7 @@ export const OrgMemberAddForm = () => {
       </div>
       <Modal.Button
         type="close"
-        variant="button"
+        variant="button-submit"
         onClick={handleSubmit(async (data) => {
           await alert({
             promise: addOrgMember({

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:47 PM
+ * Last Modified 12/13/21, 11:18 AM
  *
  *
  */
@@ -11,6 +11,7 @@ import { Edit } from "react-feather";
 import { memberStore } from "../members/memberStore";
 import React from "react";
 import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
+import { Button } from "@/components/Button";
 
 type subscriptionModalProps = {
   type: "add" | "edit";
@@ -25,8 +26,8 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
   return (
     <Modal>
       {type === "add" ? (
-        <Modal.Button type="open" variant="button">
-          Add Subscription
+        <Modal.Button type="open">
+          <Button disabled={selectedRole.id === 0}> Add Subscription</Button>
         </Modal.Button>
       ) : (
         <Modal.Button type="open">

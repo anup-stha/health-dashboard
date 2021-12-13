@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 11:23 AM
  *
  *
  */
 
 import { alert } from "@/components/Alert";
-import { Button, InfoButton } from "@/components/Button";
+import { InfoButton } from "@/components/Button";
 import { LabelInput, LabelTextArea, Switch } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { addTest, addTestCategory } from "@/services/requests/testRequests";
@@ -124,8 +124,8 @@ const TestModal: React.FC<RoleModalProps> = ({ type, id, selectedTest }) => {
                   />
                 </div>
 
-                <Modal.Button type="close">
-                  <Button>{type === "add" ? "Add" : "Edit"}</Button>
+                <Modal.Button type="close" variant={"button-submit"}>
+                  {type === "add" ? "Add" : "Edit"}
                 </Modal.Button>
               </form>
             );

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:40 PM
+ * Last Modified 12/13/21, 11:18 AM
  *
  *
  */
@@ -77,7 +77,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
 
       <Modal.Button
         type="close"
-        variant="button"
+        variant="button-submit"
         onClick={handleSubmit(async (data) => {
           type === "add"
             ? await alert({

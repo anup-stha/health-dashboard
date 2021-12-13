@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 10:32 AM
+ * Last Modified 12/13/21, 11:01 AM
  *
  *
  */
@@ -44,7 +44,7 @@ export const NormalMemberAddForm = () => {
       </div>
       <Modal.Button
         type="close"
-        variant="button"
+        variant="button-submit"
         onClick={handleSubmit(async (data) => {
           await alert({
             promise: addNormalMember({

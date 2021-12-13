@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 11:13 AM
  *
  *
  */
@@ -9,6 +9,7 @@
 import { Modal } from "@/components/Modal/useModal";
 import { Edit } from "react-feather";
 import { RoleMemberCategoryForm } from "../form/roleMemberCategoryForm";
+import { Button } from "@/components/Button";
 
 type memberCategoryModalProps = {
   type: "add" | "edit";
@@ -22,8 +23,8 @@ export const RoleMemberCategoryModal: React.FC<memberCategoryModalProps> = ({
   return (
     <Modal>
       {type === "add" ? (
-        <Modal.Button type="open" variant="button">
-          Add Category
+        <Modal.Button type="open">
+          <Button>Add Category</Button>
         </Modal.Button>
       ) : (
         <Modal.Button type="open">
