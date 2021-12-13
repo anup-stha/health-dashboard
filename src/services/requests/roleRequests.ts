@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 3:39 PM
  *
  *
  */
@@ -18,6 +18,7 @@ import {
 
 import { privateAgent } from ".";
 import { getRoleDetail } from "./authRequests";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
@@ -34,13 +35,24 @@ export const addRole = ({
   memberLimit,
   isPublic,
   description,
-}: RoleAddBody): Promise<AxiosResponse<RoleDetailResponse>> => {
-  return privateAgent.post("role/store/", {
-    name,
-    member_limit: memberLimit,
-    public: isPublic ? 1 : 0,
-    desc: description,
-  });
+}: RoleAddBody) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<RoleDetailResponse>("role/store/", {
+        name,
+        member_limit: memberLimit,
+        public: isPublic ? 1 : 0,
+        desc: description,
+      })
+      .then((response) => {
+        const list = useRoleStore.getState().roleList;
+        useRoleStore.getState().setRoleList([response.data.data, ...list]);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      })
+  );
 };
 
 export const updateRole = ({
@@ -49,13 +61,27 @@ export const updateRole = ({
   memberLimit,
   isPublic,
   description,
-}: RoleUpdateBody): Promise<AxiosResponse<RoleDetailResponse>> => {
-  return privateAgent.post(`role/update/${id}`, {
-    name,
-    member_limit: memberLimit,
-    public: isPublic ? 1 : 0,
-    desc: description,
-  });
+}: RoleUpdateBody) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<RoleDetailResponse>(`role/update/${id}`, {
+        name,
+        member_limit: memberLimit,
+        public: isPublic ? 1 : 0,
+        desc: description,
+      })
+      .then((response) => {
+        const roles = useRoleStore.getState().roleList;
+        const updatedArray = roles.map((role) =>
+          role.id === response.data.data.id ? response.data.data : role
+        );
+        useRoleStore.getState().setRoleList(updatedArray);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      })
+  );
 };
 
 export const getAllPermissions = (): Promise<

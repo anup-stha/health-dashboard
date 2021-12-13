@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 1:36 PM
  *
  *
  */
@@ -9,7 +9,9 @@
 import React, { useMemo, useState } from "react";
 import {
   Button,
+  Form,
   IButtonProps,
+  IModalFormProps,
   IModalProps,
   IModalTitleProps,
   IScrollableProps,
@@ -28,6 +30,7 @@ interface IModalComposition {
   Button: React.FC<IButtonProps>;
   Title: React.FC<IModalTitleProps>;
   Scrollable: React.FC<IScrollableProps>;
+  Form: React.FC<IModalFormProps>;
 }
 
 export const ModalContext = React.createContext<IModalContext | undefined>(
@@ -63,5 +66,6 @@ Modal.Content = ModalContent;
 Modal.Button = Button;
 Modal.Title = ModalTitle;
 Modal.Scrollable = Scrollable;
+Modal.Form = Form;
 
 export { Modal };

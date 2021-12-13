@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 2:07 PM
+ * Last Modified 12/13/21, 4:21 PM
  *
  *
  */
@@ -21,7 +21,7 @@ export const MemberRoleDropdown = () => {
     memberStore();
 
   return (
-    <div className="w-64 capitalize z-50">
+    <div className="w-64 capitalize z-10">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
           <Listbox.Button className="relative w-full py-[1.125rem] px-6 text-left bg-white rounded-sm shadow-E500 cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">

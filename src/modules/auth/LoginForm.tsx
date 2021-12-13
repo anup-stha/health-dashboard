@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 11:43 AM
+ * Last Modified 12/13/21, 4:48 PM
  *
  *
  */
@@ -10,7 +10,7 @@ import React from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
-import { HookInput } from "@/components/Input";
+import { PrimaryInput } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { alert } from "@/components/Alert";
@@ -58,14 +58,14 @@ const LoginForm: React.FC<any> = () => {
       className="space-y-8"
     >
       <div className="space-y-4">
-        <HookInput
+        <PrimaryInput
           label="Email"
           type="email"
           placeholder="Enter email"
           {...register("email")}
           error={errors.email?.message}
         />
-        <HookInput
+        <PrimaryInput
           label="Password"
           type="password"
           placeholder="Enter Password"

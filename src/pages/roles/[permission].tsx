@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 4:59 PM
  *
  *
  */
@@ -20,11 +20,12 @@ import {
 } from "@/services/requests/roleRequests";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
-import { UpdateZone } from "../../modules/roles/others/UpdateZone";
+import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 
 const RoleDetailPage = ({ idX }: any) => {
   const {
     loading,
+    roleList,
     setLoading,
     getRoleListFromServer,
     setSelectedRole,
@@ -73,7 +74,8 @@ const RoleDetailPage = ({ idX }: any) => {
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <h1 className="text-5xl font-semibold text-gray-900">
-                {selectedRole && selectedRole.name}
+                {selectedRole &&
+                  roleList.filter((role) => role.id === Number(idX))[0].name}
               </h1>
             </div>
 

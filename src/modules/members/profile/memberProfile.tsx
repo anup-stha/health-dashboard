@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 8:01 AM
+ * Last Modified 12/13/21, 4:59 PM
  *
  *
  */
@@ -61,7 +61,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
       </div>
       <div className="px-6 py-6 min-h-[10rem] sm:px-2">
         <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 ">
-          r<div className="sm:hidden"></div>
+          <div className="sm:hidden" />
           <div className="flex items-center gap-2 sm:mt-24 sm:ml-4 text-lg">
             <BooleanTag
               type="error"

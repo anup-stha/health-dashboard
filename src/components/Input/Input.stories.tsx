@@ -1,15 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 5:01 PM
  *
  *
  */
 
 import React from "react";
 
-import { ComponentMeta } from "@storybook/react";
-import { ComponentStory } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { PrimaryInput as Input } from "./index";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -29,5 +28,4 @@ PrimaryInput.args = {
   id: "Primary Input",
   className: "w-1/2",
   placeholder: "Primary Input",
-  showLabel: true,
 };

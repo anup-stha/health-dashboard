@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 11:14 AM
+ * Last Modified 12/13/21, 4:48 PM
  *
  *
  */
 
-import { HookInput } from "@/components/Input";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   postMemberCategory,
@@ -15,6 +15,8 @@ import {
 import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
 import { alert } from "@/components/Alert";
+import React from "react";
+import { Button } from "@/components/Button";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -33,28 +35,61 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
     defaultValues: categoryInitialData ? categoryInitialData : {},
   });
   return (
-    <form className="space-y-8">
+    <Modal.Form
+      onSubmit={handleSubmit(async (data) => {
+        type === "add"
+          ? await alert({
+              promise: postMemberCategory({
+                ...data,
+                required: data.required ? 1 : 0,
+                role_id: Number(selectedRole.id),
+              }).then(() => reset()),
+              msgs: {
+                loading: "Adding Category",
+                success: "Added Successfully",
+              },
+              id: "Member Category Toast",
+            })
+          : await alert({
+              promise: updateMemberCategory(
+                {
+                  name: data.name,
+                  value_type: data.value_type,
+                  required: data.required ? 1 : 0,
+                },
+                id ?? 0
+              ).then(() => reset()),
+              msgs: {
+                loading: "Updating Category",
+                success: "Updated Successfully",
+              },
+              id: "Member Update Category Toast",
+            });
+      })}
+    >
       <div className="space-y-4">
-        <HookInput
+        <PrimaryInput
           label="Name"
           type="text"
           placeholder="Enter Name"
           {...register("name")}
         />
-        <HookInput
-          label="Slug"
-          type="text"
-          placeholder="Enter Slug"
-          {...register("slug")}
-        />
+        {type === "add" && (
+          <PrimaryInput
+            label="Slug"
+            type="text"
+            placeholder="Enter Slug"
+            {...register("slug")}
+          />
+        )}
 
-        <HookInput
+        <PrimaryInput
           label="Value Type"
           type="text"
           placeholder="Enter type of value"
           {...register("value_type")}
         />
-        <HookInput
+        <SwitchInput
           label="Required"
           type="number"
           placeholder="Enter Required Field"
@@ -62,41 +97,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
         />
       </div>
 
-      <Modal.Button
-        type="close"
-        variant="button-submit"
-        onClick={handleSubmit(async (data) => {
-          type === "add"
-            ? await alert({
-                promise: postMemberCategory({
-                  ...data,
-                  role_id: Number(selectedRole.id),
-                }).then(() => reset()),
-                msgs: {
-                  loading: "Adding Category",
-                  success: "Added Successfully",
-                },
-                id: "Member Category Toast",
-              })
-            : await alert({
-                promise: updateMemberCategory(
-                  {
-                    name: data.name,
-                    value_type: data.value_type,
-                    required: data.required,
-                  },
-                  id ?? 0
-                ).then(() => reset()),
-                msgs: {
-                  loading: "Updating Category",
-                  success: "Updated Successfully",
-                },
-                id: "Member Update Category Toast",
-              });
-        })}
-      >
-        Add Category
-      </Modal.Button>
-    </form>
+      <Button>{type === "add" ? "Add" : "Edit"} Category</Button>
+    </Modal.Form>
   );
 };

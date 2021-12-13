@@ -1,18 +1,25 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 4:48 PM
  *
  *
  */
 
 import Image from "next/image";
-import { LabelInput } from "@/components/Input";
-import { Field, Formik } from "formik";
+import { PrimaryInput } from "@/components/Input";
 import { Button, GrayButton } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
+import { useForm } from "react-hook-form";
 
+type ChangePasswordFormData = {
+  newPassword: string;
+  oldPassword: string;
+  confirmNewPassword: string;
+};
 export const PasswordModal = () => {
+  const { handleSubmit, register } = useForm<ChangePasswordFormData>();
+
   return (
     <Modal>
       <Modal.Button type="open">
@@ -24,48 +31,44 @@ export const PasswordModal = () => {
         <div className="flex flex-col space-y-16 sm:-space-y-12">
           <Modal.Title>Change Password</Modal.Title>
           <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
-            <Formik
-              initialValues={{
-                oldPassword: "",
-                password: "",
-                confirmPassword: "",
-              }}
-              onSubmit={(values) => console.log(values)}
+            <Modal.Form
+              onSubmit={handleSubmit((values) => console.log(values))}
+              className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
             >
-              {() => (
-                <form className="w-1/2 space-y-16 sm:w-full sm:space-y-8">
-                  <div className="space-y-8">
-                    <Field
-                      name="Old Password"
-                      type="password"
-                      component={LabelInput}
-                      placeholder={"Enter Old Password"}
-                    />
-                    <Field
-                      name="New Password"
-                      type="password"
-                      component={LabelInput}
-                      placeholder={"Enter New Password"}
-                    />
-                    <Field
-                      name="Confirm Password"
-                      type="password"
-                      component={LabelInput}
-                      placeholder={"Confirm New Password"}
-                    />
-                  </div>
+              <div className="space-y-8">
+                <PrimaryInput
+                  label="Old Password"
+                  type="password"
+                  required={true}
+                  placeholder={"Enter Old Password"}
+                  {...register("oldPassword")}
+                />
+                <PrimaryInput
+                  label="New Password"
+                  type="password"
+                  required={true}
+                  placeholder={"Enter New Password"}
+                  {...register("newPassword")}
+                />{" "}
+                <PrimaryInput
+                  label="Confirm New Password"
+                  type="password"
+                  required={true}
+                  placeholder={"Confirm New Password"}
+                  {...register("confirmNewPassword")}
+                />
+              </div>
 
-                  <div className="flex space-x-4">
-                    <Modal.Button type="close">
-                      <Button>Change</Button>
-                    </Modal.Button>
-                    <Modal.Button type="close">
-                      <GrayButton>Cancel</GrayButton>
-                    </Modal.Button>
-                  </div>
-                </form>
-              )}
-            </Formik>
+              <div className="flex space-x-4">
+                <Modal.Button type="close">
+                  <Button>Change</Button>
+                </Modal.Button>
+                <Modal.Button type="close">
+                  <GrayButton>Cancel</GrayButton>
+                </Modal.Button>
+              </div>
+            </Modal.Form>
+
             <div className="w-1/2 -mt-40 sm:mt-10 flex flex-col items-center -space-y-6  sm:space-y-0 sm:w-full">
               <div className="relative h-8xl w-full sm:h-7xl sm:-ml-12  ">
                 <Image

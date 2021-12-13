@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 10:42 AM
+ * Last Modified 12/13/21, 4:59 PM
  *
  *
  */
@@ -18,7 +18,6 @@ export type IModalProps = {
 };
 
 export const ModalContent: React.FC<IModalProps> = ({
-  title,
   children,
   width = "3xl",
 }) => {
@@ -72,7 +71,8 @@ export interface IButtonProps {
   children: React.ReactNode;
   onClick?: any;
   width?: "full" | "auto";
-  variant?: "button" | "div" | "icon" | "button-submit";
+  async?: boolean;
+  variant?: "button" | "div" | "icon";
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -81,15 +81,26 @@ export const Button: React.FC<IButtonProps> = ({
   onClick,
   width,
   variant,
+  async,
 }) => {
   const { setIsOpen } = useModal();
 
-  const onClickFn = async (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e && e.preventDefault();
+  const onClickFn = async (e: any) => {
+    console.log(e);
+    e.preventDefault();
     await onClick().then(() => setIsOpen(false));
   };
+
+  if (async === true)
+    return (
+      <UIButton
+        onClick={async (e) => await onClick(e).then(() => setIsOpen(false))}
+        type="submit"
+        buttonSize="small"
+      >
+        {children}
+      </UIButton>
+    );
 
   return variant === "button" ? (
     <UIButton
@@ -103,23 +114,11 @@ export const Button: React.FC<IButtonProps> = ({
     >
       {children}
     </UIButton>
-  ) : variant === "button-submit" ? (
-    <UIButton
-      type="submit"
-      buttonSize="small"
-      onClick={
-        onClick
-          ? (e: any) => onClickFn(e)
-          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
-      }
-    >
-      {children}
-    </UIButton>
   ) : (
     <div
       onClick={
         onClick
-          ? () => onClickFn()
+          ? (e) => onClickFn(e)
           : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
       }
       className={`w-${width}`}
@@ -146,5 +145,30 @@ export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
     <div className="overflow-y-scroll max-h-[50vh] p-0.5 sidebar">
       {children}
     </div>
+  );
+};
+
+export interface IModalFormProps {
+  onSubmit: () => Promise<any>;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const Form: React.FC<IModalFormProps> = ({
+  onSubmit,
+  children,
+  className,
+}) => {
+  const { setIsOpen } = useModal();
+
+  const onSubmitFn = async (e: any) => {
+    e.preventDefault();
+    await onSubmit().then(() => setIsOpen(false));
+  };
+
+  return (
+    <form onSubmit={(e) => onSubmitFn(e)} className={className ?? `space-y-8`}>
+      {children}
+    </form>
   );
 };
