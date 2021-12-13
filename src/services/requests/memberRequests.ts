@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 7:00 PM
+ * Last Modified 12/14/21, 2:03 AM
  *
  *
  */
@@ -171,6 +171,7 @@ export const addDetailsToMember = (
     }))
   );
 
+  console.log(requestBody);
   return new Promise((resolve, reject) => {
     privateAgent
       .post<any>("member/detail", {

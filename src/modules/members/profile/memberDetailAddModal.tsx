@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 1:42 AM
+ * Last Modified 12/14/21, 2:22 AM
  *
  *
  */
 
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
 import { MemberDetailCategory } from "@/types";
 import React, { Fragment } from "react";
@@ -18,6 +17,7 @@ import { Button } from "@/components/Button";
 import { WarningOctagon } from "phosphor-react";
 import { useRouter } from "next/router";
 import { memberStore } from "@/modules/members/memberStore";
+import { useForm } from "react-hook-form";
 
 export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const router = useRouter();
@@ -25,13 +25,13 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const selectedMemberDetails = memberStore.getState().selectedMemberDetails;
 
   const data = selectedMemberDetails.map((element) => {
-    const value = `${element.id}-${element.slug}`;
+    const value = `${element.detail_category_id}-${element.slug}`;
 
     return { [value]: element.value };
   });
-  // @ts-ignore
-  const objectData = Object.assign(...data);
-  const { register, handleSubmit } = useForm({ defaultValues: objectData });
+  const object = Object.assign({}, ...data);
+  console.log(object);
+  const { register, handleSubmit } = useForm({ defaultValues: object });
 
   return (
     <Modal>
