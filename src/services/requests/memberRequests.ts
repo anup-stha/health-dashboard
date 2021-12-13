@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:24 PM
+ * Last Modified 12/13/21, 7:00 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import {
   MemberDetailCategoryBody,
   MemberDetailCategoryUpdateBody,
   MemberDetailCategoryUpdateResponse,
+  MemberDetailsListResponse,
   MemberListResponse,
   NormalMemberAddReq,
   NullDataResponse,
@@ -141,6 +142,20 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
   });
 };
 
+export const getMemberDetails = (memberId: number) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .get<MemberDetailsListResponse>(`member/detail/${memberId}`)
+      .then((response) => {
+        memberStore.getState().setSelectedMemberDetails(response.data.data);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
 export const addDetailsToMember = (
   roleId: number,
   memberId: number,
@@ -164,6 +179,7 @@ export const addDetailsToMember = (
         data: requestBody,
       })
       .then((response) => {
+        memberStore.getState().setSelectedMemberDetails(response.data.data);
         resolve(response.data.message);
       })
       .catch((error) => {

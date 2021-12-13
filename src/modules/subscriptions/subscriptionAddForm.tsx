@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/13/21, 9:26 PM
  *
  *
  */
@@ -35,7 +35,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
                 role_id: Number(selectedRole.id),
                 name: data.name,
                 price: Number(data.price),
-
+                test_limit: Number(data.test_limit),
                 interval_type: Number(data.interval_type),
                 interval_value: Number(data.interval_value),
                 grace_period: Number(data.grace_period),
@@ -91,13 +91,26 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           placeholder="Enter Grace Period"
           {...register("grace_period")}
         />
-        <PrimaryInput
-          label="Sync Limit"
-          type="number"
-          placeholder="Enter Sync Limit"
-          min="0"
-          {...register("sync_limit")}
-        />
+        <div className="flex space-x-4">
+          <div className="w-1/2">
+            <PrimaryInput
+              label="Sync Limit"
+              type="number"
+              placeholder="Enter Sync Limit"
+              min="0"
+              {...register("sync_limit")}
+            />
+          </div>
+          <div className="w-1/2">
+            <PrimaryInput
+              label="Test Limit"
+              type="number"
+              placeholder="Enter Test Limit"
+              min="0"
+              {...register("test_limit")}
+            />
+          </div>
+        </div>
       </div>
 
       <Button>Add Subscription</Button>

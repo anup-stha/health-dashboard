@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 7:55 AM
+ * Last Modified 12/13/21, 8:40 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import {
   toggleVerifiedForMember,
 } from "@/services/requests/memberRequests";
 import { Member } from "@/types";
+import { LineButton } from "@/components/Button";
 
 type MemberToggleProps = {
   toggle: "active" | "verified";
@@ -53,11 +54,12 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   };
 
   return (
-    <div
-      className="capitalize hover:text-gray-800 p-6 border-b-2 border-gray-200 text-gray-500 text-xl font-semibold cursor-pointer "
+    <LineButton
+      buttonSize={"small"}
+      width={"full"}
       onClick={() => onToggleHandler()}
     >
-      Mark As {currentState ? `Not ${toggle}` : toggle}
-    </div>
+      Mark this member as {currentState ? `Not ${toggle}` : toggle}
+    </LineButton>
   );
 };

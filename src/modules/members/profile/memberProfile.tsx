@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/14/21, 12:59 AM
  *
  *
  */
@@ -9,9 +9,19 @@
 import Image from "next/image";
 import CoverImage from "../../../../public/assets/cover.png";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
+import {
+  Bookmark,
+  Briefcase,
+  Calendar,
+  Mail,
+  Map,
+  PhoneCall,
+} from "react-feather";
 import React from "react";
 import { Member, Role } from "@/types";
+import { memberStore } from "@/modules/members/memberStore";
+import { WarningOctagon } from "phosphor-react";
+import { MemberDetailAddModal } from "@/modules/members/profile/memberDetailAddModal";
 
 type MemberProfileDataProps = {
   selectedMemberDetails: Member;
@@ -26,6 +36,8 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
   role,
   verified,
 }) => {
+  const { selectedMemberDetails: otherDetails } = memberStore();
+
   return (
     <div className="relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
       <div className="relative w-full h-52 z-0">
@@ -84,8 +96,8 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
             />
           </div>
         </div>
-        <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4">
-          <div className="  p-6 bg-gray-50 w-2/5 text-xl rounded-lg flex flex-col gap-4 sm:w-full ">
+        <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4 h-[30vh] items-stretch">
+          <div className="p-6 bg-gray-50 w-2/5 text-xl rounded-lg flex flex-col gap-4 sm:w-full ">
             <p className="text-2xl font-semibold text-gray-900">
               Personal Info
             </p>
@@ -99,19 +111,19 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
               <div className="text-gray-800">
                 <Mail />
               </div>
-              <span>anup.stha012@gmail.com</span>
+              <span>{selectedMemberDetails.email}</span>
             </div>
             <div className="flex items-center gap-x-4">
               <div className="text-gray-800">
                 <Map />
               </div>
-              <span>Illachen-17, Sundhara</span>
+              <span>{selectedMemberDetails.address}</span>
             </div>
             <div className="flex items-center gap-x-4">
               <div className="text-gray-800">
                 <PhoneCall />
               </div>
-              <span>9840748111</span>
+              <span>{selectedMemberDetails.phone}</span>
             </div>
             <div className="flex items-center gap-x-4">
               <div className="text-gray-800">
@@ -120,33 +132,37 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
               <span>Date joined: 2021/11/25</span>
             </div>
           </div>
-          <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
-            <div className="bg-gray-50 h-1/2 p-6 rounded-lg flex flex-col justify-between">
-              <p className="text-2xl font-semibold text-gray-900">
-                Short Summary
-              </p>
-              <span>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est,
-                harum eveniet! Rerum cupiditate dolores nobis soluta
-              </span>
-            </div>
+          <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full overflow-y-scroll sidebar h-full">
+            <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 h-full">
+              <p className="text-2xl font-semibold text-gray-900">Other Info</p>
 
-            <div className="bg-gray-50 h-1/2 p-4 rounded-lg flex sm:w-full">
-              <div className="flex flex-col justify-between w-3/4 p-2 ">
-                <div className="flex justify-between items-center">
-                  <p className="text-2xl font-semibold text-gray-900">
-                    Activity
-                  </p>
-                </div>
+              {otherDetails.length === 0 ? (
+                <>
+                  <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+                    <WarningOctagon size={24} /> <span>No Details Found</span>
+                    <MemberDetailAddModal memberData={selectedMemberDetails}>
+                      <span
+                        className={"text-gray-600 cursor-pointer underline"}
+                      >
+                        Please add details
+                      </span>
+                    </MemberDetailAddModal>
+                  </div>
+                </>
+              ) : (
+                otherDetails.map((details) => (
+                  <div className="flex items-center gap-x-2" key={details.id}>
+                    <div className="text-gray-800">
+                      <Bookmark />
+                    </div>
 
-                <span>14 users added today</span>
-                <span>34 organisations added today</span>
-              </div>
-              <div className="w-1/4 border-l-2 border-gray-300 flex items-center justify-center">
-                <p className="text-green-500 text-xl font-bold cursor-pointer sm:whitespace-nowrap sm:pl-2">
-                  See More
-                </p>
-              </div>
+                    <div className=" space-x-2">
+                      <span>{details.name}:</span>
+                      <span className="font-semibold">{details.value}</span>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

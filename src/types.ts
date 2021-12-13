@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 3:50 PM
+ * Last Modified 12/14/21, 1:32 AM
  *
  *
  */
@@ -232,6 +232,18 @@ export type MemberListResponse = StatusType & {
   };
 };
 
+export type MemberDetails = {
+  id: number;
+  name: string;
+  detail_category_id: number;
+  slug: string;
+  value: string | number | readonly string[] | undefined;
+};
+
+export type MemberDetailsListResponse = StatusType & {
+  data: MemberDetails[];
+};
+
 export type MemberDetailCategoryBody = {
   role_id: number;
   name: string;
@@ -344,6 +356,7 @@ export type Subscription = {
   interval_value: string;
   grace_period: number;
   sync_limit: number;
+  test_limit: number;
 };
 
 export type SubscriptionListResponse = StatusType & {
@@ -361,5 +374,28 @@ export type SubscriptionBody = {
   interval_value: number;
   grace_period: number;
   sync_limit: number;
+  test_limit: number;
   role_id: number;
+};
+
+export type SubscriptionDetails = {
+  start_date: Date;
+  end_date: Date;
+  active: boolean;
+  plan: {
+    id: number;
+    name: string;
+    price: string;
+    slug: string;
+    interval_type: string;
+    interval_value: number;
+    grace_period: number;
+    sync_limit: number;
+    test_limit: number;
+    test_categories: [];
+  };
+};
+
+export type MemberSubscriptionDetailsResponse = StatusType & {
+  data: SubscriptionDetails;
 };

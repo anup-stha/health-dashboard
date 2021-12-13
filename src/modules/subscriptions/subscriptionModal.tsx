@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 11:18 AM
+ * Last Modified 12/14/21, 12:52 AM
  *
  *
  */
@@ -39,6 +39,7 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
         <Modal.Title>
           {type === "edit" ? "Edit" : "Add"} {selectedRole.name} Subscription
         </Modal.Title>
+
         <SubscriptionForm type={type} />
       </Modal.Content>
     </Modal>

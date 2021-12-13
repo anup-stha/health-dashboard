@@ -1,13 +1,19 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 2:08 PM
+ * Last Modified 12/14/21, 12:43 AM
  *
  *
  */
 
 import create from "zustand";
-import { MemberList, MemberListResponse, Role } from "@/types";
+import {
+  MemberDetails,
+  MemberList,
+  MemberListResponse,
+  Role,
+  SubscriptionDetails,
+} from "@/types";
 import { combine, devtools } from "zustand/middleware";
 import { getMemberList } from "@/services/requests/memberRequests";
 
@@ -23,6 +29,8 @@ const initialState = {
     state: false,
     message: "",
   },
+  selectedMemberDetails: [] as MemberDetails[],
+  selectedMemberSubscription: ({} as SubscriptionDetails) || {},
 };
 
 export const store = combine(initialState, (set) => ({
@@ -33,6 +41,13 @@ export const store = combine(initialState, (set) => ({
       pagination: res.data.pagination,
     });
   },
+
+  setSelectedMemberSubscription: (details: SubscriptionDetails) => {
+    set({
+      selectedMemberSubscription: details,
+    });
+  },
+
   toggleLoading: () => {
     set((state) => ({ loading: !state.loading }));
   },
@@ -69,6 +84,12 @@ export const store = combine(initialState, (set) => ({
       .catch(() => {
         set({ loading: false });
       });
+  },
+
+  setSelectedMemberDetails: (list: MemberDetails[]) => {
+    set({
+      selectedMemberDetails: list,
+    });
   },
 }));
 

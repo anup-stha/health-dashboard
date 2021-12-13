@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 1:39 PM
+ * Last Modified 12/13/21, 5:40 PM
  *
  *
  */
@@ -61,35 +61,3 @@ export const getRoleDetail = async (idX: number) => {
     })
     .catch(() => {});
 };
-
-// export const listOrganisations = (): Promise<
-//   AxiosResponse<OrganisationListType>
-// > => {
-//   return privateAgent.get("organisations/");
-// };
-
-// export const addOrganisations = (
-//   organisation: OrganisationRequestType
-// ): Promise<AxiosResponse<OrganisationDetailType>> => {
-//   return privateAgent.post("organisations/", organisation);
-// };
-
-// export const editOrganisations = (
-//   organisation: OrganisationRequestType,
-//   id: string | number
-// ): Promise<AxiosResponse<OrganisationDetailType>> => {
-//   return privateAgent.put(`organisations/${id}/`, organisation);
-// };
-
-// export const deleteOrganisations = (
-//   id: string | number
-// ): Promise<AxiosResponse<OrganisationDetailType>> => {
-//   return privateAgent.delete(`organisations/${id}/`);
-// };
-
-// export const toggleActiveOrg = (
-//   body: any,
-//   id: string | number
-// ): Promise<AxiosResponse<any>> => {
-//   return privateAgent.put(`organisations/${id}/`, body);
-// };
