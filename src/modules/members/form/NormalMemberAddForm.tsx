@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 2:52 PM
+ * Last Modified 12/13/21, 10:32 AM
  *
  *
  */
@@ -25,12 +25,14 @@ export const NormalMemberAddForm = () => {
           label="Name"
           type="text"
           placeholder="Enter Name"
+          required={true}
           {...register("name")}
         />
         <HookInput
           label="Address"
           type="text"
           placeholder="Enter Address"
+          required={true}
           {...register("address")}
         />
         <HookInput

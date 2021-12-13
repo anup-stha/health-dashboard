@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/13/21, 10:42 AM
  *
  *
  */
@@ -130,7 +130,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
             <div>
               <Modal.Button
                 type="close"
-                variant="button"
+                variant="button-submit"
                 onClick={async () => {
                   selectedPermission.deselected.map(
                     async (id) =>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 6:47 PM
+ * Last Modified 12/13/21, 10:42 AM
  *
  *
  */
@@ -72,7 +72,7 @@ export interface IButtonProps {
   children: React.ReactNode;
   onClick?: any;
   width?: "full" | "auto";
-  variant?: "button" | "div" | "icon";
+  variant?: "button" | "div" | "icon" | "button-submit";
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -95,8 +95,19 @@ export const Button: React.FC<IButtonProps> = ({
     <UIButton
       type="submit"
       buttonSize="small"
-      onClick={() => (type === "open" ? setIsOpen(true) : setIsOpen(false))}
       onSubmit={
+        onClick
+          ? (e: any) => onClickFn(e)
+          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
+      }
+    >
+      {children}
+    </UIButton>
+  ) : variant === "button-submit" ? (
+    <UIButton
+      type="submit"
+      buttonSize="small"
+      onClick={
         onClick
           ? (e: any) => onClickFn(e)
           : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))

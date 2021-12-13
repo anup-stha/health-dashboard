@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 3:51 PM
+ * Last Modified 12/13/21, 10:35 AM
  *
  *
  */
@@ -243,7 +243,7 @@ export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
       <div className={` w-full input`}>
         <div className="relative w-full">
           <input
-            {...props}
+            required={props.required}
             className={error ? "input_error relative" : "input_container"}
             ref={ref}
             type={
@@ -253,6 +253,7 @@ export const HookInput = React.forwardRef<HTMLInputElement, HookInputProps>(
                   : "password"
                 : props.type
             }
+            {...props}
           />
           {props.type === "password" && (
             <button
