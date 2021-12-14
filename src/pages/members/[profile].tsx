@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 2:17 AM
+ * Last Modified 12/14/21, 5:06 PM
  *
  *
  */
@@ -23,6 +23,7 @@ import { listRole, listRoleDetails } from "@/services/requests/roleRequests";
 import {
   getMemberDetails,
   getMemberList,
+  getMemberTestList,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { Member, Role } from "@/types";
@@ -33,8 +34,11 @@ import { MemberProfileData } from "@/modules/members/profile/memberProfile";
 import { MemberToggle } from "@/modules/members/profile/memberToggle";
 import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
-import { GrayButton } from "@/components/Button";
+import { GrayButton, WarningButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
+import { testStore } from "@/modules/tests/testStore";
+import { listTest } from "@/services/requests/testRequests";
+import { ProfileTest } from "@/modules/members/profile/ProfileTest";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const [role, setRole] = useState<any>({} as Role);
@@ -42,6 +46,8 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
   const [subscriptionDetailsLoading, setSubscriptionDetailsLoading] =
     useState(false);
+  const [testLoading, setTestLoading] = useState(false);
+  const [selectedTestLoading, setSelectedTestLoading] = useState(false);
   const [memberDetailsLoading, setMemberDetailsLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -50,12 +56,15 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   );
   const router = useRouter();
 
+  const { setTestList } = testStore();
+
   const {
     toggleLoading,
     setError,
     loading: memberLoading,
-
+    selectedTestInProfile,
     setMemberList,
+    selectedMemberSubscription,
   } = memberStore();
 
   const {
@@ -73,7 +82,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
 
       await listSubscription(id)
         .then((res) => {
-          console.log(res);
           setSubscriptionList(res.data.data);
           setLoading(false);
         })
@@ -156,11 +164,30 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
         });
     };
 
+    const listTests = async () => {
+      setTestLoading(true);
+      await listTest()
+        .then((res) => {
+          setTestLoading(false);
+          setTestList(res.data.data);
+        })
+        .catch(() => setTestLoading(false));
+    };
+
+    listTests().catch(() => {});
     listSubscriptionDetails().catch(() => {});
     listMemberDetails().catch(() => {});
     getRoles().catch(() => {});
     listMember().catch(() => {});
   }, [idX.id, idX.role]);
+
+  useEffect(() => {
+    const listTestFn = async () => {
+      await getMemberTestList(Number(idX.id), Number(selectedTestInProfile.id));
+    };
+
+    selectedTestInProfile.id && listTestFn();
+  }, [selectedTestInProfile.id]);
 
   return (
     <MainLayout>
@@ -169,6 +196,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
       memberLoading ||
       selectedRoleLoading ||
       subscriptionDetailsLoading ||
+      testLoading ||
       memberDetailsLoading ? (
         <div>Loading</div>
       ) : (
@@ -182,6 +210,8 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                 verified={verified}
               />
               <ProfileSubscription memberId={Number(idX.id)} />
+
+              <ProfileTest />
             </div>
             <div className="w-1/4 h-auto sm:w-full flex flex-col space-y-8">
               <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
@@ -201,18 +231,21 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                 />
               </div>
 
-              <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+              <div className="flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
                 <div>
                   <h1 className="text-xl font-semibold text-gray-800">
                     Subscriptions
                   </h1>
                   <p className="text-lg font-semibold text-gray-500">
-                    Please choose a subscription to link
+                    Please choose a subscription to{" "}
+                    {Object.keys(selectedMemberSubscription).length !== 0
+                      ? "unlink"
+                      : "link"}
                   </p>
                 </div>
 
                 {subscriptionList.length === 0 ? (
-                  <div className="flex items-center text-red-500 space-x-4">
+                  <div className="flex items-center text-red-500">
                     <WarningOctagon size={40} />{" "}
                     <span className={"font-semibold"}>
                       No Subscription Found. Please add a subscription to this
@@ -227,25 +260,37 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   </div>
                 ) : (
                   <>
-                    <div className="flex items-stretch space-x-4">
-                      <SubscriptionDropdown />
-                      <GrayButton
-                        onClick={async () => {
-                          await alert({
-                            promise: assignSubscriptionToMember(
-                              Number(idX.id),
-                              Number(selectedSubscription.id)
-                            ),
-                            msgs: {
-                              loading: "Assigning Subscription",
-                            },
-                            id: "assign-subscription",
-                          });
-                        }}
-                      >
-                        Add
-                      </GrayButton>
+                    <div className="flex items-center  space-x-4 w-full">
+                      <div className={"w-[58%]"}>
+                        <SubscriptionDropdown />
+                      </div>
+                      <div className={"w-1/2"}>
+                        {Object.keys(selectedMemberSubscription).length !==
+                        0 ? (
+                          <WarningButton>Unlink</WarningButton>
+                        ) : (
+                          <GrayButton
+                            onClick={async () => {
+                              await alert({
+                                promise: assignSubscriptionToMember(
+                                  Number(idX.id),
+                                  Number(selectedSubscription.id)
+                                ),
+                                msgs: {
+                                  loading: "Assigning Subscription",
+                                },
+                                id: "assign-subscription",
+                              });
+                            }}
+                          >
+                            Link
+                          </GrayButton>
+                        )}
+                      </div>
                     </div>
+                    {Object.keys(selectedMemberSubscription).length !== 0 && (
+                      <GrayButton width={"full"}>Renew Subscription</GrayButton>
+                    )}
                   </>
                 )}
               </div>

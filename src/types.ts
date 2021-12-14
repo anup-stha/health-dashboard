@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 1:32 AM
+ * Last Modified 12/14/21, 3:36 PM
  *
  *
  */
@@ -350,10 +350,11 @@ export type ListTestResponse = StatusType & {
 
 export type Subscription = {
   id: Id;
+  name: string;
   price: string;
   slug: string;
   interval_type: string;
-  interval_value: string;
+  interval_value: number;
   grace_period: number;
   sync_limit: number;
   test_limit: number;
@@ -398,4 +399,32 @@ export type SubscriptionDetails = {
 
 export type MemberSubscriptionDetailsResponse = StatusType & {
   data: SubscriptionDetails;
+};
+
+export type MemberTestReport = {
+  id: number;
+  name: string;
+  value: string;
+};
+
+export type MemberTestList = {
+  id: number;
+  test_date: Date;
+  sync_date: Date;
+  timezone: string;
+  test_name: string;
+  app_slug: string;
+  report: MemberTestReport[];
+};
+
+export type MemberTestListData = {
+  list: MemberTestList[];
+  pagination: Pagination;
+};
+
+export type MemberTestListResponse = StatusType & {
+  data: {
+    list: MemberTestList[];
+    pagination: Pagination;
+  };
 };

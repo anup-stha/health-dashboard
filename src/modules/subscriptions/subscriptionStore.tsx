@@ -1,31 +1,26 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 12:47 AM
+ * Last Modified 12/14/21, 3:30 PM
  *
  *
  */
 
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
+import { Subscription } from "@/types";
 
 type roleInitialStateProps = {
   subscriptionList: any[];
   loading: boolean;
-  selectedSubscription: {
-    id: number;
-    name: string;
-  };
+  selectedSubscription: Subscription;
 };
 
 const initialState: roleInitialStateProps = {
   subscriptionList: [],
 
   loading: true,
-  selectedSubscription: {
-    id: 0,
-    name: "12",
-  },
+  selectedSubscription: {} as Subscription,
 };
 
 const store = combine(initialState, (set) => ({
@@ -35,8 +30,8 @@ const store = combine(initialState, (set) => ({
   setSubscriptionList: (list: any) => {
     set({ subscriptionList: list });
   },
-  setSubscription: (role: { id: number; name: string }) => {
-    set(() => ({ selectedSubscription: { id: role.id, name: role.name } }));
+  setSubscription: (subs: Subscription) => {
+    set(() => ({ selectedSubscription: subs }));
   },
 }));
 

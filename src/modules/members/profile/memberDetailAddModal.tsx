@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 2:22 AM
+ * Last Modified 12/14/21, 10:57 AM
  *
  *
  */
@@ -37,7 +37,7 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
     <Modal>
       <Modal.Button type={"open"}>
         {children ?? (
-          <div className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+          <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
             Update Member Details
           </div>
         )}

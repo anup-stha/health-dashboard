@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 12:43 AM
+ * Last Modified 12/14/21, 2:11 PM
  *
  *
  */
@@ -11,8 +11,10 @@ import {
   MemberDetails,
   MemberList,
   MemberListResponse,
+  MemberTestListData,
   Role,
   SubscriptionDetails,
+  Test,
 } from "@/types";
 import { combine, devtools } from "zustand/middleware";
 import { getMemberList } from "@/services/requests/memberRequests";
@@ -31,6 +33,9 @@ const initialState = {
   },
   selectedMemberDetails: [] as MemberDetails[],
   selectedMemberSubscription: ({} as SubscriptionDetails) || {},
+
+  selectedTestInProfile: {} as Test,
+  selectedTestDetailsInProfile: {} as MemberTestListData,
 };
 
 export const store = combine(initialState, (set) => ({
@@ -39,6 +44,18 @@ export const store = combine(initialState, (set) => ({
       status: { state: res.status, message: res.message },
       memberList: res.data.list,
       pagination: res.data.pagination,
+    });
+  },
+
+  setSelectedTestDetailsInProfile: (data: MemberTestListData) => {
+    set({
+      selectedTestDetailsInProfile: data,
+    });
+  },
+
+  setSelectedTestInProfile: (list: Test) => {
+    set({
+      selectedTestInProfile: list,
     });
   },
 

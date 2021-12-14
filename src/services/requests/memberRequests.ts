@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 2:03 AM
+ * Last Modified 12/14/21, 2:11 PM
  *
  *
  */
@@ -15,6 +15,7 @@ import {
   MemberDetailCategoryUpdateResponse,
   MemberDetailsListResponse,
   MemberListResponse,
+  MemberTestListResponse,
   NormalMemberAddReq,
   NullDataResponse,
   OrgMemberAddReq,
@@ -186,5 +187,20 @@ export const addDetailsToMember = (
       .catch((error) => {
         reject(error.response);
       });
+  });
+};
+
+export const getMemberTestList = (memberId: number, testCategoryId: number) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .get<MemberTestListResponse>(
+        `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`
+      )
+      .then((response) =>
+        memberStore
+          .getState()
+          .setSelectedTestDetailsInProfile(response.data.data)
+      )
+      .catch((error) => reject(error.response));
   });
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 12:32 AM
+ * Last Modified 12/14/21, 3:51 PM
  *
  *
  */
@@ -12,7 +12,6 @@ import { memberStore } from "@/modules/members/memberStore";
 import { ApexOptions } from "apexcharts";
 
 import dynamic from "next/dynamic";
-import { LineButton, WarningButton } from "@/components/Button";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -88,18 +87,18 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
   return subscriptionList.length === 0 ||
     Object.keys(selectedMemberSubscription).length === 0 ? null : (
     <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
-      <div className="p-6 space-y-8">
+      <div className="p-6 space-y-4">
         <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
           Subscriptions
         </h1>
         <div className="flex items-center">
-          <div className="p-6 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
+          <div className="p-6 bg-gray-50 w-3/5 text-xl rounded-lg flex flex-col gap-8 sm:w-full">
             <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
               {selectedMemberSubscription.plan.name}
             </h1>
             <div
               className={
-                "w-full grid grid-cols-3 divide-x divide-gray-400/40 w-11/12"
+                " grid grid-cols-2 divide-x divide-gray-400/40 w-11/12"
               }
             >
               <div className="px-4 space-y-2">
@@ -164,11 +163,6 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                     />
                   )}
                 </div>
-              </div>
-              <div className="pl-16 space-y-2 flex flex-col items-center justify-center">
-                <LineButton width="full">Extend Days</LineButton>
-                <LineButton width="full"> Renew Subscription</LineButton>
-                <WarningButton width="full">Remove Subscription</WarningButton>
               </div>
             </div>
           </div>

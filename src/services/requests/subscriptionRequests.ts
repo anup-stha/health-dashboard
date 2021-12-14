@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 12:48 AM
+ * Last Modified 12/14/21, 3:36 PM
  *
  *
  */
@@ -71,6 +71,9 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
         memberStore
           .getState()
           .setSelectedMemberSubscription(response.data.data);
+        useSubscriptionStore
+          .getState()
+          .setSubscription(response.data.data.plan);
         resolve(response.data.message);
       })
       .catch((error) => {

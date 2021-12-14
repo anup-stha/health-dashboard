@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 9:25 AM
+ * Last Modified 12/14/21, 3:03 PM
  *
  *
  */
@@ -69,7 +69,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
                           {Object.values(data).map((d: any, index) => (
                             <td
                               key={index}
-                              className="px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto"
+                              className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto"
                             >
                               {d.toString()}
                             </td>
