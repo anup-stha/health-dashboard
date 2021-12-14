@@ -1,10 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 10:16 AM
+ * Last Modified 12/14/21, 5:32 PM
  *
  *
  */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   dark: ["media"],

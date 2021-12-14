@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 3:51 PM
+ * Last Modified 12/14/21, 7:50 PM
  *
  *
  */
@@ -80,7 +80,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
       lineCap: "round",
       curve: "smooth",
     },
-    series: [10],
+    series: [90],
     labels: ["Days Left"],
   });
 
@@ -88,20 +88,25 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
     Object.keys(selectedMemberSubscription).length === 0 ? null : (
     <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
       <div className="p-6 space-y-4">
-        <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-          Subscriptions
-        </h1>
         <div className="flex items-center">
-          <div className="p-6 bg-gray-50 w-3/5 text-xl rounded-lg flex flex-col gap-8 sm:w-full">
-            <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
-              {selectedMemberSubscription.plan.name}
-            </h1>
-            <div
-              className={
-                " grid grid-cols-2 divide-x divide-gray-400/40 w-11/12"
-              }
-            >
-              <div className="px-4 space-y-2">
+          <div className="w-full text-xl rounded-lg flex flex-col items-center sm:w-full">
+            <div className="px-4 flex items-center justify-center -mt-6">
+              {typeof window !== "undefined" && (
+                <Chart
+                  options={options}
+                  type={"radialBar"}
+                  series={options.series}
+                  width="200"
+                  height="225"
+                />
+              )}
+            </div>
+            <div className="p-6 bg-gray-50 w-full text-xl rounded-lg flex flex-col items-center gap-4 sm:w-full ">
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
+                {selectedMemberSubscription.plan.name}
+              </h1>
+
+              <div className="space-y-1 flex flex-col items-center">
                 <div className="flex space-x-4 items-center">
                   <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
                     <span>Total Price:</span>
@@ -126,22 +131,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                     {selectedMemberSubscription.plan.sync_limit} times
                   </h1>
                 </div>
-                <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
-                    Interval Type:
-                  </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
-                    {selectedMemberSubscription.plan.interval_type} times
-                  </h1>
-                </div>
-                <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
-                    Interval Time:
-                  </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
-                    {selectedMemberSubscription.plan.interval_value} days
-                  </h1>
-                </div>
+
                 <div className="flex space-x-4 items-center">
                   <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
                     Test Limit:
@@ -149,19 +139,6 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
                     {selectedMemberSubscription.plan.test_limit} times
                   </h1>
-                </div>
-              </div>
-              <div className="px-4 space-y-2 flex items-center justify-center">
-                <div className={"absolute"}>
-                  {typeof window !== "undefined" && (
-                    <Chart
-                      options={options}
-                      type={"radialBar"}
-                      series={options.series}
-                      width="225"
-                      height="225"
-                    />
-                  )}
                 </div>
               </div>
             </div>

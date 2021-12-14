@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 5:06 PM
+ * Last Modified 12/14/21, 7:49 PM
  *
  *
  */
@@ -47,7 +47,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   const [subscriptionDetailsLoading, setSubscriptionDetailsLoading] =
     useState(false);
   const [testLoading, setTestLoading] = useState(false);
-  const [selectedTestLoading, setSelectedTestLoading] = useState(false);
   const [memberDetailsLoading, setMemberDetailsLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -201,7 +200,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
         <div>Loading</div>
       ) : (
         <>
-          <div className="flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
+          <div className="  flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
             <div className="w-3/4 space-y-8">
               <MemberProfileData
                 selectedMemberDetails={selectedMemberDetails}
@@ -209,28 +208,11 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                 active={active}
                 verified={verified}
               />
-              <ProfileSubscription memberId={Number(idX.id)} />
 
               <ProfileTest />
             </div>
-            <div className="w-1/4 h-auto sm:w-full flex flex-col space-y-8">
-              <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
-                <MemberToggle
-                  toggle={"active"}
-                  memberId={Number(idX.id)}
-                  currentState={active}
-                  setCurrentState={setActive}
-                  selectedMemberDetails={selectedMemberDetails}
-                />
-                <MemberToggle
-                  toggle={"verified"}
-                  memberId={Number(idX.id)}
-                  currentState={verified}
-                  setCurrentState={setVerified}
-                  selectedMemberDetails={selectedMemberDetails}
-                />
-              </div>
-
+            <div className=" w-1/4  h-auto sm:w-full flex flex-col space-y-8">
+              <ProfileSubscription memberId={Number(idX.id)} />
               <div className="flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
                 <div>
                   <h1 className="text-xl font-semibold text-gray-800">
@@ -293,6 +275,23 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                     )}
                   </>
                 )}
+              </div>
+
+              <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                <MemberToggle
+                  toggle={"active"}
+                  memberId={Number(idX.id)}
+                  currentState={active}
+                  setCurrentState={setActive}
+                  selectedMemberDetails={selectedMemberDetails}
+                />
+                <MemberToggle
+                  toggle={"verified"}
+                  memberId={Number(idX.id)}
+                  currentState={verified}
+                  setCurrentState={setVerified}
+                  selectedMemberDetails={selectedMemberDetails}
+                />
               </div>
 
               <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4">

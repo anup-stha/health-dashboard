@@ -1,14 +1,16 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 10:37 AM
+ * Last Modified 12/14/21, 5:32 PM
  *
  *
  */
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind screens;
+@tailwind utilities;
+
 @import "../components/Table/Table.scss";
 @import "./checbox.scss";
 @import "../components/Input/input.scss";

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 8:40 PM
+ * Last Modified 12/14/21, 7:58 PM
  *
  *
  */
@@ -55,11 +55,15 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
 
   return (
     <LineButton
+      state={!currentState}
       buttonSize={"small"}
       width={"full"}
       onClick={() => onToggleHandler()}
     >
-      Mark this member as {currentState ? `Not ${toggle}` : toggle}
+      Mark this member as{" "}
+      {currentState
+        ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
+        : toggle}
     </LineButton>
   );
 };
