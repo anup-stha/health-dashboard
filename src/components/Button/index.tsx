@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 7:59 PM
+ * Last Modified 12/14/21, 8:11 PM
  *
  *
  */
@@ -135,7 +135,7 @@ export const InfoButton: React.FC<ButtonProps> = ({
   );
 };
 
-export const LineButton: React.FC<ButtonProps> = ({
+export const RedLineButton: React.FC<ButtonProps> = ({
   children,
   loading,
   disabled,
@@ -148,7 +148,33 @@ export const LineButton: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   const buttonPadding = buttonSize === "small" ? "px-8 py-4" : "px-12 py-4";
 
-  const color = state ? "green" : "red";
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled ?? loading}
+      className={`flex items-center ${buttonPadding} ${
+        width ? "w-full justify-center py-4" : ""
+      } capitalize cursor-pointer text-center text-xl font-medium text-red-700 border-red-500 border-2 bg-transparent rounded-lg disabled:opacity-80 gap-x-2 hover:bg-red-500 hover:text-white disabled:cursor-not-allowed transition-all duration-200`}
+    >
+      {loading ? <div className="loading"></div> : null}
+      {children}
+    </button>
+  );
+};
+
+export const GreenLineButton: React.FC<ButtonProps> = ({
+  children,
+  loading,
+  disabled,
+  onClick,
+  width,
+  type = "submit",
+  buttonSize = "large",
+  variant = "normal",
+  state,
+}: ButtonProps) => {
+  const buttonPadding = buttonSize === "small" ? "px-8 py-4" : "px-12 py-4";
 
   return (
     <button
@@ -157,7 +183,7 @@ export const LineButton: React.FC<ButtonProps> = ({
       disabled={disabled ?? loading}
       className={`flex items-center ${buttonPadding} ${
         width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer text-center text-xl font-medium text-${color}-700 border-${color}-600 border-2 bg-transparent rounded-lg disabled:opacity-80 gap-x-2 hover:bg-${color}-600 hover:text-white disabled:cursor-not-allowed transition-all duration-200`}
+      } capitalize cursor-pointer text-center text-xl font-medium text-green-700 border-green-600 border-2 bg-transparent rounded-lg disabled:opacity-80 gap-x-2 hover:bg-green-600 hover:text-white disabled:cursor-not-allowed transition-all duration-200`}
     >
       {loading ? <div className="loading"></div> : null}
       {children}

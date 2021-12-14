@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 3:44 PM
+ * Last Modified 12/14/21, 8:08 PM
  *
  *
  */
@@ -63,9 +63,9 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         </td>
         <td className="whitespace-nowrap text-lg">
           {data.can_login ? (
-            <BooleanTag type="info" trueStatement={"Can Login "} />
+            <BooleanTag type="info" trueStatement={"Yes "} />
           ) : (
-            <BooleanTag type="info" trueStatement={"Cannot Login"} />
+            <BooleanTag type="info" trueStatement={"No"} />
           )}
         </td>
         <td className="whitespace-nowrap text-lg">
