@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/15/21, 9:23 AM
  *
  *
  */
@@ -14,26 +14,15 @@ import { useRoleStore } from "@/modules/roles/useRoleStore";
 import SubscriptionPage from "@/modules/subscriptions";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { listRole } from "@/services/requests/roleRequests";
-import { listSubscription } from "@/services/requests/subscriptionRequests";
+import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useEffect } from "react";
 
 const Subscription = () => {
   const { selectedRole } = memberStore();
-  const { setLoading, setSubscriptionList } = useSubscriptionStore();
+  const { setLoading } = useSubscriptionStore();
+  const { data } = useSubscriptionList(Number(selectedRole.id));
 
   useEffect(() => {
-    const listSubscriptionFn = async (id: any) => {
-      setLoading(true);
-
-      await listSubscription(id)
-        .then((res) => {
-          setSubscriptionList(res.data.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    };
     const getRoles = async () => {
       setLoading(true);
       await listRole()
@@ -46,14 +35,9 @@ const Subscription = () => {
         });
     };
     getRoles();
-    listSubscriptionFn(selectedRole.id);
   }, [selectedRole.id]);
 
-  return (
-    <MainLayout>
-      <SubscriptionPage />
-    </MainLayout>
-  );
+  return <MainLayout>{!data ? <div></div> : <SubscriptionPage />}</MainLayout>;
 };
 
 export default withAuth(withRole(Subscription));

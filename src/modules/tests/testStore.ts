@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/15/21, 10:57 AM
  *
  *
  */
 
-import { listTest } from "@/services/requests/testRequests";
+import { getTests } from "@/services/requests/testRequests";
 import { Test } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
@@ -36,7 +36,7 @@ const store = combine(initialState, (set) => ({
   },
   getTestListFromServer: async () => {
     testStore.getState().setLoading(true);
-    await listTest()
+    await getTests()
       .then((res) => {
         testStore.getState().setLoading(false);
         testStore.getState().setTestList(res.data.data);

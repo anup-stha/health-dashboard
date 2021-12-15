@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/15/21, 8:57 AM
  *
  *
  */
@@ -16,10 +16,19 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
+import useSWRImmutable from "swr";
 
-export const listTest = (): Promise<AxiosResponse<ListTestResponse>> => {
+export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
   return privateAgent.get("test/categories/");
 };
+
+export const listTests = async (url: string) =>
+  privateAgent.get<ListTestResponse>(url).then((response) => {
+    testStore.getState().setTestList(response.data.data);
+    return response.data.data;
+  });
+
+export const useTestList = () => useSWRImmutable(`test/categories/`, listTests);
 
 export const addTest = (body: AddTestBody) => {
   return new Promise((resolve, reject) =>

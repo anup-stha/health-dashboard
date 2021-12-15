@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 3:36 PM
+ * Last Modified 12/15/21, 9:13 AM
  *
  *
  */
@@ -18,11 +18,27 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 import { memberStore } from "@/modules/members/memberStore";
+import useSWRImmutable from "swr";
 
-export const listSubscription = (
+export const getSubscription = (
   id: number | string
 ): Promise<AxiosResponse<SubscriptionListResponse>> => {
   return privateAgent.get(`subscription/${id}`);
+};
+
+const listSubscription = (url: string) =>
+  privateAgent
+    .get<SubscriptionListResponse>(url)
+    .then((response) => {
+      useSubscriptionStore.getState().setSubscriptionList(response.data.data);
+      return response.data.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+export const useSubscriptionList = (roleId: number) => {
+  return useSWRImmutable(`subscription/${roleId}`, listSubscription);
 };
 
 export const addSubscription = (data: SubscriptionBody) => {
@@ -82,5 +98,27 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
           .setSelectedMemberSubscription({} as SubscriptionDetails);
         reject(error.response);
       })
+  );
+};
+
+export const listMemberSubscriptionDetails = (url: string) =>
+  privateAgent
+    .get<MemberSubscriptionDetailsResponse>(url)
+    .then((response) => {
+      memberStore.getState().setSelectedMemberSubscription(response.data.data);
+      useSubscriptionStore.getState().setSubscription(response.data.data.plan);
+      return response.data.data;
+    })
+    .catch((error) => {
+      memberStore
+        .getState()
+        .setSelectedMemberSubscription({} as SubscriptionDetails);
+      return error.response;
+    });
+
+export const useMemberSubsDetails = (memberId: number) => {
+  return useSWRImmutable(
+    `member/subscription/${memberId}`,
+    listMemberSubscriptionDetails
   );
 };

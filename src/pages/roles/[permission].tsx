@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/15/21, 9:20 AM
  *
  *
  */
@@ -16,7 +16,7 @@ import { RoleMemberCategory } from "@/modules/roles/others/roleMemberCategory";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   getAllPermissions,
-  listRoleDetails,
+  getRoleDetails,
 } from "@/services/requests/roleRequests";
 import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
@@ -43,7 +43,7 @@ const RoleDetailPage = ({ idX }: any) => {
     };
     const getRoleDetail = async () => {
       setLoading(true);
-      await listRoleDetails(idX)
+      await getRoleDetails(idX)
         .then((response) => {
           setSelectedPermission({
             current: response.data.data.permissions,

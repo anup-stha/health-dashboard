@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 5:40 PM
+ * Last Modified 12/15/21, 9:20 AM
  *
  *
  */
@@ -11,7 +11,7 @@ import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { LoginRequest, LoginResponse, LogoutRequest } from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
-import { listRoleDetails } from "./roleRequests";
+import { getRoleDetails } from "./roleRequests";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -50,7 +50,7 @@ export const logOut = () => {
 };
 
 export const getRoleDetail = async (idX: number) => {
-  await listRoleDetails(idX)
+  await getRoleDetails(idX)
     .then((response) => {
       useRoleStore.getState().setSelectedPermission({
         current: response.data.data.permissions,

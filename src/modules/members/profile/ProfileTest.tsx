@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 8:06 PM
+ * Last Modified 12/15/21, 10:47 AM
  *
  *
  */
@@ -37,11 +37,11 @@ export const ProfileTest = () => {
 
           <TestDropdown />
         </div>
-        <div className={"grid grid-cols-2 gap-8"}>
+        <div className={"grid grid-cols-2 gap-8 items-stretch justify-stretch"}>
           {Object.keys(testDetails).length !== 0 &&
           testDetails.list.length !== 0 ? (
             testDetails.list.map((test) => (
-              <div className="flex items-center" key={test.id}>
+              <div className="flex items-stretch" key={test.id}>
                 <div className="p-6 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
                   <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl capitalize">
                     {test.test_name} Report
@@ -78,7 +78,7 @@ export const ProfileTest = () => {
                       </h1>
                     </div>
                     <hr className={"border-t-[1px] border-neutral-400/20"} />
-                    <div className="flex flex-col pt-2 ">
+                    <div className="flex flex-col pt-2 space-y-2 ">
                       <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
                         <Archive size={18} />
                         <span>Test Full Report:</span>

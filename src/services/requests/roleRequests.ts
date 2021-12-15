@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 3:39 PM
+ * Last Modified 12/15/21, 10:29 AM
  *
  *
  */
@@ -19,15 +19,25 @@ import {
 import { privateAgent } from ".";
 import { getRoleDetail } from "./authRequests";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
+import useSWRImmutable from "swr";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
 };
 
-export const listRoleDetails = (
+export const getRoleDetails = (
   id: number
 ): Promise<AxiosResponse<RoleDetailResponse>> => {
   return privateAgent.get(`role/detail/${id}`);
+};
+
+const listRoleDetails = (url: string) =>
+  privateAgent.get<RoleDetailResponse>(url).then((response) => {
+    return response.data.data;
+  });
+
+export const useRoleDetails = (roleId: number) => {
+  return useSWRImmutable(`role/detail/${roleId}`, listRoleDetails);
 };
 
 export const addRole = ({

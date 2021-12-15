@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 7:49 PM
+ * Last Modified 12/15/21, 10:42 AM
  *
  *
  */
@@ -14,16 +14,16 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import {
   assignSubscriptionToMember,
-  getMemberSubscriptionDetails,
-  listSubscription,
+  useMemberSubsDetails,
+  useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
-import { listRole, listRoleDetails } from "@/services/requests/roleRequests";
+import { listRole, useRoleDetails } from "@/services/requests/roleRequests";
 import {
-  getMemberDetails,
   getMemberList,
   getMemberTestList,
+  useMemberDetails,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { Member, Role } from "@/types";
@@ -36,26 +36,18 @@ import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
 import { GrayButton, WarningButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
-import { testStore } from "@/modules/tests/testStore";
-import { listTest } from "@/services/requests/testRequests";
 import { ProfileTest } from "@/modules/members/profile/ProfileTest";
+import { useTestList } from "@/services/requests/testRequests";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const [role, setRole] = useState<any>({} as Role);
-  const [roleLoading, setRoleLoading] = useState(false);
   const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
-  const [subscriptionDetailsLoading, setSubscriptionDetailsLoading] =
-    useState(false);
-  const [testLoading, setTestLoading] = useState(false);
-  const [memberDetailsLoading, setMemberDetailsLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
   const [selectedMemberDetails, setSelectedMemberDetails] = useState(
     {} as Member
   );
   const router = useRouter();
-
-  const { setTestList } = testStore();
 
   const {
     toggleLoading,
@@ -65,43 +57,26 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     setMemberList,
     selectedMemberSubscription,
   } = memberStore();
+  const { selectedSubscription, subscriptionList } = useSubscriptionStore();
 
-  const {
-    setLoading,
-    setSubscriptionList,
-    loading,
-    selectedSubscription,
-    subscriptionList,
-  } = useSubscriptionStore();
+  const { data: memberDetailsData } = useMemberDetails(Number(idX.id));
+  const { data: testListData } = useTestList();
+  const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
+  const { data: subsListData } = useSubscriptionList(Number(idX.role));
+
+  const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
 
   useEffect(() => {
-    const listSubscriptionFn = async (id: any) => {
-      setLoading(true);
-      setRoleLoading(true);
+    setRole(roleDetailsData);
+  }, [roleDetailsData]);
 
-      await listSubscription(id)
-        .then((res) => {
-          setSubscriptionList(res.data.data);
-          setLoading(false);
-        })
-        .catch(() => {
-          router.push("/404");
-          setLoading(false);
-        });
-
-      await listRoleDetails(Number(idX.role))
-        .then((res) => {
-          setRoleLoading(false);
-          setRole(res.data.data);
-        })
-        .catch(() => {
-          setRoleLoading(false);
-          router.push("/404");
-        });
+  useEffect(() => {
+    const listTestFn = async () => {
+      await getMemberTestList(Number(idX.id), Number(selectedTestInProfile.id));
     };
 
-    listSubscriptionFn(Number(idX.role));
-  }, []);
+    selectedTestInProfile.id && listTestFn();
+  }, [selectedTestInProfile.id]);
 
   useEffect(() => {
     const listMember = async () => {
@@ -145,58 +120,19 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
         });
     };
 
-    const listMemberDetails = async () => {
-      setMemberDetailsLoading(true);
-      await getMemberDetails(Number(idX.id)).then(() =>
-        setMemberDetailsLoading(false)
-      );
-    };
-
-    const listSubscriptionDetails = async () => {
-      setSubscriptionDetailsLoading(true);
-      await getMemberSubscriptionDetails(Number(idX.id))
-        .then(() => {
-          setSubscriptionDetailsLoading(false);
-        })
-        .catch(() => {
-          setSubscriptionDetailsLoading(false);
-        });
-    };
-
-    const listTests = async () => {
-      setTestLoading(true);
-      await listTest()
-        .then((res) => {
-          setTestLoading(false);
-          setTestList(res.data.data);
-        })
-        .catch(() => setTestLoading(false));
-    };
-
-    listTests().catch(() => {});
-    listSubscriptionDetails().catch(() => {});
-    listMemberDetails().catch(() => {});
     getRoles().catch(() => {});
     listMember().catch(() => {});
   }, [idX.id, idX.role]);
 
-  useEffect(() => {
-    const listTestFn = async () => {
-      await getMemberTestList(Number(idX.id), Number(selectedTestInProfile.id));
-    };
-
-    selectedTestInProfile.id && listTestFn();
-  }, [selectedTestInProfile.id]);
-
   return (
     <MainLayout>
-      {loading ||
-      roleLoading ||
+      {!subsListData ||
+      !roleDetailsData ||
       memberLoading ||
       selectedRoleLoading ||
-      subscriptionDetailsLoading ||
-      testLoading ||
-      memberDetailsLoading ? (
+      !memberSubsDetailsData ||
+      !memberDetailsData ||
+      !testListData ? (
         <div>Loading</div>
       ) : (
         <>

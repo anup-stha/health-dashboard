@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 2:11 PM
+ * Last Modified 12/15/21, 10:40 AM
  *
  *
  */
@@ -23,6 +23,7 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
+import useSWRImmutable from "swr";
 
 export const getMemberList = (
   id: number | string
@@ -157,6 +158,16 @@ export const getMemberDetails = (memberId: number) => {
   });
 };
 
+export const listMemberDetails = async (url?: string) =>
+  privateAgent.get<MemberDetailsListResponse>(`${url}`).then((response) => {
+    memberStore.getState().setSelectedMemberDetails(response.data.data);
+    return response.data.data;
+  });
+
+export const useMemberDetails = (memberId: number) => {
+  return useSWRImmutable(`member/detail/${memberId}`, listMemberDetails);
+};
+
 export const addDetailsToMember = (
   roleId: number,
   memberId: number,
@@ -172,7 +183,6 @@ export const addDetailsToMember = (
     }))
   );
 
-  console.log(requestBody);
   return new Promise((resolve, reject) => {
     privateAgent
       .post<any>("member/detail", {
@@ -203,4 +213,22 @@ export const getMemberTestList = (memberId: number, testCategoryId: number) => {
       )
       .catch((error) => reject(error.response));
   });
+};
+
+export const listMemberTestListInProfile = async (url?: string) =>
+  privateAgent
+    .get<MemberTestListResponse>(`${url}`)
+    .then((response) => {
+      memberStore
+        .getState()
+        .setSelectedTestDetailsInProfile(response.data.data);
+      return response.data.data;
+    })
+    .catch(() => {});
+
+export const useMemberTestList = (memberId: number, testCategoryId: number) => {
+  return useSWRImmutable(
+    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`,
+    listMemberTestListInProfile
+  );
 };
