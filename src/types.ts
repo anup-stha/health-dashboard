@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:08 PM
+ * Last Modified 12/15/21, 9:54 PM
  *
  *
  */
@@ -371,7 +371,7 @@ export type SubscriptionAddResponse = StatusType & {
 export type SubscriptionBody = {
   name: string;
   price: string | number;
-  interval_type: number;
+  interval_type: string;
   interval_value: number;
   grace_period: number;
   sync_limit: number;
@@ -428,4 +428,15 @@ export type MemberTestListResponse = StatusType & {
     list: MemberTestList[];
     pagination: Pagination;
   };
+};
+
+export type BasicGlobalState = {
+  system_version: string;
+  date_format: string;
+  data_types: string[];
+  subscription_intervals: string[];
+};
+
+export type GlobalStateResponse = StatusType & {
+  data: BasicGlobalState;
 };

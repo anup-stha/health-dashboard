@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:21 PM
+ * Last Modified 12/15/21, 9:06 PM
  *
  *
  */
@@ -233,6 +233,6 @@ export const useMemberTestList = (memberId: number, testCategoryId: number) => {
   return useSWR(
     `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`,
     listMemberTestListInProfile,
-    { refreshInterval: 1000000 }
+    { refreshInterval: 1000 }
   );
 };

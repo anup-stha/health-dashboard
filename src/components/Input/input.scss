@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/15/21, 7:03 PM
  *
  *
  */
@@ -10,7 +10,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-neutral-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
 
     &:focus {
       outline: none;

@@ -1,19 +1,20 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/15/21, 9:28 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../modules/auth/useTokenStore";
+import { getGlobalStates } from "@/services/requests/globalRequests";
 
 const withAuth = (WrappedComponent: React.FC) => {
   const RequireAuthentication = (props: React.Props<any>) => {
     const accessToken = useAuthStore.getState().token;
-
+    const [globalLoading, setGlobalLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
     const router = useRouter();
 
@@ -34,7 +35,22 @@ const withAuth = (WrappedComponent: React.FC) => {
       }
     }, [isAuthenticated, router, accessToken]);
 
-    return accessToken ? <WrappedComponent {...props} /> : <div></div>;
+    useEffect(() => {
+      const getGlobalState = async () => {
+        setGlobalLoading(true);
+
+        await getGlobalStates()
+          .then(() => setGlobalLoading(false))
+          .catch(() => setGlobalLoading(false));
+      };
+      isAuthenticated && getGlobalState();
+    }, [router]);
+
+    return accessToken || globalLoading ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <div></div>
+    );
   };
   return RequireAuthentication;
 };

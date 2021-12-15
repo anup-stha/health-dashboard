@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/15/21, 9:42 PM
  *
  *
  */
@@ -27,11 +27,7 @@ export const ModalContent: React.FC<IModalProps> = ({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-50 overflow-y-auto"
-        onClose={closeModal}
-      >
+      <Dialog as="div" className="fixed inset-0 z-50" onClose={closeModal}>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
         <div className="min-h-screen md:px-16 text-center">
           <Transition.Child as={Fragment}>

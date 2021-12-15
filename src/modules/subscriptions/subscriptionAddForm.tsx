@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 9:26 PM
+ * Last Modified 12/15/21, 9:54 PM
  *
  *
  */
@@ -14,6 +14,9 @@ import { memberStore } from "../members/memberStore";
 import { alert } from "@/components/Alert";
 import { addSubscription } from "@/services/requests/subscriptionRequests";
 import { Button } from "@/components/Button";
+import React from "react";
+import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+import { useGlobalState } from "@/modules/useGlobalState";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -25,10 +28,18 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
 }) => {
   const { selectedRole } = memberStore();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, control } = useForm();
+  const options = useGlobalState
+    .getState()
+    .subscription_intervals.map((element) => ({
+      value: element,
+      label: element,
+    }));
+
   return (
     <Modal.Form
       onSubmit={handleSubmit(async (data) => {
+        console.log(data);
         type === "add"
           ? await alert({
               promise: addSubscription({
@@ -36,7 +47,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
                 name: data.name,
                 price: Number(data.price),
                 test_limit: Number(data.test_limit),
-                interval_type: Number(data.interval_type),
+                interval_type: data.interval_type,
                 interval_value: Number(data.interval_value),
                 grace_period: Number(data.grace_period),
                 sync_limit: Number(data.sync_limit),
@@ -65,12 +76,11 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
 
         <div className="flex space-x-4">
           <div className="w-1/2">
-            <PrimaryInput
-              label="Interval Type"
-              type="text"
-              min="0"
-              placeholder="Enter Interval Type"
-              {...register("interval_type")}
+            <DropdownController
+              options={options}
+              name={"interval_type"}
+              label={"Interval Type"}
+              control={control}
             />
           </div>
           <div className="w-1/2">
