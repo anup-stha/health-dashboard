@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 3:40 PM
+ * Last Modified 12/15/21, 5:27 PM
  *
  *
  */
@@ -51,14 +51,14 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-2 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none text-lg">
                 {subscriptionList.map((subscription) => (
                   <Listbox.Option
                     key={subscription.id}
                     className={({ active }) =>
                       classNames(
                         active ? "text-white bg-neutral-600" : "text-gray-900",
-                        "cursor-pointer select-none relative py-2 pl-3 pr-9"
+                        "cursor-pointer select-none relative py-4 pl-3 pr-9"
                       )
                     }
                     value={subscription}

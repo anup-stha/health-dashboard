@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 5:32 PM
+ * Last Modified 12/15/21, 5:47 PM
  *
  *
  */
@@ -81,5 +81,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+    require("tailwind-scrollbar"),
+  ],
+  variants: {
+    scrollbar: ["rounded"],
+  },
 };

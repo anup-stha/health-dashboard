@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 10:40 AM
+ * Last Modified 12/15/21, 5:21 PM
  *
  *
  */
@@ -24,6 +24,7 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 import useSWRImmutable from "swr";
+import useSWR from "swr";
 
 export const getMemberList = (
   id: number | string
@@ -74,7 +75,7 @@ export const postMemberCategory = (body: MemberDetailCategoryBody) => {
         const memberDetail = useRoleStore.getState().memberCategoryList;
         useRoleStore
           .getState()
-          .addMemberDetail([...memberDetail, response.data.data]);
+          .addMemberDetail([response.data.data, ...memberDetail]);
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -191,6 +192,7 @@ export const addDetailsToMember = (
         data: requestBody,
       })
       .then((response) => {
+        console.log(response.data.message);
         memberStore.getState().setSelectedMemberDetails(response.data.data);
         resolve(response.data.message);
       })
@@ -219,6 +221,7 @@ export const listMemberTestListInProfile = async (url?: string) =>
   privateAgent
     .get<MemberTestListResponse>(`${url}`)
     .then((response) => {
+      console.log(response);
       memberStore
         .getState()
         .setSelectedTestDetailsInProfile(response.data.data);
@@ -227,8 +230,9 @@ export const listMemberTestListInProfile = async (url?: string) =>
     .catch(() => {});
 
 export const useMemberTestList = (memberId: number, testCategoryId: number) => {
-  return useSWRImmutable(
+  return useSWR(
     `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`,
-    listMemberTestListInProfile
+    listMemberTestListInProfile,
+    { refreshInterval: 1000000 }
   );
 };

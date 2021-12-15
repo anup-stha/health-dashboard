@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 10:57 AM
+ * Last Modified 12/15/21, 5:21 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { Modal } from "@/components/Modal/useModal";
 import { MemberDetailCategory } from "@/types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { PrimaryInput } from "@/components/Input";
 import { alert } from "@/components/Alert";
 import { addDetailsToMember } from "@/services/requests/memberRequests";
@@ -24,27 +24,34 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const selectedRole = useRoleStore.getState().selectedRole;
   const selectedMemberDetails = memberStore.getState().selectedMemberDetails;
 
-  const data = selectedMemberDetails.map((element) => {
-    const value = `${element.detail_category_id}-${element.slug}`;
+  const { register, handleSubmit, reset } = useForm();
 
-    return { [value]: element.value };
-  });
-  const object = Object.assign({}, ...data);
-  console.log(object);
-  const { register, handleSubmit } = useForm({ defaultValues: object });
-
+  useEffect(() => {
+    console.log(1);
+    reset(
+      Object.assign(
+        {},
+        ...selectedMemberDetails.map((element: any) => ({
+          [`${element.detail_category_id}-${element.slug}`]: element.value,
+        }))
+      )
+    );
+    return () => reset();
+  }, [JSON.stringify(selectedMemberDetails)]);
   return (
     <Modal>
       <Modal.Button type={"open"}>
         {children ?? (
           <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-            Update Member Details
+            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member
+            Details
           </div>
         )}
       </Modal.Button>
       <Modal.Content>
         <Modal.Title>
-          Update {memberData.name}
+          {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member Details{" "}
+          {memberData.name}
           {"'s"} Details
         </Modal.Title>
         {selectedRole.member_detail_categories.length === 0 ? (

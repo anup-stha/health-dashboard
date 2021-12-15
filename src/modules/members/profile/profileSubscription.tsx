@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 7:50 PM
+ * Last Modified 12/15/21, 5:31 PM
  *
  *
  */
@@ -12,6 +12,7 @@ import { memberStore } from "@/modules/members/memberStore";
 import { ApexOptions } from "apexcharts";
 
 import dynamic from "next/dynamic";
+import { GrayButton, WarningButton } from "@/components/Button";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -101,7 +102,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                 />
               )}
             </div>
-            <div className="p-6 bg-gray-50 w-full text-xl rounded-lg flex flex-col items-center gap-4 sm:w-full ">
+            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-center gap-4 sm:w-full ">
               <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
                 {selectedMemberSubscription.plan.name}
               </h1>
@@ -139,6 +140,20 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
                     {selectedMemberSubscription.plan.test_limit} times
                   </h1>
+                </div>
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
+                    Test Count:
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                    {selectedMemberSubscription.total_test_count} times
+                  </h1>
+                </div>
+                <div className={"w-full flex space-x-4 pt-8"}>
+                  {Object.keys(selectedMemberSubscription).length !== 0 && (
+                    <GrayButton>Renew</GrayButton>
+                  )}
+                  <WarningButton>Unlink</WarningButton>
                 </div>
               </div>
             </div>

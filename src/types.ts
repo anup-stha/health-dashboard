@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 3:36 PM
+ * Last Modified 12/15/21, 5:08 PM
  *
  *
  */
@@ -383,6 +383,7 @@ export type SubscriptionDetails = {
   start_date: Date;
   end_date: Date;
   active: boolean;
+  total_test_count: number;
   plan: {
     id: number;
     name: string;

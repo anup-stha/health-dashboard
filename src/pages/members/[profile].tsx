@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 10:42 AM
+ * Last Modified 12/15/21, 5:11 PM
  *
  *
  */
@@ -9,7 +9,6 @@
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
-import { PasswordModal } from "@/modules/profile/passwordModal";
 import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import {
@@ -22,8 +21,8 @@ import { useRouter } from "next/router";
 import { listRole, useRoleDetails } from "@/services/requests/roleRequests";
 import {
   getMemberList,
-  getMemberTestList,
   useMemberDetails,
+  useMemberTestList,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { Member, Role } from "@/types";
@@ -34,13 +33,13 @@ import { MemberProfileData } from "@/modules/members/profile/memberProfile";
 import { MemberToggle } from "@/modules/members/profile/memberToggle";
 import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
-import { GrayButton, WarningButton } from "@/components/Button";
+import { GrayButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import { ProfileTest } from "@/modules/members/profile/ProfileTest";
 import { useTestList } from "@/services/requests/testRequests";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
-  const [role, setRole] = useState<any>({} as Role);
+  const [role, setRole] = useState<Role>({} as Role);
   const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -63,20 +62,16 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   const { data: testListData } = useTestList();
   const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
   const { data: subsListData } = useSubscriptionList(Number(idX.role));
-
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
 
+  const {} = useMemberTestList(
+    Number(idX.id),
+    Number(selectedTestInProfile.id)
+  );
+
   useEffect(() => {
-    setRole(roleDetailsData);
+    roleDetailsData && setRole(roleDetailsData);
   }, [roleDetailsData]);
-
-  useEffect(() => {
-    const listTestFn = async () => {
-      await getMemberTestList(Number(idX.id), Number(selectedTestInProfile.id));
-    };
-
-    selectedTestInProfile.id && listTestFn();
-  }, [selectedTestInProfile.id]);
 
   useEffect(() => {
     const listMember = async () => {
@@ -149,70 +144,71 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
             </div>
             <div className=" w-1/4  h-auto sm:w-full flex flex-col space-y-8">
               <ProfileSubscription memberId={Number(idX.id)} />
-              <div className="flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
-                <div>
-                  <h1 className="text-xl font-semibold text-gray-800">
-                    Subscriptions
-                  </h1>
-                  <p className="text-lg font-semibold text-gray-500">
-                    Please choose a subscription to{" "}
-                    {Object.keys(selectedMemberSubscription).length !== 0
-                      ? "unlink"
-                      : "link"}
-                  </p>
-                </div>
-
-                {subscriptionList.length === 0 ? (
-                  <div className="flex items-center text-red-500">
-                    <WarningOctagon size={40} />{" "}
-                    <span className={"font-semibold"}>
-                      No Subscription Found. Please add a subscription to this
-                      role{" "}
-                      <span
-                        onClick={() => router.push("/subscriptions")}
-                        className="cursor-pointer"
-                      >
-                        here
-                      </span>
-                    </span>
+              {Object.keys(selectedMemberSubscription).length === 0 && (
+                <div className="flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                  <div>
+                    <h1 className="text-xl font-semibold text-gray-800">
+                      Subscriptions
+                    </h1>
+                    <p className="text-lg font-semibold text-gray-500">
+                      Please choose a subscription to{" "}
+                      {Object.keys(selectedMemberSubscription).length !== 0
+                        ? "unlink"
+                        : "link"}
+                    </p>
                   </div>
-                ) : (
-                  <>
-                    <div className="flex items-center  space-x-4 w-full">
-                      <div className={"w-[58%]"}>
-                        <SubscriptionDropdown />
-                      </div>
-                      <div className={"w-1/2"}>
-                        {Object.keys(selectedMemberSubscription).length !==
-                        0 ? (
-                          <WarningButton>Unlink</WarningButton>
-                        ) : (
-                          <GrayButton
-                            onClick={async () => {
-                              await alert({
-                                promise: assignSubscriptionToMember(
-                                  Number(idX.id),
-                                  Number(selectedSubscription.id)
-                                ),
-                                msgs: {
-                                  loading: "Assigning Subscription",
-                                },
-                                id: "assign-subscription",
-                              });
-                            }}
-                          >
-                            Link
-                          </GrayButton>
-                        )}
-                      </div>
-                    </div>
-                    {Object.keys(selectedMemberSubscription).length !== 0 && (
-                      <GrayButton width={"full"}>Renew Subscription</GrayButton>
-                    )}
-                  </>
-                )}
-              </div>
 
+                  {subscriptionList.length === 0 ? (
+                    <div className="flex items-center text-red-500 space-x-4">
+                      <WarningOctagon size={40} />{" "}
+                      <span className={"font-semibold"}>
+                        No Subscription Found. Please add a subscription to this
+                        role{" "}
+                        <span
+                          onClick={() => router.push("/subscriptions")}
+                          className="cursor-pointer"
+                        >
+                          here
+                        </span>
+                      </span>
+                    </div>
+                  ) : (
+                    Object.keys(selectedMemberSubscription).length === 0 && (
+                      <>
+                        <div className="flex items-center  space-x-4 w-full">
+                          <div className={"w-[58%]"}>
+                            <SubscriptionDropdown />
+                          </div>
+                          <div className={"w-1/2"}>
+                            <GrayButton
+                              onClick={async () => {
+                                await alert({
+                                  promise: assignSubscriptionToMember(
+                                    Number(idX.id),
+                                    Number(selectedSubscription.id)
+                                  ),
+                                  msgs: {
+                                    loading: "Assigning Subscription",
+                                  },
+                                  id: "assign-subscription",
+                                });
+                              }}
+                            >
+                              Link
+                            </GrayButton>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  )}
+                </div>
+              )}
+              <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4">
+                <MemberDetailAddModal
+                  memberData={selectedMemberDetails}
+                  selectedRole={role}
+                />
+              </div>
               <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
                 <MemberToggle
                   toggle={"active"}
@@ -227,14 +223,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   currentState={verified}
                   setCurrentState={setVerified}
                   selectedMemberDetails={selectedMemberDetails}
-                />
-              </div>
-
-              <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4">
-                <PasswordModal />
-                <MemberDetailAddModal
-                  memberData={selectedMemberDetails}
-                  selectedRole={role}
                 />
               </div>
             </div>

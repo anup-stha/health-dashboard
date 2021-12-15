@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 8:08 PM
+ * Last Modified 12/15/21, 5:50 PM
  *
  *
  */
@@ -42,9 +42,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
           <div className="flex items-center">
             <div className="relative flex-shrink-0 h-16 w-16">
               <Image
-                src={`https://i.pravatar.cc/150?img=${Math.floor(
-                  Math.random() * 20
-                )}`}
+                src={"/assets/memberAvatar.svg"}
                 layout="fill"
                 objectFit="cover"
                 className=" rounded-full"
@@ -52,7 +50,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
               />
             </div>
             <div className="ml-4">
-              <div className="text-xl font-semibold text-gray-900 w-full">
+              <div className="text-xl font-semibold text-gray-900 w-full capitalize">
                 {data.name}
               </div>
               <div className="text-lg font-medium text-gray-500">
@@ -145,7 +143,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 -translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-10 w-52 p-2 mt-3 right-16 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                    <Popover.Panel className="cursor-pointer absolute z-10 w-52 p-1 mt-3 right-14 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
                       <div
                         className="overflow-hidden"
                         onClick={() =>

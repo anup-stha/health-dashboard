@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:05 PM
+ * Last Modified 12/15/21, 3:48 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import { testStore } from "./testStore";
 import { TestCard } from "./TestCard";
 import { TestModal } from "./testAddModal";
-import { DeleteZone } from "../roles/others/DeleteZone";
+import { TestDeleteZone } from "../roles/others/DeleteZone";
 
 export const TestDetails = () => {
   const { selectedTest } = testStore();
@@ -56,7 +56,7 @@ export const TestDetails = () => {
           </p>
         </div>{" "}
         {/* <UpdateZone idX={selectedTest.id} /> */}
-        <DeleteZone />
+        <TestDeleteZone />
       </div>
     </div>
   );

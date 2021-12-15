@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 3:03 PM
+ * Last Modified 12/15/21, 3:51 PM
  *
  *
  */
@@ -34,7 +34,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
             width === "full" ? "min-w-full" : width
           } sm:px-6 lg:px-8 relative`}
         >
-          <div className="lg:overflow-x-auto lg:overflow-y-scroll h-full z-0 overflow-hidden rounded-md sm:rounded-sm shadow-E500">
+          <div className="lg:overflow-x-auto lg:overflow-y-scroll h-full z-0 overflow-hidden rounded-md sm:rounded-sm shadow-E100">
             <table className="min-w-full divide-y divide-gray-200 ">
               <thead className="bg-gray-100">
                 <tr>

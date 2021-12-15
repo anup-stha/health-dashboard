@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/15/21, 3:46 PM
  *
  *
  */
@@ -64,18 +64,9 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
           label="Name"
           type="text"
           required={true}
-          placeholder="Enter Role Title"
+          placeholder="Enter Test Title"
           {...register(`name`)}
         />
-        {!selectedTest && (
-          <PrimaryInput
-            label="Slug"
-            type="text"
-            required={true}
-            placeholder="Enter Role Member Field"
-            {...register("slug")}
-          />
-        )}
 
         <SwitchInput
           label="Public"
@@ -87,7 +78,7 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
           label="Description"
           type="text"
           required={true}
-          placeholder="Enter Role Description"
+          placeholder="Enter Test Description"
           {...register("desc")}
         />
       </div>

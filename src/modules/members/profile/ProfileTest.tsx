@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 10:47 AM
+ * Last Modified 12/15/21, 3:57 PM
  *
  *
  */
@@ -11,13 +11,8 @@ import { TestDropdown } from "@/modules/members/profile/TestDropdown";
 import { memberStore } from "@/modules/members/memberStore";
 import { utcToZonedTime } from "date-fns-tz";
 import { TableView } from "@/components/Table";
-import {
-  Archive,
-  Calendar,
-  CalendarBlank,
-  GooglePlayLogo,
-  WarningOctagon,
-} from "phosphor-react";
+import { Calendar, GooglePlayLogo, WarningOctagon } from "phosphor-react";
+import _ from "lodash";
 
 export const ProfileTest = () => {
   const { selectedTestDetailsInProfile: testDetails } = memberStore();
@@ -62,28 +57,19 @@ export const ProfileTest = () => {
                       <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
                         <Calendar size={18} />
 
-                        <span>Test Taken:</span>
+                        <span>Test Date:</span>
                       </p>
                       <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
                         {utcDateToLocal(test.test_date)}
                       </h1>
                     </div>
-                    <div className="flex space-x-4 items-center pb-2">
-                      <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
-                        <CalendarBlank size={18} />
-                        <span>Sync Taken:</span>
-                      </p>
-                      <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
-                        {utcDateToLocal(test.sync_date)}
-                      </h1>
-                    </div>
-                    <hr className={"border-t-[1px] border-neutral-400/20"} />
-                    <div className="flex flex-col pt-2 space-y-2 ">
-                      <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
-                        <Archive size={18} />
-                        <span>Test Full Report:</span>
-                      </p>
-                      <TableView data={test.report} />
+
+                    <div className="flex flex-col  space-y-2 ">
+                      <TableView
+                        data={test.report.map((element) =>
+                          _.omit(element, "id")
+                        )}
+                      />
                     </div>
                   </div>
                 </div>
@@ -106,6 +92,12 @@ export const ProfileTest = () => {
 const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const zonedDate = utcToZonedTime(new Date(date).getTime() * 1000, timezone);
-  return zonedDate.toLocaleString();
+  try {
+    return utcToZonedTime(
+      new Date(date).getTime() * 1000,
+      timezone
+    ).toLocaleString();
+  } catch {
+    return "Not Available";
+  }
 };

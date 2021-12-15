@@ -21,13 +21,13 @@ export const PermissionPageLoadingState: React.FC<
   _.times(count, (i) => {
     rows.push(
       <React.Fragment key={i}>
-        <div className="p-10 space-y-8">
+        <div className="p-10 space-y-8 ">
           <div className="w-1/5">
             <Skeleton
               count={1}
               duration={2}
               height={"3rem"}
-              className="rounded-xl"
+              className="rounded-xl "
             />
           </div>
           <div className="space-y-2">

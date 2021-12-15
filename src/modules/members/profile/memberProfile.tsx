@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:38 AM
+ * Last Modified 12/15/21, 5:49 PM
  *
  *
  */
 
 import Image from "next/image";
-import CoverImage from "../../../../public/assets/cover.png";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import {
   Bookmark,
@@ -39,23 +38,13 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
   const { selectedMemberDetails: otherDetails } = memberStore();
 
   return (
-    <div className="relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
-      <div className="relative w-full h-52 z-0">
-        <Image
-          src={CoverImage}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="50% 35%"
-          className="rounded-t-xl z-40"
-          placeholder="blur"
-          alt="Cover Image"
-        />
-      </div>
+    <div className="relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
+      <div className="relative w-full h-52 z-0 profile "></div>
 
       <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
         <div className="relative w-40 h-40 z-10 ring-4 ring-white rounded-full">
           <Image
-            src="/assets/profile.jpg"
+            src="/assets/memberAvatar.svg"
             layout="fill"
             objectFit="cover"
             className="z-40 rounded-full"
@@ -63,7 +52,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
           />
         </div>
         <div className="flex flex-col mt-10">
-          <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+          <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
             {selectedMemberDetails.name}
           </h1>
           <p className="text-gray-500 font-semibold text-xl sm:text-lg">
@@ -132,8 +121,8 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
               <span>Date joined: 2021/11/25</span>
             </div>
           </div>
-          <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full overflow-y-scroll sidebar h-full">
-            <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 h-full">
+          <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full h-full">
+            <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-thumb-rounded-md h-full bg-local">
               <p className="text-2xl font-semibold text-gray-900">Other Info</p>
 
               {otherDetails.length === 0 ? (

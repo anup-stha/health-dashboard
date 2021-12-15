@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:13 AM
+ * Last Modified 12/15/21, 5:19 PM
  *
  *
  */
@@ -18,7 +18,8 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 import { memberStore } from "@/modules/members/memberStore";
-import useSWRImmutable from "swr";
+import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 
 export const getSubscription = (
   id: number | string
@@ -117,7 +118,7 @@ export const listMemberSubscriptionDetails = (url: string) =>
     });
 
 export const useMemberSubsDetails = (memberId: number) => {
-  return useSWRImmutable(
+  return useSWR(
     `member/subscription/${memberId}`,
     listMemberSubscriptionDetails
   );

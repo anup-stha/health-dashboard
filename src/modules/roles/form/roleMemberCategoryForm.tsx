@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:48 PM
+ * Last Modified 12/15/21, 3:41 PM
  *
  *
  */
@@ -74,14 +74,6 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
           placeholder="Enter Name"
           {...register("name")}
         />
-        {type === "add" && (
-          <PrimaryInput
-            label="Slug"
-            type="text"
-            placeholder="Enter Slug"
-            {...register("slug")}
-          />
-        )}
 
         <PrimaryInput
           label="Value Type"
