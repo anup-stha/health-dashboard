@@ -10,6 +10,7 @@ import { testStore } from "./testStore";
 import { TestCard } from "./TestCard";
 import { TestModal } from "./testAddModal";
 import { TestDeleteZone } from "../roles/others/DeleteZone";
+import { TestUpdateZone } from "@/modules/tests/TestUpdateZone";
 
 export const TestDetails = () => {
   const { selectedTest } = testStore();
@@ -44,7 +45,11 @@ export const TestDetails = () => {
                 />
               </div>
             ))}
-          <TestModal type="add" selectedTest={selectedTest} />
+          <TestModal
+            variant={"subtest"}
+            type="add"
+            selectedTest={selectedTest}
+          />
         </div>
       </div>
       <hr />
@@ -55,7 +60,7 @@ export const TestDetails = () => {
             Please be careful with anything you do here
           </p>
         </div>{" "}
-        {/* <UpdateZone idX={selectedTest.id} /> */}
+        <TestUpdateZone selectedTest={selectedTest} />
         <TestDeleteZone />
       </div>
     </div>

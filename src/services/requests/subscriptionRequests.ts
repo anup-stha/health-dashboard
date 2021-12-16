@@ -35,7 +35,7 @@ const listSubscription = (url: string) =>
       return response.data.data;
     })
     .catch((error) => {
-      return error.response;
+      throw new Error(error.response.message);
     });
 
 export const useSubscriptionList = (roleId: number) => {
@@ -73,6 +73,26 @@ export const assignSubscriptionToMember = (
         await getMemberSubscriptionDetails(member_id).then(() => {
           resolve(response.data.message);
         });
+      })
+      .catch((error) => reject(error.response))
+  );
+};
+
+export const assignTestToSubscription = (
+  test_cat_id: number,
+  test_sub_cat_id: number,
+  subscription_id: number
+) => {
+  console.log(test_sub_cat_id, subscription_id);
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<any>(`subscription/assign`, {
+        test_cat_id,
+        test_sub_cat_id,
+        subscription_id,
+      })
+      .then((response) => {
+        resolve(response.data.message);
       })
       .catch((error) => reject(error.response))
   );

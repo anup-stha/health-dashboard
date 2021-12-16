@@ -154,6 +154,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
       color: "#262626",
     }),
     control: () => ({
+      background: "white",
       display: "flex",
       justifyContent: "space-between",
       borderRadius: "0.25rem",

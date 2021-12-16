@@ -13,6 +13,7 @@ import { TestSubCategory } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Trash } from "phosphor-react";
+import { TestModal } from "@/modules/tests/testAddModal";
 
 type TestCardPropsType = {
   id: number | string;
@@ -32,6 +33,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
   subCategories,
 }) => {
   const router = useRouter();
+
   return (
     <div
       className={`relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`}
@@ -71,15 +73,31 @@ export const TestCard: React.FC<TestCardPropsType> = ({
 
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
-          <Button
-            buttonSize="small"
-            onClick={() => {
-              // useRoleStor.getState().setSelectedId(Number(id));
-              subCategories && router.push(`/tests/${name.toLowerCase()}`);
-            }}
-          >
-            {subCategories ? "Edit Sub Category" : "Update Category"}
-          </Button>
+          {subCategories ? (
+            <Button
+              buttonSize="small"
+              onClick={() => {
+                router.push(`/tests/${name.toLowerCase()}`);
+              }}
+            >
+              View Details
+            </Button>
+          ) : (
+            <TestModal
+              variant={"subtest"}
+              type={"edit"}
+              selectedTest={{
+                id,
+                name,
+                desc,
+                public: isPublic,
+                slug,
+                sub_categories: subCategories ?? [],
+              }}
+            >
+              <Button>Edit Sub Category </Button>
+            </TestModal>
+          )}
         </div>
         <div className="flex items-center space-x-2">
           <div className="text-lg font-semibold text-gray-500 hover:text-red-600 cursor-pointer">

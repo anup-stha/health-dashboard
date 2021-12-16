@@ -289,14 +289,18 @@ export type NullDataResponse = StatusType & { data: null | "" };
 export type AddTestBody = {
   name: string;
   desc: string;
-  slug: string;
   public: 1 | 0 | true | false;
 };
 export type AddTestCategoryBody = {
   name: string;
   desc: string;
-  slug: string;
   test_category_id: number;
+  public: 1 | 0 | true | false;
+};
+
+export type UpdateTestCategoryBody = {
+  name: string;
+  desc: string;
   public: 1 | 0 | true | false;
 };
 
@@ -377,6 +381,7 @@ export type SubscriptionBody = {
   sync_limit: number;
   test_limit: number;
   role_id: number;
+  test_count?: number;
 };
 
 export type SubscriptionDetails = {

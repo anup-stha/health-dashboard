@@ -34,7 +34,8 @@ const Breadcrumbs = () => {
     if (string[0] === "[" && string[string.length - 1] === "]") {
       return string.slice(1, -1);
     }
-    return string;
+
+    return string.replaceAll("_", " ");
   };
 
   useEffect(() => {
@@ -77,7 +78,7 @@ const Breadcrumbs = () => {
             }
           >
             <Link href={breadcrumb.href}>
-              {decodeURI(breadcrumb.label).split("?")[0]}
+              {decodeURI(breadcrumb.label).split("?")[0].replaceAll("_", " ")}
             </Link>
           </li>
         );

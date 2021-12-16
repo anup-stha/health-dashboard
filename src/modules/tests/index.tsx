@@ -34,7 +34,7 @@ export const TestPage = () => {
             />
           </div>
         ))}
-        <TestModal type="add" />
+        <TestModal type="add" variant={"test"} />
       </div>
     </div>
   );

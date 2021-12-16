@@ -13,9 +13,15 @@ import { Modal } from "@/components/Modal/useModal";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { alert } from "@/components/Alert";
-import { addTest, addTestCategory } from "@/services/requests/testRequests";
+import {
+  addTest,
+  addTestCategory,
+  updateTest,
+  updateTestCategory,
+} from "@/services/requests/testRequests";
 
 type TestAddEditFormProps = {
+  variant: "test" | "subtest";
   type: "add" | "edit";
   id?: number | string;
   selectedTest?: Test;
@@ -24,40 +30,71 @@ type TestAddEditFormProps = {
 type TestFormData = {
   name: string;
   desc: string;
-  slug: string;
   public: boolean;
 };
 
 export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
   type,
-
   selectedTest,
+  variant,
 }) => {
-  const { handleSubmit, register } = useForm<TestFormData>();
+  const { handleSubmit, register } = useForm<TestFormData>({
+    defaultValues: {
+      name: selectedTest && type === "edit" ? selectedTest.name : "",
+      desc: selectedTest && type === "edit" ? selectedTest.desc : "",
+      public: selectedTest && type === "edit" ? selectedTest.public : false,
+    },
+  });
   return (
     <Modal.Form
-      onSubmit={handleSubmit(async (values) => {
-        !selectedTest
+      onSubmit={handleSubmit(async (values) =>
+        variant === "test"
+          ? type === "add"
+            ? await alert({
+                promise: addTest(values),
+                msgs: {
+                  loading: "Adding Test",
+                  success: "Added Successfully",
+                },
+                id: "Test Add Toast",
+              })
+            : await alert({
+                promise: updateTest(
+                  Number(selectedTest && selectedTest.id),
+                  values
+                ),
+                msgs: {
+                  loading: "Updating Test",
+                  success: "Updating Successfully",
+                },
+                id: "Test Add Toast",
+              })
+          : type === "add"
           ? await alert({
-              promise: addTest(values),
-              msgs: {
-                loading: "Adding Test",
-                success: "Added Successfully",
-              },
-              id: "Test Add Toast",
-            })
-          : await alert({
               promise: addTestCategory({
                 ...values,
-                test_category_id: Number(selectedTest.id),
+                test_category_id: Number(selectedTest && selectedTest.id),
               }),
               msgs: {
                 loading: "Adding Test Category",
                 success: "Added Successfully",
               },
               id: "Test Category Add Test",
-            });
-      })}
+            })
+          : await alert({
+              promise: updateTestCategory(
+                Number(selectedTest && selectedTest.id),
+                {
+                  ...values,
+                }
+              ),
+              msgs: {
+                loading: "Updating Test Category",
+                success: "Updated Successfully",
+              },
+              id: "Test Category Update Test",
+            })
+      )}
     >
       <div className="space-y-6">
         <PrimaryInput
