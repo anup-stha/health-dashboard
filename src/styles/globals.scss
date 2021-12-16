@@ -6,11 +6,9 @@
  *
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind screens;
-@tailwind utilities;
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import "../components/Table/Table.scss";
 @import "./checbox.scss";
 @import "../components/Input/input.scss";
@@ -231,7 +229,7 @@ input:checked ~ .dot {
 }
 
 .profile {
-  @apply bg-neutral-400;
+  @apply bg-gray-400;
 }
 datalist {
   display: none;

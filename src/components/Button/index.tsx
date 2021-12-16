@@ -93,7 +93,7 @@ export const GrayButton: React.FC<ButtonProps> = ({
       onClick={onClick}
       className={`flex  ${
         width && "w-full justify-center py-4"
-      } capitalize items-center px-12 py-4 text-center text-xl font-medium text-white bg-neutral-700 rounded-md disabled:opacity-80 gap-x-2 hover:bg-neutral-800 shadow-lg disabled:cursor-not-allowed`}
+      } capitalize items-center px-12 py-4 text-center text-xl font-medium text-white bg-gray-700 rounded-md disabled:opacity-80 gap-x-2 hover:bg-gray-800 shadow-lg disabled:cursor-not-allowed`}
     >
       {children}
     </button>

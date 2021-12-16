@@ -28,7 +28,7 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
       {({ open }) => (
         <>
           <div className="relative">
-            <Listbox.Button className="relative w-full bg-white border border-neutral-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-neutral-500 focus:border-neutral-500 text-xl">
+            <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 text-xl">
               <span className="flex items-center">
                 <span className="ml-3 block truncate font-semibold text-gray-700 capitalize">
                   {Object.keys(selected).length !== 0
@@ -57,7 +57,7 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
                     key={subscription.id}
                     className={({ active }) =>
                       classNames(
-                        active ? "text-white bg-neutral-600" : "text-gray-900",
+                        active ? "text-white bg-gray-600" : "text-gray-900",
                         "cursor-pointer select-none relative py-4 pl-3 pr-9"
                       )
                     }

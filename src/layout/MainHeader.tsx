@@ -17,7 +17,7 @@ export const MainHeader: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-20  bg-white shadow-E200 ${
+      className={`fixed   top-0 left-0 w-full z-20  bg-white shadow-E200 ${
         !open ? "pl-24" : "pl-[18%]"
       } `}
     >
