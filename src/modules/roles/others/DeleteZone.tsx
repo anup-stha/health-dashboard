@@ -17,8 +17,7 @@ export const DeleteZone = () => {
           Delete this role
         </h1>
         <p className="text-lg font-semibold text-gray-500">
-          Once you delete a repository, there is no going back. Please be
-          certain.
+          Once you delete a role, there is no going back. Please be certain.
         </p>
       </div>
       <DeleteModal
@@ -38,8 +37,7 @@ export const TestDeleteZone = () => {
           Delete this test
         </h1>
         <p className="text-lg font-semibold text-gray-500">
-          Once you delete a repository, there is no going back. Please be
-          certain.
+          Once you delete a test, there is no going back. Please be certain.
         </p>
       </div>
       <DeleteModal

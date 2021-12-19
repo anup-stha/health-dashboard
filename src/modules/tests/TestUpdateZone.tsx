@@ -21,7 +21,7 @@ export const TestUpdateZone: React.FC<TestUpdateZoneProps> = ({
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Edit this test</h1>
         <p className="text-lg font-semibold text-gray-500">
-          Once you edit a test, you cannot edit this role for 3 days. Please be
+          Once you edit a test, you cannot edit this test for 3 days. Please be
           certain.
         </p>
       </div>

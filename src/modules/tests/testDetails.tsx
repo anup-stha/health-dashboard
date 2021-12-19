@@ -16,7 +16,7 @@ export const TestDetails = () => {
   const { selectedTest } = testStore();
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:p-8 space-y-8">
+    <div className="px-10  py-10 overflow-visible sm:p-8 space-y-8">
       <div className="flex flex-col space-y-2 ">
         <h1 className="text-5xl font-semibold text-gray-900">
           {selectedTest.name}
