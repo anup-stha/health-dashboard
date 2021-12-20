@@ -16,12 +16,10 @@ import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore"
 import { listRole } from "@/services/requests/roleRequests";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 const Subscription = () => {
   const { selectedRole } = memberStore();
   const { setLoading, loading } = useSubscriptionStore();
-  const router = useRouter();
   const { data } = useSubscriptionList(Number(selectedRole.id));
 
   useEffect(() => {
