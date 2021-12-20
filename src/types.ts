@@ -436,10 +436,12 @@ export type MemberTestListResponse = StatusType & {
 };
 
 export type BasicGlobalState = {
-  system_version: string;
-  date_format: string;
-  data_types: string[];
-  subscription_intervals: string[];
+  base: {
+    system_version: string;
+    date_format: string;
+    data_types: string[];
+    subscription_intervals: string[];
+  };
 };
 
 export type GlobalStateResponse = StatusType & {

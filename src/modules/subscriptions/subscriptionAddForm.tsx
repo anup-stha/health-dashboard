@@ -31,7 +31,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
   const { register, handleSubmit, control } = useForm();
   const options = useGlobalState
     .getState()
-    .subscription_intervals.map((element) => ({
+    .base.subscription_intervals.map((element) => ({
       value: element,
       label: element,
     }));

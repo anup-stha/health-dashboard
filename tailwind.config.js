@@ -60,8 +60,7 @@ module.exports = {
         "8xl": "25.2rem",
       },
       colors: {
-        ...colors,
-        gray: { ...colors.gray, 850: "#383838" },
+        gray: { ...colors.neutral, 850: "#383838" },
 
         green: colors.green,
         yellow: {

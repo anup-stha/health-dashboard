@@ -16,10 +16,12 @@ import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore"
 import { listRole } from "@/services/requests/roleRequests";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Subscription = () => {
   const { selectedRole } = memberStore();
-  const { setLoading } = useSubscriptionStore();
+  const { setLoading, loading } = useSubscriptionStore();
+  const router = useRouter();
   const { data } = useSubscriptionList(Number(selectedRole.id));
 
   useEffect(() => {
@@ -37,7 +39,11 @@ const Subscription = () => {
     getRoles();
   }, [selectedRole.id]);
 
-  return <MainLayout>{!data ? <div></div> : <SubscriptionPage />}</MainLayout>;
+  return (
+    <MainLayout>
+      {!data && loading ? <div></div> : <SubscriptionPage />}
+    </MainLayout>
+  );
 };
 
 export default withAuth(withRole(Subscription));

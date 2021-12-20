@@ -10,12 +10,14 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../modules/auth/useTokenStore";
 import { getGlobalStates } from "@/services/requests/globalRequests";
+import { useGlobalState } from "@/modules/useGlobalState";
 
 const withAuth = (WrappedComponent: React.FC) => {
   const RequireAuthentication = (props: React.Props<any>) => {
     const accessToken = useAuthStore.getState().token;
     const [globalLoading, setGlobalLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
+    const data = useGlobalState();
     const router = useRouter();
 
     useEffect(() => {
@@ -43,7 +45,9 @@ const withAuth = (WrappedComponent: React.FC) => {
           .then(() => setGlobalLoading(false))
           .catch(() => setGlobalLoading(false));
       };
-      isAuthenticated && getGlobalState();
+      isAuthenticated &&
+        Object.keys(data.base).length === 0 &&
+        getGlobalState();
     }, [router]);
 
     return accessToken || globalLoading ? (

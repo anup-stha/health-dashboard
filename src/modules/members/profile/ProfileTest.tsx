@@ -76,11 +76,8 @@ export const ProfileTest = () => {
               </div>
             ))
           ) : (
-            <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+            <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
               <WarningOctagon size={24} /> <span>No Test Details Found</span>
-              <span className={"text-gray-600 cursor-pointer underline "}>
-                Please take test from our apps.
-              </span>
             </div>
           )}
         </div>

@@ -86,7 +86,7 @@ export const assignTestToSubscription = (
   console.log(test_sub_cat_id, subscription_id);
   return new Promise((resolve, reject) =>
     privateAgent
-      .post<any>(`subscription/assign`, {
+      .post<any>(`subscription/test`, {
         test_cat_id,
         test_sub_cat_id,
         subscription_id,

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:24 AM
+ * Last Modified 12/15/21, 9:24 A
  *
  *
  */
@@ -16,7 +16,11 @@ import { NextPage } from "next";
 const Tests: NextPage = () => {
   const { data: testListData } = useTestList();
 
-  return <MainLayout>{testListData ? <TestPage /> : <div></div>}</MainLayout>;
+  return (
+    <MainLayout>
+      {testListData ? <TestPage /> : <div className=""></div>}
+    </MainLayout>
+  );
 };
 
 export default withAuth(withRole(Tests));

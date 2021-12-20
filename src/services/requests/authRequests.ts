@@ -12,6 +12,7 @@ import { LoginRequest, LoginResponse, LogoutRequest } from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { getRoleDetails } from "./roleRequests";
+import { useGlobalState } from "@/modules/useGlobalState";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -38,11 +39,14 @@ export const logOut = () => {
       .post<LogoutRequest>("auth/logout/")
       .then(() => {
         useAuthStore.getState().removeUserData();
+        useGlobalState.getState().clearGlobalState();
         Router.push("/");
         resolve("Logged Out Successfully");
       })
       .catch(() => {
         useAuthStore.getState().removeUserData();
+        useGlobalState.getState().clearGlobalState();
+
         Router.push("/");
         resolve("Logged Out Successfully");
       })

@@ -17,7 +17,7 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
-import useSWRImmutable from "swr";
+import useSWRImmutable from "swr/immutable";
 import Router from "next/router";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {

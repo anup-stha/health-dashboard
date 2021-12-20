@@ -19,7 +19,7 @@ import {
 import { privateAgent } from ".";
 import { getRoleDetail } from "./authRequests";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
@@ -37,9 +37,7 @@ const listRoleDetails = (url: string) =>
   });
 
 export const useRoleDetails = (roleId: number) => {
-  return useSWR(`role/detail/${roleId}`, listRoleDetails, {
-    refreshInterval: 1000000,
-  });
+  return useSWRImmutable(`role/detail/${roleId}`, listRoleDetails);
 };
 
 export const addRole = ({

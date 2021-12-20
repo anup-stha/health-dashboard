@@ -39,7 +39,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
 
   const options = useGlobalState
     .getState()
-    .data_types.map((element) => ({ value: element, label: element }));
+    .base.data_types.map((element) => ({ value: element, label: element }));
 
   return (
     <Modal.Form
