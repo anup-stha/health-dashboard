@@ -9,68 +9,65 @@
 import { GetServerSidePropsContext, NextPage } from "next";
 import { MainLayout } from "@/layout/MainLayout";
 import {
-  assignTestToSubscription,
-  useSubscriptionList,
+  listSubscription,
+  listSubscriptionDetail,
 } from "@/services/requests/subscriptionRequests";
 
 import withAuth from "@/hoc/withAuth";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useTestList } from "@/services/requests/testRequests";
-import { useForm, useWatch } from "react-hook-form";
-import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-import React from "react";
-import { testStore } from "@/modules/tests/testStore";
-import { Button } from "@/components/Button";
-import { alert } from "@/components/Alert";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
 
-const SubscriptionDetailsPage: NextPage = ({ role, slug }: any) => {
-  const { data } = useSubscriptionList(Number(role));
-  const {} = useTestList();
+const SubscriptionDetailsPage: NextPage = ({ role, slug, id }: any) => {
+  const [loading, setLoading] = useState(false);
+
+  const { data } = useTestList();
+  const {
+    setLoading: setSubsLoading,
+    loading: subsLoading,
+    subscriptionList,
+  } = useSubscriptionStore();
+  const router = useRouter();
+
   const selectedSubscription = useSubscriptionStore
     .getState()
-    .subscriptionList.filter((subs) => subs.slug === slug)[0];
-  const options = testStore.getState().testList.map((element) => ({
-    value: `${element.id}-${element.name}`,
-    label: element.name,
-  }));
+    .subscriptionList.list.filter((subs) => subs.slug === slug)[0];
 
-  const { handleSubmit, control } = useForm({
-    reValidateMode: "onChange",
-  });
-  const test = useWatch({ control, name: "test", defaultValue: "" });
+  useEffect(() => {
+    const getSubscription = async () => {
+      setSubsLoading(true);
+      await listSubscription(Number(role))
+        .then(() => setSubsLoading(false))
+        .catch(() => router.push("/404"));
+    };
+    subscriptionList.list.length === 0 && getSubscription();
+  }, []);
 
-  const testId = Number(test.split("-")[0]);
-  const subtest = testStore
-    .getState()
-    .testList.filter((element) => element.id === testId);
+  useEffect(() => {
+    const getSubscriptionTestDetails = async () => {
+      setLoading(true);
+      await listSubscriptionDetail(Number(id))
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
+    };
+    getSubscriptionTestDetails();
+  }, []);
 
-  const subtestOptions =
-    subtest.length !== 0
-      ? subtest[0].sub_categories.map((element) => ({
-          value: `${element.id}-${element.name}`,
-          label: element.name,
-        }))
-      : [];
-
-  return data ? (
+  return (
     <MainLayout>
-      {data.length === 0 ? (
-        <div>Data Not Found</div>
+      {subsLoading || !data || loading ? (
+        <div>loading</div>
       ) : (
-        <div className="px-10 py-10 overflow-visible sm:p-8">
+        /*  <div className="px-10 py-10 overflow-visible sm:p-8">
           <div className="flex flex-col space-y-8">
-            <div>
-              <h1 className="text-4xl font-semibold text-gray-850 capitalize">
-                {selectedSubscription.name}
-              </h1>
-              <p className="text-lg font-semibold text-gray-500">
-                {selectedSubscription.slug}
-              </p>
-            </div>
             <div className="flex flex-col space-y-4">
-              <h1 className="text-2xl font-semibold text-neutral-800 capitalize ">
-                Select a test to assign
+              <h1 className="text-4xl font-semibold text-gray-850 capitalize">
+                {selectedSubscription ? selectedSubscription.name : ""}
               </h1>
+            </div>
+            <div className="space-y-2">
               <form
                 onSubmit={handleSubmit(
                   async (data) =>
@@ -87,13 +84,13 @@ const SubscriptionDetailsPage: NextPage = ({ role, slug }: any) => {
                       id: "Test-assign",
                     })
                 )}
-                className={"flex w-full space-x-4 lg:w-full w-1/2 items-end"}
+                className={"flex w-full space-x-4 lg:w-full w-1/3 items-end"}
               >
                 <div className={"w-1/2"}>
                   <DropdownController
                     options={options}
                     name={"test"}
-                    label={"Choose a test"}
+                    label={""}
                     control={control}
                   />
                 </div>
@@ -102,20 +99,20 @@ const SubscriptionDetailsPage: NextPage = ({ role, slug }: any) => {
                     <DropdownController
                       options={subtestOptions}
                       name={"sub_test"}
-                      label={"Choose a sub test"}
+                      label={""}
                       control={control}
                     />
                   </div>
                 )}
                 <Button disabled={subtestOptions.length === 0}>Assign</Button>
               </form>
+              <SubscriptionDetails />
             </div>
           </div>
-        </div>
+        </div> */
+        <SubsDescriptionPage selected={selectedSubscription} />
       )}
     </MainLayout>
-  ) : (
-    <MainLayout>Loading</MainLayout>
   );
 };
 
@@ -126,6 +123,7 @@ export const getServerSideProps = async (
 ) => {
   return {
     props: {
+      id: context.query.id,
       role: context.query.role,
       slug: context.query.slug,
     },

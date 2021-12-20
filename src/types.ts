@@ -384,7 +384,7 @@ export type SubscriptionBody = {
   test_count?: number;
 };
 
-export type SubscriptionDetails = {
+export type MemberSubscriptionDetails = {
   start_date: Date;
   end_date: Date;
   active: boolean;
@@ -404,7 +404,7 @@ export type SubscriptionDetails = {
 };
 
 export type MemberSubscriptionDetailsResponse = StatusType & {
-  data: SubscriptionDetails;
+  data: MemberSubscriptionDetails;
 };
 
 export type MemberTestReport = {
@@ -446,4 +446,24 @@ export type BasicGlobalState = {
 
 export type GlobalStateResponse = StatusType & {
   data: BasicGlobalState;
+};
+
+export type SubscriptionTestDetails = {
+  id: number;
+  name: string;
+  desc: string;
+  slug: string;
+  public: boolean;
+  sub_categories: {
+    id: number;
+    name: string;
+    desc: string;
+    slug: string;
+    category_id: number;
+    public: boolean;
+  }[];
+}[];
+
+export type SubscriptionTestDetailsResponse = StatusType & {
+  data: SubscriptionTestDetails;
 };

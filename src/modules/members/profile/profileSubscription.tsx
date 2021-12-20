@@ -85,7 +85,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
     labels: ["Days Left"],
   });
 
-  return subscriptionList.length === 0 ||
+  return subscriptionList.list.length === 0 ||
     Object.keys(selectedMemberSubscription).length === 0 ? null : (
     <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
       <div className="p-6 space-y-4">

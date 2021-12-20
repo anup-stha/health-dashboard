@@ -18,7 +18,7 @@ const classNames = (...classes: string[]) => {
 export const SubscriptionDropdown = ({ rolId }: any) => {
   const subscriptionList = useSubscriptionStore
     .getState()
-    .subscriptionList.sort((a, b) => a.name.localeCompare(b.name));
+    .subscriptionList.list.sort((a, b) => a.name.localeCompare(b.name));
 
   const { selectedSubscription: selected, setSubscription: setSelected } =
     useSubscriptionStore();

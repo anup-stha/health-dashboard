@@ -8,14 +8,7 @@
 
 import Image from "next/image";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import {
-  Bookmark,
-  Briefcase,
-  Calendar,
-  Mail,
-  Map,
-  PhoneCall,
-} from "react-feather";
+import { Bookmark, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import React from "react";
 import { Member, Role } from "@/types";
 import { memberStore } from "@/modules/members/memberStore";
@@ -85,17 +78,11 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
             />
           </div>
         </div>
-        <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4 h-[30vh] items-stretch">
+        <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4 items-stretch">
           <div className="p-6 bg-gray-50 w-2/5 text-xl rounded-lg flex flex-col gap-4 sm:w-full ">
             <p className="text-2xl font-semibold text-gray-900">
               Personal Info
             </p>
-            <div className="flex items-center gap-x-4">
-              <div className="text-gray-800">
-                <Briefcase />
-              </div>
-              <span>Sunya Health</span>
-            </div>
             <div className="flex gap-x-4">
               <div className="text-gray-800">
                 <Mail />
@@ -121,8 +108,8 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
               <span>Date joined: 2021/11/25</span>
             </div>
           </div>
-          <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full h-full">
-            <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-rounded scrollbar-thumb-gray-300 scrollbar-thumb-rounded-md h-full bg-local">
+          <div className="self-stretch w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
+            <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll sidebar h-full bg-local">
               <p className="text-2xl font-semibold text-gray-900">Other Info</p>
 
               {otherDetails.length === 0 ? (

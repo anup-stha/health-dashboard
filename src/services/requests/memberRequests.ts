@@ -23,8 +23,7 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
-import useSWRImmutable from "swr";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 export const getMemberList = (
   id: number | string
@@ -160,10 +159,13 @@ export const getMemberDetails = (memberId: number) => {
 };
 
 export const listMemberDetails = async (url?: string) =>
-  privateAgent.get<MemberDetailsListResponse>(`${url}`).then((response) => {
-    memberStore.getState().setSelectedMemberDetails(response.data.data);
-    return response.data.data;
-  });
+  privateAgent
+    .get<MemberDetailsListResponse>(`${url}`)
+    .then((response) => {
+      memberStore.getState().setSelectedMemberDetails(response.data.data);
+      return response.data.data;
+    })
+    .catch((error) => error.response);
 
 export const useMemberDetails = (memberId: number) => {
   return useSWRImmutable(`member/detail/${memberId}`, listMemberDetails);
@@ -230,9 +232,9 @@ export const listMemberTestListInProfile = async (url?: string) =>
     .catch(() => {});
 
 export const useMemberTestList = (memberId: number, testCategoryId: number) => {
-  return useSWR(
+  return useSWRImmutable(
     `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`,
     listMemberTestListInProfile,
-    { refreshInterval: 1000 }
+    { refreshInterval: 10000000 }
   );
 };

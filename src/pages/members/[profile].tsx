@@ -13,8 +13,8 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import {
   assignSubscriptionToMember,
+  listSubscription,
   useMemberSubsDetails,
-  useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
@@ -56,12 +56,16 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     setMemberList,
     selectedMemberSubscription,
   } = memberStore();
-  const { selectedSubscription, subscriptionList } = useSubscriptionStore();
+  const {
+    selectedSubscription,
+    subscriptionList,
+    loading: subsLoading,
+    setLoading: setSubsLoading,
+  } = useSubscriptionStore();
 
   const { data: memberDetailsData } = useMemberDetails(Number(idX.id));
   const { data: testListData } = useTestList();
   const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
-  const { data: subsListData } = useSubscriptionList(Number(idX.role));
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
 
   const {} = useMemberTestList(
@@ -72,6 +76,16 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   useEffect(() => {
     roleDetailsData && setRole(roleDetailsData);
   }, [roleDetailsData]);
+
+  useEffect(() => {
+    const getSubscription = async () => {
+      setSubsLoading(true);
+      await listSubscription(Number(idX.role))
+        .then(() => setSubsLoading(false))
+        .catch(() => setSubsLoading(false));
+    };
+    getSubscription();
+  }, [idX.role]);
 
   useEffect(() => {
     const listMember = async () => {
@@ -121,7 +135,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
 
   return (
     <MainLayout>
-      {!subsListData ||
+      {subsLoading ||
       !roleDetailsData ||
       memberLoading ||
       selectedRoleLoading ||
@@ -158,7 +172,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                     </p>
                   </div>
 
-                  {subscriptionList.length === 0 ? (
+                  {subscriptionList.list.length === 0 ? (
                     <div className="flex items-center text-red-500 space-x-4">
                       <WarningOctagon size={40} />{" "}
                       <span className={"font-semibold"}>

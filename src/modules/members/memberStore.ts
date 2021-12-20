@@ -11,9 +11,9 @@ import {
   MemberDetails,
   MemberList,
   MemberListResponse,
+  MemberSubscriptionDetails,
   MemberTestListData,
   Role,
-  SubscriptionDetails,
   Test,
 } from "@/types";
 import { combine, devtools } from "zustand/middleware";
@@ -32,7 +32,7 @@ const initialState = {
     message: "",
   },
   selectedMemberDetails: [] as MemberDetails[],
-  selectedMemberSubscription: ({} as SubscriptionDetails) || {},
+  selectedMemberSubscription: ({} as MemberSubscriptionDetails) || {},
 
   selectedTestInProfile: {} as Test,
   selectedTestDetailsInProfile: {} as MemberTestListData,
@@ -59,7 +59,7 @@ export const store = combine(initialState, (set) => ({
     });
   },
 
-  setSelectedMemberSubscription: (details: SubscriptionDetails) => {
+  setSelectedMemberSubscription: (details: MemberSubscriptionDetails) => {
     set({
       selectedMemberSubscription: details,
     });

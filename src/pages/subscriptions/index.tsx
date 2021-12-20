@@ -8,40 +8,55 @@
 
 import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
-import { MainLayout } from "@/layout/MainLayout";
 import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import SubscriptionPage from "@/modules/subscriptions";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { listRole } from "@/services/requests/roleRequests";
-import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useEffect } from "react";
+import { listSubscription } from "@/services/requests/subscriptionRequests";
 
 const Subscription = () => {
-  const { selectedRole } = memberStore();
-  const { setLoading, loading } = useSubscriptionStore();
-  const { data } = useSubscriptionList(Number(selectedRole.id));
+  const { selectedRole, loading, setLoadingTrue, setLoadingFalse } =
+    memberStore();
+
+  const {
+    setLoading: setSubsLoading,
+    loading: subsLoading,
+    subscriptionList,
+  } = useSubscriptionStore();
 
   useEffect(() => {
     const getRoles = async () => {
-      setLoading(true);
+      setLoadingTrue();
       await listRole()
         .then((response) => {
           useRoleStore.getState().setRoleList(response.data.data);
-          setLoading(false);
+          setLoadingFalse();
         })
         .catch(() => {
-          setLoading(false);
+          setLoadingTrue();
         });
     };
-    getRoles();
+    const getSubscription = async () => {
+      setSubsLoading(true);
+      await listSubscription(Number(selectedRole.id))
+        .then(() => {
+          useSubscriptionStore
+            .getState()
+            .setSubscriptionRole(Number(selectedRole.id));
+          setSubsLoading(false);
+        })
+        .catch(() => setSubsLoading(false));
+    };
+
+    useRoleStore.getState().roleList.length === 0 && getRoles();
+    (selectedRole.id !== subscriptionList.roleId ||
+      subscriptionList.list.length === 0) &&
+      getSubscription();
   }, [selectedRole.id]);
 
-  return (
-    <MainLayout>
-      {!data && loading ? <div></div> : <SubscriptionPage />}
-    </MainLayout>
-  );
+  return loading ? <div></div> : <SubscriptionPage loading={subsLoading} />;
 };
 
 export default withAuth(withRole(Subscription));

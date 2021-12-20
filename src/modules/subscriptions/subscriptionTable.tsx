@@ -19,7 +19,7 @@ import { memberStore } from "@/modules/members/memberStore";
 export const SubscriptionTable = () => {
   const { subscriptionList, loading } = useSubscriptionStore();
 
-  return subscriptionList.length === 0 ? (
+  return subscriptionList.list.length === 0 ? (
     <div className="flex justify-center">
       <div className="w-[48vw] h-[70vh] relative">
         <Image
@@ -33,7 +33,7 @@ export const SubscriptionTable = () => {
     </div>
   ) : (
     <TableView
-      data={subscriptionList}
+      data={subscriptionList.list}
       loading={loading}
       tableHeadings={[
         "Name",
@@ -110,7 +110,9 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
         <td className="font-medium px-6 py-5 whitespace-nowrap text-lg">
           <button
             onClick={() =>
-              router.push(`/subscriptions/${data.slug}?role=${selectedRole.id}`)
+              router.push(
+                `/subscriptions/${data.slug}?id=${data.id}&role=${selectedRole.id}`
+              )
             }
             className="w-full bg-neutral-700 hover:bg-neutral-800 hover:shadow-sm focus:shadow-sm transition-all duration-200 hover text-white flex items-center justify-center py-4 rounded-sm shadow-lg cursor-pointer"
           >
@@ -119,9 +121,9 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
         </td>
       </tr>
     ) : (
-      <div>Loading</div>
+      <div></div>
     )
   ) : (
-    <div>Loading</div>
+    <div></div>
   );
 };

@@ -24,7 +24,7 @@ export const MemberRoleDropdown = () => {
     <div className="w-64 capitalize z-10">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
-          <Listbox.Button className="relative w-full py-[1.125rem] px-6 text-left bg-white rounded-sm shadow-E500 cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
+          <Listbox.Button className="cursor-pointer relative w-full py-[1.125rem] px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
             <span className="block truncate">{selected.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
@@ -45,7 +45,7 @@ export const MemberRoleDropdown = () => {
                   key={role.id}
                   className={({ active }) =>
                     `${active ? "text-green-900 bg-green-100" : "text-gray-900"}
-                          cursor-default select-none relative py-4 pl-10 pr-4`
+                          cursor-pointer select-none relative py-4 pl-10 pr-4 `
                   }
                   value={role}
                 >
@@ -55,7 +55,7 @@ export const MemberRoleDropdown = () => {
                         <span
                           className={`${
                             selected ? "font-medium" : "font-normal"
-                          } block truncate capitalize`}
+                          }  block truncate capitalize`}
                         >
                           {role.name}
                         </span>

@@ -50,7 +50,7 @@ const withAuth = (WrappedComponent: React.FC) => {
         getGlobalState();
     }, [router]);
 
-    return accessToken || globalLoading ? (
+    return accessToken && !globalLoading ? (
       <WrappedComponent {...props} />
     ) : (
       <div></div>
