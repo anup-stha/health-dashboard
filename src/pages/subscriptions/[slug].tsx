@@ -13,7 +13,7 @@ import {
   listSubscriptionDetail,
 } from "@/services/requests/subscriptionRequests";
 
-import withAuth from "@/hoc/withAuth";
+import withAuth from "@/shared/hoc/withAuth";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { listTests } from "@/services/requests/testRequests";
 import React, { useEffect, useState } from "react";

@@ -6,7 +6,7 @@
  *
  */
 
-import withAuth from "@/hoc/withAuth";
+import withAuth from "@/shared/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 import { ProfilePage } from "@/modules/profile";
 

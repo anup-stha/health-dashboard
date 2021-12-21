@@ -155,6 +155,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
     }),
     control: () => ({
       background: "white",
+      cursor: "pointer",
       display: "flex",
       justifyContent: "space-between",
       borderRadius: "0.25rem",

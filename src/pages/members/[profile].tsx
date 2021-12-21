@@ -6,8 +6,8 @@
  *
  */
 
-import withAuth from "@/hoc/withAuth";
-import { withRole } from "@/hoc/withRole";
+import withAuth from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
@@ -21,8 +21,8 @@ import { useRouter } from "next/router";
 import { listRole, useRoleDetails } from "@/services/requests/roleRequests";
 import {
   getMemberList,
+  getMemberTestList,
   useMemberDetails,
-  useMemberTestList,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { Member, Role } from "@/types";
@@ -54,10 +54,11 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     toggleLoading,
     setError,
     loading: memberLoading,
-    selectedTestInProfile,
     setMemberList,
     selectedMemberSubscription,
+    selectedTestInProfile,
   } = memberStore();
+
   const {
     selectedSubscription,
     subscriptionList,
@@ -68,11 +69,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   const { data: memberDetailsData } = useMemberDetails(Number(idX.id));
   const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
-
-  const {} = useMemberTestList(
-    Number(idX.id),
-    Number(selectedTestInProfile.id)
-  );
 
   useEffect(() => {
     roleDetailsData && setRole(roleDetailsData);
@@ -87,6 +83,14 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     };
     getTests();
   }, []);
+
+  useEffect(() => {
+    const listMemberTest = async () => {
+      await getMemberTestList(Number(idX.id), Number(selectedTestInProfile.id));
+    };
+
+    Object.keys(selectedTestInProfile).length !== 0 && listMemberTest();
+  }, [selectedTestInProfile.id]);
 
   useEffect(() => {
     const getSubscription = async () => {

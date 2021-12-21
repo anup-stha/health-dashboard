@@ -7,7 +7,7 @@
  */
 
 import { NextPage } from "next";
-import withAuth from "@/hoc/withAuth";
+import withAuth from "@/shared/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useEffect } from "react";

@@ -10,9 +10,9 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 
-import withAuth from "@/hoc/withAuth";
+import withAuth from "@/shared/hoc/withAuth";
 import { MemberPage } from "@/modules/members";
-import { withRole } from "@/hoc/withRole";
+import { withRole } from "@/shared/hoc/withRole";
 import { getMemberList } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";

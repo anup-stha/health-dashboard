@@ -53,6 +53,12 @@ export const store = combine(initialState, (set) => ({
     });
   },
 
+  clearTestDetailsInProfile: () => {
+    set({
+      selectedTestDetailsInProfile: [] as unknown as MemberTestListData,
+    });
+  },
+
   setSelectedTestInProfile: (list: Test) => {
     set({
       selectedTestInProfile: list,

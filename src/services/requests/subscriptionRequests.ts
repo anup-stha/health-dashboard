@@ -103,6 +103,19 @@ export const assignSubscriptionToMember = (
   );
 };
 
+export const removeSubscriptionFromMember = (member_id: number) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .delete<any>(`subscription/member/${member_id}`)
+      .then(async (response) => {
+        await getMemberSubscriptionDetails(member_id).catch(() => {
+          resolve(response.data.message);
+        });
+      })
+      .catch((error) => reject(error.response))
+  );
+};
+
 export const assignTestToSubscription = (
   test_cat_id: number,
   test_sub_cat_id: number,

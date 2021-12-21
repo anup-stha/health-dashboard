@@ -14,10 +14,15 @@ import { TableView } from "@/components/Table";
 import { Calendar, GooglePlayLogo, WarningOctagon } from "phosphor-react";
 import _ from "lodash";
 
-export const ProfileTest = () => {
-  const { selectedTestDetailsInProfile: testDetails } = memberStore();
+type ProfileTestProps = {
+  loading?: boolean;
+};
 
-  return (
+export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
+  const { selectedTestDetailsInProfile: testDetails } = memberStore();
+  return loading ? (
+    <div>loading</div>
+  ) : (
     <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
       <div className={"p-6 flex flex-col space-y-8"}>
         <div className=" flex items-center justify-between">

@@ -6,8 +6,8 @@
  *
  */
 
-import withAuth from "@/hoc/withAuth";
-import { withRole } from "@/hoc/withRole";
+import withAuth from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 import { memberStore } from "@/modules/members/memberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import SubscriptionPage from "@/modules/subscriptions";

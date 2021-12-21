@@ -215,26 +215,8 @@ export const getMemberTestList = (memberId: number, testCategoryId: number) => {
           .getState()
           .setSelectedTestDetailsInProfile(response.data.data)
       )
-      .catch((error) => reject(error.response));
+      .catch((error) => {
+        memberStore.getState().clearTestDetailsInProfile();
+      });
   });
-};
-
-export const listMemberTestListInProfile = async (url?: string) =>
-  privateAgent
-    .get<MemberTestListResponse>(`${url}`)
-    .then((response) => {
-      console.log(response);
-      memberStore
-        .getState()
-        .setSelectedTestDetailsInProfile(response.data.data);
-      return response.data.data;
-    })
-    .catch(() => {});
-
-export const useMemberTestList = (memberId: number, testCategoryId: number) => {
-  return useSWRImmutable(
-    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`,
-    listMemberTestListInProfile,
-    { refreshInterval: 10000000 }
-  );
 };

@@ -7,8 +7,8 @@
  */
 
 import { PermissionPageLoadingState } from "@/components/state/PermissionLoadingState";
-import withAuth from "@/hoc/withAuth";
-import { withRole } from "@/hoc/withRole";
+import withAuth from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { Permissions } from "@/modules/permissions";
 import { DeleteZone } from "@/modules/roles/others/DeleteZone";

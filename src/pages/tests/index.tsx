@@ -6,8 +6,8 @@
  *
  */
 
-import withAuth from "@/hoc/withAuth";
-import { withRole } from "@/hoc/withRole";
+import withAuth from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { TestPage } from "@/modules/tests";
 import { NextPage } from "next";

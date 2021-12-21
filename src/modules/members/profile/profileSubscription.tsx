@@ -13,6 +13,9 @@ import { ApexOptions } from "apexcharts";
 
 import dynamic from "next/dynamic";
 import { GrayButton, WarningButton } from "@/components/Button";
+import { alert } from "@/components/Alert";
+import { removeSubscriptionFromMember } from "@/services/requests/subscriptionRequests";
+import { useRouter } from "next/router";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -25,6 +28,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
 }) => {
   const { subscriptionList } = useSubscriptionStore();
   const { selectedMemberSubscription } = memberStore();
+  const router = useRouter();
 
   const [options] = useState<ApexOptions>({
     chart: {
@@ -153,7 +157,22 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   {Object.keys(selectedMemberSubscription).length !== 0 && (
                     <GrayButton>Renew</GrayButton>
                   )}
-                  <WarningButton>Unlink</WarningButton>
+                  <WarningButton
+                    onClick={async () => {
+                      await alert({
+                        type: "promise",
+                        promise: removeSubscriptionFromMember(
+                          Number(router.query.id)
+                        ),
+                        msgs: {
+                          loading: "Removing",
+                        },
+                        id: "remove-subs",
+                      });
+                    }}
+                  >
+                    Unlink
+                  </WarningButton>
                 </div>
               </div>
             </div>
