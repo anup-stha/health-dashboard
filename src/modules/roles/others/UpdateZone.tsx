@@ -10,7 +10,7 @@ import RoleModal from "@/modules/roles/modal/roleModal";
 
 export const UpdateZone = ({ idX }: any) => {
   return (
-    <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
+    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Edit this role</h1>
         <p className="text-lg font-semibold text-gray-500">

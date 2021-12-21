@@ -36,11 +36,13 @@ import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscription
 import { GrayButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import { ProfileTest } from "@/modules/members/profile/ProfileTest";
-import { useTestList } from "@/services/requests/testRequests";
+import { listTests } from "@/services/requests/testRequests";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const [role, setRole] = useState<Role>({} as Role);
   const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
+  const [testLoading, setTestLoading] = useState(false);
+
   const [active, setActive] = useState(false);
   const [verified, setVerified] = useState(false);
   const [selectedMemberDetails, setSelectedMemberDetails] = useState(
@@ -64,7 +66,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   } = useSubscriptionStore();
 
   const { data: memberDetailsData } = useMemberDetails(Number(idX.id));
-  const { data: testListData } = useTestList();
   const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
 
@@ -76,6 +77,16 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   useEffect(() => {
     roleDetailsData && setRole(roleDetailsData);
   }, [roleDetailsData]);
+
+  useEffect(() => {
+    const getTests = async () => {
+      setTestLoading(true);
+      await listTests()
+        .then(() => setTestLoading(false))
+        .catch(() => setTestLoading(false));
+    };
+    getTests();
+  }, []);
 
   useEffect(() => {
     const getSubscription = async () => {
@@ -141,7 +152,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
       selectedRoleLoading ||
       !memberSubsDetailsData ||
       !memberDetailsData ||
-      !testListData ? (
+      testLoading ? (
         <div>Loading</div>
       ) : (
         <>

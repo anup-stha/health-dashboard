@@ -77,7 +77,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
             <Button
               buttonSize="small"
               onClick={() => {
-                router.push(`/tests/${name.toLowerCase()}`);
+                router.push(`/tests/${slug}?id=${id}`);
               }}
             >
               View Details

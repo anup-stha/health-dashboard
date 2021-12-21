@@ -20,8 +20,11 @@ const Subscription = () => {
   const { selectedRole, loading, setLoadingTrue, setLoadingFalse } =
     memberStore();
 
-  const { setLoading: setSubsLoading, loading: subsLoading } =
-    useSubscriptionStore();
+  const {
+    setLoading: setSubsLoading,
+    loading: subsLoading,
+    subscriptionList,
+  } = useSubscriptionStore();
 
   useEffect(() => {
     const getRoles = async () => {
@@ -47,9 +50,12 @@ const Subscription = () => {
         .catch(() => setSubsLoading(false));
     };
 
-    useRoleStore.getState().roleList.length === 0 && getRoles();
+    if (selectedRole.id !== subscriptionList.roleId) {
+      useSubscriptionStore.getState().setSubscriptionList([]);
+      getSubscription();
+    }
 
-    getSubscription();
+    useRoleStore.getState().roleList.length === 0 && getRoles();
   }, [selectedRole.id]);
 
   return loading ? <div></div> : <SubscriptionPage loading={subsLoading} />;

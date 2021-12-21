@@ -24,9 +24,7 @@ const Test: NextPage<any> = ({ idX }) => {
       await getTests()
         .then((res) => {
           setTestList(res.data.data);
-          setSelectedTest(
-            res.data.data.filter((test) => test.name.toLowerCase() === idX)[0]
-          );
+          setSelectedTest(res.data.data.filter((test) => test.slug === idX)[0]);
           setLoading(false);
         })
         .catch(() => setLoading(false));

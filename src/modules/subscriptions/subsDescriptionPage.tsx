@@ -18,12 +18,14 @@ import {
 } from "@/services/requests/subscriptionRequests";
 import { TableView } from "@/components/Table";
 import { Button, RedLineButton } from "@/components/Button";
-import { testStore } from "@/modules/tests/testStore";
 import { useForm } from "react-hook-form";
 import { DropdownController } from "../roles/form/roleMemberCategoryForm";
 import { TestSubCategory } from "@/types";
 import { useRouter } from "next/router";
-import { CheckCircle, XCircle } from "phosphor-react";
+import { CheckCircle, WarningOctagon, XCircle } from "phosphor-react";
+import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
+import { testStore } from "@/modules/tests/testStore";
+import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -37,8 +39,11 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
   selected,
 }) => {
   const { testList } = testStore();
+
   const { subscriptionDetails } = useSubscriptionStore();
-  const [selectedId, setSelectedId] = useState(testList[0].id);
+  const [selectedId, setSelectedId] = useState(
+    testList[0] ? testList[0].id : 0
+  );
 
   const selectedTest = testList.filter(
     (element) => element.id === selectedId
@@ -56,7 +61,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
   const tabArray = Object.values(tabs);
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:p-8 w-full space-y-4">
+    <div className="px-10 py-10 overflow-visible sm:p-8 w-full space-y-8">
       <div className="flex flex-col">
         <h1 className="text-4xl font-semibold text-neutral-800 capitalize">
           {selected ? selected.name : ""}
@@ -66,167 +71,191 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
         </p>
       </div>
       <hr className="border-t-[1px] border-gray-200" />
+      <div className={"space-y-4"}>
+        <div className="flex flex-col">
+          <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
+            Tests
+          </h1>
+        </div>
 
-      <div className="flex flex-col">
-        <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
-          Tests
-        </h1>
-      </div>
-
-      <div className="w-full flex gap-6 pb-4 ">
-        <Tab.Group vertical>
-          <Tab.List className="w-1/4 sm:w-full h-full flex flex-col  bg-white shadow-sm rounded-md overflow-hidden">
-            {testList.map((test) => (
-              <Tab as={Fragment} key={test.id}>
-                {({ selected }) => (
-                  <button
-                    onClick={() => {
-                      setSelectedId(Number(test.id));
-                    }}
-                    className={classNames(
-                      selected
-                        ? "w-full py-4 px-6 border-green-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
-                        : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
-                    )}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xl font-medium capitalize">
-                        {test.name}
-                      </span>
-                      <span>
-                        {subscriptionDetails.some(
-                          (element) => element.id === test.id
-                        ) ? (
-                          <CheckCircle
-                            size={24}
-                            weight="duotone"
-                            className={classNames(
-                              selected ? "text-green-400" : "text-green-700"
-                            )}
-                          />
-                        ) : (
-                          <XCircle
-                            size={24}
-                            weight="duotone"
-                            className={classNames(
-                              selected ? "text-red-400" : "text-red-700"
-                            )}
-                          />
+        {testList.length !== 0 ? (
+          <div className="w-full flex gap-6">
+            <Tab.Group vertical>
+              <Tab.List className="w-1/4 sm:w-full h-full flex flex-col  bg-white shadow-sm rounded-md overflow-hidden">
+                {testList.map((test) => (
+                  <Tab as={Fragment} key={test.id}>
+                    {({ selected }) => (
+                      <button
+                        onClick={() => {
+                          setSelectedId(Number(test.id));
+                        }}
+                        className={classNames(
+                          selected
+                            ? "w-full py-4 px-6 border-green-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
+                            : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
                         )}
-                      </span>
-                    </div>
-                  </button>
-                )}
-              </Tab>
-            ))}
-          </Tab.List>
-
-          <Tab.Panels className="w-3/4 h-full bg-white rounded-md px-8 py-8 shadow-sm ">
-            {tabArray.map((test, index) => {
-              if (test === undefined)
-                return (
-                  <Tab.Panel key={index}>
-                    <div className={"flex flex-col space-y-4"}>
-                      <div className="flex flex-col">
-                        <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
-                          {selectedTest.name}
-                        </h1>
-                        <div className="flex space-x-2">
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`Slug: ${selectedTest.slug}`}
-                          />
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`Public:${
-                              selectedTest.public ? " Yes" : " No"
-                            }`}
-                          />
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`${
-                              subscriptionDetails.some(
-                                (element) => element.id === selectedTest.id
-                              )
-                                ? "Assigned"
-                                : "Not Assigned"
-                            }`}
-                          />
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-xl font-medium capitalize">
+                            {test.name}
+                          </span>
+                          <span>
+                            {subscriptionDetails.some(
+                              (element) => element.id === test.id
+                            ) ? (
+                              <CheckCircle
+                                size={24}
+                                weight="duotone"
+                                className={classNames(
+                                  selected ? "text-green-400" : "text-green-700"
+                                )}
+                              />
+                            ) : (
+                              <XCircle
+                                size={24}
+                                weight="duotone"
+                                className={classNames(
+                                  selected ? "text-red-400" : "text-red-700"
+                                )}
+                              />
+                            )}
+                          </span>
                         </div>
-                      </div>
-                      <div className="w-full">
-                        <SubsTestDropdown
-                          label={"Choose a test"}
-                          options={getTestSubCategory(Number(selectedId))}
+                      </button>
+                    )}
+                  </Tab>
+                ))}
+              </Tab.List>
+
+              <Tab.Panels className="w-3/4 h-full bg-white rounded-md px-8 py-8 shadow-sm ">
+                {tabArray.map((test, index) => {
+                  if (test === undefined)
+                    return (
+                      <Tab.Panel key={index}>
+                        <div className={"flex flex-col space-y-4"}>
+                          <div className="flex flex-col">
+                            <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                              {selectedTest.name}
+                            </h1>
+                            <div className="flex space-x-2">
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`Slug: ${selectedTest.slug}`}
+                              />
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`Public:${
+                                  selectedTest.public ? " Yes" : " No"
+                                }`}
+                              />
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`${
+                                  subscriptionDetails.some(
+                                    (element) => element.id === selectedTest.id
+                                  )
+                                    ? "Assigned"
+                                    : "Not Assigned"
+                                }`}
+                              />
+                            </div>
+                          </div>
+                          <div className="w-full">
+                            <SubsTestDropdown
+                              label={"Choose a test"}
+                              options={getTestSubCategory(Number(selectedId))}
+                            />
+                          </div>
+                        </div>
+                      </Tab.Panel>
+                    );
+                  const subCategories = test.sub_categories.map(
+                    (subTest: any) => ({
+                      ...subTest,
+                      category_name: test.name,
+                      category_desc: test.desc,
+                    })
+                  );
+
+                  return (
+                    <Tab.Panel key={index}>
+                      <div className={"space-y-4 w-full"}>
+                        <div
+                          className={"flex items-center justify-between w-full"}
+                        >
+                          <div className="space-y-1">
+                            <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                              {test.name}
+                            </h1>
+                            <div className="flex space-x-2">
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`Slug: ${test.slug}`}
+                              />
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`Public:${
+                                  test.public ? " Yes" : " No"
+                                }`}
+                              />{" "}
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`${
+                                  subscriptionDetails.some(
+                                    (element) => element.id === selectedTest.id
+                                  )
+                                    ? "Assigned"
+                                    : "Not Assigned"
+                                }`}
+                              />
+                            </div>
+                          </div>{" "}
+                          <div className={"flex"}>
+                            <SubsTestDropdown
+                              options={getTestSubCategory(test.id)}
+                            />
+                          </div>
+                        </div>
+                        <TableView
+                          data={subCategories}
+                          tableHeadings={[
+                            "Name",
+                            "Slug",
+                            "Public",
+                            "Description",
+
+                            "",
+                          ]}
+                          tableRowComponent={<SubscriptionSubTestTableRow />}
+                          loading={false}
                         />
                       </div>
-                    </div>
-                  </Tab.Panel>
-                );
-              const subCategories = test.sub_categories.map((subTest: any) => ({
-                ...subTest,
-                category_name: test.name,
-                category_desc: test.desc,
-              }));
-
-              return (
-                <Tab.Panel key={index}>
-                  <div className={"space-y-4 w-full"}>
-                    <div className={"flex items-center justify-between w-full"}>
-                      <div className="space-y-1">
-                        <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
-                          {test.name}
-                        </h1>
-                        <div className="flex space-x-2">
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`Slug: ${test.slug}`}
-                          />
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`Public:${
-                              test.public ? " Yes" : " No"
-                            }`}
-                          />{" "}
-                          <BooleanTag
-                            type={"info"}
-                            trueStatement={`${
-                              subscriptionDetails.some(
-                                (element) => element.id === selectedTest.id
-                              )
-                                ? "Assigned"
-                                : "Not Assigned"
-                            }`}
-                          />
-                        </div>
-                      </div>{" "}
-                      <div className={"flex"}>
-                        <SubsTestDropdown
-                          options={getTestSubCategory(test.id)}
-                        />
-                      </div>
-                    </div>
-                    <TableView
-                      data={subCategories}
-                      tableHeadings={[
-                        "Name",
-                        "Slug",
-                        "Public",
-                        "Description",
-
-                        "",
-                      ]}
-                      tableRowComponent={<SubscriptionSubTestTableRow />}
-                      loading={false}
-                    />
-                  </div>
-                </Tab.Panel>
-              );
-            })}
-          </Tab.Panels>
-        </Tab.Group>
+                    </Tab.Panel>
+                  );
+                })}
+              </Tab.Panels>
+            </Tab.Group>
+          </div>
+        ) : (
+          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+            <WarningOctagon size={24} /> <span>No Test Details Found</span>
+          </div>
+        )}
       </div>
+
       <hr className="border-t-[1px] border-gray-200" />
+      <div className="space-y-2">
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-900">Alert Zone</h1>
+          <p className="text-lg font-semibold text-gray-500">
+            Please be careful with anything you do here
+          </p>
+        </div>
+        <div className="space-y-4">
+          <SubscriptionUpdateZone />
+          <SubscriptionDeleteZone />
+        </div>
+      </div>
     </div>
   );
 };

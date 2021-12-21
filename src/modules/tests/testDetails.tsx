@@ -22,9 +22,7 @@ export const TestDetails = () => {
           {selectedTest.name}
         </h1>
         <p className="text-xl font-semibold text-gray-500 w-3/4">
-          {selectedTest.desc} A visual acuity test is an eye exam that checks
-          how well you see the details of a letter or symbol from a specific
-          distance
+          {selectedTest.slug}
         </p>
       </div>
       <hr className="border-t-[1px] border-gray-200" />

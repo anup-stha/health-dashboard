@@ -5,30 +5,70 @@
  *
  *
  */
-
 import { PrimaryInput } from "@/components/Input";
 
 import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
 import { memberStore } from "../members/memberStore";
 import { alert } from "@/components/Alert";
-import { addSubscription } from "@/services/requests/subscriptionRequests";
+import {
+  addSubscription,
+  updateSubscription,
+} from "@/services/requests/subscriptionRequests";
 import { Button } from "@/components/Button";
 import React from "react";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useGlobalState } from "@/modules/useGlobalState";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
   id?: number;
 };
 
+type SubscriptionFormData = {
+  name: string | undefined;
+  price: number | undefined;
+  test_limit: number | undefined;
+  interval_type: string | undefined;
+  interval_value: number | undefined;
+  grace_period: number | undefined;
+  sync_limit: number | undefined;
+};
+
 export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
   type,
+  id,
 }) => {
   const { selectedRole } = memberStore();
+  const { subscriptionList } = useSubscriptionStore();
+  const data: any = subscriptionList.list.filter(
+    (element) => element.id === id
+  )[0];
 
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control } = useForm<SubscriptionFormData>({
+    defaultValues:
+      type === "add"
+        ? {
+            name: undefined,
+            price: undefined,
+            test_limit: undefined,
+            interval_type: undefined,
+            interval_value: undefined,
+            grace_period: undefined,
+            sync_limit: undefined,
+          }
+        : {
+            name: data.name,
+            price: data.price.replace(/[^\d\.]*/g, ""),
+            test_limit: Number(data.test_limit),
+            interval_type: data.interval_type,
+            interval_value: Number(data.interval_value),
+            grace_period: Number(data.grace_period),
+            sync_limit: Number(data.sync_limit),
+          },
+  });
+
   const options = useGlobalState
     .getState()
     .base.subscription_intervals.map((element) => ({
@@ -39,15 +79,14 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
   return (
     <Modal.Form
       onSubmit={handleSubmit(async (data) => {
-        console.log(data);
         type === "add"
           ? await alert({
               promise: addSubscription({
                 role_id: Number(selectedRole.id),
-                name: data.name,
+                name: String(data.name),
                 price: Number(data.price),
                 test_limit: Number(data.test_limit),
-                interval_type: data.interval_type,
+                interval_type: String(data.interval_type),
                 interval_value: Number(data.interval_value),
                 grace_period: Number(data.grace_period),
                 sync_limit: Number(data.sync_limit),
@@ -57,7 +96,24 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
               },
               id: "subscription-add",
             })
-          : null;
+          : await alert({
+              promise: updateSubscription(
+                {
+                  name: String(data.name),
+                  price: Number(data.price),
+                  test_limit: Number(data.test_limit),
+                  interval_type: String(data.interval_type),
+                  interval_value: Number(data.interval_value),
+                  grace_period: Number(data.grace_period),
+                  sync_limit: Number(data.sync_limit),
+                },
+                Number(id)
+              ),
+              msgs: {
+                loading: "Updating Subscription",
+              },
+              id: "subscription-add",
+            });
       })}
     >
       <div className="space-y-4">
@@ -65,11 +121,11 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           label="Name"
           type="text"
           placeholder="Enter Name"
+          required={true}
           {...register("name")}
         />
         <PrimaryInput
           label="Price"
-          type="number"
           placeholder="Enter Price"
           {...register("price")}
         />
@@ -123,7 +179,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
         </div>
       </div>
 
-      <Button>Add Subscription</Button>
+      <Button>{type === "add" ? "Add" : "Edit"} Subscription</Button>
     </Modal.Form>
   );
 };

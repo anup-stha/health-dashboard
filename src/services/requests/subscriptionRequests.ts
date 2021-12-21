@@ -15,10 +15,12 @@ import {
   SubscriptionBody,
   SubscriptionListResponse,
   SubscriptionTestDetailsResponse,
+  SubscriptionUpdateBody,
 } from "@/types";
 import { privateAgent } from ".";
 import { memberStore } from "@/modules/members/memberStore";
 import useSWRImmutable from "swr/immutable";
+import Router from "next/router";
 
 export const listSubscription = (id: number) =>
   privateAgent
@@ -51,6 +53,31 @@ export const addSubscription = (data: SubscriptionBody) => {
             ...useSubscriptionStore.getState().subscriptionList.list,
             response.data.data,
           ]);
+        resolve(response.data.message);
+      })
+      .catch((error) => reject(error.response))
+  );
+};
+
+export const updateSubscription = (
+  data: SubscriptionUpdateBody,
+  subsId: number
+) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .put<SubscriptionAddResponse>(`subscription/${subsId}`, data)
+      .then((response) => {
+        const query = Router.query;
+        Router.replace(
+          `/subscriptions/${response.data.data.slug}?id=${query.id}&role=${query.role}`
+        );
+        const subscription =
+          useSubscriptionStore.getState().subscriptionList.list;
+        const updatedArray = subscription.map((subs) =>
+          subs.id === response.data.data.id ? response.data.data : subs
+        );
+        useSubscriptionStore.getState().setSubscriptionList(updatedArray);
+
         resolve(response.data.message);
       })
       .catch((error) => reject(error.response))

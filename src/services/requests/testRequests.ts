@@ -15,22 +15,25 @@ import {
   ListTestResponse,
   UpdateTestCategoryBody,
 } from "@/types";
-import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
-import useSWRImmutable from "swr/immutable";
 import Router from "next/router";
+import { AxiosResponse } from "axios";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
   return privateAgent.get("test/categories/");
 };
 
-export const listTests = async (url: string) =>
-  privateAgent.get<ListTestResponse>(url).then((response) => {
-    testStore.getState().setTestList(response.data.data);
-    return response.data.data;
+export const listTests = () => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .get<ListTestResponse>(`test/categories/`)
+      .then((response) => {
+        testStore.getState().setTestList(response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => reject(error.response));
   });
-
-export const useTestList = () => useSWRImmutable(`test/categories/`, listTests);
+};
 
 export const addTest = (body: AddTestBody) => {
   return new Promise((resolve, reject) =>
@@ -57,7 +60,7 @@ export const updateTest = (id: Number, body: AddTestBody) => {
         public: body.public ? 1 : 0,
       })
       .then((response) => {
-        Router.replace(`/tests/${response.data.data.name.toLowerCase()}`);
+        Router.replace(`/tests/${response.data.data.slug}`);
         testStore
           .getState()
           .setTestList(
@@ -67,6 +70,8 @@ export const updateTest = (id: Number, body: AddTestBody) => {
                 test.id === response.data.data.id ? response.data.data : test
               )
           );
+        testStore.getState().setSelectedTest(response.data.data);
+
         resolve(response.data.message);
       })
       .catch((error) => reject(error.response))

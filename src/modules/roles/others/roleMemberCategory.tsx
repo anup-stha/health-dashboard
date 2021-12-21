@@ -18,7 +18,7 @@ export const RoleMemberCategory = () => {
   return (
     <Disclosure>
       {({ open }) => (
-        <div className="bg-white shadow-E500 w-2/3 py-8 px-8 rounded-sm flex flex-col text-left">
+        <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left">
           <Disclosure.Button className="w-full flex text-left justify-between items-center">
             <div>
               <h1 className="text-2xl font-semibold text-gray-900">

@@ -33,12 +33,12 @@ const store = combine(initialState, (set) => ({
     set({ loading: loading });
   },
   setSubscriptionList: (list: any) => {
-    set({
+    set((state) => ({
       subscriptionList: {
-        roleId: undefined,
+        roleId: state.subscriptionList.roleId,
         list: list,
       },
-    });
+    }));
   },
   setSubscriptionRole: (roleId: number) => {
     set((state) => ({

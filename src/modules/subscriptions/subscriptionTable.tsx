@@ -103,10 +103,10 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
         </td>
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           {data.sync_limit} times
-        </td>{" "}
+        </td>
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           {data.test_limit} times
-        </td>{" "}
+        </td>
         <td className="font-medium px-6 py-5 whitespace-nowrap text-lg">
           <button
             onClick={() =>

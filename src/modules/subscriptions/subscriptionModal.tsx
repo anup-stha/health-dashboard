@@ -7,11 +7,11 @@
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { Edit } from "react-feather";
 import { memberStore } from "../members/memberStore";
 import React from "react";
 import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
 import { Button } from "@/components/Button";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 
 type subscriptionModalProps = {
   type: "add" | "edit";
@@ -23,6 +23,10 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
   id,
 }) => {
   const { selectedRole } = memberStore();
+  const data: any = useSubscriptionStore
+    .getState()
+    .subscriptionList.list.filter((element) => element.id === id)[0];
+
   return (
     <Modal>
       {type === "add" ? (
@@ -31,16 +35,17 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
         </Modal.Button>
       ) : (
         <Modal.Button type="open">
-          <Edit size={24} />
+          <Button> &nbsp;&nbsp;Edit&nbsp;&nbsp; </Button>
         </Modal.Button>
       )}
 
       <Modal.Content width="3xl">
         <Modal.Title>
-          {type === "edit" ? "Edit" : "Add"} {selectedRole.name} Subscription
+          {type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`}{" "}
+          Subscription
         </Modal.Title>
 
-        <SubscriptionForm type={type} />
+        <SubscriptionForm type={type} id={id} />
       </Modal.Content>
     </Modal>
   );

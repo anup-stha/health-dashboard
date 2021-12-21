@@ -384,6 +384,17 @@ export type SubscriptionBody = {
   test_count?: number;
 };
 
+export type SubscriptionUpdateBody = {
+  name: string;
+  price: string | number;
+  interval_type: string;
+  interval_value: number;
+  grace_period: number;
+  sync_limit: number;
+  test_limit: number;
+  test_count?: number;
+};
+
 export type MemberSubscriptionDetails = {
   start_date: Date;
   end_date: Date;

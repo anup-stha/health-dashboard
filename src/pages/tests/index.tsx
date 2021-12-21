@@ -10,15 +10,25 @@ import withAuth from "@/hoc/withAuth";
 import { withRole } from "@/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { TestPage } from "@/modules/tests";
-import { useTestList } from "@/services/requests/testRequests";
 import { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { listTests } from "@/services/requests/testRequests";
 
 const Tests: NextPage = () => {
-  const { data: testListData } = useTestList();
+  const [testLoading, setTestLoading] = useState(false);
 
+  useEffect(() => {
+    const getTests = async () => {
+      setTestLoading(true);
+      await listTests()
+        .then(() => setTestLoading(false))
+        .catch(() => setTestLoading(false));
+    };
+    getTests();
+  }, []);
   return (
     <MainLayout>
-      {testListData ? <TestPage /> : <div className=""></div>}
+      {!testLoading ? <TestPage /> : <div className=""></div>}
     </MainLayout>
   );
 };
