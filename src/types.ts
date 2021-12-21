@@ -396,8 +396,8 @@ export type SubscriptionUpdateBody = {
 };
 
 export type MemberSubscriptionDetails = {
-  start_date: Date;
-  end_date: Date;
+  start_date: number;
+  end_date: number;
   active: boolean;
   total_test_count: number;
   plan: {

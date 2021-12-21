@@ -16,6 +16,7 @@ import { logoutUser } from "../../services/requests";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
 import { alert } from "../Alert";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 type AvatarProps = {
   name?: string;
@@ -89,6 +90,7 @@ export const AvatarWithEmail: React.FC<AvatarProps> = ({
 
 export const ImageAvatar: React.FC = () => {
   const { push } = useRouter();
+  const { user } = useAuthStore();
 
   const onLogOut = async () => {
     await alert({
@@ -118,7 +120,9 @@ export const ImageAvatar: React.FC = () => {
               <div
                 className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}
               >
-                <span className="text-xl font-semibold">Hi, Admin</span>
+                <span className="text-xl font-semibold">
+                  Hi, {user.name.split(" ")[0]}
+                </span>
                 <CaretDown size={22} />
               </div>
             </div>

@@ -16,6 +16,7 @@ import { GrayButton, WarningButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import { removeSubscriptionFromMember } from "@/services/requests/subscriptionRequests";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -29,7 +30,13 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
   const { subscriptionList } = useSubscriptionStore();
   const { selectedMemberSubscription } = memberStore();
   const router = useRouter();
+  const { start_date, end_date } = selectedMemberSubscription;
 
+  const start = moment(start_date * 1000);
+  const end = moment(end_date * 1000);
+  console.log(start, end);
+  const leftDays = end.diff(new Date(), "days");
+  const totalDays = end.diff(start, "days");
   const [options] = useState<ApexOptions>({
     chart: {
       type: "radialBar",
@@ -69,7 +76,11 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
           },
           value: {
             formatter: function (val) {
-              return `${val}`;
+              return `${
+                end.diff(new Date(), "days") === 0
+                  ? end.diff(new Date(), "hours")
+                  : end.diff(new Date(), "days")
+              }`;
             },
             color: "#555",
             fontSize: "36px",
@@ -85,8 +96,8 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
       lineCap: "round",
       curve: "smooth",
     },
-    series: [90],
-    labels: ["Days Left"],
+    series: [leftDays / totalDays],
+    labels: [`${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`],
   });
 
   return subscriptionList.list.length === 0 ||
@@ -112,6 +123,26 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
               </h1>
 
               <div className="space-y-1 flex flex-col items-center">
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                    <span>Start Date:</span>
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                    {moment(
+                      selectedMemberSubscription.start_date * 1000
+                    ).format("MMMM Do YYYY")}
+                  </h1>
+                </div>
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                    <span>End Date:</span>
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                    {moment(selectedMemberSubscription.end_date * 1000).format(
+                      "MMMM Do YYYY"
+                    )}
+                  </h1>
+                </div>
                 <div className="flex space-x-4 items-center">
                   <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
                     <span>Total Price:</span>
