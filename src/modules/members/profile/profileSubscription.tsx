@@ -6,7 +6,7 @@
  *
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { memberStore } from "@/modules/members/memberStore";
 import { ApexOptions } from "apexcharts";
@@ -37,7 +37,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
   console.log(start, end);
   const leftDays = end.diff(new Date(), "days");
   const totalDays = end.diff(start, "days");
-  const [options] = useState<ApexOptions>({
+  const [options, setOptions] = useState<ApexOptions>({
     chart: {
       type: "radialBar",
     },
@@ -96,9 +96,74 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
       lineCap: "round",
       curve: "smooth",
     },
-    series: [leftDays / totalDays],
+    series: [(leftDays / totalDays) * 100],
     labels: [`${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`],
   });
+
+  useEffect(() => {
+    setOptions({
+      chart: {
+        type: "radialBar",
+      },
+      plotOptions: {
+        radialBar: {
+          startAngle: 0,
+          endAngle: 360,
+          hollow: {
+            margin: 0,
+            size: "65%",
+            background: "#fff",
+            image: undefined,
+            imageOffsetX: 0,
+            imageOffsetY: 0,
+
+            dropShadow: {
+              enabled: true,
+              color: "black",
+              opacity: 0.01,
+              blur: 4,
+            },
+          },
+          track: {
+            background: "#eee",
+            strokeWidth: "100%",
+            margin: 1, // margin is in pixels
+          },
+
+          dataLabels: {
+            show: true,
+            name: {
+              offsetY: -10,
+              show: true,
+              color: "#aaa",
+              fontSize: "17px",
+            },
+            value: {
+              formatter: function (val) {
+                return `${
+                  end.diff(new Date(), "days") === 0
+                    ? end.diff(new Date(), "hours")
+                    : end.diff(new Date(), "days")
+                }`;
+              },
+              color: "#555",
+              fontSize: "36px",
+              show: true,
+            },
+          },
+        },
+      },
+      fill: {
+        colors: ["#16a34a"],
+      },
+      stroke: {
+        lineCap: "round",
+        curve: "smooth",
+      },
+      series: [(leftDays / totalDays) * 100],
+      labels: [`${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`],
+    });
+  }, [selectedMemberSubscription.start_date]);
 
   return subscriptionList.list.length === 0 ||
     Object.keys(selectedMemberSubscription).length === 0 ? null : (
