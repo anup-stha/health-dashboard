@@ -35,9 +35,15 @@ type SubsDescriptionPage = {
 export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
   selected,
 }) => {
-  const { subscriptionDetails } = useSubscriptionStore();
-  const [selectedId, setSelectedId] = useState(1);
   const { testList } = testStore();
+  const { subscriptionDetails } = useSubscriptionStore();
+  const [selectedId, setSelectedId] = useState(
+    subscriptionDetails[0] ? subscriptionDetails[0].id : testList[0].id
+  );
+
+  const selectedTest = testList.filter(
+    (element) => element.id === selectedId
+  )[0];
 
   const getTestSubCategory = (testId: number) =>
     testList.filter((element) => element.id === testId)[0].sub_categories;
@@ -49,7 +55,6 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
       })[0]
   );
   const tabArray = Object.values(tabs);
-  console.log(tabs);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-8 w-full space-y-4">
@@ -94,14 +99,36 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
             ))}
           </Tab.List>
 
-          <Tab.Panels className="w-3/4 h-full bg-white rounded-md px-8 py-8 ">
+          <Tab.Panels className="w-3/4 h-full bg-white rounded-md px-8 py-8 shadow-sm ">
             {tabArray.map((test, index) => {
               if (test === undefined)
                 return (
                   <Tab.Panel key={index}>
-                    <SubsTestDropdown
-                      options={getTestSubCategory(selectedId)}
-                    />
+                    <div className={"flex flex-col space-y-4"}>
+                      <div className="flex flex-col">
+                        <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                          {selectedTest.name}
+                        </h1>
+                        <div className="flex space-x-2">
+                          <BooleanTag
+                            type={"info"}
+                            trueStatement={`Slug: ${selectedTest.slug}`}
+                          />
+                          <BooleanTag
+                            type={"info"}
+                            trueStatement={`Public:${
+                              selectedTest.public ? " Yes" : " No"
+                            }`}
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full">
+                        <SubsTestDropdown
+                          label={"Choose a test"}
+                          options={getTestSubCategory(Number(selectedId))}
+                        />
+                      </div>
+                    </div>
                   </Tab.Panel>
                 );
               const subCategories = test.sub_categories.map((subTest: any) => ({
@@ -131,7 +158,11 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                           />
                         </div>
                       </div>{" "}
-                      <SubsTestDropdown options={getTestSubCategory(test.id)} />
+                      <div className={"flex"}>
+                        <SubsTestDropdown
+                          options={getTestSubCategory(test.id)}
+                        />
+                      </div>
                     </div>
                     <TableView
                       data={subCategories}
@@ -140,6 +171,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                         "Slug",
                         "Public",
                         "Description",
+
                         "",
                       ]}
                       tableRowComponent={<SubscriptionSubTestTableRow />}
@@ -217,9 +249,13 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
 
 type SubTestDropdown = {
   options: TestSubCategory[];
+  label?: string;
 };
 
-export const SubsTestDropdown: React.FC<SubTestDropdown> = ({ options }) => {
+export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
+  options,
+  label = "",
+}) => {
   const { handleSubmit, control } = useForm();
   const router = useRouter();
 
@@ -248,13 +284,13 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({ options }) => {
             id: "Test-assign",
           })
       )}
-      className={"flex w-1/3 lg:w-full justify-end items-stretch space-x-4"}
+      className={"flex lg:w-full space-x-4 items-end"}
     >
-      <div className={"w-1/2"}>
+      <div className={"w-64"}>
         <DropdownController
           options={subtestOptions}
           name={"sub_test"}
-          label={""}
+          label={label}
           control={control}
         />
       </div>
