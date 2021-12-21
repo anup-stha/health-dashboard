@@ -114,7 +114,13 @@ export const removeTestFromSubscription = (
             ),
           }));
 
-        useSubscriptionStore.getState().setSubscriptionTestDetails(filtered);
+        const lastFiltered = filtered.filter(
+          (test) => test.sub_categories.length !== 0
+        );
+
+        useSubscriptionStore
+          .getState()
+          .setSubscriptionTestDetails(lastFiltered);
         resolve(response.data.message);
       })
       .catch((error) => reject(error.response))

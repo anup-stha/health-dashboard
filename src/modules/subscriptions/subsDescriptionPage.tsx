@@ -111,7 +111,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
               }));
 
               return (
-                <Tab.Panel key={test.id}>
+                <Tab.Panel key={index}>
                   <div className={"space-y-4 w-full"}>
                     <div className={"flex items-center justify-between w-full"}>
                       <div className="space-y-1">
@@ -152,6 +152,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
           </Tab.Panels>
         </Tab.Group>
       </div>
+
+      <hr />
+      <div></div>
     </div>
   );
 };

@@ -45,6 +45,7 @@ const withAuth = (WrappedComponent: React.FC) => {
           .then(() => setGlobalLoading(false))
           .catch(() => setGlobalLoading(false));
       };
+
       isAuthenticated &&
         Object.keys(data.base).length === 0 &&
         getGlobalState();
