@@ -98,12 +98,15 @@ export const assignTestToSubscription = (
 };
 
 export const removeTestFromSubscription = (
+  subscription_id: number,
   test_cat_id: number,
   test_sub_cat_id: number
 ) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .delete<any>(`subscription/${test_cat_id}/${test_sub_cat_id}`)
+      .delete<any>(
+        `subscription/${subscription_id}/${test_cat_id}/${test_sub_cat_id}`
+      )
       .then((response) => {
         const filtered = useSubscriptionStore
           .getState()

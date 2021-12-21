@@ -51,9 +51,8 @@ const Subscription = () => {
     };
 
     useRoleStore.getState().roleList.length === 0 && getRoles();
-    (selectedRole.id !== subscriptionList.roleId ||
-      subscriptionList.list.length === 0) &&
-      getSubscription();
+
+    getSubscription();
   }, [selectedRole.id]);
 
   return loading ? <div></div> : <SubscriptionPage loading={subsLoading} />;

@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { DropdownController } from "../roles/form/roleMemberCategoryForm";
 import { TestSubCategory } from "@/types";
 import { useRouter } from "next/router";
+import { CheckCircle, XCircle } from "phosphor-react";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -37,9 +38,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
 }) => {
   const { testList } = testStore();
   const { subscriptionDetails } = useSubscriptionStore();
-  const [selectedId, setSelectedId] = useState(
-    subscriptionDetails[0] ? subscriptionDetails[0].id : testList[0].id
-  );
+  const [selectedId, setSelectedId] = useState(testList[0].id);
 
   const selectedTest = testList.filter(
     (element) => element.id === selectedId
@@ -66,14 +65,15 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
           {selected ? selected.slug : ""}
         </p>
       </div>
-      <hr />
+      <hr className="border-t-[1px] border-gray-200" />
+
       <div className="flex flex-col">
         <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
           Tests
         </h1>
       </div>
 
-      <div className="w-full flex gap-6 ">
+      <div className="w-full flex gap-6 pb-4 ">
         <Tab.Group vertical>
           <Tab.List className="w-1/4 sm:w-full h-full flex flex-col  bg-white shadow-sm rounded-md overflow-hidden">
             {testList.map((test) => (
@@ -81,18 +81,40 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                 {({ selected }) => (
                   <button
                     onClick={() => {
-                      console.log(test.id);
                       setSelectedId(Number(test.id));
                     }}
                     className={classNames(
                       selected
                         ? "w-full py-4 px-6 border-green-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
-                        : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 '
+                        : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
                     )}
                   >
-                    <span className="text-xl font-medium capitalize">
-                      {test.name}
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-medium capitalize">
+                        {test.name}
+                      </span>
+                      <span>
+                        {subscriptionDetails.some(
+                          (element) => element.id === test.id
+                        ) ? (
+                          <CheckCircle
+                            size={24}
+                            weight="duotone"
+                            className={classNames(
+                              selected ? "text-green-400" : "text-green-700"
+                            )}
+                          />
+                        ) : (
+                          <XCircle
+                            size={24}
+                            weight="duotone"
+                            className={classNames(
+                              selected ? "text-red-400" : "text-red-700"
+                            )}
+                          />
+                        )}
+                      </span>
+                    </div>
                   </button>
                 )}
               </Tab>
@@ -118,6 +140,16 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                             type={"info"}
                             trueStatement={`Public:${
                               selectedTest.public ? " Yes" : " No"
+                            }`}
+                          />
+                          <BooleanTag
+                            type={"info"}
+                            trueStatement={`${
+                              subscriptionDetails.some(
+                                (element) => element.id === selectedTest.id
+                              )
+                                ? "Assigned"
+                                : "Not Assigned"
                             }`}
                           />
                         </div>
@@ -155,6 +187,16 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                             trueStatement={`Public:${
                               test.public ? " Yes" : " No"
                             }`}
+                          />{" "}
+                          <BooleanTag
+                            type={"info"}
+                            trueStatement={`${
+                              subscriptionDetails.some(
+                                (element) => element.id === selectedTest.id
+                              )
+                                ? "Assigned"
+                                : "Not Assigned"
+                            }`}
                           />
                         </div>
                       </div>{" "}
@@ -184,14 +226,14 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
           </Tab.Panels>
         </Tab.Group>
       </div>
-
-      <hr />
-      <div></div>
+      <hr className="border-t-[1px] border-gray-200" />
     </div>
   );
 };
 
 const SubscriptionSubTestTableRow = ({ data }: any) => {
+  const router = useRouter();
+
   return data ? (
     <tr className={"text-lg"}>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -216,13 +258,10 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag type={"info"} trueStatement={data.slug}></BooleanTag>
+        <BooleanTag type={"info"} trueStatement={data.slug} />
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag
-          type={"info"}
-          trueStatement={data.public ? "Yes" : "No"}
-        ></BooleanTag>
+        <BooleanTag type={"info"} trueStatement={data.public ? "Yes" : "No"} />
       </td>
       <td className="px-6 py-4">{data.desc}</td>
       <td className="font-medium px-6 py-4 whitespace-nowrap text-lg flex items-center justify-end">
@@ -230,7 +269,11 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
           onClick={async () =>
             alert({
               type: "promise",
-              promise: removeTestFromSubscription(data.category_id, data.id),
+              promise: removeTestFromSubscription(
+                Number(router.query.id),
+                data.category_id,
+                data.id
+              ),
               msgs: {
                 loading: "Removing Test",
               },
@@ -243,7 +286,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       </td>
     </tr>
   ) : (
-    <tr></tr>
+    <tr />
   );
 };
 
@@ -256,8 +299,9 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
   options,
   label = "",
 }) => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, formState } = useForm();
   const router = useRouter();
+  const { isDirty, isValid } = formState;
 
   const subtestOptions =
     options.length !== 0
@@ -295,7 +339,7 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
         />
       </div>
 
-      <Button>Assign</Button>
+      <Button disabled={!isDirty || !isValid}>Assign</Button>
     </form>
   );
 };

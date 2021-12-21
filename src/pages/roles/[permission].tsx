@@ -79,9 +79,10 @@ const RoleDetailPage = ({ idX }: any) => {
               </h1>
             </div>
 
-            <hr />
+            <hr className="border-t-[1px] border-gray-200" />
+
             <Permissions />
-            <hr />
+            <hr className="border-t-[1px] border-gray-200" />
 
             <div className="space-y-6">
               <div>
@@ -96,7 +97,7 @@ const RoleDetailPage = ({ idX }: any) => {
               <UpdateZone idX={idX} />
               <DeleteZone />
             </div>
-            <hr />
+            <hr className="border-t-[1px] border-gray-200" />
           </div>
         </div>
       ) : (

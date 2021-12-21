@@ -27,7 +27,8 @@ export const TestDetails = () => {
           distance
         </p>
       </div>
-      <hr />
+      <hr className="border-t-[1px] border-gray-200" />
+
       <div className="space-y-4">
         <h1 className="text-3xl font-semibold text-gray-700">
           Test Sub Categories
@@ -52,7 +53,8 @@ export const TestDetails = () => {
           />
         </div>
       </div>
-      <hr />
+      <hr className="border-t-[1px] border-gray-200" />
+
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-semibold text-gray-900">Alert Zone</h1>
