@@ -8,31 +8,37 @@
 
 import Image from "next/image";
 import { FacebookLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
-import { Briefcase, Calendar, Mail, Map, PhoneCall } from "react-feather";
-import CoverImage from "../../../public/assets/cover.png";
+import { Calendar, Mail, Map, PhoneCall } from "react-feather";
 import { PasswordModal } from "./passwordModal";
+import React from "react";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { alert } from "@/components/Alert";
+import { logoutUser } from "@/services/requests";
 
 export const ProfilePage: React.FC = () => {
+  const { user } = useAuthStore();
+
+  const onLogOut = async () => {
+    await alert({
+      promise: logoutUser(),
+      msgs: {
+        loading: "Logging Out",
+        success: "Logged Out Successfully",
+      },
+      id: "Login Toast",
+    });
+  };
+
   return (
     <>
       <div className="flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
         <div className="relative w-3/4 bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
-          <div className="relative w-full h-52 z-0">
-            <Image
-              src={CoverImage}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="50% 35%"
-              className="rounded-t-xl z-40"
-              placeholder="blur"
-              alt="Cover Image"
-            />
-          </div>
+          <div className="relative w-full h-52 z-0 profile "></div>
 
           <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
             <div className="relative w-40 h-40 z-10 ring-4 ring-white rounded-full">
               <Image
-                src="/assets/profile.jpg"
+                src="/assets/memberAvatar.svg"
                 layout="fill"
                 objectFit="cover"
                 className="z-40 rounded-full"
@@ -41,10 +47,10 @@ export const ProfilePage: React.FC = () => {
             </div>
             <div className="flex flex-col mt-10">
               <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-                Drakin Plywood
+                {user.name}
               </h1>
               <p className="text-gray-500 font-semibold text-xl sm:text-lg">
-                Superadmin
+                {user.role ? user.role.name : ""}
               </p>
             </div>
           </div>
@@ -75,35 +81,29 @@ export const ProfilePage: React.FC = () => {
                 <p className="text-2xl font-semibold text-gray-900">
                   Personal Info
                 </p>
-                <div className="flex items-center gap-x-4">
-                  <div className="text-gray-800">
-                    <Briefcase />
-                  </div>
-                  <span>Sunya Health</span>
-                </div>
                 <div className="flex gap-x-4">
                   <div className="text-gray-800">
                     <Mail />
                   </div>
-                  <span>anup.stha012@gmail.com</span>
+                  <span>{user.email}</span>
                 </div>
                 <div className="flex items-center gap-x-4">
                   <div className="text-gray-800">
                     <Map />
                   </div>
-                  <span>Illachen-17, Sundhara</span>
+                  <span>{user.address}</span>
                 </div>
                 <div className="flex items-center gap-x-4">
                   <div className="text-gray-800">
                     <PhoneCall />
                   </div>
-                  <span>9840748111</span>
+                  <span>{user.phone}</span>
                 </div>
                 <div className="flex items-center gap-x-4">
                   <div className="text-gray-800">
                     <Calendar />
                   </div>
-                  <span>Date joined: 2021/11/25</span>
+                  <span>Date of Birth: N/A</span>
                 </div>
               </div>
               <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
@@ -111,10 +111,7 @@ export const ProfilePage: React.FC = () => {
                   <p className="text-2xl font-semibold text-gray-900">
                     Short Summary
                   </p>
-                  <span>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Est, harum eveniet! Rerum cupiditate dolores nobis soluta
-                  </span>
+                  <span>N/A</span>
                 </div>
 
                 <div className="bg-gray-50 h-1/2 p-4 rounded-lg flex sm:w-full">
@@ -125,8 +122,7 @@ export const ProfilePage: React.FC = () => {
                       </p>
                     </div>
 
-                    <span>14 users added today</span>
-                    <span>34 organisations added today</span>
+                    <span>N/A</span>
                   </div>
                   <div className="w-1/4 border-l-2 border-gray-300 flex items-center justify-center">
                     <p className="text-green-500 text-xl font-bold cursor-pointer sm:whitespace-nowrap sm:pl-2">
@@ -143,7 +139,10 @@ export const ProfilePage: React.FC = () => {
             Update Public Profile Info
           </div>
           <PasswordModal />
-          <div className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850">
+          <div
+            onClick={() => onLogOut()}
+            className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850"
+          >
             Log Out
           </div>
         </div>

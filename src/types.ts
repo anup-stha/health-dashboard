@@ -143,6 +143,10 @@ export type LoginResponse = StatusType & {
   };
 };
 
+export type ProfileRequestResponse = StatusType & {
+  data: User;
+};
+
 export type LoginRequest = {
   email: string;
   password: string;

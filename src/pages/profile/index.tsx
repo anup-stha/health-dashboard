@@ -9,12 +9,23 @@
 import withAuth from "@/shared/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 import { ProfilePage } from "@/modules/profile";
+import { useEffect, useState } from "react";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
 
 const Profile = () => {
-  return (
-    <MainLayout>
-      <ProfilePage />;
-    </MainLayout>
-  );
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      setLoading(true);
+      await getCurrentUserProfile()
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
+    };
+
+    getProfile();
+  }, []);
+
+  return <MainLayout>{loading ? "Loading" : <ProfilePage />}</MainLayout>;
 };
 export default withAuth(Profile);

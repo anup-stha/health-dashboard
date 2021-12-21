@@ -17,7 +17,6 @@ import {
 } from "@/types";
 
 import { privateAgent } from ".";
-import { getRoleDetail } from "./authRequests";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import useSWRImmutable from "swr/immutable";
 
@@ -100,6 +99,18 @@ export const getAllPermissions = (): Promise<
   return privateAgent.get("permission/");
 };
 
+export const getRoleDetail = async (idX: number) => {
+  await getRoleDetails(idX)
+    .then((response) => {
+      useRoleStore.getState().setSelectedPermission({
+        current: response.data.data.permissions,
+        initial: response.data.data.permissions,
+        selected: [],
+        deselected: [],
+      });
+    })
+    .catch(() => {});
+};
 export const addPermissionToRole = (id: number, permId: number[]) => {
   return new Promise((resolve, reject) =>
     privateAgent

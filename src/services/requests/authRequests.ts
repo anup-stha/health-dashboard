@@ -7,11 +7,14 @@
  */
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { LoginRequest, LoginResponse, LogoutRequest } from "@/types";
+import {
+  LoginRequest,
+  LoginResponse,
+  LogoutRequest,
+  ProfileRequestResponse,
+} from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
-import { getRoleDetails } from "./roleRequests";
 import { useGlobalState } from "@/modules/useGlobalState";
 
 export const login = (loginRequest: LoginRequest) => {
@@ -53,15 +56,16 @@ export const logOut = () => {
   );
 };
 
-export const getRoleDetail = async (idX: number) => {
-  await getRoleDetails(idX)
-    .then((response) => {
-      useRoleStore.getState().setSelectedPermission({
-        current: response.data.data.permissions,
-        initial: response.data.data.permissions,
-        selected: [],
-        deselected: [],
+export const getCurrentUserProfile = () => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .get<ProfileRequestResponse>("auth/me")
+      .then((response) => {
+        useAuthStore.getState().setUserProfile(response.data.data);
+        resolve(response.data.message);
+      })
+      .catch((error) => {
+        reject(error.response);
       });
-    })
-    .catch(() => {});
+  });
 };

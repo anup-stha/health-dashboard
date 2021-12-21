@@ -121,7 +121,7 @@ export const ImageAvatar: React.FC = () => {
                 className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}
               >
                 <span className="text-xl font-semibold">
-                  Hi, {user.name.split(" ")[0]}
+                  Hi, {user.name ? user.name.split(" ")[0] : ""}
                 </span>
                 <CaretDown size={22} />
               </div>

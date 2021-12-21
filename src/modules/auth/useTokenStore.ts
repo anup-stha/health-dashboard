@@ -8,8 +8,7 @@
 
 import { LoginResponse, User } from "@/types";
 import create from "zustand";
-import { combine } from "zustand/middleware";
-import { devtools, persist } from "zustand/middleware";
+import { combine, devtools, persist } from "zustand/middleware";
 
 const userDataKey = "@sunya/user-data";
 const initialState = {
@@ -26,6 +25,13 @@ export const store = combine(initialState, (set) => ({
       user: res.data.user,
     });
   },
+  setUserProfile: (res: User) => {
+    set((state) => ({
+      ...state,
+      user: res,
+    }));
+  },
+
   removeUserData: () => {
     set({
       status: false,
