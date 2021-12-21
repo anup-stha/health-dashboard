@@ -20,11 +20,8 @@ const Subscription = () => {
   const { selectedRole, loading, setLoadingTrue, setLoadingFalse } =
     memberStore();
 
-  const {
-    setLoading: setSubsLoading,
-    loading: subsLoading,
-    subscriptionList,
-  } = useSubscriptionStore();
+  const { setLoading: setSubsLoading, loading: subsLoading } =
+    useSubscriptionStore();
 
   useEffect(() => {
     const getRoles = async () => {
