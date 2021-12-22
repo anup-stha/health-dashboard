@@ -81,28 +81,27 @@ export const Permissions = () => {
               className={isItemSelected ? activeClass : inactiveClass}
               key={select.id}
             >
-              <div className="flex items-center justify-center h-full space-x-4">
-                <div>
-                  <Image
-                    src="/assets/permission1.png"
-                    alt={select.name}
-                    width={64}
-                    height={64}
-                    objectFit="cover"
-                    layout="fixed"
-                  />
+              <div className="flex items-center justify-between h-full space-x-4">
+                <div className="flex items-center space-x-4">
+                  <div>
+                    <Image
+                      src="/assets/permission1.png"
+                      alt={select.name}
+                      width={64}
+                      height={64}
+                      objectFit="cover"
+                      layout="fixed"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1">
+                    <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">
+                      {select.name}
+                    </span>
+                    <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
+                      {select.description}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col space-y-1">
-                  <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">
-                    {select.name}
-                  </span>
-                  <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
-                    {
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab"
-                    }
-                  </span>
-                </div>
-
                 <div className="max-w-sm mx-auto">
                   <label className="inline-flex items-center">
                     <input

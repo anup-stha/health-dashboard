@@ -30,6 +30,7 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
         <div className="relative w-full">
           <input
             {...props}
+            autoComplete={props.autoComplete ?? "off"}
             required={true}
             className={error ? "input_error relative" : "input_container"}
             ref={ref}

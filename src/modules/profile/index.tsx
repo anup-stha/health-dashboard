@@ -56,7 +56,7 @@ export const ProfilePage: React.FC = () => {
           </div>
           <div className="px-6 py-6 min-h-[10rem] sm:px-2">
             <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 ">
-              <div className="sm:hidden"></div>
+              <div className="sm:hidden" />
               <div className="flex items-center gap-1 sm:mt-24 sm:ml-4">
                 <p className="text-gray-800 text-xl font-semibold">Share</p>
                 <FacebookLogo

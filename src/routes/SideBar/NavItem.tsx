@@ -41,11 +41,11 @@ export const NavItem: React.FC<NavItemProps> = ({
         <div
           className={`flex relative ${
             open
-              ? "items-start justify-start px-4 group"
-              : "items-center px-4 delay-300 group"
+              ? "items-start justify-start px-4"
+              : "items-center px-4 delay-300"
           }`}
         >
-          <span className="flex items-center gap-x-4">
+          <span className="flex items-center gap-x-4 peer">
             <div>{route.icon}</div>
 
             {open && (
@@ -56,7 +56,7 @@ export const NavItem: React.FC<NavItemProps> = ({
           </span>
 
           {!open && (
-            <div className="text-gray-50 rounded-md shadow-E200 bg-gray-800  h-10 absolute left-[150%] opacity-0 w-0 group-hover:w-36 group-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+            <div className="text-gray-50 rounded-md shadow-E200 bg-gray-800  h-10 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
               {route.title}
             </div>
           )}

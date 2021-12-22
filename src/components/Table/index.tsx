@@ -27,7 +27,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
   const headings = tableHeadings ? tableHeadings : Object.keys(tableData[0]);
 
   return !loading ? (
-    <div className="flex flex-col">
+    <div className="flex flex-col animate-fade transition-all duration-100">
       <div className="sm:-mx-8 lg:-mx-8">
         <div
           className={`py-2 align-middle ${

@@ -21,13 +21,14 @@ export const MainHeader: React.FC = () => {
         !open ? "pl-24" : "pl-[18%]"
       } `}
     >
-      <div className="h-20 flex items-center justify-between px-12">
+      <div className="h-24 flex items-center justify-between px-12">
         <div>{/* Put Logo Her */}</div>
 
         <ImageAvatar />
       </div>
+      <hr className="border-t-[1px] border-gray-200" />{" "}
       {router.asPath !== "/dashboard" && (
-        <div className="bg-white h-12 w-full flex border-t-2 border-gray-100 px-10">
+        <div className="bg-white h-12 w-full flex px-10">
           <Breadcrumbs />
         </div>
       )}

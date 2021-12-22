@@ -20,7 +20,7 @@ export const Sidebar: React.FC = () => {
   return (
     <nav
       className={`${
-        open ? "w-[18%] px-4 py-6 sm:w-1/2 md:w-1/3 lg:w-1/4" : "w-24 p-4"
+        open ? "w-[18%] px-4 py-4 sm:w-1/2 md:w-1/3 lg:w-1/4" : "w-24 px-4"
       } transition-all duration-100 h-screen min-h-0 z-30 fixed shadow-E400 bg-white space-y-12 sidebar text-3xl flex flex-col justify-between `}
       style={{
         scrollbarWidth: "none",

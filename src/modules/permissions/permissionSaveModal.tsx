@@ -55,7 +55,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
 
                     return (
                       <div
-                        className="flex items-center justify-center h-full space-x-4  p-4 shadow-E500 rounded-sm"
+                        className="flex items-center h-full space-x-4  p-4 shadow-E500 rounded-sm"
                         key={permissionId}
                       >
                         <div>
@@ -73,8 +73,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
                             {permissionDetail.name}
                           </span>
                           <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Dignissimos natus
+                            {permissionDetail.description}
                           </span>
                         </div>
                       </div>
@@ -96,7 +95,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
 
                     return (
                       <div
-                        className="flex items-center justify-center h-full space-x-4 p-4 shadow-E500 rounded-sm ring-red-700 ring-opacity-75 ring-2"
+                        className="flex items-center h-full space-x-4 p-4 shadow-E500 rounded-sm ring-red-700 ring-opacity-75 ring-2"
                         key={permissionId}
                       >
                         <div>
@@ -114,11 +113,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
                             {permissionDetail.name}
                           </span>
                           <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Dignissimos natus a nisi ipsa accusantium
-                            neque quam quas, tempora obcaecati sint aspernatur
-                            temporibus saepe esse sapiente necessitatibus nemo.
-                            Error, dolorum illum
+                            {permissionDetail.description}
                           </span>
                         </div>
                       </div>

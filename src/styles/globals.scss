@@ -61,9 +61,27 @@ html {
   }
 }
 
-@media (max-width: 112.5em) {
+@media (max-width: 120em) {
   html {
     font-size: 75%;
+  }
+}
+
+@media (min-width: 120em) {
+  html {
+    font-size: 90%;
+  }
+}
+
+@media (min-width: 130em) {
+  html {
+    font-size: 100%;
+  }
+}
+
+@media (min-width: 140em) {
+  html {
+    font-size: 110%;
   }
 }
 
@@ -209,13 +227,6 @@ html {
 .sidebar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-}
-
-.gradient-text {
-  background: -webkit-linear-gradient(rgb(137, 187, 43), rgb(63, 211, 55));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .overflow,

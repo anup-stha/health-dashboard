@@ -182,12 +182,12 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                 />
               )}
             </div>
-            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-center gap-4 sm:w-full ">
+            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full ">
               <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
                 {selectedMemberSubscription.plan.name}
               </h1>
 
-              <div className="space-y-1 flex flex-col items-center">
+              <div className="space-y-1 flex flex-col items-start">
                 <div className="flex space-x-4 items-center">
                   <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
                     <span>Start Date:</span>
@@ -249,27 +249,27 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                     {selectedMemberSubscription.total_test_count} times
                   </h1>
                 </div>
-                <div className={"w-full flex space-x-4 pt-8"}>
-                  {Object.keys(selectedMemberSubscription).length !== 0 && (
-                    <GrayButton>Renew</GrayButton>
-                  )}
-                  <WarningButton
-                    onClick={async () => {
-                      await alert({
-                        type: "promise",
-                        promise: removeSubscriptionFromMember(
-                          Number(router.query.id)
-                        ),
-                        msgs: {
-                          loading: "Removing",
-                        },
-                        id: "remove-subs",
-                      });
-                    }}
-                  >
-                    Unlink
-                  </WarningButton>
-                </div>
+              </div>
+              <div className={"w-full flex space-x-4"}>
+                {Object.keys(selectedMemberSubscription).length !== 0 && (
+                  <GrayButton>Renew</GrayButton>
+                )}
+                <WarningButton
+                  onClick={async () => {
+                    await alert({
+                      type: "promise",
+                      promise: removeSubscriptionFromMember(
+                        Number(router.query.id)
+                      ),
+                      msgs: {
+                        loading: "Removing",
+                      },
+                      id: "remove-subs",
+                    });
+                  }}
+                >
+                  Unlink
+                </WarningButton>
               </div>
             </div>
           </div>

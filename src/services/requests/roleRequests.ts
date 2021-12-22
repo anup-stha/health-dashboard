@@ -19,6 +19,7 @@ import {
 import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import useSWRImmutable from "swr/immutable";
+import { memberStore } from "@/modules/members/memberStore";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
@@ -117,8 +118,15 @@ export const addPermissionToRole = (id: number, permId: number[]) => {
       .post<PermissionListResponse>(`role/assign/${id}/permission`, {
         permissions: permId,
       })
-      .then(() => {
+      .then(async () => {
         getRoleDetail(id);
+        await listRole().then((response) => {
+          const selectedRole = response.data.data.filter(
+            (role) => role.id === Number(id)
+          )[0];
+
+          memberStore.getState().setSelectedRole(selectedRole);
+        });
         resolve("Saved");
       })
       .catch((error) => reject(error.response))
@@ -131,8 +139,15 @@ export const removePermissionFromRole = (id: any, permId: any) => {
       .post<NullDataResponse>(`role/remove/${id}/permission/${permId}`, {
         permissions: permId,
       })
-      .then(() => {
+      .then(async () => {
         getRoleDetail(id);
+        await listRole().then((response) => {
+          const selectedRole = response.data.data.filter(
+            (role) => role.id === Number(id)
+          )[0];
+
+          memberStore.getState().setSelectedRole(selectedRole);
+        });
         resolve("Removed");
       })
       .catch((error) => reject(error.response))

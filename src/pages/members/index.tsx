@@ -49,8 +49,8 @@ const Members: NextPage = () => {
           setLoading(false);
         });
     };
-    useRoleStore.getState().roleList.length === 0 && getRoles();
 
+    useRoleStore.getState().roleList.length === 0 && getRoles();
     listMember();
   }, [selectedRole]);
 
@@ -59,7 +59,7 @@ const Members: NextPage = () => {
       <Head>
         <title>Members</title>
       </Head>
-      {!loading ? <MemberPage /> : <MainLayout></MainLayout>}
+      <MainLayout>{!loading ? <MemberPage /> : <div>Loading</div>}</MainLayout>
     </>
   );
 };

@@ -23,6 +23,7 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        fade: "fadeIn 200ms ease-in-out",
       },
       keyframes: {
         enter: {
@@ -36,6 +37,10 @@ module.exports = {
         "slide-in": {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
       },
       maxWidth: {

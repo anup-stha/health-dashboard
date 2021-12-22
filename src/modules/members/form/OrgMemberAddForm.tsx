@@ -68,6 +68,7 @@ export const OrgMemberAddForm = () => {
           label="Password"
           type="password"
           placeholder="Enter Password"
+          autoComplete={"new-password"}
           {...register("password")}
         />
       </div>

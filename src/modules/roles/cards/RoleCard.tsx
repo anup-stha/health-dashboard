@@ -61,8 +61,8 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
           <Button
             buttonSize="small"
             onClick={() => {
-              useRoleStore.getState().setSelectedId(Number(id));
               router.push(`/roles/${id}`);
+              useRoleStore.getState().setSelectedId(Number(id));
             }}
           >
             Edit Permissions
@@ -101,8 +101,8 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
           <Button
             buttonSize="small"
             onClick={() => {
-              useRoleStore.getState().setSelectedId(Number(id));
               router.push(`/roles/${id}`);
+              useRoleStore.getState().setSelectedId(Number(id));
             }}
           >
             Edit Permissions
