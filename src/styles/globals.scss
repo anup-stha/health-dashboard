@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 6:04 PM
+ * Last Modified 12/22/21, 11:32 PM
  *
  *
  */
@@ -18,7 +18,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-
   @apply bg-gray-100;
 }
 
@@ -31,6 +30,7 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
 a {
   color: inherit;
   text-decoration: none;
@@ -49,6 +49,7 @@ html {
     font-size: 37.5%;
   }
 }
+
 @media (max-width: 56.25em) {
   html {
     font-size: 40%;
@@ -213,6 +214,7 @@ html {
     -webkit-transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
@@ -242,6 +244,13 @@ input:checked ~ .dot {
 .profile {
   @apply bg-gray-400;
 }
+
 datalist {
   display: none;
+}
+
+.dashboard-bg {
+  height: 85vh;
+  background: url("/assets/dashboard.svg") no-repeat 450% 100%;
+  background-size: 90% 90%;
 }

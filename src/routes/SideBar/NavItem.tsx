@@ -24,9 +24,9 @@ export const NavItem: React.FC<NavItemProps> = ({
   const { pathname, push } = useRouter();
 
   const activeStyles =
-    "text-gray-900 bg-gray-100  py-3 rounded-lg cursor-pointer hover:bg-gray-200 ";
+    "text-gray-900 bg-gray-100 relative py-3 rounded-lg cursor-pointer hover:bg-gray-200 ";
   const inactiveStyles =
-    "text-gray-500 hover:text-gray-900 py-3 rounded-lg cursor-pointer hover:bg-white ";
+    "text-gray-500 hover:text-gray-900 relative py-3 rounded-lg cursor-pointer hover:bg-white ";
 
   return (
     <div className={containerClassName}>
@@ -39,13 +39,13 @@ export const NavItem: React.FC<NavItemProps> = ({
         onClick={() => route.link && push(route.link)}
       >
         <div
-          className={`flex relative ${
+          className={`flex relative peer ${
             open
               ? "items-start justify-start px-4"
               : "items-center px-4 delay-300"
           }`}
         >
-          <span className="flex items-center gap-x-4 peer">
+          <span className="flex items-center gap-x-4">
             <div>{route.icon}</div>
 
             {open && (
@@ -54,13 +54,12 @@ export const NavItem: React.FC<NavItemProps> = ({
               </span>
             )}
           </span>
-
-          {!open && (
-            <div className="text-gray-50 rounded-md shadow-E200 bg-gray-800  h-10 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
-              {route.title}
-            </div>
-          )}
         </div>
+        {!open && (
+          <div className="text-gray-50 rounded-md shadow-E200 bg-gray-800  h-10 absolute top-0 translate-y-1/4 left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+            {route.title}
+          </div>
+        )}
       </li>
     </div>
   );

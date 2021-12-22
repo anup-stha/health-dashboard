@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:20 AM
+ * Last Modified 12/22/21, 10:17 PM
  *
  *
  */
@@ -16,6 +16,7 @@ import {
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
+import useSWRImmutable from "swr/immutable";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -68,4 +69,13 @@ export const getCurrentUserProfile = () => {
         reject(error.response);
       });
   });
+};
+
+const getDashboardData = (url: string) =>
+  privateAgent.get<any>(url).then((response) => {
+    return response.data.data;
+  });
+
+export const useDashboardData = () => {
+  return useSWRImmutable(`/dashboard`, getDashboardData);
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/22/21, 10:11 PM
  *
  *
  */
@@ -27,7 +27,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   const { open } = useSideBarStore();
 
   const mainItemStyles =
-    "text-gray-500 hover:text-gray-900 py-3 rounded-lg cursor-pointer hover:bg-white";
+    "text-gray-500 hover:text-gray-900 py-3 rounded-lg cursor-pointer hover:bg-white relative";
 
   const onExpandChange = () => {
     setExpand((expand) => !expand);
@@ -37,14 +37,14 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
     <ul className="flex flex-col gap-y-1">
       <li onClick={() => onExpandChange()} className={mainItemStyles}>
         <div
-          className={`flex relative ${
+          className={`flex  peer ${
             open
               ? "items-start justify-start px-4"
               : "items-center px-4 delay-300"
           }`}
         >
           <span
-            className={`flex items-center gap-x-4 w-full peer ${
+            className={`flex items-center gap-x-4 w-full ${
               expand || isPathSelected ? "text-gray-800" : ""
             }`}
           >
@@ -59,13 +59,12 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
               </div>
             )}
           </span>
-
-          {!open && (
-            <div className=" text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800  h-10 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
-              {subRoutes.title}
-            </div>
-          )}
         </div>
+        {!open && (
+          <div className=" text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800  h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+            {subRoutes.title}
+          </div>
+        )}
       </li>
 
       {expand && (
