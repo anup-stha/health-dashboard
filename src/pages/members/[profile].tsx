@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:29 PM
+ * Last Modified 12/23/21, 10:05 PM
  *
  *
  */
@@ -39,8 +39,8 @@ import { useTestList } from "@/services/requests/testRequests";
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const router = useRouter();
 
-  const { isLoading: memberDetailsLoading } = useMemberDetails(Number(idX.id));
-  const { isLoading: memberSubsDetailsData } = useMemberSubsDetails(
+  const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
+  const { isFetching: memberSubsDetailsData } = useMemberSubsDetails(
     Number(idX.id)
   );
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
