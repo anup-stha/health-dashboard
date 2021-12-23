@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 2:52 PM
+ * Last Modified 12/23/21, 9:51 PM
  *
  *
  */
@@ -25,7 +25,7 @@ export const MemberTable = () => {
           layout="fill"
           objectFit="cover"
           priority={true}
-        />{" "}
+        />
       </div>
     </div>
   ) : (

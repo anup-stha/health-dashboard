@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/23/21, 9:51 PM
  *
  *
  */
@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import { memberStore } from "@/modules/members/memberStore";
 
 export const SubscriptionTable = () => {
-  const { subscriptionList, loading } = useSubscriptionStore();
+  const { subscriptionList } = useSubscriptionStore();
 
   return subscriptionList.list.length === 0 ? (
     <div className="flex justify-center">
@@ -34,7 +34,6 @@ export const SubscriptionTable = () => {
   ) : (
     <TableView
       data={subscriptionList.list}
-      loading={loading}
       tableHeadings={[
         "Name",
         "Price",
@@ -44,7 +43,7 @@ export const SubscriptionTable = () => {
         "Test Limit",
       ]}
       tableRowComponent={<SubscriptionTableRow />}
-      //   loading={loading}
+      loading={false}
     />
   );
 };

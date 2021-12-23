@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:11 PM
+ * Last Modified 12/23/21, 9:29 PM
  *
  *
  */
@@ -13,20 +13,18 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import {
   assignSubscriptionToMember,
-  listSubscription,
   useMemberSubsDetails,
+  useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
-import { listRole, useRoleDetails } from "@/services/requests/roleRequests";
+import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
 import {
-  getMemberList,
   getMemberTestList,
   useMemberDetails,
+  useMemberList,
 } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
-import { Member, Role } from "@/types";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { ProfileSubscription } from "@/modules/members/profile/profileSubscription";
 import { MemberDetailAddModal } from "@/modules/members/profile/memberDetailAddModal";
 import { MemberProfileData } from "@/modules/members/profile/memberProfile";
@@ -36,53 +34,31 @@ import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscription
 import { GrayButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import { ProfileTest } from "@/modules/members/profile/ProfileTest";
-import { listTests } from "@/services/requests/testRequests";
+import { useTestList } from "@/services/requests/testRequests";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
-  const [role, setRole] = useState<Role>({} as Role);
-  const [selectedRoleLoading, setSelectedRoleLoading] = useState(false);
-  const [testLoading, setTestLoading] = useState(false);
-
-  const [active, setActive] = useState(false);
-  const [verified, setVerified] = useState(false);
-  const [selectedMemberDetails, setSelectedMemberDetails] = useState(
-    {} as Member
-  );
   const router = useRouter();
 
+  const { isLoading: memberDetailsLoading } = useMemberDetails(Number(idX.id));
+  const { isLoading: memberSubsDetailsData } = useMemberSubsDetails(
+    Number(idX.id)
+  );
+  const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
+  const { isLoading: testLoading } = useTestList();
+  const { isLoading: subsLoading } = useSubscriptionList(Number(idX.role));
+  const { isLoading: roleListLoading } = useRoleList();
+  const { isLoading: memberLoading } = useMemberList(Number(idX.role));
+
   const {
-    toggleLoading,
-    setError,
-    loading: memberLoading,
-    setMemberList,
     selectedMemberSubscription,
     selectedTestInProfile,
+    selectedRole,
+    selectedMember,
   } = memberStore();
 
-  const {
-    selectedSubscription,
-    subscriptionList,
-    loading: subsLoading,
-    setLoading: setSubsLoading,
-  } = useSubscriptionStore();
-
-  const { data: memberDetailsData } = useMemberDetails(Number(idX.id));
-  const { data: memberSubsDetailsData } = useMemberSubsDetails(Number(idX.id));
-  const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
-
-  useEffect(() => {
-    roleDetailsData && setRole(roleDetailsData);
-  }, [roleDetailsData]);
-
-  useEffect(() => {
-    const getTests = async () => {
-      setTestLoading(true);
-      await listTests()
-        .then(() => setTestLoading(false))
-        .catch(() => setTestLoading(false));
-    };
-    getTests();
-  }, []);
+  const [active, setActive] = useState(selectedMember.active);
+  const [verified, setVerified] = useState(selectedMember.verified);
+  const { selectedSubscription, subscriptionList } = useSubscriptionStore();
 
   useEffect(() => {
     const listMemberTest = async () => {
@@ -92,70 +68,14 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     Object.keys(selectedTestInProfile).length !== 0 && listMemberTest();
   }, [selectedTestInProfile.id]);
 
-  useEffect(() => {
-    const getSubscription = async () => {
-      setSubsLoading(true);
-      await listSubscription(Number(idX.role))
-        .then(() => setSubsLoading(false))
-        .catch(() => setSubsLoading(false));
-    };
-    getSubscription();
-  }, [idX.role]);
-
-  useEffect(() => {
-    const listMember = async () => {
-      toggleLoading();
-      await getMemberList(idX.role)
-        .then((response) => {
-          const details = response.data.data.list.filter(
-            (member) => member.id === Number(idX.id)
-          )[0];
-
-          setMemberList(response.data);
-          setSelectedMemberDetails(details);
-          setActive(details.active);
-          setVerified(details.verified);
-          toggleLoading();
-        })
-        .catch((error) => {
-          toggleLoading();
-          setError(error);
-        });
-    };
-
-    const getRoles = async () => {
-      setSelectedRoleLoading(true);
-      await listRole()
-        .then((response) => {
-          useRoleStore.getState().setRoleList(response.data.data);
-
-          useRoleStore
-            .getState()
-            .setSelectedRole(
-              response.data.data.filter(
-                (role) => role.id === Number(idX.role)
-              )[0]
-            );
-
-          setSelectedRoleLoading(false);
-        })
-        .catch(() => {
-          setSelectedRoleLoading(false);
-        });
-    };
-
-    getRoles().catch(() => {});
-    listMember().catch(() => {});
-  }, [idX.id, idX.role]);
-
   return (
     <MainLayout>
       {subsLoading ||
+      roleListLoading ||
       !roleDetailsData ||
       memberLoading ||
-      selectedRoleLoading ||
-      !memberSubsDetailsData ||
-      !memberDetailsData ||
+      memberSubsDetailsData ||
+      memberDetailsLoading ||
       testLoading ? (
         <div>Loading</div>
       ) : (
@@ -163,8 +83,8 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
           <div className="  flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
             <div className="w-3/4 space-y-8">
               <MemberProfileData
-                selectedMemberDetails={selectedMemberDetails}
-                role={role}
+                selectedMemberDetails={selectedMember}
+                role={selectedRole}
                 active={active}
                 verified={verified}
               />
@@ -234,8 +154,8 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
               )}
               <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4">
                 <MemberDetailAddModal
-                  memberData={selectedMemberDetails}
-                  selectedRole={role}
+                  memberData={selectedMember}
+                  selectedRole={selectedRole}
                 />
               </div>
               <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
@@ -244,14 +164,14 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   memberId={Number(idX.id)}
                   currentState={active}
                   setCurrentState={setActive}
-                  selectedMemberDetails={selectedMemberDetails}
+                  selectedMemberDetails={selectedMember}
                 />
                 <MemberToggle
                   toggle={"verified"}
                   memberId={Number(idX.id)}
                   currentState={verified}
                   setCurrentState={setVerified}
-                  selectedMemberDetails={selectedMemberDetails}
+                  selectedMemberDetails={selectedMember}
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:19 PM
+ * Last Modified 12/23/21, 9:51 PM
  *
  *
  */
@@ -19,19 +19,32 @@ import {
 } from "@/types";
 import { privateAgent } from ".";
 import { memberStore } from "@/modules/members/memberStore";
-import useSWRImmutable from "swr/immutable";
 import Router from "next/router";
+import { useQuery } from "react-query";
 
-export const listSubscription = (id: number) =>
-  privateAgent
-    .get<SubscriptionListResponse>(`subscription/${id}`)
+export const listSubscriptions = (roleId: number) => {
+  return privateAgent
+    .get<SubscriptionListResponse>(`subscription/${roleId}`)
     .then((response) => {
       useSubscriptionStore.getState().setSubscriptionList(response.data.data);
       return response.data.data;
     })
     .catch((error) => {
-      throw new Error(error.response.message);
+      useSubscriptionStore.getState().setSubscriptionList([]);
+
+      return error.response;
     });
+};
+
+export const useSubscriptionList = (roleId: number) => {
+  return useQuery(
+    ["subscription-list", roleId],
+    () => listSubscriptions(roleId),
+    {
+      enabled: !!roleId,
+    }
+  );
+};
 
 export const listSubscriptionDetail = (subs_id: number) =>
   privateAgent
@@ -194,9 +207,9 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
   );
 };
 
-export const listMemberSubscriptionDetails = (url: string) =>
+export const listMemberSubscriptionDetails = (member_id: number) =>
   privateAgent
-    .get<MemberSubscriptionDetailsResponse>(url)
+    .get<MemberSubscriptionDetailsResponse>(`member/subscription/${member_id}`)
     .then((response) => {
       memberStore.getState().setSelectedMemberSubscription(response.data.data);
       useSubscriptionStore.getState().setSubscription(response.data.data.plan);
@@ -210,8 +223,11 @@ export const listMemberSubscriptionDetails = (url: string) =>
     });
 
 export const useMemberSubsDetails = (memberId: number) => {
-  return useSWRImmutable(
-    `member/subscription/${memberId}`,
-    listMemberSubscriptionDetails
+  return useQuery(
+    ["member-subs-details", memberId],
+    () => listMemberSubscriptionDetails(memberId),
+    {
+      enabled: !!memberId,
+    }
   );
 };

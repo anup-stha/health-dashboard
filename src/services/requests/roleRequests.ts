@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 10:53 AM
+ * Last Modified 12/23/21, 9:13 PM
  *
  *
  */
@@ -18,9 +18,9 @@ import {
 
 import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import useSWRImmutable from "swr/immutable";
 import { memberStore } from "@/modules/members/memberStore";
 import { useQuery } from "react-query";
+import Router from "next/router";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
@@ -29,6 +29,14 @@ export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
 export const getRoleList = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
     useRoleStore.getState().setRoleList(response.data.data);
+    Router.query.role &&
+      memberStore
+        .getState()
+        .setSelectedRole(
+          response.data.data.filter(
+            (role) => role.id === Number(Router.query.role)
+          )[0]
+        );
     return response.data;
   });
 };
@@ -45,13 +53,18 @@ export const getRoleDetails = (
   return privateAgent.get(`role/detail/${id}`);
 };
 
-const listRoleDetails = (url: string) =>
-  privateAgent.get<RoleDetailResponse>(url).then((response) => {
-    return response.data.data;
-  });
+const listRoleDetails = (roleId: number) =>
+  privateAgent
+    .get<RoleDetailResponse>(`role/detail/${roleId}`)
+    .then((response) => {
+      return response.data.data;
+    })
+    .catch((error) => error.response);
 
 export const useRoleDetails = (roleId: number) => {
-  return useSWRImmutable(`role/detail/${roleId}`, listRoleDetails);
+  return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
+    enabled: roleId !== 0,
+  });
 };
 
 export const addRole = ({

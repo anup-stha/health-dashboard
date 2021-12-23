@@ -1,64 +1,31 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:23 AM
+ * Last Modified 12/23/21, 9:47 PM
  *
  *
  */
 
 import withAuth from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-import { memberStore } from "@/modules/members/memberStore";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
 import SubscriptionPage from "@/modules/subscriptions";
-import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { listRole } from "@/services/requests/roleRequests";
-import { useEffect } from "react";
-import { listSubscription } from "@/services/requests/subscriptionRequests";
+import { useRoleList } from "@/services/requests/roleRequests";
+import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
+import { memberStore } from "@/modules/members/memberStore";
 
 const Subscription = () => {
-  const { selectedRole, loading, setLoadingTrue, setLoadingFalse } =
-    memberStore();
+  const { selectedRole } = memberStore();
 
-  const {
-    setLoading: setSubsLoading,
-    loading: subsLoading,
-    subscriptionList,
-  } = useSubscriptionStore();
+  const { isLoading: subsLoading } = useSubscriptionList(
+    Number(selectedRole.id)
+  );
+  const { isLoading: roleListLoading } = useRoleList();
 
-  useEffect(() => {
-    const getRoles = async () => {
-      setLoadingTrue();
-      await listRole()
-        .then((response) => {
-          useRoleStore.getState().setRoleList(response.data.data);
-          setLoadingFalse();
-        })
-        .catch(() => {
-          setLoadingTrue();
-        });
-    };
-    const getSubscription = async () => {
-      setSubsLoading(true);
-      await listSubscription(Number(selectedRole.id))
-        .then(() => {
-          useSubscriptionStore
-            .getState()
-            .setSubscriptionRole(Number(selectedRole.id));
-          setSubsLoading(false);
-        })
-        .catch(() => setSubsLoading(false));
-    };
-
-    if (selectedRole.id !== subscriptionList.roleId) {
-      useSubscriptionStore.getState().setSubscriptionList([]);
-      getSubscription();
-    }
-
-    useRoleStore.getState().roleList.length === 0 && getRoles();
-  }, [selectedRole.id]);
-
-  return loading ? <div></div> : <SubscriptionPage loading={subsLoading} />;
+  return !roleListLoading ? (
+    <SubscriptionPage loading={subsLoading} />
+  ) : (
+    <div />
+  );
 };
 
 export default withAuth(withRole(Subscription));

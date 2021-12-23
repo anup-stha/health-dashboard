@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 3:42 PM
+ * Last Modified 12/23/21, 9:07 PM
  *
  *
  */
 
-import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { Modal } from "@/components/Modal/useModal";
 import { MemberDetailCategory } from "@/types";
 import React, { Fragment, useEffect } from "react";
@@ -21,9 +20,7 @@ import { useForm } from "react-hook-form";
 
 export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const router = useRouter();
-  const selectedRole = useRoleStore.getState().selectedRole;
-  const selectedMemberDetails = memberStore.getState().selectedMemberDetails;
-
+  const { selectedRole, selectedMemberDetails } = memberStore();
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
@@ -53,7 +50,8 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
           {memberData.name}
           {"'s"} Details
         </Modal.Title>
-        {selectedRole.member_detail_categories.length === 0 ? (
+        {selectedRole.member_detail_categories &&
+        selectedRole.member_detail_categories.length === 0 ? (
           <div className="flex items-center text-red-500 space-x-4">
             <WarningOctagon size={40} />{" "}
             <span className={"font-semibold text-xl"}>
@@ -75,7 +73,7 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
                   type: "promise",
                   promise: addDetailsToMember(
                     Number(selectedRole.id),
-                    memberData.id,
+                    Number(router.query.id),
                     values
                   ),
                   msgs: {

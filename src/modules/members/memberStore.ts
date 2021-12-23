@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 2:11 PM
+ * Last Modified 12/23/21, 8:21 PM
  *
  *
  */
 
 import create from "zustand";
 import {
+  Member,
   MemberDetails,
   MemberList,
   MemberListResponse,
@@ -31,6 +32,7 @@ const initialState = {
     state: false,
     message: "",
   },
+  selectedMember: {} as Member,
   selectedMemberDetails: [] as MemberDetails[],
   selectedMemberSubscription: ({} as MemberSubscriptionDetails) || {},
 
@@ -44,6 +46,12 @@ export const store = combine(initialState, (set) => ({
       status: { state: res.status, message: res.message },
       memberList: res.data.list,
       pagination: res.data.pagination,
+    });
+  },
+
+  setSelectedMember: (member: Member) => {
+    set({
+      selectedMember: member,
     });
   },
 

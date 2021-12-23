@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 10:57 AM
+ * Last Modified 12/23/21, 7:06 PM
  *
  *
  */
 
-import { getTests } from "@/services/requests/testRequests";
 import { Test } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
@@ -33,15 +32,6 @@ const store = combine(initialState, (set) => ({
     set({
       selectedTest: test,
     });
-  },
-  getTestListFromServer: async () => {
-    testStore.getState().setLoading(true);
-    await getTests()
-      .then((res) => {
-        testStore.getState().setLoading(false);
-        testStore.getState().setTestList(res.data.data);
-      })
-      .catch(() => testStore.getState().setLoading(false));
   },
   setLoading: (loading: boolean) => {
     set(() => ({ loading }));

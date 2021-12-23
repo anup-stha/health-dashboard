@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 10:48 AM
+ * Last Modified 12/23/21, 9:29 PM
  *
  *
  */
@@ -23,8 +23,8 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
-import useSWRImmutable from "swr/immutable";
 import { useQuery } from "react-query";
+import Router from "next/router";
 
 export const getMemberList = (
   id: number | string
@@ -37,6 +37,11 @@ export const getMembersList = (roleId: number) => {
     .get<MemberListResponse>(`/member/list/${roleId}`)
     .then((response) => {
       memberStore.getState().setMemberList(response.data);
+      const details = response.data.data.list.filter(
+        (member) => member.id === Number(Router.query.id)
+      )[0];
+      Number(Router.query.id) &&
+        memberStore.getState().setSelectedMember(details);
       return response.data.data;
     });
 };
@@ -160,30 +165,27 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
 };
 
 export const getMemberDetails = (memberId: number) => {
-  return new Promise((resolve, reject) => {
-    privateAgent
-      .get<MemberDetailsListResponse>(`member/detail/${memberId}`)
-      .then((response) => {
-        memberStore.getState().setSelectedMemberDetails(response.data.data);
-        resolve(response.data.message);
-      })
-      .catch((error) => {
-        reject(error.response);
-      });
-  });
-};
-
-export const listMemberDetails = async (url?: string) =>
   privateAgent
-    .get<MemberDetailsListResponse>(`${url}`)
+    .get<MemberDetailsListResponse>(`member/detail/${memberId}`)
     .then((response) => {
       memberStore.getState().setSelectedMemberDetails(response.data.data);
       return response.data.data;
     })
-    .catch((error) => error.response);
+    .catch((error) => {
+      return error.response;
+    });
+};
 
 export const useMemberDetails = (memberId: number) => {
-  return useSWRImmutable(`member/detail/${memberId}`, listMemberDetails);
+  return useQuery(
+    ["member-details", memberId],
+    () => getMemberDetails(memberId),
+    {
+      enabled: !!memberId,
+      staleTime: Infinity,
+      retry: false,
+    }
+  );
 };
 
 export const addDetailsToMember = (

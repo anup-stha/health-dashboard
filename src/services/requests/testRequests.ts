@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 8:57 AM
+ * Last Modified 12/23/21, 9:32 PM
  *
  *
  */
@@ -17,6 +17,7 @@ import {
 } from "@/types";
 import { privateAgent } from ".";
 import Router from "next/router";
+import { useQuery } from "react-query";
 import { AxiosResponse } from "axios";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
@@ -24,14 +25,18 @@ export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
 };
 
 export const listTests = () => {
-  return new Promise((resolve, reject) => {
-    privateAgent
-      .get<ListTestResponse>(`test/categories/`)
-      .then((response) => {
-        testStore.getState().setTestList(response.data.data);
-        resolve(response.data.data);
-      })
-      .catch((error) => reject(error.response));
+  privateAgent
+    .get<ListTestResponse>(`test/categories/`)
+    .then((response) => {
+      testStore.getState().setTestList(response.data.data);
+      return response.data.data;
+    })
+    .catch((error) => error.response);
+};
+
+export const useTestList = () => {
+  return useQuery("test-list", () => listTests(), {
+    staleTime: Infinity,
   });
 };
 
