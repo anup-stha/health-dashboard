@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 3:45 PM
+ * Last Modified 12/23/21, 12:54 PM
  *
  *
  */
@@ -73,6 +73,9 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
                             {permissionDetail.name}
                           </span>
                           <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
+                            {permissionDetail.slug}
+                          </span>
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.description}
                           </span>
                         </div>
@@ -111,6 +114,9 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
                         <div className="flex flex-col space-y-1">
                           <span className="text-2xl text-gray-850 font-semibold line-clamp-1">
                             {permissionDetail.name}
+                          </span>
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
+                            {permissionDetail.slug}
                           </span>
                           <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.description}

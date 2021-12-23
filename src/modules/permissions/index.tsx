@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 10:07 AM
+ * Last Modified 12/23/21, 12:53 PM
  *
  *
  */
@@ -96,6 +96,9 @@ export const Permissions = () => {
                   <div className="flex flex-col space-y-1">
                     <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">
                       {select.name}
+                    </span>
+                    <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
+                      {select.slug}
                     </span>
                     <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
                       {select.description}

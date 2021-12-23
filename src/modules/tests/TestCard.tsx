@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/23/21, 12:55 PM
  *
  *
  */
@@ -10,7 +10,6 @@ import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TestSubCategory } from "@/types";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { Trash } from "phosphor-react";
 import { TestModal } from "@/modules/tests/testAddModal";
@@ -47,9 +46,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
 
         <div className="space-y-3">
           <div
-            className={`text-lg font-medium text-gray-600 ${
-              subCategories ? "w-4/5" : "w-full"
-            }  line-clamp-2`}
+            className={`text-lg font-medium text-gray-600 w-full line-clamp-2`}
           >
             {desc}
           </div>
@@ -59,7 +56,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
           </div>
         </div>
       </div>
-      {subCategories && (
+      {/* {subCategories && (
         <div className="absolute -right-4 -bottom-2">
           <div className="w-40 h-40 relative">
             <Image
@@ -69,7 +66,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
             />
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">

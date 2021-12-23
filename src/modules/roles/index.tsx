@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/23/21, 12:42 PM
  *
  *
  */
@@ -28,6 +28,7 @@ const RolePage = () => {
             id={role.id}
             title={role.name}
             description={role.desc}
+            slug={role.slug}
             permissionCount={role.permissions.length}
             memberLimit={role.member_limit}
             isPublic={role.public}
