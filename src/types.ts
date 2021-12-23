@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 12:00 PM
+ * Last Modified 12/23/21, 3:51 PM
  *
  *
  */
@@ -38,6 +38,7 @@ export type Permission = {
 
 export type RoleSummary = {
   id: Id;
+  slug: string;
   name: string;
   desc: string;
 };
@@ -59,15 +60,17 @@ export type User = {
   member_id: number;
   name: string;
   phone: string;
-  gender: string;
-  marital_status: string;
-  dob_ad: Date;
-  dob_bs: Date | null;
+  gender: "Male" | "Female" | "Others";
+  marital_status: "Single" | "Married";
+  dob_ad: number | string;
+  dob_bs: number | undefined;
   address: string;
   image: string;
   active: boolean;
   verified: boolean;
   role: Role;
+  lat?: number;
+  lng?: number;
 };
 
 export type LoginResponse = StatusType & {
@@ -113,8 +116,8 @@ export type BasicMember = {
   id: Id;
   uuid: string;
   name: string;
-  lat: number;
-  lng: number;
+  lat?: number;
+  lng?: number;
   phone: string;
   image: string;
   address: string;
@@ -123,10 +126,28 @@ export type BasicMember = {
   ref_key?: string;
   email: string;
   can_login: boolean;
+  dob_ad: number;
+  dob_bs: number;
+  marital_status: string;
+  gender: string;
 };
 
 export type Member = BasicMember & {
   role: RoleSummary;
+};
+
+export type MemberUpdateBody = {
+  name: string;
+  lat?: number;
+  lng?: number;
+  phone: string;
+  image?: string;
+  address: string;
+  email: string;
+  dob_ad: number;
+  dob_bs?: number;
+  gender: "Male" | "Female" | "Others";
+  marital_status: "Single" | "Married";
 };
 
 export type OrgMemberAddReq = {
@@ -175,6 +196,12 @@ export type MemberListResponse = StatusType & {
   data: {
     list: MemberList;
     pagination: Pagination;
+  };
+};
+
+export type MemberUpdateResponse = StatusType & {
+  data: BasicMember & {
+    role: RoleSummary;
   };
 };
 

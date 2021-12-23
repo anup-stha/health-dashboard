@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:49 PM
+ * Last Modified 12/23/21, 2:49 PM
  *
  *
  */
@@ -12,8 +12,9 @@ import { Bookmark, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import React from "react";
 import { Member, Role } from "@/types";
 import { memberStore } from "@/modules/members/memberStore";
-import { WarningOctagon } from "phosphor-react";
+import { GenderNeuter, WarningOctagon } from "phosphor-react";
 import { MemberDetailAddModal } from "@/modules/members/profile/memberDetailAddModal";
+import moment from "moment";
 
 type MemberProfileDataProps = {
   selectedMemberDetails: Member;
@@ -32,7 +33,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
 
   return (
     <div className="relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
-      <div className="relative w-full h-52 z-0 profile "></div>
+      <div className="relative w-full h-52 z-0 profile" />
 
       <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
         <div className="relative w-40 h-40 z-10 ring-4 ring-white rounded-full">
@@ -105,7 +106,20 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
               <div className="text-gray-800">
                 <Calendar />
               </div>
-              <span>Date joined: 2021/11/25</span>
+              <span>
+                DOB:{" "}
+                {moment(selectedMemberDetails.dob_ad * 1000).format(
+                  "MMMM Do YYYY"
+                )}
+              </span>
+            </div>
+            <div className="flex items-center gap-x-4">
+              <div className="text-gray-800">
+                <GenderNeuter size={24} weight={"bold"} />
+              </div>
+              <span className="capitalize">
+                Gender: {selectedMemberDetails.gender}
+              </span>
             </div>
           </div>
           <div className="self-stretch w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">

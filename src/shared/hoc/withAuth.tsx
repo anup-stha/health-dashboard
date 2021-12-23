@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/21/21, 8:51 AM
+ * Last Modified 12/23/21, 5:51 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useAuthStore } from "../../modules/auth/useTokenStore";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { getGlobalStates } from "@/services/requests/globalRequests";
 import { useGlobalState } from "@/modules/useGlobalState";
 

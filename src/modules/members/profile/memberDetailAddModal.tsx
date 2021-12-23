@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:21 PM
+ * Last Modified 12/23/21, 3:42 PM
  *
  *
  */
@@ -27,7 +27,6 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
-    console.log(1);
     reset(
       Object.assign(
         {},

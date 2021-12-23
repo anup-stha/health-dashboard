@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:31 PM
+ * Last Modified 12/23/21, 3:06 PM
  *
  *
  */
@@ -34,7 +34,6 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
 
   const start = moment(start_date * 1000);
   const end = moment(end_date * 1000);
-  console.log(start, end);
   const leftDays = end.diff(new Date(), "days");
   const totalDays = end.diff(start, "days");
   const [options, setOptions] = useState<ApexOptions>({

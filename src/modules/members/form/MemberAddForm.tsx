@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 12:16 PM
+ * Last Modified 12/23/21, 4:00 PM
  *
  *
  */
@@ -16,38 +16,57 @@ import { Button } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+import { User } from "@/types";
+import { updateUserProfile } from "@/services/requests/authRequests";
 
-interface MemberAddFormData {
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  dob_ad: number;
-  dob_bs: number;
-  gender: "Male" | "Female" | "Others";
-  marital_status: "Single" | "Married";
-}
+type MemberAddFormProps = {
+  initialData?: User;
+  type?: "add" | "edit";
+};
 
-export const MemberAddForm = () => {
-  const { register, handleSubmit, reset, control } =
-    useForm<MemberAddFormData>();
+export const MemberAddForm: React.FC<MemberAddFormProps> = ({
+  initialData,
+  type = "add",
+}) => {
+  const { register, handleSubmit, reset, control } = useForm<User>({
+    defaultValues: {
+      ...initialData,
+      dob_ad:
+        initialData &&
+        moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+    },
+  });
   const { selectedRole } = memberStore();
 
   return (
     <Modal.Form
       onSubmit={handleSubmit(async (data) => {
-        await alert({
-          promise: addNormalMember({
-            ...data,
-            dob_ad: moment(data.dob_ad).unix(),
-            role_id: Number(selectedRole.id),
-          }).then(() => reset()),
-          msgs: {
-            loading: "Adding Member",
-            success: "Added Successfully",
-          },
-          id: "Member Add Toast",
-        });
+        console.log(data);
+        type === "add"
+          ? await alert({
+              promise: addNormalMember({
+                ...data,
+                dob_ad: moment(data.dob_ad).unix(),
+                role_id: Number(selectedRole.id),
+              }).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "Member Add Toast",
+            })
+          : initialData &&
+            (await alert({
+              promise: updateUserProfile(initialData.id, {
+                ...data,
+                dob_ad: moment(data.dob_ad).unix(),
+              }).then(() => reset()),
+              msgs: {
+                loading: "Updating Member",
+                success: "Updated Successfully",
+              },
+              id: "member-update-toast",
+            }));
       })}
     >
       <div className="space-y-4">
@@ -59,21 +78,33 @@ export const MemberAddForm = () => {
           {...register("name")}
         />
         <div className="flex gap-x-6">
-          <div className="w-1/2">
-            <PrimaryInput
-              label="Phone"
-              type="text"
-              placeholder="Enter Phone"
-              {...register("phone")}
-            />
-          </div>
-          <div className="w-1/2">
-            <PrimaryInput
-              label="Date of Birth In AD"
-              type="date"
-              {...register("dob_ad")}
-            />
-          </div>
+          {type === "add" ? (
+            <>
+              <div className="w-1/2">
+                <PrimaryInput
+                  label="Phone"
+                  type="text"
+                  placeholder="Enter Phone"
+                  {...register("phone")}
+                />
+              </div>
+              <div className="w-1/2">
+                <PrimaryInput
+                  label="Date of Birth In AD"
+                  type="date"
+                  {...register("dob_ad")}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="w-full">
+              <PrimaryInput
+                label="Date of Birth In AD"
+                type="date"
+                {...register("dob_ad")}
+              />
+            </div>
+          )}
         </div>
         <PrimaryInput
           label="Address"
@@ -89,12 +120,16 @@ export const MemberAddForm = () => {
               control={control}
               options={[
                 {
-                  value: "male",
+                  value: "Male",
                   label: "Male",
                 },
                 {
-                  value: "female",
+                  value: "Female",
                   label: "Female",
+                },
+                {
+                  value: "Others",
+                  label: "Others",
                 },
               ]}
             />
@@ -106,26 +141,27 @@ export const MemberAddForm = () => {
               control={control}
               options={[
                 {
-                  value: "single",
+                  value: "Single",
                   label: "Single",
                 },
                 {
-                  value: "marital",
+                  value: "Married",
                   label: "Married",
                 },
               ]}
             />
           </div>
         </div>
-
-        <PrimaryInput
-          label="Email"
-          type="email"
-          placeholder="Enter email"
-          {...register("email")}
-        />
+        {type === "add" && (
+          <PrimaryInput
+            label="Email"
+            type="email"
+            placeholder="Enter email"
+            {...register("email")}
+          />
+        )}
       </div>
-      <Button>Add User</Button>
+      <Button>{type === "add" ? "Add" : "Update"} User</Button>
     </Modal.Form>
   );
 };

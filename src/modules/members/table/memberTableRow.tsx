@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:50 PM
+ * Last Modified 12/23/21, 2:50 PM
  *
  *
  */
@@ -39,7 +39,14 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
     data ? (
       <tr key={key}>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="flex items-center">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() =>
+              router.push(
+                `/members/profile?id=${data.id}&role=${selectedRole.id}`
+              )
+            }
+          >
             <div className="relative flex-shrink-0 h-16 w-16">
               <Image
                 src={"/assets/memberAvatar.svg"}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:09 AM
+ * Last Modified 12/23/21, 5:57 PM
  *
  *
  */
@@ -11,12 +11,14 @@ import {
   LoginRequest,
   LoginResponse,
   LogoutRequest,
+  MemberUpdateBody,
+  MemberUpdateResponse,
+  NullDataResponse,
   ProfileRequestResponse,
 } from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
-import useSWRImmutable from "swr/immutable";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -76,6 +78,38 @@ export const getDashboardData = (url: string) =>
     return response.data.data;
   });
 
-export const useDashboardData = () => {
-  return useSWRImmutable(`/dashboard`, getDashboardData);
+export const updateUserProfile = (
+  profileId: number,
+  body: MemberUpdateBody
+) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
+      .then(async (response) => {
+        await getCurrentUserProfile().then(() =>
+          resolve(response.data.message)
+        );
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const changePassword = (old_password: string, new_password: string) => {
+  return new Promise((resolve, reject) => {
+    privateAgent
+      .patch<NullDataResponse>("auth/change_password", {
+        old_password,
+        new_password,
+      })
+      .then(async (response) => {
+        await getCurrentUserProfile().then(() =>
+          resolve(response.data.message)
+        );
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
 };

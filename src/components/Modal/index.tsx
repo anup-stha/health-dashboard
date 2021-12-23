@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:42 PM
+ * Last Modified 12/23/21, 5:58 PM
  *
  *
  */
@@ -10,6 +10,7 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useModal } from "./useModal";
 import { Button as UIButton } from "../Button";
+import toast from "react-hot-toast";
 
 export type IModalProps = {
   title?: string;
@@ -159,7 +160,11 @@ export const Form: React.FC<IModalFormProps> = ({
 
   const onSubmitFn = async (e: any) => {
     e.preventDefault();
-    await onSubmit().then(() => setIsOpen(false));
+    await onSubmit()
+      .then(() => setIsOpen(false))
+      .catch((error) => {
+        error.message && toast.error(error.message);
+      });
   };
 
   return (

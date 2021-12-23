@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:48 PM
+ * Last Modified 12/23/21, 5:58 PM
  *
  *
  */
@@ -11,6 +11,8 @@ import { PrimaryInput } from "@/components/Input";
 import { Button, GrayButton } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
+import { alert } from "@/components/Alert";
+import { changePassword } from "@/services/requests/authRequests";
 
 type ChangePasswordFormData = {
   newPassword: string;
@@ -32,7 +34,30 @@ export const PasswordModal = () => {
           <Modal.Title>Change Password</Modal.Title>
           <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
             <Modal.Form
-              onSubmit={handleSubmit((values) => console.log(values))}
+              onSubmit={handleSubmit(async (values) => {
+                if (values.oldPassword === values.newPassword) {
+                  throw new Error(
+                    "Old Password and New Password cannot be Same"
+                  );
+                }
+                if (values.newPassword !== values.confirmNewPassword) {
+                  throw new Error(
+                    "New Password and Confirm New Password Doesn't Match"
+                  );
+                }
+
+                await alert({
+                  type: "promise",
+                  promise: changePassword(
+                    values.oldPassword,
+                    values.newPassword
+                  ),
+                  msgs: {
+                    loading: "Changing Password",
+                  },
+                  id: "change-password-modal",
+                });
+              })}
               className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
             >
               <div className="space-y-8">
@@ -60,9 +85,7 @@ export const PasswordModal = () => {
               </div>
 
               <div className="flex space-x-4">
-                <Modal.Button type="close">
-                  <Button>Change</Button>
-                </Modal.Button>
+                <Button>Change</Button>
                 <Modal.Button type="close">
                   <GrayButton>Cancel</GrayButton>
                 </Modal.Button>
