@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 2:26 PM
+ * Last Modified 12/23/21, 10:53 AM
  *
  *
  */
@@ -20,9 +20,23 @@ import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import useSWRImmutable from "swr/immutable";
 import { memberStore } from "@/modules/members/memberStore";
+import { useQuery } from "react-query";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
+};
+
+export const getRoleList = () => {
+  return privateAgent.get<RoleListResponse>("role/").then((response) => {
+    useRoleStore.getState().setRoleList(response.data.data);
+    return response.data;
+  });
+};
+
+export const useRoleList = () => {
+  return useQuery("role-list", () => getRoleList(), {
+    staleTime: Infinity,
+  });
 };
 
 export const getRoleDetails = (

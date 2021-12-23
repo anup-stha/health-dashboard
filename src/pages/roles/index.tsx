@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/23/21, 10:54 AM
  *
  *
  */
@@ -11,28 +11,14 @@ import withAuth from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import RolePage from "@/modules/roles";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useEffect } from "react";
+import { useRoleList } from "@/services/requests/roleRequests";
 
 const Roles = () => {
-  const {
-    getRoleListFromServer,
-    setAllLoading,
-    allRoleLoading: allLoading,
-  } = useRoleStore();
-
-  useEffect(() => {
-    const listRoles = async () => {
-      await getRoleListFromServer()
-        .then(() => setAllLoading(false))
-        .catch(() => setAllLoading(false));
-    };
-    listRoles();
-  }, []);
+  const { isLoading } = useRoleList();
 
   return (
     <MainLayout>
-      {!allLoading ? <RolePage /> : <RolePageLoadingState count={1} />}
+      {!isLoading ? <RolePage /> : <RolePageLoadingState count={1} />}
     </MainLayout>
   );
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/22/21, 11:21 PM
+ * Last Modified 12/23/21, 9:40 AM
  *
  *
  */
@@ -20,14 +20,18 @@ import {
 } from "iconsax-react";
 import CountUp from "react-countup";
 import Image from "next/image";
-import { useDashboardData } from "@/services/requests/authRequests";
+import { getDashboardData } from "@/services/requests/authRequests";
+import { useQuery } from "react-query";
 
 export const AdminDashboard: React.FC = () => {
   const user = useAuthStore().user;
+  const { data, isLoading } = useQuery("dashboard", () =>
+    getDashboardData("/dashboard")
+  );
 
-  const { data } = useDashboardData();
+  if (isLoading) return <div>Loading</div>;
 
-  return data ? (
+  return (
     <div className="px-10 -mt-2 pb-8 sm:p-8 space-y-8 w-full dashboard-bg">
       <div>
         <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
@@ -181,8 +185,6 @@ export const AdminDashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  ) : (
-    <div>loading</div>
   );
 };
 

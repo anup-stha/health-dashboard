@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 2:30 PM
+ * Last Modified 12/23/21, 10:52 AM
  *
  *
  */
@@ -10,9 +10,11 @@ import { TableView } from "@/components/Table";
 import { memberStore } from "../memberStore";
 import { MemberTableRow } from "./memberTableRow";
 import Image from "next/image";
+import { useMemberList } from "@/services/requests/memberRequests";
 
 export const MemberTable = () => {
-  const { memberList, loading } = memberStore();
+  const { memberList, selectedRole } = memberStore();
+  const { isLoading } = useMemberList(Number(selectedRole.id));
 
   return memberList.length === 0 ? (
     <div className="flex justify-center">
@@ -38,7 +40,7 @@ export const MemberTable = () => {
         "Address",
         "",
       ]}
-      loading={loading}
+      loading={isLoading}
       tableRowComponent={<MemberTableRow />}
     />
   );

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:06 PM
+ * Last Modified 12/23/21, 10:48 AM
  *
  *
  */
@@ -24,11 +24,26 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 import useSWRImmutable from "swr/immutable";
+import { useQuery } from "react-query";
 
 export const getMemberList = (
   id: number | string
 ): Promise<AxiosResponse<MemberListResponse>> => {
   return privateAgent.get(`/member/list/${id}`);
+};
+
+export const getMembersList = (roleId: number) => {
+  return privateAgent
+    .get<MemberListResponse>(`/member/list/${roleId}`)
+    .then((response) => {
+      memberStore.getState().setMemberList(response.data);
+      return response.data.data;
+    });
+};
+export const useMemberList = (roleId: number) => {
+  return useQuery(["member-list", roleId], () => getMembersList(roleId), {
+    enabled: roleId !== 0,
+  });
 };
 
 export const addOrgMember = (body: OrgMemberAddReq) => {

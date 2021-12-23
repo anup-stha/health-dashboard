@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:54 PM
+ * Last Modified 12/23/21, 12:00 PM
  *
  *
  */
@@ -15,12 +15,6 @@ export interface ChartData {
 
 type Id = string | number;
 
-enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other",
-}
-
 export type AuthToken = {
   access_token: string;
   refresh_token: string;
@@ -28,72 +22,6 @@ export type AuthToken = {
 
 export type LogoutRequest = {
   refresh: string;
-};
-
-export type LoginRefreshRequest = {
-  refresh: string;
-};
-
-export type LoginRefreshResponse = {
-  access: string;
-};
-
-export type OrganisationListType = OrganisationDetailType[];
-
-export type OrganisationDetailType = {
-  id: string | number;
-  meta: OrgaisationMeta;
-  createdAt: string;
-  name: string;
-  active: boolean;
-  verified: boolean;
-  updatedAt: string;
-  createdBy: string;
-  owner: number | string;
-  ownerName: string;
-};
-
-export type OrganisationRequestType = {
-  meta: OrgaisationMeta;
-  name: string;
-  active?: boolean;
-  verified?: boolean;
-  owner: string;
-};
-
-export type UserType = {
-  id: string | number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string | null;
-  userType: "Organisation" | "staff" | "patient" | "superuser";
-  username: string;
-};
-
-export type UserRequest = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string | null;
-  user_type: "Organisation" | "staff" | "patient" | "superuser" | any;
-  username: string;
-};
-
-export type UserList = User[];
-
-export type OrgaisationMeta = {
-  logo?: string;
-  description?: string;
-  website?: string;
-  phone?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-  country?: string;
-  address?: string;
-  municipality?: string;
-  ward?: string;
 };
 
 type StatusType = {
@@ -104,6 +32,7 @@ type StatusType = {
 export type Permission = {
   id: Id;
   name: string;
+  slug: string;
   description: string;
 };
 
@@ -117,6 +46,7 @@ export type Role = {
   id: Id;
   name: string;
   desc: string;
+  slug: string;
   member_limit: number;
   public: boolean;
   permissions: Permission[];
@@ -124,11 +54,15 @@ export type Role = {
 };
 
 export type User = {
-  id: Id;
+  id: number;
   email: string;
-  member_id: string | number;
+  member_id: number;
   name: string;
   phone: string;
+  gender: string;
+  marital_status: string;
+  dob_ad: Date;
+  dob_bs: Date | null;
   address: string;
   image: string;
   active: boolean;
@@ -205,6 +139,10 @@ export type OrgMemberAddReq = {
   ref_key?: string | number;
   email: string;
   password: string;
+  dob_ad: number;
+  dob_bs?: number;
+  gender: string;
+  marital_status: string;
 };
 
 export type OrgMemberAddRes = { data: BasicMember & { role: Role } };
@@ -217,6 +155,10 @@ export type NormalMemberAddReq = {
   lng?: number;
   phone: string;
   ref_key?: string | number;
+  dob_ad: number;
+  dob_bs?: number;
+  gender: string;
+  marital_status: string;
 };
 
 export type MemberList = Member[];

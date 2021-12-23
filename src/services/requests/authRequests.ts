@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/22/21, 10:17 PM
+ * Last Modified 12/23/21, 9:09 AM
  *
  *
  */
@@ -71,7 +71,7 @@ export const getCurrentUserProfile = () => {
   });
 };
 
-const getDashboardData = (url: string) =>
+export const getDashboardData = (url: string) =>
   privateAgent.get<any>(url).then((response) => {
     return response.data.data;
   });

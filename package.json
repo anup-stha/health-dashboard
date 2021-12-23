@@ -49,6 +49,7 @@
     "react-hot-toast": "^2.1.1",
     "react-loading-icons": "^1.0.6",
     "react-loading-skeleton": "^3.0.1",
+    "react-query": "^3.34.5",
     "react-select": "^5.2.1",
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0",
