@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 7:46 PM
+ * Last Modified 12/26/21, 11:18 AM
  *
  *
  */
@@ -22,6 +22,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         defaultOptions: {
           queries: {
             retry: false,
+            refetchOnWindowFocus: false,
           },
         },
       })

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 11:15 AM
  *
  *
  */
@@ -16,7 +16,7 @@ export const NavBar = () => {
   const navBarRoutes = role
     ? role.id === 1
       ? superAdminNavRoutes
-      : role.name === "Organization"
+      : role.id === 2
       ? orgNavRoutes
       : []
     : [];

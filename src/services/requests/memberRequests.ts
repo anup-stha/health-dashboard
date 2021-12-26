@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:29 PM
+ * Last Modified 12/26/21, 11:41 AM
  *
  *
  */
@@ -24,7 +24,6 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 import { useQuery } from "react-query";
-import Router from "next/router";
 
 export const getMemberList = (
   id: number | string
@@ -32,23 +31,26 @@ export const getMemberList = (
   return privateAgent.get(`/member/list/${id}`);
 };
 
-export const getMembersList = (roleId: number) => {
+export const getMembersList = (roleId: number, memberId?: number) => {
   return privateAgent
     .get<MemberListResponse>(`/member/list/${roleId}`)
     .then((response) => {
       memberStore.getState().setMemberList(response.data);
       const details = response.data.data.list.filter(
-        (member) => member.id === Number(Router.query.id)
+        (member) => member.id === memberId
       )[0];
-      Number(Router.query.id) &&
-        memberStore.getState().setSelectedMember(details);
-      return response.data.data;
+      memberId && memberStore.getState().setSelectedMember(details);
+      return { list: response.data.data, details };
     });
 };
-export const useMemberList = (roleId: number) => {
-  return useQuery(["member-list", roleId], () => getMembersList(roleId), {
-    enabled: roleId !== 0,
-  });
+export const useMemberList = (roleId: number, memberId?: number) => {
+  return useQuery(
+    ["member-list", roleId],
+    () => getMembersList(roleId, memberId),
+    {
+      enabled: roleId !== 0,
+    }
+  );
 };
 
 export const addOrgMember = (body: OrgMemberAddReq) => {

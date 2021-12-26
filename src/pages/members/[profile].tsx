@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 10:05 PM
+ * Last Modified 12/26/21, 11:37 AM
  *
  *
  */
@@ -47,7 +47,10 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
   const { isLoading: testLoading } = useTestList();
   const { isLoading: subsLoading } = useSubscriptionList(Number(idX.role));
   const { isLoading: roleListLoading } = useRoleList();
-  const { isLoading: memberLoading } = useMemberList(Number(idX.role));
+  const { isLoading: memberLoading, data } = useMemberList(
+    Number(idX.role),
+    Number(idX.id)
+  );
 
   const {
     selectedMemberSubscription,
@@ -67,6 +70,11 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
 
     Object.keys(selectedTestInProfile).length !== 0 && listMemberTest();
   }, [selectedTestInProfile.id]);
+
+  useEffect(() => {
+    data?.details && setActive(data?.details.active);
+    data?.details && setVerified(data?.details.verified);
+  }, [data]);
 
   return (
     <MainLayout>
