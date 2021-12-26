@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 11:37 AM
+ * Last Modified 12/26/21, 3:36 PM
  *
  *
  */
@@ -35,6 +35,8 @@ import { GrayButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import { ProfileTest } from "@/modules/members/profile/ProfileTest";
 import { useTestList } from "@/services/requests/testRequests";
+import { MemberModal } from "@/modules/members/modal/memberModal";
+import _ from "lodash";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const router = useRouter();
@@ -160,7 +162,14 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   )}
                 </div>
               )}
-              <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4">
+              <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4 flex flex-col divide-y-[1px] divide-gray-500/40">
+                <MemberModal
+                  type={"edit"}
+                  initialData={{
+                    member_id: Number(idX.id),
+                    ..._.omit(selectedMember, ["ref_key"]),
+                  }}
+                />
                 <MemberDetailAddModal
                   memberData={selectedMember}
                   selectedRole={selectedRole}

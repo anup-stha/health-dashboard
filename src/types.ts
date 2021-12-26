@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 3:51 PM
+ * Last Modified 12/26/21, 3:26 PM
  *
  *
  */
@@ -63,12 +63,12 @@ export type User = {
   gender: "Male" | "Female" | "Others";
   marital_status: "Single" | "Married";
   dob_ad: number | string;
-  dob_bs: number | undefined;
+  dob_bs?: number | undefined;
   address: string;
   image: string;
   active: boolean;
   verified: boolean;
-  role: Role;
+  role: RoleSummary;
   lat?: number;
   lng?: number;
 };
@@ -113,7 +113,7 @@ export type RoleUpdateBody = {
 };
 
 export type BasicMember = {
-  id: Id;
+  id: number;
   uuid: string;
   name: string;
   lat?: number;
@@ -127,13 +127,13 @@ export type BasicMember = {
   email: string;
   can_login: boolean;
   dob_ad: number;
-  dob_bs: number;
-  marital_status: string;
-  gender: string;
+  dob_bs?: number;
+  marital_status: "Single" | "Married";
+  gender: "Male" | "Female" | "Others";
 };
 
 export type Member = BasicMember & {
-  role: RoleSummary;
+  role: RoleSummary | Role;
 };
 
 export type MemberUpdateBody = {

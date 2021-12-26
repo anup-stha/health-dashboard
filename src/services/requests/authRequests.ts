@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 5:57 PM
+ * Last Modified 12/26/21, 4:03 PM
  *
  *
  */
@@ -19,6 +19,7 @@ import {
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
+import { memberStore } from "@/modules/members/memberStore";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -89,6 +90,13 @@ export const updateUserProfile = (
         await getCurrentUserProfile().then(() =>
           resolve(response.data.message)
         );
+        memberStore.getState().setSelectedMember(response.data.data);
+        const newList = memberStore
+          .getState()
+          .memberList.map((element) =>
+            element.id === profileId ? response.data.data : element
+          );
+        memberStore.getState().setOnlyMemberList(newList);
       })
       .catch((error) => {
         reject(error.response);

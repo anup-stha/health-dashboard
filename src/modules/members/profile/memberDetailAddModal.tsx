@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:07 PM
+ * Last Modified 12/26/21, 2:59 PM
  *
  *
  */
@@ -39,7 +39,7 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
       <Modal.Button type={"open"}>
         {children ?? (
           <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member
+            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member Other
             Details
           </div>
         )}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 2:50 PM
+ * Last Modified 12/26/21, 4:06 PM
  *
  *
  */
@@ -12,12 +12,12 @@ import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
-import { BooleanTag } from "../../../components/others/BooleanTag";
+import { BooleanTag } from "@/components/others/BooleanTag";
 import { memberStore } from "../memberStore";
 import { CaretDoubleRight } from "phosphor-react";
 import { MemberModal } from "@/modules/members/modal/memberModal";
 import { Popover, Transition } from "@headlessui/react";
-import { MoreVertical } from "react-feather";
+import { Edit, MoreVertical } from "react-feather";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 
@@ -92,6 +92,9 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           {data.phone}
         </td>
+        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+          {data.gender}
+        </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-lg text-gray-900 font-medium">
             {data.address}
@@ -110,7 +113,18 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
 
         <td className="px-0 py-4">
           <div className="flex items-center space-x-4">
-            <MemberModal type="update" orgId={data.id} />
+            <MemberModal
+              type="edit"
+              initialData={{ ...data, member_id: data.id }}
+              button={
+                <div className="">
+                  <Edit
+                    name="edit"
+                    className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-1"
+                  />
+                </div>
+              }
+            />
             <DeleteModal
               onDelete={async () => {
                 // await alert({

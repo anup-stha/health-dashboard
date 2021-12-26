@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 12:17 PM
+ * Last Modified 12/26/21, 3:39 PM
  *
  *
  */
@@ -15,6 +15,7 @@ import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { addOrgMember } from "@/services/requests/memberRequests";
 import { alert } from "@/components/Alert";
+import React from "react";
 
 interface UserAddFormData {
   name: string;
@@ -28,7 +29,11 @@ interface UserAddFormData {
   marital_status: "Single" | "Married";
 }
 
-export const UserAddForm = () => {
+type UserAddFormProps = {
+  type?: "edit" | "add";
+};
+
+export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
   const { register, handleSubmit, control } = useForm<UserAddFormData>();
   const { selectedRole } = memberStore();
 
@@ -47,7 +52,6 @@ export const UserAddForm = () => {
           },
           id: "user-add-toast",
         });
-        console.log(moment(data.dob_ad).unix());
       })}
     >
       <div className="space-y-4">
@@ -90,12 +94,16 @@ export const UserAddForm = () => {
               control={control}
               options={[
                 {
-                  value: "male",
+                  value: "Male",
                   label: "Male",
                 },
                 {
-                  value: "female",
+                  value: "Female",
                   label: "Female",
+                },
+                {
+                  value: "Others",
+                  label: "Others",
                 },
               ]}
             />
@@ -107,11 +115,11 @@ export const UserAddForm = () => {
               control={control}
               options={[
                 {
-                  value: "single",
+                  value: "Single",
                   label: "Single",
                 },
                 {
-                  value: "marital",
+                  value: "Married",
                   label: "Married",
                 },
               ]}
@@ -126,15 +134,17 @@ export const UserAddForm = () => {
           {...register("email")}
         />
 
-        <PrimaryInput
-          label="Password"
-          type="password"
-          placeholder="Enter Password"
-          autoComplete={"new-password"}
-          {...register("password")}
-        />
+        {type === "add" && (
+          <PrimaryInput
+            label="Password"
+            type="password"
+            placeholder="Enter Password"
+            autoComplete={"new-password"}
+            {...register("password")}
+          />
+        )}
       </div>
-      <Button>Add User</Button>
+      <Button> {type === "add" ? "Add" : "Edit"} User</Button>
     </Modal.Form>
   );
 };
