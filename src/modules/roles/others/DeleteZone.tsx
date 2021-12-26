@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 3:48 PM
+ * Last Modified 12/26/21, 10:06 PM
  *
  *
  */
@@ -11,7 +11,7 @@ import { DeleteModal } from "@/components/Modal/DeleteModal";
 
 export const DeleteZone = () => {
   return (
-    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
+    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center sm:w-full sm:px-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">
           Delete this role
@@ -31,7 +31,7 @@ export const DeleteZone = () => {
 
 export const TestDeleteZone = () => {
   return (
-    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
+    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center sm:w-full sm:px-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">
           Delete this test
@@ -51,7 +51,7 @@ export const TestDeleteZone = () => {
 
 export const SubscriptionDeleteZone = () => {
   return (
-    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center">
+    <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center sm:w-full sm:px-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">
           Delete this subscription

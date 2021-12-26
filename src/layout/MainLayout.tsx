@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:14 PM
  *
  *
  */
@@ -21,8 +21,8 @@ export const MainLayout = ({ children }: any) => {
       <div
         className={`${
           open
-            ? " relative w-full pl-[18%] md:w-full md:ml-0"
-            : "relative w-full pl-24"
+            ? " relative w-full pl-[18%] md:w-full md:ml-0 sm:pl-0"
+            : "relative w-full pl-24 sm:pl-0"
         } transition-all duration-200 h-full `}
       >
         <MainHeader />

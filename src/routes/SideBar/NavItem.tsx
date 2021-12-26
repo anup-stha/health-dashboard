@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 9:54 PM
  *
  *
  */
@@ -46,7 +46,7 @@ export const NavItem: React.FC<NavItemProps> = ({
           }`}
         >
           <span className="flex items-center gap-x-4">
-            <div>{route.icon}</div>
+            <div className={`${!open && "sm:hidden"}`}>{route.icon}</div>
 
             {open && (
               <span className="text-xl font-semibold sm:text-lg">

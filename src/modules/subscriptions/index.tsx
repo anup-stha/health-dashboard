@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:47 PM
+ * Last Modified 12/26/21, 10:12 PM
  *
  *
  */
@@ -19,7 +19,7 @@ type SubscriptionPageProps = {
 const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ loading }) => {
   return (
     <MainLayout>
-      <div className="px-10 py-10 overflow-visible sm:p-8">
+      <div className="px-10 py-10 overflow-visible  sm:px-6 sm:py-8">
         <div className="flex flex-col space-y-6">
           <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
             <div>

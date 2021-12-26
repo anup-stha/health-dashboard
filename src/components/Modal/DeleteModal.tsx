@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:01 PM
  *
  *
  */
@@ -53,7 +53,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
 
           <div className="flex space-x-4 self-end pt-2">
             <Modal.Button type="close">
-              <div className="p-4 text-xl font-bold text-gray-500 hover:text-gray-700">
+              <div className="p-4 text-xl font-bold text-gray-500 hover:text-gray-700 cursor-pointer">
                 Cancel
               </div>
             </Modal.Button>

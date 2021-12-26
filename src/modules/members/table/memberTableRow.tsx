@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 4:06 PM
+ * Last Modified 12/26/21, 9:57 PM
  *
  *
  */
@@ -111,7 +111,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
           </div>
         </td>
 
-        <td className="px-0 py-4">
+        <td className="px-4 py-4">
           <div className="flex items-center space-x-4">
             <MemberModal
               type="edit"

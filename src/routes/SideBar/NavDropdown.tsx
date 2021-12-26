@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/22/21, 10:11 PM
+ * Last Modified 12/26/21, 10:21 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavItem } from "./NavItem";
 import { RouteObjectType } from "./routes";
 import { useSideBarStore } from "./useSideBarStore";
@@ -37,7 +37,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
     <ul className="flex flex-col gap-y-1">
       <li onClick={() => onExpandChange()} className={mainItemStyles}>
         <div
-          className={`flex  peer ${
+          className={`flex peer ${
             open
               ? "items-start justify-start px-4"
               : "items-center px-4 delay-300"
@@ -46,10 +46,9 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           <span
             className={`flex items-center gap-x-4 w-full ${
               expand || isPathSelected ? "text-gray-800" : ""
-            }`}
+            }  `}
           >
-            {subRoutes.icon}
-
+            <div className={`${!open && "sm:hidden"}`}>{subRoutes.icon}</div>
             {open && (
               <div className={`flex items-center justify-between w-full`}>
                 <span className={`text-xl font-semibold sm:text-lg `}>

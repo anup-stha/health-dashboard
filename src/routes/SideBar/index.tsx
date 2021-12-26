@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:17 PM
  *
  *
  */
@@ -20,8 +20,10 @@ export const Sidebar: React.FC = () => {
   return (
     <nav
       className={`${
-        open ? "w-[18%] px-4 py-4 sm:w-1/2 md:w-1/3 lg:w-1/4" : "w-24 px-4"
-      } transition-all duration-100 h-screen min-h-0 z-30 fixed shadow-E400 bg-white space-y-12 sidebar text-3xl flex flex-col justify-between `}
+        open
+          ? "w-[18%] px-4 py-4 sm:w-3/5 md:w-1/3 lg:w-1/4"
+          : "w-24 px-4 sm:w-0 sm:p-0 "
+      } transition-all duration-300 h-screen min-h-0 z-30 fixed shadow-E400 bg-white space-y-12 sidebar text-3xl flex flex-col justify-between `}
       style={{
         scrollbarWidth: "none",
         msOverflowStyle: "none",
@@ -50,7 +52,7 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="py-4">
+          <div className="py-4 sm:hidden">
             <div className="w-16 h-16 object-contain  relative">
               <Image
                 src={Avatar}

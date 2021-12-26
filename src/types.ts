@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 3:26 PM
+ * Last Modified 12/26/21, 6:48 PM
  *
  *
  */
@@ -395,6 +395,7 @@ export type MemberTestReport = {
   id: number;
   name: string;
   value: string;
+  note: string;
 };
 
 export type MemberTestList = {
@@ -404,6 +405,7 @@ export type MemberTestList = {
   timezone: string;
   test_name: string;
   app_slug: string;
+  test_slug: string;
   report: MemberTestReport[];
 };
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:16 PM
  *
  *
  */
@@ -18,7 +18,7 @@ export const MainHeader: React.FC = () => {
   return (
     <header
       className={`fixed   top-0 left-0 w-full z-20  bg-white shadow-E200 ${
-        !open ? "pl-24" : "pl-[18%]"
+        !open ? "pl-24 sm:pl-0" : "pl-[18%]"
       } `}
     >
       <div className="h-24 flex items-center justify-between px-12">
@@ -28,7 +28,7 @@ export const MainHeader: React.FC = () => {
       </div>
       <hr className="border-t-[1px] border-gray-200" />{" "}
       {router.asPath !== "/dashboard" && (
-        <div className="bg-white h-12 w-full flex px-10">
+        <div className="bg-white h-12 w-full flex px-10 sm:px-6">
           <Breadcrumbs />
         </div>
       )}

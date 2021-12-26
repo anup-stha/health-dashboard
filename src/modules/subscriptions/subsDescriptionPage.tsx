@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/20/21, 5:39 PM
+ * Last Modified 12/26/21, 10:12 PM
  *
  *
  */
@@ -61,7 +61,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
   const tabArray = Object.values(tabs);
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:p-8 w-full space-y-8">
+    <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-8 w-full space-y-8">
       <div className="flex flex-col">
         <h1 className="text-4xl font-semibold text-neutral-800 capitalize">
           {selected ? selected.name : ""}
@@ -79,9 +79,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
         </div>
 
         {testList.length !== 0 ? (
-          <div className="w-full flex gap-6">
+          <div className="w-full flex gap-6 sm:flex-col">
             <Tab.Group vertical>
-              <Tab.List className="w-1/4 sm:w-full h-full flex flex-col  bg-white shadow-sm rounded-md overflow-hidden">
+              <Tab.List className="w-1/4 sm:w-1/2 h-full flex flex-col bg-white shadow-sm rounded-md overflow-hidden">
                 {testList.map((test) => (
                   <Tab as={Fragment} key={test.id}>
                     {({ selected }) => (
@@ -127,7 +127,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                 ))}
               </Tab.List>
 
-              <Tab.Panels className="w-3/4 h-full bg-white rounded-md px-8 py-8 shadow-sm ">
+              <Tab.Panels className="w-3/4 sm:w-full h-full bg-white rounded-md px-8 py-8 shadow-sm ">
                 {tabArray.map((test, index) => {
                   if (test === undefined)
                     return (
@@ -181,7 +181,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                     <Tab.Panel key={index}>
                       <div className={"space-y-4 w-full"}>
                         <div
-                          className={"flex items-center justify-between w-full"}
+                          className={
+                            "flex items-center justify-between w-full sm:flex-col sm:items-start sm:space-y-4"
+                          }
                         >
                           <div className="space-y-1">
                             <h1 className="text-3xl font-semibold text-neutral-700 capitalize">

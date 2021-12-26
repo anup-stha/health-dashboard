@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:10 PM
  *
  *
  */
@@ -11,15 +11,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import _ from "lodash";
-
-// const convertBreadcrumb = (string: string) => {
-//   return string
-//     .replace(/-/g, " ")
-//     .replace(/oe/g, "ö")
-//     .replace(/ae/g, "ä")
-//     .replace(/ue/g, "ü")
-//     .toUpperCase();
-// };
 
 type pathArrayProps = {
   label: string;

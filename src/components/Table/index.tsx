@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 3:51 PM
+ * Last Modified 12/26/21, 9:42 PM
  *
  *
  */
@@ -22,20 +22,16 @@ export const TableView: React.FC<TableViewPropsType> = ({
   data: tableData,
   tableHeadings,
   tableRowComponent,
-  loading,
+  loading = false,
 }) => {
   const headings = tableHeadings ? tableHeadings : Object.keys(tableData[0]);
 
   return !loading ? (
-    <div className="flex flex-col animate-fade transition-all duration-100">
-      <div className="sm:-mx-8 lg:-mx-8">
-        <div
-          className={`py-2 align-middle ${
-            width === "full" ? "min-w-full" : width
-          } sm:px-6 lg:px-8 relative`}
-        >
-          <div className="lg:overflow-x-auto lg:overflow-y-scroll h-full z-0 overflow-hidden rounded-md sm:rounded-sm shadow-E100">
-            <table className="min-w-full divide-y divide-gray-200 ">
+    <div className="flex flex-col">
+      <div className="overflow-x-auto">
+        <div className="px-1 py-2 align-middle inline-block min-w-full">
+          <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-lg">
+            <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-100">
                 <tr>
                   {headings.map((heading, index) => (
@@ -69,7 +65,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
                           {Object.values(data).map((d: any, index) => (
                             <td
                               key={index}
-                              className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850 w-auto"
+                              className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850"
                             >
                               {d.toString()}
                             </td>
@@ -77,7 +73,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
                         </tr>
                       );
                     })}
-                <tr></tr>
+                <tr />
               </tbody>
             </table>
           </div>

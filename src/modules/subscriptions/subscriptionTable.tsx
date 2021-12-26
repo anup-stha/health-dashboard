@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:51 PM
+ * Last Modified 12/26/21, 9:44 PM
  *
  *
  */
@@ -87,7 +87,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
           </div>
         </td>
         <td className="whitespace-nowrap text-lg">
-          <BooleanTag type={"info"} trueStatement={data.price}></BooleanTag>
+          <BooleanTag type={"info"} trueStatement={data.price} />
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-lg text-gray-900 font-semibold capitalize">
@@ -113,7 +113,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
                 `/subscriptions/${data.slug}?id=${data.id}&role=${selectedRole.id}`
               )
             }
-            className="w-full bg-neutral-700 hover:bg-neutral-800 hover:shadow-sm focus:shadow-sm transition-all duration-200 hover text-white flex items-center justify-center py-4 rounded-sm shadow-lg cursor-pointer"
+            className="px-2 sm:px-6 w-full bg-neutral-700 hover:bg-neutral-800 hover:shadow-sm focus:shadow-sm transition-all duration-200 hover text-white flex items-center justify-center py-4 rounded-sm shadow-lg cursor-pointer"
           >
             View Test Details
           </button>

@@ -1,20 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/26/21, 10:25 PM
  *
  *
  */
 
-import {
-  HouseSimple,
-  Polygon,
-  Sliders,
-  TestTube,
-  UserList,
-  Users,
-} from "phosphor-react";
+import { Polygon, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
+import { Home, House2 } from "iconsax-react";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -57,7 +51,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <HouseSimple size={24} />,
+    icon: <Home variant={"Broken"} size={24} />,
     link: "/dashboard",
   },
   {
@@ -98,7 +92,7 @@ export const orgNavRoutes: RouteObjectType[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <HouseSimple size={24} />,
+    icon: <House2 size={24} />,
     link: "/dashboard",
   },
 ];
