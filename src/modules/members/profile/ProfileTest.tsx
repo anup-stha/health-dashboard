@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 4:33 PM
+ * Last Modified 12/27/21, 5:24 PM
  *
  *
  */
@@ -58,6 +58,7 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
               Please choose a test to show results of that test
             </h1>
           </div>
+          <TestDropdown />
         </div>
         <div className="space-y-4">
           {Object.keys(testDetails).length !== 0 ? (
@@ -88,7 +89,6 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
                     Grid
                   </Tab>
                 </Tab.List>
-                <TestDropdown />
               </div>
               <hr className="border-t-[1px] border-gray-200" />
 
