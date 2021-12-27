@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:21 PM
+ * Last Modified 12/27/21, 4:59 PM
  *
  *
  */
@@ -24,7 +24,7 @@ export const MemberRoleDropdown = () => {
     <div className="w-64 capitalize z-10">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
-          <Listbox.Button className="cursor-pointer relative w-full py-[1.125rem] px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
+          <Listbox.Button className="cursor-pointer relative w-full py-[1.125rem] px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
             <span className="block truncate">{selected.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
@@ -39,7 +39,7 @@ export const MemberRoleDropdown = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-2 overflow-auto text-lg bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute w-full py-1 mt-2 overflow-auto text-lg bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
               {roleList.map((role) => (
                 <Listbox.Option
                   key={role.id}

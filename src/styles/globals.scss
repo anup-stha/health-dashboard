@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/22/21, 11:32 PM
+ * Last Modified 12/27/21, 4:49 PM
  *
  *
  */
@@ -253,4 +253,9 @@ datalist {
   height: 85vh;
   background: url("/assets/dashboard.svg") no-repeat 450% 100%;
   background-size: 90% 90%;
+}
+
+.dashboard-bg-2 {
+  height: 85vh;
+  background: url("/assets/dashboard.svg") no-repeat 450% 100%;
 }

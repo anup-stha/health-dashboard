@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:13 PM
+ * Last Modified 12/27/21, 4:33 PM
  *
  *
  */
@@ -12,7 +12,14 @@ import { memberStore } from "@/modules/members/memberStore";
 import { utcToZonedTime } from "date-fns-tz";
 import { TableView } from "@/components/Table";
 import moment from "moment";
-import { WarningOctagon } from "phosphor-react";
+import { GooglePlayLogo, WarningOctagon } from "phosphor-react";
+import { MemberTestListData, MemberTestReport } from "@/types";
+import { Calendar } from "iconsax-react";
+import { Tab } from "@headlessui/react";
+
+const classNames = (...classes: any) => {
+  return classes.filter(Boolean).join(" ");
+};
 
 type ProfileTestProps = {
   loading?: boolean;
@@ -51,76 +58,65 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
               Please choose a test to show results of that test
             </h1>
           </div>
-
-          <TestDropdown />
         </div>
-        {Object.keys(testDetails).length !== 0 ? (
-          <TableView
-            data={subTestDetails}
-            tableHeadings={[
-              "Test App",
-              "Test Date",
-              "Test Result",
-              "Test Notes",
-            ]}
-            tableRowComponent={<ProfileTestTableRow />}
-          />
-        ) : (
-          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
-            <WarningOctagon size={24} /> <span>No Test Details Found</span>
-          </div>
-        )}
-        {/*
-        <div className={"grid grid-cols-2 gap-8 items-stretch justify-stretch"}>
-          {Object.keys(testDetails).length !== 0 &&
-          testDetails.list.length !== 0 ? (
-            testDetails.list.map((test) => (
-              <div className="flex items-stretch" key={test.id}>
-                <div className="p-6 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
-                  <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl capitalize">
-                    {test.test_name} Report
-                  </h1>
-                  <div className="space-y-2 px-4">
-                    <div className="flex space-x-4 items-center">
-                      <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
-                        <GooglePlayLogo size={18} />
+        <div className="space-y-4">
+          {Object.keys(testDetails).length !== 0 ? (
+            <Tab.Group>
+              <div className="flex justify-between items-center ">
+                <Tab.List className="space-x-4">
+                  <Tab
+                    className={({ selected }) =>
+                      classNames(
+                        selected
+                          ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
+                          : "py-3 px-10 rounded-sm text-xl  text-gray-700 font-semibold hover:bg-gray-200"
+                      )
+                    }
+                  >
+                    <div className="">Table</div>
+                  </Tab>
 
-                        <span>App:</span>
-                      </p>
-                      <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl capitalize">
-                        {test.app_slug}
-                      </h1>
-                    </div>
-
-                    <div className="flex space-x-4 items-center">
-                      <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
-                        <Calendar size={18} />
-
-                        <span>Test Date:</span>
-                      </p>
-                      <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
-                        {utcDateToLocal(test.test_date)}
-                      </h1>
-                    </div>
-
-                    <div className="flex flex-col  space-y-2 ">
-                      <TableView
-                        data={test.report.map((element) =>
-                          _.omit(element, "id")
-                        )}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  <Tab
+                    className={({ selected }) =>
+                      classNames(
+                        selected
+                          ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
+                          : "py-3 px-10 rounded-sm text-xl  text-gray-700 font-semibold hover:bg-gray-200"
+                      )
+                    }
+                  >
+                    Grid
+                  </Tab>
+                </Tab.List>
+                <TestDropdown />
               </div>
-            ))
+              <hr className="border-t-[1px] border-gray-200" />
+
+              <Tab.Panels>
+                <Tab.Panel>
+                  <TableView
+                    data={subTestDetails}
+                    tableHeadings={[
+                      "Test App",
+                      "Test Date",
+                      "Test Result",
+                      "Test Notes",
+                    ]}
+                    tableRowComponent={<ProfileTestTableRow />}
+                  />{" "}
+                </Tab.Panel>
+              </Tab.Panels>
+              <Tab.Panel>
+                {" "}
+                <ProfileTestGridView testDetails={testDetails} />
+              </Tab.Panel>
+            </Tab.Group>
           ) : (
             <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
               <WarningOctagon size={24} /> <span>No Test Details Found</span>
             </div>
           )}
         </div>
-*/}
       </div>
     </div>
   );
@@ -152,13 +148,12 @@ const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
         {data.app_slug}
       </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-2">
           <span>
-            {moment(utcDateToLocal(data.test_date)).format("MMMM Do YYYY")}
+            {moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}
           </span>
-          <span>
-            {moment(utcDateToLocal(data.test_date)).format("h:mm:ss A")}
-          </span>
+
+          <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2">
@@ -184,6 +179,89 @@ const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
             </span>
           </div>
         ))}
+      </td>
+    </tr>
+  ) : (
+    <tr />
+  );
+};
+
+type ProfileTestGridViewProps = {
+  testDetails: MemberTestListData;
+};
+
+export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
+  testDetails,
+}) => {
+  return (
+    <div className={"grid grid-cols-2 gap-8 items-stretch justify-stretch"}>
+      {Object.keys(testDetails).length !== 0 &&
+        testDetails.list.length !== 0 &&
+        testDetails.list.map((test) => (
+          <div className="flex items-stretch" key={test.id}>
+            <div className="p-4 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl capitalize">
+                {test.test_name} Report
+              </h1>
+              <div className="space-y-2">
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                    <GooglePlayLogo size={18} />
+
+                    <span>App:</span>
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl capitalize">
+                    {test.app_slug}
+                  </h1>
+                </div>
+
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                    <Calendar size={18} />
+
+                    <span>Test Date:</span>
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                    {utcDateToLocal(test.test_date)}
+                  </h1>
+                </div>
+
+                <div className="flex flex-col  space-y-2 ">
+                  <TableView
+                    data={test.report}
+                    tableRowComponent={<ProfileTestGridTableRow />}
+                    tableHeadings={["Test Name", "Test Value", "Test Note"]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+};
+
+type ProfileTestGridTableRowProps = {
+  data?: MemberTestReport;
+};
+
+export const ProfileTestGridTableRow: React.FC<
+  ProfileTestGridTableRowProps
+> = ({ data }) => {
+  return data ? (
+    <tr>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
+        <div className="flex flex-col">
+          <span>{data.name} </span>
+          <span className="text-gray-500 text-lg">{data.slug}</span>
+        </div>
+      </td>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
+        {data.value}
+      </td>
+
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
+        {data.note === "" ? "N/A" : data.note}
       </td>
     </tr>
   ) : (
