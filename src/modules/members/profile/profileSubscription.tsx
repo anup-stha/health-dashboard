@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 2:31 PM
+ * Last Modified 12/28/21, 4:03 PM
  *
  *
  */
@@ -166,7 +166,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
 
   return subscriptionList.list.length === 0 ||
     Object.keys(selectedMemberSubscription).length === 0 ? null : (
-    <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+    <div className="print:hidden w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
       <div className="p-6 space-y-4">
         <div className="flex items-center">
           <div className="w-full text-xl rounded-lg flex flex-col items-center sm:w-full">

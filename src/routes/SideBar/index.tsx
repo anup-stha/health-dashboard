@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:17 PM
+ * Last Modified 12/28/21, 3:57 PM
  *
  *
  */
@@ -23,7 +23,7 @@ export const Sidebar: React.FC = () => {
         open
           ? "w-[18%] px-4 py-4 sm:w-3/5 md:w-1/3 lg:w-1/4"
           : "w-24 px-4 sm:w-0 sm:p-0 "
-      } transition-all duration-300 h-screen min-h-0 z-30 fixed shadow-E400 bg-white space-y-12 sidebar text-3xl flex flex-col justify-between `}
+      }  print:hidden transition-all duration-300 h-screen min-h-0 z-30 fixed shadow-E400 bg-white space-y-12 sidebar text-3xl flex flex-col justify-between `}
       style={{
         scrollbarWidth: "none",
         msOverflowStyle: "none",

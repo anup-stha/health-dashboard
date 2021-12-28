@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:54 PM
+ * Last Modified 12/28/21, 7:14 PM
  *
  *
  */
@@ -9,6 +9,7 @@
 import { useRouter } from "next/router";
 import { RouteObjectType } from "./routes";
 import { useSideBarStore } from "./useSideBarStore";
+import { isMobile } from "react-device-detect";
 
 type NavItemProps = {
   route: RouteObjectType;
@@ -20,7 +21,7 @@ export const NavItem: React.FC<NavItemProps> = ({
   route,
   containerClassName,
 }) => {
-  const { open } = useSideBarStore();
+  const { open, toggleOpen } = useSideBarStore();
   const { pathname, push } = useRouter();
 
   const activeStyles =
@@ -36,7 +37,12 @@ export const NavItem: React.FC<NavItemProps> = ({
             ? activeStyles
             : inactiveStyles
         }
-        onClick={() => route.link && push(route.link)}
+        onClick={() => {
+          route.link &&
+            push(route.link).then(() => {
+              isMobile && toggleOpen();
+            });
+        }}
       >
         <div
           className={`flex relative peer ${

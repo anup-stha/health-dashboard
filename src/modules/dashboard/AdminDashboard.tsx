@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 1:49 PM
+ * Last Modified 12/28/21, 7:12 PM
  *
  *
  */
@@ -18,13 +18,13 @@ import { useRoleList } from "@/services/requests/roleRequests";
 
 export const AdminDashboard: React.FC = () => {
   const user = useAuthStore().user;
-  const { data, isLoading } = useDashboardQuery();
+  const { data, isLoading, error } = useDashboardQuery();
   const {} = useRoleList();
 
-  if (isLoading) return <Loader />;
+  if (isLoading || error) return <Loader />;
 
   return (
-    <div className="px-10 pb-8 sm:px-10 sm:py-8 -mt-2 space-y-8 w-full sm:-mt-12 dashboard-bg">
+    <div className="px-10 pb-8 sm:px-8 sm:py-8 -mt-2 space-y-8 w-full sm:-mt-12 dashboard-bg">
       <div>
         <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
           Hello, {user.name}

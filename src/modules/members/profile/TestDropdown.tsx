@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 5:28 PM
+ * Last Modified 12/28/21, 4:32 PM
  *
  *
  */
@@ -27,7 +27,7 @@ export const TestDropdown = () => {
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
-          <div className="relative w-80">
+          <div className="relative w-80 print:hidden">
             <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 text-xl">
               <span className="flex items-center">
                 <span className="ml-3 block truncate font-semibold text-gray-700 capitalize">

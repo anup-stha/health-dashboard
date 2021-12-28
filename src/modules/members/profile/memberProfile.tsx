@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 2:09 PM
+ * Last Modified 12/28/21, 6:35 PM
  *
  *
  */
@@ -32,7 +32,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
   const { selectedMemberDetails: otherDetails } = memberStore();
 
   return (
-    <div className="relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
+    <div className="print:hidden  relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
       <div className="relative w-full h-52 z-0 profile" />
 
       <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">

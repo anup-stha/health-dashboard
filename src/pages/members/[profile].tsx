@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 3:49 PM
+ * Last Modified 12/28/21, 4:10 PM
  *
  *
  */
@@ -107,7 +107,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
             <div className=" w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
               <ProfileSubscription memberId={Number(idX.id)} />
               {Object.keys(selectedMemberSubscription).length === 0 && (
-                <div className="self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                <div className=" print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
                   <div>
                     <h1 className="text-xl font-semibold text-gray-800">
                       Subscriptions
@@ -121,7 +121,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   </div>
 
                   {subscriptionList.list.length === 0 ? (
-                    <div className="flex items-center text-red-500 space-x-4">
+                    <div className="print:hidden flex items-center text-red-500 space-x-4">
                       <WarningOctagon size={40} />{" "}
                       <span className={"font-semibold"}>
                         No Subscription Found. Please add a subscription to this
@@ -165,7 +165,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   )}
                 </div>
               )}
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-8 print:hidden">
                 <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4 flex flex-col divide-y-[1px] divide-gray-500/40">
                   <MemberModal
                     type={"edit"}

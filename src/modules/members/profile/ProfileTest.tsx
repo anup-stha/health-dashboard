@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 2:27 PM
+ * Last Modified 12/28/21, 6:35 PM
  *
  *
  */
@@ -25,7 +25,11 @@ type ProfileTestProps = {
   loading?: boolean;
 };
 export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
-  const { selectedTestDetailsInProfile: testDetails } = memberStore();
+  const {
+    selectedTestDetailsInProfile: testDetails,
+    selectedMember,
+    selectedTestInProfile,
+  } = memberStore();
 
   const subTestDetails =
     Object.keys(testDetails).length !== 0 &&
@@ -38,7 +42,7 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
 
           tests: element.report.map((sub) => ({
             [sub.name]: sub.value,
-            [`${sub.name} Note`]: sub.note,
+            [`Note`]: sub.note,
           })),
         }
       );
@@ -47,16 +51,37 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
   return loading ? (
     <div>loading</div>
   ) : (
-    <div className=" w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+    <div className="print:ring-0 w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10">
       <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
         <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
-          <div>
+          <div className="print:hidden">
             <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
               Tests
             </h1>
-            <h1 className="text-gray-500 font-medium text-lg sm:">
+            <h1 className="text-gray-500 font-medium text-lg print:hidden">
               Please choose a test to show results of that test
             </h1>
+          </div>
+          <div className="print:flex hidden flex-col gap-4">
+            <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
+              {selectedTestInProfile.name} Report
+            </h1>
+            <hr />
+            <div>
+              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                Name: {selectedMember.name}
+              </h1>
+              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                Address: {selectedMember.address}
+              </h1>
+              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                Address: {selectedMember.gender}
+              </h1>
+              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
+                Date of birth:{" "}
+                {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
+              </h1>
+            </div>
           </div>
           <TestDropdown />
         </div>
@@ -64,7 +89,7 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
           {Object.keys(testDetails).length !== 0 ? (
             <Tab.Group>
               <div className="flex justify-between items-center ">
-                <Tab.List className="space-x-4">
+                <Tab.List className="space-x-4 print:hidden">
                   <Tab
                     className={({ selected }) =>
                       classNames(
@@ -89,6 +114,14 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
                     Grid
                   </Tab>
                 </Tab.List>
+                <div
+                  className={
+                    "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold  print:hidden"
+                  }
+                  onClick={() => window.print()}
+                >
+                  Print
+                </div>
               </div>
               <hr className="border-t-[1px] border-gray-200" />
 
@@ -107,7 +140,6 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
                 </Tab.Panel>
               </Tab.Panels>
               <Tab.Panel>
-                {" "}
                 <ProfileTestGridView testDetails={testDetails} />
               </Tab.Panel>
             </Tab.Group>
@@ -175,7 +207,7 @@ const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
             <span className="font-semibold w-64">
               {Object.values(element)[1] === ""
                 ? "N/A"
-                : Object.values(element)[1]}
+                : Object.values(element)[1].slice(0, 50)[0]}
             </span>
           </div>
         ))}
@@ -196,7 +228,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
   return (
     <div
       className={
-        "grid grid-cols-2 gap-8 items-stretch justify-stretch sm:grid-cols-1 sm:gap-6"
+        "grid grid-cols-2 gap-8 items-stretch justify-stretch sm:grid-cols-1 sm:gap-6 print:grid-cols-1"
       }
     >
       {Object.keys(testDetails).length !== 0 &&
@@ -204,7 +236,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
         testDetails.list.map((test) => (
           <div className="flex items-stretch" key={test.id}>
             <div className="p-4 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
-              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl capitalize">
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider capitalize">
                 {test.test_name} Report
               </h1>
               <div className="space-y-2">
@@ -265,7 +297,7 @@ export const ProfileTestGridTableRow: React.FC<
       </td>
 
       <td className="capitalize px-6 py-4 text-xl font-medium text-gray-700 truncate">
-        {data.note === "" ? "N/A" : data.note}
+        {data.note === "" ? "N/A" : data.note.slice(0, 40)[0]}
       </td>
     </tr>
   ) : (

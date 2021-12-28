@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 3:42 PM
+ * Last Modified 12/28/21, 7:23 PM
  *
  *
  */
@@ -22,7 +22,7 @@ export const SubscriptionTable = () => {
 
   return subscriptionList.list.length === 0 || selectedRole.id === 0 ? (
     <div className="flex justify-center">
-      <div className="w-[48vw] h-[70vh] relative">
+      <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
         <Image
           src="/assets/empty.svg"
           alt="Empty State"

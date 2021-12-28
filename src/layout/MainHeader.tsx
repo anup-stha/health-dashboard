@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:16 PM
+ * Last Modified 12/28/21, 7:02 PM
  *
  *
  */
@@ -10,19 +10,35 @@ import { ImageAvatar } from "@/components/Avatar";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { useRouter } from "next/router";
 import Breadcrumbs from "./BreadCrumb";
+import { HambergerMenu } from "iconsax-react";
 
 export const MainHeader: React.FC = () => {
   const router = useRouter();
-  const { open } = useSideBarStore();
+  const { open, toggleOpen } = useSideBarStore();
 
   return (
     <header
-      className={`fixed   top-0 left-0 w-full z-20  bg-white shadow-E200 ${
+      className={`print:hidden fixed top-0 left-0 w-full z-20  bg-white shadow-E200 ${
         !open ? "pl-24 sm:pl-0" : "pl-[18%]"
       } `}
     >
-      <div className="h-24 flex items-center justify-between px-12">
-        <div>{/* Put Logo Her */}</div>
+      <div className="h-24 flex items-center justify-between px-12 sm:px-6">
+        <div>
+          <HambergerMenu
+            variant={"Broken"}
+            className={"cursor-pointer hidden sm:flex"}
+            size={44}
+            onClick={() => toggleOpen()}
+          />
+          {open && (
+            <div
+              className={
+                "hidden sm:flex sm:fixed sm:inset-0 sm:bg-black sm:opacity-40"
+              }
+              onClick={() => toggleOpen()}
+            />
+          )}
+        </div>
 
         <ImageAvatar />
       </div>
