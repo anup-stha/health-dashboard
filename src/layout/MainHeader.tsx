@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 7:02 PM
+ * Last Modified 12/28/21, 9:04 PM
  *
  *
  */
@@ -19,7 +19,7 @@ export const MainHeader: React.FC = () => {
   return (
     <header
       className={`print:hidden fixed top-0 left-0 w-full z-20  bg-white shadow-E200 ${
-        !open ? "pl-24 sm:pl-0" : "pl-[18%]"
+        !open ? "pl-24 sm:pl-0" : "pl-[18%] sm:pl-0"
       } `}
     >
       <div className="h-24 flex items-center justify-between px-12 sm:px-6">
