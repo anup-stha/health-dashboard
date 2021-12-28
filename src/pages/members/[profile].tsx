@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 4:10 PM
+ * Last Modified 12/28/21, 8:57 PM
  *
  *
  */
@@ -93,7 +93,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
         <Loader />
       ) : (
         <>
-          <div className="  flex gap-8 p-8 lg:flex-col 3xl:max-w-8xl 3xl:justify-center lg:p-4">
+          <div className="  flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-8">
             <div className="w-3/4 space-y-8 lg:w-full">
               <MemberProfileData
                 selectedMemberDetails={selectedMember}

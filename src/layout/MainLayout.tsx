@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 7:08 PM
+ * Last Modified 12/28/21, 8:51 PM
  *
  *
  */
@@ -10,16 +10,9 @@ import { Sidebar } from "@/routes/SideBar";
 import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarToggleButton";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { MainHeader } from "./MainHeader";
-import { useEffect } from "react";
-
-import { isMobile } from "react-device-detect";
 
 export const MainLayout = ({ children }: any) => {
   const { open } = useSideBarStore();
-
-  useEffect(() => {
-    if (open && isMobile) document.body.style.overflow = "hidden";
-  }, [open]);
 
   return (
     <div suppressHydrationWarning={true}>

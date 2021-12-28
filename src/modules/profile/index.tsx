@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 3:58 PM
+ * Last Modified 12/28/21, 8:58 PM
  *
  *
  */
@@ -34,7 +34,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <>
-      <div className="flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
+      <div className="flex gap-8 p-10 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-8">
         <div className="relative w-3/4 bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
           <div className="relative w-full h-52 z-0 profile " />
 
