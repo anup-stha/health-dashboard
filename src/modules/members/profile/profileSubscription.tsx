@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 3:06 PM
+ * Last Modified 12/28/21, 2:31 PM
  *
  *
  */
@@ -74,7 +74,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
             fontSize: "17px",
           },
           value: {
-            formatter: function (val) {
+            formatter: function () {
               return `${
                 end.diff(new Date(), "days") === 0
                   ? end.diff(new Date(), "hours")
@@ -138,7 +138,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
               fontSize: "17px",
             },
             value: {
-              formatter: function (val) {
+              formatter: function () {
                 return `${
                   end.diff(new Date(), "days") === 0
                     ? end.diff(new Date(), "hours")
@@ -181,75 +181,75 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                 />
               )}
             </div>
-            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full ">
-              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider sm:text-2xl">
+            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full sm:items-center  ">
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider   ">
                 {selectedMemberSubscription.plan.name}
               </h1>
 
               <div className="space-y-1 flex flex-col items-start">
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider   flex items-center space-x-2">
                     <span>Start Date:</span>
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider">
                     {moment(
                       selectedMemberSubscription.start_date * 1000
-                    ).format("MMMM Do YYYY")}
+                    ).format("MM/DD/YYYY")}
                   </h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider   flex items-center space-x-2">
                     <span>End Date:</span>
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {moment(selectedMemberSubscription.end_date * 1000).format(
-                      "MMMM Do YYYY"
+                      "MM/DD/YYYY"
                     )}
                   </h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl flex items-center space-x-2">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider   flex items-center space-x-2">
                     <span>Total Price:</span>
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {selectedMemberSubscription.plan.price}
                   </h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider  ">
                     Grace Period:
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {selectedMemberSubscription.plan.grace_period} days
                   </h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider  ">
                     Sync Limit:
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {selectedMemberSubscription.plan.sync_limit} times
                   </h1>
                 </div>
 
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider  ">
                     Test Limit:
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {selectedMemberSubscription.plan.test_limit} times
                   </h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-gray-700 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider  ">
                     Test Count:
                   </p>
-                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider sm:text-2xl">
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
                     {selectedMemberSubscription.total_test_count} times
                   </h1>
                 </div>
               </div>
-              <div className={"w-full flex space-x-4"}>
+              <div className={"w-full flex space-x-4 mt-2 justify-center"}>
                 {Object.keys(selectedMemberSubscription).length !== 0 && (
                   <GrayButton>Renew</GrayButton>
                 )}

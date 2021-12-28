@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:54 PM
+ * Last Modified 12/28/21, 3:27 PM
  *
  *
  */
@@ -18,6 +18,7 @@ import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore"
 import { useTestList } from "@/services/requests/testRequests";
 import React, { useEffect, useState } from "react";
 import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
+import { Loader } from "@/components/Loader";
 
 const SubscriptionDetailsPage: NextPage = ({ role, slug, id }: any) => {
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ const SubscriptionDetailsPage: NextPage = ({ role, slug, id }: any) => {
   return (
     <MainLayout>
       {subsLoading || testLoading || loading ? (
-        <div>loading</div>
+        <Loader />
       ) : (
         <SubsDescriptionPage selected={selectedSubscription} />
       )}

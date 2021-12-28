@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 3:36 PM
+ * Last Modified 12/28/21, 3:49 PM
  *
  *
  */
@@ -19,11 +19,7 @@ import {
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useRouter } from "next/router";
 import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
-import {
-  getMemberTestList,
-  useMemberDetails,
-  useMemberList,
-} from "@/services/requests/memberRequests";
+import { getMemberTestList } from "@/services/requests/memberRequests";
 import { memberStore } from "@/modules/members/memberStore";
 import { ProfileSubscription } from "@/modules/members/profile/profileSubscription";
 import { MemberDetailAddModal } from "@/modules/members/profile/memberDetailAddModal";
@@ -37,11 +33,16 @@ import { ProfileTest } from "@/modules/members/profile/ProfileTest";
 import { useTestList } from "@/services/requests/testRequests";
 import { MemberModal } from "@/modules/members/modal/memberModal";
 import _ from "lodash";
+import { useMemberList } from "@/modules/members/hooks/useMemberList";
+import { useMemberDetails } from "@/modules/members/hooks/useMemberDetails";
+import { Loader } from "@/components/Loader";
 
 const MemberProfile: NextPage<any> = ({ idX }) => {
   const router = useRouter();
 
-  const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
+  const { isFetching: memberDetailsLoading, error } = useMemberDetails(
+    Number(idX.id)
+  );
   const { isFetching: memberSubsDetailsData } = useMemberSubsDetails(
     Number(idX.id)
   );
@@ -78,6 +79,8 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     data?.details && setVerified(data?.details.verified);
   }, [data]);
 
+  console.log(error);
+
   return (
     <MainLayout>
       {subsLoading ||
@@ -87,11 +90,11 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
       memberSubsDetailsData ||
       memberDetailsLoading ||
       testLoading ? (
-        <div>Loading</div>
+        <Loader />
       ) : (
         <>
-          <div className="  flex gap-8 p-8 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-4">
-            <div className="w-3/4 space-y-8">
+          <div className="  flex gap-8 p-8 lg:flex-col 3xl:max-w-8xl 3xl:justify-center lg:p-4">
+            <div className="w-3/4 space-y-8 lg:w-full">
               <MemberProfileData
                 selectedMemberDetails={selectedMember}
                 role={selectedRole}
@@ -101,10 +104,10 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
 
               <ProfileTest />
             </div>
-            <div className=" w-1/4  h-auto sm:w-full flex flex-col space-y-8">
+            <div className=" w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
               <ProfileSubscription memberId={Number(idX.id)} />
               {Object.keys(selectedMemberSubscription).length === 0 && (
-                <div className="flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                <div className="self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
                   <div>
                     <h1 className="text-xl font-semibold text-gray-800">
                       Subscriptions
@@ -162,34 +165,36 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                   )}
                 </div>
               )}
-              <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4 flex flex-col divide-y-[1px] divide-gray-500/40">
-                <MemberModal
-                  type={"edit"}
-                  initialData={{
-                    member_id: Number(idX.id),
-                    ..._.omit(selectedMember, ["ref_key"]),
-                  }}
-                />
-                <MemberDetailAddModal
-                  memberData={selectedMember}
-                  selectedRole={selectedRole}
-                />
-              </div>
-              <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
-                <MemberToggle
-                  toggle={"active"}
-                  memberId={Number(idX.id)}
-                  currentState={active}
-                  setCurrentState={setActive}
-                  selectedMemberDetails={selectedMember}
-                />
-                <MemberToggle
-                  toggle={"verified"}
-                  memberId={Number(idX.id)}
-                  currentState={verified}
-                  setCurrentState={setVerified}
-                  selectedMemberDetails={selectedMember}
-                />
+              <div className="flex flex-col gap-8">
+                <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4 flex flex-col divide-y-[1px] divide-gray-500/40">
+                  <MemberModal
+                    type={"edit"}
+                    initialData={{
+                      member_id: Number(idX.id),
+                      ..._.omit(selectedMember, ["ref_key"]),
+                    }}
+                  />
+                  <MemberDetailAddModal
+                    memberData={selectedMember}
+                    selectedRole={selectedRole}
+                  />
+                </div>
+                <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                  <MemberToggle
+                    toggle={"active"}
+                    memberId={Number(idX.id)}
+                    currentState={active}
+                    setCurrentState={setActive}
+                    selectedMemberDetails={selectedMember}
+                  />
+                  <MemberToggle
+                    toggle={"verified"}
+                    memberId={Number(idX.id)}
+                    currentState={verified}
+                    setCurrentState={setVerified}
+                    selectedMemberDetails={selectedMember}
+                  />
+                </div>
               </div>
             </div>
           </div>

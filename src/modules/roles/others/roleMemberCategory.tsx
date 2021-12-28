@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:59 PM
+ * Last Modified 12/28/21, 2:56 PM
  *
  *
  */
@@ -18,7 +18,7 @@ export const RoleMemberCategory = () => {
   return (
     <Disclosure>
       {({ open }) => (
-        <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left sm:w-full">
+        <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left lg:w-full">
           <Disclosure.Button className="w-full flex text-left justify-between items-center">
             <div>
               <h1 className="text-2xl font-semibold text-gray-900">

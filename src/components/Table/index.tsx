@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:42 PM
+ * Last Modified 12/28/21, 12:41 PM
  *
  *
  */
 
 import type { JSXElementConstructor, ReactElement } from "react";
 import React from "react";
+import { Loader } from "@/components/Loader";
 
 type TableViewPropsType = {
   data: any;
@@ -81,6 +82,6 @@ export const TableView: React.FC<TableViewPropsType> = ({
       </div>
     </div>
   ) : (
-    <div></div>
+    <Loader />
   );
 };

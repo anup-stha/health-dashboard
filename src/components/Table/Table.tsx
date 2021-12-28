@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/12/21, 9:26 AM
+ * Last Modified 12/28/21, 12:33 PM
  *
  *
  */
@@ -37,7 +37,7 @@ export const Table: React.FC<TableProps> = ({
   loading,
 }) => {
   const [selectedItem, setSelectedItem] = useState<string | number>("table");
-  const items = ["table", "card"];
+  const items = ["table", "cards"];
 
   return loading ? (
     <div>Loading</div>
@@ -85,7 +85,7 @@ export const Table: React.FC<TableProps> = ({
           </tbody>
         </table>
       </div>
-      {tableMobileViewComponent && selectedItem === "card" ? (
+      {tableMobileViewComponent && selectedItem === "cards" ? (
         <div className="hidden w-full sm:flex sm:flex-col sm:space-y-6">
           {data &&
             data.map((data: any) =>

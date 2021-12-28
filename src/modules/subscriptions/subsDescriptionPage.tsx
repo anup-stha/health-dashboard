@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 5:02 PM
+ * Last Modified 12/28/21, 3:39 PM
  *
  *
  */
@@ -182,7 +182,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                       <div className={"space-y-4 w-full"}>
                         <div
                           className={
-                            "flex items-center justify-between w-full sm:flex-col sm:items-start sm:space-y-4"
+                            "flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4"
                           }
                         >
                           <div className="space-y-1">

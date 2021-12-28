@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 11:18 AM
+ * Last Modified 12/28/21, 12:01 PM
  *
  *
  */
@@ -9,6 +9,8 @@
 import type { AppProps } from "next/app";
 import * as React from "react";
 import "../styles/globals.scss";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ToastComponent } from "@/components/Alert/Toast";

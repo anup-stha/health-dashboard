@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:44 PM
+ * Last Modified 12/28/21, 3:42 PM
  *
  *
  */
@@ -18,8 +18,9 @@ import { memberStore } from "@/modules/members/memberStore";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();
+  const { selectedRole } = memberStore();
 
-  return subscriptionList.list.length === 0 ? (
+  return subscriptionList.list.length === 0 || selectedRole.id === 0 ? (
     <div className="flex justify-center">
       <div className="w-[48vw] h-[70vh] relative">
         <Image

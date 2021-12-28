@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 8:08 PM
+ * Last Modified 12/28/21, 2:09 PM
  *
  *
  */
@@ -36,7 +36,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
       <div className="relative w-full h-52 z-0 profile" />
 
       <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
-        <div className="relative w-40 h-40 z-10 ring-4 ring-white rounded-full">
+        <div className="relative w-40 h-40 sm:w-36 sm:h-36 z-10 ring-4 ring-white rounded-full">
           <Image
             src="/assets/memberAvatar.svg"
             layout="fill"
@@ -46,7 +46,7 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
           />
         </div>
         <div className="flex flex-col mt-10">
-          <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+          <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-3xl">
             {selectedMemberDetails.name}
           </h1>
           <p className="text-gray-500 font-semibold text-xl sm:text-lg">
@@ -54,10 +54,10 @@ export const MemberProfileData: React.FC<MemberProfileDataProps> = ({
           </p>
         </div>
       </div>
-      <div className="px-6 py-6 min-h-[10rem] sm:px-2">
-        <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 ">
+      <div className="min-h-[10rem] p-4">
+        <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 sm:mt-6 sm:-mb-16">
           <div className="sm:hidden" />
-          <div className="flex items-center gap-2 sm:mt-24 sm:ml-4 text-lg">
+          <div className="flex items-center gap-2 sm:mt-24 text-lg ">
             <BooleanTag
               type="error"
               condition={active}

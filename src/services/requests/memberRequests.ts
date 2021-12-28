@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 11:41 AM
+ * Last Modified 12/28/21, 1:34 PM
  *
  *
  */
@@ -23,7 +23,6 @@ import {
 } from "@/types";
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
-import { useQuery } from "react-query";
 
 export const getMemberList = (
   id: number | string
@@ -42,15 +41,6 @@ export const getMembersList = (roleId: number, memberId?: number) => {
       memberId && memberStore.getState().setSelectedMember(details);
       return { list: response.data.data, details };
     });
-};
-export const useMemberList = (roleId: number, memberId?: number) => {
-  return useQuery(
-    ["member-list", roleId],
-    () => getMembersList(roleId, memberId),
-    {
-      enabled: roleId !== 0,
-    }
-  );
 };
 
 export const addOrgMember = (body: OrgMemberAddReq) => {
@@ -167,27 +157,11 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
 };
 
 export const getMemberDetails = (memberId: number) => {
-  privateAgent
+  return privateAgent
     .get<MemberDetailsListResponse>(`member/detail/${memberId}`)
     .then((response) => {
-      memberStore.getState().setSelectedMemberDetails(response.data.data);
       return response.data.data;
-    })
-    .catch((error) => {
-      return error.response;
     });
-};
-
-export const useMemberDetails = (memberId: number) => {
-  return useQuery(
-    ["member-details", memberId],
-    () => getMemberDetails(memberId),
-    {
-      enabled: !!memberId,
-      staleTime: Infinity,
-      retry: false,
-    }
-  );
 };
 
 export const addDetailsToMember = (

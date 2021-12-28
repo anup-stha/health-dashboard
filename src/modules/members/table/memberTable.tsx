@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 4:05 PM
+ * Last Modified 12/28/21, 12:59 PM
  *
  *
  */
@@ -10,7 +10,7 @@ import { TableView } from "@/components/Table";
 import { memberStore } from "../memberStore";
 import { MemberTableRow } from "./memberTableRow";
 import Image from "next/image";
-import { useMemberList } from "@/services/requests/memberRequests";
+import { useMemberList } from "@/modules/members/hooks/useMemberList";
 
 export const MemberTable = () => {
   const { memberList, selectedRole } = memberStore();

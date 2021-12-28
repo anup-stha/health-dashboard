@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:14 PM
+ * Last Modified 12/28/21, 11:23 AM
  *
  *
  */
@@ -26,7 +26,9 @@ export const MainLayout = ({ children }: any) => {
         } transition-all duration-200 h-full `}
       >
         <MainHeader />
-        <div className="3xl:flex 3xl:items-center 3xl:justify-center pt-36 h-full">
+        <div
+          className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 h-full`}
+        >
           {children}
         </div>
       </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 10:53 AM
+ * Last Modified 12/28/21, 1:50 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import { MemberPage } from "@/modules/members";
 import { withRole } from "@/shared/hoc/withRole";
 import { useRoleList } from "@/services/requests/roleRequests";
 import { MainLayout } from "@/layout/MainLayout";
+import { Loader } from "@/components/Loader";
 
 const Members: NextPage = () => {
   const { isLoading } = useRoleList();
@@ -23,9 +24,7 @@ const Members: NextPage = () => {
       <Head>
         <title>Members</title>
       </Head>
-      <MainLayout>
-        {!isLoading ? <MemberPage /> : <div>Loading</div>}
-      </MainLayout>
+      <MainLayout>{!isLoading ? <MemberPage /> : <Loader />}</MainLayout>
     </>
   );
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:25 AM
+ * Last Modified 12/28/21, 3:24 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import { testStore } from "@/modules/tests/testStore";
 import { getTests } from "@/services/requests/testRequests";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect } from "react";
+import { Loader } from "@/components/Loader";
 
 const Test: NextPage<any> = ({ idX }) => {
   const { setSelectedTest, setTestList, setLoading, loading } = testStore();
@@ -32,9 +33,7 @@ const Test: NextPage<any> = ({ idX }) => {
     listTestFn();
   }, [idX]);
 
-  return (
-    <MainLayout>{!loading ? <TestDetails /> : <div>Loading</div>}</MainLayout>
-  );
+  return <MainLayout>{!loading ? <TestDetails /> : <Loader />}</MainLayout>;
 };
 
 export default withAuth(withRole(Test));
