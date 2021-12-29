@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:20 AM
+ * Last Modified 12/29/21, 9:10 AM
  *
  *
  */
@@ -18,11 +18,14 @@ import {
   getAllPermissions,
   getRoleDetails,
 } from "@/services/requests/roleRequests";
-import { GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
 import { UpdateZone } from "@/modules/roles/others/UpdateZone";
+import { useRouter } from "next/router";
 
-const RoleDetailPage = ({ idX }: any) => {
+const RoleDetailPage = () => {
+  const router = useRouter();
+  const idX = router.query.permission;
+
   const {
     loading,
     roleList,
@@ -36,6 +39,10 @@ const RoleDetailPage = ({ idX }: any) => {
   } = useRoleStore();
 
   useEffect(() => {
+    if (!idX) {
+      return;
+    }
+
     const listRoles = async () => {
       await getRoleListFromServer()
         .then(() => setAllLoading(false))
@@ -43,7 +50,7 @@ const RoleDetailPage = ({ idX }: any) => {
     };
     const getRoleDetail = async () => {
       setLoading(true);
-      await getRoleDetails(idX)
+      await getRoleDetails(Number(idX))
         .then((response) => {
           setSelectedPermission({
             current: response.data.data.permissions,
@@ -109,6 +116,7 @@ const RoleDetailPage = ({ idX }: any) => {
 
 export default withRole(withAuth(RoleDetailPage));
 
+/*
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
@@ -118,3 +126,4 @@ export const getServerSideProps = async (
     },
   };
 };
+*/

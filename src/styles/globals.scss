@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 12:01 PM
+ * Last Modified 12/29/21, 9:01 AM
  *
  *
  */
@@ -263,4 +263,16 @@ datalist {
 .dashboard-bg-2 {
   height: 85vh;
   background: url("/assets/dashboard.svg") no-repeat 450% 100%;
+}
+
+
+// PERMISSION CARDS
+
+.permission_card_inactive {
+  @apply w-full bg-white shadow-md flex flex-col rounded-md px-4 py-6;
+}
+
+.permission_card_active {
+  @apply w-full bg-white shadow-E100 flex flex-col rounded-md px-4 py-6 ring-2 ring-opacity-90 ring-green-600 text-white transition-all duration-100;
+
 }

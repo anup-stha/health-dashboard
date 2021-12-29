@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 4:59 PM
+ * Last Modified 12/29/21, 8:44 AM
  *
  *
  */
@@ -9,7 +9,7 @@
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 import React from "react";
-import { useRoleStore } from "../roles/useRoleStore";
+import { useRoleStore } from "../../roles/useRoleStore";
 import Image from "next/image";
 import { alert } from "@/components/Alert";
 import {
