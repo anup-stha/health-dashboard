@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 11:24 AM
+ * Last Modified 12/29/21, 5:02 PM
  *
  *
  */
 
 import { Polygon, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
-import { Home } from "iconsax-react";
+import { Category2, Home } from "iconsax-react";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -82,6 +82,12 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         title: "Subscriptions",
         icon: <Polygon size={24} />,
         link: "/subscriptions",
+      },
+      {
+        id: 4,
+        title: "Others",
+        icon: <Category2 variant={"Broken"} size={24} color={"gray"} />,
+        link: "/others",
       },
     ],
   },
