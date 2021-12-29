@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 1:34 PM
+ * Last Modified 12/29/21, 11:58 AM
  *
  *
  */
@@ -39,6 +39,7 @@ export const getMembersList = (roleId: number, memberId?: number) => {
         (member) => member.id === memberId
       )[0];
       memberId && memberStore.getState().setSelectedMember(details);
+
       return { list: response.data.data, details };
     });
 };
@@ -187,7 +188,6 @@ export const addDetailsToMember = (
         data: requestBody,
       })
       .then((response) => {
-        console.log(response.data.message);
         memberStore.getState().setSelectedMemberDetails(response.data.data);
         resolve(response.data.message);
       })

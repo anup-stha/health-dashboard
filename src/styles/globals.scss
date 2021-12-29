@@ -265,7 +265,6 @@ datalist {
   background: url("/assets/dashboard.svg") no-repeat 450% 100%;
 }
 
-
 // PERMISSION CARDS
 
 .permission_card_inactive {
@@ -274,5 +273,4 @@ datalist {
 
 .permission_card_active {
   @apply w-full bg-white shadow-E100 flex flex-col rounded-md px-4 py-6 ring-2 ring-opacity-90 ring-green-600 text-white transition-all duration-100;
-
 }

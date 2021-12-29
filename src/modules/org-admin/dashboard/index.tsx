@@ -1,16 +1,18 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 4:49 PM
+ * Last Modified 12/29/21, 11:10 AM
  *
  *
  */
 
 import React from "react";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useRoleList } from "@/services/requests/roleRequests";
 
 export const OrgAdminDashboard = () => {
   const { user } = useAuthStore();
+  const {} = useRoleList();
 
   return (
     <div className="px-10 -mt-2 pb-8 sm:px-4 space-y-8 w-full dashboard-bg-2">

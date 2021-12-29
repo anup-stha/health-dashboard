@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 4:03 PM
+ * Last Modified 12/29/21, 12:11 PM
  *
  *
  */
@@ -15,11 +15,13 @@ import {
   MemberUpdateResponse,
   NullDataResponse,
   ProfileRequestResponse,
+  Role,
 } from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { memberStore } from "@/modules/members/memberStore";
+import { queryClient } from "@/pages/_app";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -47,12 +49,17 @@ export const logOut = () => {
       .then(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
+        memberStore
+          .getState()
+          .setSelectedRole({ id: 0, name: "Choose any role" } as Role);
+        queryClient.clear();
         Router.push("/");
         resolve("Logged Out Successfully");
       })
       .catch(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
+        queryClient.clear();
 
         Router.push("/");
         resolve("Logged Out Successfully");

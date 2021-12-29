@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 6:35 PM
+ * Last Modified 12/29/21, 11:38 AM
  *
  *
  */
@@ -67,21 +67,23 @@ export const ProfileTest: React.FC<ProfileTestProps> = ({ loading }) => {
               {selectedTestInProfile.name} Report
             </h1>
             <hr />
-            <div>
-              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                Name: {selectedMember.name}
-              </h1>
-              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                Address: {selectedMember.address}
-              </h1>
-              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                Address: {selectedMember.gender}
-              </h1>
-              <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
-                Date of birth:{" "}
-                {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
-              </h1>
-            </div>
+            {selectedMember && (
+              <div>
+                <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                  Name: {selectedMember.name}
+                </h1>
+                <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                  Address: {selectedMember.address}
+                </h1>
+                <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                  Address: {selectedMember.gender}
+                </h1>
+                <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
+                  Date of birth:{" "}
+                  {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
+                </h1>
+              </div>
+            )}
           </div>
           <TestDropdown />
         </div>

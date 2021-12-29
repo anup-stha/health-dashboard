@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 4:03 PM
+ * Last Modified 12/29/21, 11:54 AM
  *
  *
  */
@@ -32,7 +32,7 @@ const initialState = {
     state: false,
     message: "",
   },
-  selectedMember: {} as Member,
+  selectedMember: {} as Member | undefined,
   selectedMemberDetails: [] as MemberDetails[],
   selectedMemberSubscription: ({} as MemberSubscriptionDetails) || {},
 
@@ -49,7 +49,7 @@ export const store = combine(initialState, (set) => ({
     });
   },
 
-  setSelectedMember: (member: Member) => {
+  setSelectedMember: (member: Member | undefined) => {
     set({
       selectedMember: member,
     });

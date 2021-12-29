@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 8:57 PM
+ * Last Modified 12/29/21, 12:24 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import withAuth from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
-import { GetServerSidePropsContext, NextPage } from "next";
+import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import {
   assignSubscriptionToMember,
@@ -36,13 +36,16 @@ import _ from "lodash";
 import { useMemberList } from "@/modules/members/hooks/useMemberList";
 import { useMemberDetails } from "@/modules/members/hooks/useMemberDetails";
 import { Loader } from "@/components/Loader";
+import Image from "next/image";
+import Error from "@/styles/404.svg";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
-const MemberProfile: NextPage<any> = ({ idX }) => {
+const MemberProfile: NextPage<any> = () => {
   const router = useRouter();
+  const idX = { id: router.query.id, role: router.query.role };
 
-  const { isFetching: memberDetailsLoading, error } = useMemberDetails(
-    Number(idX.id)
-  );
+  const { user } = useAuthStore();
+  const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
   const { isFetching: memberSubsDetailsData } = useMemberSubsDetails(
     Number(idX.id)
   );
@@ -62,8 +65,13 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     selectedMember,
   } = memberStore();
 
-  const [active, setActive] = useState(selectedMember.active);
-  const [verified, setVerified] = useState(selectedMember.verified);
+  const [active, setActive] = useState(
+    selectedMember ? selectedMember.active : false
+  );
+  const [verified, setVerified] = useState(
+    selectedMember ? selectedMember.verified : false
+  );
+
   const { selectedSubscription, subscriptionList } = useSubscriptionStore();
 
   useEffect(() => {
@@ -79,8 +87,6 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
     data?.details && setVerified(data?.details.verified);
   }, [data]);
 
-  console.log(error);
-
   return (
     <MainLayout>
       {subsLoading ||
@@ -91,6 +97,10 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
       memberDetailsLoading ||
       testLoading ? (
         <Loader />
+      ) : !selectedMember ? (
+        <div className="flex items-center justify-center h-[80vh]">
+          <Image src={Error} alt="Error" />
+        </div>
       ) : (
         <>
           <div className="  flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-8">
@@ -179,22 +189,24 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
                     selectedRole={selectedRole}
                   />
                 </div>
-                <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
-                  <MemberToggle
-                    toggle={"active"}
-                    memberId={Number(idX.id)}
-                    currentState={active}
-                    setCurrentState={setActive}
-                    selectedMemberDetails={selectedMember}
-                  />
-                  <MemberToggle
-                    toggle={"verified"}
-                    memberId={Number(idX.id)}
-                    currentState={verified}
-                    setCurrentState={setVerified}
-                    selectedMemberDetails={selectedMember}
-                  />
-                </div>
+                {user.role.id === 1 && (
+                  <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+                    <MemberToggle
+                      toggle={"active"}
+                      memberId={Number(idX.id)}
+                      currentState={active}
+                      setCurrentState={setActive}
+                      selectedMemberDetails={selectedMember}
+                    />
+                    <MemberToggle
+                      toggle={"verified"}
+                      memberId={Number(idX.id)}
+                      currentState={verified}
+                      setCurrentState={setVerified}
+                      selectedMemberDetails={selectedMember}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -206,6 +218,7 @@ const MemberProfile: NextPage<any> = ({ idX }) => {
 
 export default withAuth(withRole(MemberProfile));
 
+/*
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
@@ -215,3 +228,4 @@ export const getServerSideProps = async (
     },
   };
 };
+*/

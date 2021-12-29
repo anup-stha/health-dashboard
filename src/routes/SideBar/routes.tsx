@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:25 PM
+ * Last Modified 12/29/21, 11:24 AM
  *
  *
  */
 
 import { Polygon, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
-import { Home, House2 } from "iconsax-react";
+import { Home } from "iconsax-react";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -87,13 +87,19 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   },
 ];
 
-export const orgExtraRoutes = [];
+export const orgExtraRoutes = ["/members/[profile]"];
 export const orgNavRoutes: RouteObjectType[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <House2 size={24} />,
+    icon: <Home size={24} />,
     link: "/dashboard",
+  },
+  {
+    id: 2,
+    title: "Members",
+    icon: <UserList size={24} />,
+    link: "/members",
   },
 ];
 

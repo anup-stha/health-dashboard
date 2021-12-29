@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 8:44 AM
+ * Last Modified 12/29/21, 9:34 AM
  *
  *
  */
@@ -133,16 +133,15 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
                 type="close"
                 async={true}
                 onClick={async () => {
-                  selectedPermission.deselected.map(
-                    async (id) =>
-                      await alert({
-                        promise: removePermissionFromRole(selectedRole.id, id),
-                        msgs: {
-                          loading: "Saving Permission",
-                          success: "Saved Permission",
-                        },
-                        id: "Permission",
-                      })
+                  await selectedPermission.deselected.map((id) =>
+                    alert({
+                      promise: removePermissionFromRole(selectedRole.id, id),
+                      msgs: {
+                        loading: "Saving Permission",
+                        success: "Saved Permission",
+                      },
+                      id: "Permission",
+                    })
                   );
                   selectedPermission.selected.length !== 0 &&
                     (await alert({
