@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 2:33 PM
+ * Last Modified 12/29/21, 12:33 PM
  *
  *
  */
@@ -38,7 +38,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
         ).then(() => setCurrentState(!currentState))
       : toggleVerifiedForMember(
           Number(memberId),
-          selectedMemberDetails.active ? 0 : 1
+          selectedMemberDetails.verified ? 0 : 1
         ).then(() => setCurrentState(!currentState));
 
   const onToggleHandler = async () => {
