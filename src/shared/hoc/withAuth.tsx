@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 5:51 PM
+ * Last Modified 12/29/21, 3:38 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { getGlobalStates } from "@/services/requests/globalRequests";
 import { useGlobalState } from "@/modules/useGlobalState";
 
-const withAuth = (WrappedComponent: React.FC) => {
+export const withAuth = (WrappedComponent: React.FC) => {
   const RequireAuthentication = (props: React.Props<any>) => {
     const accessToken = useAuthStore.getState().token;
     const [globalLoading, setGlobalLoading] = useState(false);
@@ -59,5 +59,3 @@ const withAuth = (WrappedComponent: React.FC) => {
   };
   return RequireAuthentication;
 };
-
-export default withAuth;

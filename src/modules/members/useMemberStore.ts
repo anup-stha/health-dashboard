@@ -130,4 +130,4 @@ export const store = combine(initialState, (set) => ({
   },
 }));
 
-export const memberStore = create(devtools(store, "member"));
+export const useMemberStore = create(devtools(store, "member"));

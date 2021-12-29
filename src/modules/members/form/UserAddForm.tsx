@@ -9,7 +9,7 @@
 import { PrimaryInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
-import { memberStore } from "../memberStore";
+import { useMemberStore } from "../useMemberStore";
 import { Button } from "@/components/Button";
 import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
@@ -35,7 +35,7 @@ type UserAddFormProps = {
 
 export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
   const { register, handleSubmit, control } = useForm<UserAddFormData>();
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
 
   return (
     <Modal.Form

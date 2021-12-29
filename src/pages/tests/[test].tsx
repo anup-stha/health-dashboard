@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 3:24 PM
+ * Last Modified 12/29/21, 3:38 PM
  *
  *
  */
 
-import withAuth from "@/shared/hoc/withAuth";
+import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 import { MainLayout } from "@/layout/MainLayout";
 import { TestDetails } from "@/modules/tests/testDetails";

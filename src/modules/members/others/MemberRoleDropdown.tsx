@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRoleStore } from "../../roles/useRoleStore";
-import { memberStore } from "../memberStore";
+import { useMemberStore } from "../useMemberStore";
 
 export const MemberRoleDropdown = () => {
   const roleList = useRoleStore
@@ -18,7 +18,7 @@ export const MemberRoleDropdown = () => {
     .roleList.sort((a, b) => a.name.localeCompare(b.name));
 
   const { selectedRole: selected, setSelectedRole: setSelected } =
-    memberStore();
+    useMemberStore();
 
   return (
     <div className="w-64 capitalize z-10">

@@ -6,18 +6,18 @@
  *
  */
 
-import { MemberRoleDropdown } from "../members/others/memberRoleDropDown";
+import { MemberRoleDropdown } from "../members/others/MemberRoleDropdown";
 import { SubscriptionModal } from "./subscriptionModal";
 import { SubscriptionTable } from "./subscriptionTable";
 import React from "react";
 import { MainLayout } from "@/layout/MainLayout";
 import { Loader } from "@/components/Loader";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useRoleList } from "@/services/requests/roleRequests";
 
 const SubscriptionPage: React.FC = () => {
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
   const { isLoading: roleListLoading } = useRoleList();
 
   const { isLoading: loading } = useSubscriptionList(Number(selectedRole.id));

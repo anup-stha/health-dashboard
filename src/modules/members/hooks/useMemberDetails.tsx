@@ -8,7 +8,7 @@
 
 import { useQuery } from "react-query";
 import { getMemberDetails } from "@/services/requests/memberRequests";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const useMemberDetails = (memberId: number) => {
   return useQuery(
@@ -19,9 +19,9 @@ export const useMemberDetails = (memberId: number) => {
       staleTime: Infinity,
       retry: false,
       onSuccess: (data) =>
-        memberStore.getState().setSelectedMemberDetails(data),
+        useMemberStore.getState().setSelectedMemberDetails(data),
       onError: ({}) => {
-        memberStore.getState().setSelectedMemberDetails([]);
+        useMemberStore.getState().setSelectedMemberDetails([]);
       },
     }
   );

@@ -11,7 +11,7 @@ import { Modal } from "@/components/Modal/useModal";
 import React from "react";
 import { MemberAddForm } from "../form/MemberAddForm";
 import { UserAddForm } from "../form/UserAddForm";
-import { memberStore } from "../memberStore";
+import { useMemberStore } from "../useMemberStore";
 import { User } from "@/types";
 
 interface MemberModalProps {
@@ -26,7 +26,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
   initialData,
   button,
 }) => {
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
   return (
     <>
       <Modal>

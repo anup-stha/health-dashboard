@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 12:11 PM
+ * Last Modified 12/29/21, 3:53 PM
  *
  *
  */
@@ -20,7 +20,7 @@ import {
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import { queryClient } from "@/pages/_app";
 
 export const login = (loginRequest: LoginRequest) => {
@@ -49,7 +49,7 @@ export const logOut = () => {
       .then(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
-        memberStore
+        useMemberStore
           .getState()
           .setSelectedRole({ id: 0, name: "Choose any role" } as Role);
         queryClient.clear();
@@ -73,6 +73,7 @@ export const getCurrentUserProfile = () => {
       .get<ProfileRequestResponse>("auth/me")
       .then((response) => {
         useAuthStore.getState().setUserProfile(response.data.data);
+        console.log(response);
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -94,16 +95,17 @@ export const updateUserProfile = (
     privateAgent
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
       .then(async (response) => {
+        console.log(response);
         await getCurrentUserProfile().then(() =>
           resolve(response.data.message)
         );
-        memberStore.getState().setSelectedMember(response.data.data);
-        const newList = memberStore
+        useMemberStore.getState().setSelectedMember(response.data.data);
+        const newList = useMemberStore
           .getState()
           .memberList.map((element) =>
             element.id === profileId ? response.data.data : element
           );
-        memberStore.getState().setOnlyMemberList(newList);
+        useMemberStore.getState().setOnlyMemberList(newList);
       })
       .catch((error) => {
         reject(error.response);

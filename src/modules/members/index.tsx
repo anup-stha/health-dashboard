@@ -8,7 +8,7 @@
 
 import { MemberModal } from "@/modules/members/modal/memberModal";
 import { MemberTable } from "./table/memberTable";
-import { MemberRoleDropdown } from "./others/memberRoleDropDown";
+import { MemberRoleDropdown } from "./others/MemberRoleDropdown";
 
 export const MemberPage = () => {
   return (

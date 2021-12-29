@@ -15,12 +15,12 @@ import { addDetailsToMember } from "@/services/requests/memberRequests";
 import { Button } from "@/components/Button";
 import { WarningOctagon } from "phosphor-react";
 import { useRouter } from "next/router";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useForm } from "react-hook-form";
 
 export const MemberDetailAddModal = ({ memberData, children }: any) => {
   const router = useRouter();
-  const { selectedRole, selectedMemberDetails } = memberStore();
+  const { selectedRole, selectedMemberDetails } = useMemberStore();
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 3:27 PM
+ * Last Modified 12/29/21, 3:38 PM
  *
  *
  */
@@ -13,7 +13,7 @@ import {
   useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
 
-import withAuth from "@/shared/hoc/withAuth";
+import { withAuth } from "@/shared/hoc/withAuth";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useTestList } from "@/services/requests/testRequests";
 import React, { useEffect, useState } from "react";

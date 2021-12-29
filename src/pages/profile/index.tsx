@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/29/21, 3:38 PM
  *
  *
  */
 
-import withAuth from "@/shared/hoc/withAuth";
+import { withAuth } from "@/shared/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 import { ProfilePage } from "@/modules/profile";
 import { useEffect, useState } from "react";

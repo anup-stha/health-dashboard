@@ -9,7 +9,7 @@ import { PrimaryInput } from "@/components/Input";
 
 import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
-import { memberStore } from "../members/memberStore";
+import { useMemberStore } from "../members/useMemberStore";
 import { alert } from "@/components/Alert";
 import {
   addSubscription,
@@ -40,7 +40,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
   type,
   id,
 }) => {
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
   const { subscriptionList } = useSubscriptionStore();
   const data: any = subscriptionList.list.filter(
     (element) => element.id === id

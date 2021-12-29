@@ -6,7 +6,7 @@
  *
  */
 
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   MemberDetailCategoryAddResponse,
@@ -34,11 +34,11 @@ export const getMembersList = (roleId: number, memberId?: number) => {
   return privateAgent
     .get<MemberListResponse>(`/member/list/${roleId}`)
     .then((response) => {
-      memberStore.getState().setMemberList(response.data);
+      useMemberStore.getState().setMemberList(response.data);
       const details = response.data.data.list.filter(
         (member) => member.id === memberId
       )[0];
-      memberId && memberStore.getState().setSelectedMember(details);
+      memberId && useMemberStore.getState().setSelectedMember(details);
 
       return { list: response.data.data, details };
     });
@@ -49,7 +49,7 @@ export const addOrgMember = (body: OrgMemberAddReq) => {
     privateAgent
       .post<OrgMemberAddRes>("user/store", body)
       .then((response) => {
-        memberStore
+        useMemberStore
           .getState()
           .getMemberListFromServer(response.data.data.role.id);
         resolve("Added Successfully");
@@ -65,7 +65,7 @@ export const addNormalMember = (body: NormalMemberAddReq) => {
     privateAgent
       .post<OrgMemberAddRes>("member/store", body)
       .then((response) => {
-        memberStore
+        useMemberStore
           .getState()
           .getMemberListFromServer(response.data.data.role.id);
         resolve("Added Succesfully");
@@ -188,7 +188,7 @@ export const addDetailsToMember = (
         data: requestBody,
       })
       .then((response) => {
-        memberStore.getState().setSelectedMemberDetails(response.data.data);
+        useMemberStore.getState().setSelectedMemberDetails(response.data.data);
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -204,12 +204,12 @@ export const getMemberTestList = (memberId: number, testCategoryId: number) => {
         `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`
       )
       .then((response) =>
-        memberStore
+        useMemberStore
           .getState()
           .setSelectedTestDetailsInProfile(response.data.data)
       )
       .catch((error) => {
-        memberStore.getState().clearTestDetailsInProfile();
+        useMemberStore.getState().clearTestDetailsInProfile();
       });
   });
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:51 PM
+ * Last Modified 12/29/21, 2:58 PM
  *
  *
  */
@@ -18,7 +18,7 @@ import {
   SubscriptionUpdateBody,
 } from "@/types";
 import { privateAgent } from ".";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import Router from "next/router";
 import { useQuery } from "react-query";
 
@@ -42,6 +42,7 @@ export const useSubscriptionList = (roleId: number) => {
     () => listSubscriptions(roleId),
     {
       enabled: !!roleId,
+      staleTime: Infinity,
     }
   );
 };
@@ -190,7 +191,7 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
         `member/subscription/${member_id}`
       )
       .then((response) => {
-        memberStore
+        useMemberStore
           .getState()
           .setSelectedMemberSubscription(response.data.data);
         useSubscriptionStore
@@ -199,7 +200,7 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
         resolve(response.data.message);
       })
       .catch((error) => {
-        memberStore
+        useMemberStore
           .getState()
           .setSelectedMemberSubscription({} as MemberSubscriptionDetails);
         reject(error.response);
@@ -211,12 +212,14 @@ export const listMemberSubscriptionDetails = (member_id: number) =>
   privateAgent
     .get<MemberSubscriptionDetailsResponse>(`member/subscription/${member_id}`)
     .then((response) => {
-      memberStore.getState().setSelectedMemberSubscription(response.data.data);
+      useMemberStore
+        .getState()
+        .setSelectedMemberSubscription(response.data.data);
       useSubscriptionStore.getState().setSubscription(response.data.data.plan);
       return response.data.data;
     })
     .catch((error) => {
-      memberStore
+      useMemberStore
         .getState()
         .setSelectedMemberSubscription({} as MemberSubscriptionDetails);
       return error.response;

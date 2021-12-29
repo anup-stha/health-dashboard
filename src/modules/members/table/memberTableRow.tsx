@@ -13,7 +13,7 @@ import React, { Fragment } from "react";
 import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { memberStore } from "../memberStore";
+import { useMemberStore } from "../useMemberStore";
 import { CaretDoubleRight } from "phosphor-react";
 import { MemberModal } from "@/modules/members/modal/memberModal";
 import { Popover, Transition } from "@headlessui/react";
@@ -33,7 +33,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
   loading,
 }) => {
   const router = useRouter();
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
 
   return !loading ? (
     data ? (

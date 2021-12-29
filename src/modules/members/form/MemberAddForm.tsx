@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 4:00 PM
+ * Last Modified 12/29/21, 3:55 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import React from "react";
 import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
-import { memberStore } from "../memberStore";
+import { useMemberStore } from "../useMemberStore";
 import { addNormalMember } from "@/services/requests/memberRequests";
 import { PrimaryInput } from "@/components/Input";
 import { Button } from "@/components/Button";
@@ -36,7 +36,7 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({
         moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
     },
   });
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
 
   return (
     <Modal.Form
@@ -57,7 +57,7 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({
             })
           : initialData &&
             (await alert({
-              promise: updateUserProfile(initialData.id, {
+              promise: updateUserProfile(initialData.member_id, {
                 ...data,
                 dob_ad: moment(data.dob_ad).unix(),
               }).then(() => reset()),

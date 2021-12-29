@@ -7,7 +7,7 @@
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { memberStore } from "../members/memberStore";
+import { useMemberStore } from "../members/useMemberStore";
 import React from "react";
 import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
 import { Button } from "@/components/Button";
@@ -22,7 +22,7 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
   type,
   id,
 }) => {
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
   const data: any = useSubscriptionStore
     .getState()
     .subscriptionList.list.filter((element) => element.id === id)[0];

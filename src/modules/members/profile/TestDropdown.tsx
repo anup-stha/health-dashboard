@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { testStore } from "@/modules/tests/testStore";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -21,7 +21,7 @@ export const TestDropdown = () => {
   const {
     selectedTestInProfile: selected,
     setSelectedTestInProfile: setSelected,
-  } = memberStore();
+  } = useMemberStore();
 
   return (
     <Listbox value={selected} onChange={setSelected}>

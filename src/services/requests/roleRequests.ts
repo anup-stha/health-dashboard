@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:13 PM
+ * Last Modified 12/29/21, 2:56 PM
  *
  *
  */
@@ -18,7 +18,7 @@ import {
 
 import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useQuery } from "react-query";
 import Router from "next/router";
 
@@ -30,7 +30,7 @@ export const getRoleList = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
     useRoleStore.getState().setRoleList(response.data.data);
     Router.query.role &&
-      memberStore
+      useMemberStore
         .getState()
         .setSelectedRole(
           response.data.data.filter(
@@ -64,6 +64,7 @@ const listRoleDetails = (roleId: number) =>
 export const useRoleDetails = (roleId: number) => {
   return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
     enabled: roleId !== 0,
+    staleTime: Infinity,
   });
 };
 
@@ -152,7 +153,7 @@ export const addPermissionToRole = (id: number, permId: number[]) => {
             (role) => role.id === Number(id)
           )[0];
 
-          memberStore.getState().setSelectedRole(selectedRole);
+          useRoleStore.getState().setSelectedRole(selectedRole);
         });
         resolve("Saved");
       })
@@ -173,7 +174,7 @@ export const removePermissionFromRole = (id: any, permId: any) => {
             (role) => role.id === Number(id)
           )[0];
 
-          memberStore.getState().setSelectedRole(selectedRole);
+          useRoleStore.getState().setSelectedRole(selectedRole);
         });
         resolve("Removed");
       })

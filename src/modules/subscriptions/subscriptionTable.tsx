@@ -14,11 +14,11 @@ import { Subscription } from "@/types";
 import React from "react";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { useRouter } from "next/router";
-import { memberStore } from "@/modules/members/memberStore";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
 
   return subscriptionList.list.length === 0 || selectedRole.id === 0 ? (
     <div className="flex justify-center">
@@ -61,7 +61,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
   loading,
 }) => {
   const router = useRouter();
-  const { selectedRole } = memberStore();
+  const { selectedRole } = useMemberStore();
 
   return !loading ? (
     data ? (
