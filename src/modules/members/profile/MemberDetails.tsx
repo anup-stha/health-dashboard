@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 2:16 PM
+ * Last Modified 12/30/21, 10:55 AM
  *
  *
  */
@@ -43,6 +43,7 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
             objectFit="cover"
             className="z-40 rounded-full"
             alt="Profile Image"
+            priority={true}
           />
         </div>
         <div className="flex flex-col mt-10">

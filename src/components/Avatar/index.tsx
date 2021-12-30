@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/30/21, 10:58 AM
  *
  *
  */
@@ -115,6 +115,7 @@ export const ImageAvatar: React.FC = () => {
                   className="absolute"
                   alt="Avatar"
                   objectFit="contain"
+                  priority={true}
                 />
               </div>
               <div

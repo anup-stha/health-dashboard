@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 2:56 PM
+ * Last Modified 12/30/21, 6:59 PM
  *
  *
  */
@@ -53,13 +53,15 @@ export const getRoleDetails = (
   return privateAgent.get(`role/detail/${id}`);
 };
 
-const listRoleDetails = (roleId: number) =>
-  privateAgent
+const listRoleDetails = (roleId: number) => {
+  if (!roleId) return;
+  return privateAgent
     .get<RoleDetailResponse>(`role/detail/${roleId}`)
     .then((response) => {
       return response.data.data;
     })
     .catch((error) => error.response);
+};
 
 export const useRoleDetails = (roleId: number) => {
   return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
@@ -84,7 +86,13 @@ export const addRole = ({
       })
       .then((response) => {
         const list = useRoleStore.getState().roleList;
+        const allList = useRoleStore.getState().allRoleList.data;
         useRoleStore.getState().setRoleList([response.data.data, ...list]);
+        useRoleStore.getState().setAllRoleList({
+          data: [response.data.data, ...allList],
+          message: response.data.message,
+          status: response.data.status,
+        });
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -110,10 +118,20 @@ export const updateRole = ({
       })
       .then((response) => {
         const roles = useRoleStore.getState().roleList;
+        const allRoles = useRoleStore.getState().allRoleList.data;
+
+        const updatedAllRoles = allRoles.map((role) =>
+          role.id === response.data.data.id ? response.data.data : role
+        );
         const updatedArray = roles.map((role) =>
           role.id === response.data.data.id ? response.data.data : role
         );
         useRoleStore.getState().setRoleList(updatedArray);
+        useRoleStore.getState().setAllRoleList({
+          data: updatedAllRoles,
+          status: response.data.status,
+          message: response.data.message,
+        });
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -180,4 +198,8 @@ export const removePermissionFromRole = (id: any, permId: any) => {
       })
       .catch((error) => reject(error.response))
   );
+};
+
+export const getAllRoleList = () => {
+  return privateAgent.get<RoleListResponse>("role/all");
 };

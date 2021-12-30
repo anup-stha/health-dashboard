@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 3:57 PM
+ * Last Modified 12/30/21, 10:56 AM
  *
  *
  */
@@ -40,6 +40,7 @@ export const Sidebar: React.FC = () => {
                 className="absolute"
                 objectFit="contain"
                 alt="Error"
+                priority={true}
               />
             </div>
             <div className="flex flex-col">
@@ -60,6 +61,7 @@ export const Sidebar: React.FC = () => {
                 className="absolute"
                 objectFit="contain"
                 alt="Avatar"
+                priority={true}
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:00 PM
+ * Last Modified 12/30/21, 7:24 PM
  *
  *
  */
@@ -24,13 +24,21 @@ import moment from "moment";
 import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
 import { ProfileSubsData } from "@/modules/members/others/MemberProfileSubsData";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export const ProfileSubscription: React.FC = () => {
+type ProfileSubscriptionProps = {
+  member_id?: number;
+};
+
+export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
+  member_id: id,
+}) => {
+  const router = useRouter();
+
   const { subscriptionList, selectedSubscription } = useSubscriptionStore();
   const { selectedMemberSubscription } = useMemberStore();
-  const router = useRouter();
   const { start_date, end_date } = selectedMemberSubscription;
   const start = moment(start_date * 1000);
   const end = moment(end_date * 1000);
@@ -75,11 +83,13 @@ export const ProfileSubscription: React.FC = () => {
           },
           value: {
             formatter: function () {
-              return `${
-                end.diff(new Date(), "days") === 0
-                  ? end.diff(new Date(), "hours")
-                  : end.diff(new Date(), "days")
-              }`;
+              return end.diff(new Date(), "hours") < 0
+                ? "0"
+                : `${
+                    end.diff(new Date(), "days") === 0
+                      ? end.diff(new Date(), "hours")
+                      : end.diff(new Date(), "days")
+                  }`;
             },
             color: "#555",
             fontSize: "36px",
@@ -96,37 +106,52 @@ export const ProfileSubscription: React.FC = () => {
       curve: "smooth",
     },
     series: [(leftDays / totalDays) * 100],
-    labels: [`${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`],
+    labels: [
+      end.diff(new Date(), "hours") < 0
+        ? "Expired"
+        : `${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`,
+    ],
   };
 
   const [options, setOptions] = useState<ApexOptions>(chartOptions);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     setOptions(chartOptions);
   }, [selectedMemberSubscription.start_date]);
 
+  if (!router.query.id === !(user.id !== 1)) return null;
+
   return _.isEmpty(selectedMemberSubscription) ? (
     <div className=" print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
       <div>
         <h1 className="text-xl font-semibold text-gray-800">Subscriptions</h1>
-        <p className="text-lg font-semibold text-gray-500">
-          Please choose a subscription to{" "}
-          {_.isEmpty(selectedMemberSubscription) ? "unlink" : "link"}
-        </p>
+        {user.id === 1 && (
+          <p className="text-lg font-semibold text-gray-500">
+            Please choose a subscription to{" "}
+            {_.isEmpty(selectedMemberSubscription) ? "unlink" : "link"}
+          </p>
+        )}
       </div>
 
-      {subscriptionList.list.length === 0 ? (
+      {subscriptionList.list.length === 0 || _.isEmpty(selectedSubscription) ? (
         <div className="print:hidden flex items-center text-red-500 space-x-4">
           <WarningOctagon size={40} />{" "}
-          <span className={"font-semibold"}>
-            No Subscription Found. Please add a subscription to this role{" "}
-            <span
-              onClick={() => router.push("/subscriptions")}
-              className="cursor-pointer"
-            >
-              here
+          {user.id === 1 ? (
+            <span className={"font-semibold"}>
+              No Subscription Found. Please add a subscription to this role{" "}
+              <span
+                onClick={() => router.push("/subscriptions")}
+                className="cursor-pointer"
+              >
+                here
+              </span>
             </span>
-          </span>
+          ) : (
+            <span className={"font-semibold"}>
+              No Subscription Found. Please contact Sunya Health Adminstrator{" "}
+            </span>
+          )}
         </div>
       ) : (
         <>
@@ -211,27 +236,29 @@ export const ProfileSubscription: React.FC = () => {
                   value={`${selectedMemberSubscription.total_test_count} times`}
                 />
               </div>
-              <div className={"w-full flex space-x-4 mt-2 justify-center"}>
-                {Object.keys(selectedMemberSubscription).length !== 0 && (
-                  <GrayButton>Renew</GrayButton>
-                )}
-                <WarningButton
-                  onClick={async () => {
-                    await alert({
-                      type: "promise",
-                      promise: removeSubscriptionFromMember(
-                        Number(router.query.id)
-                      ),
-                      msgs: {
-                        loading: "Removing",
-                      },
-                      id: "remove-subs",
-                    });
-                  }}
-                >
-                  Unlink
-                </WarningButton>
-              </div>
+              {user.id === 1 && (
+                <div className={"w-full flex space-x-4 mt-2 justify-center"}>
+                  {Object.keys(selectedMemberSubscription).length !== 0 && (
+                    <GrayButton>Renew</GrayButton>
+                  )}
+                  <WarningButton
+                    onClick={async () => {
+                      await alert({
+                        type: "promise",
+                        promise: removeSubscriptionFromMember(
+                          Number(router.query.id)
+                        ),
+                        msgs: {
+                          loading: "Removing",
+                        },
+                        id: "remove-subs",
+                      });
+                    }}
+                  >
+                    Unlink
+                  </WarningButton>
+                </div>
+              )}
             </div>
           </div>
         </div>

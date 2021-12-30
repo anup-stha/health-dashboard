@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 8:58 PM
+ * Last Modified 12/30/21, 6:26 PM
  *
  *
  */
@@ -17,6 +17,7 @@ import { BooleanTag } from "@/components/others/BooleanTag";
 import moment from "moment";
 import { GenderNeuter } from "phosphor-react";
 import { ProfileUpdateModal } from "@/modules/profile/modal/ProfileUpdateModal";
+import { ProfileSubscription } from "@/modules/members/profile/ProfileSubscription";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
@@ -148,14 +149,18 @@ export const ProfilePage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/4 h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
-          <ProfileUpdateModal />
-          <PasswordModal />
-          <div
-            onClick={() => onLogOut()}
-            className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850"
-          >
-            Log Out
+        <div className="w-1/4 flex flex-col gap-8 sm:w-full">
+          <ProfileSubscription member_id={user.member_id} />
+
+          <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
+            <ProfileUpdateModal />
+            <PasswordModal />
+            <div
+              onClick={() => onLogOut()}
+              className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850"
+            >
+              Log Out
+            </div>
           </div>
         </div>
       </div>

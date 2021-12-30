@@ -1,18 +1,27 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/30/21, 6:43 PM
  *
  *
  */
 
-import { getAllPermissions } from "@/services/requests/roleRequests";
-import { listRole } from "@/services/requests/roleRequests";
-import { MemberDetailCategory, Permission, Role } from "@/types";
+import { getAllPermissions, listRole } from "@/services/requests/roleRequests";
+import {
+  MemberDetailCategory,
+  Permission,
+  Role,
+  RoleListResponse,
+} from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
 type roleInitialStateProps = {
+  allRoleList: {
+    data: Role[];
+    loading_status: boolean;
+    res_message: string;
+  };
   roleList: Role[];
   selectedId: string | number;
   loading: boolean;
@@ -30,6 +39,11 @@ type roleInitialStateProps = {
 };
 
 const initialState: roleInitialStateProps = {
+  allRoleList: {
+    data: [],
+    loading_status: false,
+    res_message: "",
+  },
   roleList: [],
   selectedId: 0,
   loading: true,
@@ -47,6 +61,16 @@ const initialState: roleInitialStateProps = {
 };
 
 const store = combine(initialState, (set) => ({
+  setAllRoleList: (roleListData: RoleListResponse) => {
+    set({
+      allRoleList: {
+        data: roleListData.data,
+        loading_status: roleListData.status,
+        res_message: roleListData.message,
+      },
+    });
+  },
+
   setLoading: (loading: boolean) => {
     set({ loading: loading });
   },

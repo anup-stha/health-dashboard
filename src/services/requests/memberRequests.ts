@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 11:58 AM
+ * Last Modified 12/30/21, 10:51 AM
  *
  *
  */
@@ -31,6 +31,7 @@ export const getMemberList = (
 };
 
 export const getMembersList = (roleId: number, memberId?: number) => {
+  if (!roleId) return;
   return privateAgent
     .get<MemberListResponse>(`/member/list/${roleId}`)
     .then((response) => {
@@ -179,6 +180,8 @@ export const addDetailsToMember = (
       value: values[index],
     }))
   );
+
+  console.log(requestBody);
 
   return new Promise((resolve, reject) => {
     privateAgent

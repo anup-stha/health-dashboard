@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 2:59 PM
+ * Last Modified 12/30/21, 10:40 AM
  *
  *
  */
@@ -9,7 +9,7 @@
 import { Modal } from "@/components/Modal/useModal";
 import { MemberDetailCategory } from "@/types";
 import React, { Fragment, useEffect } from "react";
-import { PrimaryInput } from "@/components/Input";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { alert } from "@/components/Alert";
 import { addDetailsToMember } from "@/services/requests/memberRequests";
 import { Button } from "@/components/Button";
@@ -89,13 +89,22 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
                   selectedRole.member_detail_categories.map(
                     (category: MemberDetailCategory) => (
                       <Fragment key={category.id}>
-                        <PrimaryInput
-                          label={category.name}
-                          type={category.value_type}
-                          required={!!category.required}
-                          placeholder={`Enter ${category.name}`}
-                          {...register(`${category.id}-${category.slug}`)}
-                        />
+                        {category.value_type.toLowerCase() === "boolean" ? (
+                          <SwitchInput
+                            label={category.name}
+                            type="number"
+                            placeholder={`Enter ${category.name}`}
+                            {...register(`${category.id}-${category.slug}`)}
+                          />
+                        ) : (
+                          <PrimaryInput
+                            label={category.name}
+                            type={category.value_type}
+                            required={!!category.required}
+                            placeholder={`Enter ${category.name}`}
+                            {...register(`${category.id}-${category.slug}`)}
+                          />
+                        )}
                       </Fragment>
                     )
                   )}

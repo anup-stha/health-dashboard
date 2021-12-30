@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/30/21, 3:13 PM
  *
  *
  */
@@ -13,7 +13,7 @@ import { Renderable, ValueOrFunction } from "react-hot-toast/dist/core/types";
 export type toastProps = {
   type?: "success" | "error" | "promise" | "loading";
   closable?: boolean;
-  promise?: Promise<any>;
+  promise?: Promise<any> | void;
   msgs?: {
     loading?: Renderable;
     success?: ValueOrFunction<Renderable, unknown>;

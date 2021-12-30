@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:14 PM
+ * Last Modified 12/30/21, 5:34 PM
  *
  *
  */
@@ -48,8 +48,8 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
           selectedRole={selectedRole}
         />
       </div>
-      {user.role.id === 1 && selectedMember && (
-        <div className="flex flex-col  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+      {user.role && user.role.id === 1 && selectedMember && (
+        <div className="flex flex-col bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
           <MemberToggle
             toggle={"active"}
             memberId={Number(router.query.id)}

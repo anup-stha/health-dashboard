@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 5:48 PM
+ * Last Modified 12/30/21, 7:16 PM
  *
  *
  */
@@ -17,18 +17,23 @@ import { PrimaryInput, SwitchInput } from "@/components/Input";
 import React from "react";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useForm } from "react-hook-form";
-
-const othersTableData = [
-  {
-    name: "Drug Allergies",
-    slug: "drug_allergies",
-    value_type: "Boolean",
-    required: false,
-    note_length: "100 chars",
-  },
-];
+import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
+import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
+import {
+  postOtherFieldToast,
+  putOtherFieldToast,
+} from "@/modules/others/utils/toasts/othersPageToast";
+import { OtherFields, OtherFieldsPostBody } from "@/types";
+import _ from "lodash";
+import Image from "next/image";
+import { Loader } from "@/components/Loader";
 
 export const OthersPage = () => {
+  const { isLoading } = useGetOtherFieldsList();
+  const otherFieldsList = useOtherFieldsStore(
+    (state) => state.othersFieldList.data
+  );
+
   return (
     <div className="px-10 py-10 overflow-visible sm:p-8">
       <div className="flex flex-col space-y-6">
@@ -43,28 +48,36 @@ export const OthersPage = () => {
           </div>
 
           <div className="flex space-x-4">
-            <Modal>
-              <Modal.Button type={"open"}>
-                <Button>Add Other Field</Button>
-              </Modal.Button>
-              <Modal.Content>
-                <Modal.Title>Add Patient Medical History</Modal.Title>
-                <OtherFieldAddForm />
-              </Modal.Content>
-            </Modal>
+            <OtherFieldAddEditModal type={"add"} />
           </div>
         </div>
-        <TableView
-          data={othersTableData}
-          tableHeadings={[
-            "Field Name",
-            "Field Slug",
-            "Field Value Type",
-            "Required",
-            "Field Note Length",
-          ]}
-          tableRowComponent={<OthersTableRow />}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : otherFieldsList.length === 0 ? (
+          <div className="flex justify-center">
+            <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
+              <Image
+                src="/assets/empty.svg"
+                alt="Empty State"
+                layout="fill"
+                objectFit="cover"
+                priority={true}
+              />
+            </div>
+          </div>
+        ) : (
+          <TableView
+            data={otherFieldsList}
+            tableHeadings={[
+              "Field Name",
+              "Field Slug",
+              "Field Value Type",
+              "Required",
+            ]}
+            loading={isLoading}
+            tableRowComponent={<OthersTableRow />}
+          />
+        )}
       </div>
     </div>
   );
@@ -74,26 +87,27 @@ type OthersTableRowProps = {
   data?: any;
 };
 
-export const OthersTableRow: React.FC<OthersTableRowProps> = ({ data }) => {
-  return (
+export const OthersTableRow: React.FC<OthersTableRowProps> = ({
+  data,
+}: {
+  data?: OtherFields;
+}) => {
+  return data ? (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">{data.name}</td>
       <td className="px-6 py-4 whitespace-nowrap"> {data.slug}</td>
-      <td className="px-6 py-4 whitespace-nowrap">{data.value_type}</td>
+      <td className="px-6 py-4 whitespace-nowrap capitalize">
+        {data.value_type}
+      </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <BooleanTag
           type={"info"}
           trueStatement={data.required ? "Yes" : "No"}
         />
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">{data.note_length}</td>
+
       <td className="px-6 py-4 flex gap-2">
-        <Edit
-          variant={"Broken"}
-          size={28}
-          color={"#555"}
-          className={"cursor-pointer"}
-        />
+        <OtherFieldAddEditModal type={"edit"} data={data} />
         <DeleteModal
           closeButton={
             <Trash
@@ -108,20 +122,71 @@ export const OthersTableRow: React.FC<OthersTableRowProps> = ({ data }) => {
         />
       </td>
     </tr>
+  ) : (
+    <tr></tr>
   );
 };
 
-export const OtherFieldAddForm = ({ type }: any) => {
-  const { register, handleSubmit, control } = useForm();
+type OtherFieldAddModalProps = {
+  type: "add" | "edit";
+  data?: OtherFields;
+};
+
+export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({
+  type,
+  data,
+}) => {
+  return (
+    <Modal>
+      <Modal.Button type={"open"}>
+        {type === "add" ? (
+          <Button>Add Other Field</Button>
+        ) : (
+          <Edit
+            variant={"Broken"}
+            size={28}
+            color={"#555"}
+            className={"cursor-pointer"}
+          />
+        )}
+      </Modal.Button>
+      <Modal.Content>
+        <Modal.Title>Add Patient Medical History</Modal.Title>
+        <OtherFieldAddForm type={type} data={data} />
+      </Modal.Content>
+    </Modal>
+  );
+};
+
+type OtherFieldAddEditFormProps = {
+  type: "add" | "edit";
+  data?: OtherFields;
+};
+
+export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
+  type,
+  data: initialData,
+}) => {
+  console.log(initialData);
+
+  const { register, handleSubmit, control } = useForm<OtherFieldsPostBody>({
+    defaultValues: _.omit(initialData, "id"),
+  });
   const options = useGlobalState
     .getState()
     .base.data_types.map((element) => ({ value: element, label: element }));
 
   return (
     <Modal.Form
-      onSubmit={handleSubmit((data: any) => {
-        console.log(data);
-      })}
+      onSubmit={handleSubmit((data: OtherFieldsPostBody) =>
+        type === "add"
+          ? postOtherFieldToast({ ...data, required: data.required ? 1 : 0 })
+          : initialData &&
+            putOtherFieldToast(initialData.id, {
+              ...data,
+              required: data.required ? 1 : 0,
+            })
+      )}
     >
       <div className="space-y-4">
         <PrimaryInput
@@ -142,12 +207,6 @@ export const OtherFieldAddForm = ({ type }: any) => {
           type="number"
           placeholder="Enter Required Field"
           {...register("required")}
-        />
-        <PrimaryInput
-          label="Note Length"
-          type="number"
-          placeholder="Enter Note Length"
-          {...register("note_length")}
         />
       </div>
 

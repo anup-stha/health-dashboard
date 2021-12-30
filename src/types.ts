@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 4:29 PM
+ * Last Modified 12/30/21, 2:11 PM
  *
  *
  */
@@ -453,4 +453,21 @@ export type SubscriptionTestDetails = {
 
 export type SubscriptionTestDetailsResponse = StatusType & {
   data: SubscriptionTestDetails;
+};
+
+export type OtherFields = {
+  id: number;
+  name: string;
+  slug: string;
+  value_type: string;
+  required: boolean;
+};
+
+export type OtherFieldsGetResponse = StatusType & { data: OtherFields[] };
+export type OtherFieldsPostResponse = StatusType & { data: OtherFields };
+
+export type OtherFieldsPostBody = {
+  name: string;
+  value: string;
+  required: boolean | 1 | 0;
 };

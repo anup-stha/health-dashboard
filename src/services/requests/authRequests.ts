@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:53 PM
+ * Last Modified 12/30/21, 5:51 PM
  *
  *
  */
@@ -68,13 +68,11 @@ export const logOut = () => {
 };
 
 export const getCurrentUserProfile = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<ProfileRequestResponse>((resolve, reject) => {
     privateAgent
       .get<ProfileRequestResponse>("auth/me")
       .then((response) => {
         useAuthStore.getState().setUserProfile(response.data.data);
-        console.log(response);
-        resolve(response.data.message);
       })
       .catch((error) => {
         reject(error.response);
