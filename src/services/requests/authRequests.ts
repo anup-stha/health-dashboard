@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 5:51 PM
+ * Last Modified 12/31/21, 1:51 PM
  *
  *
  */
@@ -92,18 +92,17 @@ export const updateUserProfile = (
   return new Promise((resolve, reject) => {
     privateAgent
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
-      .then(async (response) => {
-        console.log(response);
-        await getCurrentUserProfile().then(() =>
-          resolve(response.data.message)
-        );
-        useMemberStore.getState().setSelectedMember(response.data.data);
+      .then((response) => {
+        getCurrentUserProfile().then(() => resolve(response.data.message));
         const newList = useMemberStore
           .getState()
           .memberList.map((element) =>
             element.id === profileId ? response.data.data : element
           );
         useMemberStore.getState().setOnlyMemberList(newList);
+        useMemberStore.getState().setSelectedMember(response.data.data);
+
+        resolve(response.data.message);
       })
       .catch((error) => {
         reject(error.response);

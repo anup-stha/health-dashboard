@@ -1,68 +1,147 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/31/21, 11:02 PM
  *
  *
  */
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-}
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type='radio'],
+  input[type='radio'] {
+    --active: #16a34a;
+    --active-inner: #fff;
+    --focus: #166534;
+    --border: #86efac;
+    --border-hover: #22c55e;
+    --background: #fff;
+    --disabled: #F6F8FF;
+    --disabled-inner: #E1E6F9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background .3s, border-color .3s, box-shadow .2s;
 
-.checkmark__circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  stroke-width: 2;
-  stroke-miterlimit: 10;
-  stroke: #16a34a;
-  fill: none;
-  animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-}
+    &:after {
+      content: '';
+      display: block;
+      left: 0;
+      top: 0;
+      position: absolute;
+      transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+    }
 
-.checkmark {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: block;
-  stroke-width: 2;
-  stroke: #fff;
-  stroke-miterlimit: 10;
-  margin: 10% auto;
-  box-shadow: inset 0px 0px 0px #16a34a;
-  animation: fill 0.4s ease-in-out 0.4s forwards,
-    scale 0.3s ease-in-out 0.6s both;
-}
+    &:checked {
+      --b: var(--active);
+      --bc: var(--active);
+      --d-o: .3s;
+      --d-t: .6s;
+      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
 
-.checkmark__check {
-  transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-}
+    &:disabled {
+      --b: var(--disabled);
+      cursor: not-allowed;
+      opacity: .9;
 
-@keyframes stroke {
-  100% {
-    stroke-dashoffset: 0;
+      &:checked {
+        --b: var(--disabled-inner);
+        --bc: var(--border);
+      }
+
+      & + label {
+        cursor: not-allowed;
+      }
+    }
+
+    &:hover {
+      &:not(:checked) {
+        &:not(:disabled) {
+          --bc: var(--border-hover);
+        }
+      }
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 var(--focus);
+    }
+
+    &:not(.switch) {
+      width: 21px;
+
+      &:after {
+        opacity: var(--o, 0);
+      }
+
+      &:checked {
+        --o: 1;
+      }
+    }
+
+    & + label {
+      font-size: 14px;
+      line-height: 21px;
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer;
+      margin-left: 4px;
+    }
   }
-}
+  input[type='radio'] {
+    &:not(.switch) {
+      border-radius: 4px;
 
-@keyframes scale {
-  0%,
-  100% {
-    transform: none;
+      &:after {
+        width: 5px;
+        height: 9px;
+        border: 2px solid var(--active-inner);
+        border-top: 0;
+        border-left: 0;
+        left: 7px;
+        top: 4px;
+        transform: rotate(var(--r, 20deg));
+      }
+
+      &:checked {
+        --r: 43deg;
+      }
+    }
+
+    &.switch {
+      width: 38px;
+      border-radius: 11px;
+
+      &:after {
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        background: var(--ab, var(--border));
+        transform: translateX(var(--x, 0));
+      }
+
+      &:checked {
+        --ab: var(--active-inner);
+        --x: 17px;
+      }
+
+      &:disabled {
+        &:not(:checked) {
+          &:after {
+            opacity: .6;
+          }
+        }
+      }
+    }
   }
 
-  50% {
-    transform: scale3d(1.1, 1.1, 1);
-  }
-}
-
-@keyframes fill {
-  100% {
-    box-shadow: inset 0px 0px 0px 30px #16a34a;
-  }
 }

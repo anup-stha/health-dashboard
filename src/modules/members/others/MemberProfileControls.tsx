@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 5:34 PM
+ * Last Modified 12/31/21, 2:08 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { PatientMedicalHistoryModal } from "@/modules/members/modal/PatientMedicalHistoryModal";
 
 type MemberProfileControlProps = {
   active: boolean;
@@ -43,6 +44,8 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
             ..._.omit(selectedMember, ["ref_key"]),
           }}
         />
+        {selectedRole.slug === "patient" && <PatientMedicalHistoryModal />}
+
         <MemberDetailAddModal
           memberData={selectedMember}
           selectedRole={selectedRole}

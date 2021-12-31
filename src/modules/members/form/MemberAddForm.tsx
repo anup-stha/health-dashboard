@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:55 PM
+ * Last Modified 12/31/21, 1:48 PM
  *
  *
  */
@@ -41,7 +41,6 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({
   return (
     <Modal.Form
       onSubmit={handleSubmit(async (data) => {
-        console.log(data);
         type === "add"
           ? await alert({
               promise: addNormalMember({

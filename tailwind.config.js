@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2021. All rights reserved.
+ * Last Modified 12/31/21, 2:56 PM
+ *
+ *
+ */
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 const colors = require("tailwindcss/colors");
 
@@ -110,5 +118,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

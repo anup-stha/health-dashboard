@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:24 PM
+ * Last Modified 12/31/21, 10:56 PM
  *
  *
  */
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
     hasTokens && router.push("/dashboard");
   }, [hasTokens, router]);
 
-  return !hasTokens ? <LoginPage /> : <div />;
+  return !hasTokens ? <LoginPage /> : <div>Loading</div>;
 };
 
 export default Home;

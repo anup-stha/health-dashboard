@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:59 PM
+ * Last Modified 12/31/21, 8:36 PM
  *
  *
  */
@@ -9,6 +9,8 @@
 import { Eye, EyeClosed } from "phosphor-react";
 import React from "react";
 import InputErrorPop from "../PopOver";
+import { Controller } from "react-hook-form";
+import { RadioGroup } from "@headlessui/react";
 
 type ExtraInputProps = {
   label?: string;
@@ -31,7 +33,7 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
           <input
             {...props}
             autoComplete={props.autoComplete ?? "off"}
-            required={true}
+            required={props.required === false ? false : true}
             className={error ? "input_error relative" : "input_container"}
             ref={ref}
             type={
@@ -42,6 +44,7 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
                 : props.type
             }
           />
+
           {props.type === "password" && (
             <button
               type="button"
@@ -108,5 +111,61 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   }
 );
 
+export const RadioInput = React.forwardRef<HTMLInputElement, HookInputProps>(
+  ({ label, error, value, ...props }, ref) => {
+    return (
+      <div className="flex space-x-2">
+        <input {...props} type="radio" value={value} ref={ref} />
+        <div className="text-xl capitalize">{label}</div>
+      </div>
+    );
+  }
+);
+
+type RadioInputProps = {
+  name: string;
+  control: any;
+  labelOptions: {
+    label: string;
+    value: string | number;
+  }[];
+};
+
+export const RadioInputController: React.FC<RadioInputProps> = ({
+  name,
+  control,
+  labelOptions,
+}) => {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState, formState }) => (
+        <RadioGroup
+          value={field.value}
+          onChange={field.onChange}
+          className={"flex space-x-6 focus-visible:outline-amber-800"}
+        >
+          {labelOptions.map((labelOption, index) => (
+            <RadioGroup.Option
+              value={labelOption.value}
+              key={index}
+              className={({ active }) => `${active ? "outline-0" : ""}`}
+            >
+              {({ checked }) => (
+                <div className="flex space-x-2">
+                  <input checked={checked} type="radio" readOnly />
+                  <div className="text-xl capitalize">{labelOption.label}</div>
+                </div>
+              )}
+            </RadioGroup.Option>
+          ))}
+        </RadioGroup>
+      )}
+    />
+  );
+};
+
 PrimaryInput.displayName = "PrimaryInput";
 SwitchInput.displayName = "SwitchInput";
+RadioInput.displayName = "RadioInput";

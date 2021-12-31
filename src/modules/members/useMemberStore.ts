@@ -1,13 +1,15 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 11:54 AM
+ * Last Modified 12/31/21, 10:07 PM
  *
  *
  */
 
 import create from "zustand";
 import {
+  MedicalHistory,
+  MedicalHistoryGetResponse,
   Member,
   MemberDetails,
   MemberList,
@@ -38,9 +40,25 @@ const initialState = {
 
   selectedTestInProfile: {} as Test,
   selectedTestDetailsInProfile: {} as MemberTestListData,
+
+  patientMedicalHistoryList: {
+    data: [] as MedicalHistory[],
+    res_message: "",
+    loading_status: false,
+  },
 };
 
 export const store = combine(initialState, (set) => ({
+  setPatientMedicalHistoryList: (res: MedicalHistoryGetResponse) => {
+    set({
+      patientMedicalHistoryList: {
+        data: res.data,
+        res_message: res.message,
+        loading_status: res.status,
+      },
+    });
+  },
+
   setMemberList: (res: MemberListResponse) => {
     set({
       status: { state: res.status, message: res.message },

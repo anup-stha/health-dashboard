@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 2:11 PM
+ * Last Modified 12/31/21, 10:36 PM
  *
  *
  */
@@ -471,3 +471,14 @@ export type OtherFieldsPostBody = {
   value: string;
   required: boolean | 1 | 0;
 };
+
+export type MedicalHistory = {
+  id: number;
+  name: string;
+  detail_category_id: number;
+  slug: string;
+  value: string;
+  note: string;
+};
+
+export type MedicalHistoryGetResponse = StatusType & { data: MedicalHistory[] };
