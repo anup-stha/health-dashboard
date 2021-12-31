@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 12:48 PM
+ * Last Modified 12/31/21, 1:24 PM
  *
  *
  */
@@ -53,7 +53,9 @@ export const withAuth = (WrappedComponent: React.FC) => {
 
     return accessToken && !globalLoading ? (
       <WrappedComponent {...props} />
-    ) : null;
+    ) : (
+      <div></div>
+    );
   };
   return RequireAuthentication;
 };

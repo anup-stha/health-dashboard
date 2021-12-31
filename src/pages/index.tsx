@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:01 PM
+ * Last Modified 12/31/21, 1:24 PM
  *
  *
  */
@@ -11,7 +11,6 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { LoginPage } from "@/modules/auth/LoginPage";
-import LoaderComponent from "react-loader-spinner";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -21,7 +20,7 @@ const Home: NextPage = () => {
     hasTokens && router.push("/dashboard");
   }, [hasTokens, router]);
 
-  return !hasTokens ? <LoginPage /> : <LoaderComponent type={"MutatingDots"} />;
+  return !hasTokens ? <LoginPage /> : <div />;
 };
 
 export default Home;
