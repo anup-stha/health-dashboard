@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 6:46 PM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -14,7 +14,7 @@ const RolePage = () => {
   const roleList = useRoleStore((state) => state.allRoleList.data);
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:px-8 sm:py-8 space-y-8">
+    <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 space-y-8">
       <div className="flex flex-col space-y-2 ">
         <h1 className="text-5xl font-semibold text-gray-900">Roles</h1>
         <p className="text-xl font-semibold text-gray-500">

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 9:04 PM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -22,7 +22,7 @@ export const MainHeader: React.FC = () => {
         !open ? "pl-24 sm:pl-0" : "pl-[18%] sm:pl-0"
       } `}
     >
-      <div className="h-24 flex items-center justify-between px-12 sm:px-6">
+      <div className="h-24 flex items-center justify-between px-12 sm:px-4">
         <div>
           <HambergerMenu
             variant={"Broken"}

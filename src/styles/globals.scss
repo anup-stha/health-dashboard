@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 9:01 AM
+ * Last Modified 12/31/21, 12:46 PM
  *
  *
  */
@@ -180,7 +180,7 @@ html {
 
 @keyframes widthAnimation-01 {
   0% {
-    @apply w-0 px-0 opacity-0;
+    @apply w-0 h-0 px-0 opacity-0 overflow-hidden;
   }
 
   100% {

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 7:16 PM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -35,7 +35,7 @@ export const OthersPage = () => {
   );
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:p-8">
+    <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col space-y-6">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <div>

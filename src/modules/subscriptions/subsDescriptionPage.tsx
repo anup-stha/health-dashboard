@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 8:57 PM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -61,7 +61,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
   const tabArray = Object.values(tabs);
 
   return (
-    <div className="px-10 py-10 overflow-visible sm:px-8 sm:py-8 w-full space-y-8">
+    <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 w-full space-y-8">
       <div className="flex flex-col">
         <h1 className="text-4xl font-semibold text-neutral-800 capitalize">
           {selected ? selected.name : ""}

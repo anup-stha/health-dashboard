@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 7:12 PM
+ * Last Modified 12/31/21, 1:13 PM
  *
  *
  */
@@ -24,9 +24,9 @@ export const AdminDashboard: React.FC = () => {
   if (isLoading || error) return <Loader />;
 
   return (
-    <div className="px-10 pb-8 sm:px-8 sm:py-8 -mt-2 space-y-8 w-full sm:-mt-12 dashboard-bg">
+    <div className="px-10 pb-8 sm:px-6 sm:py-6 -mt-2 space-y-8 w-full sm:-mt-12 dashboard-bg">
       <div>
-        <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
+        <h1 className="text-[2.5rem] text-gray-800 font-semibold sm:text-2xl ">
           Hello, {user.name}
         </h1>
         <p className="text-xl text-gray-500 font-medium">

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 8:06 AM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -71,7 +71,7 @@ const RoleDetailPage = () => {
   return (
     <MainLayout>
       {loading === false && !isLoading && Number(idX) !== 1 ? (
-        <div className="px-10 py-10 overflow-visible sm:p-8">
+        <div className="px-10 py-10 overflow-visible sm:p-6">
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <h1 className="text-5xl font-semibold text-gray-900">

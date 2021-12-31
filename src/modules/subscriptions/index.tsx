@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 8:57 PM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -27,7 +27,7 @@ const SubscriptionPage: React.FC = () => {
       {roleListLoading ? (
         <Loader />
       ) : (
-        <div className="px-10 py-10 overflow-visible  sm:px-8 sm:py-8">
+        <div className="px-10 py-10 overflow-visible  sm:px-6 sm:py-6">
           <div className="flex flex-col space-y-6">
             <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
               <div>

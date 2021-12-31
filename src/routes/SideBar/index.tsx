@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 10:56 AM
+ * Last Modified 12/31/21, 1:16 PM
  *
  *
  */
@@ -33,7 +33,7 @@ export const Sidebar: React.FC = () => {
       <div className="flex flex-col space-y-12">
         {open ? (
           <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
-            <div className="w-16 h-16 object-contain  relative">
+            <div className="w-1/4 h-16 object-contain  relative">
               <Image
                 src={Avatar}
                 layout="fill"
@@ -43,7 +43,7 @@ export const Sidebar: React.FC = () => {
                 priority={true}
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-3/4">
               <span className="text-black font-semibold text-xl overflow-hidden truncate">
                 {user.name}
               </span>

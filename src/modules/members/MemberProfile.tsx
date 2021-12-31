@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:14 AM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -73,7 +73,7 @@ export const MemberProfile: React.FC = () => {
       <Image src={Error} alt="Error" />
     </div>
   ) : (
-    <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-8">
+    <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
       <div className="w-3/4 space-y-8 lg:w-full">
         <MemberDetails active={active} verified={verified} />
         <ProfileTestComponent />

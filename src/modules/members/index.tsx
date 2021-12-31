@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Last Modified 12/31/21, 1:15 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import { MemberRoleDropdown } from "./others/MemberRoleDropdown";
 
 export const MemberPage = () => {
   return (
-    <div className="px-10 py-10 overflow-visible sm:p-8">
+    <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col space-y-6">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <div>
