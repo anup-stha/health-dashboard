@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 9:42 AM
+ * Last Modified 12/31/21, 10:24 AM
  *
  *
  */
@@ -134,7 +134,8 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
         )}
       </div>
 
-      {subscriptionList.list.length === 0 && _.isEmpty(selectedSubscription) ? (
+      {subscriptionList.list.length === 0 &&
+      _.isEmpty(selectedMemberSubscription) ? (
         <div className="print:hidden flex items-center text-red-500 space-x-4">
           <WarningOctagon size={40} />{" "}
           {user.id === 1 ? (

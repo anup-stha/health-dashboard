@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 5:43 PM
+ * Last Modified 12/31/21, 10:14 AM
  *
  *
  */
@@ -37,7 +37,7 @@ export const MemberProfile: React.FC = () => {
   const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
   const { isLoading: testLoading } = useTestList();
-  const { isLoading: subsLoading } = useSubscriptionList(Number(idX.role));
+  const { isFetching: subsLoading } = useSubscriptionList(Number(idX.role));
   const { isLoading: roleListLoading } = useRoleList();
   const { isLoading: memberLoading, data } = useMemberList(
     Number(idX.role),

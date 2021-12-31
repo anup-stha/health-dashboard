@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 2:58 PM
+ * Last Modified 12/31/21, 10:19 AM
  *
  *
  */
@@ -42,7 +42,6 @@ export const useSubscriptionList = (roleId: number) => {
     () => listSubscriptions(roleId),
     {
       enabled: !!roleId,
-      staleTime: Infinity,
     }
   );
 };
