@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 6:59 PM
+ * Last Modified 12/31/21, 8:14 AM
  *
  *
  */
@@ -166,7 +166,7 @@ export const addPermissionToRole = (id: number, permId: number[]) => {
       })
       .then(async () => {
         getRoleDetail(id);
-        await listRole().then((response) => {
+        await getAllRoleList().then((response) => {
           const selectedRole = response.data.data.filter(
             (role) => role.id === Number(id)
           )[0];
@@ -187,7 +187,7 @@ export const removePermissionFromRole = (id: any, permId: any) => {
       })
       .then(async () => {
         getRoleDetail(id);
-        await listRole().then((response) => {
+        await getAllRoleList().then((response) => {
           const selectedRole = response.data.data.filter(
             (role) => role.id === Number(id)
           )[0];
