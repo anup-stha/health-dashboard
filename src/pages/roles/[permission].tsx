@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Last Modified 12/31/21, 8:06 AM
  *
  *
  */
@@ -21,21 +21,21 @@ import {
 import { useEffect } from "react";
 import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 import { useRouter } from "next/router";
+import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
 
 const RoleDetailPage = () => {
   const router = useRouter();
   const idX = router.query.permission;
 
+  const { isLoading } = useAllRoleList();
+
   const {
     loading,
-    roleList,
+    allRoleList,
     setLoading,
-    getRoleListFromServer,
     setSelectedRole,
     selectedRole,
     setSelectedPermission,
-    allRoleLoading: allLoading,
-    setAllLoading,
   } = useRoleStore();
 
   useEffect(() => {
@@ -43,11 +43,6 @@ const RoleDetailPage = () => {
       return;
     }
 
-    const listRoles = async () => {
-      await getRoleListFromServer()
-        .then(() => setAllLoading(false))
-        .catch(() => setAllLoading(false));
-    };
     const getRoleDetail = async () => {
       setLoading(true);
       await getRoleDetails(Number(idX))
@@ -69,20 +64,20 @@ const RoleDetailPage = () => {
         .then((response) => setSelectedPermission({ all: response.data.data }))
         .catch(() => {});
     };
-    listRoles();
     listAllPermissions();
     idX && getRoleDetail();
   }, [idX]);
 
   return (
     <MainLayout>
-      {loading === false && allLoading === false && Number(idX) !== 1 ? (
+      {loading === false && !isLoading && Number(idX) !== 1 ? (
         <div className="px-10 py-10 overflow-visible sm:p-8">
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <h1 className="text-5xl font-semibold text-gray-900">
                 {selectedRole &&
-                  roleList.filter((role) => role.id === Number(idX))[0].name}
+                  allRoleList.data.filter((role) => role.id === Number(idX))[0]
+                    .name}
               </h1>
             </div>
 

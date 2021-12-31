@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:48 PM
+ * Last Modified 12/31/21, 8:04 AM
  *
  *
  */
@@ -31,7 +31,7 @@ export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
   type,
   id,
 }) => {
-  const roles = useRoleStore.getState().roleList;
+  const roles = useRoleStore((state) => state.allRoleList.data);
   const role = roles.filter((element) => element.id == id)[0];
 
   const { handleSubmit, register } = useForm<RoleValues>({
