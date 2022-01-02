@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:47 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:43 PM
  *
  *
  */
@@ -40,7 +40,6 @@ export const MemberTable = () => {
         "Active",
         "Verified",
         "Phone Number",
-        "Gender",
         "Address",
         "",
       ]}
