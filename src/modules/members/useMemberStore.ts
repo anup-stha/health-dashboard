@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:07 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 3:57 PM
  *
  *
  */
@@ -17,6 +17,7 @@ import {
   MemberSubscriptionDetails,
   MemberTestListData,
   Role,
+  RoleSummary,
   Test,
 } from "@/types";
 import { combine, devtools } from "zustand/middleware";
@@ -29,7 +30,8 @@ const initialState = {
   selectedRole: {
     id: 0,
     name: "Choose any role",
-  } as Role,
+  } as Role | RoleSummary,
+  nestedSelectedRole: {} as RoleSummary,
   status: {
     state: false,
     message: "",
@@ -46,9 +48,25 @@ const initialState = {
     res_message: "",
     loading_status: false,
   },
+  memberListBySlug: {
+    data: [] as MemberList,
+    selectedMember: {} as Member | undefined,
+    pagination: {},
+    res_message: "",
+    loading_status: false,
+  },
+  parent_id: "",
+  parent_role: "",
 };
 
 export const store = combine(initialState, (set) => ({
+  setParent: (parent_id: string, parent_role: string) => {
+    set({
+      parent_id,
+      parent_role,
+    });
+  },
+
   setPatientMedicalHistoryList: (res: MedicalHistoryGetResponse) => {
     set({
       patientMedicalHistoryList: {
@@ -57,6 +75,27 @@ export const store = combine(initialState, (set) => ({
         loading_status: res.status,
       },
     });
+  },
+
+  setMemberListBySlug: (res: MemberListResponse) => {
+    set((state) => ({
+      memberListBySlug: {
+        data: res.data.list,
+        pagination: res.data.pagination,
+        res_message: res.message,
+        loading_status: res.status,
+        selectedMember: state.memberListBySlug.selectedMember,
+      },
+    }));
+  },
+
+  setSelectedMemberBySlug: (member: Member | undefined) => {
+    set((state) => ({
+      memberListBySlug: {
+        ...state.memberListBySlug,
+        selectedMember: member,
+      },
+    }));
   },
 
   setMemberList: (res: MemberListResponse) => {
@@ -112,12 +151,17 @@ export const store = combine(initialState, (set) => ({
   setLoadingFalse: () => {
     set(() => ({ loading: false }));
   },
-  setSelectedRole: (role: Role) => {
+  setSelectedRole: (role: Role | RoleSummary) => {
     set(() => ({
       selectedRole: role,
     }));
   },
 
+  setNestedSelectedRole: (role: RoleSummary) => {
+    set(() => ({
+      nestedSelectedRole: role,
+    }));
+  },
   setError: (message: string) => {
     set({
       status: {

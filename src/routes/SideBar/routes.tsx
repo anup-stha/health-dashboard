@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 5:02 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 1:23 PM
  *
  *
  */
@@ -46,6 +46,7 @@ const adminExtraRoute = [
   "/roles/[permission]",
   "/tests/[test]",
   "/members/[profile]",
+  "/members/[profile]/[next-profile]",
 ];
 export const superAdminNavRoutes: RouteObjectType[] = [
   {

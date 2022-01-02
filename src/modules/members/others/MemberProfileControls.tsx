@@ -1,26 +1,28 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 2:08 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:05 PM
  *
  *
  */
 
-import { MemberModal } from "@/modules/members/modal/memberModal";
-import _ from "lodash";
 import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal";
 import { MemberToggle } from "@/modules/members/others/MemberToggle";
 import React from "react";
 import { useRouter } from "next/router";
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { PatientMedicalHistoryModal } from "@/modules/members/modal/PatientMedicalHistoryModal";
+import { Member, Role } from "@/types";
+import omit from "lodash/omit";
+import { MemberModal } from "@/modules/members/modal/memberModal";
 
 type MemberProfileControlProps = {
   active: boolean;
   verified: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   setVerified: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedMember: Member;
+  selectedRole: Role;
 };
 
 export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
@@ -28,22 +30,26 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
   verified,
   setActive,
   setVerified,
+  selectedMember,
+  selectedRole,
 }) => {
   const router = useRouter();
   const { user } = useAuthStore();
 
-  const { selectedRole, selectedMember } = useMemberStore();
-
   return (
     <div className="flex flex-col gap-8 print:hidden">
       <div className="w-full bg-white rounded-xl ring-1 ring-black ring-opacity-10 self-start py-2 px-4 flex flex-col divide-y-[1px] divide-gray-500/40">
-        <MemberModal
-          type={"edit"}
-          initialData={{
-            member_id: Number(router.query.id),
-            ..._.omit(selectedMember, ["ref_key"]),
-          }}
-        />
+        {selectedRole && (
+          <MemberModal
+            type={"edit"}
+            selectedRole={selectedRole}
+            initialData={{
+              member_id: Number(router.query.id),
+              ...omit(selectedMember, ["ref_key"]),
+            }}
+          />
+        )}
+
         {selectedRole.slug === "patient" && <PatientMedicalHistoryModal />}
 
         <MemberDetailAddModal

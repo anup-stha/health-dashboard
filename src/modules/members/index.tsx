@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 5:36 PM
  *
  *
  */
@@ -9,8 +9,11 @@
 import { MemberModal } from "@/modules/members/modal/memberModal";
 import { MemberTable } from "./table/memberTable";
 import { MemberRoleDropdown } from "./others/MemberRoleDropdown";
+import { useMemberStore } from "@/modules/members/useMemberStore";
+import { Role } from "@/types";
 
 export const MemberPage = () => {
+  const selectedRole = useMemberStore((state) => state.selectedRole) as Role;
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col space-y-6">
@@ -25,7 +28,7 @@ export const MemberPage = () => {
 
           <div className="flex space-x-4">
             <MemberRoleDropdown />
-            <MemberModal type="add" />
+            <MemberModal type="add" selectedRole={selectedRole} />
           </div>
         </div>
         <MemberTable />

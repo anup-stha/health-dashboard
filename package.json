@@ -14,7 +14,10 @@
     "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
@@ -64,6 +67,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
+    "@next/bundle-analyzer": "^12.0.7",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.9",
     "@storybook/addon-links": "^6.3.9",
@@ -76,6 +80,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "autoprefixer": "^10.4.0",
     "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "11.1.2",

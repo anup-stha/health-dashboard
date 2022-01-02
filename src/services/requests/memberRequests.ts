@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 10:51 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 5:10 PM
  *
  *
  */
@@ -39,10 +39,22 @@ export const getMembersList = (roleId: number, memberId?: number) => {
       const details = response.data.data.list.filter(
         (member) => member.id === memberId
       )[0];
-      memberId && useMemberStore.getState().setSelectedMember(details);
+      if (memberId) {
+        useMemberStore.getState().setSelectedMember(details);
+        useMemberStore.getState().setSelectedRole(details.role);
+      }
 
       return { list: response.data.data, details };
     });
+};
+
+export const getNestedMemberList = (roleId: number, parentId: number) => {
+  if (!roleId) return;
+  if (!parentId) return;
+
+  return privateAgent.get<MemberListResponse>(
+    `/member/list/${roleId}/${parentId}`
+  );
 };
 
 export const addOrgMember = (body: OrgMemberAddReq) => {
@@ -133,7 +145,6 @@ export const toggleActiveForMember = (memberId: number, active: 1 | 0) => {
         active,
       })
       .then((response) => {
-        console.log(response);
         resolve(response.data.message);
       })
       .catch((error) => {

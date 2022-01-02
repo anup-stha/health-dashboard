@@ -1,31 +1,51 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 5:44 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 3:11 PM
  *
  *
  */
 
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRoleStore } from "../../roles/useRoleStore";
 import { useMemberStore } from "../useMemberStore";
+import { Role } from "@/types";
 
-export const MemberRoleDropdown = () => {
-  const roleList = useRoleStore
-    .getState()
-    .roleList.sort((a, b) => a.name.localeCompare(b.name));
+type MemberRoleDropdownProps = {
+  roleList?: Role[];
+  selectedRole?: Role;
+  setSelectedRole?: (selected_role: Role) => void;
+};
+
+export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
+  roleList: _roleList,
+  selectedRole: _selectedRole,
+  setSelectedRole: _setSelectedRole,
+}) => {
+  const roleList =
+    _roleList ??
+    useRoleStore
+      .getState()
+      .roleList.sort((a, b) => a.name.localeCompare(b.name));
 
   const { selectedRole: selected, setSelectedRole: setSelected } =
     useMemberStore();
 
   return (
     <div className="w-64 capitalize z-10">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox
+        value={_selectedRole ?? selected}
+        onChange={_setSelectedRole ?? setSelected}
+      >
         <div className="relative">
           <Listbox.Button className="cursor-pointer relative w-full py-4 px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
-            <span className="block truncate">{selected.name}</span>
+            <span className="block truncate">
+              {_selectedRole && Object.values(_selectedRole).length !== 0
+                ? _selectedRole.name
+                : selected.name}
+            </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
                 className="w-5 h-5 text-gray-400"

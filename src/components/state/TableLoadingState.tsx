@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 8:11 AM
  *
  *
  */
 
-import _ from "lodash";
+import times from "lodash/times";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -18,7 +18,7 @@ export const MemberTableLoadingState: React.FC<
   MemberTableLoadingStateProps
 > = ({ count }) => {
   const rows: any = [];
-  _.times(count, (i) => {
+  times(count, (i) => {
     rows.push(
       <React.Fragment key={i}>
         <tr>

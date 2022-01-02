@@ -1,16 +1,15 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:10 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 1:13 PM
  *
  *
  */
 
-/* eslint-disable @next/next/no-html-link-for-pages */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import _ from "lodash";
+import isNaN from "lodash/isNaN";
 
 type pathArrayProps = {
   label: string;
@@ -39,7 +38,7 @@ const Breadcrumbs = () => {
 
       const pathArray = linkPath.map((path, i) => {
         return {
-          label: !_.isNaN(+path) ? removeBracesIfAny(labelPath[i]) : path,
+          label: !isNaN(+path) ? removeBracesIfAny(labelPath[i]) : path,
           href: "/" + linkPath.slice(0, i + 1).join("/"),
         };
       });
@@ -58,7 +57,7 @@ const Breadcrumbs = () => {
         <Link href="/dashboard">Dashboard</Link>
       </li>
 
-      {breadcrumbs.map((breadcrumb, i: number) => {
+      {breadcrumbs.map((breadcrumb, _i: number) => {
         return (
           <li
             key={breadcrumb.href}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 8:14 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 5:51 PM
  *
  *
  */
@@ -37,6 +37,7 @@ export const getRoleList = () => {
             (role) => role.id === Number(Router.query.role)
           )[0]
         );
+
     return response.data;
   });
 };
@@ -55,12 +56,7 @@ export const getRoleDetails = (
 
 const listRoleDetails = (roleId: number) => {
   if (!roleId) return;
-  return privateAgent
-    .get<RoleDetailResponse>(`role/detail/${roleId}`)
-    .then((response) => {
-      return response.data.data;
-    })
-    .catch((error) => error.response);
+  return privateAgent.get<RoleDetailResponse>(`role/detail/${roleId}`);
 };
 
 export const useRoleDetails = (roleId: number) => {
@@ -202,4 +198,8 @@ export const removePermissionFromRole = (id: any, permId: any) => {
 
 export const getAllRoleList = () => {
   return privateAgent.get<RoleListResponse>("role/all");
+};
+
+export const getRoleListBySlug = (role_slug: string) => {
+  return privateAgent.get<RoleListResponse>(`/role/${role_slug}`);
 };

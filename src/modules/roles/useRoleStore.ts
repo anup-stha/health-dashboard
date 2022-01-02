@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 6:43 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 11:39 AM
  *
  *
  */
@@ -18,6 +18,11 @@ import { combine, devtools } from "zustand/middleware";
 
 type roleInitialStateProps = {
   allRoleList: {
+    data: Role[];
+    loading_status: boolean;
+    res_message: string;
+  };
+  roleListBySlug: {
     data: Role[];
     loading_status: boolean;
     res_message: string;
@@ -40,6 +45,11 @@ type roleInitialStateProps = {
 
 const initialState: roleInitialStateProps = {
   allRoleList: {
+    data: [],
+    loading_status: false,
+    res_message: "",
+  },
+  roleListBySlug: {
     data: [],
     loading_status: false,
     res_message: "",
@@ -67,6 +77,16 @@ const store = combine(initialState, (set) => ({
         data: roleListData.data,
         loading_status: roleListData.status,
         res_message: roleListData.message,
+      },
+    });
+  },
+
+  setRoleListBySlug: (roleListBySlugData: RoleListResponse) => {
+    set({
+      roleListBySlug: {
+        data: roleListBySlugData.data,
+        loading_status: roleListBySlugData.status,
+        res_message: roleListBySlugData.message,
       },
     });
   },

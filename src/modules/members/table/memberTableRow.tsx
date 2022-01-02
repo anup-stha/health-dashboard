@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 9:57 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:10 PM
  *
  *
  */
 
-import { Member } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
@@ -15,14 +14,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { useMemberStore } from "../useMemberStore";
 import { CaretDoubleRight } from "phosphor-react";
-import { MemberModal } from "@/modules/members/modal/memberModal";
 import { Popover, Transition } from "@headlessui/react";
-import { Edit, MoreVertical } from "react-feather";
+import { MoreVertical } from "react-feather";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 
 type OrgTableRowType = {
-  data?: Member;
+  data?: any;
   key?: string | number;
   loading?: boolean;
 };
@@ -42,9 +40,13 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
           <div
             className="flex items-center cursor-pointer"
             onClick={() =>
-              router.push(
-                `/members/profile?id=${data.id}&role=${selectedRole.id}`
-              )
+              data.role_slug && data.role_id
+                ? router.push(
+                    `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
+                  )
+                : router.push(
+                    `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                  )
             }
           >
             <div className="relative flex-shrink-0 h-16 w-16">
@@ -92,9 +94,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           {data.phone}
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
-          {data.gender}
-        </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-lg text-gray-900 font-medium">
             {data.address}
@@ -113,18 +112,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
 
         <td className="px-4 py-4">
           <div className="flex items-center space-x-4">
-            <MemberModal
-              type="edit"
-              initialData={{ ...data, member_id: data.id }}
-              button={
-                <div className="">
-                  <Edit
-                    name="edit"
-                    className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-1"
-                  />
-                </div>
-              }
-            />
             <DeleteModal
               onDelete={async () => {
                 // await alert({

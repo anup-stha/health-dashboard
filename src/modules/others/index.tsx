@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 8:09 AM
  *
  *
  */
@@ -24,9 +24,9 @@ import {
   putOtherFieldToast,
 } from "@/modules/others/utils/toasts/othersPageToast";
 import { OtherFields, OtherFieldsPostBody } from "@/types";
-import _ from "lodash";
 import Image from "next/image";
 import { Loader } from "@/components/Loader";
+import omit from "lodash/omit";
 
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();
@@ -170,7 +170,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
   console.log(initialData);
 
   const { register, handleSubmit, control } = useForm<OtherFieldsPostBody>({
-    defaultValues: _.omit(initialData, "id"),
+    defaultValues: omit(initialData, "id"),
   });
   const options = useGlobalState
     .getState()

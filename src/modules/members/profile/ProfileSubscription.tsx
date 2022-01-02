@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:24 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 8:09 AM
  *
  *
  */
@@ -19,7 +19,7 @@ import {
   removeSubscriptionFromMember,
 } from "@/services/requests/subscriptionRequests";
 import { useRouter } from "next/router";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import moment from "moment";
 import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
@@ -122,20 +122,20 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
 
   if (!router.query.id === !(user.id !== 1)) return null;
 
-  return _.isEmpty(selectedMemberSubscription) ? (
+  return isEmpty(selectedMemberSubscription) ? (
     <div className=" print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
       <div>
         <h1 className="text-xl font-semibold text-gray-800">Subscriptions</h1>
         {user.id === 1 && (
           <p className="text-lg font-semibold text-gray-500">
             Please choose a subscription to{" "}
-            {_.isEmpty(selectedMemberSubscription) ? "unlink" : "link"}
+            {isEmpty(selectedMemberSubscription) ? "unlink" : "link"}
           </p>
         )}
       </div>
 
       {subscriptionList.list.length === 0 &&
-      _.isEmpty(selectedMemberSubscription) ? (
+      isEmpty(selectedMemberSubscription) ? (
         <div className="print:hidden flex items-center text-red-500 space-x-4">
           <WarningOctagon size={40} />{" "}
           {user.id === 1 ? (

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 1:47 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:15 PM
  *
  *
  */
@@ -16,7 +16,6 @@ export const useMemberDetails = (memberId: number) => {
     () => getMemberDetails(memberId),
     {
       enabled: !!memberId,
-      staleTime: Infinity,
       retry: false,
       onSuccess: (data) =>
         useMemberStore.getState().setSelectedMemberDetails(data),

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 10:55 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:13 PM
  *
  *
  */
@@ -12,24 +12,25 @@ import { Bookmark, Calendar, Mail, Map, PhoneCall } from "react-feather";
 import React from "react";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { GenderNeuter, WarningOctagon } from "phosphor-react";
-import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal";
 import moment from "moment";
 import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDetail";
+import { Member, Role } from "@/types";
+import { MemberDetailAddModal } from "../modal/MemberDetailAddModal";
 
 type MemberDetailsProps = {
   active: boolean;
   verified: boolean;
+  selectedRole: Role;
+  selectedMember: Member;
 };
 
 export const MemberDetails: React.FC<MemberDetailsProps> = ({
   active,
   verified,
+  selectedRole,
+  selectedMember,
 }) => {
-  const {
-    selectedMemberDetails: otherDetails,
-    selectedMember: primaryDetails,
-    selectedRole: role,
-  } = useMemberStore();
+  const { selectedMemberDetails: otherDetails } = useMemberStore();
 
   return (
     <div className="print:hidden relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
@@ -48,14 +49,14 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
         </div>
         <div className="flex flex-col mt-10">
           <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-3xl">
-            {primaryDetails ? primaryDetails.name : ""}
+            {selectedMember?.name}
           </h1>
           <p className="text-gray-500 font-semibold text-xl sm:text-lg">
-            {role.name}
+            {selectedRole?.name}
           </p>
         </div>
       </div>
-      {primaryDetails && (
+      {selectedMember && (
         <div className="min-h-[10rem] p-4">
           <div className="ml-[20%] flex justify-between items-center sm:items-start sm:ml-0 sm:mt-6 sm:-mb-16">
             <div className="sm:hidden" />
@@ -76,7 +77,7 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
               <BooleanTag
                 type="info"
                 trueStatement={
-                  primaryDetails.can_login ? "Can Login" : "Cannot Login"
+                  selectedMember.can_login ? "Can Login" : "Cannot Login"
                 }
               />
             </div>
@@ -86,26 +87,30 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
               <p className="text-2xl font-semibold text-gray-900">
                 Personal Info
               </p>
-              <ProfileDataDetail
-                icon={<Mail />}
-                detail={primaryDetails.email}
-              />
-              <ProfileDataDetail
-                icon={<Map />}
-                detail={primaryDetails.address}
-              />
-              <ProfileDataDetail
-                icon={<PhoneCall />}
-                detail={primaryDetails.phone}
-              />
-              <ProfileDataDetail
-                icon={<Calendar />}
-                detail={dateConvert(primaryDetails.dob_ad)}
-              />
-              <ProfileDataDetail
-                icon={<GenderNeuter size={24} weight={"bold"} />}
-                detail={primaryDetails.gender}
-              />
+              {selectedMember && (
+                <>
+                  <ProfileDataDetail
+                    icon={<Mail />}
+                    detail={selectedMember.email}
+                  />
+                  <ProfileDataDetail
+                    icon={<Map />}
+                    detail={selectedMember.address}
+                  />
+                  <ProfileDataDetail
+                    icon={<PhoneCall />}
+                    detail={selectedMember.phone}
+                  />
+                  <ProfileDataDetail
+                    icon={<Calendar />}
+                    detail={dateConvert(selectedMember.dob_ad)}
+                  />
+                  <ProfileDataDetail
+                    icon={<GenderNeuter size={24} weight={"bold"} />}
+                    detail={selectedMember.gender}
+                  />
+                </>
+              )}
             </div>
             <div className="self-stretch w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
               <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll sidebar h-full bg-local">
@@ -117,7 +122,10 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
                   <>
                     <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
                       <WarningOctagon size={24} /> <span>No Details Found</span>
-                      <MemberDetailAddModal memberData={primaryDetails}>
+                      <MemberDetailAddModal
+                        memberData={selectedMember}
+                        selectedRole={selectedRole}
+                      >
                         <span
                           className={"text-gray-600 cursor-pointer underline"}
                         >

@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 8:11 AM
  *
  *
  */
 
 /* eslint-disable no-unused-vars */
 import { ApexOptions } from "apexcharts";
-import _ from "lodash";
+import omit from "lodash/omit";
 import * as React from "react";
 import { useState } from "react";
 import Chart from "react-apexcharts";
@@ -47,7 +47,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       ? datas.map((data: any) => {
           const dataArray: any = [];
           {
-            const ommitedObject = _.omit(data, Object.keys(data)[0]);
+            const ommitedObject = omit(data, Object.keys(data)[0]);
             dataArray.push(
               Object.keys(ommitedObject).map((e: any) => ({
                 x: e,

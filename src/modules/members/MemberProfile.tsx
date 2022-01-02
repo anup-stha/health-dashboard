@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 11:04 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:16 PM
  *
  *
  */
@@ -10,12 +10,12 @@ import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
 import Error from "@/styles/404.svg";
+import { useRouter } from "next/router";
 
 import { MemberDetails } from "@/modules/members/profile/MemberDetails";
 import { ProfileTestComponent } from "@/modules/members/profile/ProfileTestComponent";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { ProfileSubscription } from "@/modules/members/profile/ProfileSubscription";
-import { useRouter } from "next/router";
 import { useMemberDetails } from "@/modules/members/hooks/useMemberDetails";
 import {
   useMemberSubsDetails,
@@ -29,12 +29,16 @@ import { Loader } from "@/components/Loader";
 import { MemberProfileControls } from "@/modules/members/others/MemberProfileControls";
 import { usePatientMedHistory } from "@/modules/members/hooks/usePatientMedHistory";
 import { TableView } from "@/components/Table";
-import _ from "lodash";
+import omit from "lodash/omit";
 import { WarningOctagon } from "phosphor-react";
+import { ProfileMemberTable } from "@/modules/members/profile/ProfileMemberTable";
 
 export const MemberProfile: React.FC = () => {
   const router = useRouter();
-  const idX = { id: router.query.id, role: router.query.role };
+  const idX = {
+    id: router.query.id,
+    role: router.query.role,
+  };
 
   const { selectedMember, selectedRole } = useMemberStore();
 
@@ -47,6 +51,7 @@ export const MemberProfile: React.FC = () => {
     Number(idX.role),
     Number(idX.id)
   );
+
   const { isFetching } = useMemberSubsDetails(Number(router.query.id));
 
   const loading =
@@ -57,7 +62,6 @@ export const MemberProfile: React.FC = () => {
     memberLoading ||
     memberDetailsLoading ||
     testLoading;
-
   const [active, setActive] = useState(
     selectedMember ? selectedMember.active : false
   );
@@ -79,17 +83,31 @@ export const MemberProfile: React.FC = () => {
   ) : (
     <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
       <div className="w-3/4 space-y-8 lg:w-full">
-        <MemberDetails active={active} verified={verified} />
-        {selectedRole.slug === "patient" && <ProfileMedicalHistory />}
-        <ProfileTestComponent />
+        <MemberDetails
+          active={active}
+          verified={verified}
+          selectedMember={selectedMember}
+          selectedRole={roleDetailsData?.data.data}
+        />
+        {selectedRole.slug === "patient" ||
+        selectedRole.slug === "individual" ? (
+          <>
+            <ProfileMedicalHistory />
+            <ProfileTestComponent />
+          </>
+        ) : (
+          <ProfileMemberTable />
+        )}
       </div>
-      <div className=" w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
+      <div className="w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
         <ProfileSubscription />
         <MemberProfileControls
           active={active}
           verified={verified}
           setActive={setActive}
           setVerified={setVerified}
+          selectedMember={selectedMember}
+          selectedRole={roleDetailsData?.data.data}
         />
       </div>
     </div>
@@ -116,7 +134,7 @@ export const ProfileMedicalHistory = () => {
       {!isLoading && patientMedicalHistoryList.length !== 0 ? (
         <TableView
           data={patientMedicalHistoryList.map((element) =>
-            _.omit(element, ["id", "detail_category_id"])
+            omit(element, ["id", "detail_category_id"])
           )}
         />
       ) : (

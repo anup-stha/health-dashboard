@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:51 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 5:55 PM
  *
  *
  */
@@ -101,6 +101,7 @@ export const updateUserProfile = (
           );
         useMemberStore.getState().setOnlyMemberList(newList);
         useMemberStore.getState().setSelectedMember(response.data.data);
+        useMemberStore.getState().setSelectedMemberBySlug(response.data.data);
 
         resolve(response.data.message);
       })

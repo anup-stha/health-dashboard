@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:36 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 2:22 PM
  *
  *
  */
@@ -114,6 +114,7 @@ export type RoleUpdateBody = {
 
 export type BasicMember = {
   id: number;
+  parent_member_id: number;
   uuid: string;
   name: string;
   lat?: number;

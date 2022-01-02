@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 10:40 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/2/22, 6:06 PM
  *
  *
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { MemberDetailCategory } from "@/types";
+import { Member, MemberDetailCategory, Role } from "@/types";
 import React, { Fragment, useEffect } from "react";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { alert } from "@/components/Alert";
@@ -18,9 +18,19 @@ import { useRouter } from "next/router";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useForm } from "react-hook-form";
 
-export const MemberDetailAddModal = ({ memberData, children }: any) => {
+type MemberDetailAddModalProps = {
+  memberData: Member;
+  children?: React.ReactNode;
+  selectedRole: Role;
+};
+
+export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
+  memberData,
+  children,
+  selectedRole,
+}) => {
   const router = useRouter();
-  const { selectedRole, selectedMemberDetails } = useMemberStore();
+  const { selectedMemberDetails } = useMemberStore();
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
@@ -50,7 +60,8 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
           {memberData.name}
           {"'s"} Details
         </Modal.Title>
-        {selectedRole.member_detail_categories &&
+        {selectedRole &&
+        selectedRole.member_detail_categories &&
         selectedRole.member_detail_categories.length === 0 ? (
           <div className="flex items-center text-red-500 space-x-4">
             <WarningOctagon size={40} />{" "}
@@ -85,7 +96,8 @@ export const MemberDetailAddModal = ({ memberData, children }: any) => {
           >
             <Modal.Scrollable>
               <div className="space-y-4">
-                {selectedRole.member_detail_categories &&
+                {selectedRole &&
+                  selectedRole.member_detail_categories &&
                   selectedRole.member_detail_categories.map(
                     (category: MemberDetailCategory) => (
                       <Fragment key={category.id}>
