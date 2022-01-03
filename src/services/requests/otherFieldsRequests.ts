@@ -16,7 +16,9 @@ import {
 import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const getMedicalHistoryList = (memberId: number) => {
-  return privateAgent.get<MedicalHistoryGetResponse>(`medical_history/${memberId}`);
+  return privateAgent.get<MedicalHistoryGetResponse>(
+    `medical_history/${memberId}`
+  );
 };
 
 export const getOtherFieldsList = () => {
@@ -24,11 +26,20 @@ export const getOtherFieldsList = () => {
 };
 
 export const postOtherFieldDetails = (body: OtherFieldsPostBody) => {
-  return privateAgent.post<OtherFieldsPostResponse>("medical_history/category/", body);
+  return privateAgent.post<OtherFieldsPostResponse>(
+    "medical_history/category/",
+    body
+  );
 };
 
-export const putOtherFieldDetails = (detailId: number, body: OtherFieldsPostBody) => {
-  return privateAgent.put<OtherFieldsPostResponse>(`medical_history/category/${detailId}`, body);
+export const putOtherFieldDetails = (
+  detailId: number,
+  body: OtherFieldsPostBody
+) => {
+  return privateAgent.put<OtherFieldsPostResponse>(
+    `medical_history/category/${detailId}`,
+    body
+  );
 };
 
 export const postMedicalHistoryToPatient = (memberId: number, data: any) => {
@@ -67,7 +78,9 @@ export const postMedicalHistoryToPatient = (memberId: number, data: any) => {
   const body = groupBy(requestBody, "medical_history_category_id");
 
   const finalBody = Object.values(body).map((element: any) =>
-    element.length === 1 ? mergeObject(element[0], {}) : mergeObject(element[0], element[1])
+    element.length === 1
+      ? mergeObject(element[0], {})
+      : mergeObject(element[0], element[1])
   );
   const finalReqBody = finalBody.map((element) => ({
     ...element,

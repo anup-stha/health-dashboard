@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 10:21 AM
+ * Last Modified 1/3/22, 8:26 PM
  *
  *
  */
@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { MemberRoleDropdown } from "@/modules/members/others/MemberRoleDropdown";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useNestedMemberList } from "@/modules/members/hooks/useNestedMemberList";
+import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMemberList";
 import { TableView } from "@/components/Table";
 import { MemberTableRow } from "@/modules/members/table/memberTableRow";
 import { WarningOctagon } from "phosphor-react";
@@ -22,7 +22,11 @@ export const ProfileMemberTable: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState(roleList[0]);
 
   const { data, isLoading } = useNestedMemberList(
-    selectedRole ? Number(selectedRole.id) : roleList.length !== 0 ? Number(roleList[0].id) : 0,
+    selectedRole
+      ? Number(selectedRole.id)
+      : roleList.length !== 0
+      ? Number(roleList[0].id)
+      : 0,
     Number(router.query.id)
   );
 
@@ -40,7 +44,8 @@ export const ProfileMemberTable: React.FC = () => {
             Organization Member List
           </h1>
           <h1 className="text-gray-500 font-medium text-lg print:hidden">
-            List of All Organization Members Added by Organization Admin and Organization Operators
+            List of All Organization Members Added by Organization Admin and
+            Organization Operators
           </h1>
         </div>
         <MemberRoleDropdown

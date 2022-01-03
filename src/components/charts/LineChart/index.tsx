@@ -36,7 +36,13 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
 
   return (
     <div className="p-4 sm:px-0 mb-12  shadow-xl ring-1 ring-gray-300/40 rounded-lg print:hidden">
-      <Chart options={state.options} series={state.series} type="area" width="100%" height="450" />
+      <Chart
+        options={state.options}
+        series={state.series}
+        type="area"
+        width="100%"
+        height="450"
+      />
     </div>
   );
 };

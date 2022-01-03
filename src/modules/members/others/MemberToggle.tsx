@@ -8,7 +8,10 @@
 
 import React from "react";
 import { alert } from "@/components/Alert";
-import { toggleActiveForMember, toggleVerifiedForMember } from "@/services/requests/memberRequests";
+import {
+  toggleActiveForMember,
+  toggleVerifiedForMember,
+} from "@/services/requests/memberRequests";
 import { Member } from "@/types";
 import { GreenLineButton, RedLineButton } from "@/components/Button";
 
@@ -29,12 +32,14 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
 }) => {
   const promise = () =>
     toggle === "active"
-      ? toggleActiveForMember(Number(memberId), selectedMemberDetails.active ? 0 : 1).then(() =>
-          setCurrentState(!currentState)
-        )
-      : toggleVerifiedForMember(Number(memberId), selectedMemberDetails.verified ? 0 : 1).then(() =>
-          setCurrentState(!currentState)
-        );
+      ? toggleActiveForMember(
+          Number(memberId),
+          selectedMemberDetails.active ? 0 : 1
+        ).then(() => setCurrentState(!currentState))
+      : toggleVerifiedForMember(
+          Number(memberId),
+          selectedMemberDetails.verified ? 0 : 1
+        ).then(() => setCurrentState(!currentState));
 
   const onToggleHandler = async () => {
     await alert({
@@ -49,14 +54,26 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   };
 
   return currentState ? (
-    <RedLineButton buttonSize={"small"} width={"full"} onClick={() => onToggleHandler()}>
+    <RedLineButton
+      buttonSize={"small"}
+      width={"full"}
+      onClick={() => onToggleHandler()}
+    >
       Mark this member as{" "}
-      {currentState ? `${toggle === "active" ? "Inactive" : "Not Verified"}` : toggle}
+      {currentState
+        ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
+        : toggle}
     </RedLineButton>
   ) : (
-    <GreenLineButton buttonSize={"small"} width={"full"} onClick={() => onToggleHandler()}>
+    <GreenLineButton
+      buttonSize={"small"}
+      width={"full"}
+      onClick={() => onToggleHandler()}
+    >
       Mark this member as{" "}
-      {currentState ? `${toggle === "active" ? "Inactive" : "Not Verified"}` : toggle}
+      {currentState
+        ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
+        : toggle}
     </GreenLineButton>
   );
 };

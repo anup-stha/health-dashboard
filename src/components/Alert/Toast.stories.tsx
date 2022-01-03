@@ -20,7 +20,9 @@ export default {
 } as ComponentMeta<typeof AlertComponent>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof AlertComponent> = (args) => <AlertComponent {...args} />;
+const Template: ComponentStory<typeof AlertComponent> = (args) => (
+  <AlertComponent {...args} />
+);
 
 export const SuccessAlert = Template.bind({});
 SuccessAlert.args = {

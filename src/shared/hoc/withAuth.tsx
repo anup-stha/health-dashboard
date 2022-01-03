@@ -46,10 +46,16 @@ export const withAuth = (WrappedComponent: React.FC) => {
           .catch(() => setGlobalLoading(false));
       };
 
-      isAuthenticated && Object.keys(data.base).length === 0 && getGlobalState();
+      isAuthenticated &&
+        Object.keys(data.base).length === 0 &&
+        getGlobalState();
     }, [router]);
 
-    return accessToken && !globalLoading ? <WrappedComponent {...props} /> : <div></div>;
+    return accessToken && !globalLoading ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <div></div>
+    );
   };
   return RequireAuthentication;
 };

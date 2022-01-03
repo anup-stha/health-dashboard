@@ -17,7 +17,10 @@ type NavItemProps = {
   onChange?: () => void;
 };
 
-export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) => {
+export const NavItem: React.FC<NavItemProps> = ({
+  route,
+  containerClassName,
+}) => {
   const { open, toggleOpen } = useSideBarStore();
   const { pathname, push } = useRouter();
 
@@ -29,7 +32,11 @@ export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) =
   return (
     <div className={containerClassName}>
       <li
-        className={route.link && pathname.includes(route.link) ? activeStyles : inactiveStyles}
+        className={
+          route.link && pathname.includes(route.link)
+            ? activeStyles
+            : inactiveStyles
+        }
         onClick={() => {
           route.link &&
             push(route.link).then(() => {
@@ -39,13 +46,19 @@ export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) =
       >
         <div
           className={`flex relative peer ${
-            open ? "items-start justify-start px-4" : "items-center px-4 delay-300"
+            open
+              ? "items-start justify-start px-4"
+              : "items-center px-4 delay-300"
           }`}
         >
           <span className="flex items-center gap-x-4">
             <div className={`${!open && "sm:hidden"}`}>{route.icon}</div>
 
-            {open && <span className="text-xl font-semibold sm:text-lg">{route.title}</span>}
+            {open && (
+              <span className="text-xl font-semibold sm:text-lg">
+                {route.title}
+              </span>
+            )}
           </span>
         </div>
         {!open && (

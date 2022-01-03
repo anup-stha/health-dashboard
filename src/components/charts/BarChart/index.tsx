@@ -111,7 +111,13 @@ export const BarChart: React.FC<BarChartProps> = ({
 
   return (
     <div className="">
-      <Chart options={options} series={state.series} type="bar" width="100%" height="600" />
+      <Chart
+        options={options}
+        series={state.series}
+        type="bar"
+        width="100%"
+        height="600"
+      />
     </div>
   );
 };

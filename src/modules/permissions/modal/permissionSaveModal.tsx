@@ -12,7 +12,10 @@ import React from "react";
 import { useRoleStore } from "../../roles/useRoleStore";
 import Image from "next/image";
 import { alert } from "@/components/Alert";
-import { addPermissionToRole, removePermissionFromRole } from "@/services/requests/roleRequests";
+import {
+  addPermissionToRole,
+  removePermissionFromRole,
+} from "@/services/requests/roleRequests";
 
 type PermissionSaveModalPropType = {};
 
@@ -23,7 +26,8 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
       <Modal.Button type="open">
         <Button
           disabled={
-            selectedPermission.deselected.length === 0 && selectedPermission.selected.length === 0
+            selectedPermission.deselected.length === 0 &&
+            selectedPermission.selected.length === 0
           }
         >
           Save Permissions
@@ -40,7 +44,9 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
           <div className="flex flex-col space-y-8">
             {selectedPermission.selected.length !== 0 && (
               <div>
-                <div className="font-semibold text-gray-600 text-xl mb-2">Added Permissions</div>
+                <div className="font-semibold text-gray-600 text-xl mb-2">
+                  Added Permissions
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
                   {selectedPermission.selected.map((permissionId) => {
                     const permissionDetail = selectedPermission.all.filter(
@@ -81,7 +87,9 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
             )}
             {selectedPermission.deselected.length !== 0 && (
               <div>
-                <div className="font-semibold text-red-600 text-xl mb-2">Removed Permissions</div>
+                <div className="font-semibold text-red-600 text-xl mb-2">
+                  Removed Permissions
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
                   {selectedPermission.deselected.map((permissionId) => {
                     const permissionDetail = selectedPermission.all.filter(

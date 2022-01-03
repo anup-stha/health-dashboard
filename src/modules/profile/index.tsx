@@ -78,7 +78,9 @@ export const ProfilePage: React.FC = () => {
             </div>
             <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4">
               <div className="  p-6 bg-gray-50 w-2/5 text-xl rounded-lg flex flex-col gap-4 sm:w-full ">
-                <p className="text-2xl font-semibold text-gray-900">Personal Info</p>
+                <p className="text-2xl font-semibold text-gray-900">
+                  Personal Info
+                </p>
                 <div className="flex gap-x-4">
                   <div className="text-gray-800">
                     <Mail />
@@ -102,7 +104,8 @@ export const ProfilePage: React.FC = () => {
                     <Calendar />
                   </div>
                   <span>
-                    Date of Birth: {moment(Number(user.dob_ad) * 1000).format("MMMM Do YYYY")}
+                    Date of Birth:{" "}
+                    {moment(Number(user.dob_ad) * 1000).format("MMMM Do YYYY")}
                   </span>
                 </div>
                 <div className="flex items-center gap-x-4">
@@ -120,14 +123,18 @@ export const ProfilePage: React.FC = () => {
               </div>
               <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
                 <div className="bg-gray-50 h-1/2 p-6 rounded-lg flex flex-col justify-between">
-                  <p className="text-2xl font-semibold text-gray-900">Short Summary</p>
+                  <p className="text-2xl font-semibold text-gray-900">
+                    Short Summary
+                  </p>
                   <span>N/A</span>
                 </div>
 
                 <div className="bg-gray-50 h-1/2 p-4 rounded-lg flex sm:w-full">
                   <div className="flex flex-col justify-between w-3/4 p-2 ">
                     <div className="flex justify-between items-center">
-                      <p className="text-2xl font-semibold text-gray-900">Activity</p>
+                      <p className="text-2xl font-semibold text-gray-900">
+                        Activity
+                      </p>
                     </div>
 
                     <span>N/A</span>

@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 10:37 AM
+ * Last Modified 1/3/22, 9:16 PM
  *
  *
  */
 
 import { useMemberStore } from "@/modules/members/useMemberStore";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   MemberDetailCategoryAddResponse,
   MemberDetailCategoryBody,
@@ -21,94 +20,41 @@ import {
   OrgMemberAddReq,
   OrgMemberAddRes,
 } from "@/types";
-import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 
-export const getMemberList = (id: number | string): Promise<AxiosResponse<MemberListResponse>> => {
-  return privateAgent.get(`/member/list/${id}`);
-};
-
 export const getMembersList = (roleId: number, memberId?: number) => {
-  if (!roleId) return;
-  return privateAgent.get<MemberListResponse>(`/member/list/${roleId}`).then((response) => {
-    useMemberStore.getState().setMemberList(response.data);
-    const details = response.data.data.list.filter((member) => member.id === memberId)[0];
-    if (memberId) {
-      useMemberStore.getState().setSelectedMember(details);
-    }
-
-    return { list: response.data.data, details };
-  });
+  return privateAgent.get<MemberListResponse>(`/member/list/${roleId}`);
 };
 
 export const getNestedMemberList = (roleId: number, parentId: number) => {
-  if (!roleId) return;
-  if (!parentId) return;
-
-  return privateAgent.get<MemberListResponse>(`/member/list/${roleId}/${parentId}`);
-};
-
-export const addOrgMember = (body: OrgMemberAddReq) => {
-  return new Promise((resolve, reject) =>
-    privateAgent
-      .post<OrgMemberAddRes>("user/store", body)
-      .then((response) => {
-        useMemberStore.getState().getMemberListFromServer(response.data.data.role.id);
-        resolve("Added Successfully");
-      })
-      .catch((error) => {
-        reject(error.response);
-      })
+  return privateAgent.get<MemberListResponse>(
+    `/member/list/${roleId}/${parentId}`
   );
 };
 
-export const addNormalMember = (body: NormalMemberAddReq) => {
-  return new Promise((resolve, reject) =>
-    privateAgent
-      .post<OrgMemberAddRes>("member/store", body)
-      .then((response) => {
-        useMemberStore.getState().getMemberListFromServer(response.data.data.role.id);
-        resolve("Added Succesfully");
-      })
-      .catch((error) => {
-        reject(error.response);
-      })
-  );
+export const postOrgMember = (body: OrgMemberAddReq) => {
+  return privateAgent.post<OrgMemberAddRes>("user/store", body);
+};
+
+export const postNormalMember = (body: NormalMemberAddReq) => {
+  return privateAgent.post<OrgMemberAddRes>("member/store", body);
 };
 
 export const postMemberCategory = (body: MemberDetailCategoryBody) => {
-  return new Promise((resolve, reject) => {
-    privateAgent
-      .post<MemberDetailCategoryAddResponse>("member/detail/category/store", body)
-      .then((response) => {
-        const memberDetail = useRoleStore.getState().memberCategoryList;
-        useRoleStore.getState().addMemberDetail([response.data.data, ...memberDetail]);
-        resolve(response.data.message);
-      })
-      .catch((error) => {
-        reject(error.response);
-      });
-  });
+  return privateAgent.post<MemberDetailCategoryAddResponse>(
+    "member/detail/category/store",
+    body
+  );
 };
 
-export const updateMemberCategory = (body: MemberDetailCategoryUpdateBody, id: number) => {
-  return new Promise((resolve, reject) => {
-    privateAgent
-      .post<MemberDetailCategoryUpdateResponse>(`member/detail/category/update/${id}`, body)
-      .then((response) => {
-        const updatedArray = useRoleStore
-          .getState()
-          .memberCategoryList.map((category) =>
-            category.id === response.data.data.id ? response.data.data : category
-          );
-
-        useRoleStore.getState().addMemberDetail(updatedArray);
-        resolve(response.data.message);
-      })
-      .catch((error) => {
-        reject(error.response);
-      });
-  });
+export const postUpdateMemberCategory = (
+  body: MemberDetailCategoryUpdateBody,
+  category_id: number
+) => {
+  return privateAgent.post<MemberDetailCategoryUpdateResponse>(
+    `member/detail/category/update/${category_id}`,
+    body
+  );
 };
 
 export const toggleActiveForMember = (memberId: number, active: 1 | 0) => {
@@ -144,14 +90,16 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
 };
 
 export const getMemberDetails = (memberId: number) => {
-  return privateAgent
-    .get<MemberDetailsListResponse>(`member/detail/${memberId}`)
-    .then((response) => {
-      return response.data.data;
-    });
+  return privateAgent.get<MemberDetailsListResponse>(
+    `member/detail/${memberId}`
+  );
 };
 
-export const addDetailsToMember = (roleId: number, memberId: number, data: Object) => {
+export const addDetailsToMember = (
+  roleId: number,
+  memberId: number,
+  data: Object
+) => {
   const values = Object.values(data);
   const keys = Object.keys(data);
   const requestBody: any[] = [];
@@ -161,8 +109,6 @@ export const addDetailsToMember = (roleId: number, memberId: number, data: Objec
       value: values[index],
     }))
   );
-
-  console.log(requestBody);
 
   return new Promise((resolve, reject) => {
     privateAgent
@@ -182,14 +128,7 @@ export const addDetailsToMember = (roleId: number, memberId: number, data: Objec
 };
 
 export const getMemberTestList = (memberId: number, testCategoryId: number) => {
-  return new Promise((resolve, reject) => {
-    privateAgent
-      .get<MemberTestListResponse>(`test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`)
-      .then((response) =>
-        useMemberStore.getState().setSelectedTestDetailsInProfile(response.data.data)
-      )
-      .catch((error) => {
-        useMemberStore.getState().clearTestDetailsInProfile();
-      });
-  });
+  return privateAgent.get<MemberTestListResponse>(
+    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`
+  );
 };

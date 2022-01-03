@@ -38,7 +38,9 @@ const Test: NextPage<any> = ({ idX }) => {
 
 export default withAuth(withRole(Test));
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   return {
     props: {
       idX: context.query.test,

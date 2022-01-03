@@ -35,13 +35,19 @@ type SubsDescriptionPage = {
   selected: any;
 };
 
-export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected }) => {
+export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
+  selected,
+}) => {
   const { testList } = testStore();
 
   const { subscriptionDetails } = useSubscriptionStore();
-  const [selectedId, setSelectedId] = useState(testList[0] ? testList[0].id : 0);
+  const [selectedId, setSelectedId] = useState(
+    testList[0] ? testList[0].id : 0
+  );
 
-  const selectedTest = testList.filter((element) => element.id === selectedId)[0];
+  const selectedTest = testList.filter(
+    (element) => element.id === selectedId
+  )[0];
 
   const getTestSubCategory = (testId: number) =>
     testList.filter((element) => element.id === testId)[0].sub_categories;
@@ -67,7 +73,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
       <hr className="border-t-[1px] border-gray-200" />
       <div className={"space-y-4"}>
         <div className="flex flex-col">
-          <h1 className="text-3xl font-semibold text-neutral-800 capitalize">Tests</h1>
+          <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
+            Tests
+          </h1>
         </div>
 
         {testList.length !== 0 ? (
@@ -88,9 +96,13 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xl font-medium capitalize">{test.name}</span>
+                          <span className="text-xl font-medium capitalize">
+                            {test.name}
+                          </span>
                           <span>
-                            {subscriptionDetails.some((element) => element.id === test.id) ? (
+                            {subscriptionDetails.some(
+                              (element) => element.id === test.id
+                            ) ? (
                               <CheckCircle
                                 size={24}
                                 weight="duotone"
@@ -102,7 +114,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                               <XCircle
                                 size={24}
                                 weight="duotone"
-                                className={classNames(selected ? "text-red-400" : "text-red-700")}
+                                className={classNames(
+                                  selected ? "text-red-400" : "text-red-700"
+                                )}
                               />
                             )}
                           </span>
@@ -130,7 +144,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                               />
                               <BooleanTag
                                 type={"info"}
-                                trueStatement={`Public:${selectedTest.public ? " Yes" : " No"}`}
+                                trueStatement={`Public:${
+                                  selectedTest.public ? " Yes" : " No"
+                                }`}
                               />
                               <BooleanTag
                                 type={"info"}
@@ -153,11 +169,13 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                         </div>
                       </Tab.Panel>
                     );
-                  const subCategories = test.sub_categories.map((subTest: any) => ({
-                    ...subTest,
-                    category_name: test.name,
-                    category_desc: test.desc,
-                  }));
+                  const subCategories = test.sub_categories.map(
+                    (subTest: any) => ({
+                      ...subTest,
+                      category_name: test.name,
+                      category_desc: test.desc,
+                    })
+                  );
 
                   return (
                     <Tab.Panel key={index}>
@@ -172,10 +190,15 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                               {test.name}
                             </h1>
                             <div className="flex space-x-2">
-                              <BooleanTag type={"info"} trueStatement={`Slug: ${test.slug}`} />
                               <BooleanTag
                                 type={"info"}
-                                trueStatement={`Public:${test.public ? " Yes" : " No"}`}
+                                trueStatement={`Slug: ${test.slug}`}
+                              />
+                              <BooleanTag
+                                type={"info"}
+                                trueStatement={`Public:${
+                                  test.public ? " Yes" : " No"
+                                }`}
                               />{" "}
                               <BooleanTag
                                 type={"info"}
@@ -190,12 +213,20 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                             </div>
                           </div>{" "}
                           <div className={"flex"}>
-                            <SubsTestDropdown options={getTestSubCategory(test.id)} />
+                            <SubsTestDropdown
+                              options={getTestSubCategory(test.id)}
+                            />
                           </div>
                         </div>
                         <TableView
                           data={subCategories}
-                          tableHeadings={["Name", "Slug", "Public", "Description", ""]}
+                          tableHeadings={[
+                            "Name",
+                            "Slug",
+                            "Public",
+                            "Description",
+                            "",
+                          ]}
                           tableRowComponent={<SubscriptionSubTestTableRow />}
                           loading={false}
                         />
@@ -247,8 +278,12 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
             />
           </div>
           <div className="ml-4">
-            <div className="text-xl font-semibold text-gray-900 w-full capitalize">{data.name}</div>
-            <div className="text-lg font-medium text-gray-500">{data.category_name}</div>
+            <div className="text-xl font-semibold text-gray-900 w-full capitalize">
+              {data.name}
+            </div>
+            <div className="text-lg font-medium text-gray-500">
+              {data.category_name}
+            </div>
           </div>
         </div>
       </td>
@@ -290,7 +325,10 @@ type SubTestDropdown = {
   label?: string;
 };
 
-export const SubsTestDropdown: React.FC<SubTestDropdown> = ({ options, label = "" }) => {
+export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
+  options,
+  label = "",
+}) => {
   const { handleSubmit, control, formState } = useForm();
   const router = useRouter();
   const { isDirty, isValid } = formState;

@@ -10,7 +10,10 @@ import React from "react";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
 import { Loader } from "@/components/Loader";
-import { StatCardGroup, StatCardGroupVariant2 } from "@/modules/dashboard/cards/StatCardGroup";
+import {
+  StatCardGroup,
+  StatCardGroupVariant2,
+} from "@/modules/dashboard/cards/StatCardGroup";
 import { useRoleList } from "@/services/requests/roleRequests";
 
 export const AdminDashboard: React.FC = () => {
@@ -26,7 +29,9 @@ export const AdminDashboard: React.FC = () => {
         <h1 className="text-[2.5rem] text-gray-800 font-semibold sm:text-2xl ">
           Hello, {user.name}
         </h1>
-        <p className="text-xl text-gray-500 font-medium">Welcome Back To Dashboard!</p>
+        <p className="text-xl text-gray-500 font-medium">
+          Welcome Back To Dashboard!
+        </p>
       </div>
 
       <div className="w-full flex items-start gap-6 md:flex-col relative sm:gap-4">

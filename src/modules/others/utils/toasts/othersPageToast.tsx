@@ -36,7 +36,10 @@ export const postOtherFieldToast = (data: OtherFieldsPostBody) => {
   });
 };
 
-export const putOtherFieldToast = (detailId: number, data: OtherFieldsPostBody) => {
+export const putOtherFieldToast = (
+  detailId: number,
+  data: OtherFieldsPostBody
+) => {
   const putOtherFieldPromise = new Promise((resolve, reject) =>
     putOtherFieldDetails(detailId, data)
       .then((response) => {

@@ -28,7 +28,9 @@ export const LoginPage = () => {
             objectFit="contain"
           />
           <div className="w-2/3 text-center">
-            <h1 className="text-3xl font-extrabold text-center text-gray-850">Sunya Health</h1>
+            <h1 className="text-3xl font-extrabold text-center text-gray-850">
+              Sunya Health
+            </h1>
             <p className="text-xl font-light text-gray-800">
               Please Log in to continue to Dashboard
             </p>
@@ -46,7 +48,8 @@ export const LoginPage = () => {
                 Hello! Welcome Back
               </p>
               <p className=" text-[1.4rem] font-light text-gray-850 lg:text-lg ">
-                Log in with your credentials you entered during your registration.
+                Log in with your credentials you entered during your
+                registration.
               </p>
             </div>
             <LoginForm />

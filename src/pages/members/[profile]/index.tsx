@@ -25,7 +25,8 @@ const MemberProfilePage: NextPage<any> = () => {
 
   useEffect(() => {
     if (!router.query.id) {
-      router.isReady && router.replace(`${router.query.profile}?id=${parentId}&role=${roleId}`);
+      router.isReady &&
+        router.replace(`${router.query.profile}?id=${parentId}&role=${roleId}`);
     }
   }, [router]);
 

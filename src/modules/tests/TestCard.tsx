@@ -39,11 +39,17 @@ export const TestCard: React.FC<TestCardPropsType> = ({
     >
       <div className="space-y-1">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-semibold text-gray-800 capitalize">{name}</h1>
+          <h1 className="text-3xl font-semibold text-gray-800 capitalize">
+            {name}
+          </h1>
         </div>
 
         <div className="space-y-3">
-          <div className={`text-lg font-medium text-gray-600 w-full line-clamp-2`}>{desc}</div>
+          <div
+            className={`text-lg font-medium text-gray-600 w-full line-clamp-2`}
+          >
+            {desc}
+          </div>
           <div className=" text-base text-gray-500 font-normal space-x-2">
             <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             <BooleanTag type="info" trueStatement={`Public: ${isPublic}`} />
@@ -94,7 +100,10 @@ export const TestCard: React.FC<TestCardPropsType> = ({
           <div className="text-lg font-semibold text-gray-500 hover:text-red-600 cursor-pointer">
             <DeleteModal
               title="You are about to delete a test category"
-              subTitles={["This will delete your test forever", "Are you sure ?"]}
+              subTitles={[
+                "This will delete your test forever",
+                "Are you sure ?",
+              ]}
               closeButton={
                 <div className="flex items-center">
                   <Trash size={22} />

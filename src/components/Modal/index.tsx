@@ -18,7 +18,10 @@ export type IModalProps = {
   width?: "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl";
 };
 
-export const ModalContent: React.FC<IModalProps> = ({ children, width = "3xl" }) => {
+export const ModalContent: React.FC<IModalProps> = ({
+  children,
+  width = "3xl",
+}) => {
   const { setIsOpen, isOpen } = useModal();
 
   const closeModal = () => setIsOpen(false);
@@ -33,7 +36,10 @@ export const ModalContent: React.FC<IModalProps> = ({ children, width = "3xl" })
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="inline-block h-screen align-middle" aria-hidden="true">
+          <span
+            className="inline-block h-screen align-middle"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -108,7 +114,9 @@ export const Button: React.FC<IButtonProps> = ({
   ) : (
     <div
       onClick={
-        onClick ? (e) => onClickFn(e) : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
+        onClick
+          ? (e) => onClickFn(e)
+          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
       }
       className={`w-${width}`}
     >
@@ -130,7 +138,11 @@ export interface IScrollableProps {
 }
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
-  return <div className="overflow-y-scroll max-h-[50vh] p-0.5 sidebar">{children}</div>;
+  return (
+    <div className="overflow-y-scroll max-h-[50vh] p-0.5 sidebar">
+      {children}
+    </div>
+  );
 };
 
 export interface IModalFormProps {
@@ -139,7 +151,11 @@ export interface IModalFormProps {
   className?: string;
 }
 
-export const Form: React.FC<IModalFormProps> = ({ onSubmit, children, className }) => {
+export const Form: React.FC<IModalFormProps> = ({
+  onSubmit,
+  children,
+  className,
+}) => {
   const { setIsOpen } = useModal();
 
   const onSubmitFn = async (e: any) => {

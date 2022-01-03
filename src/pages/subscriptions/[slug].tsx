@@ -53,7 +53,9 @@ const SubscriptionDetailsPage: NextPage = ({ role, slug, id }: any) => {
 
 export default withAuth(SubscriptionDetailsPage);
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   return {
     props: {
       id: context.query.id,

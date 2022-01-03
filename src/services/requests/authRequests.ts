@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 11:22 AM
+ * Last Modified 1/3/22, 8:49 PM
  *
  *
  */
 
-import { useAuthStore } from "../../modules/auth/useTokenStore";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import {
   LoginRequest,
   LoginResponse,
@@ -49,7 +49,9 @@ export const logOut = () => {
       .then(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
-        useMemberStore.getState().setSelectedRole({ id: 0, name: "Choose any role" } as Role);
+        useMemberStore
+          .getState()
+          .setSelectedRole({ id: 0, name: "Choose any role" } as Role);
         queryClient.clear();
         Router.push("/");
         resolve("Logged Out Successfully");
@@ -58,6 +60,7 @@ export const logOut = () => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
         queryClient.clear();
+        localStorage.clear();
 
         Router.push("/");
         resolve("Logged Out Successfully");
@@ -83,7 +86,10 @@ export const getDashboardData = (url: string) =>
     return response.data.data;
   });
 
-export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => {
+export const updateUserProfile = (
+  profileId: number,
+  body: MemberUpdateBody
+) => {
   return new Promise((resolve, reject) => {
     privateAgent
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
@@ -91,7 +97,9 @@ export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => 
         getCurrentUserProfile().then(() => resolve(response.data.message));
         const newList = useMemberStore
           .getState()
-          .memberList.map((element) => (element.id === profileId ? response.data.data : element));
+          .memberList.map((element) =>
+            element.id === profileId ? response.data.data : element
+          );
         useMemberStore.getState().setOnlyMemberList(newList);
         useMemberStore.getState().setSelectedMember(response.data.data);
         useMemberStore.getState().setSelectedMemberBySlug(response.data.data);
@@ -112,7 +120,9 @@ export const changePassword = (old_password: string, new_password: string) => {
         new_password,
       })
       .then(async (response) => {
-        await getCurrentUserProfile().then(() => resolve(response.data.message));
+        await getCurrentUserProfile().then(() =>
+          resolve(response.data.message)
+        );
       })
       .catch((error) => {
         reject(error.response);

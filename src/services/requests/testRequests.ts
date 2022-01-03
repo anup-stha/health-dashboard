@@ -48,7 +48,9 @@ export const addTest = (body: AddTestBody) => {
         public: body.public ? 1 : 0,
       })
       .then((response) => {
-        testStore.getState().setTestList([...testStore.getState().testList, response.data.data]);
+        testStore
+          .getState()
+          .setTestList([...testStore.getState().testList, response.data.data]);
         resolve("Added");
       })
       .catch((error) => reject(error.response))
@@ -102,7 +104,10 @@ export const addTestCategory = (body: AddTestCategoryBody) => {
   );
 };
 
-export const updateTestCategory = (id: number, body: UpdateTestCategoryBody) => {
+export const updateTestCategory = (
+  id: number,
+  body: UpdateTestCategoryBody
+) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .put<AddTestCategoryResponse>(`test/subcategory/${id}`, {

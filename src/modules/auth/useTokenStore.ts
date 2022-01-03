@@ -46,4 +46,6 @@ export const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useAuthStore = create(devtools(persist(store, { name: userDataKey }), "auth"));
+export const useAuthStore = create(
+  devtools(persist(store, { name: userDataKey }), "auth")
+);

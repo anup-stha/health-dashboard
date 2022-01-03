@@ -14,7 +14,9 @@ type MemberTableLoadingStateProps = {
   count: number;
 };
 
-export const MemberTableLoadingState: React.FC<MemberTableLoadingStateProps> = ({ count }) => {
+export const MemberTableLoadingState: React.FC<
+  MemberTableLoadingStateProps
+> = ({ count }) => {
   const rows: any = [];
   times(count, (i) => {
     rows.push(

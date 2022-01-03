@@ -25,7 +25,11 @@ type OrgTableRowType = {
   loading?: boolean;
 };
 
-export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }) => {
+export const MemberTableRow: React.FC<OrgTableRowType> = ({
+  data,
+  key,
+  loading,
+}) => {
   const router = useRouter();
   const { selectedRole } = useMemberStore();
 
@@ -40,7 +44,9 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }
                 ? router.push(
                     `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
                   )
-                : router.push(`members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`)
+                : router.push(
+                    `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                  )
             }
           >
             <div className="relative flex-shrink-0 h-16 w-16">
@@ -56,7 +62,9 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }
               <div className="text-xl font-semibold text-gray-900 w-full capitalize">
                 {data.name}
               </div>
-              <div className="text-lg font-medium text-gray-500">{data.email}</div>
+              <div className="text-lg font-medium text-gray-500">
+                {data.email}
+              </div>
             </div>
           </div>
         </td>
@@ -87,9 +95,14 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }
           {data.phone}
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-gray-900 font-medium">{data.address}</div>
+          <div className="text-lg text-gray-900 font-medium">
+            {data.address}
+          </div>
           <div className="text-lg text-gray-500 font-medium">
-            <Link href={`https://maps.google.com/?q=${data.lat},${data.lng}`} passHref>
+            <Link
+              href={`https://maps.google.com/?q=${data.lat},${data.lng}`}
+              passHref
+            >
               <span className="flex items-center cursor-pointer hover:text-gray-800">
                 Google Maps <CaretDoubleRight size={16} />
               </span>
@@ -114,7 +127,10 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }
                 // });
               }}
               title="You are about to delete a member"
-              subTitles={["This will delete your member forever", "Are you sure ?"]}
+              subTitles={[
+                "This will delete your member forever",
+                "Are you sure ?",
+              ]}
             />
             {data.role_slug && data.role_id ? null : (
               <Popover className="">
@@ -140,12 +156,16 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }
                         <div
                           className="overflow-hidden"
                           onClick={() =>
-                            router.push(`/members/profile?id=${data.id}&role=${selectedRole.id}`)
+                            router.push(
+                              `/members/profile?id=${data.id}&role=${selectedRole.id}`
+                            )
                           }
                         >
                           <a className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70">
                             <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">
-                              <p className=" font-medium whitespace-nowrap  ">View Profile</p>
+                              <p className=" font-medium whitespace-nowrap  ">
+                                View Profile
+                              </p>
                             </div>
                           </a>
                         </div>

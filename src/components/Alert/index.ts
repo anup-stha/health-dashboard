@@ -37,7 +37,9 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
               console.log(data);
               return `${data}`;
             },
-        error: msgs.error ? msgs.error : (data: any) => `${data ? data.data.message : "Error"}`,
+        error: msgs.error
+          ? msgs.error
+          : (data: any) => `${data ? data.data.message : "Error"}`,
       },
       { id: id }
     )

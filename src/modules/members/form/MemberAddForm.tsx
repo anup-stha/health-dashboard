@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:48 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/3/22, 9:09 PM
  *
  *
  */
@@ -10,7 +10,6 @@ import React from "react";
 import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
 import { useMemberStore } from "../useMemberStore";
-import { addNormalMember } from "@/services/requests/memberRequests";
 import { PrimaryInput } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { alert } from "@/components/Alert";
@@ -18,17 +17,23 @@ import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { User } from "@/types";
 import { updateUserProfile } from "@/services/requests/authRequests";
+import { postNormalMemberToast } from "@/modules/members/api/toasts/membersToast";
 
 type MemberAddFormProps = {
   initialData?: User;
   type?: "add" | "edit";
 };
 
-export const MemberAddForm: React.FC<MemberAddFormProps> = ({ initialData, type = "add" }) => {
+export const MemberAddForm: React.FC<MemberAddFormProps> = ({
+  initialData,
+  type = "add",
+}) => {
   const { register, handleSubmit, reset, control } = useForm<User>({
     defaultValues: {
       ...initialData,
-      dob_ad: initialData && moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+      dob_ad:
+        initialData &&
+        moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
     },
   });
   const { selectedRole } = useMemberStore();
@@ -37,17 +42,10 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({ initialData, type 
     <Modal.Form
       onSubmit={handleSubmit(async (data) => {
         type === "add"
-          ? await alert({
-              promise: addNormalMember({
-                ...data,
-                dob_ad: moment(data.dob_ad).unix(),
-                role_id: Number(selectedRole.id),
-              }).then(() => reset()),
-              msgs: {
-                loading: "Adding Member",
-                success: "Added Successfully",
-              },
-              id: "Member Add Toast",
+          ? await postNormalMemberToast({
+              ...data,
+              dob_ad: moment(data.dob_ad).unix(),
+              role_id: Number(selectedRole.id),
             })
           : initialData &&
             (await alert({
@@ -83,12 +81,20 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({ initialData, type 
                 />
               </div>
               <div className="w-1/2">
-                <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
+                <PrimaryInput
+                  label="Date of Birth In AD"
+                  type="date"
+                  {...register("dob_ad")}
+                />
               </div>
             </>
           ) : (
             <div className="w-full">
-              <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
+              <PrimaryInput
+                label="Date of Birth In AD"
+                type="date"
+                {...register("dob_ad")}
+              />
             </div>
           )}
         </div>

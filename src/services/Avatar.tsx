@@ -46,7 +46,9 @@ export const ImageAvatar: React.FC = () => {
                   priority={true}
                 />
               </div>
-              <div className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}>
+              <div
+                className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}
+              >
                 <span className="text-xl font-semibold">
                   Hi, {user.name ? user.name.split(" ")[0] : ""}
                 </span>

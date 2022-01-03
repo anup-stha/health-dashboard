@@ -21,14 +21,19 @@ export const RoleMemberCategory = () => {
         <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left lg:w-full">
           <Disclosure.Button className="w-full flex text-left justify-between items-center">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">Member Detail Category</h1>
+              <h1 className="text-2xl font-semibold text-gray-900">
+                Member Detail Category
+              </h1>
               <p className="text-lg font-semibold text-gray-500">
-                Click on any field to add, update or remove details fied for {selectedRole.name}
+                Click on any field to add, update or remove details fied for{" "}
+                {selectedRole.name}
               </p>
             </div>
             <div className="flex items-center">
               <ChevronUpIcon
-                className={`${open ? "transform rotate-180" : ""} w-12 h-12 text-green-500`}
+                className={`${
+                  open ? "transform rotate-180" : ""
+                } w-12 h-12 text-green-500`}
               />
             </div>
           </Disclosure.Button>
@@ -44,7 +49,9 @@ export const RoleMemberCategory = () => {
             >
               <div className="w-full flex flex-col space-y-4">
                 <RoleMemberCategoryTable />
-                <div className="self-end">{open && <RoleMemberCategoryModal type="add" />}</div>
+                <div className="self-end">
+                  {open && <RoleMemberCategoryModal type="add" />}
+                </div>
               </div>
             </Transition>
           </Disclosure.Panel>

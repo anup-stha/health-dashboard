@@ -17,8 +17,12 @@ export const OrgAdminDashboard = () => {
   return (
     <div className="px-10 -mt-2 pb-8 sm:p-6 space-y-8 w-full dashboard-bg-2">
       <div>
-        <h1 className="text-[2.5rem] text-gray-800 font-semibold ">Hello, {user.name}</h1>
-        <p className="text-xl text-gray-500 font-medium">Welcome Back To Dashboard!</p>
+        <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
+          Hello, {user.name}
+        </h1>
+        <p className="text-xl text-gray-500 font-medium">
+          Welcome Back To Dashboard!
+        </p>
       </div>
     </div>
   );

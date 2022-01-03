@@ -26,7 +26,12 @@ export const NavBar = () => {
       <ul className="flex flex-col w-full gap-y-1">
         {navBarRoutes.map((route) => {
           if (route.children) {
-            return <NavDropdown subRoutes={route} key={`${route.id}-${route.title}`} />;
+            return (
+              <NavDropdown
+                subRoutes={route}
+                key={`${route.id}-${route.title}`}
+              />
+            );
           }
 
           return <NavItem route={route} key={`${route.id}-${route.title}`} />;

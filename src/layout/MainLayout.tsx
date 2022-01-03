@@ -26,7 +26,9 @@ export const MainLayout = ({ children }: any) => {
         } transition-all duration-200 h-full print:pl-0`}
       >
         <MainHeader />
-        <div className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 h-full print:pt-0`}>
+        <div
+          className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 h-full print:pt-0`}
+        >
           {children}
         </div>
       </div>

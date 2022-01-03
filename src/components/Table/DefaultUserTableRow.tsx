@@ -16,7 +16,10 @@ import { Edit } from "react-feather";
 export const UserTableRowComponent = ({ data, key }: any) => {
   return (
     <>
-      <tr key={key} className="px-16 text-xl font-medium text-gray-800 lg:text-xl sm:px-0">
+      <tr
+        key={key}
+        className="px-16 text-xl font-medium text-gray-800 lg:text-xl sm:px-0"
+      >
         <td>
           <DefaultAvatar name={data.name} image={data.avatar} />
         </td>
@@ -43,8 +46,14 @@ export const UserTableRowComponent = ({ data, key }: any) => {
 
         <td className="px-0 py-4">
           <div className="flex items-center space-x-4">
-            <Copy name="copy" className="text-gray-400 cursor-pointer hover:text-gray-800" />
-            <Edit name="edit" className="text-gray-400 cursor-pointer hover:text-gray-800" />
+            <Copy
+              name="copy"
+              className="text-gray-400 cursor-pointer hover:text-gray-800"
+            />
+            <Edit
+              name="edit"
+              className="text-gray-400 cursor-pointer hover:text-gray-800"
+            />
             <MoreVertical
               name="more-vertical"
               className="text-gray-400 cursor-pointer hover:text-gray-800"
@@ -65,7 +74,11 @@ export const UserCardView = ({ data, key }: any) => {
     >
       <div className="flex flex-col space-y-12">
         <div className="flex items-center justify-between">
-          <AvatarWithEmail name={data.name} email={data.email} image={data.avatar} />
+          <AvatarWithEmail
+            name={data.name}
+            email={data.email}
+            image={data.avatar}
+          />
           <Flag countryCode={data.country} />
         </div>
         <div className="flex items-center justify-between">
@@ -88,8 +101,14 @@ export const UserCardView = ({ data, key }: any) => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <Copy name="copy" className="text-gray-400 cursor-pointer hover:text-gray-800" />
-            <Edit name="edit" className="text-gray-400 cursor-pointer hover:text-gray-800" />
+            <Copy
+              name="copy"
+              className="text-gray-400 cursor-pointer hover:text-gray-800"
+            />
+            <Edit
+              name="edit"
+              className="text-gray-400 cursor-pointer hover:text-gray-800"
+            />
             <MoreVertical
               name="more-vertical"
               className="text-gray-400 cursor-pointer hover:text-gray-800"

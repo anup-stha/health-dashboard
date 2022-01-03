@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 10:00 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/3/22, 9:20 PM
  *
  *
  */
@@ -13,20 +13,26 @@ import { Modal } from "@/components/Modal/useModal";
 import React from "react";
 import { Button } from "@/components/Button";
 import Select from "react-select";
-import { postMemberCategory, updateMemberCategory } from "@/services/requests/memberRequests";
 import { useGlobalState } from "@/modules/useGlobalState";
-import { alert } from "@/components/Alert";
+import {
+  postMemberCategoryToast,
+  postUpdateMemberCategoryToast,
+} from "@/modules/members/api/toasts/membersToast";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
   id: number;
 };
 
-export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type, id }) => {
+export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
+  type,
+  id,
+}) => {
   const { selectedRole, memberCategoryList } = useRoleStore();
-  const categoryInitialData = id && memberCategoryList.filter((category) => category.id === id)[0];
+  const categoryInitialData =
+    id && memberCategoryList.filter((category) => category.id === id)[0];
 
-  const { register, handleSubmit, reset, control } = useForm({
+  const { register, handleSubmit, control } = useForm({
     defaultValues: categoryInitialData ? categoryInitialData : {},
   });
 
@@ -36,35 +42,21 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type
 
   return (
     <Modal.Form
-      onSubmit={handleSubmit(async (data) => {
+      onSubmit={handleSubmit((data) => {
         type === "add"
-          ? await alert({
-              promise: postMemberCategory({
-                ...data,
-                required: data.required ? 1 : 0,
-                role_id: Number(selectedRole.id),
-              }).then(() => reset()),
-              msgs: {
-                loading: "Adding Category",
-                success: "Added Successfully",
-              },
-              id: "Member Category Toast",
+          ? postMemberCategoryToast({
+              ...data,
+              required: data.required ? 1 : 0,
+              role_id: Number(selectedRole.id),
             })
-          : await alert({
-              promise: updateMemberCategory(
-                {
-                  name: data.name,
-                  value_type: data.value_type,
-                  required: data.required ? 1 : 0,
-                },
-                id ?? 0
-              ).then(() => reset()),
-              msgs: {
-                loading: "Updating Category",
-                success: "Updated Successfully",
+          : postUpdateMemberCategoryToast(
+              {
+                name: data.name,
+                value_type: data.value_type,
+                required: data.required ? 1 : 0,
               },
-              id: "Member Update Category Toast",
-            });
+              id ?? 0
+            );
       })}
     >
       <div className="space-y-4">
@@ -74,7 +66,12 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type
           label={"Select Value Type"}
           control={control}
         />
-        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
+        <PrimaryInput
+          label="Name"
+          type="text"
+          placeholder="Enter Name"
+          {...register("name")}
+        />
         <SwitchInput
           label="Required"
           type="number"
@@ -94,7 +91,12 @@ type DropdownProps = {
   options: Array<any>;
 };
 
-export const DropdownController: React.FC<DropdownProps> = ({ name, label, control, options }) => {
+export const DropdownController: React.FC<DropdownProps> = ({
+  name,
+  label,
+  control,
+  options,
+}) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -147,7 +149,8 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
       color: "#262626",
       fontSize: "1.125rem",
       textTransform: "capitalize",
-      boxShadow: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
+      boxShadow:
+        "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
     }),
   };
 

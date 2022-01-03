@@ -32,6 +32,10 @@ const Profile = () => {
 
   const { isLoading } = useMemberSubsDetails(user.member_id);
 
-  return <MainLayout>{loading && isLoading ? <Loader /> : <ProfilePage />}</MainLayout>;
+  return (
+    <MainLayout>
+      {loading && isLoading ? <Loader /> : <ProfilePage />}
+    </MainLayout>
+  );
 };
 export default withAuth(Profile);

@@ -11,8 +11,13 @@ import { getMedicalHistoryList } from "@/services/requests/otherFieldsRequests";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const usePatientMedHistory = (memberId: number) => {
-  return useQuery(["patient-med-history", memberId], () => getMedicalHistoryList(memberId), {
-    enabled: memberId !== 0,
-    onSuccess: ({ data }) => useMemberStore.getState().setPatientMedicalHistoryList(data),
-  });
+  return useQuery(
+    ["patient-med-history", memberId],
+    () => getMedicalHistoryList(memberId),
+    {
+      enabled: memberId !== 0,
+      onSuccess: ({ data }) =>
+        useMemberStore.getState().setPatientMedicalHistoryList(data),
+    }
+  );
 };

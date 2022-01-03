@@ -10,7 +10,11 @@ import { Polygon, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
 import { Category2, Home } from "iconsax-react";
 
-const convertToLink = (json: RouteObjectType[], ansArray: string[], extra?: string[]) => {
+const convertToLink = (
+  json: RouteObjectType[],
+  ansArray: string[],
+  extra?: string[]
+) => {
   json.map((element) => {
     if ("link" in element) {
       ansArray.push(element.link ? element["link"] : "");
@@ -106,5 +110,9 @@ export const orgNavRoutes: RouteObjectType[] = [
   },
 ];
 
-export const adminRoutes = convertToLink(superAdminNavRoutes, [], adminExtraRoute);
+export const adminRoutes = convertToLink(
+  superAdminNavRoutes,
+  [],
+  adminExtraRoute
+);
 export const orgRoutes = convertToLink(orgNavRoutes, [], orgExtraRoutes);

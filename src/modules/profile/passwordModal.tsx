@@ -36,15 +36,22 @@ export const PasswordModal = () => {
             <Modal.Form
               onSubmit={handleSubmit(async (values) => {
                 if (values.oldPassword === values.newPassword) {
-                  throw new Error("Old Password and New Password cannot be Same");
+                  throw new Error(
+                    "Old Password and New Password cannot be Same"
+                  );
                 }
                 if (values.newPassword !== values.confirmNewPassword) {
-                  throw new Error("New Password and Confirm New Password Doesn't Match");
+                  throw new Error(
+                    "New Password and Confirm New Password Doesn't Match"
+                  );
                 }
 
                 await alert({
                   type: "promise",
-                  promise: changePassword(values.oldPassword, values.newPassword),
+                  promise: changePassword(
+                    values.oldPassword,
+                    values.newPassword
+                  ),
                   msgs: {
                     loading: "Changing Password",
                   },

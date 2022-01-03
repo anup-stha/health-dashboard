@@ -12,7 +12,10 @@ type ProfileDataDetailProps = {
   icon: React.ReactNode;
   detail: string;
 };
-export const ProfileDataDetail: React.FC<ProfileDataDetailProps> = ({ icon, detail }) => {
+export const ProfileDataDetail: React.FC<ProfileDataDetailProps> = ({
+  icon,
+  detail,
+}) => {
   return (
     <div className="flex gap-x-4 text-xl">
       <div className="text-gray-800 ">{icon}</div>

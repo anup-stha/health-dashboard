@@ -28,7 +28,9 @@ export default {
 } as ComponentMeta<typeof LineChart>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof LineChart> = (args) => <LineChart {...args} />;
+const Template: ComponentStory<typeof LineChart> = (args) => (
+  <LineChart {...args} />
+);
 
 export const categoryLineChart = Template.bind({});
 categoryLineChart.args = {

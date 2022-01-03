@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 6:29 PM
+ * Last Modified 1/3/22, 8:30 PM
  *
  *
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { TestDropdown } from "@/modules/members/profile/TestDropdown";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { utcToZonedTime } from "date-fns-tz";
@@ -14,7 +14,6 @@ import { TableView } from "@/components/Table";
 import moment from "moment";
 import { WarningOctagon } from "phosphor-react";
 import { Tab } from "@headlessui/react";
-import { getMemberTestList } from "@/services/requests/memberRequests";
 import { useRouter } from "next/router";
 import { Loader } from "@/components/Loader";
 import {
@@ -23,6 +22,7 @@ import {
 } from "@/modules/members/table/MemberProfileTestTable";
 import { TestLineChart } from "@/components/charts/LineChart";
 import Image from "next/image";
+import { useMemberTestList } from "@/modules/members/api/hooks/useMemberTestList";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -32,7 +32,9 @@ type ProfileTestProps = {
   loading?: boolean;
 };
 
-export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) => {
+export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
+  loading,
+}) => {
   const router = useRouter();
 
   const {
@@ -41,13 +43,10 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) =>
     selectedTestInProfile,
   } = useMemberStore();
 
-  useEffect(() => {
-    const listMemberTest = async () => {
-      await getMemberTestList(Number(router.query.id), Number(selectedTestInProfile.id));
-    };
-
-    Object.keys(selectedTestInProfile).length !== 0 && listMemberTest();
-  }, [selectedTestInProfile.id]);
+  const {} = useMemberTestList(
+    Number(router.query.id),
+    Number(selectedTestInProfile.id)
+  );
 
   const subTestDetails =
     Object.keys(testDetails).length !== 0 &&
@@ -84,7 +83,9 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) =>
       );
     });
 
-  const tempData = chartData ? chartData.map((element) => Object.values(element)) : [];
+  const tempData = chartData
+    ? chartData.map((element) => Object.values(element))
+    : [];
   const initialData: any = [];
   tempData.forEach((element) => initialData.push(...element));
 
@@ -139,21 +140,31 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) =>
                       Address: {selectedMember.gender}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
-                      Date of birth: {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
+                      Date of birth:{" "}
+                      {moment(selectedMember.dob_ad * 1000).format(
+                        "DD/MM/YYYY"
+                      )}
                     </h1>
                   </div>
                 )}
               </div>
               <div>
-                <Image src={"/sunya.png"} alt={"image"} height="140" width="230" />
+                <Image
+                  src={"/sunya.png"}
+                  alt={"image"}
+                  height="140"
+                  width="230"
+                />
               </div>
             </div>
             <div className="fixed bottom-20 w-full font-semibold">
               <div className="flex w-full items-center">
                 <div>
                   Printed By Sunya Health ({" "}
-                  <span className="text-green-700">{window.location.hostname}</span> ) on{" "}
-                  {moment(new Date()).format("MMM Do YYYY")}
+                  <span className="text-green-700">
+                    {window.location.hostname}
+                  </span>{" "}
+                  ) on {moment(new Date()).format("MMM Do YYYY")}
                 </div>
               </div>
             </div>
@@ -161,7 +172,9 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) =>
           <TestDropdown />
         </div>
         <div className="space-y-4">
-          {Object.keys(testDetails).length !== 0 && <TestLineChart datas={result} />}
+          {Object.keys(testDetails).length !== 0 && (
+            <TestLineChart datas={result} />
+          )}
 
           {Object.keys(testDetails).length !== 0 ? (
             <Tab.Group>
@@ -206,7 +219,12 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) =>
                 <Tab.Panel>
                   <TableView
                     data={subTestDetails}
-                    tableHeadings={["Test App", "Test Date", "Test Result", "Test Notes"]}
+                    tableHeadings={[
+                      "Test App",
+                      "Test Date",
+                      "Test Result",
+                      "Test Notes",
+                    ]}
                     tableRowComponent={<ProfileTestTableRow />}
                   />
                 </Tab.Panel>
@@ -230,7 +248,10 @@ export const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   try {
-    return utcToZonedTime(new Date(date).getTime() * 1000, timezone).toLocaleString();
+    return utcToZonedTime(
+      new Date(date).getTime() * 1000,
+      timezone
+    ).toLocaleString();
   } catch {
     return "Not Available";
   }

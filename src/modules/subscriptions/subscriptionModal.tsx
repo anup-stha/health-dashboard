@@ -18,7 +18,10 @@ type subscriptionModalProps = {
   id?: number;
 };
 
-export const SubscriptionModal: React.FC<subscriptionModalProps> = ({ type, id }) => {
+export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
+  type,
+  id,
+}) => {
   const { selectedRole } = useMemberStore();
   const data: any = useSubscriptionStore
     .getState()
@@ -38,7 +41,8 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({ type, id }
 
       <Modal.Content width="3xl">
         <Modal.Title>
-          {type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`} Subscription
+          {type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`}{" "}
+          Subscription
         </Modal.Title>
 
         <SubscriptionForm type={type} id={id} />

@@ -29,7 +29,10 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
     <Modal>
       <Modal.Button type="open">
         {closeButton ?? (
-          <Trash name="delete" className="text-gray-400 cursor-pointer hover:text-gray-800" />
+          <Trash
+            name="delete"
+            className="text-gray-400 cursor-pointer hover:text-gray-800"
+          />
         )}
       </Modal.Button>
       <Modal.Content width="3xl">
@@ -43,7 +46,8 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
               {title ?? "You are about to delete a organisation"}
             </h1>
             <div className="text-center text-xl font-semibold text-gray-500 space-y-1">
-              {subTitles && subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
+              {subTitles &&
+                subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
             </div>
           </div>
 
@@ -54,7 +58,9 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
               </div>
             </Modal.Button>
             <Modal.Button type="close">
-              <WarningButton onClick={() => onDelete && onDelete()}>Delete</WarningButton>
+              <WarningButton onClick={() => onDelete && onDelete()}>
+                Delete
+              </WarningButton>
             </Modal.Button>
           </div>
         </div>

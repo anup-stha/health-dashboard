@@ -27,7 +27,10 @@ type RoleValues = {
   description: string;
 };
 
-export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({ type, id }) => {
+export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
+  type,
+  id,
+}) => {
   const roles = useRoleStore((state) => state.allRoleList.data);
   const role = roles.filter((element) => element.id == id)[0];
 

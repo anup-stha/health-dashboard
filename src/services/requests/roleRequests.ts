@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 10:42 AM
+ * Last Modified 1/3/22, 8:33 PM
  *
  *
  */
@@ -29,13 +29,12 @@ export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
 export const getRoleList = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
     useRoleStore.getState().setRoleList(response.data.data);
-    const selectedRole = response.data.data.filter((role) => role.id === Number(Router.query.role));
+    const selectedRole = response.data.data.filter(
+      (role) => role.id === Number(Router.query.role)
+    );
 
-    if (Router.query.role && selectedRole.length === 0) {
-      Router.push("/404");
-      return;
-    }
-    Router.query.role && useMemberStore.getState().setSelectedRole(selectedRole[0]);
+    Router.query.role &&
+      useMemberStore.getState().setSelectedRole(selectedRole[0]);
 
     return response.data;
   });
@@ -47,7 +46,9 @@ export const useRoleList = () => {
   });
 };
 
-export const getRoleDetails = (id: number): Promise<AxiosResponse<RoleDetailResponse>> => {
+export const getRoleDetails = (
+  id: number
+): Promise<AxiosResponse<RoleDetailResponse>> => {
   return privateAgent.get(`role/detail/${id}`);
 };
 
@@ -66,7 +67,12 @@ export const useRoleDetails = (roleId: number) => {
   });
 };
 
-export const addRole = ({ name, memberLimit, isPublic, description }: RoleAddBody) => {
+export const addRole = ({
+  name,
+  memberLimit,
+  isPublic,
+  description,
+}: RoleAddBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .post<RoleDetailResponse>("role/store/", {
@@ -92,7 +98,13 @@ export const addRole = ({ name, memberLimit, isPublic, description }: RoleAddBod
   );
 };
 
-export const updateRole = ({ id, name, memberLimit, isPublic, description }: RoleUpdateBody) => {
+export const updateRole = ({
+  id,
+  name,
+  memberLimit,
+  isPublic,
+  description,
+}: RoleUpdateBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .post<RoleDetailResponse>(`role/update/${id}`, {
@@ -125,7 +137,9 @@ export const updateRole = ({ id, name, memberLimit, isPublic, description }: Rol
   );
 };
 
-export const getAllPermissions = (): Promise<AxiosResponse<PermissionListResponse>> => {
+export const getAllPermissions = (): Promise<
+  AxiosResponse<PermissionListResponse>
+> => {
   return privateAgent.get("permission/");
 };
 
@@ -150,7 +164,9 @@ export const addPermissionToRole = (id: number, permId: number[]) => {
       .then(async () => {
         getRoleDetail(id);
         await getAllRoleList().then((response) => {
-          const selectedRole = response.data.data.filter((role) => role.id === Number(id))[0];
+          const selectedRole = response.data.data.filter(
+            (role) => role.id === Number(id)
+          )[0];
 
           useRoleStore.getState().setSelectedRole(selectedRole);
         });
@@ -169,7 +185,9 @@ export const removePermissionFromRole = (id: any, permId: any) => {
       .then(async () => {
         getRoleDetail(id);
         await getAllRoleList().then((response) => {
-          const selectedRole = response.data.data.filter((role) => role.id === Number(id))[0];
+          const selectedRole = response.data.data.filter(
+            (role) => role.id === Number(id)
+          )[0];
 
           useRoleStore.getState().setSelectedRole(selectedRole);
         });

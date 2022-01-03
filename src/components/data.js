@@ -1458,7 +1458,8 @@ const generateDayWiseTimeSeries = (baseval, count, yrange) => {
   let i = 0;
   const series = [];
   while (i < count) {
-    const y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+    const y =
+      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
     series.push([baseval, y]);
     baseval += 86400000;

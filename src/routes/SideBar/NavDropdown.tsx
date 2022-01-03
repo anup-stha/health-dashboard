@@ -38,7 +38,9 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
       <li onClick={() => onExpandChange()} className={mainItemStyles}>
         <div
           className={`flex peer ${
-            open ? "items-start justify-start px-4" : "items-center px-4 delay-300"
+            open
+              ? "items-start justify-start px-4"
+              : "items-center px-4 delay-300"
           }`}
         >
           <span
@@ -49,7 +51,9 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
             <div className={`${!open && "sm:hidden"}`}>{subRoutes.icon}</div>
             {open && (
               <div className={`flex items-center justify-between w-full`}>
-                <span className={`text-xl font-semibold sm:text-lg `}>{subRoutes.title}</span>
+                <span className={`text-xl font-semibold sm:text-lg `}>
+                  {subRoutes.title}
+                </span>
                 <CaretDown weight="bold" size={24} />
               </div>
             )}
@@ -63,12 +67,19 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
       </li>
 
       {expand && (
-        <div className={open ? "border-gray-300 border-l-2 ml-8 space-y-2" : ""}>
+        <div
+          className={open ? "border-gray-300 border-l-2 ml-8 space-y-2" : ""}
+        >
           {expand &&
             subRoutes.children &&
             subRoutes.children.map((route) => {
               if (route.children) {
-                return <NavDropdown subRoutes={route} key={`${route.id}-${route.title}`} />;
+                return (
+                  <NavDropdown
+                    subRoutes={route}
+                    key={`${route.id}-${route.title}`}
+                  />
+                );
               }
 
               return (

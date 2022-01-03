@@ -31,10 +31,12 @@ const SubscriptionPage: React.FC = () => {
           <div className="flex flex-col space-y-6">
             <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
               <div>
-                <h1 className="text-4xl font-semibold text-gray-850">Subscriptions</h1>
+                <h1 className="text-4xl font-semibold text-gray-850">
+                  Subscriptions
+                </h1>
                 <p className="text-lg font-semibold text-gray-500">
-                  List of all subscriptions in a tabulated view. If not data found, please change
-                  role.
+                  List of all subscriptions in a tabulated view. If not data
+                  found, please change role.
                 </p>
               </div>
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:43 PM
+ * Last Modified 1/3/22, 8:22 PM
  *
  *
  */
@@ -10,12 +10,12 @@ import { TableView } from "@/components/Table";
 import { useMemberStore } from "../useMemberStore";
 import { MemberTableRow } from "./memberTableRow";
 import Image from "next/image";
-import { useMemberList } from "@/modules/members/hooks/useMemberList";
+import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
 import { Loader } from "@/components/Loader";
 
 export const MemberTable = () => {
   const { memberList, selectedRole } = useMemberStore();
-  const { isLoading } = useMemberList(Number(selectedRole.id));
+  const { isLoading } = useMembersList(Number(selectedRole.id));
 
   return isLoading ? (
     <Loader />

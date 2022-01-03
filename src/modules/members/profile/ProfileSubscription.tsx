@@ -32,7 +32,9 @@ type ProfileSubscriptionProps = {
   member_id?: number;
 };
 
-export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({ member_id: id }) => {
+export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
+  member_id: id,
+}) => {
   const router = useRouter();
 
   const { subscriptionList, selectedSubscription } = useSubscriptionStore();
@@ -132,13 +134,17 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({ member
         )}
       </div>
 
-      {subscriptionList.list.length === 0 && isEmpty(selectedMemberSubscription) ? (
+      {subscriptionList.list.length === 0 &&
+      isEmpty(selectedMemberSubscription) ? (
         <div className="print:hidden flex items-center text-red-500 space-x-4">
           <WarningOctagon size={40} />{" "}
           {user.id === 1 ? (
             <span className={"font-semibold"}>
               No Subscription Found. Please add a subscription to this role{" "}
-              <span onClick={() => router.push("/subscriptions")} className="cursor-pointer">
+              <span
+                onClick={() => router.push("/subscriptions")}
+                className="cursor-pointer"
+              >
                 here
               </span>
             </span>
@@ -200,11 +206,15 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({ member
               <div className="space-y-1 flex flex-col items-start">
                 <ProfileSubsData
                   title={"Start Date: "}
-                  value={moment(selectedMemberSubscription.start_date * 1000).format("MM/DD/YYYY")}
+                  value={moment(
+                    selectedMemberSubscription.start_date * 1000
+                  ).format("MM/DD/YYYY")}
                 />
                 <ProfileSubsData
                   title={"End Date: "}
-                  value={moment(selectedMemberSubscription.end_date * 1000).format("MM/DD/YYYY")}
+                  value={moment(
+                    selectedMemberSubscription.end_date * 1000
+                  ).format("MM/DD/YYYY")}
                 />
                 <ProfileSubsData
                   title={"Total Price: "}
@@ -236,7 +246,9 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({ member
                     onClick={async () => {
                       await alert({
                         type: "promise",
-                        promise: removeSubscriptionFromMember(Number(router.query.id)),
+                        promise: removeSubscriptionFromMember(
+                          Number(router.query.id)
+                        ),
                         msgs: {
                           loading: "Removing",
                         },

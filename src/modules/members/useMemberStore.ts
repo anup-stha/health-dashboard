@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 3:57 PM
+ * Last Modified 1/3/22, 8:51 PM
  *
  *
  */
@@ -21,7 +21,7 @@ import {
   Test,
 } from "@/types";
 import { combine, devtools } from "zustand/middleware";
-import { getMemberList } from "@/services/requests/memberRequests";
+import { getMembersList } from "@/services/requests/memberRequests";
 
 const initialState = {
   memberList: [] as MemberList,
@@ -172,7 +172,7 @@ export const store = combine(initialState, (set) => ({
   },
 
   getMemberListFromServer: async (id: string | number) => {
-    await getMemberList(id)
+    await getMembersList(Number(id))
       .then((res) =>
         set({
           status: { state: res.data.status, message: res.data.message },

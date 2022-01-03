@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 3:39 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/3/22, 9:02 PM
  *
  *
  */
@@ -13,9 +13,8 @@ import { useMemberStore } from "../useMemberStore";
 import { Button } from "@/components/Button";
 import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-import { addOrgMember } from "@/services/requests/memberRequests";
-import { alert } from "@/components/Alert";
 import React from "react";
+import { postOrgMemberToast } from "@/modules/members/api/toasts/membersToast";
 
 interface UserAddFormData {
   name: string;
@@ -39,18 +38,11 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
 
   return (
     <Modal.Form
-      onSubmit={handleSubmit(async (data) => {
-        await alert({
-          promise: addOrgMember({
-            ...data,
-            dob_ad: moment(data.dob_ad).unix(),
-            role_id: Number(selectedRole.id),
-          }),
-          msgs: {
-            loading: "Adding User",
-            success: "Added Successfully",
-          },
-          id: "user-add-toast",
+      onSubmit={handleSubmit((data) => {
+        postOrgMemberToast({
+          ...data,
+          dob_ad: moment(data.dob_ad).unix(),
+          role_id: Number(selectedRole.id),
         });
       })}
     >
@@ -73,7 +65,11 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
             />
           </div>
           <div className="w-1/2">
-            <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
+            <PrimaryInput
+              label="Date of Birth In AD"
+              type="date"
+              {...register("dob_ad")}
+            />
           </div>
         </div>
         <PrimaryInput
@@ -101,6 +97,10 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
                   value: "Others",
                   label: "Others",
                 },
+                {
+                  value: "Not-Specified",
+                  label: "Not Specified",
+                },
               ]}
             />
           </div>
@@ -118,12 +118,21 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
                   value: "Married",
                   label: "Married",
                 },
+                {
+                  value: "Not-Specified",
+                  label: "Not Specified",
+                },
               ]}
             />
           </div>
         </div>
 
-        <PrimaryInput label="Email" type="email" placeholder="Enter email" {...register("email")} />
+        <PrimaryInput
+          label="Email"
+          type="email"
+          placeholder="Enter email"
+          {...register("email")}
+        />
 
         {type === "add" && (
           <PrimaryInput

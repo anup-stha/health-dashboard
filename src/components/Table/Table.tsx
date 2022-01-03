@@ -16,7 +16,10 @@ export interface TableProps {
 
   tableHeadings?: string[];
   tableRowComponent: ReactElement<any, string | JSXElementConstructor<any>>;
-  tableMobileViewComponent?: ReactElement<any, string | JSXElementConstructor<any>>;
+  tableMobileViewComponent?: ReactElement<
+    any,
+    string | JSXElementConstructor<any>
+  >;
   setData?: any;
   setEdit?: any;
   setOrganisationList?: any;
