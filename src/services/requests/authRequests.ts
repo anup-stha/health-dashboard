@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 5:55 PM
+ * Last Modified 1/3/22, 11:22 AM
  *
  *
  */
 
-import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useAuthStore } from "../../modules/auth/useTokenStore";
 import {
   LoginRequest,
   LoginResponse,

@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2022. All rights reserved.
+ * Last Modified 1/3/22, 11:31 AM
+ *
+ *
+ */
+
 const path = require("path");
 const webpack = require("webpack");
 module.exports = {
@@ -6,7 +14,6 @@ module.exports = {
   },
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    "@storybook/addon-links",
     {
       name: "@storybook/addon-essentials",
       options: {
@@ -15,6 +22,7 @@ module.exports = {
     },
     "@storybook/addon-docs",
     "@storybook/addon-actions",
+    "@storybook/addon-links",
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
@@ -30,7 +38,7 @@ module.exports = {
 
     // Resolve aliases like "import utils/time-utils"
     config.resolve.modules.push(process.cwd() + "/node_modules");
-    config.resolve.modules.push(process.cwd() + "/src");
+    config.resolve.modules.push(path.resolve(__dirname, "../src"));
 
     // Necessary to "mock" next/image in Storybook land
     config.plugins.push(

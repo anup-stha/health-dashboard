@@ -1,158 +1,42 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 8:11 AM
+ * Last Modified 1/3/22, 5:54 PM
  *
  *
  */
 
 /* eslint-disable no-unused-vars */
-import { ApexOptions } from "apexcharts";
-import omit from "lodash/omit";
+import dynamic from "next/dynamic";
 import * as React from "react";
 import { useState } from "react";
-import Chart from "react-apexcharts";
+import {
+  ChartDateTimeData,
+  lineChartOptions,
+} from "@/components/charts/LineChart/schema/TestLineSchema";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type LineChartProps = {
-  color?: string[];
-  datas: any | any[];
-  xAxisType: "numeric" | "datetime" | "category";
-  logarithmic?: boolean;
-  reversed?: boolean;
-  opposite?: boolean;
-  curveType?: "smooth" | "straight";
+  datas: ChartDateTimeData;
 };
 
-export const LineChart: React.FC<LineChartProps> = ({
-  color = ["#7358C3", "#FF668F", "green"],
-  datas,
-  xAxisType,
-  logarithmic = false,
-  reversed = false,
-  opposite = false,
-  curveType = "straight",
-}) => {
-  const chartData =
-    xAxisType !== "datetime"
-      ? datas.map((data: any) => {
-          const dataArray: any = [];
-          {
-            const ommitedObject = omit(data, Object.keys(data)[0]);
-            dataArray.push(
-              Object.keys(ommitedObject).map((e: any) => ({
-                x: e,
-                y: ommitedObject[e],
-              }))
-            );
+export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
+  const schema = {
+    options: lineChartOptions(datas),
+    series: Object.keys(datas).map((key) => ({
+      name: key,
+      data: datas[key].values,
+    })),
+  };
 
-            return {
-              name: data[Object.keys(data)[0]],
-              data: dataArray[0],
-            };
-          }
-        })
-      : {
-          data: datas.map((data: any) => ({
-            x: data.date,
-            y: data.value,
-          })),
-        };
+  const [state] = useState(schema);
 
-  const [options, setOptions] = useState<ApexOptions>({
-    chart: {
-      id: "area-chart",
-      type: "area",
-      zoom: {
-        enabled: true,
-        type: "xy",
-      },
-    },
-    colors: color,
-    stroke: {
-      curve: curveType,
-      width: 3,
-    },
-    markers: {
-      shape: "circle",
-      size: 4,
-      colors: ["white"],
-      fillOpacity: 0,
-      strokeWidth: 2,
-      strokeColors: color,
-    },
-    legend: {
-      position: "top",
-    },
-
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        // @ts-ignore: Unreachable code error
-        colorStops: [
-          [
-            {
-              offset: 0,
-              color: color[0],
-              opacity: 0.35,
-            },
-            {
-              offset: 100,
-              color: "white",
-              opacity: 0,
-            },
-          ],
-          [
-            {
-              offset: 0,
-              color: color[1],
-              opacity: 0.35,
-            },
-            {
-              offset: 100,
-              color: "white",
-              opacity: 0,
-            },
-          ],
-          [
-            {
-              offset: 0,
-              color: color[2],
-              opacity: 0.35,
-            },
-            {
-              offset: 100,
-              color: "white",
-              opacity: 0,
-            },
-          ],
-        ],
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    xaxis: {
-      type: xAxisType,
-    },
-    yaxis: {
-      logarithmic,
-      reversed,
-      opposite,
-    },
-    // title: {
-    //   text: "Line Chart",
-    // },
-  });
-
-  const [state, setState] = useState({
-    series: xAxisType === "datetime" ? [chartData] : chartData,
-  });
+  if (typeof window === undefined) return null;
 
   return (
-    <div className="">
-      <Chart options={options} series={state.series} type="area" width="100%" height="400" />
+    <div className="p-4 sm:px-0 mb-12  shadow-xl ring-1 ring-gray-300/40 rounded-lg print:hidden">
+      <Chart options={state.options} series={state.series} type="area" width="100%" height="450" />
     </div>
   );
 };

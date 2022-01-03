@@ -1,16 +1,16 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 10:19 AM
+ * Last Modified 1/3/22, 11:33 AM
  *
  *
  */
 
-import { ImageAvatar } from "@/components/Avatar";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { useRouter } from "next/router";
 import Breadcrumbs from "./BreadCrumb";
 import { HambergerMenu } from "iconsax-react";
+import { ImageAvatar } from "@/services/Avatar";
 
 export const MainHeader: React.FC = () => {
   const router = useRouter();
