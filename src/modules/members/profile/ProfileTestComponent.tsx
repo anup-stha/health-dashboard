@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 8:30 PM
+ * Last Modified 1/3/22, 9:37 PM
  *
  *
  */
@@ -23,6 +23,7 @@ import {
 import { TestLineChart } from "@/components/charts/LineChart";
 import Image from "next/image";
 import { useMemberTestList } from "@/modules/members/api/hooks/useMemberTestList";
+import { Member } from "@/types";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -30,18 +31,17 @@ const classNames = (...classes: any) => {
 
 type ProfileTestProps = {
   loading?: boolean;
+  selectedMember: Member;
 };
 
 export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   loading,
+  selectedMember,
 }) => {
   const router = useRouter();
 
-  const {
-    selectedTestDetailsInProfile: testDetails,
-    selectedMember,
-    selectedTestInProfile,
-  } = useMemberStore();
+  const { selectedTestDetailsInProfile: testDetails, selectedTestInProfile } =
+    useMemberStore();
 
   const {} = useMemberTestList(
     Number(router.query.id),
@@ -123,7 +123,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
             </h1>
           </div>
           <div className="print:flex hidden flex-col  gap-4 w-full ">
-            <div className="flex justify-between items-end w-full">
+            <div className="flex justify-between items-center w-full">
               <div className="flex flex-col gap-4">
                 <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
                   {selectedTestInProfile.name} Report
@@ -148,12 +148,14 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                   </div>
                 )}
               </div>
-              <div>
+
+              <div className="relative w-96 h-64   ">
                 <Image
-                  src={"/sunya.png"}
-                  alt={"image"}
-                  height="140"
-                  width="230"
+                  src="/sunya.png"
+                  layout="fill"
+                  objectFit="fill"
+                  alt="Profile Image"
+                  priority={true}
                 />
               </div>
             </div>

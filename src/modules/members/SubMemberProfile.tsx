@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 8:27 PM
+ * Last Modified 1/3/22, 9:39 PM
  *
  *
  */
@@ -92,7 +92,9 @@ export const SubMemberProfile = () => {
         selectedRole.slug === "individual" ? (
           <>
             <ProfileMedicalHistory />
-            <ProfileTestComponent />
+            {selectedMember && (
+              <ProfileTestComponent selectedMember={selectedMember} />
+            )}
           </>
         ) : null}
       </div>
