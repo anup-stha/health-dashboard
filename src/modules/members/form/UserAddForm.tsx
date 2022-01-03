@@ -73,11 +73,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
             />
           </div>
           <div className="w-1/2">
-            <PrimaryInput
-              label="Date of Birth In AD"
-              type="date"
-              {...register("dob_ad")}
-            />
+            <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
           </div>
         </div>
         <PrimaryInput
@@ -127,12 +123,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
           </div>
         </div>
 
-        <PrimaryInput
-          label="Email"
-          type="email"
-          placeholder="Enter email"
-          {...register("email")}
-        />
+        <PrimaryInput label="Email" type="email" placeholder="Enter email" {...register("email")} />
 
         {type === "add" && (
           <PrimaryInput

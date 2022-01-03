@@ -9,11 +9,7 @@ import { useQuery } from "react-query";
 import { getNestedMemberList } from "@/services/requests/memberRequests";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 
-export const useNestedMemberList = (
-  roleId: number,
-  parentId: number,
-  memberId?: number
-) => {
+export const useNestedMemberList = (roleId: number, parentId: number, memberId?: number) => {
   return useQuery(
     ["member-list-nested", roleId, parentId],
     () => getNestedMemberList(roleId, parentId),

@@ -42,11 +42,7 @@ export const TestModal: React.FC<RoleModalProps> = ({
         </Modal.Button>
       ) : (
         <Modal.Button type="open">
-          {children ? (
-            children
-          ) : (
-            <InfoButton>&nbsp;&nbsp;Edit&nbsp;&nbsp; </InfoButton>
-          )}
+          {children ? children : <InfoButton>&nbsp;&nbsp;Edit&nbsp;&nbsp; </InfoButton>}
         </Modal.Button>
       )}
 

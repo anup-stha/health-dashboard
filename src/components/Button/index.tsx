@@ -29,9 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
   buttonSize = "large",
 }: ButtonProps) => {
   const buttonPadding =
-    buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-md"
-      : "px-12 py-4 sm:px-8 shadow-E400";
+    buttonSize === "small" ? "px-8 py-4 sm:px-8 shadow-md" : "px-12 py-4 sm:px-8 shadow-E400";
 
   return (
     <button
@@ -48,12 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export const IconButton: React.FC<ButtonProps> = ({
-  children,
-  loading,
-  disabled,
-  onClick,
-}) => {
+export const IconButton: React.FC<ButtonProps> = ({ children, loading, disabled, onClick }) => {
   return (
     <button
       type="button"
@@ -67,11 +60,7 @@ export const IconButton: React.FC<ButtonProps> = ({
   );
 };
 
-export const PrimaryButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-}) => {
+export const PrimaryButton: React.FC<ButtonProps> = ({ children, extraClassName, onClick }) => {
   return (
     <button
       type="button"
@@ -83,12 +72,7 @@ export const PrimaryButton: React.FC<ButtonProps> = ({
   );
 };
 
-export const GrayButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-  width,
-}) => {
+export const GrayButton: React.FC<ButtonProps> = ({ children, extraClassName, onClick, width }) => {
   return (
     <button
       type="button"
@@ -121,11 +105,7 @@ export const WarningButton: React.FC<ButtonProps> = ({
   );
 };
 
-export const InfoButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-}) => {
+export const InfoButton: React.FC<ButtonProps> = ({ children, extraClassName, onClick }) => {
   return (
     <button
       type="button"

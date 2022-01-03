@@ -27,9 +27,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
       </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         <div className="flex flex-col space-y-2">
-          <span>
-            {moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}
-          </span>
+          <span>{moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}</span>
 
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
@@ -37,9 +35,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap">
         {data.tests.map((element, index) => (
           <div key={index} className="block text-gray-700">
-            <span className="font-medium text-gray-500">
-              {Object.keys(element)[0]} :{" "}
-            </span>
+            <span className="font-medium text-gray-500">{Object.keys(element)[0]} : </span>
             <span className="font-semibold">{Object.values(element)[0]}</span>
           </div>
         ))}
@@ -47,13 +43,9 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-gray-600">
         {data.tests.map((element, index) => (
           <div key={index} className="block text-gray-700">
-            <span className="font-medium text-gray-500">
-              {Object.keys(element)[1]} :{" "}
-            </span>
+            <span className="font-medium text-gray-500">{Object.keys(element)[1]} : </span>
             <span className="font-semibold w-64">
-              {Object.values(element)[1] === ""
-                ? "N/A"
-                : Object.values(element)[1].slice(0, 50)[0]}
+              {Object.values(element)[1] === "" ? "N/A" : Object.values(element)[1].slice(0, 50)[0]}
             </span>
           </div>
         ))}
@@ -66,9 +58,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
 type ProfileTestGridViewProps = {
   testDetails: MemberTestListData;
 };
-export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
-  testDetails,
-}) => {
+export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({ testDetails }) => {
   return (
     <div
       className={
@@ -123,9 +113,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
 type ProfileTestGridTableRowProps = {
   data?: MemberTestReport;
 };
-export const ProfileTestGridTableRow: React.FC<
-  ProfileTestGridTableRowProps
-> = ({ data }) => {
+export const ProfileTestGridTableRow: React.FC<ProfileTestGridTableRowProps> = ({ data }) => {
   return data ? (
     <tr>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">

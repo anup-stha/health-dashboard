@@ -45,15 +45,12 @@ export const MemberModal: React.FC<MemberModalProps> = ({
 
       <Modal.Content>
         <Modal.Title>
-          {type === "add" ? "Add" : "Edit"} {selectedRole && selectedRole.name}{" "}
-          User
+          {type === "add" ? "Add" : "Edit"} {selectedRole && selectedRole.name} User
         </Modal.Title>
         <div className="flex flex-col space-y-4 ">
           {selectedRole &&
           selectedRole.permissions &&
-          selectedRole.permissions.some(
-            (element) => element.slug === "login"
-          ) &&
+          selectedRole.permissions.some((element) => element.slug === "login") &&
           type === "add" ? (
             <UserAddForm />
           ) : (

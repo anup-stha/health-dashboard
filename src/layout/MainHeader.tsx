@@ -32,9 +32,7 @@ export const MainHeader: React.FC = () => {
           />
           {open && (
             <div
-              className={
-                "hidden sm:flex sm:fixed sm:inset-0 sm:bg-black sm:opacity-40"
-              }
+              className={"hidden sm:flex sm:fixed sm:inset-0 sm:bg-black sm:opacity-40"}
               onClick={() => toggleOpen()}
             />
           )}

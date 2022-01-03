@@ -14,8 +14,7 @@ export const UpdateZone = ({ idX }: any) => {
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Edit this role</h1>
         <p className="text-lg font-semibold text-gray-500">
-          Once you edit a role, you cannot edit this role for 3 days. Please be
-          certain.
+          Once you edit a role, you cannot edit this role for 3 days. Please be certain.
         </p>
       </div>
       <RoleModal type="edit" id={idX} />

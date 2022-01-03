@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:16 PM
+ * Last Modified 1/3/22, 10:46 AM
  *
  *
  */
@@ -32,42 +32,38 @@ import { TableView } from "@/components/Table";
 import omit from "lodash/omit";
 import { WarningOctagon } from "phosphor-react";
 import { ProfileMemberTable } from "@/modules/members/profile/ProfileMemberTable";
+import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
 export const MemberProfile: React.FC = () => {
   const router = useRouter();
   const idX = {
     id: router.query.id,
     role: router.query.role,
+    profile: router.query.profile,
   };
-
-  const { selectedMember, selectedRole } = useMemberStore();
 
   const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
   const { data: roleDetailsData } = useRoleDetails(Number(idX.role));
   const { isLoading: testLoading } = useTestList();
   const { isFetching: subsLoading } = useSubscriptionList(Number(idX.role));
   const { isLoading: roleListLoading } = useRoleList();
-  const { isLoading: memberLoading, data } = useMemberList(
-    Number(idX.role),
-    Number(idX.id)
-  );
-
-  const { isFetching } = useMemberSubsDetails(Number(router.query.id));
-
+  const { isLoading: memberLoading, data } = useMemberList(Number(idX.role), Number(idX.id));
+  const { isFetching: memberSubsFetching } = useMemberSubsDetails(Number(router.query.id));
+  const { isLoading: roleListBySlugLoading } = useRoleListBySlug(String(idX.profile));
   const loading =
-    isFetching ||
+    roleListBySlugLoading ||
+    memberSubsFetching ||
     subsLoading ||
     roleListLoading ||
     !roleDetailsData ||
     memberLoading ||
     memberDetailsLoading ||
     testLoading;
-  const [active, setActive] = useState(
-    selectedMember ? selectedMember.active : false
-  );
-  const [verified, setVerified] = useState(
-    selectedMember ? selectedMember.verified : false
-  );
+
+  const selectedMember = useMemberStore((state) => state.selectedMember);
+  const selectedRole = useMemberStore((state) => state.selectedRole);
+  const [active, setActive] = useState(selectedMember ? selectedMember.active : false);
+  const [verified, setVerified] = useState(selectedMember ? selectedMember.verified : false);
 
   useEffect(() => {
     data?.details && setActive(data?.details.active);
@@ -89,8 +85,7 @@ export const MemberProfile: React.FC = () => {
           selectedMember={selectedMember}
           selectedRole={roleDetailsData?.data.data}
         />
-        {selectedRole.slug === "patient" ||
-        selectedRole.slug === "individual" ? (
+        {selectedRole.slug === "patient" || selectedRole.slug === "individual" ? (
           <>
             <ProfileMedicalHistory />
             <ProfileTestComponent />
@@ -117,9 +112,7 @@ export const MemberProfile: React.FC = () => {
 export const ProfileMedicalHistory = () => {
   const router = useRouter();
   const { isLoading } = usePatientMedHistory(Number(router.query.id));
-  const patientMedicalHistoryList = useMemberStore(
-    (state) => state.patientMedicalHistoryList.data
-  );
+  const patientMedicalHistoryList = useMemberStore((state) => state.patientMedicalHistoryList.data);
   return (
     <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">
       <div className="print:hidden">
@@ -139,8 +132,7 @@ export const ProfileMedicalHistory = () => {
         />
       ) : (
         <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
-          <WarningOctagon size={24} />{" "}
-          <span>No Patient Medical Details Found</span>
+          <WarningOctagon size={24} /> <span>No Patient Medical Details Found</span>
         </div>
       )}
     </div>

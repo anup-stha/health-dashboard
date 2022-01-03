@@ -6,11 +6,7 @@
  *
  */
 
-import {
-  OtherFields,
-  OtherFieldsGetResponse,
-  OtherFieldsPostResponse,
-} from "@/types";
+import { OtherFields, OtherFieldsGetResponse, OtherFieldsPostResponse } from "@/types";
 import { combine, devtools } from "zustand/middleware";
 import create from "zustand";
 

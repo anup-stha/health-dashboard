@@ -152,13 +152,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 
   return (
     <div className="">
-      <Chart
-        options={options}
-        series={state.series}
-        type="area"
-        width="100%"
-        height="400"
-      />
+      <Chart options={options} series={state.series} type="area" width="100%" height="400" />
     </div>
   );
 };

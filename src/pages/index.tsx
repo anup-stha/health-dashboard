@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:56 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/3/22, 10:32 AM
  *
  *
  */
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const hasTokens = useAuthStore((s) => !!s.token);
 
   useEffect(() => {
-    hasTokens && router.push("/dashboard");
+    hasTokens && router.replace("/dashboard");
   }, [hasTokens, router]);
 
   return !hasTokens ? <LoginPage /> : <div>Loading</div>;

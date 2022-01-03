@@ -37,10 +37,7 @@ export const ListBox: React.FC<ListBoxProps> = ({
           <Listbox.Button className=" relative w-full py-4 pl-4 pr-10 text-left bg-white rounded-sm cursor-default shadow-E200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-lg">
             <span className="block capitalize truncate">{selected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon
-                className="w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
           <Transition
@@ -62,17 +59,13 @@ export const ListBox: React.FC<ListBoxProps> = ({
                   {({ selected, active }) => (
                     <>
                       <span
-                        className={`${
-                          selected ? "font-medium" : "font-normal"
-                        } block capitalize`}
+                        className={`${selected ? "font-medium" : "font-normal"} block capitalize`}
                       >
                         {item}
                       </span>
                       {selected ? (
                         <span
-                          className={`${
-                            active ? "text-amber-600" : "text-amber-600"
-                          }
+                          className={`${active ? "text-amber-600" : "text-amber-600"}
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                         >
                           <CheckIcon className="w-5 h-5" aria-hidden="true" />

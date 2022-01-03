@@ -59,10 +59,7 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
                 id: "Test Add Toast",
               })
             : await alert({
-                promise: updateTest(
-                  Number(selectedTest && selectedTest.id),
-                  values
-                ),
+                promise: updateTest(Number(selectedTest && selectedTest.id), values),
                 msgs: {
                   loading: "Updating Test",
                   success: "Updating Successfully",
@@ -82,12 +79,9 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
               id: "Test Category Add Test",
             })
           : await alert({
-              promise: updateTestCategory(
-                Number(selectedTest && selectedTest.id),
-                {
-                  ...values,
-                }
-              ),
+              promise: updateTestCategory(Number(selectedTest && selectedTest.id), {
+                ...values,
+              }),
               msgs: {
                 loading: "Updating Test Category",
                 success: "Updated Successfully",

@@ -13,10 +13,7 @@ import { Modal } from "@/components/Modal/useModal";
 import React from "react";
 import { Button } from "@/components/Button";
 import Select from "react-select";
-import {
-  postMemberCategory,
-  updateMemberCategory,
-} from "@/services/requests/memberRequests";
+import { postMemberCategory, updateMemberCategory } from "@/services/requests/memberRequests";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { alert } from "@/components/Alert";
 
@@ -25,13 +22,9 @@ type memberCategoryFormProps = {
   id: number;
 };
 
-export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
-  type,
-  id,
-}) => {
+export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type, id }) => {
   const { selectedRole, memberCategoryList } = useRoleStore();
-  const categoryInitialData =
-    id && memberCategoryList.filter((category) => category.id === id)[0];
+  const categoryInitialData = id && memberCategoryList.filter((category) => category.id === id)[0];
 
   const { register, handleSubmit, reset, control } = useForm({
     defaultValues: categoryInitialData ? categoryInitialData : {},
@@ -81,12 +74,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
           label={"Select Value Type"}
           control={control}
         />
-        <PrimaryInput
-          label="Name"
-          type="text"
-          placeholder="Enter Name"
-          {...register("name")}
-        />
+        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
         <SwitchInput
           label="Required"
           type="number"
@@ -106,12 +94,7 @@ type DropdownProps = {
   options: Array<any>;
 };
 
-export const DropdownController: React.FC<DropdownProps> = ({
-  name,
-  label,
-  control,
-  options,
-}) => {
+export const DropdownController: React.FC<DropdownProps> = ({ name, label, control, options }) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -164,8 +147,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
       color: "#262626",
       fontSize: "1.125rem",
       textTransform: "capitalize",
-      boxShadow:
-        "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
+      boxShadow: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
     }),
   };
 

@@ -70,8 +70,7 @@ export const Pagination = ({
 
     if (page > 3 && page < totalPageNumber - 3)
       setPageArray([page - 2, page - 1, page, page + 1, page + 2]);
-    else if (page <= 3)
-      setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
+    else if (page <= 3) setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
     else setPageArray([page - 4, page - 3, page - 2, page - 1, page]);
   }, [pageIndex, totalPageNumber, setPageIndex]);
 

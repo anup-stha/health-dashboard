@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 5:10 PM
+ * Last Modified 1/3/22, 10:37 AM
  *
  *
  */
@@ -24,37 +24,28 @@ import {
 import { AxiosResponse } from "axios";
 import { privateAgent } from ".";
 
-export const getMemberList = (
-  id: number | string
-): Promise<AxiosResponse<MemberListResponse>> => {
+export const getMemberList = (id: number | string): Promise<AxiosResponse<MemberListResponse>> => {
   return privateAgent.get(`/member/list/${id}`);
 };
 
 export const getMembersList = (roleId: number, memberId?: number) => {
   if (!roleId) return;
-  return privateAgent
-    .get<MemberListResponse>(`/member/list/${roleId}`)
-    .then((response) => {
-      useMemberStore.getState().setMemberList(response.data);
-      const details = response.data.data.list.filter(
-        (member) => member.id === memberId
-      )[0];
-      if (memberId) {
-        useMemberStore.getState().setSelectedMember(details);
-        useMemberStore.getState().setSelectedRole(details.role);
-      }
+  return privateAgent.get<MemberListResponse>(`/member/list/${roleId}`).then((response) => {
+    useMemberStore.getState().setMemberList(response.data);
+    const details = response.data.data.list.filter((member) => member.id === memberId)[0];
+    if (memberId) {
+      useMemberStore.getState().setSelectedMember(details);
+    }
 
-      return { list: response.data.data, details };
-    });
+    return { list: response.data.data, details };
+  });
 };
 
 export const getNestedMemberList = (roleId: number, parentId: number) => {
   if (!roleId) return;
   if (!parentId) return;
 
-  return privateAgent.get<MemberListResponse>(
-    `/member/list/${roleId}/${parentId}`
-  );
+  return privateAgent.get<MemberListResponse>(`/member/list/${roleId}/${parentId}`);
 };
 
 export const addOrgMember = (body: OrgMemberAddReq) => {
@@ -62,9 +53,7 @@ export const addOrgMember = (body: OrgMemberAddReq) => {
     privateAgent
       .post<OrgMemberAddRes>("user/store", body)
       .then((response) => {
-        useMemberStore
-          .getState()
-          .getMemberListFromServer(response.data.data.role.id);
+        useMemberStore.getState().getMemberListFromServer(response.data.data.role.id);
         resolve("Added Successfully");
       })
       .catch((error) => {
@@ -78,9 +67,7 @@ export const addNormalMember = (body: NormalMemberAddReq) => {
     privateAgent
       .post<OrgMemberAddRes>("member/store", body)
       .then((response) => {
-        useMemberStore
-          .getState()
-          .getMemberListFromServer(response.data.data.role.id);
+        useMemberStore.getState().getMemberListFromServer(response.data.data.role.id);
         resolve("Added Succesfully");
       })
       .catch((error) => {
@@ -92,15 +79,10 @@ export const addNormalMember = (body: NormalMemberAddReq) => {
 export const postMemberCategory = (body: MemberDetailCategoryBody) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .post<MemberDetailCategoryAddResponse>(
-        "member/detail/category/store",
-        body
-      )
+      .post<MemberDetailCategoryAddResponse>("member/detail/category/store", body)
       .then((response) => {
         const memberDetail = useRoleStore.getState().memberCategoryList;
-        useRoleStore
-          .getState()
-          .addMemberDetail([response.data.data, ...memberDetail]);
+        useRoleStore.getState().addMemberDetail([response.data.data, ...memberDetail]);
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -109,23 +91,15 @@ export const postMemberCategory = (body: MemberDetailCategoryBody) => {
   });
 };
 
-export const updateMemberCategory = (
-  body: MemberDetailCategoryUpdateBody,
-  id: number
-) => {
+export const updateMemberCategory = (body: MemberDetailCategoryUpdateBody, id: number) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .post<MemberDetailCategoryUpdateResponse>(
-        `member/detail/category/update/${id}`,
-        body
-      )
+      .post<MemberDetailCategoryUpdateResponse>(`member/detail/category/update/${id}`, body)
       .then((response) => {
         const updatedArray = useRoleStore
           .getState()
           .memberCategoryList.map((category) =>
-            category.id === response.data.data.id
-              ? response.data.data
-              : category
+            category.id === response.data.data.id ? response.data.data : category
           );
 
         useRoleStore.getState().addMemberDetail(updatedArray);
@@ -177,11 +151,7 @@ export const getMemberDetails = (memberId: number) => {
     });
 };
 
-export const addDetailsToMember = (
-  roleId: number,
-  memberId: number,
-  data: Object
-) => {
+export const addDetailsToMember = (roleId: number, memberId: number, data: Object) => {
   const values = Object.values(data);
   const keys = Object.keys(data);
   const requestBody: any[] = [];
@@ -214,13 +184,9 @@ export const addDetailsToMember = (
 export const getMemberTestList = (memberId: number, testCategoryId: number) => {
   return new Promise((resolve, reject) => {
     privateAgent
-      .get<MemberTestListResponse>(
-        `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`
-      )
+      .get<MemberTestListResponse>(`test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`)
       .then((response) =>
-        useMemberStore
-          .getState()
-          .setSelectedTestDetailsInProfile(response.data.data)
+        useMemberStore.getState().setSelectedTestDetailsInProfile(response.data.data)
       )
       .catch((error) => {
         useMemberStore.getState().clearTestDetailsInProfile();

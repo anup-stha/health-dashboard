@@ -11,17 +11,12 @@ import { getMemberDetails } from "@/services/requests/memberRequests";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const useMemberDetails = (memberId: number) => {
-  return useQuery(
-    ["member-details", memberId],
-    () => getMemberDetails(memberId),
-    {
-      enabled: !!memberId,
-      retry: false,
-      onSuccess: (data) =>
-        useMemberStore.getState().setSelectedMemberDetails(data),
-      onError: ({}) => {
-        useMemberStore.getState().setSelectedMemberDetails([]);
-      },
-    }
-  );
+  return useQuery(["member-details", memberId], () => getMemberDetails(memberId), {
+    enabled: !!memberId,
+    retry: false,
+    onSuccess: (data) => useMemberStore.getState().setSelectedMemberDetails(data),
+    onError: ({}) => {
+      useMemberStore.getState().setSelectedMemberDetails([]);
+    },
+  });
 };

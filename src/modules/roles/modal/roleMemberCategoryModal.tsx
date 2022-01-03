@@ -16,10 +16,7 @@ type memberCategoryModalProps = {
   id?: number;
 };
 
-export const RoleMemberCategoryModal: React.FC<memberCategoryModalProps> = ({
-  type,
-  id,
-}) => {
+export const RoleMemberCategoryModal: React.FC<memberCategoryModalProps> = ({ type, id }) => {
   return (
     <Modal>
       {type === "add" ? (

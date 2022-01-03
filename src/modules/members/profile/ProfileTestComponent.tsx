@@ -30,9 +30,7 @@ type ProfileTestProps = {
   loading?: boolean;
 };
 
-export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
-  loading,
-}) => {
+export const ProfileTestComponent: React.FC<ProfileTestProps> = ({ loading }) => {
   const router = useRouter();
 
   const {
@@ -43,10 +41,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
 
   useEffect(() => {
     const listMemberTest = async () => {
-      await getMemberTestList(
-        Number(router.query.id),
-        Number(selectedTestInProfile.id)
-      );
+      await getMemberTestList(Number(router.query.id), Number(selectedTestInProfile.id));
     };
 
     Object.keys(selectedTestInProfile).length !== 0 && listMemberTest();
@@ -100,8 +95,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                   Address: {selectedMember.gender}
                 </h1>
                 <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
-                  Date of birth:{" "}
-                  {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
+                  Date of birth: {moment(selectedMember.dob_ad * 1000).format("DD/MM/YYYY")}
                 </h1>
               </div>
             )}
@@ -152,12 +146,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 <Tab.Panel>
                   <TableView
                     data={subTestDetails}
-                    tableHeadings={[
-                      "Test App",
-                      "Test Date",
-                      "Test Result",
-                      "Test Notes",
-                    ]}
+                    tableHeadings={["Test App", "Test Date", "Test Result", "Test Notes"]}
                     tableRowComponent={<ProfileTestTableRow />}
                   />{" "}
                 </Tab.Panel>
@@ -181,10 +170,7 @@ export const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   try {
-    return utcToZonedTime(
-      new Date(date).getTime() * 1000,
-      timezone
-    ).toLocaleString();
+    return utcToZonedTime(new Date(date).getTime() * 1000, timezone).toLocaleString();
   } catch {
     return "Not Available";
   }

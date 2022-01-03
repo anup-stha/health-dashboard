@@ -23,22 +23,17 @@ import { MedicalHistory } from "@/types";
 export const PatientMedicalHistoryModal: React.FC = () => {
   const { handleSubmit, control, watch, register, reset } = useForm();
   const { isLoading } = useGetOtherFieldsList();
-  const patientMedicalHistoryList = useMemberStore(
-    (state) => state.patientMedicalHistoryList.data
-  );
+  const patientMedicalHistoryList = useMemberStore((state) => state.patientMedicalHistoryList.data);
   const textState = patientMedicalHistoryList.length === 0 ? "Add" : "Update";
   const router = useRouter();
-  const medicalHistoryFields = useOtherFieldsStore(
-    (state) => state.othersFieldList.data
-  );
+  const medicalHistoryFields = useOtherFieldsStore((state) => state.othersFieldList.data);
 
   useEffect(() => {
     reset(
       Object.assign(
         {},
         ...patientMedicalHistoryList.map((element: MedicalHistory) => ({
-          [`${element.detail_category_id}-${element.slug}`]:
-            element.value === "Yes" ? 1 : 0,
+          [`${element.detail_category_id}-${element.slug}`]: element.value === "Yes" ? 1 : 0,
         })),
         ...patientMedicalHistoryList.map((element: MedicalHistory) => {
           if (element.value === "Yes") {
@@ -67,16 +62,11 @@ export const PatientMedicalHistoryModal: React.FC = () => {
           onSubmit={handleSubmit((data) =>
             alert({
               type: "promise",
-              promise: postMedicalHistoryToPatient(
-                Number(router.query.id),
-                data
-              ).then(async () => {
+              promise: postMedicalHistoryToPatient(Number(router.query.id), data).then(async () => {
                 reset();
               }),
               msgs: {
-                loading: `${
-                  textState === "Update" ? "Updating" : "Adding"
-                } Medical History`,
+                loading: `${textState === "Update" ? "Updating" : "Adding"} Medical History`,
                 success: `Successfully ${
                   textState === "Update" ? "Updated" : "Added"
                 } Medical History`,
@@ -110,21 +100,12 @@ export const PatientMedicalHistoryModal: React.FC = () => {
   );
 };
 
-export const MedicalHistoryForm = ({
-  id,
-  slug,
-  name,
-  control,
-  watch,
-  register,
-}: any) => {
+export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }: any) => {
   const note = watch(`${id}-${slug}`);
 
   return (
     <>
-      <label className={"text-xl font-semibold text-gray-700 w-1/3"}>
-        {name}
-      </label>
+      <label className={"text-xl font-semibold text-gray-700 w-1/3"}>{name}</label>
       <div className={"w-2/3 space-y-4"}>
         <RadioInputController
           name={`${id}-${slug}`}

@@ -16,11 +16,7 @@ import { OrgAdminDashboard } from "@/modules/org-admin/dashboard";
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user.role;
 
-  return (
-    <MainLayout>
-      {role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}
-    </MainLayout>
-  );
+  return <MainLayout>{role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}</MainLayout>;
 };
 
 export default withAuth(Dashboard);

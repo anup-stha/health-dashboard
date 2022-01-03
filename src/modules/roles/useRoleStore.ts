@@ -7,12 +7,7 @@
  */
 
 import { getAllPermissions, listRole } from "@/services/requests/roleRequests";
-import {
-  MemberDetailCategory,
-  Permission,
-  Role,
-  RoleListResponse,
-} from "@/types";
+import { MemberDetailCategory, Permission, Role, RoleListResponse } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
@@ -126,13 +121,7 @@ const store = combine(initialState, (set) => ({
     set({ allPermission: permission });
   },
 
-  setSelectedPermission: ({
-    current,
-    initial,
-    selected,
-    deselected,
-    all,
-  }: any) => {
+  setSelectedPermission: ({ current, initial, selected, deselected, all }: any) => {
     set((state) => ({
       selectedPermission: {
         current: current ?? state.selectedPermission.current,

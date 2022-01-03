@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/2/22, 6:20 PM
+ * Last Modified 1/3/22, 9:28 AM
  *
  *
  */
@@ -37,27 +37,15 @@ export const SubMemberProfile = () => {
     Number(idX.member_parent_id),
     Number(idX.member_id)
   );
-  const { isFetching: memberDetailsFetching } = useMemberDetails(
-    Number(idX.member_id)
-  );
+  const { isFetching: memberDetailsFetching } = useMemberDetails(Number(idX.member_id));
 
   const loading =
-    memberDetailsFetching ||
-    roleListLoading ||
-    testLoading ||
-    !roleDetailsData ||
-    nestedLoading;
+    memberDetailsFetching || roleListLoading || testLoading || !roleDetailsData || nestedLoading;
 
-  const selectedMember = useMemberStore(
-    (state) => state.memberListBySlug.selectedMember
-  );
+  const selectedMember = useMemberStore((state) => state.memberListBySlug.selectedMember);
   const selectedRole = useMemberStore((state) => state.nestedSelectedRole);
-  const [active, setActive] = useState(
-    selectedMember ? selectedMember.active : false
-  );
-  const [verified, setVerified] = useState(
-    selectedMember ? selectedMember.verified : false
-  );
+  const [active, setActive] = useState(selectedMember ? selectedMember.active : false);
+  const [verified, setVerified] = useState(selectedMember ? selectedMember.verified : false);
 
   useEffect(() => {
     selectedMember && setActive(selectedMember.active);
@@ -71,8 +59,7 @@ export const SubMemberProfile = () => {
         .getState()
         .setParent(idX.member_parent_id ?? "0", idX.member_parent_role ?? "0");
 
-    parentRoleData &&
-      useMemberStore.getState().setSelectedRole(parentRoleData.data.data);
+    parentRoleData && useMemberStore.getState().setSelectedRole(parentRoleData.data.data);
   }, [idX]);
 
   return loading ? (
@@ -88,8 +75,7 @@ export const SubMemberProfile = () => {
             selectedRole={roleDetailsData?.data.data}
           />
         )}
-        {selectedRole.slug === "patient" ||
-        selectedRole.slug === "individual" ? (
+        {selectedRole.slug === "patient" || selectedRole.slug === "individual" ? (
           <>
             <ProfileMedicalHistory />
             <ProfileTestComponent />

@@ -24,16 +24,11 @@ type MemberAddFormProps = {
   type?: "add" | "edit";
 };
 
-export const MemberAddForm: React.FC<MemberAddFormProps> = ({
-  initialData,
-  type = "add",
-}) => {
+export const MemberAddForm: React.FC<MemberAddFormProps> = ({ initialData, type = "add" }) => {
   const { register, handleSubmit, reset, control } = useForm<User>({
     defaultValues: {
       ...initialData,
-      dob_ad:
-        initialData &&
-        moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+      dob_ad: initialData && moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
     },
   });
   const { selectedRole } = useMemberStore();
@@ -88,20 +83,12 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({
                 />
               </div>
               <div className="w-1/2">
-                <PrimaryInput
-                  label="Date of Birth In AD"
-                  type="date"
-                  {...register("dob_ad")}
-                />
+                <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
               </div>
             </>
           ) : (
             <div className="w-full">
-              <PrimaryInput
-                label="Date of Birth In AD"
-                type="date"
-                {...register("dob_ad")}
-              />
+              <PrimaryInput label="Date of Birth In AD" type="date" {...register("dob_ad")} />
             </div>
           )}
         </div>

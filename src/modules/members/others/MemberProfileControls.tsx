@@ -52,10 +52,7 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
 
         {selectedRole.slug === "patient" && <PatientMedicalHistoryModal />}
 
-        <MemberDetailAddModal
-          memberData={selectedMember}
-          selectedRole={selectedRole}
-        />
+        <MemberDetailAddModal memberData={selectedMember} selectedRole={selectedRole} />
       </div>
       {user.role && user.role.id === 1 && selectedMember && (
         <div className="flex flex-col bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">

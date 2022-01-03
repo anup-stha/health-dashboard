@@ -20,8 +20,7 @@ export const Permissions = () => {
       <div>
         <h1 className="text-3xl font-semibold text-gray-900">Permissions</h1>
         <p className="text-lg font-semibold text-gray-500">
-          Click on any permission to add, update or remove permissions for super
-          user
+          Click on any permission to add, update or remove permissions for super user
         </p>
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 3xl:flex 3xl:flex-wrap gap-8">
@@ -32,11 +31,7 @@ export const Permissions = () => {
 
           return (
             <div
-              className={
-                isItemSelected
-                  ? "permission_card_active"
-                  : "permission_card_inactive"
-              }
+              className={isItemSelected ? "permission_card_active" : "permission_card_inactive"}
               key={permission.id}
             >
               <CheckBoxCard

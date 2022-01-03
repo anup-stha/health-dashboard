@@ -16,11 +16,7 @@ import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
 const Roles = () => {
   const { isLoading } = useAllRoleList();
 
-  return (
-    <MainLayout>
-      {!isLoading ? <RolePage /> : <RolePageLoadingState count={1} />}
-    </MainLayout>
-  );
+  return <MainLayout>{!isLoading ? <RolePage /> : <RolePageLoadingState count={1} />}</MainLayout>;
 };
 
 export default withRole(withAuth(Roles));

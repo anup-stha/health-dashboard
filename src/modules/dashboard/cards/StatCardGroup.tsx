@@ -7,13 +7,7 @@
  */
 
 import { StatCard } from "@/modules/dashboard/cards/StatCard";
-import {
-  Box2,
-  Buildings,
-  ChemicalGlass,
-  Profile2User,
-  SecurityUser,
-} from "iconsax-react";
+import { Box2, Buildings, ChemicalGlass, Profile2User, SecurityUser } from "iconsax-react";
 import React from "react";
 import { StatCardRect } from "@/modules/dashboard/cards/StatCardRect";
 import Image from "next/image";
@@ -75,21 +69,14 @@ export const StatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
   );
 };
 
-export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
-  data,
-}) => {
+export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({ data }) => {
   return (
     <div className="w-full grid-cols-2 grid gap-6 lg:grid-cols-1 sm:gap-4">
       <div className="flex flex-col gap-6 h-full">
         <StatCardRect
           icon={
             <div className=" h-28 w-28 relative flex-shrink-0">
-              <Image
-                src={"/sub_test.png"}
-                layout="fill"
-                objectFit="cover"
-                alt="Profile"
-              />
+              <Image src={"/sub_test.png"} layout="fill" objectFit="cover" alt="Profile" />
             </div>
           }
           value={data.total_test_taken}
@@ -98,19 +85,11 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
         <StatCardRect
           icon={
             <div className=" h-28 w-28 relative flex-shrink-0">
-              <Image
-                src={"/assets/management.png"}
-                layout="fill"
-                objectFit="cover"
-                alt="Profile"
-              />
+              <Image src={"/assets/management.png"} layout="fill" objectFit="cover" alt="Profile" />
             </div>
           }
           value={data.organization_operator}
-          valueText={[
-            "Organization Operators",
-            "Total Operators added by Organizations",
-          ]}
+          valueText={["Organization Operators", "Total Operators added by Organizations"]}
         />
       </div>
       <StatCardApp />

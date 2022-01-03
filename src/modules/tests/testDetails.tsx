@@ -18,19 +18,13 @@ export const TestDetails = () => {
   return (
     <div className="px-10  py-10 overflow-visible sm:p-8 space-y-8">
       <div className="flex flex-col space-y-2 ">
-        <h1 className="text-5xl font-semibold text-gray-900">
-          {selectedTest.name}
-        </h1>
-        <p className="text-xl font-semibold text-gray-500 w-3/4">
-          {selectedTest.slug}
-        </p>
+        <h1 className="text-5xl font-semibold text-gray-900">{selectedTest.name}</h1>
+        <p className="text-xl font-semibold text-gray-500 w-3/4">{selectedTest.slug}</p>
       </div>
       <hr className="border-t-[1px] border-gray-200" />
 
       <div className="space-y-4">
-        <h1 className="text-3xl font-semibold text-gray-700">
-          Test Sub Categories
-        </h1>
+        <h1 className="text-3xl font-semibold text-gray-700">Test Sub Categories</h1>
         <div className="w-full grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-6">
           {selectedTest.sub_categories &&
             selectedTest.sub_categories.map((test) => (
@@ -44,11 +38,7 @@ export const TestDetails = () => {
                 />
               </div>
             ))}
-          <TestModal
-            variant={"subtest"}
-            type="add"
-            selectedTest={selectedTest}
-          />
+          <TestModal variant={"subtest"} type="add" selectedTest={selectedTest} />
         </div>
       </div>
       <hr className="border-t-[1px] border-gray-200" />

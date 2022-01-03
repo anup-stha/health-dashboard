@@ -36,13 +36,7 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
             required={props.required === false ? false : true}
             className={error ? "input_error relative" : "input_container"}
             ref={ref}
-            type={
-              props.type === "password"
-                ? showPassword
-                  ? "text"
-                  : "password"
-                : props.type
-            }
+            type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
           />
 
           {props.type === "password" && (
@@ -55,18 +49,10 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
               className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
             >
               <div className="relative flex ">
-                <div
-                  className={`${
-                    !showPassword ? "absolute opacity-100" : "opacity-0"
-                  }`}
-                >
+                <div className={`${!showPassword ? "absolute opacity-100" : "opacity-0"}`}>
                   <Eye size={18} weight="bold" />
                 </div>
-                <div
-                  className={`${
-                    showPassword ? "absolute opacity-100" : "opacity-0"
-                  } `}
-                >
+                <div className={`${showPassword ? "absolute opacity-100" : "opacity-0"} `}>
                   <EyeClosed size={18} weight="bold" />
                 </div>
               </div>

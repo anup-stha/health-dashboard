@@ -36,12 +36,8 @@ export const CheckBoxCard: React.FC<CheckBoxCardProps> = ({
           />
         </div>
         <div className="flex flex-col space-y-1">
-          <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">
-            {title}
-          </span>
-          <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
-            {subtitle}
-          </span>
+          <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">{title}</span>
+          <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">{subtitle}</span>
         </div>
       </div>
       <div className="max-w-sm mx-auto">

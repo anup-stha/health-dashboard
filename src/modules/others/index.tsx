@@ -30,18 +30,14 @@ import omit from "lodash/omit";
 
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();
-  const otherFieldsList = useOtherFieldsStore(
-    (state) => state.othersFieldList.data
-  );
+  const otherFieldsList = useOtherFieldsStore((state) => state.othersFieldList.data);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col space-y-6">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <div>
-            <h1 className="text-4xl font-semibold text-gray-850">
-              Patient Medical History
-            </h1>
+            <h1 className="text-4xl font-semibold text-gray-850">Patient Medical History</h1>
             <p className="text-lg font-semibold text-gray-500">
               List of all Medical History Fields. Click on Add Button to add new
             </p>
@@ -68,12 +64,7 @@ export const OthersPage = () => {
         ) : (
           <TableView
             data={otherFieldsList}
-            tableHeadings={[
-              "Field Name",
-              "Field Slug",
-              "Field Value Type",
-              "Required",
-            ]}
+            tableHeadings={["Field Name", "Field Slug", "Field Value Type", "Required"]}
             loading={isLoading}
             tableRowComponent={<OthersTableRow />}
           />
@@ -87,35 +78,21 @@ type OthersTableRowProps = {
   data?: any;
 };
 
-export const OthersTableRow: React.FC<OthersTableRowProps> = ({
-  data,
-}: {
-  data?: OtherFields;
-}) => {
+export const OthersTableRow: React.FC<OthersTableRowProps> = ({ data }: { data?: OtherFields }) => {
   return data ? (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">{data.name}</td>
       <td className="px-6 py-4 whitespace-nowrap"> {data.slug}</td>
-      <td className="px-6 py-4 whitespace-nowrap capitalize">
-        {data.value_type}
-      </td>
+      <td className="px-6 py-4 whitespace-nowrap capitalize">{data.value_type}</td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag
-          type={"info"}
-          trueStatement={data.required ? "Yes" : "No"}
-        />
+        <BooleanTag type={"info"} trueStatement={data.required ? "Yes" : "No"} />
       </td>
 
       <td className="px-6 py-4 flex gap-2">
         <OtherFieldAddEditModal type={"edit"} data={data} />
         <DeleteModal
           closeButton={
-            <Trash
-              size={28}
-              variant={"Broken"}
-              color={"#555"}
-              className={"cursor-pointer"}
-            />
+            <Trash size={28} variant={"Broken"} color={"#555"} className={"cursor-pointer"} />
           }
           title={"You are about to delete this field"}
           subTitles={["Please be sure before you delete this"]}
@@ -132,22 +109,14 @@ type OtherFieldAddModalProps = {
   data?: OtherFields;
 };
 
-export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({
-  type,
-  data,
-}) => {
+export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({ type, data }) => {
   return (
     <Modal>
       <Modal.Button type={"open"}>
         {type === "add" ? (
           <Button>Add Other Field</Button>
         ) : (
-          <Edit
-            variant={"Broken"}
-            size={28}
-            color={"#555"}
-            className={"cursor-pointer"}
-          />
+          <Edit variant={"Broken"} size={28} color={"#555"} className={"cursor-pointer"} />
         )}
       </Modal.Button>
       <Modal.Content>
@@ -189,12 +158,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
       )}
     >
       <div className="space-y-4">
-        <PrimaryInput
-          label="Name"
-          type="text"
-          placeholder="Enter Name"
-          {...register("name")}
-        />
+        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
         <DropdownController
           options={options}
           name={"value_type"}

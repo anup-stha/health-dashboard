@@ -21,8 +21,7 @@ export const MemberPage = () => {
           <div>
             <h1 className="text-4xl font-semibold text-gray-850">Members</h1>
             <p className="text-lg font-semibold text-gray-500">
-              List of all members in a tabulated view. If not data found, please
-              change role.
+              List of all members in a tabulated view. If not data found, please change role.
             </p>
           </div>
 

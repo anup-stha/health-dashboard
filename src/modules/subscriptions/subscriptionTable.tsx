@@ -35,14 +35,7 @@ export const SubscriptionTable = () => {
   ) : (
     <TableView
       data={subscriptionList.list}
-      tableHeadings={[
-        "Name",
-        "Price",
-        "Interval",
-        "Grace Period",
-        "Sync Limit",
-        "Test Limit",
-      ]}
+      tableHeadings={["Name", "Price", "Interval", "Grace Period", "Sync Limit", "Test Limit"]}
       tableRowComponent={<SubscriptionTableRow />}
       loading={false}
     />
@@ -55,11 +48,7 @@ type SubscriptionTableRowProps = {
   loading?: boolean;
 };
 
-const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
-  data,
-  key,
-  loading,
-}) => {
+const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({ data, key, loading }) => {
   const router = useRouter();
   const { selectedRole } = useMemberStore();
 
@@ -81,9 +70,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
               <div className="text-xl font-semibold text-gray-900 w-full capitalize">
                 {data.name}
               </div>
-              <div className="text-lg font-medium text-gray-500">
-                {data.slug}
-              </div>
+              <div className="text-lg font-medium text-gray-500">{data.slug}</div>
             </div>
           </div>
         </td>
@@ -91,12 +78,8 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
           <BooleanTag type={"info"} trueStatement={data.price} />
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-gray-900 font-semibold capitalize">
-            {data.interval_type}
-          </div>
-          <div className="text-lg text-gray-500 font-medium">
-            {data.interval_value} times
-          </div>
+          <div className="text-lg text-gray-900 font-semibold capitalize">{data.interval_type}</div>
+          <div className="text-lg text-gray-500 font-medium">{data.interval_value} times</div>
         </td>
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           {data.grace_period} days
@@ -110,9 +93,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
         <td className="font-medium px-6 py-5 whitespace-nowrap text-lg">
           <button
             onClick={() =>
-              router.push(
-                `/subscriptions/${data.slug}?id=${data.id}&role=${selectedRole.id}`
-              )
+              router.push(`/subscriptions/${data.slug}?id=${data.id}&role=${selectedRole.id}`)
             }
             className="px-2 sm:px-6 w-full bg-neutral-700 hover:bg-neutral-800 hover:shadow-sm focus:shadow-sm transition-all duration-200 hover text-white flex items-center justify-center py-4 rounded-sm shadow-lg cursor-pointer"
           >

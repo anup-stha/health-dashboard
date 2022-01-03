@@ -37,22 +37,16 @@ export const listSubscriptions = (roleId: number) => {
 };
 
 export const useSubscriptionList = (roleId: number) => {
-  return useQuery(
-    ["subscription-list", roleId],
-    () => listSubscriptions(roleId),
-    {
-      enabled: !!roleId,
-    }
-  );
+  return useQuery(["subscription-list", roleId], () => listSubscriptions(roleId), {
+    enabled: !!roleId,
+  });
 };
 
 export const listSubscriptionDetail = (subs_id: number) =>
   privateAgent
     .get<SubscriptionTestDetailsResponse>(`subscription/tests/${subs_id}`)
     .then((response) => {
-      useSubscriptionStore
-        .getState()
-        .setSubscriptionTestDetails(response.data.data);
+      useSubscriptionStore.getState().setSubscriptionTestDetails(response.data.data);
     });
 
 export const addSubscription = (data: SubscriptionBody) => {
@@ -72,10 +66,7 @@ export const addSubscription = (data: SubscriptionBody) => {
   );
 };
 
-export const updateSubscription = (
-  data: SubscriptionUpdateBody,
-  subsId: number
-) => {
+export const updateSubscription = (data: SubscriptionUpdateBody, subsId: number) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .put<SubscriptionAddResponse>(`subscription/${subsId}`, data)
@@ -84,8 +75,7 @@ export const updateSubscription = (
         Router.replace(
           `/subscriptions/${response.data.data.slug}?id=${query.id}&role=${query.role}`
         );
-        const subscription =
-          useSubscriptionStore.getState().subscriptionList.list;
+        const subscription = useSubscriptionStore.getState().subscriptionList.list;
         const updatedArray = subscription.map((subs) =>
           subs.id === response.data.data.id ? response.data.data : subs
         );
@@ -97,10 +87,7 @@ export const updateSubscription = (
   );
 };
 
-export const assignSubscriptionToMember = (
-  member_id: number,
-  subscription_id: number
-) => {
+export const assignSubscriptionToMember = (member_id: number, subscription_id: number) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .put<any>(`subscription/member/assign`, {
@@ -157,26 +144,16 @@ export const removeTestFromSubscription = (
 ) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .delete<any>(
-        `subscription/${subscription_id}/${test_cat_id}/${test_sub_cat_id}`
-      )
+      .delete<any>(`subscription/${subscription_id}/${test_cat_id}/${test_sub_cat_id}`)
       .then((response) => {
-        const filtered = useSubscriptionStore
-          .getState()
-          .subscriptionDetails.map((test) => ({
-            ...test,
-            sub_categories: test.sub_categories.filter(
-              (subTest) => subTest.id !== test_sub_cat_id
-            ),
-          }));
+        const filtered = useSubscriptionStore.getState().subscriptionDetails.map((test) => ({
+          ...test,
+          sub_categories: test.sub_categories.filter((subTest) => subTest.id !== test_sub_cat_id),
+        }));
 
-        const lastFiltered = filtered.filter(
-          (test) => test.sub_categories.length !== 0
-        );
+        const lastFiltered = filtered.filter((test) => test.sub_categories.length !== 0);
 
-        useSubscriptionStore
-          .getState()
-          .setSubscriptionTestDetails(lastFiltered);
+        useSubscriptionStore.getState().setSubscriptionTestDetails(lastFiltered);
         resolve(response.data.message);
       })
       .catch((error) => reject(error.response))
@@ -186,22 +163,14 @@ export const removeTestFromSubscription = (
 export const getMemberSubscriptionDetails = (member_id: number) => {
   return new Promise((resolve, reject) =>
     privateAgent
-      .get<MemberSubscriptionDetailsResponse>(
-        `member/subscription/${member_id}`
-      )
+      .get<MemberSubscriptionDetailsResponse>(`member/subscription/${member_id}`)
       .then((response) => {
-        useMemberStore
-          .getState()
-          .setSelectedMemberSubscription(response.data.data);
-        useSubscriptionStore
-          .getState()
-          .setSubscription(response.data.data.plan);
+        useMemberStore.getState().setSelectedMemberSubscription(response.data.data);
+        useSubscriptionStore.getState().setSubscription(response.data.data.plan);
         resolve(response.data.message);
       })
       .catch((error) => {
-        useMemberStore
-          .getState()
-          .setSelectedMemberSubscription({} as MemberSubscriptionDetails);
+        useMemberStore.getState().setSelectedMemberSubscription({} as MemberSubscriptionDetails);
         reject(error.response);
       })
   );
@@ -211,16 +180,12 @@ export const listMemberSubscriptionDetails = (member_id: number) =>
   privateAgent
     .get<MemberSubscriptionDetailsResponse>(`member/subscription/${member_id}`)
     .then((response) => {
-      useMemberStore
-        .getState()
-        .setSelectedMemberSubscription(response.data.data);
+      useMemberStore.getState().setSelectedMemberSubscription(response.data.data);
       useSubscriptionStore.getState().setSubscription(response.data.data.plan);
       return response.data.data;
     })
     .catch((error) => {
-      useMemberStore
-        .getState()
-        .setSelectedMemberSubscription({} as MemberSubscriptionDetails);
+      useMemberStore.getState().setSelectedMemberSubscription({} as MemberSubscriptionDetails);
       return error.response;
     });
 

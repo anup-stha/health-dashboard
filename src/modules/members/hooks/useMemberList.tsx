@@ -10,11 +10,7 @@ import { useQuery } from "react-query";
 import { getMembersList } from "@/services/requests/memberRequests";
 
 export const useMemberList = (roleId: number, memberId?: number) => {
-  return useQuery(
-    ["member-list", roleId],
-    () => getMembersList(roleId, memberId),
-    {
-      enabled: roleId !== 0,
-    }
-  );
+  return useQuery(["member-list", roleId], () => getMembersList(roleId, memberId), {
+    enabled: roleId !== 0,
+  });
 };

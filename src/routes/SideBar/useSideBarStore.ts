@@ -23,6 +23,4 @@ export const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useSideBarStore = create(
-  devtools(persist(store, { name: openState }))
-);
+export const useSideBarStore = create(devtools(persist(store, { name: openState })));

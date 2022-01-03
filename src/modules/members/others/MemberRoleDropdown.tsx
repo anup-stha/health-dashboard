@@ -25,20 +25,13 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
   setSelectedRole: _setSelectedRole,
 }) => {
   const roleList =
-    _roleList ??
-    useRoleStore
-      .getState()
-      .roleList.sort((a, b) => a.name.localeCompare(b.name));
+    _roleList ?? useRoleStore.getState().roleList.sort((a, b) => a.name.localeCompare(b.name));
 
-  const { selectedRole: selected, setSelectedRole: setSelected } =
-    useMemberStore();
+  const { selectedRole: selected, setSelectedRole: setSelected } = useMemberStore();
 
   return (
     <div className="w-64 capitalize z-10">
-      <Listbox
-        value={_selectedRole ?? selected}
-        onChange={_setSelectedRole ?? setSelected}
-      >
+      <Listbox value={_selectedRole ?? selected} onChange={_setSelectedRole ?? setSelected}>
         <div className="relative">
           <Listbox.Button className="cursor-pointer relative w-full py-4 px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
             <span className="block truncate">
@@ -47,10 +40,7 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
                 : selected.name}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon
-                className="w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
           <Transition
@@ -81,9 +71,7 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
                         </span>
                         {selected ? (
                           <span
-                            className={`${
-                              active ? "text-green-600" : "text-green-600"
-                            }
+                            className={`${active ? "text-green-600" : "text-green-600"}
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                           >
                             <CheckIcon className="w-5 h-5" aria-hidden="true" />

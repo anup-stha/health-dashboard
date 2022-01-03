@@ -11,10 +11,7 @@ import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
 import { useMemberStore } from "../members/useMemberStore";
 import { alert } from "@/components/Alert";
-import {
-  addSubscription,
-  updateSubscription,
-} from "@/services/requests/subscriptionRequests";
+import { addSubscription, updateSubscription } from "@/services/requests/subscriptionRequests";
 import { Button } from "@/components/Button";
 import React from "react";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
@@ -36,15 +33,10 @@ type SubscriptionFormData = {
   sync_limit: number | undefined;
 };
 
-export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
-  type,
-  id,
-}) => {
+export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }) => {
   const { selectedRole } = useMemberStore();
   const { subscriptionList } = useSubscriptionStore();
-  const data: any = subscriptionList.list.filter(
-    (element) => element.id === id
-  )[0];
+  const data: any = subscriptionList.list.filter((element) => element.id === id)[0];
 
   const { register, handleSubmit, control } = useForm<SubscriptionFormData>({
     defaultValues:
@@ -69,12 +61,10 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           },
   });
 
-  const options = useGlobalState
-    .getState()
-    .base.subscription_intervals.map((element) => ({
-      value: element,
-      label: element,
-    }));
+  const options = useGlobalState.getState().base.subscription_intervals.map((element) => ({
+    value: element,
+    label: element,
+  }));
 
   return (
     <Modal.Form
@@ -124,11 +114,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           required={true}
           {...register("name")}
         />
-        <PrimaryInput
-          label="Price"
-          placeholder="Enter Price"
-          {...register("price")}
-        />
+        <PrimaryInput label="Price" placeholder="Enter Price" {...register("price")} />
 
         <div className="flex space-x-4">
           <div className="w-1/2">
