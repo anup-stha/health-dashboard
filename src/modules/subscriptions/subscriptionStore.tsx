@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/21/21, 1:17 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 10:56 AM
  *
  *
  */
@@ -60,4 +60,6 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useSubscriptionStore = create(devtools(store, "subscription"));
+export const useSubscriptionStore = create(
+  devtools(store, { name: "subscription" })
+);

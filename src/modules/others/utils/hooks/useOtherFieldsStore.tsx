@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 3:50 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 10:57 AM
  *
  *
  */
@@ -54,4 +54,6 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useOtherFieldsStore = create(devtools(store, "other_fields"));
+export const useOtherFieldsStore = create(
+  devtools(store, { name: "other_fields" })
+);

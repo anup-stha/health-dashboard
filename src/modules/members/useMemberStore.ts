@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 8:51 PM
+ * Last Modified 1/4/22, 10:56 AM
  *
  *
  */
@@ -192,4 +192,4 @@ export const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useMemberStore = create(devtools(store, "member"));
+export const useMemberStore = create(devtools(store, { name: "member" }));

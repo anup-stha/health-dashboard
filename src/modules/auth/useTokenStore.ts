@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 11:03 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 10:53 AM
  *
  *
  */
@@ -47,5 +47,5 @@ export const store = combine(initialState, (set) => ({
 }));
 
 export const useAuthStore = create(
-  devtools(persist(store, { name: userDataKey }), "auth")
+  devtools(persist(store, { name: userDataKey }), { name: "auth" })
 );

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 9:37 PM
+ * Last Modified 1/4/22, 11:10 AM
  *
  *
  */
@@ -174,9 +174,10 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
           <TestDropdown />
         </div>
         <div className="space-y-4">
-          {Object.keys(testDetails).length !== 0 && (
-            <TestLineChart datas={result} />
-          )}
+          {Object.keys(testDetails).length !== 0 &&
+            Object.keys(result).length !== 0 && (
+              <TestLineChart datas={result} />
+            )}
 
           {Object.keys(testDetails).length !== 0 ? (
             <Tab.Group>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 11:39 AM
+ * Last Modified 1/4/22, 10:57 AM
  *
  *
  */
@@ -151,4 +151,4 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useRoleStore = create(devtools(store, "role"));
+export const useRoleStore = create(devtools(store, { name: "role" }));
