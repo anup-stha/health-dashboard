@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 9:24 PM
+ * Last Modified 1/4/22, 10:27 AM
  *
  *
  */
@@ -15,7 +15,7 @@ export const useMembersList = (roleId: number, memberId?: number) => {
     ["member-list", roleId],
     () => getMembersList(roleId, memberId),
     {
-      enabled: roleId !== 0,
+      enabled: !isNaN(roleId),
       onSuccess: ({ data }) => {
         useMemberStore.getState().setMemberList(data);
         if (memberId) {

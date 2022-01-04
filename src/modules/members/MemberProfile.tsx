@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 9:39 PM
+ * Last Modified 1/4/22, 10:39 AM
  *
  *
  */
@@ -32,7 +32,6 @@ import { TableView } from "@/components/Table";
 import omit from "lodash/omit";
 import { WarningOctagon } from "phosphor-react";
 import { ProfileMemberTable } from "@/modules/members/profile/ProfileMemberTable";
-import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
 export const MemberProfile: React.FC = () => {
   const router = useRouter();
@@ -54,11 +53,8 @@ export const MemberProfile: React.FC = () => {
   const { isFetching: memberSubsFetching } = useMemberSubsDetails(
     Number(router.query.id)
   );
-  const { isLoading: roleListBySlugLoading } = useRoleListBySlug(
-    String(idX.profile)
-  );
+
   const loading =
-    roleListBySlugLoading ||
     memberSubsFetching ||
     subsLoading ||
     roleListLoading ||

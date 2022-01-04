@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 8:26 PM
+ * Last Modified 1/4/22, 10:39 AM
  *
  *
  */
@@ -14,9 +14,16 @@ import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMember
 import { TableView } from "@/components/Table";
 import { MemberTableRow } from "@/modules/members/table/memberTableRow";
 import { WarningOctagon } from "phosphor-react";
+import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
 export const ProfileMemberTable: React.FC = () => {
   const router = useRouter();
+
+  const { isLoading: roleListBySlugLoading } = useRoleListBySlug(
+    !Array.isArray(router.query.profile) && router.query.profile
+      ? router.query.profile
+      : ""
+  );
 
   const roleList = useRoleStore((state) => state.roleListBySlug.data);
   const [selectedRole, setSelectedRole] = useState(roleList[0]);
@@ -34,7 +41,7 @@ export const ProfileMemberTable: React.FC = () => {
     setSelectedRole(roleList[0]);
   }, [roleList, router]);
 
-  if (isLoading && !selectedRole) return <div />;
+  if (isLoading && !selectedRole && roleListBySlugLoading) return <div />;
 
   return (
     <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">

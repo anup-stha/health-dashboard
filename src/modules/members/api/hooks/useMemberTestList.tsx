@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 8:19 PM
+ * Last Modified 1/4/22, 10:23 AM
  *
  *
  */
@@ -15,7 +15,7 @@ export const useMemberTestList = (memberId: number, testCategoryId: number) => {
     ["member-test-list", memberId, testCategoryId],
     () => getMemberTestList(memberId, testCategoryId),
     {
-      enabled: memberId !== 0 || testCategoryId !== 0,
+      enabled: !!memberId && !!testCategoryId,
       onSuccess: ({ data }) => {
         useMemberStore.getState().setSelectedTestDetailsInProfile(data.data);
       },

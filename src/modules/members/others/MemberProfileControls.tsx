@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:05 PM
+ * Last Modified 1/4/22, 10:18 AM
  *
  *
  */
@@ -50,7 +50,10 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
           />
         )}
 
-        {selectedRole.slug === "patient" && <PatientMedicalHistoryModal />}
+        {selectedRole.slug === "patient" ||
+          (selectedRole.slug === "individual" && (
+            <PatientMedicalHistoryModal />
+          ))}
 
         <MemberDetailAddModal
           memberData={selectedMember}
