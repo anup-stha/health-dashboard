@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 4:11 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 2:53 PM
  *
  *
  */
@@ -17,7 +17,7 @@ export const ProfileDataDetail: React.FC<ProfileDataDetailProps> = ({
   detail,
 }) => {
   return (
-    <div className="flex gap-x-4 text-xl">
+    <div className="flex gap-x-4 text-xl items-center">
       <div className="text-gray-800 ">{icon}</div>
       <span>{detail}</span>
     </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 4:09 PM
+ * Last Modified 1/4/22, 3:36 PM
  *
  *
  */
@@ -76,12 +76,12 @@ export type User = {
 export type LoginResponse = StatusType & {
   data: {
     token: string;
-    user: User;
+    user: Member;
   };
 };
 
 export type ProfileRequestResponse = StatusType & {
-  data: User;
+  data: Member;
 };
 
 export type LoginRequest = {
@@ -115,6 +115,8 @@ export type RoleUpdateBody = {
 export type BasicMember = {
   id: number;
   parent_member_id: number;
+  member_code: string;
+  member_id: number;
   uuid: string;
   name: string;
   lat?: number;

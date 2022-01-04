@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:39 AM
+ * Last Modified 1/4/22, 3:24 PM
  *
  *
  */
@@ -97,10 +97,10 @@ export const MemberProfile: React.FC = () => {
         {selectedRole.slug === "patient" ||
         selectedRole.slug === "individual" ? (
           <>
-            <ProfileMedicalHistory />
             {selectedMember && (
               <ProfileTestComponent selectedMember={selectedMember} />
             )}
+            <ProfileMedicalHistory />
           </>
         ) : (
           <ProfileMemberTable />

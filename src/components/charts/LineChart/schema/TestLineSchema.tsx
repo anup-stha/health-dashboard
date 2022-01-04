@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 5:46 PM
+ * Last Modified 1/4/22, 3:09 PM
  *
  *
  */
@@ -82,7 +82,7 @@ export const lineChartOptions: any = (datas: ChartDateTimeData) => ({
       ]),
     },
   },
-  labels: datas.heart_beat.dates,
+  labels: datas[Object.keys(datas)[0]].dates,
   xaxis: {
     labels: {
       show: true,

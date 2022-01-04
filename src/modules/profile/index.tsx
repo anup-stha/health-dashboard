@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 2:54 PM
  *
  *
  */
 
 import Image from "next/image";
-import { Calendar, Mail, Map, PhoneCall, Users } from "react-feather";
+import { Calendar, Mail, Map, PhoneCall, User, Users } from "react-feather";
 import { PasswordModal } from "./passwordModal";
 import React from "react";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -18,6 +18,7 @@ import moment from "moment";
 import { GenderNeuter } from "phosphor-react";
 import { ProfileUpdateModal } from "@/modules/profile/modal/ProfileUpdateModal";
 import { ProfileSubscription } from "@/modules/members/profile/ProfileSubscription";
+import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDetail";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
@@ -81,6 +82,7 @@ export const ProfilePage: React.FC = () => {
                 <p className="text-2xl font-semibold text-gray-900">
                   Personal Info
                 </p>
+                <ProfileDataDetail icon={<User />} detail={user.member_code} />
                 <div className="flex gap-x-4">
                   <div className="text-gray-800">
                     <Mail />

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 8:36 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 2:26 PM
  *
  *
  */
@@ -33,8 +33,12 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
           <input
             {...props}
             autoComplete={props.autoComplete ?? "off"}
-            required={props.required === false ? false : true}
-            className={error ? "input_error relative" : "input_container"}
+            required={props.required !== false}
+            className={
+              error
+                ? "input_error relative shadow-E200"
+                : "input_container shadow-E200"
+            }
             ref={ref}
             type={
               props.type === "password"
@@ -84,6 +88,41 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
     );
   }
 );
+
+type HookSearchInputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
+  label?: string;
+  error?: string;
+};
+
+export const SearchInput = React.forwardRef<
+  HTMLInputElement,
+  HookSearchInputProps
+>(({ label, error, ...props }, ref) => {
+  return (
+    <div className={` w-full input`}>
+      <div className="relative w-full">
+        <input
+          {...props}
+          autoComplete={props.autoComplete ?? "off"}
+          required={props.required !== false}
+          className={
+            error
+              ? "input_error relative pr-32 shadow-lg"
+              : "input_container pr-32 shadow-sm ring-1 ring-gray-400/20"
+          }
+          ref={ref}
+        />
+      </div>
+
+      <label htmlFor={props.id} className="input_label text-gray-700">
+        {label}
+      </label>
+    </div>
+  );
+});
 
 export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   ({ label, error, ...props }, ref) => {
@@ -169,3 +208,4 @@ export const RadioInputController: React.FC<RadioInputProps> = ({
 PrimaryInput.displayName = "PrimaryInput";
 SwitchInput.displayName = "SwitchInput";
 RadioInput.displayName = "RadioInput";
+SearchInput.displayName = "SearchInput";

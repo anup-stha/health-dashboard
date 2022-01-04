@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 4:09 PM
+ * Last Modified 1/4/22, 3:16 PM
  *
  *
  */
@@ -17,7 +17,7 @@ import { utcDateToLocal } from "@/modules/members/profile/ProfileTestComponent";
 type ProfileTestData = {
   app_slug: string;
   test_date: Date;
-  tests: { [p: string]: string }[];
+  tests: { [p: string]: any }[];
 };
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
   return data ? (
@@ -46,14 +46,18 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-gray-600">
         {data.tests.map((element, index) => (
-          <div key={index} className="block text-gray-700">
+          <div key={index} className="block text-gray-700 flex space-x-2">
             <span className="font-medium text-gray-500">
               {Object.keys(element)[1]} :{" "}
             </span>
-            <span className="font-semibold w-64">
-              {Object.values(element)[1] === ""
+            <span className="font-semibold w-64 flex flex-col">
+              {Object.values(element)[1].length === 0
                 ? "N/A"
-                : Object.values(element)[1].slice(0, 50)[0]}
+                : Object.values(element)[1].map(
+                    (element: any, index: number) => (
+                      <span key={index}> {element} </span>
+                    )
+                  )}
             </span>
           </div>
         ))}

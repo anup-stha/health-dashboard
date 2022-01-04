@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:18 AM
+ * Last Modified 1/4/22, 3:36 PM
  *
  *
  */
@@ -33,6 +33,8 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
   selectedMember,
   selectedRole,
 }) => {
+  console.log(selectedRole);
+
   const router = useRouter();
   const { user } = useAuthStore();
 
@@ -44,16 +46,14 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
             type={"edit"}
             selectedRole={selectedRole}
             initialData={{
-              member_id: Number(router.query.id),
               ...omit(selectedMember, ["ref_key"]),
+              member_id: Number(router.query.id),
             }}
           />
         )}
 
-        {selectedRole.slug === "patient" ||
-          (selectedRole.slug === "individual" && (
-            <PatientMedicalHistoryModal />
-          ))}
+        {(selectedRole.slug === "patient" ||
+          selectedRole.slug === "individual") && <PatientMedicalHistoryModal />}
 
         <MemberDetailAddModal
           memberData={selectedMember}

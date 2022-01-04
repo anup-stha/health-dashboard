@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 11:33 AM
+ * Last Modified 1/4/22, 3:20 PM
  *
  *
  */
@@ -18,7 +18,7 @@ export const MainHeader: React.FC = () => {
 
   return (
     <header
-      className={`print:hidden fixed top-0 left-0 w-full z-20  bg-white shadow-E200 transition-all duration-200 ${
+      className={`print:hidden fixed top-0 left-0 w-full z-30  bg-white shadow-E200 transition-all duration-200 ${
         !open ? "pl-24 sm:pl-0" : "pl-[18%] sm:pl-0"
       } `}
     >

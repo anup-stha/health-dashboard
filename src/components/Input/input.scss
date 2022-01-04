@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 7:03 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 2:10 PM
  *
  *
  */
@@ -10,7 +10,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full block;
 
     &:focus {
       outline: none;
@@ -27,7 +27,65 @@
   }
 
   &_error {
-    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-700 border-solid w-full shadow-E200 block;
+    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-700 border-solid w-full block;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 4rem rgba(black, 0.2);
+      @apply border-b-4 border-0 border-red-700 bg-white text-gray-700;
+    }
+
+    &:focus:invalid {
+      @apply border-b-2 border-0 border-red-400;
+    }
+    &::-webkit-input-placeholder {
+      @apply text-gray-500;
+    }
+  }
+
+  &_label {
+    margin-left: 0.1rem;
+
+    @apply text-gray-500 font-semibold text-lg;
+    display: block;
+    transition: all 0.3s;
+  }
+
+  &_container:placeholder-shown + &_label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0rem);
+  }
+  &_label {
+    order: -1;
+  }
+  &_textarea {
+    height: 16rem;
+  }
+}
+
+.input {
+  @apply flex flex-col items-start;
+
+  &_container {
+    @apply text-lg text-gray-800 px-6 pr-16 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full  block;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 4rem rgba(black, 0.2);
+      @apply border-b-4 border-0 border-green-500 bg-white text-gray-700;
+    }
+
+    &:focus:invalid {
+      @apply border-b-2 border-0 border-red-600;
+    }
+    &::-webkit-input-placeholder {
+      @apply text-gray-700;
+    }
+  }
+
+  &_error {
+    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-700 border-solid w-full block;
 
     &:focus {
       outline: none;

@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:13 PM
+ * Last Modified 1/4/22, 2:53 PM
  *
  *
  */
 
 import Image from "next/image";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { Bookmark, Calendar, Mail, Map, PhoneCall } from "react-feather";
+import { Bookmark, Calendar, Mail, Map, PhoneCall, User } from "react-feather";
 import React from "react";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { GenderNeuter, WarningOctagon } from "phosphor-react";
@@ -89,6 +89,10 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
               </p>
               {selectedMember && (
                 <>
+                  <ProfileDataDetail
+                    icon={<User />}
+                    detail={selectedMember.member_code}
+                  />
                   <ProfileDataDetail
                     icon={<Mail />}
                     detail={selectedMember.email}
