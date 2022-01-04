@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 5:54 PM
+ * Last Modified 1/4/22, 3:57 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars */
 import dynamic from "next/dynamic";
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChartDateTimeData,
   lineChartOptions,
@@ -30,7 +30,17 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
     })),
   };
 
-  const [state] = useState(schema);
+  const [state, setState] = useState(schema);
+
+  useEffect(() => {
+    setState({
+      options: lineChartOptions(datas),
+      series: Object.keys(datas).map((key) => ({
+        name: key,
+        data: datas[key].values,
+      })),
+    });
+  }, [datas]);
 
   if (typeof window === undefined) return null;
 

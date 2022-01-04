@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:36 PM
+ * Last Modified 1/4/22, 3:58 PM
  *
  *
  */
@@ -33,8 +33,6 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
   selectedMember,
   selectedRole,
 }) => {
-  console.log(selectedRole);
-
   const router = useRouter();
   const { user } = useAuthStore();
 
