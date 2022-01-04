@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:16 PM
+ * Last Modified 1/4/22, 3:45 PM
  *
  *
  */
@@ -113,6 +113,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
                 <div className="flex flex-col  space-y-2 ">
                   <TableView
                     data={test.report}
+                    search={false}
                     tableRowComponent={<ProfileTestGridTableRow />}
                     tableHeadings={["Test Name", "Test Value", "Test Note"]}
                   />

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 11:10 AM
+ * Last Modified 1/4/22, 3:44 PM
  *
  *
  */
@@ -228,6 +228,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                       "Test Result",
                       "Test Notes",
                     ]}
+                    search={false}
                     tableRowComponent={<ProfileTestTableRow />}
                   />
                 </Tab.Panel>
