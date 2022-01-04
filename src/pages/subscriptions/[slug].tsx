@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 7:49 PM
  *
  *
  */
@@ -19,8 +19,12 @@ import { useTestList } from "@/services/requests/testRequests";
 import React, { useEffect, useState } from "react";
 import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
 import { Loader } from "@/components/Loader";
+import { useRouter } from "next/router";
 
-const SubscriptionDetailsPage: NextPage = ({ role, slug, id }: any) => {
+const SubscriptionDetailsPage: NextPage = () => {
+  const router = useRouter();
+  const { id, role, slug } = router.query;
+
   const [loading, setLoading] = useState(false);
 
   const selectedSubscription = useSubscriptionStore

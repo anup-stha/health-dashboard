@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:44 PM
+ * Last Modified 1/4/22, 6:24 PM
  *
  *
  */
@@ -122,15 +122,18 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
               Please choose a test to show results of that test
             </h1>
           </div>
-          <div className="print:flex hidden flex-col  gap-4 w-full ">
-            <div className="flex justify-between items-center w-full">
+          <div className="print:flex hidden flex-col w-full -mb-8">
+            <div className="flex justify-between items-end w-full">
               <div className="flex flex-col gap-4">
                 <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
                   {selectedTestInProfile.name} Report
                 </h1>
                 {selectedMember && (
                   <div>
-                    <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
+                    <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
+                      Id: {selectedMember.member_code}
+                    </h1>
+                    <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
                       Name: {selectedMember.name}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
@@ -149,17 +152,25 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 )}
               </div>
 
-              <div className="relative w-96 h-64   ">
+              <div className="self-start flex flex-col items-center">
                 <Image
-                  src="/sunya.png"
-                  layout="fill"
-                  objectFit="fill"
+                  src="/sunya.svg"
+                  layout="fixed"
+                  width={250}
+                  height={100}
+                  objectFit="contain"
                   alt="Profile Image"
                   priority={true}
-                />
+                />{" "}
+                <h1 className="text-slate-900 font-semibold text-xl tracking-wider pt-4 ">
+                  Kathmandu, Nepal
+                </h1>
+                <h1 className="text-slate-900 font-semibold text-xl tracking-wider ">
+                  Email: contact@sunya.health
+                </h1>
               </div>
             </div>
-            <div className="fixed bottom-20 w-full font-semibold">
+            <div className="fixed bottom-10 w-full font-semibold">
               <div className="flex w-full items-center">
                 <div>
                   Printed By Sunya Health ({" "}
@@ -181,14 +192,14 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
 
           {Object.keys(testDetails).length !== 0 ? (
             <Tab.Group>
-              <div className="flex justify-between items-center ">
+              <div className="flex justify-between items-center">
                 <Tab.List className="space-x-4 print:hidden">
                   <Tab
                     className={({ selected }) =>
                       classNames(
                         selected
                           ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
-                          : "py-3 px-10 rounded-sm text-xl  text-gray-700 font-semibold hover:bg-gray-200"
+                          : "py-3 px-10 rounded-sm text-xl text-gray-700 font-semibold hover:bg-gray-200"
                       )
                     }
                   >
@@ -216,7 +227,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                   Print
                 </div>
               </div>
-              <hr className="border-t-[1px] border-gray-200" />
+              <hr className="border-t-[1px] border-gray-200 " />
 
               <Tab.Panels>
                 <Tab.Panel>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:31 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 6:54 PM
  *
  *
  */
@@ -19,9 +19,9 @@ export const ProfileSubsData: React.FC<ProfileSubsDataProps> = ({
   return (
     <div className="flex space-x-4 items-center">
       <p className="text-gray-700 font-semibold text-xl tracking-wider  ">
-        {title}:
+        {title}
       </p>
-      <h1 className="text-gray-500 font-semibold text-xl tracking-wider  ">
+      <h1 className="text-gray-500 font-semibold text-xl tracking-wider line-clamp-1  ">
         {value}
       </h1>
     </div>

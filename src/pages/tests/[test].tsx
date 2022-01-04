@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/4/22, 7:48 PM
  *
  *
  */
@@ -12,11 +12,14 @@ import { MainLayout } from "@/layout/MainLayout";
 import { TestDetails } from "@/modules/tests/testDetails";
 import { testStore } from "@/modules/tests/testStore";
 import { getTests } from "@/services/requests/testRequests";
-import { GetServerSidePropsContext, NextPage } from "next";
+import { NextPage } from "next";
 import { useEffect } from "react";
 import { Loader } from "@/components/Loader";
+import { useRouter } from "next/router";
 
-const Test: NextPage<any> = ({ idX }) => {
+const Test: NextPage<any> = () => {
+  const router = useRouter();
+  const idX = router.query.test;
   const { setSelectedTest, setTestList, setLoading, loading } = testStore();
 
   useEffect(() => {
@@ -37,13 +40,3 @@ const Test: NextPage<any> = ({ idX }) => {
 };
 
 export default withAuth(withRole(Test));
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  return {
-    props: {
-      idX: context.query.test,
-    },
-  };
-};

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 8:09 AM
+ * Last Modified 1/4/22, 7:44 PM
  *
  *
  */
@@ -25,6 +25,8 @@ import { WarningOctagon } from "phosphor-react";
 import { SubscriptionDropdown } from "@/modules/members/modal/memberSubscriptionModal";
 import { ProfileSubsData } from "@/modules/members/others/MemberProfileSubsData";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { Disclosure } from "@headlessui/react";
+import { ChevronDown } from "react-feather";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -75,12 +77,7 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
 
         dataLabels: {
           show: true,
-          name: {
-            offsetY: -10,
-            show: true,
-            color: "#aaa",
-            fontSize: "17px",
-          },
+
           value: {
             formatter: function () {
               return end.diff(new Date(), "hours") < 0
@@ -92,8 +89,18 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   }`;
             },
             color: "#555",
-            fontSize: "36px",
+            fontSize: "3rem",
+            fontWeight: "semibold",
+            fontFamily: "Raleway",
             show: true,
+            offsetY: -18,
+          },
+          name: {
+            offsetY: 28,
+            show: true,
+            color: "#aaa",
+            fontSize: "1.4rem",
+            fontFamily: "Raleway",
           },
         },
       },
@@ -197,12 +204,11 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   height="225"
                 />
               )}
-            </div>
-            <div className="p-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full sm:items-center  ">
-              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider   ">
-                {selectedMemberSubscription.plan.name}
-              </h1>
-
+            </div>{" "}
+            <h1 className="text-gray-900 font-semibold text-2xl tracking-wider -mt-6 mb-4 line-clamp-1">
+              {selectedMemberSubscription.plan.name}
+            </h1>
+            <div className="py-4 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full sm:items-center  ">
               <div className="space-y-1 flex flex-col items-start">
                 <ProfileSubsData
                   title={"Start Date: "}
@@ -237,30 +243,55 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   value={`${selectedMemberSubscription.total_test_count} times`}
                 />
               </div>
-              {user.id === 1 && (
-                <div className={"w-full flex space-x-4 mt-2 justify-center"}>
-                  {Object.keys(selectedMemberSubscription).length !== 0 && (
-                    <GrayButton>Renew</GrayButton>
-                  )}
-                  <WarningButton
-                    onClick={async () => {
-                      await alert({
-                        type: "promise",
-                        promise: removeSubscriptionFromMember(
-                          Number(router.query.id)
-                        ),
-                        msgs: {
-                          loading: "Removing",
-                        },
-                        id: "remove-subs",
-                      });
-                    }}
-                  >
-                    Unlink
-                  </WarningButton>
-                </div>
-              )}
             </div>
+            {selectedMemberSubscription.plan.test_categories.map((category) => (
+              <div
+                className="py-2 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start space-y-2 sm:w-full sm:items-center mt-4 "
+                key={category.id}
+              >
+                <Disclosure>
+                  <Disclosure.Button className="py-2 w-full flex items-center justify-between font-semibold text-xl tracking-wider text-gray-800">
+                    {category.name}
+                    <span>
+                      <ChevronDown />
+                    </span>
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="text-gray-500">
+                    {category.sub_categories.map((sub_category) => (
+                      <span
+                        key={sub_category.id}
+                        className="text-gray-500 font-medium text-lg tracking-wider line-clamp-1 capitalize  "
+                      >
+                        {sub_category.name}
+                      </span>
+                    ))}
+                  </Disclosure.Panel>
+                </Disclosure>
+              </div>
+            ))}
+            {user.id === 1 && (
+              <div className={"w-full flex space-x-4 mt-4 self-start"}>
+                {Object.keys(selectedMemberSubscription).length !== 0 && (
+                  <GrayButton>Renew</GrayButton>
+                )}
+                <WarningButton
+                  onClick={async () => {
+                    await alert({
+                      type: "promise",
+                      promise: removeSubscriptionFromMember(
+                        Number(router.query.id)
+                      ),
+                      msgs: {
+                        loading: "Removing",
+                      },
+                      id: "remove-subs",
+                    });
+                  }}
+                >
+                  Unlink
+                </WarningButton>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:36 PM
+ * Last Modified 1/4/22, 7:00 PM
  *
  *
  */
@@ -386,7 +386,7 @@ export type MemberSubscriptionDetails = {
     grace_period: number;
     sync_limit: number;
     test_limit: number;
-    test_categories: [];
+    test_categories: Test[];
   };
 };
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:57 PM
+ * Last Modified 1/4/22, 6:17 PM
  *
  *
  */
@@ -45,7 +45,7 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
   if (typeof window === undefined) return null;
 
   return (
-    <div className="p-4 sm:px-0 mb-12  shadow-xl ring-1 ring-gray-300/40 rounded-lg print:hidden">
+    <div className="p-4 sm:px-0 mb-12 shadow-xl ring-1 ring-gray-300/40 rounded-lg print:hidden">
       <Chart
         options={state.options}
         series={state.series}

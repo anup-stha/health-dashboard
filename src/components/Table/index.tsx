@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:45 PM
+ * Last Modified 1/4/22, 6:03 PM
  *
  *
  */
@@ -41,9 +41,9 @@ export const TableView: React.FC<TableViewPropsType> = ({
     : tableData.length !== 0 && Object.keys(tableData[0]);
 
   return !loading ? (
-    <div className={"flex flex-col space-y-2"}>
+    <div className={"flex flex-col space-y-2 print:px-4"}>
       {search && (
-        <div className="flex space-x-6 max-w-xl relative print:hidden">
+        <div className="flex space-x-6 max-w-xl relative print:hidden ml-1">
           <SearchInput
             value={searchTerm}
             onChange={(e) => {
@@ -104,9 +104,9 @@ export const TableView: React.FC<TableViewPropsType> = ({
         </div>
       ) : (
         <div className="flex flex-col">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto print:overflow-hidden print:scrollbar">
             <div className="px-1 py-2 align-middle inline-block min-w-full">
-              <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-lg">
+              <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-sm">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-100">
                     <tr>
