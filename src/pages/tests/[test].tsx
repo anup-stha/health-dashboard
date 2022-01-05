@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 7:48 PM
+ * Last Modified 1/5/22, 11:41 AM
  *
  *
  */
@@ -25,6 +25,7 @@ const Test: NextPage<any> = () => {
   useEffect(() => {
     const listTestFn = async () => {
       setLoading(true);
+      if (!idX) return;
       await getTests()
         .then((res) => {
           setTestList(res.data.data);

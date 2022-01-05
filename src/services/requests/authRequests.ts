@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 8:49 PM
+ * Last Modified 1/5/22, 11:37 AM
  *
  *
  */
@@ -22,6 +22,7 @@ import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { queryClient } from "@/pages/_app";
+import { getGlobalStates } from "@/services/requests/globalRequests";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -31,9 +32,10 @@ export const login = (loginRequest: LoginRequest) => {
         password: loginRequest.password,
         device_type: "w",
       })
-      .then((response) => {
+      .then(async (response) => {
         useAuthStore.getState().setUserData(response.data);
         Router.push("/dashboard");
+        await getGlobalStates();
         resolve("Logged In Successfully");
       })
       .catch((error) => {
@@ -60,7 +62,6 @@ export const logOut = () => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
         queryClient.clear();
-        localStorage.clear();
 
         Router.push("/");
         resolve("Logged Out Successfully");

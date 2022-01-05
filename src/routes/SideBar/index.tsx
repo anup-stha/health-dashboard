@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:21 PM
+ * Last Modified 1/5/22, 11:48 AM
  *
  *
  */
@@ -13,10 +13,13 @@ import { useSideBarStore } from "./useSideBarStore";
 import React from "react";
 import { NavBar } from "./NavBar";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useGlobalState } from "@/modules/useGlobalState";
 
 export const Sidebar: React.FC = () => {
-  const { open } = useSideBarStore();
-  const { user } = useAuthStore();
+  const open = useSideBarStore((state) => state.open);
+  const user = useAuthStore((state) => state.user);
+  const systemVersion = useGlobalState((state) => state.base.system_version);
+
   return (
     <nav
       className={`${
@@ -73,9 +76,13 @@ export const Sidebar: React.FC = () => {
           <div className="p-1">
             <Image src={SuperUserIlustration} alt="Super User Illustration" />
           </div>
-
-          <div className="text-sm text-gray-700 font-bold text-center">
-            &#169; Copyright by Sunya Health Pvt. Ltd.
+          <div>
+            <div className="text-sm text-gray-700 font-bold text-center">
+              &#169; Copyright by Sunya Health Pvt. Ltd.
+            </div>{" "}
+            <div className="text-sm text-gray-700 font-bold text-center">
+              System Version {systemVersion.toUpperCase()}
+            </div>
           </div>
         </div>
       )}

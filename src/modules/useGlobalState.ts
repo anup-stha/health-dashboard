@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:56 AM
+ * Last Modified 1/5/22, 11:23 AM
  *
  *
  */
@@ -32,9 +32,7 @@ const store = combine(initialState, (set) => ({
   },
 
   clearGlobalState: () => {
-    set({
-      base: {} as typeof initialState.base,
-    });
+    set({});
   },
 }));
 

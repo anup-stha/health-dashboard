@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/4/22, 10:56 AM
+ * Last Modified 1/5/22, 11:30 AM
  *
  *
  */
@@ -15,7 +15,6 @@ export const getGlobalStates = () => {
     privateAgent
       .get<GlobalStateResponse>("/setup")
       .then((response) => {
-        console.log(response);
         useGlobalState.getState().setBasicGlobalState(response.data.data);
         resolve("Added Successfully");
       })
