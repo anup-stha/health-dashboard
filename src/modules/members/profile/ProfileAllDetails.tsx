@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 2:53 PM
+ * Last Modified 1/5/22, 6:44 PM
  *
  *
  */
@@ -14,7 +14,7 @@ import { useMemberStore } from "@/modules/members/useMemberStore";
 import { GenderNeuter, WarningOctagon } from "phosphor-react";
 import moment from "moment";
 import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDetail";
-import { Member, Role } from "@/types";
+import { Member, MemberDetails, Role } from "@/types";
 import { MemberDetailAddModal } from "../modal/MemberDetailAddModal";
 
 type MemberDetailsProps = {
@@ -24,13 +24,13 @@ type MemberDetailsProps = {
   selectedMember: Member;
 };
 
-export const MemberDetails: React.FC<MemberDetailsProps> = ({
+export const ProfileAllDetails: React.FC<MemberDetailsProps> = ({
   active,
   verified,
   selectedRole,
   selectedMember,
 }) => {
-  const { selectedMemberDetails: otherDetails } = useMemberStore();
+  const otherDetails = useMemberStore((state) => state.selectedMemberDetails);
 
   return (
     <div className="print:hidden relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
@@ -116,44 +116,11 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
                 </>
               )}
             </div>
-            <div className="self-stretch w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
-              <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll sidebar h-full bg-local">
-                <p className="text-2xl font-semibold text-gray-900">
-                  Other Info
-                </p>
-
-                {otherDetails.length === 0 ? (
-                  <>
-                    <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
-                      <WarningOctagon size={24} /> <span>No Details Found</span>
-                      <MemberDetailAddModal
-                        memberData={selectedMember}
-                        selectedRole={selectedRole}
-                      >
-                        <span
-                          className={"text-gray-600 cursor-pointer underline"}
-                        >
-                          Please add details
-                        </span>
-                      </MemberDetailAddModal>
-                    </div>
-                  </>
-                ) : (
-                  otherDetails.map((details) => (
-                    <div className="flex items-center gap-x-2" key={details.id}>
-                      <div className="text-gray-800">
-                        <Bookmark />
-                      </div>
-
-                      <div className="space-x-2">
-                        <span>{details.name}:</span>
-                        <span className="font-semibold">{details.value}</span>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
+            <ProfileOtherDetails
+              details={otherDetails}
+              selectedMember={selectedMember}
+              selectedRole={selectedRole}
+            />
           </div>
         </div>
       )}
@@ -163,3 +130,62 @@ export const MemberDetails: React.FC<MemberDetailsProps> = ({
 
 export const dateConvert = (epochInSec: number) =>
   moment(epochInSec * 1000).format("MMMM Do YYYY");
+
+/*
+ * Super Admin is sent here as props
+ * To check whether the details are for superadmin.
+ * if it is for superadmin. then the check determines
+ * whether to show the modal or not.
+ * */
+
+type profileOtherDetailsType = {
+  details: MemberDetails[] | "superadmin";
+  selectedMember: Member;
+  selectedRole: Role;
+};
+
+export const ProfileOtherDetails: React.FC<profileOtherDetailsType> = ({
+  details: otherDetails,
+  selectedMember,
+  selectedRole,
+}) => {
+  return (
+    <div className="self-stretch w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
+      <div className="bg-gray-50 p-6 rounded-lg flex flex-col space-y-4 overflow-y-scroll sidebar h-full bg-local">
+        <p className="text-2xl font-semibold text-gray-900">Other Info</p>
+
+        {otherDetails.length === 0 || otherDetails === "superadmin" ? (
+          <>
+            <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+              <WarningOctagon size={24} /> <span>No Details Found</span>
+              {otherDetails !== "superadmin" && (
+                <MemberDetailAddModal
+                  otherDetails={otherDetails}
+                  memberData={selectedMember}
+                  selectedRole={selectedRole}
+                >
+                  <span className={"text-gray-600 cursor-pointer underline"}>
+                    Please add details
+                  </span>
+                </MemberDetailAddModal>
+              )}
+            </div>
+          </>
+        ) : (
+          otherDetails.map((details) => (
+            <div className="flex items-center gap-x-2" key={details.id}>
+              <div className="text-gray-800">
+                <Bookmark />
+              </div>
+
+              <div className="space-x-2">
+                <span>{details.name}:</span>
+                <span className="font-semibold">{details.value}</span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};

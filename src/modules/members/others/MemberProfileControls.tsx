@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:58 PM
+ * Last Modified 1/5/22, 6:44 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { PatientMedicalHistoryModal } from "@/modules/members/modal/PatientMedicalHistoryModal";
-import { Member, Role } from "@/types";
+import { Member, MemberDetails, Role } from "@/types";
 import omit from "lodash/omit";
 import { MemberModal } from "@/modules/members/modal/memberModal";
 
@@ -23,6 +23,7 @@ type MemberProfileControlProps = {
   setVerified: React.Dispatch<React.SetStateAction<boolean>>;
   selectedMember: Member;
   selectedRole: Role;
+  otherDetails: MemberDetails[];
 };
 
 export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
@@ -32,6 +33,7 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
   setVerified,
   selectedMember,
   selectedRole,
+  otherDetails,
 }) => {
   const router = useRouter();
   const { user } = useAuthStore();
@@ -54,6 +56,7 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
           selectedRole.slug === "individual") && <PatientMedicalHistoryModal />}
 
         <MemberDetailAddModal
+          otherDetails={otherDetails}
           memberData={selectedMember}
           selectedRole={selectedRole}
         />

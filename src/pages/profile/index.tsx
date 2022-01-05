@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 5:55 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/5/22, 6:41 PM
  *
  *
  */
@@ -23,7 +23,7 @@ const Profile = () => {
     const getProfile = async () => {
       setLoading(true);
       await getCurrentUserProfile()
-        .then((response) => setLoading(false))
+        .then(() => setLoading(false))
         .catch(() => setLoading(false));
     };
 

@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:06 PM
+ * Last Modified 1/5/22, 7:08 PM
  *
  *
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { Member, MemberDetailCategory, Role } from "@/types";
+import { Member, MemberDetailCategory, MemberDetails, Role } from "@/types";
 import React, { Fragment, useEffect } from "react";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { alert } from "@/components/Alert";
@@ -15,10 +15,12 @@ import { addDetailsToMember } from "@/services/requests/memberRequests";
 import { Button } from "@/components/Button";
 import { WarningOctagon } from "phosphor-react";
 import { useRouter } from "next/router";
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useForm } from "react-hook-form";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 type MemberDetailAddModalProps = {
+  otherDetails: MemberDetails[];
+
   memberData: Member;
   children?: React.ReactNode;
   selectedRole: Role;
@@ -28,10 +30,11 @@ export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
   memberData,
   children,
   selectedRole,
+  otherDetails: selectedMemberDetails,
 }) => {
   const router = useRouter();
-  const { selectedMemberDetails } = useMemberStore();
   const { register, handleSubmit, reset } = useForm();
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     reset(
@@ -44,6 +47,7 @@ export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
     );
     return () => reset();
   }, [JSON.stringify(selectedMemberDetails)]);
+
   return (
     <Modal>
       <Modal.Button type={"open"}>
@@ -61,19 +65,25 @@ export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
           {"'s"} Details
         </Modal.Title>
         {selectedRole &&
-        selectedRole.member_detail_categories &&
-        selectedRole.member_detail_categories.length === 0 ? (
+        (!selectedRole.member_detail_categories ||
+          selectedRole.member_detail_categories.length === 0) ? (
           <div className="flex items-center text-red-500 space-x-4">
             <WarningOctagon size={40} />{" "}
             <span className={"font-semibold text-xl"}>
-              No Member Details Field Found. Please add a member details field
-              to this role{" "}
-              <span
-                onClick={() => router.push(`/roles/${router.query.role}`)}
-                className="cursor-pointer"
-              >
-                here
-              </span>
+              No Member Details Field Found.
+              {user.id === 1 ? (
+                <>
+                  Please add a member details field to this role{" "}
+                  <span
+                    onClick={() => router.push(`/roles/${router.query.role}`)}
+                    className="cursor-pointer"
+                  >
+                    here
+                  </span>
+                </>
+              ) : (
+                <>Please contact Administrator</>
+              )}
             </span>
           </div>
         ) : (

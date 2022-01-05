@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/4/22, 3:24 PM
+ * Last Modified 1/5/22, 6:46 PM
  *
  *
  */
@@ -13,7 +13,7 @@ import { useTestList } from "@/services/requests/testRequests";
 import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMemberList";
 import { Loader } from "@/components/Loader";
 import React, { useEffect, useState } from "react";
-import { MemberDetails } from "@/modules/members/profile/MemberDetails";
+import { ProfileAllDetails } from "@/modules/members/profile/ProfileAllDetails";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { ProfileTestComponent } from "@/modules/members/profile/ProfileTestComponent";
 import { ProfileMedicalHistory } from "@/modules/members/MemberProfile";
@@ -40,6 +40,7 @@ export const SubMemberProfile = () => {
   const { isFetching: memberDetailsFetching } = useMemberDetails(
     Number(idX.member_id)
   );
+  const otherDetails = useMemberStore((state) => state.selectedMemberDetails);
 
   const loading =
     memberDetailsFetching ||
@@ -81,7 +82,7 @@ export const SubMemberProfile = () => {
     <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
       <div className="w-3/4 space-y-8 lg:w-full">
         {selectedMember && selectedRole && (
-          <MemberDetails
+          <ProfileAllDetails
             active={active}
             verified={verified}
             selectedMember={selectedMember}
@@ -108,6 +109,7 @@ export const SubMemberProfile = () => {
             setVerified={setVerified}
             selectedMember={selectedMember}
             selectedRole={roleDetailsData?.data.data}
+            otherDetails={otherDetails}
           />
         )}
       </div>

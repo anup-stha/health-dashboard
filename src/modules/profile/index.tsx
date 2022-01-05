@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 2:54 PM
+ * Last Modified 1/5/22, 7:08 PM
  *
  *
  */
@@ -19,9 +19,15 @@ import { GenderNeuter } from "phosphor-react";
 import { ProfileUpdateModal } from "@/modules/profile/modal/ProfileUpdateModal";
 import { ProfileSubscription } from "@/modules/members/profile/ProfileSubscription";
 import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDetail";
+import { useMemberDetails } from "@/modules/members/api/hooks/useMemberDetails";
+import { ProfileOtherDetails } from "@/modules/members/profile/ProfileAllDetails";
+import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
+  const { data, isLoading } = useMemberDetails(Number(user.id));
+
+  console.log(data);
 
   const onLogOut = async () => {
     await alert({
@@ -36,7 +42,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <>
-      <div className="flex gap-8 p-10 sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
+      <div className="flex gap-8 p-10 items-start sm:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
         <div className="relative w-3/4 bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
           <div className="relative w-full h-52 z-0 profile " />
 
@@ -123,40 +129,29 @@ export const ProfilePage: React.FC = () => {
                   <span className="capitalize">Gender: {user.gender}</span>
                 </div>
               </div>
-              <div className="w-3/5 text-lg flex flex-col gap-6 font-medium text-gray-70 sm:w-full">
-                <div className="bg-gray-50 h-1/2 p-6 rounded-lg flex flex-col justify-between">
-                  <p className="text-2xl font-semibold text-gray-900">
-                    Short Summary
-                  </p>
-                  <span>N/A</span>
-                </div>
 
-                <div className="bg-gray-50 h-1/2 p-4 rounded-lg flex sm:w-full">
-                  <div className="flex flex-col justify-between w-3/4 p-2 ">
-                    <div className="flex justify-between items-center">
-                      <p className="text-2xl font-semibold text-gray-900">
-                        Activity
-                      </p>
-                    </div>
-
-                    <span>N/A</span>
-                  </div>
-                  <div className="w-1/4 border-l-2 border-gray-300 flex items-center justify-center">
-                    <p className="text-green-500 text-xl font-bold cursor-pointer sm:whitespace-nowrap sm:pl-2">
-                      See More
-                    </p>
-                  </div>
-                </div>
-              </div>
+              {!isLoading && (
+                <ProfileOtherDetails
+                  details={data?.data.data ?? "superadmin"}
+                  selectedMember={user}
+                  selectedRole={user.role}
+                />
+              )}
             </div>
           </div>
         </div>
         <div className="w-1/4 flex flex-col gap-8 sm:w-full">
-          <ProfileSubscription member_id={user.member_id} />
+          {user.id !== 1 && <ProfileSubscription member_id={user.member_id} />}
 
           <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
             <ProfileUpdateModal />
             <PasswordModal />
+            <MemberDetailAddModal
+              otherDetails={data?.data.data ?? []}
+              memberData={user}
+              selectedRole={user.role}
+            />
+            <hr className={" border-t-2 border-gray-200 "} />
             <div
               onClick={() => onLogOut()}
               className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850"

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:24 PM
+ * Last Modified 1/5/22, 6:45 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import Image from "next/image";
 import Error from "@/styles/404.svg";
 import { useRouter } from "next/router";
 
-import { MemberDetails } from "@/modules/members/profile/MemberDetails";
+import { ProfileAllDetails } from "@/modules/members/profile/ProfileAllDetails";
 import { ProfileTestComponent } from "@/modules/members/profile/ProfileTestComponent";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { ProfileSubscription } from "@/modules/members/profile/ProfileSubscription";
@@ -65,6 +65,8 @@ export const MemberProfile: React.FC = () => {
 
   const selectedMember = useMemberStore((state) => state.selectedMember);
   const selectedRole = useMemberStore((state) => state.selectedRole);
+  const otherDetails = useMemberStore((state) => state.selectedMemberDetails);
+
   const [active, setActive] = useState(
     selectedMember ? selectedMember.active : false
   );
@@ -88,7 +90,7 @@ export const MemberProfile: React.FC = () => {
   ) : (
     <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
       <div className="w-3/4 space-y-8 lg:w-full">
-        <MemberDetails
+        <ProfileAllDetails
           active={active}
           verified={verified}
           selectedMember={selectedMember}
@@ -114,6 +116,7 @@ export const MemberProfile: React.FC = () => {
           setActive={setActive}
           setVerified={setVerified}
           selectedMember={selectedMember}
+          otherDetails={otherDetails}
           selectedRole={roleDetailsData?.data.data}
         />
       </div>
