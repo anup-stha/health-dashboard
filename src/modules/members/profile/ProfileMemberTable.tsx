@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/4/22, 2:44 PM
+ * Last Modified 1/5/22, 1:27 PM
  *
  *
  */
@@ -41,7 +41,7 @@ export const ProfileMemberTable: React.FC = () => {
     setSelectedRole(roleList[0]);
   }, [roleList, router]);
 
-  if (isLoading && !selectedRole && roleListBySlugLoading) return <div />;
+  if (isLoading || !selectedRole || roleListBySlugLoading) return <div />;
 
   return (
     <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">

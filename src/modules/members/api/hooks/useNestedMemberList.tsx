@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 8:37 PM
+ * Last Modified 1/5/22, 1:34 PM
  *
  *
  */
@@ -19,7 +19,7 @@ export const useNestedMemberList = (
     ["member-list-nested", roleId, parentId],
     () => getNestedMemberList(roleId, parentId),
     {
-      enabled: roleId !== 0 || parentId !== 0,
+      enabled: !isNaN(roleId) || !isNaN(parentId),
       onSuccess: (response) => {
         useMemberStore.getState().setMemberListBySlug(response.data);
         try {

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 9:32 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/5/22, 1:13 PM
  *
  *
  */
@@ -93,11 +93,19 @@ export const addTestCategory = (body: AddTestCategoryBody) => {
       .then((response) => {
         const subCategories = testStore.getState().selectedTest.sub_categories;
         const newCategory = response.data.data;
+        const newTest = {
+          ...testStore.getState().selectedTest,
+          sub_categories: [...subCategories, newCategory],
+        };
 
         testStore.getState().setSelectedTest({
           ...testStore.getState().selectedTest,
           sub_categories: [...subCategories, newCategory],
         });
+
+        testStore
+          .getState()
+          .setTestList([...testStore.getState().testList, newTest]);
         resolve("Added");
       })
       .catch((error) => reject(error.response))

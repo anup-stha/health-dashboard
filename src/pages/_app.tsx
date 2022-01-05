@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 12:02 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/5/22, 1:19 PM
  *
  *
  */
@@ -22,6 +22,7 @@ export const queryClient = new QueryClient({
     queries: {
       retry: false,
       refetchOnWindowFocus: false,
+      refetchOnReconnect: "always",
     },
   },
 });
