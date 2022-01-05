@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 7:08 PM
+ * Last Modified 1/5/22, 7:42 PM
  *
  *
  */
@@ -74,12 +74,14 @@ export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
               {user.id === 1 ? (
                 <>
                   Please add a member details field to this role{" "}
-                  <span
-                    onClick={() => router.push(`/roles/${router.query.role}`)}
-                    className="cursor-pointer"
-                  >
-                    here
-                  </span>
+                  {router.query.role && (
+                    <span
+                      onClick={() => router.push(`/roles/${router.query.role}`)}
+                      className="cursor-pointer"
+                    >
+                      here
+                    </span>
+                  )}
                 </>
               ) : (
                 <>Please contact Administrator</>
