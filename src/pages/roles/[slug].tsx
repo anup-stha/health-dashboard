@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/6/22, 12:14 PM
  *
  *
  */
@@ -22,10 +22,11 @@ import { useEffect } from "react";
 import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 import { useRouter } from "next/router";
 import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
+import { MainHead } from "@/layout/MainHead";
 
 const RoleDetailPage = () => {
   const router = useRouter();
-  const idX = router.query.permission;
+  const idX = router.query.id;
 
   const { isLoading } = useAllRoleList();
 
@@ -69,43 +70,47 @@ const RoleDetailPage = () => {
   }, [idX]);
 
   return (
-    <MainLayout>
-      {loading === false && !isLoading && Number(idX) !== 1 ? (
-        <div className="px-10 py-10 overflow-visible sm:p-6">
-          <div className="flex flex-col space-y-8">
-            <div className="flex items-end space-x-2 ">
-              <h1 className="text-5xl font-semibold text-gray-900">
-                {selectedRole &&
-                  allRoleList.data.filter((role) => role.id === Number(idX))[0]
-                    .name}
-              </h1>
-            </div>
-
-            <hr className="border-t-[1px] border-gray-200" />
-
-            <Permissions />
-            <hr className="border-t-[1px] border-gray-200" />
-
-            <div className="space-y-6">
-              <div>
-                <h1 className="text-3xl font-semibold text-gray-900">
-                  Alert Zone
+    <>
+      <MainHead title={`Roles - ${router.query.slug}`} />
+      <MainLayout>
+        {loading === false && !isLoading && Number(idX) !== 1 ? (
+          <div className="px-10 py-10 overflow-visible sm:p-6">
+            <div className="flex flex-col space-y-8">
+              <div className="flex items-end space-x-2 ">
+                <h1 className="text-5xl font-semibold text-gray-900 capitalize">
+                  {selectedRole &&
+                    allRoleList.data.filter(
+                      (role) => role.id === Number(idX)
+                    )[0].name}
                 </h1>
-                <p className="text-lg font-semibold text-gray-500">
-                  Please be careful with anything you do here
-                </p>
-              </div>{" "}
-              <RoleMemberCategory />
-              <UpdateZone idX={idX} />
-              <DeleteZone />
+              </div>
+
+              <hr className="border-t-[1px] border-gray-200" />
+
+              <Permissions />
+              <hr className="border-t-[1px] border-gray-200" />
+
+              <div className="space-y-6">
+                <div>
+                  <h1 className="text-3xl font-semibold text-gray-900">
+                    Alert Zone
+                  </h1>
+                  <p className="text-lg font-semibold text-gray-500">
+                    Please be careful with anything you do here
+                  </p>
+                </div>{" "}
+                <RoleMemberCategory />
+                <UpdateZone idX={idX} />
+                <DeleteZone />
+              </div>
+              <hr className="border-t-[1px] border-gray-200" />
             </div>
-            <hr className="border-t-[1px] border-gray-200" />
           </div>
-        </div>
-      ) : (
-        <PermissionPageLoadingState count={1} />
-      )}
-    </MainLayout>
+        ) : (
+          <PermissionPageLoadingState count={1} />
+        )}
+      </MainLayout>
+    </>
   );
 };
 

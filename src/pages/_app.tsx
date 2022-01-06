@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 1:19 PM
+ * Last Modified 1/6/22, 10:54 AM
  *
  *
  */
@@ -17,6 +17,8 @@ import { ToastComponent } from "@/components/Alert/Toast";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+import Head from "next/head";
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,15 +29,99 @@ export const queryClient = new QueryClient({
   },
 });
 
+const favicons: any = [
+  {
+    rel: "apple-touch-icon",
+    sizes: "57x57",
+    href: "/favicon/apple-icon-57x57.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "60x60",
+    href: "/favicon/apple-icon-60x60.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "72x72",
+    href: "/favicon/apple-icon-72x72.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "76x76",
+    href: "/favicon/apple-icon-76x76.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "114x114",
+    href: "/favicon/apple-icon-114x114.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "120x120",
+    href: "/favicon/apple-icon-120x120.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "144x144",
+    href: "/favicon/apple-icon-144x144.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "152x152",
+    href: "/favicon/apple-icon-152x152.png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "180x180",
+    href: "/favicon/apple-icon-180x180.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "192x192",
+    href: "/favicon/android-icon-192x192.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "32x32",
+    href: "/favicon/favicon-32x32.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "96x96",
+    href: "/favicon/favicon-96x96.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "16x16",
+    href: "/favicon/favicon-16x16.png",
+  },
+  {
+    rel: "manifest",
+    href: "/favicon/manifest.json",
+  },
+];
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SkeletonTheme>
-        <Component {...pageProps} />
-        <ToastComponent />
-      </SkeletonTheme>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <>
+      <Head>
+        <title>Sunya Health</title>
+        {favicons.map((linkProps: any) => (
+          <link key={linkProps.href} {...linkProps} />
+        ))}
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <SkeletonTheme>
+          <Component {...pageProps} />
+          <ToastComponent />
+        </SkeletonTheme>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </>
   );
 };
 

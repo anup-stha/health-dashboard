@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/6/22, 11:59 AM
  *
  *
  */
@@ -13,11 +13,18 @@ import { TestPage } from "@/modules/tests";
 import { NextPage } from "next";
 import { useTestList } from "@/services/requests/testRequests";
 import { Loader } from "@/components/Loader";
+import React from "react";
+import { MainHead } from "@/layout/MainHead";
 
 const Tests: NextPage = () => {
   const { isLoading: testLoading } = useTestList();
 
-  return <MainLayout>{!testLoading ? <TestPage /> : <Loader />}</MainLayout>;
+  return (
+    <>
+      <MainHead title={`Tests`} />
+      <MainLayout>{!testLoading ? <TestPage /> : <Loader />}</MainLayout>;
+    </>
+  );
 };
 
 export default withAuth(withRole(Tests));

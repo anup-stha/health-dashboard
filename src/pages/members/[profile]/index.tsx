@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 4:56 PM
+ * Last Modified 1/6/22, 12:13 PM
  *
  *
  */
@@ -17,6 +17,7 @@ import { MainLayout } from "@/layout/MainLayout";
 import { MemberProfile } from "@/modules/members/MemberProfile";
 import { useRouter } from "next/router";
 import { useMemberStore } from "@/modules/members/useMemberStore";
+import { MainHead } from "@/layout/MainHead";
 
 const MemberProfilePage: NextPage<any> = () => {
   const router = useRouter();
@@ -31,9 +32,13 @@ const MemberProfilePage: NextPage<any> = () => {
   }, [router]);
 
   return (
-    <MainLayout>
-      <MemberProfile />
-    </MainLayout>
+    <>
+      <MainHead title={`Members - ${router.query.profile}`} />
+
+      <MainLayout>
+        <MemberProfile />
+      </MainLayout>
+    </>
   );
 };
 

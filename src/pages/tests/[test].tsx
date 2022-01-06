@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 11:41 AM
+ * Last Modified 1/6/22, 12:11 PM
  *
  *
  */
@@ -13,9 +13,10 @@ import { TestDetails } from "@/modules/tests/testDetails";
 import { testStore } from "@/modules/tests/testStore";
 import { getTests } from "@/services/requests/testRequests";
 import { NextPage } from "next";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Loader } from "@/components/Loader";
 import { useRouter } from "next/router";
+import { MainHead } from "@/layout/MainHead";
 
 const Test: NextPage<any> = () => {
   const router = useRouter();
@@ -37,7 +38,12 @@ const Test: NextPage<any> = () => {
     listTestFn();
   }, [idX]);
 
-  return <MainLayout>{!loading ? <TestDetails /> : <Loader />}</MainLayout>;
+  return (
+    <>
+      <MainHead title={`Test - ${router.query["test"]}`} />
+      <MainLayout>{!loading ? <TestDetails /> : <Loader />}</MainLayout>
+    </>
+  );
 };
 
 export default withAuth(withRole(Test));

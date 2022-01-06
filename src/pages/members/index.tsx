@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/30/21, 10:19 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/6/22, 11:49 AM
  *
  *
  */
 
 import type { NextPage } from "next";
-import Head from "next/head";
 
 import { withAuth } from "@/shared/hoc/withAuth";
 import { MemberPage } from "@/modules/members";
@@ -15,15 +14,15 @@ import { withRole } from "@/shared/hoc/withRole";
 import { useRoleList } from "@/services/requests/roleRequests";
 import { MainLayout } from "@/layout/MainLayout";
 import { Loader } from "@/components/Loader";
+import { NextSeo } from "next-seo";
+import React from "react";
 
 const Members: NextPage = () => {
   const { isLoading } = useRoleList();
 
   return (
     <>
-      <Head>
-        <title>Members</title>
-      </Head>
+      <NextSeo title={`Sunya Health | Members`} />
       <MainLayout>{!isLoading ? <MemberPage /> : <Loader />}</MainLayout>
     </>
   );

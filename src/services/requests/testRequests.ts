@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 1:13 PM
+ * Last Modified 1/6/22, 12:15 PM
  *
  *
  */
@@ -35,9 +35,7 @@ export const listTests = () => {
 };
 
 export const useTestList = () => {
-  return useQuery("test-list", () => listTests(), {
-    staleTime: Infinity,
-  });
+  return useQuery("test-list", () => listTests(), {});
 };
 
 export const addTest = (body: AddTestBody) => {

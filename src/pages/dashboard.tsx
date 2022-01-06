@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/6/22, 11:34 AM
  *
  *
  */
@@ -12,14 +12,18 @@ import { MainLayout } from "@/layout/MainLayout";
 import { AdminDashboard } from "@/modules/dashboard/AdminDashboard";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { OrgAdminDashboard } from "@/modules/org-admin/dashboard";
+import { NextSeo } from "next-seo";
 
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user.role;
 
   return (
-    <MainLayout>
-      {role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}
-    </MainLayout>
+    <>
+      <NextSeo title={"Sunya Health - Dashboard"} />
+      <MainLayout>
+        {role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}
+      </MainLayout>
+    </>
   );
 };
 

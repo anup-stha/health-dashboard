@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 7:49 PM
+ * Last Modified 1/6/22, 12:11 PM
  *
  *
  */
 
-import { GetServerSidePropsContext, NextPage } from "next";
+import { NextPage } from "next";
 import { MainLayout } from "@/layout/MainLayout";
 import {
   listSubscriptionDetail,
@@ -20,6 +20,8 @@ import React, { useEffect, useState } from "react";
 import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
 import { Loader } from "@/components/Loader";
 import { useRouter } from "next/router";
+import { MainHead } from "@/layout/MainHead";
+import { withRole } from "@/shared/hoc/withRole";
 
 const SubscriptionDetailsPage: NextPage = () => {
   const router = useRouter();
@@ -45,26 +47,17 @@ const SubscriptionDetailsPage: NextPage = () => {
   }, []);
 
   return (
-    <MainLayout>
-      {subsLoading || testLoading || loading ? (
-        <Loader />
-      ) : (
-        <SubsDescriptionPage selected={selectedSubscription} />
-      )}
-    </MainLayout>
+    <>
+      <MainHead title={`Subscriptions - ${slug}`} />
+      <MainLayout>
+        {subsLoading || testLoading || loading ? (
+          <Loader />
+        ) : (
+          <SubsDescriptionPage selected={selectedSubscription} />
+        )}
+      </MainLayout>
+    </>
   );
 };
 
-export default withAuth(SubscriptionDetailsPage);
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  return {
-    props: {
-      id: context.query.id,
-      role: context.query.role,
-      slug: context.query.slug,
-    },
-  };
-};
+export default withAuth(withRole(SubscriptionDetailsPage));

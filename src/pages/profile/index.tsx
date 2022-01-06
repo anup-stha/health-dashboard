@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 6:41 PM
+ * Last Modified 1/6/22, 11:59 AM
  *
  *
  */
@@ -14,6 +14,7 @@ import { getCurrentUserProfile } from "@/services/requests/authRequests";
 import { Loader } from "@/components/Loader";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
+import { MainHead } from "@/layout/MainHead";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -33,9 +34,13 @@ const Profile = () => {
   const { isLoading } = useMemberSubsDetails(user.member_id);
 
   return (
-    <MainLayout>
-      {loading && isLoading ? <Loader /> : <ProfilePage />}
-    </MainLayout>
+    <>
+      <MainHead title={`Profile`} />
+
+      <MainLayout>
+        {loading && isLoading ? <Loader /> : <ProfilePage />}
+      </MainLayout>
+    </>
   );
 };
 export default withAuth(Profile);

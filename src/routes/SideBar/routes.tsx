@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 1:23 PM
+ * Last Modified 1/6/22, 12:10 PM
  *
  *
  */
@@ -43,10 +43,11 @@ export type RouteObjectType =
     };
 
 const adminExtraRoute = [
-  "/roles/[permission]",
+  "/roles/[slug]",
   "/tests/[test]",
   "/members/[profile]",
   "/members/[profile]/[next-profile]",
+  "/subscriptions/[slug]",
 ];
 export const superAdminNavRoutes: RouteObjectType[] = [
   {
