@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 5:58 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/6/22, 7:42 PM
  *
  *
  */
@@ -20,7 +20,7 @@ type ChangePasswordFormData = {
   confirmNewPassword: string;
 };
 export const PasswordModal = () => {
-  const { handleSubmit, register } = useForm<ChangePasswordFormData>();
+  const { handleSubmit, register, reset } = useForm<ChangePasswordFormData>();
 
   return (
     <Modal>
@@ -51,9 +51,10 @@ export const PasswordModal = () => {
                   promise: changePassword(
                     values.oldPassword,
                     values.newPassword
-                  ),
+                  ).then(() => reset()),
                   msgs: {
                     loading: "Changing Password",
+                    success: "Password Changed Successfully",
                   },
                   id: "change-password-modal",
                 });

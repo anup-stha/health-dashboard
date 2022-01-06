@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 11:37 AM
+ * Last Modified 1/6/22, 7:40 PM
  *
  *
  */
@@ -120,10 +120,8 @@ export const changePassword = (old_password: string, new_password: string) => {
         old_password,
         new_password,
       })
-      .then(async (response) => {
-        await getCurrentUserProfile().then(() =>
-          resolve(response.data.message)
-        );
+      .then((response) => {
+        resolve(response.data.message);
       })
       .catch((error) => {
         reject(error.response);
