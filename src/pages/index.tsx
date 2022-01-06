@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 10:32 AM
+ * Last Modified 1/6/22, 12:28 PM
  *
  *
  */
@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { LoginPage } from "@/modules/auth/LoginPage";
+import { MainHead } from "@/layout/MainHead";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -20,7 +21,12 @@ const Home: NextPage = () => {
     hasTokens && router.replace("/dashboard");
   }, [hasTokens, router]);
 
-  return !hasTokens ? <LoginPage /> : <div>Loading</div>;
+  return (
+    <>
+      <MainHead title={"Login"} />
+      {!hasTokens ? <LoginPage /> : <div>Loading</div>}{" "}
+    </>
+  );
 };
 
 export default Home;

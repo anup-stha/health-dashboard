@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 10:54 AM
+ * Last Modified 1/6/22, 12:39 PM
  *
  *
  */
@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import Head from "next/head";
+import NextNProgress from "nextjs-progressbar";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -116,6 +117,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <QueryClientProvider client={queryClient}>
         <SkeletonTheme>
+          <NextNProgress
+            color="#22c55e"
+            startPosition={0.3}
+            stopDelayMs={200}
+            height={3}
+            showOnShallow={true}
+            options={{ showSpinner: false }}
+          />
           <Component {...pageProps} />
           <ToastComponent />
         </SkeletonTheme>
