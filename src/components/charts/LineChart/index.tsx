@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 6:17 PM
+ * Last Modified 1/6/22, 2:55 PM
  *
  *
  */
@@ -29,6 +29,8 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
       data: datas[key].values,
     })),
   };
+
+  console.log(schema);
 
   const [state, setState] = useState(schema);
 

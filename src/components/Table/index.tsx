@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 6:03 PM
+ * Last Modified 1/6/22, 6:47 PM
  *
  *
  */
@@ -14,8 +14,9 @@ import Image from "next/image";
 import { MagnifyingGlass, X } from "phosphor-react";
 
 type TableViewPropsType = {
-  data: any;
+  data: Array<{ [key: string]: any }>;
   width?: "full" | string;
+  searchTerms?: string[];
   tableHeadings?: string[];
   tableRowComponent?: ReactElement<any, string | JSXElementConstructor<any>>;
   loading?: boolean;
@@ -28,6 +29,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
   tableRowComponent,
   loading = false,
   search = true,
+  searchTerms = ["name"],
 }) => {
   const [tableData, setTableData] = useState(tableInitialData);
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,7 +43,7 @@ export const TableView: React.FC<TableViewPropsType> = ({
     : tableData.length !== 0 && Object.keys(tableData[0]);
 
   return !loading ? (
-    <div className={"flex flex-col space-y-2 print:px-4"}>
+    <div className={"flex flex-col space-y-2"}>
       {search && (
         <div className="flex space-x-6 max-w-xl relative print:hidden ml-1">
           <SearchInput
@@ -53,11 +55,15 @@ export const TableView: React.FC<TableViewPropsType> = ({
                 return;
               }
               setSearchTerm(e.target.value);
-              const searchedData = tableInitialData.filter((data: any) =>
-                data.name
-                  .toLowerCase()
-                  .includes(e.target.value.toLowerCase().trim())
-              );
+              const searchedData = tableInitialData.filter((data) => {
+                return searchTerms?.some((term) =>
+                  data[term]
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase().trim())
+                );
+              });
+
+              console.log(searchedData);
               searchedData && setTableData(searchedData);
             }}
             placeholder={"Start Searching ...."}
@@ -103,25 +109,23 @@ export const TableView: React.FC<TableViewPropsType> = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-col">
-          <div className="overflow-x-auto print:overflow-hidden print:scrollbar">
-            <div className="px-1 py-2 align-middle inline-block min-w-full">
+        <div className="flex flex-col ">
+          <div className="overflow-x-auto print:sidebar">
+            <div className="px-1 py-2 align-middle inline-block min-w-full print:p-0">
               <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-sm">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-100">
-                    <tr>
-                      {headings &&
-                        headings.map((heading, index) => (
-                          <th
-                            scope="col"
-                            key={index}
-                            className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
-                          >
-                            {heading}
-                          </th>
-                        ))}
-                    </tr>
-                  </thead>
+                  <tr className="bg-gray-100">
+                    {headings &&
+                      headings.map((heading, index) => (
+                        <th
+                          scope="col"
+                          key={index}
+                          className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
+                        >
+                          {heading}
+                        </th>
+                      ))}
+                  </tr>
 
                   <tbody className="bg-white divide-y divide-gray-200">
                     {tableRowComponent
@@ -150,7 +154,6 @@ export const TableView: React.FC<TableViewPropsType> = ({
                             </tr>
                           );
                         })}
-                    <tr />
                   </tbody>
                 </table>
               </div>

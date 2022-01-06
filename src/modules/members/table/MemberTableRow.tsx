@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 11:13 AM
+ * Last Modified 1/6/22, 7:08 PM
  *
  *
  */
 
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import Link from "next/link";
@@ -18,9 +17,11 @@ import { Popover, Transition } from "@headlessui/react";
 import { MoreVertical } from "react-feather";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
+import { Member } from "@/types";
+import LetteredAvatar from "react-avatar";
 
 type OrgTableRowType = {
-  data?: any;
+  data?: Member & { role_slug: string; role_id: number };
   key?: string | number;
   loading?: boolean;
 };
@@ -50,12 +51,11 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             }
           >
             <div className="relative flex-shrink-0 h-16 w-16">
-              <Image
-                src={"/assets/memberAvatar.svg"}
-                layout="fill"
-                objectFit="cover"
-                className=" rounded-full"
-                alt="Profile"
+              <LetteredAvatar
+                name={data.name}
+                size="50"
+                round={true}
+                maxInitials={2}
               />
             </div>
             <div className="ml-4">
@@ -69,11 +69,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
           </div>
         </td>
         <td className="whitespace-nowrap text-lg">
-          {data.can_login ? (
-            <BooleanTag type="info" trueStatement={"Yes "} />
-          ) : (
-            <BooleanTag type="info" trueStatement={"No"} />
-          )}
+          <BooleanTag type="info" trueStatement={data.member_code} />
         </td>
         <td className="whitespace-nowrap text-lg">
           <BooleanTag

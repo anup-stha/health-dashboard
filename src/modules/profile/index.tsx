@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 7:08 PM
+ * Last Modified 1/6/22, 7:13 PM
  *
  *
  */
 
-import Image from "next/image";
 import { Calendar, Mail, Map, PhoneCall, User, Users } from "react-feather";
 import { PasswordModal } from "./passwordModal";
 import React from "react";
@@ -22,12 +21,11 @@ import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDet
 import { useMemberDetails } from "@/modules/members/api/hooks/useMemberDetails";
 import { ProfileOtherDetails } from "@/modules/members/profile/ProfileAllDetails";
 import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal";
+import LetteredAvatar from "react-avatar";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
   const { data, isLoading } = useMemberDetails(Number(user.id));
-
-  console.log(data);
 
   const onLogOut = async () => {
     await alert({
@@ -47,13 +45,12 @@ export const ProfilePage: React.FC = () => {
           <div className="relative w-full h-52 z-0 profile " />
 
           <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
-            <div className="relative w-40 h-40 z-10 ring-4 ring-white rounded-full">
-              <Image
-                src="/assets/memberAvatar.svg"
-                layout="fill"
-                objectFit="cover"
-                className="z-40 rounded-full"
-                alt="Profile Image"
+            <div className=" ring-4 ring-white rounded-full">
+              <LetteredAvatar
+                name={user.name}
+                size="120"
+                round={true}
+                maxInitials={2}
               />
             </div>
             <div className="flex flex-col mt-10">

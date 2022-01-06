@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 6:05 PM
+ * Last Modified 1/6/22, 6:52 PM
  *
  *
  */
@@ -34,23 +34,25 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap">
+      <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap ">
         {data.tests.map((element, index) => (
-          <div key={index} className="block text-gray-700">
+          <div key={index} className="flex space-x-2 text-gray-700">
             <span className="font-medium text-gray-500">
               {Object.keys(element)[0]} :{" "}
             </span>
-            <span className="font-semibold">{Object.values(element)[0]}</span>
+            <span className="font-semibold w-48 line-clamp-1">
+              {Object.values(element)[0]}
+            </span>
           </div>
         ))}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-gray-600">
         {data.tests.map((element, index) => (
-          <div key={index} className="block text-gray-700 flex space-x-2">
+          <div key={index} className=" text-gray-700 flex space-x-2">
             <span className="font-medium text-gray-500">
               {Object.keys(element)[1]} :{" "}
             </span>
-            <span className="font-semibold w-48 flex flex-col">
+            <span className="font-semibold w-48 flex flex-col line-clamp-1">
               {Object.values(element)[1].length === 0
                 ? "N/A"
                 : Object.values(element)[1].map(
@@ -84,7 +86,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
         testDetails.list.map((test) => (
           <div className="flex items-stretch" key={test.id}>
             <div className="p-4 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
-              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider capitalize">
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider capitalize print:hidden">
                 {test.test_name} Report
               </h1>
               <div className="space-y-2">
@@ -136,7 +138,6 @@ export const ProfileTestGridTableRow: React.FC<
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         <div className="flex flex-col">
           <span>{data.name} </span>
-          <span className="text-gray-500 text-lg">{data.slug}</span>
         </div>
       </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">

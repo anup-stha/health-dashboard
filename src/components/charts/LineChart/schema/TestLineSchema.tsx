@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/4/22, 3:09 PM
+ * Last Modified 1/6/22, 3:22 PM
  *
  *
  */
 
 import moment from "moment";
 import { utcDateToLocal } from "@/modules/members/profile/ProfileTestComponent";
+import { ApexOptions } from "apexcharts";
 
 const color = [
   "#8b5cf6",
@@ -21,21 +22,34 @@ const color = [
 ];
 
 type ChartData = {
-  values: string[];
-  dates: number[];
+  values: number[];
+  dates: string[];
 };
 
 export interface ChartDateTimeData {
   [slug: string]: ChartData;
 }
 
-export const lineChartOptions: any = (datas: ChartDateTimeData) => ({
+export const lineChartOptions = (datas: ChartDateTimeData): ApexOptions => ({
   chart: {
     id: "area-chart",
     type: "area",
     zoom: {
       enabled: true,
       type: "xy",
+    },
+    animations: {
+      enabled: true,
+      easing: "linear",
+      speed: 200,
+      animateGradually: {
+        enabled: false,
+        delay: 50,
+      },
+      dynamicAnimation: {
+        enabled: true,
+        speed: 200,
+      },
     },
   },
 
@@ -54,11 +68,13 @@ export const lineChartOptions: any = (datas: ChartDateTimeData) => ({
   },
   legend: {
     position: "top",
-    horizontalAlign: "center",
+    horizontalAlign: "left",
     showForNullSeries: false,
+    showForSingleSeries: true,
     fontFamily: "Raleway",
-    fontWeight: "500",
+    fontWeight: "600",
   },
+
   dataLabels: {
     enabled: false,
   },
@@ -97,8 +113,28 @@ export const lineChartOptions: any = (datas: ChartDateTimeData) => ({
     labels: {
       formatter: (value: any) => {
         if (isNaN(value)) return "N/A";
-        return value;
+        return `${Math.round(value * 100) / 100}`;
       },
     },
   },
+
+  responsive: [
+    {
+      breakpoint: 1000,
+      options: {
+        legend: {
+          width: 200,
+        },
+        xaxis: {
+          labels: {
+            show: true,
+            formatter: (date: any) => {
+              return moment(utcDateToLocal(new Date(date))).format("MM/DD");
+            },
+          },
+          type: "datetime",
+        },
+      },
+    },
+  ],
 });

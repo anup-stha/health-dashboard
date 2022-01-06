@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 2:06 PM
+ * Last Modified 1/6/22, 2:12 PM
  *
  *
  */
 
 import { TableView } from "@/components/Table";
 import { useMemberStore } from "../useMemberStore";
-import { MemberTableRow } from "./memberTableRow";
+import { MemberTableRow } from "./MemberTableRow";
 import Image from "next/image";
 import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
 import { Loader } from "@/components/Loader";
@@ -36,13 +36,14 @@ export const MemberTable = () => {
       data={memberList}
       tableHeadings={[
         "Member Name",
-        "Can Login",
+        "Member Code",
         "Active",
         "Verified",
         "Phone Number",
         "Address",
         "",
       ]}
+      searchTerms={["name", "member_code"]}
       tableRowComponent={<MemberTableRow />}
     />
   );

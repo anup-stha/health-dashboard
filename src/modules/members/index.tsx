@@ -1,13 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 5:36 PM
+ * Last Modified 1/6/22, 12:46 PM
  *
  *
  */
 
 import { MemberModal } from "@/modules/members/modal/memberModal";
-import { MemberTable } from "./table/memberTable";
+import { MemberTable } from "./table/MemberTable";
 import { MemberRoleDropdown } from "./others/MemberRoleDropdown";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { Role } from "@/types";

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:39 PM
+ * Last Modified 1/6/22, 2:46 PM
  *
  *
  */
@@ -121,7 +121,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             color="#22c55e"
             startPosition={0.3}
             stopDelayMs={200}
-            height={3}
+            height={4}
             showOnShallow={true}
             options={{ showSpinner: false }}
           />

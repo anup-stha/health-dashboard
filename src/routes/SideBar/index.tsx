@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 11:48 AM
+ * Last Modified 1/6/22, 7:15 PM
  *
  *
  */
 
 import Image from "next/image";
-import Avatar from "@/styles/avatar.svg";
+import LetteredAvatar from "react-avatar";
+
 import SuperUserIlustration from "@/styles/superuser-illustration.svg";
 import { useSideBarStore } from "./useSideBarStore";
 import React from "react";
@@ -36,16 +37,13 @@ export const Sidebar: React.FC = () => {
       <div className="flex flex-col space-y-12">
         {open ? (
           <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
-            <div className="w-1/4 h-16 object-contain  relative">
-              <Image
-                src={Avatar}
-                layout="fill"
-                className="absolute"
-                objectFit="contain"
-                alt="Error"
-                priority={true}
-              />
-            </div>
+            <LetteredAvatar
+              name={user.name}
+              size="50"
+              round={true}
+              maxInitials={2}
+            />
+
             <div className="flex flex-col w-3/4">
               <span className="text-black font-semibold text-xl overflow-hidden truncate">
                 {user.name}
@@ -57,16 +55,12 @@ export const Sidebar: React.FC = () => {
           </div>
         ) : (
           <div className="py-4 sm:hidden">
-            <div className="w-16 h-16 object-contain  relative">
-              <Image
-                src={Avatar}
-                layout="fill"
-                className="absolute"
-                objectFit="contain"
-                alt="Avatar"
-                priority={true}
-              />
-            </div>
+            <LetteredAvatar
+              name={user.name}
+              size="50"
+              round={true}
+              maxInitials={2}
+            />
           </div>
         )}
         <NavBar />
@@ -80,8 +74,8 @@ export const Sidebar: React.FC = () => {
             <div className="text-sm text-gray-700 font-bold text-center">
               &#169; Copyright by Sunya Health Pvt. Ltd.
             </div>{" "}
-            <div className="text-sm text-gray-700 font-bold text-center">
-              System Version {systemVersion.toUpperCase()}
+            <div className="text-sm text-gray-500 font-semibold  text-center">
+              System Version: {systemVersion.toUpperCase()}
             </div>
           </div>
         </div>

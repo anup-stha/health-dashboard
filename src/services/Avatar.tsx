@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 11:33 AM
+ * Last Modified 1/6/22, 7:08 PM
  *
  *
  */
@@ -12,9 +12,8 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { alert } from "@/components/Alert";
 import { logoutUser } from "@/services/requests";
 import { Popover, Transition } from "@headlessui/react";
-import Image from "next/image";
-import AvatarImage from "@/styles/avatar.svg";
 import { CaretDown } from "phosphor-react";
+import LetteredAvatar from "react-avatar";
 
 export const ImageAvatar: React.FC = () => {
   const { push } = useRouter();
@@ -36,16 +35,13 @@ export const ImageAvatar: React.FC = () => {
         <>
           <Popover.Button>
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 object-contain  relative">
-                <Image
-                  src={AvatarImage}
-                  layout="fill"
-                  className="absolute"
-                  alt="Avatar"
-                  objectFit="contain"
-                  priority={true}
-                />
-              </div>
+              <LetteredAvatar
+                name={user.name}
+                size="30"
+                round={true}
+                maxInitials={2}
+              />
+
               <div
                 className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}
               >

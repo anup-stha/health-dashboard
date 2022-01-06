@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 6:24 PM
+ * Last Modified 1/6/22, 6:53 PM
  *
  *
  */
 
-import React from "react";
+import React, { useRef } from "react";
 import { TestDropdown } from "@/modules/members/profile/TestDropdown";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { utcToZonedTime } from "date-fns-tz";
@@ -24,6 +24,7 @@ import { TestLineChart } from "@/components/charts/LineChart";
 import Image from "next/image";
 import { useMemberTestList } from "@/modules/members/api/hooks/useMemberTestList";
 import { Member } from "@/types";
+import { useReactToPrint } from "react-to-print";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -40,6 +41,9 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
 }) => {
   const router = useRouter();
 
+  const componentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({ content: () => componentRef.current });
+
   const { selectedTestDetailsInProfile: testDetails, selectedTestInProfile } =
     useMemberStore();
 
@@ -49,21 +53,22 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   );
 
   const subTestDetails =
-    Object.keys(testDetails).length !== 0 &&
-    testDetails.list.map((element) => {
-      return Object.assign(
-        {},
-        {
-          app_slug: element.app_slug,
-          test_date: element.test_date,
+    Object.keys(testDetails).length !== 0
+      ? testDetails.list.map((element) => {
+          return Object.assign(
+            {},
+            {
+              app_slug: element.app_slug,
+              test_date: element.test_date,
 
-          tests: element.report.map((sub) => ({
-            [sub.name]: sub.value,
-            [`Note`]: sub.note,
-          })),
-        }
-      );
-    });
+              tests: element.report.map((sub) => ({
+                [sub.name]: sub.value,
+                [`Note`]: sub.note,
+              })),
+            }
+          );
+        })
+      : [];
 
   const chartData =
     Object.keys(testDetails).length !== 0 &&
@@ -75,7 +80,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
             return {
               [sub.slug]: {
                 date: element.test_date,
-                value: sub.value,
+                value: Number(sub.value),
               },
             };
           }),
@@ -111,7 +116,10 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   return loading ? (
     <Loader />
   ) : (
-    <div className="print:ring-0 w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 ">
+    <div
+      className="print:ring-0 print:p-4 w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10"
+      ref={componentRef}
+    >
       <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
         <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
           <div className="print:hidden">
@@ -152,12 +160,12 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 )}
               </div>
 
-              <div className="self-start flex flex-col items-center">
+              <div className="self-center flex flex-col items-center">
                 <Image
                   src="/sunya.svg"
                   layout="fixed"
-                  width={250}
-                  height={100}
+                  width={220}
+                  height={80}
                   objectFit="contain"
                   alt="Profile Image"
                   priority={true}
@@ -168,17 +176,6 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 <h1 className="text-slate-900 font-semibold text-xl tracking-wider ">
                   Email: contact@sunya.health
                 </h1>
-              </div>
-            </div>
-            <div className="fixed bottom-10 w-full font-semibold">
-              <div className="flex w-full items-center">
-                <div>
-                  Printed By Sunya Health ({" "}
-                  <span className="text-green-700">
-                    {window.location.hostname}
-                  </span>{" "}
-                  ) on {moment(new Date()).format("MMM Do YYYY")}
-                </div>
               </div>
             </div>
           </div>
@@ -222,7 +219,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                   className={
                     "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold  print:hidden cursor-pointer"
                   }
-                  onClick={() => window.print()}
+                  onClick={handlePrint}
                 >
                   Print
                 </div>
@@ -253,6 +250,15 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
               <WarningOctagon size={24} /> <span>No Test Details Found</span>
             </div>
           )}
+        </div>
+        <div className="hidden print:block mt-4 ml-4 w-full font-semibold">
+          <div className="flex w-full items-center">
+            <div>
+              Printed By Sunya Health ({" "}
+              <span className="text-green-700">{window.location.hostname}</span>{" "}
+              ) on {moment(new Date()).format("MMM Do YYYY")}
+            </div>
+          </div>
         </div>
       </div>
     </div>

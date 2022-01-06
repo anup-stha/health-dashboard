@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/5/22, 1:27 PM
+ * Last Modified 1/6/22, 2:13 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import { MemberRoleDropdown } from "@/modules/members/others/MemberRoleDropdown"
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMemberList";
 import { TableView } from "@/components/Table";
-import { MemberTableRow } from "@/modules/members/table/memberTableRow";
+import { MemberTableRow } from "@/modules/members/table/MemberTableRow";
 import { WarningOctagon } from "phosphor-react";
 import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
@@ -75,13 +75,14 @@ export const ProfileMemberTable: React.FC = () => {
             }))}
             tableHeadings={[
               "Member Name",
-              "Can Login",
+              "Code",
               "Active",
               "Verified",
               "Phone Number",
               "Address",
               "",
             ]}
+            searchTerms={["name", "member_code"]}
             tableRowComponent={<MemberTableRow />}
             loading={isLoading}
           />

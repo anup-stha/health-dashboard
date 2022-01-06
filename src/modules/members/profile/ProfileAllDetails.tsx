@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 6:44 PM
+ * Last Modified 1/6/22, 7:08 PM
  *
  *
  */
 
-import Image from "next/image";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { Bookmark, Calendar, Mail, Map, PhoneCall, User } from "react-feather";
 import React from "react";
@@ -16,6 +15,7 @@ import moment from "moment";
 import { ProfileDataDetail } from "@/modules/members/others/MemberProfileDataDetail";
 import { Member, MemberDetails, Role } from "@/types";
 import { MemberDetailAddModal } from "../modal/MemberDetailAddModal";
+import LetteredAvatar from "react-avatar";
 
 type MemberDetailsProps = {
   active: boolean;
@@ -37,14 +37,12 @@ export const ProfileAllDetails: React.FC<MemberDetailsProps> = ({
       <div className="relative w-full h-52 z-0 profile" />
 
       <div className="absolute left-[3%] top-40 z-0 flex items-center gap-x-6">
-        <div className="relative w-40 h-40 sm:w-36 sm:h-36 z-10 ring-4 ring-white rounded-full">
-          <Image
-            src="/assets/memberAvatar.svg"
-            layout="fill"
-            objectFit="cover"
-            className="z-40 rounded-full"
-            alt="Profile Image"
-            priority={true}
+        <div className="ring-4 ring-white rounded-full">
+          <LetteredAvatar
+            name={selectedMember.name}
+            size="120"
+            round={true}
+            maxInitials={2}
           />
         </div>
         <div className="flex flex-col mt-10">
