@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 4:04 PM
+ * Last Modified 1/7/22, 6:19 PM
  *
  *
  */
@@ -23,7 +23,7 @@ export const images = [
       "Please press continue to see more of your Dashboard. You will get to know how you can use your dashboard.",
   },
   {
-    link: "/assets/org-welcome-first-page.png",
+    link: "/assets/welcome-1.svg",
     pos: 2,
     title: "Organization Members",
     subtitle:
@@ -97,8 +97,8 @@ export const OrgAdminDashboard = () => {
         </p>
       </div>
       <Modal open={!guided}>
-        <Modal.Content width={"6xl"}>
-          <div className="flex flex-col space-y-2 h-[75vh]">
+        <Modal.Content width={"7xl"}>
+          <div className="flex flex-col space-y-4 h-[78vh]">
             <div className="flex flex-col">
               <Modal.Title>{images[imageIndex].title}</Modal.Title>
               <p className="text-lg text-gray-500 font-medium">

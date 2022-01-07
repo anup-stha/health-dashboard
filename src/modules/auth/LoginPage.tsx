@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 11:48 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/7/22, 6:23 PM
  *
  *
  */
@@ -10,7 +10,6 @@ import React from "react";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import LoginForm from "./LoginForm";
-import LoginAvatar from "/public/login-icon.svg";
 
 export const LoginPage = () => {
   return (
@@ -21,14 +20,14 @@ export const LoginPage = () => {
       <div className="flex w-full bg-white max-w-6xl flex-grow rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none h-full">
         <div className="flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
           <Image
-            src={LoginAvatar}
+            src="/assets/logo-sunya.svg"
             alt="Login Avatar"
             width={144}
             height={144}
             objectFit="contain"
           />
           <div className="w-2/3 text-center">
-            <h1 className="text-3xl font-extrabold text-center text-gray-850">
+            <h1 className="text-4xl font-extrabold text-center text-gray-850">
               Sunya Health
             </h1>
             <p className="text-xl font-light text-gray-800">
