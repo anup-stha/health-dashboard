@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 5:36 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/7/22, 3:06 PM
  *
  *
  */
@@ -52,7 +52,7 @@ export const ModalContent: React.FC<IModalProps> = ({
             leaveTo="opacity-0 scale-90 -translate-y-32"
           >
             <div
-              className={`trans inline-block w-full max-w-${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+              className={`trans inline-block w-full max-w-7xl px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
             >
               {children}
             </div>

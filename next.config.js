@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/2/22, 8:03 AM
+ * Last Modified 1/7/22, 1:57 PM
  *
  *
  */
@@ -19,6 +19,6 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: [],
+    domains: ["d33wubrfki0l68.cloudfront.net"],
   },
 });

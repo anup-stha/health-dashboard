@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 1:36 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/7/22, 12:52 PM
  *
  *
  */
@@ -37,8 +37,12 @@ export const ModalContext = React.createContext<IModalContext | undefined>(
   undefined
 );
 
-const Modal: React.FC & IModalComposition = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+interface IModalContainerProps {
+  open?: boolean;
+}
+
+const Modal: React.FC<IModalContainerProps> & IModalComposition = (props) => {
+  const [isOpen, setIsOpen] = useState(props.open ?? false);
   const memoizedContextValue = useMemo(
     () => ({
       isOpen,

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 6:01 PM
+ * Last Modified 1/7/22, 12:54 PM
  *
  *
  */
@@ -15,9 +15,16 @@ const initialState = {
   status: false,
   token: "",
   user: {} as CurrentLoggedInMember,
+  guided: false,
 };
 
 export const store = combine(initialState, (set) => ({
+  setGuided: (guide: boolean) => {
+    set({
+      guided: guide,
+    });
+  },
+
   setUserData: (res: LoginResponse) => {
     set({
       status: res.status,
