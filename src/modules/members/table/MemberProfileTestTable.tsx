@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 6:52 PM
+ * Last Modified 1/7/22, 11:24 AM
  *
  *
  */
@@ -40,7 +40,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
             <span className="font-medium text-gray-500">
               {Object.keys(element)[0]} :{" "}
             </span>
-            <span className="font-semibold w-48 line-clamp-1">
+            <span className="font-semibold line-clamp-1">
               {Object.values(element)[0]}
             </span>
           </div>
@@ -52,7 +52,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
             <span className="font-medium text-gray-500">
               {Object.keys(element)[1]} :{" "}
             </span>
-            <span className="font-semibold w-48 flex flex-col line-clamp-1">
+            <span className="font-semibold flex flex-col line-clamp-2">
               {Object.values(element)[1].length === 0
                 ? "N/A"
                 : Object.values(element)[1].map(
