@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 10:03 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/7/22, 9:08 AM
  *
  *
  */
@@ -9,18 +9,21 @@
 /* eslint-disable require-jsdoc */
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
-import { action } from "@storybook/addon-actions";
 
 type paginationProps = {
   totalPageNumber: number;
   pageIndex: number;
   setPageIndex: any;
+  isPreviousData?: boolean;
+  data?: any;
 };
 
 export const Pagination = ({
   totalPageNumber,
   pageIndex,
   setPageIndex,
+  isPreviousData,
+  data,
 }: paginationProps): JSX.Element => {
   // Pagination States for Handling Form Input and UI
   const [pageArray, setPageArray] = useState([1, 2, 3, 4, 5]);
@@ -34,7 +37,6 @@ export const Pagination = ({
   const leftClickHandler = () => {
     if (pageIndex <= 1) {
       setPageIndex(1);
-      action("click")("Page Not Found");
       return;
     }
     setPageIndex(pageIndex - 1);
@@ -43,11 +45,8 @@ export const Pagination = ({
   const rightClickHandler = () => {
     if (pageIndex >= totalPageNumber) {
       setPageIndex(totalPageNumber);
-      action("click")("Page Not Found");
-
       return;
     }
-    action("click")("Next Page");
     setPageIndex(pageIndex + 1);
   };
 
@@ -70,13 +69,13 @@ export const Pagination = ({
 
     if (page > 3 && page < totalPageNumber - 3)
       setPageArray([page - 2, page - 1, page, page + 1, page + 2]);
-    else if (page <= 3)
+    else if (page <= 4)
       setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
     else setPageArray([page - 4, page - 3, page - 2, page - 1, page]);
   }, [pageIndex, totalPageNumber, setPageIndex]);
 
   return (
-    <div className="flex items-center justify-center mx-auto my-4 leading-6 text-gray-800">
+    <div className="flex items-center justify-center mx-auto leading-6 text-gray-800">
       <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-2 sm:flex-col sm:space-y-4 sm:px-0 sm:text-xl">
         <ul className="flex items-center space-x-2 sm:space-x-2">
           <li>
@@ -90,7 +89,6 @@ export const Pagination = ({
               key={page}
               className={pageIndex !== page ? "inactive_item" : "active_item"}
               onClick={() => {
-                action("Navigate to Page")(page);
                 setPageIndex(page);
               }}
             >

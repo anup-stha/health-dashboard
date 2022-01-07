@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:56 AM
+ * Last Modified 1/7/22, 9:00 AM
  *
  *
  */
@@ -16,6 +16,7 @@ import {
   MemberListResponse,
   MemberSubscriptionDetails,
   MemberTestListData,
+  Pagination,
   Role,
   RoleSummary,
   Test,
@@ -25,7 +26,7 @@ import { getMembersList } from "@/services/requests/memberRequests";
 
 const initialState = {
   memberList: [] as MemberList,
-  pagination: {},
+  pagination: {} as Pagination,
   loading: false,
   selectedRole: {
     id: 0,

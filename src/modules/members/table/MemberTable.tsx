@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 2:12 PM
+ * Last Modified 1/7/22, 9:45 AM
  *
  *
  */
@@ -11,15 +11,19 @@ import { useMemberStore } from "../useMemberStore";
 import { MemberTableRow } from "./MemberTableRow";
 import Image from "next/image";
 import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
-import { Loader } from "@/components/Loader";
+import React, { useState } from "react";
 
 export const MemberTable = () => {
-  const { memberList, selectedRole } = useMemberStore();
-  const { isLoading } = useMembersList(Number(selectedRole.id));
+  const memberList = useMemberStore((state) => state.memberList);
+  const { selectedRole } = useMemberStore();
+  const [pageIndex] = useState(1);
+  const { isLoading, data } = useMembersList(
+    Number(selectedRole.id),
+    undefined,
+    pageIndex
+  );
 
-  return isLoading ? (
-    <Loader />
-  ) : memberList.length === 0 || selectedRole.id === 0 ? (
+  return selectedRole.id === 0 ? (
     <div className="flex justify-center">
       <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
         <Image
@@ -32,19 +36,33 @@ export const MemberTable = () => {
       </div>
     </div>
   ) : (
-    <TableView
-      data={memberList}
-      tableHeadings={[
-        "Member Name",
-        "Member Code",
-        "Active",
-        "Verified",
-        "Phone Number",
-        "Address",
-        "",
-      ]}
-      searchTerms={["name", "member_code"]}
-      tableRowComponent={<MemberTableRow />}
-    />
+    <>
+      {data?.data.data && (
+        <TableView
+          loading={isLoading}
+          data={memberList}
+          tableHeadings={[
+            "Member Name",
+            "Member Code",
+            "Active",
+            "Verified",
+            "Phone Number",
+            "Address",
+            "",
+          ]}
+          searchTerms={["name", "member_code"]}
+          tableRowComponent={<MemberTableRow />}
+        />
+      )}
+      {/*   <div className="">
+        <Pagination
+          totalPageNumber={pagination.total_pages + 2}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+          isPreviousData={isPreviousData}
+          data={data}
+        />
+      </div> */}
+    </>
   );
 };

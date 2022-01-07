@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:27 AM
+ * Last Modified 1/7/22, 8:46 AM
  *
  *
  */
@@ -10,12 +10,16 @@ import { useQuery } from "react-query";
 import { getMembersList } from "@/services/requests/memberRequests";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 
-export const useMembersList = (roleId: number, memberId?: number) => {
+export const useMembersList = (
+  roleId: number,
+  memberId?: number,
+  pageIndex = 1
+) => {
   return useQuery(
-    ["member-list", roleId],
-    () => getMembersList(roleId, memberId),
+    ["member-list", roleId, pageIndex],
+    () => getMembersList(roleId, pageIndex),
     {
-      enabled: !isNaN(roleId),
+      enabled: roleId !== 0,
       onSuccess: ({ data }) => {
         useMemberStore.getState().setMemberList(data);
         if (memberId) {
