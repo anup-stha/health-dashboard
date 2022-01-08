@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 6:56 PM
+ * Last Modified 1/8/22, 7:15 PM
  *
  *
  */
@@ -97,7 +97,7 @@ export const OrgAdminDashboard = () => {
         </p>
       </div>
       <Modal open={!guided}>
-        <Modal.Content width={"7xl"}>
+        <Modal.Content width={"max-w-7xl"} opacity={"opacity-60"}>
           <div className="flex flex-col space-y-4 h-[78vh]">
             <div className="flex flex-col">
               <Modal.Title>{images[imageIndex].title}</Modal.Title>

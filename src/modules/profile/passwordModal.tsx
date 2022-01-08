@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 7:42 PM
+ * Last Modified 1/8/22, 7:19 PM
  *
  *
  */
@@ -29,7 +29,7 @@ export const PasswordModal = () => {
           Change Password
         </div>
       </Modal.Button>
-      <Modal.Content width="6xl">
+      <Modal.Content width="max-w-6xl">
         <div className="flex flex-col space-y-16 sm:-space-y-12">
           <Modal.Title>Change Password</Modal.Title>
           <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">

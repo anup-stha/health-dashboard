@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/14/21, 12:52 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/8/22, 7:21 PM
  *
  *
  */
@@ -39,7 +39,7 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
         </Modal.Button>
       )}
 
-      <Modal.Content width="3xl">
+      <Modal.Content width="max-w-3xl">
         <Modal.Title>
           {type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`}{" "}
           Subscription

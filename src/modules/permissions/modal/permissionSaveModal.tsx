@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 9:34 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/8/22, 7:19 PM
  *
  *
  */
@@ -33,7 +33,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
           Save Permissions
         </Button>
       </Modal.Button>
-      <Modal.Content width="6xl">
+      <Modal.Content width="max-w-6xl">
         <div className="space-y-2">
           <Modal.Title>Save Permission</Modal.Title>
           <p className="text-xl font-semibold text-gray-500">

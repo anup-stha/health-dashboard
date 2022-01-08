@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 11:13 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/8/22, 7:21 PM
  *
  *
  */
@@ -32,7 +32,7 @@ export const RoleMemberCategoryModal: React.FC<memberCategoryModalProps> = ({
         </Modal.Button>
       )}
 
-      <Modal.Content width="2xl">
+      <Modal.Content width="max-w-2xl">
         <Modal.Title>{type === "edit" ? "Edit" : "Add"} Category</Modal.Title>
         <RoleMemberCategoryForm type={type} id={id ? id : 0} />
       </Modal.Content>

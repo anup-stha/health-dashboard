@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 6:55 PM
+ * Last Modified 1/8/22, 7:17 PM
  *
  *
  */
@@ -15,12 +15,21 @@ import toast from "react-hot-toast";
 export type IModalProps = {
   title?: string;
   children: React.ReactNode;
-  width?: "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl";
+  width?:
+    | "max-w-2xl"
+    | "max-w-3xl"
+    | "max-w-4xl"
+    | "max-w-5xl"
+    | "max-w-6xl"
+    | "max-w-7xl"
+    | "max-w-8xl";
+  opacity?: string;
 };
 
 export const ModalContent: React.FC<IModalProps> = ({
   children,
-  width = "3xl",
+  width = "max-w-3xl",
+  opacity = "opacity-30",
 }) => {
   const { setIsOpen, isOpen } = useModal();
 
@@ -29,7 +38,7 @@ export const ModalContent: React.FC<IModalProps> = ({
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-50" onClose={closeModal}>
-        <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+        <Dialog.Overlay className={`fixed inset-0 bg-black ${opacity}`} />
         <div className="min-h-screen md:px-16 sm:px-4 text-center">
           <Transition.Child as={Fragment}>
             <Dialog.Overlay className="fixed inset-0" />
@@ -52,7 +61,7 @@ export const ModalContent: React.FC<IModalProps> = ({
             leaveTo="opacity-0 scale-90 -translate-y-32"
           >
             <div
-              className={`inline-block w-full max-w-${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+              className={`inline-block w-full ${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
             >
               {children}
             </div>

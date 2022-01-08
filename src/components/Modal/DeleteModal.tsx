@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:01 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/8/22, 7:18 PM
  *
  *
  */
@@ -35,7 +35,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
           />
         )}
       </Modal.Button>
-      <Modal.Content width="3xl">
+      <Modal.Content width="max-w-3xl">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="text-8xl text-red-500">
             <TrashSimple />
