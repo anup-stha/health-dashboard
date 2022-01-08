@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 6:19 PM
+ * Last Modified 1/8/22, 6:56 PM
  *
  *
  */
@@ -155,7 +155,7 @@ export const OrgAdminDashboard = () => {
                     <Button onClick={() => setGuided(true)}>Finish</Button>
                   </Modal.Button>
                 ) : (
-                  <Button onClick={() => paginate(1)}>Continue</Button>
+                  <Button onClick={() => paginate(1)}>Next</Button>
                 )}
               </div>
             </div>
