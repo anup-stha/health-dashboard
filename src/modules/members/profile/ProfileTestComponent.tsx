@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 6:53 PM
+ * Last Modified 1/9/22, 5:56 PM
  *
  *
  */
@@ -116,45 +116,161 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   return loading ? (
     <Loader />
   ) : (
-    <div
-      className="print:ring-0 print:p-4 w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10"
-      ref={componentRef}
-    >
-      <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
-        <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
-          <div className="print:hidden">
-            <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-              Tests
-            </h1>
-            <h1 className="text-gray-500 font-medium text-lg print:hidden">
-              Please choose a test to show results of that test
-            </h1>
+    <>
+      <PrintTestComponent
+        test_name={selectedTestInProfile.name}
+        test={subTestDetails}
+        member={selectedMember}
+        ref={componentRef}
+      />
+      <div className="print:hidden print:p-4 w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+        <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
+          <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
+            <div className="print:hidden">
+              <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+                Tests
+              </h1>
+              <h1 className="text-gray-500 font-medium text-lg print:hidden">
+                Please choose a test to show results of that test
+              </h1>
+            </div>
+            <TestDropdown />
           </div>
-          <div className="print:flex hidden flex-col w-full -mb-8">
+          <div className="space-y-4">
+            {Object.keys(testDetails).length !== 0 &&
+              Object.keys(result).length !== 0 && (
+                <TestLineChart datas={result} />
+              )}
+
+            {Object.keys(testDetails).length !== 0 ? (
+              <Tab.Group>
+                <div className="flex justify-between items-center">
+                  <Tab.List className="space-x-4 print:hidden">
+                    <Tab
+                      className={({ selected }) =>
+                        classNames(
+                          selected
+                            ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
+                            : "py-3 px-10 rounded-sm text-xl text-gray-700 font-semibold hover:bg-gray-200"
+                        )
+                      }
+                    >
+                      <div className="">Table</div>
+                    </Tab>
+
+                    <Tab
+                      className={({ selected }) =>
+                        classNames(
+                          selected
+                            ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
+                            : "py-3 px-10 rounded-sm text-xl  text-gray-700 font-semibold hover:bg-gray-200"
+                        )
+                      }
+                    >
+                      Grid
+                    </Tab>
+                  </Tab.List>
+                  <div
+                    className={
+                      "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold  print:hidden cursor-pointer"
+                    }
+                    onClick={handlePrint}
+                  >
+                    Print
+                  </div>
+                </div>
+                <hr className="border-t-[1px] border-gray-200 " />
+
+                <Tab.Panels>
+                  <Tab.Panel>
+                    <TableView
+                      data={subTestDetails}
+                      tableHeadings={[
+                        "Test App",
+                        "Test Date",
+                        "Test Result",
+                        "Test Notes",
+                      ]}
+                      search={false}
+                      tableRowComponent={<ProfileTestTableRow />}
+                    />
+                  </Tab.Panel>
+                </Tab.Panels>
+                <Tab.Panel>
+                  <ProfileTestGridView testDetails={testDetails} />
+                </Tab.Panel>
+              </Tab.Group>
+            ) : (
+              <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+                <WarningOctagon size={24} /> <span>No Test Details Found</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const utcDateToLocal = (date: Date) => {
+  // eslint-disable-next-line new-cap
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  try {
+    return utcToZonedTime(
+      new Date(date).getTime() * 1000,
+      timezone
+    ).toLocaleString();
+  } catch {
+    return "Not Available";
+  }
+};
+
+type ProfileTestData = {
+  app_slug: string;
+  test_date: Date;
+  tests: { [p: string]: any }[];
+};
+
+type PrintTestComponentProps = {
+  test_name: string;
+  test: ProfileTestData[];
+  member: Member;
+};
+
+type PrintProps = React.DetailedHTMLProps<
+  React.AllHTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> &
+  PrintTestComponentProps;
+
+const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
+  ({ test_name, test, member }, ref) => {
+    return (
+      <div className="hidden print:flex w-full" ref={ref}>
+        <div className="page-header w-full">
+          <div className="flex flex-col space-y-8 w-full">
             <div className="flex justify-between items-end w-full">
               <div className="flex flex-col gap-4">
                 <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
-                  {selectedTestInProfile.name} Report
+                  {test_name} Report
                 </h1>
-                {selectedMember && (
+                {member && (
                   <div>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
-                      Id: {selectedMember.member_code}
+                      Id: {member.member_code}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
-                      Name: {selectedMember.name}
+                      Name: {member.name}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                      Address: {selectedMember.address}
+                      Address: {member.address}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                      Address: {selectedMember.gender}
+                      Address: {member.gender}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
                       Date of birth:{" "}
-                      {moment(selectedMember.dob_ad * 1000).format(
-                        "DD/MM/YYYY"
-                      )}
+                      {moment(member.dob_ad * 1000).format("DD/MM/YYYY")}
                     </h1>
                   </div>
                 )}
@@ -178,80 +294,24 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 </h1>
               </div>
             </div>
-          </div>
-          <TestDropdown />
-        </div>
-        <div className="space-y-4">
-          {Object.keys(testDetails).length !== 0 &&
-            Object.keys(result).length !== 0 && (
-              <TestLineChart datas={result} />
-            )}
-
-          {Object.keys(testDetails).length !== 0 ? (
-            <Tab.Group>
-              <div className="flex justify-between items-center">
-                <Tab.List className="space-x-4 print:hidden">
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        selected
-                          ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
-                          : "py-3 px-10 rounded-sm text-xl text-gray-700 font-semibold hover:bg-gray-200"
-                      )
-                    }
-                  >
-                    <div className="">Table</div>
-                  </Tab>
-
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        selected
-                          ? "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold"
-                          : "py-3 px-10 rounded-sm text-xl  text-gray-700 font-semibold hover:bg-gray-200"
-                      )
-                    }
-                  >
-                    Grid
-                  </Tab>
-                </Tab.List>
-                <div
-                  className={
-                    "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold  print:hidden cursor-pointer"
-                  }
-                  onClick={handlePrint}
-                >
-                  Print
-                </div>
-              </div>
-              <hr className="border-t-[1px] border-gray-200 " />
-
-              <Tab.Panels>
-                <Tab.Panel>
-                  <TableView
-                    data={subTestDetails}
-                    tableHeadings={[
-                      "Test App",
-                      "Test Date",
-                      "Test Result",
-                      "Test Notes",
-                    ]}
-                    search={false}
-                    tableRowComponent={<ProfileTestTableRow />}
-                  />
-                </Tab.Panel>
-              </Tab.Panels>
-              <Tab.Panel>
-                <ProfileTestGridView testDetails={testDetails} />
-              </Tab.Panel>
-            </Tab.Group>
-          ) : (
-            <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
-              <WarningOctagon size={24} /> <span>No Test Details Found</span>
+            <div className="bg-gray-100 w-full mr-4 grid grid-cols-4">
+              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
+                Test App
+              </span>
+              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
+                Test Date
+              </span>
+              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
+                Test Result
+              </span>
+              <th className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
+                Test Notes
+              </th>
             </div>
-          )}
+          </div>
         </div>
-        <div className="hidden print:block mt-4 ml-4 w-full font-semibold">
+
+        <div className="page-footer">
           <div className="flex w-full items-center">
             <div>
               Printed By Sunya Health ({" "}
@@ -260,20 +320,84 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
 
-export const utcDateToLocal = (date: Date) => {
-  // eslint-disable-next-line new-cap
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  try {
-    return utcToZonedTime(
-      new Date(date).getTime() * 1000,
-      timezone
-    ).toLocaleString();
-  } catch {
-    return "Not Available";
+        <table className="w-full table-fixed">
+          <thead className="">
+            <tr>
+              <td>
+                <div className="page-header-space" />
+              </td>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200 w-screen">
+            {test.map((data, index) => (
+              <tr key={index} className="w-full">
+                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap ">
+                  {data.app_slug}
+                </td>
+                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap ">
+                  <div className="">
+                    <span className="block">
+                      {moment(utcDateToLocal(data.test_date)).format(
+                        "MM/DD/YYYY"
+                      )}
+                    </span>
+                    <span className={"block"}>
+                      {moment(utcDateToLocal(data.test_date)).format("h:mm A")}
+                    </span>
+                  </div>
+                </td>
+                <td className="capitalize py-4 text-xl space-y-2 break-words ">
+                  {data.tests.map((element, index) => (
+                    <div key={index} className="text-gray-700">
+                      <span className="inline font-medium text-gray-500 block">
+                        {Object.keys(element)[0]} :{" "}
+                      </span>
+                      <span className="inline font-semibold block text-lg ">
+                        {Object.values(element)[0]}
+                      </span>
+                    </div>
+                  ))}
+                </td>
+                <td className="capitalize py-4 text-xl space-y-2 text-gray-600 break-words">
+                  {data.tests.map((element, index) => (
+                    <div key={index} className="text-gray-700 ">
+                      <span className="font-medium text-gray-500 inline">
+                        {Object.keys(element)[1]} :{" "}
+                      </span>
+                      <span className="font-semibold block text-lg inline">
+                        {Object.values(element)[1].length === 0
+                          ? "N/A"
+                          : Object.values(element)[1].map(
+                              (element: any, index: number) => (
+                                <span
+                                  key={index}
+                                  className="line-clamp-1 block"
+                                >
+                                  {" "}
+                                  {element}{" "}
+                                </span>
+                              )
+                            )}
+                      </span>
+                    </div>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <div className="page-footer-space" />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    );
   }
-};
+);
+
+PrintTestComponent.displayName = "PrintTestComponent";

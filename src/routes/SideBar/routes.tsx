@@ -1,14 +1,22 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:10 PM
+ * Last Modified 1/9/22, 6:38 PM
  *
  *
  */
 
-import { Polygon, Sliders, TestTube, UserList, Users } from "phosphor-react";
+import {
+  Polygon,
+  Question,
+  Sliders,
+  TestTube,
+  UserList,
+  Users,
+} from "phosphor-react";
 import React from "react";
 import { Category2, Home } from "iconsax-react";
+import { WelcomeModal } from "@/modules/org-admin/dashboard";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -31,8 +39,9 @@ export type RouteObjectType =
       id: number | string;
       title: string;
       icon: React.ReactNode;
-      link?: string;
+      link?: string | false;
       children?: never;
+      modal?: React.FC;
     }
   | {
       id: number | string;
@@ -108,6 +117,13 @@ export const orgNavRoutes: RouteObjectType[] = [
     title: "Members",
     icon: <UserList size={24} />,
     link: "/members",
+  },
+  {
+    id: 3,
+    title: "How To Use",
+    icon: <Question size={24} />,
+    link: false,
+    modal: ({ children }) => <WelcomeModal> {children}</WelcomeModal>,
   },
 ];
 

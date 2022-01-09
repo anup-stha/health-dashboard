@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 2:46 PM
+ * Last Modified 1/9/22, 10:15 AM
  *
  *
  */
@@ -15,7 +15,6 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ToastComponent } from "@/components/Alert/Toast";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
@@ -128,7 +127,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
           <ToastComponent />
         </SkeletonTheme>
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

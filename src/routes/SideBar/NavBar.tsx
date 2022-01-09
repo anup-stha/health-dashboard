@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 11:15 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/9/22, 6:37 PM
  *
  *
  */
@@ -25,6 +25,18 @@ export const NavBar = () => {
     <div className="w-full text-sm">
       <ul className="flex flex-col w-full gap-y-1">
         {navBarRoutes.map((route) => {
+          if (route.link === false) {
+            if (route.modal) {
+              const Modal = route.modal;
+
+              return (
+                <Modal>
+                  <NavItem route={route} key={`${route.id}-${route.title}`} />;
+                </Modal>
+              );
+            }
+          }
+
           if (route.children) {
             return (
               <NavDropdown

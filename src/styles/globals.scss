@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 6:20 PM
+ * Last Modified 1/9/22, 5:54 PM
  *
  *
  */
@@ -331,3 +331,48 @@ datalist {
   align-items: center;
   cursor: pointer;
 }
+
+
+.page-header, .page-header-space {
+  height: 220px;
+}
+
+.page-footer, .page-footer-space {
+  height: 50px;
+
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.page-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+}
+
+@media print {
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  button {
+    display: none;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0.25in 0.5in;
+}
+

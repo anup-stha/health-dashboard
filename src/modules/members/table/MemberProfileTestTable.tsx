@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 11:24 AM
+ * Last Modified 1/9/22, 10:48 AM
  *
  *
  */
@@ -52,12 +52,15 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
             <span className="font-medium text-gray-500">
               {Object.keys(element)[1]} :{" "}
             </span>
-            <span className="font-semibold flex flex-col line-clamp-2">
+            <span className="font-semibold flex flex-col">
               {Object.values(element)[1].length === 0
                 ? "N/A"
                 : Object.values(element)[1].map(
                     (element: any, index: number) => (
-                      <span key={index}> {element} </span>
+                      <span key={index} className="line-clamp-2">
+                        {" "}
+                        {element}{" "}
+                      </span>
                     )
                   )}
             </span>

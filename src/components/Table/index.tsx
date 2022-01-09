@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 8:43 AM
+ * Last Modified 1/9/22, 10:02 AM
  *
  *
  */
@@ -114,18 +114,20 @@ export const TableView: React.FC<TableViewPropsType> = ({
             <div className="px-1 py-2 align-middle inline-block min-w-full print:p-0">
               <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-sm">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <tr className="bg-gray-100">
-                    {headings &&
-                      headings.map((heading, index) => (
-                        <th
-                          scope="col"
-                          key={index}
-                          className=" px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
-                        >
-                          {heading}
-                        </th>
-                      ))}
-                  </tr>
+                  <thead className="bg-gray-100">
+                    <tr>
+                      {headings &&
+                        headings.map((heading, index) => (
+                          <th
+                            scope="col"
+                            key={index}
+                            className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
+                          >
+                            {heading}
+                          </th>
+                        ))}
+                    </tr>
+                  </thead>
 
                   <tbody className="bg-white divide-y divide-gray-200">
                     {tableRowComponent

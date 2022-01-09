@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 7:14 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/9/22, 6:27 PM
  *
  *
  */
@@ -14,7 +14,6 @@ import { isMobile } from "react-device-detect";
 type NavItemProps = {
   route: RouteObjectType;
   containerClassName?: string;
-  onChange?: () => void;
 };
 
 export const NavItem: React.FC<NavItemProps> = ({
