@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 10:29 AM
+ * Last Modified 1/10/22, 10:45 PM
  *
  *
  */
@@ -40,7 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled ?? loading}
       className={`flex items-center ${buttonPadding} ${
         width ? "w-full justify-center py-4" : ""
-      } uppercase cursor-pointer text-center text-xl  font-semibold  text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+      } capitalize cursor-pointer text-center text-xl  font-semibold  text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
       <span className={"sm:line-clamp-1"}>{children}</span>

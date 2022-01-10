@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 9:56 PM
+ * Last Modified 1/10/22, 10:44 PM
  *
  *
  */
@@ -63,7 +63,9 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   );
 
   useEffect(() => {
-    router.query.page && window.scroll(0, 567);
+    router.query.page &&
+      Object.keys(selectedTestInProfile).length !== 0 &&
+      window.scroll(0, 567);
   }, [router]);
 
   const subTestDetails =

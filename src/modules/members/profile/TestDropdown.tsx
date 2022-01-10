@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 10:12 PM
+ * Last Modified 1/10/22, 11:00 PM
  *
  *
  */
@@ -12,6 +12,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { testStore } from "@/modules/tests/testStore";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useRouter } from "next/router";
+import { MemberTestListData, Test } from "@/types";
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -23,16 +24,23 @@ export const TestDropdown = () => {
   const {
     selectedTestInProfile: selected,
     setSelectedTestInProfile: setSelected,
+    setSelectedTestDetailsInProfile,
   } = useMemberStore();
 
   useEffect(() => {
-    router.replace(
-      {
-        query: { ...router.query, page: 1 },
-      },
-      undefined,
-      { shallow: true }
-    );
+    setSelected({} as Test);
+    setSelectedTestDetailsInProfile({} as MemberTestListData);
+  }, []);
+
+  useEffect(() => {
+    Object.keys(selected).length !== 0 &&
+      router.replace(
+        {
+          query: { ...router.query, page: 1 },
+        },
+        undefined,
+        { shallow: true }
+      );
   }, [selected.slug]);
 
   return (
