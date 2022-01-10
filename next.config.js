@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/7/22, 1:57 PM
+ * Last Modified 1/10/22, 8:57 AM
  *
  *
  */
@@ -13,12 +13,18 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 module.exports = withBundleAnalyzer({
-  /* Add Your Scss File Folder Path Here */
+  webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, crypto: false };
+
+    return config;
+  },
+
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["d33wubrfki0l68.cloudfront.net"],
+    domains: [],
   },
 });

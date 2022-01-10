@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 5:56 PM
+ * Last Modified 1/10/22, 3:42 PM
  *
  *
  */
@@ -25,6 +25,14 @@ import Image from "next/image";
 import { useMemberTestList } from "@/modules/members/api/hooks/useMemberTestList";
 import { Member } from "@/types";
 import { useReactToPrint } from "react-to-print";
+
+import ReactExport from "react-data-export";
+import { GrayButton } from "@/components/Button";
+import omit from "lodash/omit";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -66,6 +74,26 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                 [`Note`]: sub.note,
               })),
             }
+          );
+        })
+      : [];
+
+  const excelData =
+    Object.keys(testDetails).length !== 0
+      ? testDetails.list.map((element) => {
+          return Object.assign(
+            {},
+            {
+              test_name: element.test_name,
+              test_app: element.app_slug,
+              test_date: moment(utcDateToLocal(element.test_date)).format(
+                "YYYY/MM/DD"
+              ),
+            },
+            ...element.report.map((sub) => ({
+              [sub.name]: sub.value,
+              note: sub.note.length === 0 ? "N/A" : sub.note.join(" | "),
+            }))
           );
         })
       : [];
@@ -170,13 +198,37 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                       Grid
                     </Tab>
                   </Tab.List>
-                  <div
-                    className={
-                      "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold  print:hidden cursor-pointer"
-                    }
-                    onClick={handlePrint}
-                  >
-                    Print
+
+                  <div className="space-x-2 flex">
+                    <GrayButton onClick={handlePrint} buttonSize={"small"}>
+                      Print
+                    </GrayButton>
+                    <ExcelFile
+                      element={
+                        <GrayButton buttonSize={"small"}>
+                          Export to Excel
+                        </GrayButton>
+                      }
+                      filename={selectedTestInProfile.name}
+                    >
+                      <ExcelSheet
+                        data={excelData}
+                        name={selectedTestInProfile.name}
+                      >
+                        {Object.keys(omit(excelData[0], "note")).map(
+                          (element: any, index: number) => {
+                            return (
+                              <ExcelColumn
+                                key={index}
+                                label={element}
+                                value={element}
+                              />
+                            );
+                          }
+                        )}
+                        <ExcelColumn label="Test Note" value={"note"} />
+                      </ExcelSheet>
+                    </ExcelFile>
                   </div>
                 </div>
                 <hr className="border-t-[1px] border-gray-200 " />

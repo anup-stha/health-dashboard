@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 10:48 AM
+ * Last Modified 1/10/22, 4:21 PM
  *
  *
  */
@@ -148,7 +148,7 @@ export const ProfileTestGridTableRow: React.FC<
       </td>
 
       <td className="capitalize px-6 py-4 text-xl font-medium text-gray-700 truncate">
-        {data.note === "" ? "N/A" : data.note.slice(0, 40)[0]}
+        {data.note[0].slice(0, 40)[0]}
       </td>
     </tr>
   ) : (

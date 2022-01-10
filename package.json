@@ -19,6 +19,13 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "tls": false
+  },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
@@ -37,6 +44,7 @@
     "date-fns": "^2.24.0",
     "date-fns-tz": "^1.1.6",
     "framer-motion": "^5.5.5",
+    "fs": "^0.0.1-security",
     "iconsax-react": "^0.0.7",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
@@ -50,6 +58,7 @@
     "react-apexcharts": "^1.3.9",
     "react-avatar": "^4.0.0",
     "react-countup": "^6.1.0",
+    "react-data-export": "^0.6.0",
     "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
@@ -66,6 +75,7 @@
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0",
     "swr": "^1.0.1",
+    "xlsx": "^0.17.4",
     "yarn": "^1.22.17",
     "yup": "^0.32.11",
     "zustand": "^3.6.8"

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 11:58 AM
+ * Last Modified 1/10/22, 10:29 AM
  *
  *
  */
@@ -88,14 +88,20 @@ export const GrayButton: React.FC<ButtonProps> = ({
   extraClassName,
   onClick,
   width,
+  buttonSize = "large",
 }) => {
+  const buttonPadding =
+    buttonSize === "small"
+      ? "px-8 py-3  sm:px-8 shadow-md"
+      : "px-12 py-4 sm:px-8 shadow-E400";
+
   return (
     <button
       type="button"
       onClick={onClick}
       className={`flex  ${
         width && "w-full justify-center py-4"
-      } capitalize items-center px-12 py-4 text-center text-xl font-medium text-white bg-gray-700 rounded-md disabled:opacity-80 gap-x-2 hover:bg-gray-800 shadow-lg disabled:cursor-not-allowed`}
+      } capitalize items-center ${buttonPadding} text-center text-xl font-medium text-white bg-gray-700 rounded-md disabled:opacity-80 gap-x-2 hover:bg-gray-800 shadow-lg disabled:cursor-not-allowed`}
     >
       {children}
     </button>

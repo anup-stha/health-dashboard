@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 7:44 PM
+ * Last Modified 1/10/22, 3:58 PM
  *
  *
  */
@@ -244,6 +244,9 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                 />
               </div>
             </div>
+            <p className="self-start pt-4 -mb-2 text-gray-800 font-semibold text-xl tracking-wider text- ">
+              Allocated Tests
+            </p>
             {selectedMemberSubscription.plan.test_categories.map((category) => (
               <div
                 className="py-2 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start space-y-2 sm:w-full sm:items-center mt-4 "
@@ -271,9 +274,6 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
             ))}
             {user.id === 1 && (
               <div className={"w-full flex space-x-4 mt-4 self-start"}>
-                {Object.keys(selectedMemberSubscription).length !== 0 && (
-                  <GrayButton>Renew</GrayButton>
-                )}
                 <WarningButton
                   onClick={async () => {
                     await alert({

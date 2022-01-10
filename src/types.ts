@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 7:18 PM
+ * Last Modified 1/10/22, 9:40 AM
  *
  *
  */
@@ -402,7 +402,7 @@ export type MemberTestReport = {
   name: string;
   value: string;
   slug: string;
-  note: string;
+  note: string[];
 };
 
 export type MemberTestList = {
