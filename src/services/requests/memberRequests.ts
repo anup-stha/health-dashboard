@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 8:28 AM
+ * Last Modified 1/10/22, 8:10 PM
  *
  *
  */
@@ -129,8 +129,12 @@ export const addDetailsToMember = (
   });
 };
 
-export const getMemberTestList = (memberId: number, testCategoryId: number) => {
+export const getMemberTestList = (
+  memberId: number,
+  testCategoryId: number,
+  pageNumber: number = 1
+) => {
   return privateAgent.get<MemberTestListResponse>(
-    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=1`
+    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`
   );
 };

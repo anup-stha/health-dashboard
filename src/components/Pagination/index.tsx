@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 9:08 AM
+ * Last Modified 1/10/22, 9:50 PM
  *
  *
  */
@@ -9,25 +9,27 @@
 /* eslint-disable require-jsdoc */
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
+import { useRouter } from "next/router";
+import { PaginationObject } from "@/types";
 
 type paginationProps = {
   totalPageNumber: number;
   pageIndex: number;
   setPageIndex: any;
-  isPreviousData?: boolean;
-  data?: any;
+  pageName?: string;
+  paginateObject?: PaginationObject;
 };
 
 export const Pagination = ({
   totalPageNumber,
   pageIndex,
   setPageIndex,
-  isPreviousData,
-  data,
+  pageName,
 }: paginationProps): JSX.Element => {
   // Pagination States for Handling Form Input and UI
   const [pageArray, setPageArray] = useState([1, 2, 3, 4, 5]);
-  const [enteredPage, setEnteredPage] = useState<number>(1);
+  const [enteredPage, setEnteredPage] = useState<number | "">(1);
+  const router = useRouter();
 
   // Incase props are not mentioned. Used for storybook
   const [pageDIndex, setPageDIndex] = useState(1);
@@ -37,23 +39,53 @@ export const Pagination = ({
   const leftClickHandler = () => {
     if (pageIndex <= 1) {
       setPageIndex(1);
+      router.push(
+        {
+          query: { ...router.query, page: 1 },
+        },
+        undefined,
+        { shallow: true }
+      );
       return;
     }
     setPageIndex(pageIndex - 1);
+    router.push(
+      {
+        query: { ...router.query, page: totalPageNumber - 1 },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   const rightClickHandler = () => {
     if (pageIndex >= totalPageNumber) {
       setPageIndex(totalPageNumber);
+      router.push(
+        {
+          query: { ...router.query, page: totalPageNumber },
+        },
+        undefined,
+        { shallow: true }
+      );
+
       return;
     }
     setPageIndex(pageIndex + 1);
+    router.push(
+      {
+        query: { ...router.query, page: pageIndex + 1 },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   useEffect(() => {
     const page = +pageIndex;
     if (page < 1) {
       setPageIndex(1);
+
       return;
     }
     setPageIndex(+pageIndex);
@@ -89,6 +121,13 @@ export const Pagination = ({
               key={page}
               className={pageIndex !== page ? "inactive_item" : "active_item"}
               onClick={() => {
+                router.push(
+                  {
+                    query: { ...router.query, page: +page },
+                  },
+                  undefined,
+                  { shallow: true }
+                );
                 setPageIndex(page);
               }}
             >
@@ -103,19 +142,34 @@ export const Pagination = ({
           </li>
         </ul>
         <form
-          className="flex items-center space-x-4 text-gray-600 sm:text-xl"
+          className="flex items-center space-x-4 text-gray-500 sm:text-xl"
           onSubmit={(e) => {
             e.preventDefault();
 
             if (enteredPage && enteredPage <= 1) {
               setEnteredPage(1);
               setPageIndex(1);
+              router.push(
+                {
+                  query: { ...router.query, page: 1 },
+                },
+                undefined,
+                { shallow: true }
+              );
 
               return;
             }
             if (enteredPage && enteredPage >= totalPageNumber) {
               setEnteredPage(totalPageNumber);
               setPageIndex(totalPageNumber);
+              router.push(
+                {
+                  query: { ...router.query, page: totalPageNumber },
+                },
+                undefined,
+                { shallow: true }
+              );
+
               return;
             }
             setPageIndex(enteredPage);
@@ -124,11 +178,15 @@ export const Pagination = ({
           <div>Go To Page</div>
           <input
             onChange={(e) => {
+              if (+e.target.value === 0) {
+                setEnteredPage("");
+                return;
+              }
               setEnteredPage(+e.target.value);
             }}
             type="number"
-            value={enteredPage}
-            className="bg-gray-100 border-2 border-gray-600 rounded-lg shadow-inner px-xs py-xs w-3xl"
+            value={enteredPage.toString()}
+            className="bg-gray-100 rounded-lg shadow-sm ring-1 ring-gray-500/50 text-center px-4 py-xs w-14"
           />
           <button className="flex items-center font-bold cursor-pointer hover:text-gray-800">
             <span>Go</span>

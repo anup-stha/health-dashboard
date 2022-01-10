@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 5:54 PM
+ * Last Modified 1/10/22, 9:03 PM
  *
  *
  */
@@ -21,6 +21,10 @@ body {
   margin: 0;
   background: #f3f3f3;
   @apply print:bg-white;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 * {
@@ -374,4 +378,12 @@ datalist {
 @page {
   size: A4;
   margin: 0.25in 0.5in;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }

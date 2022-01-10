@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 9:40 AM
+ * Last Modified 1/10/22, 9:47 PM
  *
  *
  */
@@ -189,7 +189,7 @@ export type NormalMemberAddReq = {
 };
 
 export type MemberList = Member[];
-export type Pagination = {
+export type PaginationObject = {
   total: number;
   count: number;
   path: string;
@@ -201,7 +201,7 @@ export type Pagination = {
 export type MemberListResponse = StatusType & {
   data: {
     list: MemberList;
-    pagination: Pagination;
+    pagination: PaginationObject;
   };
 };
 
@@ -418,13 +418,13 @@ export type MemberTestList = {
 
 export type MemberTestListData = {
   list: MemberTestList[];
-  pagination: Pagination;
+  pagination: PaginationObject;
 };
 
 export type MemberTestListResponse = StatusType & {
   data: {
     list: MemberTestList[];
-    pagination: Pagination;
+    pagination: PaginationObject;
   };
 };
 

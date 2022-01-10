@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 3:42 PM
+ * Last Modified 1/10/22, 9:56 PM
  *
  *
  */
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { TestDropdown } from "@/modules/members/profile/TestDropdown";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { utcToZonedTime } from "date-fns-tz";
@@ -48,6 +48,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   selectedMember,
 }) => {
   const router = useRouter();
+  const tableRef = useRef<HTMLDivElement>(null);
 
   const componentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
@@ -55,10 +56,15 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
   const { selectedTestDetailsInProfile: testDetails, selectedTestInProfile } =
     useMemberStore();
 
-  const {} = useMemberTestList(
+  const { isFetching } = useMemberTestList(
     Number(router.query.id),
-    Number(selectedTestInProfile.id)
+    Number(selectedTestInProfile.id),
+    Number(router.query.page ?? 1)
   );
+
+  useEffect(() => {
+    router.query.page && window.scroll(0, 567);
+  }, [router]);
 
   const subTestDetails =
     Object.keys(testDetails).length !== 0
@@ -151,7 +157,10 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
         member={selectedMember}
         ref={componentRef}
       />
-      <div className="print:hidden print:p-4 w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+      <div
+        className="print:hidden print:p-4 w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10"
+        ref={tableRef}
+      >
         <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
           <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
             <div className="print:hidden">
@@ -245,6 +254,9 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                       ]}
                       search={false}
                       tableRowComponent={<ProfileTestTableRow />}
+                      loading={isFetching}
+                      paginate={true}
+                      paginateObject={testDetails.pagination}
                     />
                   </Tab.Panel>
                 </Tab.Panels>

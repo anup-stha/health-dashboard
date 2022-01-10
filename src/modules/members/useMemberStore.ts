@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 9:00 AM
+ * Last Modified 1/10/22, 10:12 PM
  *
  *
  */
@@ -16,7 +16,7 @@ import {
   MemberListResponse,
   MemberSubscriptionDetails,
   MemberTestListData,
-  Pagination,
+  PaginationObject,
   Role,
   RoleSummary,
   Test,
@@ -26,7 +26,7 @@ import { getMembersList } from "@/services/requests/memberRequests";
 
 const initialState = {
   memberList: [] as MemberList,
-  pagination: {} as Pagination,
+  pagination: {} as PaginationObject,
   loading: false,
   selectedRole: {
     id: 0,
@@ -138,8 +138,10 @@ export const store = combine(initialState, (set) => ({
   },
 
   setSelectedMemberSubscription: (details: MemberSubscriptionDetails) => {
-    set({
-      selectedMemberSubscription: details,
+    set(() => {
+      return {
+        selectedMemberSubscription: details,
+      };
     });
   },
 

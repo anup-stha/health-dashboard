@@ -1,16 +1,17 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:20 PM
+ * Last Modified 1/10/22, 10:12 PM
  *
  *
  */
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { testStore } from "@/modules/tests/testStore";
 import { useMemberStore } from "@/modules/members/useMemberStore";
+import { useRouter } from "next/router";
 
 const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -18,10 +19,21 @@ const classNames = (...classes: string[]) => {
 
 export const TestDropdown = () => {
   const { testList } = testStore();
+  const router = useRouter();
   const {
     selectedTestInProfile: selected,
     setSelectedTestInProfile: setSelected,
   } = useMemberStore();
+
+  useEffect(() => {
+    router.replace(
+      {
+        query: { ...router.query, page: 1 },
+      },
+      undefined,
+      { shallow: true }
+    );
+  }, [selected.slug]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
