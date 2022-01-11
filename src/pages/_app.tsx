@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 8:17 PM
+ * Last Modified 1/11/22, 1:11 PM
  *
  *
  */
@@ -18,7 +18,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -128,7 +127,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
           <ToastComponent />
         </SkeletonTheme>
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

@@ -1,18 +1,17 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 7:08 PM
+ * Last Modified 1/11/22, 5:34 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
-import Link from "next/link";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { useMemberStore } from "../useMemberStore";
-import { CaretDoubleRight } from "phosphor-react";
+import { CaretDoubleRight, PhoneCall } from "phosphor-react";
 import { Popover, Transition } from "@headlessui/react";
 import { MoreVertical } from "react-feather";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
@@ -38,19 +37,19 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
     data ? (
       <tr key={key}>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div
-            className="flex items-center cursor-pointer"
-            onClick={() =>
-              data.role_slug && data.role_id
-                ? router.push(
-                    `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
-                  )
-                : router.push(
-                    `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
-                  )
-            }
-          >
-            <div className="relative flex-shrink-0 h-16 w-16">
+          <div className="flex items-center ">
+            <div
+              className="relative flex-shrink-0 h-16 w-16 cursor-pointer"
+              onClick={() =>
+                data.role_slug && data.role_id
+                  ? router.push(
+                      `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
+                    )
+                  : router.push(
+                      `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                    )
+              }
+            >
               <LetteredAvatar
                 name={data.name}
                 size="50"
@@ -58,20 +57,34 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                 maxInitials={2}
               />
             </div>
-            <div className="ml-4">
-              <div className="text-xl font-semibold text-gray-900 w-full capitalize">
+            <div className="ml-4 flex flex-col">
+              <div
+                className="text-xl font-semibold text-gray-900 w-full capitalize cursor-pointer"
+                onClick={() =>
+                  data.role_slug && data.role_id
+                    ? router.push(
+                        `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
+                      )
+                    : router.push(
+                        `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                      )
+                }
+              >
                 {data.name}
               </div>
-              <div className="text-lg font-medium text-gray-500">
+              <a
+                href={`mailto: ${data.email}`}
+                className="text-lg font-medium text-gray-500 hover:text-gray-800"
+              >
                 {data.email}
-              </div>
+              </a>
             </div>
           </div>
         </td>
-        <td className="whitespace-nowrap text-lg">
+        <td className="  px-6 py-4 whitespace-nowrap text-base">
           <BooleanTag type="info" trueStatement={data.member_code} />
         </td>
-        <td className="whitespace-nowrap text-lg">
+        <td className=" px-6 py-4 whitespace-nowrap text-base">
           <BooleanTag
             type="error"
             condition={data && data.active}
@@ -79,7 +92,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             falseStatement="InActive"
           />
         </td>
-        <td className="whitespace-nowrap text-lg">
+        <td className=" px-6 py-4 whitespace-nowrap text-base capitalize">
           <BooleanTag
             type="error"
             condition={data && data.verified}
@@ -88,21 +101,25 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
           />
         </td>
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
-          {data.phone}
+          <div className="flex hover:text-gray-800 items-center gap-2">
+            <PhoneCall weight="duotone" size={18} />
+            <a href={`tel:${data.phone}`}>{data.phone}</a>
+          </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-gray-900 font-medium">
+          <div className="text-lg text-gray-700 font-semibold capitalize">
             {data.address}
           </div>
           <div className="text-lg text-gray-500 font-medium">
-            <Link
+            <a
+              target="_blank"
               href={`https://maps.google.com/?q=${data.lat},${data.lng}`}
-              passHref
+              rel="noreferrer"
             >
               <span className="flex items-center cursor-pointer hover:text-gray-800">
                 Google Maps <CaretDoubleRight size={16} />
               </span>
-            </Link>
+            </a>
           </div>
         </td>
 

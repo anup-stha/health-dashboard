@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 12:37 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/11/22, 1:01 PM
  *
  *
  */
@@ -11,12 +11,13 @@ import {
   Box2,
   Buildings,
   ChemicalGlass,
+  Health,
+  People,
   Profile2User,
   SecurityUser,
 } from "iconsax-react";
 import React from "react";
 import { StatCardRect } from "@/modules/dashboard/cards/StatCardRect";
-import Image from "next/image";
 import { StatCardApp } from "@/modules/dashboard/cards/StatCardApp";
 
 type StatCardGroupProps = {
@@ -83,27 +84,20 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
       <div className="flex flex-col gap-6 h-full">
         <StatCardRect
           icon={
-            <div className=" h-28 w-28 relative flex-shrink-0">
-              <Image
-                src={"/sub_test.png"}
-                layout="fill"
-                objectFit="cover"
-                alt="Profile"
-              />
+            <div className="bg-lime-600 p-6 rounded-full">
+              <Health variant="Broken" size={36} color={"#fff"} />
             </div>
           }
           value={data.total_test_taken}
-          valueText={["Total Tests", "Total Tests taken through Sunya Apps"]}
+          valueText={[
+            "Total Test Count",
+            "Total Tests taken through Sunya Apps",
+          ]}
         />
         <StatCardRect
           icon={
-            <div className=" h-28 w-28 relative flex-shrink-0">
-              <Image
-                src={"/assets/management.png"}
-                layout="fill"
-                objectFit="cover"
-                alt="Profile"
-              />
+            <div className="bg-slate-700 p-6 rounded-full">
+              <People size={36} color="#fff" variant="Broken" />
             </div>
           }
           value={data.organization_operator}

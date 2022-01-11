@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 4:11 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/11/22, 5:39 PM
  *
  *
  */
@@ -59,7 +59,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       width={"full"}
       onClick={() => onToggleHandler()}
     >
-      Mark this member as{" "}
+      Mark{" "}
       {currentState
         ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
         : toggle}
@@ -70,7 +70,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       width={"full"}
       onClick={() => onToggleHandler()}
     >
-      Mark this member as{" "}
+      Mark{" "}
       {currentState
         ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
         : toggle}

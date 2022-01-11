@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 9:45 AM
+ * Last Modified 1/11/22, 8:01 PM
  *
  *
  */
@@ -11,16 +11,19 @@ import { useMemberStore } from "../useMemberStore";
 import { MemberTableRow } from "./MemberTableRow";
 import Image from "next/image";
 import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/router";
 
 export const MemberTable = () => {
+  const router = useRouter();
   const memberList = useMemberStore((state) => state.memberList);
+  const memberPagination = useMemberStore((state) => state.pagination);
+
   const { selectedRole } = useMemberStore();
-  const [pageIndex] = useState(1);
   const { isLoading, data } = useMembersList(
     Number(selectedRole.id),
     undefined,
-    pageIndex
+    Number(router.query.page ?? 1)
   );
 
   return selectedRole.id === 0 ? (
@@ -52,17 +55,10 @@ export const MemberTable = () => {
           ]}
           searchTerms={["name", "member_code"]}
           tableRowComponent={<MemberTableRow />}
+          paginate={true}
+          paginateObject={memberPagination}
         />
       )}
-      {/*   <div className="">
-        <Pagination
-          totalPageNumber={pagination.total_pages + 2}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          isPreviousData={isPreviousData}
-          data={data}
-        />
-      </div> */}
     </>
   );
 };

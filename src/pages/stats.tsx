@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/29/21, 3:38 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/11/22, 5:25 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import Image from "next/image";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { MainLayout } from "@/layout/MainLayout";
 
-import error from "../styles/404.svg";
+import error from "../../public/assets/404.svg";
 
 const Statistics: NextPage = () => {
   return (

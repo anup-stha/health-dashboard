@@ -1,7 +1,11 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 5:38 PM
+ * Last Modified 1/11/22, 12:31 PM
  *
  *
  */
+
+td {
+  @apply px-4 py-4 whitespace-nowrap text-lg font-semibold text-gray-850 w-auto;
+}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/6/22, 2:13 PM
+ * Last Modified 1/11/22, 8:22 PM
  *
  *
  */
@@ -14,16 +14,9 @@ import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMember
 import { TableView } from "@/components/Table";
 import { MemberTableRow } from "@/modules/members/table/MemberTableRow";
 import { WarningOctagon } from "phosphor-react";
-import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
 export const ProfileMemberTable: React.FC = () => {
   const router = useRouter();
-
-  const { isLoading: roleListBySlugLoading } = useRoleListBySlug(
-    !Array.isArray(router.query.profile) && router.query.profile
-      ? router.query.profile
-      : ""
-  );
 
   const roleList = useRoleStore((state) => state.roleListBySlug.data);
   const [selectedRole, setSelectedRole] = useState(roleList[0]);
@@ -34,14 +27,16 @@ export const ProfileMemberTable: React.FC = () => {
       : roleList.length !== 0
       ? Number(roleList[0].id)
       : 0,
-    Number(router.query.id)
+    Number(router.query.id),
+    undefined,
+    Number(router.query.page ?? 1)
   );
 
   useEffect(() => {
     setSelectedRole(roleList[0]);
-  }, [roleList, router]);
+  }, [roleList]);
 
-  if (isLoading || !selectedRole || roleListBySlugLoading) return <div />;
+  if (!selectedRole) return <div />;
 
   return (
     <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">
@@ -85,6 +80,8 @@ export const ProfileMemberTable: React.FC = () => {
             searchTerms={["name", "member_code"]}
             tableRowComponent={<MemberTableRow />}
             loading={isLoading}
+            paginate={true}
+            paginateObject={data.data.data.pagination}
           />
         ))}
     </div>

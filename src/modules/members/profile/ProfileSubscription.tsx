@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 3:58 PM
+ * Last Modified 1/11/22, 5:47 PM
  *
  *
  */
@@ -190,111 +190,118 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
       )}
     </div>
   ) : (
-    <div className="print:hidden w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
-      <div className="p-6 space-y-4">
-        <div className="flex items-center">
-          <div className="w-full text-xl rounded-lg flex flex-col items-center sm:w-full">
-            <div className="px-4 flex items-center justify-center -mt-6">
-              {typeof window !== "undefined" && (
-                <Chart
-                  options={options}
-                  type={"radialBar"}
-                  series={options.series}
-                  width="200"
-                  height="225"
-                />
-              )}
-            </div>{" "}
-            <h1 className="text-gray-900 font-semibold text-2xl tracking-wider -mt-6 mb-4 line-clamp-1">
-              {selectedMemberSubscription.plan.name}
-            </h1>
-            <div className="py-4 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start gap-4 sm:w-full sm:items-center  ">
-              <div className="space-y-1 flex flex-col items-start">
-                <ProfileSubsData
-                  title={"Start Date: "}
-                  value={moment(
-                    selectedMemberSubscription.start_date * 1000
-                  ).format("MM/DD/YYYY")}
-                />
-                <ProfileSubsData
-                  title={"End Date: "}
-                  value={moment(
-                    selectedMemberSubscription.end_date * 1000
-                  ).format("MM/DD/YYYY")}
-                />
-                <ProfileSubsData
-                  title={"Total Price: "}
-                  value={selectedMemberSubscription.plan.price}
-                />
-                <ProfileSubsData
-                  title={"Grace Period: "}
-                  value={`${selectedMemberSubscription.plan.grace_period} days`}
-                />
-                <ProfileSubsData
-                  title={"Sync Limit: "}
-                  value={`${selectedMemberSubscription.plan.sync_limit} times`}
-                />
-                <ProfileSubsData
-                  title={"Test Limit: "}
-                  value={`${selectedMemberSubscription.plan.test_limit} times`}
-                />
-                <ProfileSubsData
-                  title={"Test Count: "}
-                  value={`${selectedMemberSubscription.total_test_count} times`}
-                />
+    <>
+      <div className="print:hidden w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+        <div className="p-6 space-y-4">
+          <div className="flex justify-center items-center">
+            <div className="w-full text-xl rounded-lg flex flex-col items-center sm:w-full">
+              <div className="px-4 flex items-center justify-center -mt-6">
+                {typeof window !== "undefined" && (
+                  <Chart
+                    options={options}
+                    type={"radialBar"}
+                    series={options.series}
+                    width="200"
+                    height="225"
+                  />
+                )}
+              </div>{" "}
+              <h1 className="text-gray-900 font-semibold text-2xl tracking-wider -mt-6 mb-4 line-clamp-1">
+                {selectedMemberSubscription.plan.name}
+              </h1>
+              <div className="py-4 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-center gap-4 sm:w-full sm:items-center  ">
+                <div className="space-y-1 flex flex-col items-center">
+                  <ProfileSubsData
+                    title={"Start Date: "}
+                    value={moment(
+                      selectedMemberSubscription.start_date * 1000
+                    ).format("MM/DD/YYYY")}
+                  />
+                  <ProfileSubsData
+                    title={"End Date: "}
+                    value={moment(
+                      selectedMemberSubscription.end_date * 1000
+                    ).format("MM/DD/YYYY")}
+                  />
+                  <ProfileSubsData
+                    title={"Total Price: "}
+                    value={selectedMemberSubscription.plan.price}
+                  />
+                  <ProfileSubsData
+                    title={"Grace Period: "}
+                    value={`${selectedMemberSubscription.plan.grace_period} days`}
+                  />
+                  <ProfileSubsData
+                    title={"Sync Limit: "}
+                    value={`${selectedMemberSubscription.plan.sync_limit} times`}
+                  />
+                  <ProfileSubsData
+                    title={"Test Limit: "}
+                    value={`${selectedMemberSubscription.plan.test_limit} times`}
+                  />
+                  <ProfileSubsData
+                    title={"Test Count: "}
+                    value={`${selectedMemberSubscription.total_test_count} times`}
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                {" "}
+                {user.id === 1 && (
+                  <WarningButton
+                    onClick={async () => {
+                      await alert({
+                        type: "promise",
+                        promise: removeSubscriptionFromMember(
+                          Number(router.query.id)
+                        ),
+                        msgs: {
+                          loading: "Removing",
+                        },
+                        id: "remove-subs",
+                      });
+                    }}
+                  >
+                    Unlink
+                  </WarningButton>
+                )}
               </div>
             </div>
-            <p className="self-start pt-4 -mb-2 text-gray-800 font-semibold text-xl tracking-wider text- ">
-              Allocated Tests
-            </p>
-            {selectedMemberSubscription.plan.test_categories.map((category) => (
-              <div
-                className="py-2 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start space-y-2 sm:w-full sm:items-center mt-4 "
-                key={category.id}
-              >
-                <Disclosure>
-                  <Disclosure.Button className="py-2 w-full flex items-center justify-between font-semibold text-xl tracking-wider text-gray-800">
-                    {category.name}
-                    <span>
-                      <ChevronDown />
-                    </span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500">
-                    {category.sub_categories.map((sub_category) => (
-                      <span
-                        key={sub_category.id}
-                        className="text-gray-500 font-medium text-lg tracking-wider line-clamp-1 capitalize  "
-                      >
-                        {sub_category.name}
-                      </span>
-                    ))}
-                  </Disclosure.Panel>
-                </Disclosure>
-              </div>
-            ))}
-            {user.id === 1 && (
-              <div className={"w-full flex space-x-4 mt-4 self-start"}>
-                <WarningButton
-                  onClick={async () => {
-                    await alert({
-                      type: "promise",
-                      promise: removeSubscriptionFromMember(
-                        Number(router.query.id)
-                      ),
-                      msgs: {
-                        loading: "Removing",
-                      },
-                      id: "remove-subs",
-                    });
-                  }}
-                >
-                  Unlink
-                </WarningButton>
-              </div>
-            )}
           </div>
         </div>
       </div>
-    </div>
+      <div className="print:hidden w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
+        <div className="p-6 space-y-4">
+          <p className="self-center pt-4 text-gray-800 font-semibold text-xl tracking-wider text- ">
+            Allocated Tests
+          </p>
+          {selectedMemberSubscription.plan.test_categories.map((category) => (
+            <div
+              className="py-2 px-6 bg-gray-100 w-full text-xl rounded-lg flex flex-col items-start space-y-2 sm:w-full sm:items-center mt-4 "
+              key={category.id}
+            >
+              <Disclosure>
+                <Disclosure.Button className="py-2 w-full flex items-center justify-between font-semibold text-xl tracking-wider text-gray-800">
+                  {category.name}
+                  <span>
+                    <ChevronDown />
+                  </span>
+                </Disclosure.Button>
+                <Disclosure.Panel className="text-gray-500">
+                  {category.sub_categories.map((sub_category) => (
+                    <span
+                      key={sub_category.id}
+                      className="text-gray-500 font-medium text-lg tracking-wider line-clamp-1 capitalize  "
+                    >
+                      {sub_category.name}
+                    </span>
+                  ))}
+                </Disclosure.Panel>
+              </Disclosure>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };

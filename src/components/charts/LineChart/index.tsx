@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 2:55 PM
+ * Last Modified 1/11/22, 9:00 AM
  *
  *
  */
@@ -51,7 +51,7 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
       <Chart
         options={state.options}
         series={state.series}
-        type="area"
+        type="line"
         width="100%"
         height="450"
       />

@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/26/21, 10:21 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/11/22, 8:30 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { NavItem } from "./NavItem";
 import { RouteObjectType } from "./routes";
 import { useSideBarStore } from "./useSideBarStore";
@@ -27,14 +27,14 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   const { open } = useSideBarStore();
 
   const mainItemStyles =
-    "text-gray-500 hover:text-gray-900 py-3 rounded-lg cursor-pointer hover:bg-white relative";
+    "text-gray-500 hover:text-gray-900 py-2.5 rounded-lg cursor-pointer hover:bg-white relative";
 
   const onExpandChange = () => {
     setExpand((expand) => !expand);
   };
 
   return (
-    <ul className="flex flex-col gap-y-1">
+    <ul className="flex flex-col">
       <li onClick={() => onExpandChange()} className={mainItemStyles}>
         <div
           className={`flex peer ${
@@ -73,6 +73,24 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           {expand &&
             subRoutes.children &&
             subRoutes.children.map((route) => {
+              if (route.link === false) {
+                if (route.modal) {
+                  const Modal = route.modal;
+
+                  return (
+                    <Fragment key={`${route.id}-${route.title}`}>
+                      <Modal>
+                        <NavItem
+                          route={route}
+                          key={`${route.id}-${route.title}`}
+                          containerClassName={open ? `pl-4` : ""}
+                        />
+                      </Modal>
+                    </Fragment>
+                  );
+                }
+              }
+
               if (route.children) {
                 return (
                   <NavDropdown

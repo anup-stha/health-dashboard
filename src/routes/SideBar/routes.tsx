@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 6:38 PM
+ * Last Modified 1/11/22, 4:01 PM
  *
  *
  */
@@ -16,7 +16,9 @@ import {
 } from "phosphor-react";
 import React from "react";
 import { Category2, Home } from "iconsax-react";
-import { WelcomeModal } from "@/modules/org-admin/dashboard";
+import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
+import { orgAdminWelcomeSlides } from "@/modules/org-admin/dashboard";
+import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -100,6 +102,15 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         icon: <Category2 variant={"Broken"} size={24} color={"gray"} />,
         link: "/others",
       },
+      {
+        id: 5,
+        title: "How To Use",
+        icon: <Question size={24} />,
+        link: false,
+        modal: ({ children }) => (
+          <WelcomeModal images={adminWelcomeSlides}> {children}</WelcomeModal>
+        ),
+      },
     ],
   },
 ];
@@ -123,7 +134,9 @@ export const orgNavRoutes: RouteObjectType[] = [
     title: "How To Use",
     icon: <Question size={24} />,
     link: false,
-    modal: ({ children }) => <WelcomeModal> {children}</WelcomeModal>,
+    modal: ({ children }) => (
+      <WelcomeModal images={orgAdminWelcomeSlides}> {children}</WelcomeModal>
+    ),
   },
 ];
 

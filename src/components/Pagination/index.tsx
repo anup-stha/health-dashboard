@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 9:50 PM
+ * Last Modified 1/11/22, 8:14 PM
  *
  *
  */
@@ -51,7 +51,7 @@ export const Pagination = ({
     setPageIndex(pageIndex - 1);
     router.push(
       {
-        query: { ...router.query, page: totalPageNumber - 1 },
+        query: { ...router.query, page: pageIndex - 1 },
       },
       undefined,
       { shallow: true }
@@ -80,17 +80,17 @@ export const Pagination = ({
       { shallow: true }
     );
   };
+  console.log(pageArray);
 
   useEffect(() => {
     const page = +pageIndex;
     if (page < 1) {
       setPageIndex(1);
-
       return;
     }
     setPageIndex(+pageIndex);
 
-    if (totalPageNumber <= 4) {
+    if (totalPageNumber <= 6) {
       setPageArray(() => {
         const tempPageArray = [];
         for (let i = 1; i <= totalPageNumber; i++) tempPageArray.push(i);
@@ -99,7 +99,7 @@ export const Pagination = ({
       return;
     }
 
-    if (page > 3 && page < totalPageNumber - 3)
+    if (page > 3 && page <= totalPageNumber - 3)
       setPageArray([page - 2, page - 1, page, page + 1, page + 2]);
     else if (page <= 4)
       setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
@@ -111,7 +111,11 @@ export const Pagination = ({
       <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-2 sm:flex-col sm:space-y-4 sm:px-0 sm:text-xl">
         <ul className="flex items-center space-x-2 sm:space-x-2">
           <li>
-            <button className="button-nav" onClick={leftClickHandler}>
+            <button
+              className="button-nav"
+              onClick={leftClickHandler}
+              disabled={pageIndex === 1}
+            >
               <ArrowLeft />
             </button>
           </li>
@@ -136,7 +140,11 @@ export const Pagination = ({
           ))}
 
           <li>
-            <button className="button-nav" onClick={rightClickHandler}>
+            <button
+              className="button-nav"
+              disabled={pageIndex === totalPageNumber}
+              onClick={rightClickHandler}
+            >
               <ArrowRight />
             </button>
           </li>

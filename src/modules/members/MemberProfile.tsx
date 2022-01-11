@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 6:45 PM
+ * Last Modified 1/11/22, 5:53 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
-import Error from "@/styles/404.svg";
+import Error from "../../../public/assets/404.svg";
 import { useRouter } from "next/router";
 
 import { ProfileAllDetails } from "@/modules/members/profile/ProfileAllDetails";
@@ -32,6 +32,7 @@ import { TableView } from "@/components/Table";
 import omit from "lodash/omit";
 import { WarningOctagon } from "phosphor-react";
 import { ProfileMemberTable } from "@/modules/members/profile/ProfileMemberTable";
+import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 
 export const MemberProfile: React.FC = () => {
   const router = useRouter();
@@ -53,6 +54,11 @@ export const MemberProfile: React.FC = () => {
   const { isFetching: memberSubsFetching } = useMemberSubsDetails(
     Number(router.query.id)
   );
+  const { isLoading: roleListBySlugLoading } = useRoleListBySlug(
+    !Array.isArray(router.query.profile) && router.query.profile
+      ? router.query.profile
+      : ""
+  );
 
   const loading =
     memberSubsFetching ||
@@ -61,7 +67,8 @@ export const MemberProfile: React.FC = () => {
     !roleDetailsData ||
     memberLoading ||
     memberDetailsLoading ||
-    testLoading;
+    testLoading ||
+    roleListBySlugLoading;
 
   const selectedMember = useMemberStore((state) => state.selectedMember);
   const selectedRole = useMemberStore((state) => state.selectedRole);

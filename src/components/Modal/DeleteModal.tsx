@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:18 PM
+ * Last Modified 1/11/22, 12:30 PM
  *
  *
  */
@@ -27,14 +27,12 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
 }) => {
   return (
     <Modal>
-      <Modal.Button type="open">
+      <div className="cursor-not-allowed">
         {closeButton ?? (
-          <Trash
-            name="delete"
-            className="text-gray-400 cursor-pointer hover:text-gray-800"
-          />
+          <Trash name="delete" className="text-gray-400 hover:text-gray-800" />
         )}
-      </Modal.Button>
+      </div>
+
       <Modal.Content width="max-w-3xl">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="text-8xl text-red-500">

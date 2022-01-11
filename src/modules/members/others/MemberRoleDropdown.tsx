@@ -1,17 +1,18 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 3:11 PM
+ * Last Modified 1/11/22, 6:19 PM
  *
  *
  */
 
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRoleStore } from "../../roles/useRoleStore";
 import { useMemberStore } from "../useMemberStore";
 import { Role } from "@/types";
+import { useRouter } from "next/router";
 
 type MemberRoleDropdownProps = {
   roleList?: Role[];
@@ -24,6 +25,7 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
   selectedRole: _selectedRole,
   setSelectedRole: _setSelectedRole,
 }) => {
+  const router = useRouter();
   const roleList =
     _roleList ??
     useRoleStore
@@ -32,6 +34,17 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
 
   const { selectedRole: selected, setSelectedRole: setSelected } =
     useMemberStore();
+
+  useEffect(() => {
+    Object.keys(selected).length !== 0 &&
+      router.replace(
+        {
+          query: { ...router.query, page: 1 },
+        },
+        undefined,
+        { shallow: true }
+      );
+  }, [selected.slug, _selectedRole?.slug]);
 
   return (
     <div className="w-64 capitalize z-10">

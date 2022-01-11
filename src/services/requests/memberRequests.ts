@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 8:10 PM
+ * Last Modified 1/11/22, 6:08 PM
  *
  *
  */
@@ -28,9 +28,13 @@ export const getMembersList = (roleId: number, pageNumber: number = 1) => {
   );
 };
 
-export const getNestedMemberList = (roleId: number, parentId: number) => {
+export const getNestedMemberList = (
+  roleId: number,
+  parentId: number,
+  pageNumber: number
+) => {
   return privateAgent.get<MemberListResponse>(
-    `/member/list/${roleId}/${parentId}`
+    `/member/list/${roleId}/${parentId}?page=${pageNumber}`
   );
 };
 

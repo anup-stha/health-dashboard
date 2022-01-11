@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/6/22, 3:22 PM
+ * Last Modified 1/11/22, 9:07 AM
  *
  *
  */
@@ -32,11 +32,11 @@ export interface ChartDateTimeData {
 
 export const lineChartOptions = (datas: ChartDateTimeData): ApexOptions => ({
   chart: {
-    id: "area-chart",
-    type: "area",
+    id: "line-chart",
+    type: "line",
     zoom: {
       enabled: true,
-      type: "xy",
+      type: "x",
     },
     animations: {
       enabled: true,
@@ -60,10 +60,10 @@ export const lineChartOptions = (datas: ChartDateTimeData): ApexOptions => ({
   },
   markers: {
     shape: "circle",
-    size: 4,
-    colors: ["white"],
+    size: 1,
+    colors: color,
     fillOpacity: 0,
-    strokeWidth: 2,
+    strokeWidth: 1,
     strokeColors: color,
   },
   legend: {
@@ -79,25 +79,6 @@ export const lineChartOptions = (datas: ChartDateTimeData): ApexOptions => ({
     enabled: false,
   },
 
-  fill: {
-    type: "gradient",
-    gradient: {
-      shadeIntensity: 1,
-      inverseColors: false,
-      colorStops: color?.map((colorEle) => [
-        {
-          offset: 0,
-          color: colorEle,
-          opacity: 0.15,
-        },
-        {
-          offset: 100,
-          color: "white",
-          opacity: 0,
-        },
-      ]),
-    },
-  },
   labels: datas[Object.keys(datas)[0]].dates,
   xaxis: {
     labels: {

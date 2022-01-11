@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 6:23 PM
+ * Last Modified 1/11/22, 10:59 AM
  *
  *
  */
@@ -41,7 +41,7 @@ export const LoginPage = () => {
           />
         </div>
         <div className="flex flex-col justify-between gap-y-20 w-3/5 px-20 py-32 sm:px-4 sm:bg-gray-200 rounded-tl-none rounded-bl-none  sm:rounded-none sm:justify-center sm:w-full sm:h-full sm:py-6 lg:px-12  bg-out-transition fadeInLogin ">
-          <div className="gap-y-20 flex flex-col sm:px-8 sm:py-12 sm:rounded-2xl sm:shadow-E300 sm:bg-white">
+          <div className="gap-y-28 flex flex-col sm:px-8 sm:py-12 sm:rounded-2xl sm:shadow-E300 sm:bg-white">
             <div className="flex flex-col text-left">
               <p className="text-5xl font-medium text-gray-800 sm:text-4xl lg:text-3xl">
                 Hello! Welcome Back
@@ -52,29 +52,32 @@ export const LoginPage = () => {
               </p>
             </div>
             <LoginForm />
-
-            <p className="text-base font-medium text-gray-600">
-              * By logging in you accept our
-              <a
-                className="text-green-500 cursor-pointer hover:text-green-600"
-                href="https://sunyahealth-landing.vercel.app/privacy"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {" "}
-                Privacy Policy
-              </a>{" "}
-              and{" "}
-              <a
-                className="text-green-500 cursor-pointer hover:text-green-600"
-                href="https://sunyahealth-landing.vercel.app/terms"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Terms of Service
-              </a>
-              .
-            </p>
+            <div className="-mt-5  flex flex-col items-start ">
+              <div className="text-base font-semibold text-gray-600">
+                &#169; Copyright by Sunya Health Pvt. Ltd.
+              </div>
+              <p className="text-base font-medium text-gray-500">
+                By logging in you accept our
+                <a
+                  className="text-green-500 cursor-pointer hover:text-green-600"
+                  href="https://sunya.health/privacy"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {" "}
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a
+                  className="text-green-500 cursor-pointer hover:text-green-600"
+                  href="https://sunya.health/terms"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Terms of Service
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
