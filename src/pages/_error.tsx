@@ -1,12 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/12/22, 2:58 PM
+ * Last Modified 1/12/22, 3:11 PM
  *
  *
  */
 
 import { NextPage } from "next";
+import Image from "next/image";
+import React from "react";
 
 interface IErrorPageProps {
   statusCode?: number;
@@ -14,11 +16,9 @@ interface IErrorPageProps {
 
 const Error: NextPage<IErrorPageProps> = ({ statusCode }) => {
   return (
-    <p>
-      {statusCode
-        ? `An error ${statusCode} occurred on server`
-        : "An error has occurred. Please contact Sunya Health Administrator"}
-    </p>
+    <div className="flex items-center justify-center h-screen">
+      <Image src={"/assets/404.svg"} alt="Error" />
+    </div>
   );
 };
 
