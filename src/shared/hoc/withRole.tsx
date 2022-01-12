@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:25 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/12/22, 1:57 PM
  *
  *
  */
@@ -29,6 +29,7 @@ export const withRole = (WrappedComponent: React.FC) => {
         }
       }
     }, [router, role, rolePermitted]);
+
     return rolePermitted ? <WrappedComponent {...props} /> : <div />;
   };
   return RequirePermission;

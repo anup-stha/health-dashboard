@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 4:48 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/12/22, 9:45 AM
  *
  *
  */
@@ -61,6 +61,7 @@ const LoginForm: React.FC<any> = () => {
         <PrimaryInput
           label="Email"
           type="email"
+          data-testid="email"
           placeholder="Enter email"
           {...register("email")}
           error={errors.email?.message}
@@ -68,12 +69,15 @@ const LoginForm: React.FC<any> = () => {
         <PrimaryInput
           label="Password"
           type="password"
+          data-testid="password"
           placeholder="Enter Password"
           {...register("password")}
           error={errors.password?.message}
         />
       </div>
-      <Button loading={isSubmitting}>Log In</Button>
+      <Button loading={isSubmitting} data-testid="login">
+        Log In
+      </Button>
     </form>
   );
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:14 PM
+ * Last Modified 1/12/22, 1:59 PM
  *
  *
  */
@@ -114,7 +114,7 @@ const RoleDetailPage = () => {
   );
 };
 
-export default withRole(withAuth(RoleDetailPage));
+export default withAuth(withRole(RoleDetailPage));
 
 /*
 export const getServerSideProps = async (

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:04 PM
+ * Last Modified 1/12/22, 2:12 PM
  *
  *
  */
@@ -41,6 +41,7 @@ export const login = (loginRequest: LoginRequest) => {
         resolve("Logged In Successfully");
       })
       .catch((error) => {
+        console.log("Promise Rejected");
         reject(error.response);
       })
   );

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 10:45 PM
+ * Last Modified 1/12/22, 9:43 AM
  *
  *
  */
@@ -27,6 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   width,
   type = "submit",
   buttonSize = "large",
+  ...props
 }: ButtonProps) => {
   const buttonPadding =
     buttonSize === "small"
@@ -35,6 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      {...props}
       type={type}
       onClick={onClick}
       disabled={disabled ?? loading}

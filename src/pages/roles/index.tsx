@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 11:59 AM
+ * Last Modified 1/12/22, 1:59 PM
  *
  *
  */
@@ -29,4 +29,4 @@ const Roles = () => {
   );
 };
 
-export default withRole(withAuth(Roles));
+export default withAuth(withRole(Roles));
