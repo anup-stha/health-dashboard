@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/13/22, 6:37 PM
+ * Last Modified 1/13/22, 7:50 PM
  *
  *
  */
@@ -50,7 +50,7 @@ export const postOrgMemberToast = (body: OrgMemberAddReq) => {
     const finalBody = requestBody.reduce((acc: any, curr) => {
       if (isNaN(Number(Object.keys(curr)[0][0]))) {
         acc = { ...acc, ...curr };
-      } else if (acc.details) {
+      } else if (acc.detail) {
         acc.detail.push(Object.values(curr)[0]);
       } else {
         acc.detail = [Object.values(curr)[0]];
@@ -58,6 +58,8 @@ export const postOrgMemberToast = (body: OrgMemberAddReq) => {
 
       return acc;
     }, {});
+
+    console.log(finalBody);
 
     return postOrgMember(finalBody)
       .then((response) => {
