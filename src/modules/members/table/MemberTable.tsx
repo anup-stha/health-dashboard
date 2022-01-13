@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 3:20 PM
+ * Last Modified 1/13/22, 6:50 PM
  *
  *
  */
@@ -20,7 +20,7 @@ export const MemberTable = () => {
   const memberPagination = useMemberStore((state) => state.pagination);
 
   const { selectedRole } = useMemberStore();
-  const { isLoading, data } = useMembersList(
+  const { isFetching, data } = useMembersList(
     Number(selectedRole.id),
     undefined,
     Number(router.query.page ?? 1)
@@ -42,7 +42,7 @@ export const MemberTable = () => {
     <>
       {data?.data.data && (
         <TableView
-          loading={isLoading}
+          loading={isFetching}
           data={memberList}
           tableHeadings={[
             "Member Name",

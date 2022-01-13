@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 5:34 PM
+ * Last Modified 1/13/22, 6:53 PM
  *
  *
  */
@@ -81,8 +81,12 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             </div>
           </div>
         </td>
-        <td className="  px-6 py-4 whitespace-nowrap text-base">
-          <BooleanTag type="info" trueStatement={data.member_code} />
+        <td className="  px-6 py-4 whitespace-nowrap font-mono text-base">
+          <span
+            className={`px-2 py-1  font-Inter font-bold tracking-wider text-gray-600 bg-gray-100 rounded-lg`}
+          >
+            {data.member_code}
+          </span>
         </td>
         <td className=" px-6 py-4 whitespace-nowrap text-base">
           <BooleanTag

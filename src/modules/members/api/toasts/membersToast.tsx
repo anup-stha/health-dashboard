@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/7/22, 9:43 AM
+ * Last Modified 1/13/22, 6:37 PM
  *
  *
  */
@@ -23,8 +23,43 @@ import { alert } from "@/components/Alert";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 export const postOrgMemberToast = (body: OrgMemberAddReq) => {
-  const postOrgMemberResponse = new Promise((resolve, reject) =>
-    postOrgMember(body)
+  const postOrgMemberResponse = new Promise((resolve, reject) => {
+    const values = Object.values(body);
+    const keys = Object.keys(body);
+
+    console.log(body);
+
+    const requestBody: Object[] = [];
+    requestBody.push(
+      ...keys.map((element, index) => {
+        if (isNaN(Number(element[0]))) {
+          return { [element]: values[index] };
+        }
+
+        return {
+          [`${element[0]}-detail`]: {
+            detail_cat_id: Number(element.split("-")[0]),
+            value: values[index],
+          },
+        };
+      })
+    );
+
+    console.log(requestBody);
+
+    const finalBody = requestBody.reduce((acc: any, curr) => {
+      if (isNaN(Number(Object.keys(curr)[0][0]))) {
+        acc = { ...acc, ...curr };
+      } else if (acc.details) {
+        acc.detail.push(Object.values(curr)[0]);
+      } else {
+        acc.detail = [Object.values(curr)[0]];
+      }
+
+      return acc;
+    }, {});
+
+    return postOrgMember(finalBody)
       .then((response) => {
         useMemberStore
           .getState()
@@ -33,8 +68,8 @@ export const postOrgMemberToast = (body: OrgMemberAddReq) => {
       })
       .catch((error) => {
         reject(error.response);
-      })
-  );
+      });
+  });
 
   return alert({
     promise: postOrgMemberResponse,

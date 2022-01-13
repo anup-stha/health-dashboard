@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 11:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/13/22, 5:45 PM
  *
  *
  */
@@ -56,7 +56,7 @@ export const PatientMedicalHistoryModal: React.FC = () => {
   return (
     <Modal>
       <Modal.Button type={"open"}>
-        <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+        <div className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
           {textState} Patient Medical History
         </div>
       </Modal.Button>

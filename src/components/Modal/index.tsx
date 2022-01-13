@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 3:19 PM
+ * Last Modified 1/13/22, 7:01 PM
  *
  *
  */
@@ -26,51 +26,51 @@ export type IModalProps = {
   opacity?: string;
 };
 
-export const ModalContent: React.FC<IModalProps> = ({
-  children,
-  width = "max-w-3xl",
-  opacity = "opacity-30",
-}) => {
-  const { setIsOpen, isOpen } = useModal();
+export const ModalContent: React.FC<IModalProps> = React.memo(
+  ({ children, width = "max-w-3xl", opacity = "opacity-30" }) => {
+    const { setIsOpen, isOpen } = useModal();
 
-  const closeModal = () => setIsOpen(false);
+    const closeModal = () => setIsOpen(false);
 
-  return (
-    <Transition appear show={isOpen} as={Fragment} data-testid="modal">
-      <Dialog as="div" className="fixed inset-0 z-50" onClose={closeModal}>
-        <Dialog.Overlay className={`fixed inset-0 bg-black ${opacity}`} />
-        <div className="min-h-screen md:px-16 sm:px-4 text-center">
-          <Transition.Child as={Fragment}>
-            <Dialog.Overlay className="fixed inset-0" />
-          </Transition.Child>
+    return (
+      <Transition appear show={isOpen} as={Fragment} data-testid="modal">
+        <Dialog as="div" className="fixed inset-0 z-50" onClose={closeModal}>
+          <Dialog.Overlay className={`fixed inset-0 bg-black ${opacity}`} />
+          <div className="min-h-screen md:px-16 sm:px-4 text-center">
+            <Transition.Child as={Fragment}>
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            className="inline-block h-screen align-middle"
-            aria-hidden="true"
-          >
-            &#8203;
-          </span>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-100"
-            enterFrom="opacity-0 scale-95 -translate-y-32"
-            enterTo="opacity-100 scale-100 translate-y-0"
-            leave="ease-in duration-75"
-            leaveFrom="opacity-100 scale-100 translate-y-0"
-            leaveTo="opacity-0 scale-90 -translate-y-32"
-          >
-            <div
-              className={`inline-block w-full ${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
             >
-              {children}
-            </div>
-          </Transition.Child>
-        </div>
-      </Dialog>
-    </Transition>
-  );
-};
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-100"
+              enterFrom="opacity-0 scale-95 -translate-y-32"
+              enterTo="opacity-100 scale-100 translate-y-0"
+              leave="ease-in duration-75"
+              leaveFrom="opacity-100 scale-100 translate-y-0"
+              leaveTo="opacity-0 scale-90 -translate-y-32"
+            >
+              <div
+                className={`inline-block w-full ${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+              >
+                {children}
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+    );
+  }
+);
+
+ModalContent.displayName = "ModalContent";
 
 export interface IButtonProps {
   type: "close" | "open";
@@ -153,7 +153,7 @@ export interface IScrollableProps {
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
   return (
-    <div className="overflow-y-scroll max-h-[50vh] p-0.5 sidebar">
+    <div className="overflow-y-scroll max-h-[50vh] px-2 scrollbar-1">
       {children}
     </div>
   );

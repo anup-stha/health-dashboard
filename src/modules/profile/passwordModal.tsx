@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:19 PM
+ * Last Modified 1/13/22, 4:41 PM
  *
  *
  */
@@ -65,21 +65,18 @@ export const PasswordModal = () => {
                 <PrimaryInput
                   label="Old Password"
                   type="password"
-                  required={true}
                   placeholder={"Enter Old Password"}
                   {...register("oldPassword")}
                 />
                 <PrimaryInput
                   label="New Password"
                   type="password"
-                  required={true}
                   placeholder={"Enter New Password"}
                   {...register("newPassword")}
                 />{" "}
                 <PrimaryInput
                   label="Confirm New Password"
                   type="password"
-                  required={true}
                   placeholder={"Confirm New Password"}
                   {...register("confirmNewPassword")}
                 />

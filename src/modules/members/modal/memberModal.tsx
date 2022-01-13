@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 3:17 PM
+ * Last Modified 1/13/22, 7:04 PM
  *
  *
  */
@@ -12,6 +12,7 @@ import React from "react";
 import { MemberAddForm } from "../form/MemberAddForm";
 import { UserAddForm } from "../form/UserAddForm";
 import { Role, User } from "@/types";
+import { useForm } from "react-hook-form";
 
 interface MemberModalProps {
   type: "add" | "edit";
@@ -21,12 +22,26 @@ interface MemberModalProps {
   selectedRole: Role;
 }
 
+/* interface _UserAddFormData {
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  password: string;
+  dob_ad: number;
+  dob_bs: number;
+  gender: "Male" | "Female" | "Others";
+  marital_status: "Single" | "Married";
+} */
+
 export const MemberModal: React.FC<MemberModalProps> = ({
   type,
   initialData,
   button,
   selectedRole,
 }) => {
+  const { register, handleSubmit, control, reset, watch } = useForm();
+
   return (
     <Modal>
       <Modal.Button type="open" disabled={selectedRole.id === 0}>
@@ -58,7 +73,13 @@ export const MemberModal: React.FC<MemberModalProps> = ({
             (element) => element.slug === "login"
           ) &&
           type === "add" ? (
-            <UserAddForm />
+            <UserAddForm
+              handleSubmit={handleSubmit}
+              control={control}
+              register={register}
+              reset={reset}
+              watch={watch}
+            />
           ) : (
             <MemberAddForm type={type} initialData={initialData} />
           )}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 2:35 PM
+ * Last Modified 1/13/22, 5:34 PM
  *
  *
  */
@@ -17,7 +17,6 @@ import {
   MemberTestListResponse,
   NormalMemberAddReq,
   NullDataResponse,
-  OrgMemberAddReq,
   OrgMemberAddRes,
 } from "@/types";
 import { privateAgent } from ".";
@@ -38,7 +37,9 @@ export const getNestedMemberList = (
   );
 };
 
-export const postOrgMember = (body: OrgMemberAddReq) => {
+export const postOrgMember = (body: any) => {
+  console.log(body);
+
   return privateAgent.post<OrgMemberAddRes>("user/store", body);
 };
 

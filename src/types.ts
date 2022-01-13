@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 9:47 PM
+ * Last Modified 1/13/22, 5:55 PM
  *
  *
  */
@@ -170,6 +170,22 @@ export type OrgMemberAddReq = {
   dob_bs?: number;
   gender: string;
   marital_status: string;
+};
+export type OrgFinalBody = {
+  name: string;
+  role_id: number;
+  address: string;
+  lat?: number;
+  lng?: number;
+  phone: string;
+  ref_key?: string | number;
+  email: string;
+  password: string;
+  dob_ad: number;
+  dob_bs?: number;
+  gender: string;
+  marital_status: string;
+  detail?: { detail_cat_id: number; value: string }[];
 };
 
 export type OrgMemberAddRes = { data: BasicMember & { role: Role } };

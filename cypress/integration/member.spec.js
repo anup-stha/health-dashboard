@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/13/22, 3:13 PM
+ * Last Modified 1/13/22, 4:00 PM
  *
  *
  */
@@ -55,8 +55,38 @@ context("Members Page", () => {
   //   });
   // });
 
-  it("Do not Open Modal if role is not selected", () => {
-    cy.get("[data-testid=add-member-btn]").click({ force: true });
-    cy.get("[data-testid=modal]").should("not.exist");
+  // it("Do not Open Modal if role is not selected", () => {
+  //   cy.get("[data-testid=add-member-btn]").click({ force: true });
+  //   cy.get("[data-testid=modal]").should("not.exist");
+  // });
+
+  it("Open Modal if role is selected", () => {
+    cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+    cy.get(`[data-testid=individual-btn]`).click({ force: true });
+    cy.get("[data-testid=add-modal-open-btn]").click({ force: true });
+    cy.get("[data-testid=modal]").should("exist");
+  });
+
+  it("Show error if form is submitted blank", () => {
+    cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+    cy.get(`[data-testid=individual-btn]`).click({ force: true });
+    cy.get("[data-testid=add-modal-open-btn]").click({ force: true });
+    cy.get("[data-testid=member-add-btn]").click();
+    cy.get("[data-testid=name]")
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+  });
+
+  it("Submit form correctly if all data is filled", () => {
+    cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+    cy.get(`[data-testid=individual-btn]`).click({ force: true });
+    cy.get("[data-testid=add-modal-open-btn]").click({ force: true });
+    cy.get("[data-testid=name]").clear().type("Test");
+    cy.get("[data-testid=phone]").clear().type("112233445566");
+    cy.get("[data-testid=dob]").clear().type("2002-01-22");
+    cy.get("[data-testid=member-add-btn]").click();
+    cy.get("[data-testid=address]")
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
   });
 });

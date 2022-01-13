@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:05 PM
+ * Last Modified 1/13/22, 7:03 PM
  *
  *
  */
@@ -119,7 +119,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
           <Button
             buttonSize="small"
             onClick={() => {
-              router.push(`/roles/${id}`);
+              router.push(`/roles/${slug}?id=${id}`);
               useRoleStore.getState().setSelectedId(Number(id));
             }}
           >

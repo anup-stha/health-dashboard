@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 5:36 PM
+ * Last Modified 1/13/22, 6:59 PM
  *
  *
  */
@@ -123,7 +123,7 @@ html {
   animation-delay: 1.3s;
 }
 
-.fadeInLogin  {
+.fadeInLogin {
   animation: fadeIn 1s ease;
   animation-delay: 1.3s;
   animation-iteration-count: 1;
@@ -386,4 +386,17 @@ input[type="number"]::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.scrollbar-1::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-1::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+.scrollbar-1::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 4px;
 }
