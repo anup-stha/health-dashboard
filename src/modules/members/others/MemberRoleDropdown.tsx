@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 6:19 PM
+ * Last Modified 1/13/22, 2:33 PM
  *
  *
  */
@@ -53,7 +53,10 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
         onChange={_setSelectedRole ?? setSelected}
       >
         <div className="relative">
-          <Listbox.Button className="cursor-pointer relative w-full py-4 px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500">
+          <Listbox.Button
+            data-testid="role-dropdown-btn"
+            className="cursor-pointer relative w-full py-4 px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500"
+          >
             <span className="block truncate">
               {_selectedRole && Object.values(_selectedRole).length !== 0
                 ? _selectedRole.name
@@ -76,6 +79,7 @@ export const MemberRoleDropdown: React.FC<MemberRoleDropdownProps> = ({
               {roleList.map((role) => (
                 <Listbox.Option
                   key={role.id}
+                  data-testid={`${role.name}-btn`}
                   className={({ active }) =>
                     `${active ? "text-green-900 bg-green-100" : "text-gray-900"}
                           cursor-pointer select-none relative py-4 pl-10 pr-4 `

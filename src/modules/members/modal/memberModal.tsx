@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 6:31 PM
+ * Last Modified 1/13/22, 3:17 PM
  *
  *
  */
@@ -29,9 +29,12 @@ export const MemberModal: React.FC<MemberModalProps> = ({
 }) => {
   return (
     <Modal>
-      <Modal.Button type="open">
+      <Modal.Button type="open" disabled={selectedRole.id === 0}>
         {type === "add" ? (
-          <Button disabled={selectedRole.id === 0}>
+          <Button
+            disabled={selectedRole.id === 0}
+            data-testid={`${type}-member-btn`}
+          >
             Add {selectedRole.id !== 0 && selectedRole.name} User
           </Button>
         ) : (

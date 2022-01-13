@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:17 PM
+ * Last Modified 1/13/22, 3:19 PM
  *
  *
  */
@@ -36,7 +36,7 @@ export const ModalContent: React.FC<IModalProps> = ({
   const closeModal = () => setIsOpen(false);
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isOpen} as={Fragment} data-testid="modal">
       <Dialog as="div" className="fixed inset-0 z-50" onClose={closeModal}>
         <Dialog.Overlay className={`fixed inset-0 bg-black ${opacity}`} />
         <div className="min-h-screen md:px-16 sm:px-4 text-center">
@@ -79,6 +79,7 @@ export interface IButtonProps {
   width?: "full" | "auto";
   async?: boolean;
   variant?: "button" | "div" | "icon";
+  disabled?: boolean;
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -88,11 +89,11 @@ export const Button: React.FC<IButtonProps> = ({
   width,
   variant,
   async,
+  disabled,
 }) => {
   const { setIsOpen } = useModal();
 
   const onClickFn = async (e: any) => {
-    console.log(e);
     e.preventDefault();
     await onClick().then(() => setIsOpen(false));
   };
@@ -100,6 +101,7 @@ export const Button: React.FC<IButtonProps> = ({
   if (async === true)
     return (
       <UIButton
+        disabled={disabled}
         onClick={async (e) => await onClick(e).then(() => setIsOpen(false))}
         type="submit"
         buttonSize="small"
@@ -112,6 +114,7 @@ export const Button: React.FC<IButtonProps> = ({
     <UIButton
       type="submit"
       buttonSize="small"
+      disabled={disabled}
       onSubmit={
         onClick
           ? (e: any) => onClickFn(e)
@@ -120,7 +123,7 @@ export const Button: React.FC<IButtonProps> = ({
     >
       {children}
     </UIButton>
-  ) : (
+  ) : !disabled ? (
     <div
       onClick={
         onClick
@@ -131,6 +134,8 @@ export const Button: React.FC<IButtonProps> = ({
     >
       {children}
     </div>
+  ) : (
+    <div className={`w-${width}`}>{children}</div>
   );
 };
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 9:45 AM
+ * Last Modified 1/12/22, 7:31 PM
  *
  *
  */
@@ -43,8 +43,11 @@ const LoginForm: React.FC<any> = () => {
     mode: "onChange",
   });
 
+  console.log(errors);
+
   return (
     <form
+      data-testid="login-form"
       onSubmit={handleSubmit(async (data) => {
         await alert({
           promise: login(data).then(() => reset()),
@@ -55,9 +58,9 @@ const LoginForm: React.FC<any> = () => {
           id: "Login Toast",
         });
       })}
-      className="space-y-8"
+      className="space-y-8 fadeInLogin"
     >
-      <div className="space-y-4">
+      <div className="space-y-4 fadeInLogin">
         <PrimaryInput
           label="Email"
           type="email"

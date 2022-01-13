@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2022. All rights reserved.
+ * Last Modified 1/13/22, 12:32 PM
+ *
+ *
+ */
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +31,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", () => {
+  Cypress.log({
+    name: "login",
+  });
+
+  cy.get("[data-testid=email]").clear().type("superadmin@sunya.health");
+  cy.get("[data-testid=password]").clear().type("sunya.health{enter}");
+});

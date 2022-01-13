@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 9:02 PM
+ * Last Modified 1/13/22, 2:12 PM
  *
  *
  */
@@ -38,8 +38,8 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
 
   return (
     <Modal.Form
-      onSubmit={handleSubmit((data) => {
-        postOrgMemberToast({
+      onSubmit={handleSubmit(async (data) => {
+        await postOrgMemberToast({
           ...data,
           dob_ad: moment(data.dob_ad).unix(),
           role_id: Number(selectedRole.id),
@@ -68,6 +68,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({ type = "add" }) => {
             <PrimaryInput
               label="Date of Birth In AD"
               type="date"
+              max={new Date().toISOString().split("T")[0]}
               {...register("dob_ad")}
             />
           </div>
