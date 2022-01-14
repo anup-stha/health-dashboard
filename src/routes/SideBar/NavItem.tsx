@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 5:23 PM
+ * Last Modified 1/14/22, 3:07 PM
  *
  *
  */
@@ -24,9 +24,9 @@ export const NavItem: React.FC<NavItemProps> = ({
   const { pathname, push } = useRouter();
 
   const activeStyles =
-    "text-gray-900 bg-gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-200 ";
+    "text-gray-900 bg-gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-200 transition-all duration-1000";
   const inactiveStyles =
-    "text-gray-500 hover:text-gray-900 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-50 ";
+    "text-gray-500 hover:text-gray-900 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-50  transition-all duration-1000";
 
   return (
     <div className={containerClassName}>
@@ -46,7 +46,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         <div
           className={`flex relative peer ${
             open
-              ? "items-start justify-start px-4"
+              ? "items-start justify-start px-4 "
               : "items-center px-4 delay-300"
           }`}
         >

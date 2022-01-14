@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/14/22, 3:48 PM
  *
  *
  */
@@ -21,8 +21,14 @@ export const store = combine(initialState, (set) => ({
       open: !state.open,
     }));
   },
+
+  setOpen: (open: boolean) => {
+    set({
+      open,
+    });
+  },
 }));
 
 export const useSideBarStore = create(
-  devtools(persist(store, { name: openState }))
+  devtools(persist(store, { name: openState }), { name: "sidebar" })
 );

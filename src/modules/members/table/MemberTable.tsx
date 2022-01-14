@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 11:38 AM
+ * Last Modified 1/14/22, 4:54 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { Loader } from "@/components/Loader";
 
 export const MemberTable = () => {
   const router = useRouter();
@@ -20,11 +21,15 @@ export const MemberTable = () => {
   const memberPagination = useMemberStore((state) => state.pagination);
 
   const { selectedRole } = useMemberStore();
-  const { isLoading, data } = useMembersList(
+  const { data, isFetching } = useMembersList(
     Number(selectedRole.id),
     undefined,
     Number(router.query.page ?? 1)
   );
+
+  useEffect(() => {
+    data && useMemberStore.getState().setMemberList(data?.data);
+  }, [isFetching]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -44,14 +49,12 @@ export const MemberTable = () => {
     </div>
   ) : (
     <>
-      {data?.data.data && (
+      {data?.data.data ? (
         <TableView
-          loading={isLoading}
           data={memberList}
           tableHeadings={[
             "Member Name",
             "Member Code",
-            "Active",
             "Verified",
             "Phone Number",
             "Address",
@@ -62,6 +65,8 @@ export const MemberTable = () => {
           paginate={true}
           paginateObject={memberPagination}
         />
+      ) : (
+        <Loader />
       )}
     </>
   );

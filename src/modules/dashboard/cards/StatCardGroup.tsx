@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 1:01 PM
+ * Last Modified 1/14/22, 3:56 PM
  *
  *
  */
@@ -84,7 +84,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
       <div className="flex flex-col gap-6 h-full">
         <StatCardRect
           icon={
-            <div className="bg-lime-600 p-6 rounded-full">
+            <div className="bg-lime-600 p-8 rounded-full">
               <Health variant="Broken" size={36} color={"#fff"} />
             </div>
           }
@@ -96,7 +96,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
         />
         <StatCardRect
           icon={
-            <div className="bg-slate-700 p-6 rounded-full">
+            <div className="bg-slate-700 p-8 rounded-full">
               <People size={36} color="#fff" variant="Broken" />
             </div>
           }

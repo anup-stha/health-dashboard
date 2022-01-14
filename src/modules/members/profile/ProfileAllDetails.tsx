@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 7:08 PM
+ * Last Modified 1/14/22, 4:50 PM
  *
  *
  */
@@ -93,6 +93,7 @@ export const ProfileAllDetails: React.FC<MemberDetailsProps> = ({
                   />
                   <ProfileDataDetail
                     icon={<Mail />}
+                    href={`mailto: ${selectedMember.email}`}
                     detail={selectedMember.email}
                   />
                   <ProfileDataDetail
@@ -101,6 +102,7 @@ export const ProfileAllDetails: React.FC<MemberDetailsProps> = ({
                   />
                   <ProfileDataDetail
                     icon={<PhoneCall />}
+                    href={`tel:${selectedMember.phone}`}
                     detail={selectedMember.phone}
                   />
                   <ProfileDataDetail
@@ -171,14 +173,26 @@ export const ProfileOtherDetails: React.FC<profileOtherDetailsType> = ({
           </>
         ) : (
           otherDetails.map((details) => (
-            <div className="flex items-center gap-x-2" key={details.id}>
+            <div className="flex items-center gap-x-2 " key={details.id}>
               <div className="text-gray-800">
                 <Bookmark />
               </div>
 
-              <div className="space-x-2">
+              <div className="space-x-2 line-clamp-1">
                 <span>{details.name}:</span>
-                <span className="font-semibold">{details.value}</span>
+                {details.value &&
+                details.value.toString().includes("https://") ? (
+                  <a
+                    href={String(details.value)}
+                    className="font-semibold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {details.value}
+                  </a>
+                ) : (
+                  <span className="font-semibold">{details.value}</span>
+                )}
               </div>
             </div>
           ))

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 5:29 PM
+ * Last Modified 1/14/22, 3:03 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import React from "react";
 import { NavBar } from "./NavBar";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useGlobalState } from "@/modules/useGlobalState";
+import { Transition } from "@headlessui/react";
 
 export const Sidebar: React.FC = () => {
   const open = useSideBarStore((state) => state.open);
@@ -28,7 +29,12 @@ export const Sidebar: React.FC = () => {
       }  print:hidden transition-all duration-300 h-screen min-h-0 z-40 fixed shadow-E400 bg-white space-y-12 text-3xl flex flex-col justify-between `}
     >
       <div className="flex flex-col space-y-12">
-        {open ? (
+        <Transition
+          show={open}
+          enter="transition-opacity transition-transform duration-200"
+          enterFrom="opacity-0 -translate-y-24 "
+          enterTo="opacity-100 translate-y-0"
+        >
           <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
             <LetteredAvatar
               name={user.name}
@@ -46,7 +52,8 @@ export const Sidebar: React.FC = () => {
               </span>
             </div>
           </div>
-        ) : (
+        </Transition>
+        <Transition show={!open}>
           <div className="py-4 sm:hidden">
             <LetteredAvatar
               name={user.name}
@@ -55,10 +62,15 @@ export const Sidebar: React.FC = () => {
               maxInitials={2}
             />
           </div>
-        )}
+        </Transition>
         <NavBar />
       </div>
-      {open && (
+      <Transition
+        show={open}
+        enter="transition-opacity duration-100 delay-200 "
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+      >
         <div className="w-full flex flex-col space-y-2">
           <div className="relative w-full h-64">
             <Image
@@ -78,7 +90,7 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      </Transition>
     </nav>
   );
 };

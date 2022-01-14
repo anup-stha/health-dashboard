@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 12:11 PM
+ * Last Modified 1/14/22, 4:54 PM
  *
  *
  */
@@ -95,14 +95,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         </td>
         {(!data.role_slug || !data.role_id) && (
           <>
-            <td className=" px-6 py-4 whitespace-nowrap text-base">
-              <BooleanTag
-                type="error"
-                condition={data && data.active}
-                trueStatement="Active"
-                falseStatement="InActive"
-              />
-            </td>
             <td className=" px-6 py-4 whitespace-nowrap text-base capitalize">
               <BooleanTag
                 type="error"
