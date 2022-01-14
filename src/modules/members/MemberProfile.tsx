@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 5:53 PM
+ * Last Modified 1/14/22, 12:07 PM
  *
  *
  */
@@ -40,6 +40,7 @@ export const MemberProfile: React.FC = () => {
     id: router.query.id,
     role: router.query.role,
     profile: router.query.profile,
+    parent_page: router.query.p_page,
   };
 
   const { isFetching: memberDetailsLoading } = useMemberDetails(Number(idX.id));
@@ -49,7 +50,8 @@ export const MemberProfile: React.FC = () => {
   const { isLoading: roleListLoading } = useRoleList();
   const { isLoading: memberLoading } = useMembersList(
     Number(idX.role),
-    Number(idX.id)
+    Number(idX.id),
+    Number(idX.parent_page)
   );
   const { isFetching: memberSubsFetching } = useMemberSubsDetails(
     Number(router.query.id)

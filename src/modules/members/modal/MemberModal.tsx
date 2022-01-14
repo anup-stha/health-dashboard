@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 7:04 PM
+ * Last Modified 1/14/22, 12:19 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import { MemberAddForm } from "../form/MemberAddForm";
 import { UserAddForm } from "../form/UserAddForm";
 import { Role, User } from "@/types";
 import { useForm } from "react-hook-form";
+import { PatientAddForm } from "@/modules/members/form/PatientAddForm";
 
 interface MemberModalProps {
   type: "add" | "edit";
@@ -67,12 +68,20 @@ export const MemberModal: React.FC<MemberModalProps> = ({
           User
         </Modal.Title>
         <div className="flex flex-col space-y-4 ">
-          {selectedRole &&
-          selectedRole.permissions &&
-          selectedRole.permissions.some(
-            (element) => element.slug === "login"
-          ) &&
-          type === "add" ? (
+          {selectedRole && selectedRole.slug === "patient" && type === "add" ? (
+            <PatientAddForm
+              handleSubmit={handleSubmit}
+              control={control}
+              register={register}
+              reset={reset}
+              watch={watch}
+            />
+          ) : selectedRole &&
+            selectedRole.permissions &&
+            selectedRole.permissions.some(
+              (element) => element.slug === "login"
+            ) &&
+            type === "add" ? (
             <UserAddForm
               handleSubmit={handleSubmit}
               control={control}

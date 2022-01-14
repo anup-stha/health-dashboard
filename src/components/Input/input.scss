@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 3:42 PM
+ * Last Modified 1/14/22, 12:16 PM
  *
  *
  */
@@ -14,7 +14,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 1rem 4rem rgba(black, 0.2);
+      @apply shadow-E300;
       @apply border-b-4 border-0 border-green-500 bg-white text-gray-700;
     }
 

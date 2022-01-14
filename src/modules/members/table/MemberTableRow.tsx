@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 6:53 PM
+ * Last Modified 1/14/22, 12:11 PM
  *
  *
  */
@@ -36,37 +36,42 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
   return !loading ? (
     data ? (
       <tr key={key}>
-        <td className="px-6 py-4 whitespace-nowrap">
+        <td className="px-6 py-4">
           <div className="flex items-center ">
             <div
               className="relative flex-shrink-0 h-16 w-16 cursor-pointer"
               onClick={() =>
                 data.role_slug && data.role_id
                   ? router.push(
-                      `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
+                      `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&parent_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
                     )
                   : router.push(
-                      `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                      `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`
                     )
               }
             >
+              <div
+                className={`${
+                  data.active ? "bg-green-500" : "bg-red-700"
+                } w-4 h-4 rounded-full absolute right-0 shadow-sm ring-2 ring-white`}
+              />
               <LetteredAvatar
                 name={data.name}
-                size="50"
+                size={"50"}
                 round={true}
                 maxInitials={2}
               />
             </div>
             <div className="ml-4 flex flex-col">
               <div
-                className="text-xl font-semibold text-gray-900 w-full capitalize cursor-pointer"
+                className="text-xl font-semibold text-gray-900  capitalize cursor-pointer"
                 onClick={() =>
                   data.role_slug && data.role_id
                     ? router.push(
-                        `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&id=${data.id}&role=${data.role_id}`
+                        `/members/${selectedRole.slug}/${data.role_slug}?p_id=${data.parent_member_id}&p_role=${selectedRole.id}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
                       )
                     : router.push(
-                        `members/${selectedRole.slug}?id=${data.id}&role=${selectedRole.id}`
+                        `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`
                       )
                 }
               >
@@ -88,22 +93,27 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
             {data.member_code}
           </span>
         </td>
-        <td className=" px-6 py-4 whitespace-nowrap text-base">
-          <BooleanTag
-            type="error"
-            condition={data && data.active}
-            trueStatement="Active"
-            falseStatement="InActive"
-          />
-        </td>
-        <td className=" px-6 py-4 whitespace-nowrap text-base capitalize">
-          <BooleanTag
-            type="error"
-            condition={data && data.verified}
-            trueStatement="Verified"
-            falseStatement="Not Verified"
-          />
-        </td>
+        {(!data.role_slug || !data.role_id) && (
+          <>
+            <td className=" px-6 py-4 whitespace-nowrap text-base">
+              <BooleanTag
+                type="error"
+                condition={data && data.active}
+                trueStatement="Active"
+                falseStatement="InActive"
+              />
+            </td>
+            <td className=" px-6 py-4 whitespace-nowrap text-base capitalize">
+              <BooleanTag
+                type="error"
+                condition={data && data.verified}
+                trueStatement="Verified"
+                falseStatement="Not Verified"
+              />
+            </td>
+          </>
+        )}
+
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           <div className="flex hover:text-gray-800 items-center gap-2">
             <PhoneCall weight="duotone" size={18} />
@@ -130,19 +140,6 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         <td className="px-4 py-4">
           <div className={`flex items-center space-x-4 px-4`}>
             <DeleteModal
-              onDelete={async () => {
-                // await alert({
-                //   type: "promise",
-                //   promise: onDeleteOrg(data.id),
-                //   msgs: {
-                //     loading: `Deleting ${data.name}`,
-                //     success: () => {
-                //       return `Deleted ${data.name}`;
-                //     },
-                //     error: (data: any) => `${data}`,
-                //   },
-                // });
-              }}
               title="You are about to delete a member"
               subTitles={[
                 "This will delete your member forever",
@@ -174,7 +171,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                           className="overflow-hidden"
                           onClick={() =>
                             router.push(
-                              `/members/profile?id=${data.id}&role=${selectedRole.id}`
+                              `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`
                             )
                           }
                         >

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 7:01 PM
+ * Last Modified 1/14/22, 12:16 PM
  *
  *
  */
@@ -153,7 +153,7 @@ export interface IScrollableProps {
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
   return (
-    <div className="overflow-y-scroll max-h-[50vh] px-2 scrollbar-1">
+    <div className="overflow-y-scroll max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">
       {children}
     </div>
   );

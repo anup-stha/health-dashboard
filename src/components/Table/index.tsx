@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 8:26 PM
+ * Last Modified 1/14/22, 11:45 AM
  *
  *
  */
@@ -38,6 +38,8 @@ export const TableView: React.FC<TableViewPropsType> = ({
   paginate = false,
   paginateObject,
 }) => {
+  console.log(loading);
+
   const router = useRouter();
   const [pageIndex, setPageIndex] = useState(
     router.query.page ? +router.query.page : 1

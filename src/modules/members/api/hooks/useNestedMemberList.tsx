@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/11/22, 6:08 PM
+ * Last Modified 1/14/22, 12:01 PM
  *
  *
  */
@@ -32,6 +32,7 @@ export const useNestedMemberList = (
             useMemberStore.getState().setNestedSelectedRole(memberDetails.role);
           }
         } catch (error) {
+          console.log(error);
           Router.push("/404");
         }
       },

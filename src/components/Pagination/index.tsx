@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 8:14 PM
+ * Last Modified 1/14/22, 10:21 AM
  *
  *
  */
@@ -80,8 +80,6 @@ export const Pagination = ({
       { shallow: true }
     );
   };
-  console.log(pageArray);
-
   useEffect(() => {
     const page = +pageIndex;
     if (page < 1) {

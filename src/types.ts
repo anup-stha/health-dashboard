@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 5:55 PM
+ * Last Modified 1/13/22, 8:02 PM
  *
  *
  */
@@ -171,6 +171,7 @@ export type OrgMemberAddReq = {
   gender: string;
   marital_status: string;
 };
+
 export type OrgFinalBody = {
   name: string;
   role_id: number;

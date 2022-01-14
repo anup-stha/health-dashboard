@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/5/22, 6:46 PM
+ * Last Modified 1/14/22, 11:59 AM
  *
  *
  */
@@ -24,8 +24,9 @@ export const SubMemberProfile = () => {
   const idX = {
     member_id: router.query.id,
     member_role_id: router.query.role,
-    member_parent_id: router.query.parent_id,
-    member_parent_role: router.query.parent_role,
+    member_parent_id: router.query.p_id,
+    member_parent_role: router.query.p_role,
+    member_parent_page: router.query.p_page,
   };
 
   const { data: parentRoleData } = useRoleDetails(Number(idX.member_parent_id));
@@ -35,7 +36,8 @@ export const SubMemberProfile = () => {
   const { isLoading: nestedLoading } = useNestedMemberList(
     Number(idX.member_role_id),
     Number(idX.member_parent_id),
-    Number(idX.member_id)
+    Number(idX.member_id),
+    Number(idX.member_parent_page)
   );
   const { isFetching: memberDetailsFetching } = useMemberDetails(
     Number(idX.member_id)

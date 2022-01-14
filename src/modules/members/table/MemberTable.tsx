@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 6:50 PM
+ * Last Modified 1/14/22, 11:38 AM
  *
  *
  */
@@ -11,7 +11,7 @@ import { useMemberStore } from "../useMemberStore";
 import { MemberTableRow } from "./MemberTableRow";
 import Image from "next/image";
 import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export const MemberTable = () => {
@@ -20,11 +20,15 @@ export const MemberTable = () => {
   const memberPagination = useMemberStore((state) => state.pagination);
 
   const { selectedRole } = useMemberStore();
-  const { isFetching, data } = useMembersList(
+  const { isLoading, data } = useMembersList(
     Number(selectedRole.id),
     undefined,
     Number(router.query.page ?? 1)
   );
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [router.query.page]);
 
   return selectedRole.id === 0 ? (
     <div className="flex justify-center">
@@ -42,7 +46,7 @@ export const MemberTable = () => {
     <>
       {data?.data.data && (
         <TableView
-          loading={isFetching}
+          loading={isLoading}
           data={memberList}
           tableHeadings={[
             "Member Name",

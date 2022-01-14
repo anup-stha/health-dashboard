@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/13/22, 2:24 PM
+ * Last Modified 1/14/22, 11:47 AM
  *
  *
  */
@@ -14,6 +14,7 @@ import { useNestedMemberList } from "@/modules/members/api/hooks/useNestedMember
 import { TableView } from "@/components/Table";
 import { MemberTableRow } from "@/modules/members/table/MemberTableRow";
 import { WarningOctagon } from "phosphor-react";
+import { Loader } from "@/components/Loader";
 
 export const ProfileMemberTable: React.FC = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ export const ProfileMemberTable: React.FC = () => {
   const roleList = useRoleStore((state) => state.roleListBySlug.data);
   const [selectedRole, setSelectedRole] = useState(roleList[0]);
 
-  const { data, isLoading } = useNestedMemberList(
+  const { data } = useNestedMemberList(
     selectedRole
       ? Number(selectedRole.id)
       : roleList.length !== 0
@@ -31,6 +32,8 @@ export const ProfileMemberTable: React.FC = () => {
     undefined,
     Number(router.query.page ?? 1)
   );
+
+  console.log(data);
 
   useEffect(() => {
     setSelectedRole(roleList[0]);
@@ -56,8 +59,8 @@ export const ProfileMemberTable: React.FC = () => {
           setSelectedRole={setSelectedRole}
         />
       </div>
-      {data &&
-        (data.data.data.list.length === 0 ? (
+      {data ? (
+        data.data.data.list.length === 0 ? (
           <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
             <WarningOctagon size={24} /> <span>No Details Found</span>
           </div>
@@ -71,19 +74,20 @@ export const ProfileMemberTable: React.FC = () => {
             tableHeadings={[
               "Member Name",
               "Code",
-              "Active",
-              "Verified",
               "Phone Number",
               "Address",
               "",
             ]}
             searchTerms={["name", "member_code"]}
             tableRowComponent={<MemberTableRow />}
-            loading={isLoading}
+            loading={!data.data}
             paginate={true}
             paginateObject={data.data.data.pagination}
           />
-        ))}
+        )
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

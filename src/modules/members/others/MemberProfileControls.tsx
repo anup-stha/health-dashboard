@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 6:44 PM
+ * Last Modified 1/13/22, 7:55 PM
  *
  *
  */
@@ -14,7 +14,7 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { PatientMedicalHistoryModal } from "@/modules/members/modal/PatientMedicalHistoryModal";
 import { Member, MemberDetails, Role } from "@/types";
 import omit from "lodash/omit";
-import { MemberModal } from "@/modules/members/modal/memberModal";
+import { MemberModal } from "@/modules/members/modal/MemberModal";
 
 type MemberProfileControlProps = {
   active: boolean;

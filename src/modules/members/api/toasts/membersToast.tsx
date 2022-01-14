@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/13/22, 7:50 PM
+ * Last Modified 1/13/22, 9:18 PM
  *
  *
  */
@@ -62,6 +62,79 @@ export const postOrgMemberToast = (body: OrgMemberAddReq) => {
     console.log(finalBody);
 
     return postOrgMember(finalBody)
+      .then((response) => {
+        useMemberStore
+          .getState()
+          .getMemberListFromServer(response.data.data.role.id);
+        resolve("Added Successfully");
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+
+  return alert({
+    promise: postOrgMemberResponse,
+    msgs: {
+      loading: "Adding User",
+    },
+    id: "user-add-toast",
+  });
+};
+
+type patientDetails = {
+  [key: string]: any;
+};
+
+export const postPatientDetailsToast = (body: patientDetails) => {
+  const postOrgMemberResponse = new Promise((resolve, reject) => {
+    const keys = Object.keys(body);
+
+    const finalBody = keys.reduce((acc: patientDetails, curr) => {
+      if (isNaN(Number(curr.split("-")[0]))) {
+        const obj = { [curr]: body[curr] };
+        acc = { ...acc, ...obj };
+      } else if (acc.detail && curr.split("-")[2] === "details") {
+        acc.detail.push({
+          detail_cat_id: curr.split("-")[0],
+          value: body[curr],
+        });
+      } else if (curr.split("-")[2] === "details") {
+        acc.detail = [
+          {
+            detail_cat_id: curr.split("-")[0],
+            value: body[curr],
+          },
+        ];
+      } else if (acc.medical_history && curr.split("-")[2] === "note") {
+        acc.medical_history = acc.medical_history.map((element: any) =>
+          element.detail_cat_id === Number(curr.split("-")[0])
+            ? {
+                ...element,
+                note: element.value === "No" ? "N/A" : body[curr],
+              }
+            : element
+        );
+      } else if (acc.medical_history) {
+        acc.medical_history.push({
+          detail_cat_id: Number(curr.split("-")[0]),
+          value: body[curr] ? "Yes" : "No",
+          note: "N/A",
+        });
+      } else {
+        acc.medical_history = [
+          {
+            detail_cat_id: Number(curr.split("-")[0]),
+            value: body[curr] ? "Yes" : "No",
+            note: "N/A",
+          },
+        ];
+      }
+
+      return acc;
+    }, {});
+
+    return postNormalMember(finalBody)
       .then((response) => {
         useMemberStore
           .getState()
