@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:13 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/17/22, 12:45 PM
  *
  *
  */
@@ -15,6 +15,8 @@ import {
   StatCardGroupVariant2,
 } from "@/modules/dashboard/cards/StatCardGroup";
 import { useRoleList } from "@/services/requests/roleRequests";
+import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
+import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 
 export const AdminDashboard: React.FC = () => {
   const user = useAuthStore().user;
@@ -40,6 +42,7 @@ export const AdminDashboard: React.FC = () => {
           <StatCardGroupVariant2 data={data} />
         </div>
       </div>
+      <WelcomeModal images={adminWelcomeSlides} />
     </div>
   );
 };

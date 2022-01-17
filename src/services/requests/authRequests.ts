@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 2:12 PM
+ * Last Modified 1/17/22, 12:48 PM
  *
  *
  */
@@ -34,7 +34,7 @@ export const login = (loginRequest: LoginRequest) => {
       })
       .then(async (response) => {
         useAuthStore.getState().setUserData(response.data);
-        if (response.data.data.user.id !== 1 && !useAuthStore.getState().guided)
+        if (!useAuthStore.getState().guided)
           useAuthStore.getState().setGuided(false);
         Router.push("/dashboard");
         await getGlobalStates();
