@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/17/22, 11:47 AM
+ * Last Modified 1/18/22, 11:17 AM
  *
  *
  */
@@ -43,7 +43,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
               onClick={() =>
                 data.role_slug && data.role_id
                   ? router.push(
-                      `/members/${selectedRole.slug}/${data.role_slug}?parent_id=${data.parent_member_id}&parent_role=${selectedRole.id}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
+                      `/members/${selectedRole.slug}/${data.role_slug}?p_id=${data.parent_member_id}&p_role=${selectedRole.id}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
                     )
                   : router.push(
                       `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`

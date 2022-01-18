@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 9:09 PM
+ * Last Modified 1/17/22, 2:35 PM
  *
  *
  */
@@ -153,7 +153,9 @@ export const MemberAddForm: React.FC<MemberAddFormProps> = ({
           />
         )}
       </div>
-      <Button>{type === "add" ? "Add" : "Update"} User</Button>
+      <Button data-testid="member-add-btn">
+        {type === "add" ? "Add" : "Update"} User
+      </Button>
     </Modal.Form>
   );
 };

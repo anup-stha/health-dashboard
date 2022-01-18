@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 8:00 PM
+ * Last Modified 1/17/22, 3:25 PM
  *
  *
  */
@@ -65,6 +65,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
             type="text"
             placeholder="Enter Name"
             required={true}
+            data-testid="name"
             {...register("name")}
           />
 
@@ -73,6 +74,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
               <PrimaryInput
                 label="Phone"
                 type="text"
+                data-testid="phone"
                 placeholder="Enter Phone"
                 {...register("phone")}
               />
@@ -81,6 +83,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
               <PrimaryInput
                 label="Date of Birth In AD"
                 type="date"
+                data-testid="dob"
                 max={new Date().toISOString().split("T")[0]}
                 {...register("dob_ad")}
               />
@@ -89,6 +92,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
           <PrimaryInput
             label="Address"
             type="text"
+            data-testid="address"
             placeholder="Enter Address"
             {...register("address")}
           />
@@ -144,6 +148,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
           <PrimaryInput
             label="Email"
             type="email"
+            data-testid="email"
             placeholder="Enter email"
             {...register("email")}
           />
@@ -151,6 +156,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
             <PrimaryInput
               label="Password"
               type="password"
+              data-testid="password"
               placeholder="Enter Password"
               autoComplete={"new-password"}
               {...register("password")}
@@ -172,6 +178,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
                   ) : (
                     <PrimaryInput
                       label={category.name}
+                      data-testid={`${category.id}-${category.slug}`}
                       type={category.value_type}
                       required={!!category.required}
                       placeholder={`Enter ${category.name}`}
@@ -184,7 +191,9 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
         </div>
       </Modal.Scrollable>
       <div className="px-2">
-        <Button> {type === "add" ? "Add" : "Edit"} User</Button>
+        <Button data-testid="member-add-btn">
+          {type === "add" ? "Add" : "Edit"} User
+        </Button>
       </div>
     </Modal.Form>
   ) : null;
