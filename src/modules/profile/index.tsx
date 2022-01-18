@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 7:13 PM
+ * Last Modified 1/18/22, 4:06 PM
  *
  *
  */
@@ -22,10 +22,14 @@ import { useMemberDetails } from "@/modules/members/api/hooks/useMemberDetails";
 import { ProfileOtherDetails } from "@/modules/members/profile/ProfileAllDetails";
 import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal";
 import LetteredAvatar from "react-avatar";
+import { useRoleDetails } from "@/services/requests/roleRequests";
+import { useMemberStore } from "@/modules/members/useMemberStore";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
+  const memberDetails = useMemberStore((state) => state.selectedMemberDetails);
   const { data, isLoading } = useMemberDetails(Number(user.id));
+  const { data: roleDetails } = useRoleDetails(Number(user.role.id));
 
   const onLogOut = async () => {
     await alert({
@@ -129,7 +133,7 @@ export const ProfilePage: React.FC = () => {
 
               {!isLoading && (
                 <ProfileOtherDetails
-                  details={data?.data.data ?? "superadmin"}
+                  details={memberDetails ?? "superadmin"}
                   selectedMember={user}
                   selectedRole={user.role}
                 />
@@ -143,11 +147,14 @@ export const ProfilePage: React.FC = () => {
           <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
             <ProfileUpdateModal />
             <PasswordModal />
-            <MemberDetailAddModal
-              otherDetails={data?.data.data ?? []}
-              memberData={user}
-              selectedRole={user.role}
-            />
+            {roleDetails?.data.data && (
+              <MemberDetailAddModal
+                otherDetails={data?.data.data ?? []}
+                memberData={user}
+                selectedRole={roleDetails?.data.data}
+              />
+            )}
+
             <hr className={" border-t-2 border-gray-200 "} />
             <div
               onClick={() => onLogOut()}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 8:33 PM
+ * Last Modified 1/18/22, 4:35 PM
  *
  *
  */
@@ -57,12 +57,14 @@ const listRoleDetails = (roleId: number) => {
   return privateAgent.get<RoleDetailResponse>(`role/detail/${roleId}`);
 };
 
-export const useRoleDetails = (roleId: number) => {
+export const useRoleDetails = (roleId: number, callSuccess = true) => {
   return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
     enabled: roleId !== 0,
     staleTime: Infinity,
     onSuccess: (response) => {
-      response && useMemberStore.getState().setSelectedRole(response.data.data);
+      callSuccess &&
+        response &&
+        useMemberStore.getState().setSelectedRole(response.data.data);
     },
   });
 };

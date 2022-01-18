@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 7:42 PM
+ * Last Modified 1/18/22, 3:55 PM
  *
  *
  */
@@ -96,7 +96,7 @@ export const MemberDetailAddModal: React.FC<MemberDetailAddModalProps> = ({
                   type: "promise",
                   promise: addDetailsToMember(
                     Number(selectedRole.id),
-                    Number(router.query.id),
+                    Number(router.query.id ?? memberData.id),
                     values
                   ),
                   msgs: {

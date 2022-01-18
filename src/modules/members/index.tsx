@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 7:55 PM
+ * Last Modified 1/18/22, 4:06 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import { Role } from "@/types";
 
 export const MemberPage = () => {
   const selectedRole = useMemberStore((state) => state.selectedRole) as Role;
+
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col space-y-6">
