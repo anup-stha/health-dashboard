@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/21/22, 10:07 PM
+ * Last Modified 1/21/22, 10:36 PM
  *
  *
  */
@@ -168,7 +168,6 @@ export const MemberTest = () => {
                     <TableView
                       data={subTestGroups[element]}
                       tableHeadings={[
-                        "Test Name",
                         `${element} Test Date`,
                         `${element} Test Result`,
                         `${element} Test Notes`,

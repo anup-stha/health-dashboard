@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 3:46 PM
+ * Last Modified 1/21/22, 10:34 PM
  *
  *
  */
@@ -249,12 +249,7 @@ export const ProfileTestComponent: React.FC<ProfileTestProps> = ({
                   <Tab.Panel>
                     <TableView
                       data={subTestDetails}
-                      tableHeadings={[
-                        "Test App",
-                        "Test Date",
-                        "Test Result",
-                        "Test Notes",
-                      ]}
+                      tableHeadings={["Test Date", "Test Result", "Test Notes"]}
                       search={false}
                       tableRowComponent={<ProfileTestTableRow />}
                       loading={isFetching}
@@ -361,19 +356,16 @@ export const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
                 </h1>
               </div>
             </div>
-            <div className="bg-gray-100 w-full mr-4 grid grid-cols-4">
-              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
-                Test App
-              </span>
+            <div className="bg-gray-100 w-full mr-4 grid grid-cols-3">
               <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
                 Test Date
               </span>
               <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
                 Test Result
               </span>
-              <th className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
+              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
                 Test Notes
-              </th>
+              </span>
             </div>
           </div>
         </div>
@@ -402,10 +394,7 @@ export const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
           <tbody className="divide-y divide-gray-200 w-screen">
             {test.map((data, index) => (
               <tr key={index} className="w-full">
-                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap ">
-                  {data.app_slug}
-                </td>
-                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap ">
+                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap  ">
                   <div className="">
                     <span className="block">
                       {moment(utcDateToLocal(data.test_date)).format(

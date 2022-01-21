@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 4:30 PM
+ * Last Modified 1/21/22, 10:25 PM
  *
  *
  */
@@ -23,9 +23,6 @@ type ProfileTestData = {
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
   return data ? (
     <tr>
-      <td className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-700">
-        {data.test_name}
-      </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         <div className="flex flex-col space-y-2">
           <span>
