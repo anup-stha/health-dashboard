@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 9:43 AM
+ * Last Modified 1/21/22, 2:10 PM
  *
  *
  */
@@ -42,7 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled ?? loading}
       className={`flex items-center ${buttonPadding} ${
         width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer text-center text-xl  font-semibold  text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+      } capitalize cursor-pointer text-center text-xl font-semibold text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
       <span className={"sm:line-clamp-1"}>{children}</span>
@@ -63,7 +63,7 @@ export const IconButton: React.FC<ButtonProps> = ({
       className="flex items-center px-3 py-3 text-lg font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed"
       disabled={disabled ?? loading}
     >
-      {loading ? <div className="loading_md"></div> : null}
+      {loading ? <div className="loading_md" /> : null}
       {children}
     </button>
   );
@@ -71,14 +71,13 @@ export const IconButton: React.FC<ButtonProps> = ({
 
 export const PrimaryButton: React.FC<ButtonProps> = ({
   children,
-  extraClassName,
+  className,
   onClick,
 }) => {
   return (
     <button
-      type="button"
       onClick={onClick}
-      className={`${extraClassName} flex items-center  font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+      className={`${className} flex items-center  font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {children}
     </button>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 7:55 PM
+ * Last Modified 1/21/22, 12:37 PM
  *
  *
  */
@@ -15,6 +15,7 @@ import { PatientMedicalHistoryModal } from "@/modules/members/modal/PatientMedic
 import { Member, MemberDetails, Role } from "@/types";
 import omit from "lodash/omit";
 import { MemberModal } from "@/modules/members/modal/MemberModal";
+import Link from "next/link";
 
 type MemberProfileControlProps = {
   active: boolean;
@@ -60,6 +61,17 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
           memberData={selectedMember}
           selectedRole={selectedRole}
         />
+
+        {(selectedRole.slug === "patient" ||
+          selectedRole.slug === "individual") && (
+          <Link
+            href={`/members/patient/test_report?pat_id=${selectedMember.id}&role=5&p_page=${router.query.p_page}`}
+          >
+            <a className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+              Generate Test Report
+            </a>
+          </Link>
+        )}
       </div>
       {user.role && user.role.id === 1 && selectedMember && (
         <div className="flex flex-col bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">

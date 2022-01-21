@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 10:44 PM
+ * Last Modified 1/21/22, 3:46 PM
  *
  *
  */
@@ -29,6 +29,7 @@ import { useReactToPrint } from "react-to-print";
 import ReactExport from "react-data-export";
 import { GrayButton } from "@/components/Button";
 import omit from "lodash/omit";
+import { isServer } from "@/services/isServer";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -309,7 +310,7 @@ type PrintProps = React.DetailedHTMLProps<
 > &
   PrintTestComponentProps;
 
-const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
+export const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
   ({ test_name, test, member }, ref) => {
     return (
       <div className="hidden print:flex w-full" ref={ref}>
@@ -381,7 +382,9 @@ const PrintTestComponent = React.forwardRef<HTMLDivElement, PrintProps>(
           <div className="flex w-full items-center">
             <div>
               Printed By Sunya Health ({" "}
-              <span className="text-green-700">{window.location.hostname}</span>{" "}
+              <span className="text-green-700">
+                {!isServer && window.location.hostname}
+              </span>{" "}
               ) on {moment(new Date()).format("MMM Do YYYY")}
             </div>
           </div>

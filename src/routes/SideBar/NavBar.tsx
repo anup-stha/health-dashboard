@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/9/22, 6:37 PM
+ * Last Modified 1/21/22, 3:22 PM
  *
  *
  */
@@ -30,7 +30,7 @@ export const NavBar = () => {
               const Modal = route.modal;
 
               return (
-                <Modal>
+                <Modal key={`${route.id}-${route.title}`}>
                   <NavItem route={route} key={`${route.id}-${route.title}`} />;
                 </Modal>
               );

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/18/22, 3:56 PM
+ * Last Modified 1/21/22, 2:43 PM
  *
  *
  */
@@ -140,5 +140,20 @@ export const getMemberTestList = (
 ) => {
   return privateAgent.get<MemberTestListResponse>(
     `test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`
+  );
+};
+
+export const getMemberTestReportByDate = (
+  memberId: number,
+  from_time_stamp: number,
+  to_time_stamp?: number
+) => {
+  if (!to_time_stamp) {
+    return privateAgent.get<MemberTestListResponse>(
+      `test/report?from_time_stamp=${from_time_stamp}&member_id=${memberId}`
+    );
+  }
+  return privateAgent.get<MemberTestListResponse>(
+    `test/report?from_time_stamp=${from_time_stamp}&to_time_stamp=${to_time_stamp}&member_id=${memberId}`
   );
 };

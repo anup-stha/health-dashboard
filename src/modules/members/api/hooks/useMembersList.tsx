@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 12:05 PM
+ * Last Modified 1/21/22, 8:43 PM
  *
  *
  */
@@ -22,10 +22,12 @@ export const useMembersList = (
       enabled: roleId !== 0,
       onSuccess: ({ data }) => {
         useMemberStore.getState().setMemberList(data);
+
         if (memberId) {
           const details = data.data.list.filter(
             (member) => member.id === memberId
           )[0];
+
           useMemberStore.getState().setSelectedMember(details);
         }
       },

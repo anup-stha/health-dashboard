@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 10:12 PM
+ * Last Modified 1/21/22, 3:12 PM
  *
  *
  */
@@ -58,13 +58,30 @@ const initialState = {
   },
   parent_id: "",
   parent_role: "",
+  parent_page: "1",
+
+  test_report: {
+    start_date: 0,
+    end_date: 0,
+  },
 };
 
 export const store = combine(initialState, (set) => ({
-  setParent: (parent_id: string, parent_role: string) => {
+  setTestReportDate: (start_date: number, end_date?: number) => {
+    set((state) => ({
+      ...state,
+      test_report: {
+        start_date: start_date ?? state.test_report.start_date,
+        end_date: end_date ?? state.test_report.end_date,
+      },
+    }));
+  },
+
+  setParent: (parent_id: string, parent_role: string, parent_page = "1") => {
     set({
       parent_id,
       parent_role,
+      parent_page,
     });
   },
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/10/22, 4:21 PM
+ * Last Modified 1/21/22, 4:30 PM
  *
  *
  */
@@ -16,6 +16,7 @@ import { utcDateToLocal } from "@/modules/members/profile/ProfileTestComponent";
 
 type ProfileTestData = {
   app_slug: string;
+  test_name: string;
   test_date: Date;
   tests: { [p: string]: any }[];
 };
@@ -23,7 +24,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
   return data ? (
     <tr>
       <td className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-700">
-        {data.app_slug}
+        {data.test_name}
       </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         <div className="flex flex-col space-y-2">

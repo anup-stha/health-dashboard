@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 11:45 AM
+ * Last Modified 1/21/22, 4:47 PM
  *
  *
  */
@@ -124,8 +124,8 @@ export const TableView: React.FC<TableViewPropsType> = ({
               </div>
             </div>
           ) : (
-            <div className="flex flex-col ">
-              <div className="overflow-x-auto print:sidebar">
+            <div className="flex flex-col">
+              <div className="overflow-x-auto print:sidebar -mx-1">
                 <div className="px-1 py-2 align-middle inline-block min-w-full print:p-0">
                   <div className="shadow-E100 overflow-hidden border-b border-gray-200 sm:rounded-lg rounded-sm">
                     <table className="min-w-full divide-y divide-gray-200">

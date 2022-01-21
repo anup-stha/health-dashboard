@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:13 PM
+ * Last Modified 1/21/22, 11:55 AM
  *
  *
  */
@@ -19,7 +19,6 @@ import { MainHead } from "@/layout/MainHead";
 
 const MemberProfilePage: NextPage<any> = () => {
   const router = useRouter();
-  console.log(router);
 
   return (
     <>

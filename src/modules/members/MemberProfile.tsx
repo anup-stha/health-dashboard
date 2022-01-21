@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/18/22, 11:58 AM
+ * Last Modified 1/21/22, 1:07 PM
  *
  *
  */
@@ -57,7 +57,9 @@ export const MemberProfile: React.FC = () => {
     Number(router.query.id)
   );
   const { isLoading: roleListBySlugLoading } = useRoleListBySlug(
-    !Array.isArray(router.query.profile) && router.query.profile
+    !Array.isArray(router.query.profile) &&
+      router.query.profile &&
+      router.query.profile !== "patient"
       ? router.query.profile
       : ""
   );
