@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/23/22, 2:37 PM
+ * Last Modified 1/23/22, 1:59 PM
  *
  *
  */
@@ -21,29 +21,32 @@ const PatientTestReport = () => {
     member_id: String(router.query.pat_id),
     member_role: String(router.query.role),
     member_page: String(router.query.p_page),
+    member_role_name: String(router.query["next-profile"]),
+    member_parent_role_name: String(router.query.profile),
+    main_id: String(router.query.p_role),
   };
   const setParentId = useMemberStore((state) => state.setParent);
-
-  console.log(router);
+  const currentMember = useMemberStore((state) => state.currentMember);
 
   useEffect(() => {
     if (router.isReady && idX.member_role !== "5") router.push("/404");
-    setParentId(
-      "0",
-      "0",
-      "0",
-      "0",
-      "0",
-
-      idX.member_role,
-      idX.member_id,
-      idX.member_page
-    );
+    currentMember &&
+      setParentId(
+        idX.member_id,
+        idX.member_role,
+        idX.member_page,
+        idX.member_parent_role_name,
+        idX.member_role_name,
+        String(currentMember.parent_member_id),
+        idX.main_id,
+        "1"
+      );
   }, [idX]);
 
   return (
     <MainLayout>
       <MainHead title={`Patient Report`} />
+
       <MemberTest />
     </MainLayout>
   );

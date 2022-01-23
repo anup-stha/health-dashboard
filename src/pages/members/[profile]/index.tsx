@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 12:15 PM
+ * Last Modified 1/23/22, 2:36 PM
  *
  *
  */
@@ -21,9 +21,9 @@ import { MainHead } from "@/layout/MainHead";
 
 const MemberProfilePage: NextPage<any> = () => {
   const router = useRouter();
-  const parentId = useMemberStore((state) => state.parent_id);
-  const roleId = useMemberStore((state) => state.parent_role);
-  const parentPage = useMemberStore((state) => state.parent_page);
+  const parentId = useMemberStore((state) => state.main_id);
+  const roleId = useMemberStore((state) => state.main_role);
+  const parentPage = useMemberStore((state) => state.main_page);
 
   useEffect(() => {
     if (!router.query.id) {
@@ -33,6 +33,8 @@ const MemberProfilePage: NextPage<any> = () => {
         );
     }
   }, [router]);
+
+  console.log(router);
 
   return (
     <>

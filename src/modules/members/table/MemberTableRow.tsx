@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/18/22, 11:17 AM
+ * Last Modified 1/23/22, 1:55 PM
  *
  *
  */
@@ -43,7 +43,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
               onClick={() =>
                 data.role_slug && data.role_id
                   ? router.push(
-                      `/members/${selectedRole.slug}/${data.role_slug}?p_id=${data.parent_member_id}&p_role=${selectedRole.id}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
+                      `/members/${selectedRole.slug}/${data.role_slug}?p_id=${data.parent_member_id}&p_role=${selectedRole.id}&m_page=${router.query.p_page}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
                     )
                   : router.push(
                       `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`
@@ -68,7 +68,7 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                 onClick={() =>
                   data.role_slug && data.role_id
                     ? router.push(
-                        `/members/${selectedRole.slug}/${data.role_slug}?&p_id=${data.parent_member_id}&p_role=${selectedRole.id}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
+                        `/members/${selectedRole.slug}/${data.role_slug}?p_id=${data.parent_member_id}&p_role=${selectedRole.id}&m_page=${router.query.p_page}&p_page=${router.query.page}&id=${data.id}&role=${data.role_id}`
                       )
                     : router.push(
                         `members/${selectedRole.slug}?p_page=${router.query.page}&id=${data.id}&role=${selectedRole.id}`

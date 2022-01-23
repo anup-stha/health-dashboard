@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/14/22, 11:59 AM
+ * Last Modified 1/23/22, 1:54 PM
  *
  *
  */
@@ -27,6 +27,7 @@ export const SubMemberProfile = () => {
     member_parent_id: router.query.p_id,
     member_parent_role: router.query.p_role,
     member_parent_page: router.query.p_page,
+    member_main_page: router.query.m_page,
   };
 
   const { data: parentRoleData } = useRoleDetails(Number(idX.member_parent_id));
@@ -72,11 +73,25 @@ export const SubMemberProfile = () => {
       !Array.isArray(idX.member_parent_id) &&
       useMemberStore
         .getState()
-        .setParent(idX.member_parent_id ?? "0", idX.member_parent_role ?? "0");
+        .setParent(
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          idX.member_parent_role,
+          idX.member_parent_id,
+          String(idX.member_main_page)
+        );
 
     parentRoleData &&
       useMemberStore.getState().setSelectedRole(parentRoleData.data.data);
   }, [idX]);
+
+  useEffect(() => {
+    selectedMember &&
+      useMemberStore.getState().setCurrentMember(selectedMember);
+  }, [selectedMember]);
 
   return loading ? (
     <Loader />

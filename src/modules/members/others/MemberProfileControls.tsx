@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 12:37 PM
+ * Last Modified 1/23/22, 2:23 PM
  *
  *
  */
@@ -37,7 +37,7 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
   otherDetails,
 }) => {
   const router = useRouter();
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
 
   return (
     <div className="flex flex-col gap-8 print:hidden">
@@ -62,16 +62,25 @@ export const MemberProfileControls: React.FC<MemberProfileControlProps> = ({
           selectedRole={selectedRole}
         />
 
-        {(selectedRole.slug === "patient" ||
-          selectedRole.slug === "individual") && (
-          <Link
-            href={`/members/patient/test_report?pat_id=${selectedMember.id}&role=5&p_page=${router.query.p_page}`}
-          >
-            <a className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-              Generate Test Report
-            </a>
-          </Link>
-        )}
+        {selectedMember.role && selectedMember.role.slug === "patient" ? (
+          user.id === 1 ? (
+            <Link
+              href={`/members/org_admin/patient/test_report?pat_id=${selectedMember.id}&role=5&p_id=${selectedMember.parent_member_id}&p_role=${router.query.p_role}&p_page=${router.query.p_page}&m_page=${router.query.m_page}`}
+            >
+              <a className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                Generate Test Report
+              </a>
+            </Link>
+          ) : (
+            <Link
+              href={`/members/patient/test_report?pat_id=${selectedMember.id}&role=5&p_page=${router.query.p_page}`}
+            >
+              <a className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                Generate Test Report
+              </a>
+            </Link>
+          )
+        ) : null}
       </div>
       {user.role && user.role.id === 1 && selectedMember && (
         <div className="flex flex-col bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">

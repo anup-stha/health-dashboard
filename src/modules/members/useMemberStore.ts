@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 3:12 PM
+ * Last Modified 1/23/22, 1:33 PM
  *
  *
  */
@@ -38,6 +38,7 @@ const initialState = {
     message: "",
   },
   selectedMember: {} as Member | undefined,
+  currentMember: {} as Member | undefined,
   selectedMemberDetails: [] as MemberDetails[],
   selectedMemberSubscription: ({} as MemberSubscriptionDetails) || {},
 
@@ -59,6 +60,11 @@ const initialState = {
   parent_id: "",
   parent_role: "",
   parent_page: "1",
+  member_role_name: "",
+  parent_role_name: "",
+  main_role: "",
+  main_id: "",
+  main_page: "",
 
   test_report: {
     start_date: 0,
@@ -67,6 +73,12 @@ const initialState = {
 };
 
 export const store = combine(initialState, (set) => ({
+  setCurrentMember: (member: Member) => {
+    set({
+      currentMember: member,
+    });
+  },
+
   setTestReportDate: (start_date: number, end_date?: number) => {
     set((state) => ({
       ...state,
@@ -77,11 +89,25 @@ export const store = combine(initialState, (set) => ({
     }));
   },
 
-  setParent: (parent_id: string, parent_role: string, parent_page = "1") => {
+  setParent: (
+    parent_id: string,
+    parent_role: string,
+    parent_page = "1",
+    parent_role_name?: string,
+    member_role_name?: string,
+    main_role?: string,
+    main_id?: string,
+    main_page?: string
+  ) => {
     set({
       parent_id,
       parent_role,
       parent_page,
+      parent_role_name: parent_role_name ?? "",
+      member_role_name: member_role_name ?? "",
+      main_role: main_role ?? "",
+      main_id: main_id ?? "",
+      main_page: main_page ?? "",
     });
   },
 

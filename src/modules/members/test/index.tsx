@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/21/22, 10:36 PM
+ * Last Modified 1/23/22, 3:36 PM
  *
  *
  */
@@ -19,25 +19,26 @@ import { PrintTestComponent } from "@/modules/members/profile/ProfileTestCompone
 import { useReactToPrint } from "react-to-print";
 import groupBy from "lodash/groupBy";
 import { Loader } from "@/components/Loader";
-import { useMembersList } from "@/modules/members/api/hooks/useMembersList";
 import LetteredAvatar from "react-avatar";
 import { WarningOctagon } from "phosphor-react";
+import toast from "react-hot-toast";
 
 export const MemberTest = () => {
   const router = useRouter();
-  const { handleSubmit, register } = useForm();
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
+  const { handleSubmit, register, watch } = useForm({
+    defaultValues: {
+      start_date: now.toISOString().slice(0, 16),
+      end_date: "",
+    },
+  });
+
+  const watch_start_date = watch("start_date");
+  const current_member = useMemberStore((state) => state.currentMember);
   const start_date = useMemberStore((state) => state.test_report.start_date);
   const end_date = useMemberStore((state) => state.test_report.end_date);
-  const { isLoading } = useMembersList(
-    5,
-    Number(router.query.pat_id),
-    Number(router.query.p_page)
-  );
-
-  const selectedMember = useMemberStore((state) => state.selectedMember);
-
-  console.log(start_date, end_date);
 
   const { data, refetch, isFetching, error } = useTestReportByDate(
     Number(router.query.pat_id),
@@ -72,14 +73,24 @@ export const MemberTest = () => {
       : [];
 
   const subTestGroups = groupBy(subTestDetails, "test_name");
+  useEffect(() => {
+    if (current_member && Object.keys(current_member).length === 0) {
+      toast.error("Please select a patient first.");
+      router.back();
+    }
+  }, [current_member]);
 
-  return !isLoading ? (
+  if (current_member && Object.keys(current_member).length === 0) {
+    return <Loader />;
+  }
+
+  return (
     <>
-      {selectedMember && (
+      {current_member && (
         <PrintTestComponent
           test_name={"Test Report"}
           test={subTestDetails}
-          member={selectedMember}
+          member={current_member}
           ref={componentRef}
         />
       )}
@@ -91,7 +102,7 @@ export const MemberTest = () => {
           <div className="absolute left-[1.7%] top-40 z-0 flex items-center gap-x-6">
             <div className="ring-4 ring-white rounded-full">
               <LetteredAvatar
-                name={selectedMember?.name}
+                name={current_member?.name}
                 size="120"
                 round={true}
                 maxInitials={2}
@@ -99,10 +110,10 @@ export const MemberTest = () => {
             </div>
             <div className="flex flex-col mt-10">
               <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-3xl">
-                {selectedMember?.name}
+                {current_member?.name}
               </h1>
               <p className="text-gray-500 font-semibold text-xl sm:text-lg">
-                {selectedMember?.email}
+                {current_member?.email}
               </p>
             </div>
           </div>
@@ -135,12 +146,15 @@ export const MemberTest = () => {
                     label="Enter Start Date"
                     type="datetime-local"
                     required={true}
+                    max={now.toISOString().slice(0, 16)}
                     {...register("start_date")}
                   />
                   <PrimaryInput
                     label="Enter End Date"
                     type="datetime-local"
                     required={false}
+                    min={watch_start_date}
+                    max={now.toISOString().slice(0, 16)}
                     {...register("end_date")}
                   />
                   <PrimaryButton className="px-12 py-[1.05rem] text-xl font-semibold">
@@ -187,7 +201,5 @@ export const MemberTest = () => {
         </div>
       </div>
     </>
-  ) : (
-    <Loader />
   );
 };

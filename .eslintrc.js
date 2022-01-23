@@ -1,3 +1,11 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2022. All rights reserved.
+ * Last Modified 1/23/22, 3:39 PM
+ *
+ *
+ */
+
 module.exports = {
   env: {
     browser: true,
@@ -17,6 +25,7 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "@next/next/no-html-link-for-pages": "off",
     "react-hooks/exhaustive-deps": "off",
     camelcase: "off",
   },

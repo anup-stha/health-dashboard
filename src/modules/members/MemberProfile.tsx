@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 1:07 PM
+ * Last Modified 1/23/22, 2:28 PM
  *
  *
  */
@@ -90,6 +90,11 @@ export const MemberProfile: React.FC = () => {
       setActive(selectedMember.active);
       setVerified(selectedMember.verified);
     }
+  }, [selectedMember]);
+
+  useEffect(() => {
+    selectedMember &&
+      useMemberStore.getState().setCurrentMember(selectedMember);
   }, [selectedMember]);
 
   return loading ? (
