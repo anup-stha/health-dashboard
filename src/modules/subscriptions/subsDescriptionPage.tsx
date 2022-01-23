@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/23/22, 10:12 PM
  *
  *
  */
@@ -10,7 +10,6 @@ import React, { Fragment, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import Image from "next/image";
 import { alert } from "@/components/Alert";
 import {
   assignTestToSubscription,
@@ -268,16 +267,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
     <tr className={"text-lg"}>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
-          <div className="relative flex-shrink-0 h-16 w-16">
-            <Image
-              src={"/sub_test.png"}
-              layout="fill"
-              objectFit="cover"
-              className=""
-              alt="Profile"
-            />
-          </div>
-          <div className="ml-4">
+          <div className="">
             <div className="text-xl font-semibold text-gray-900 w-full capitalize">
               {data.name}
             </div>
