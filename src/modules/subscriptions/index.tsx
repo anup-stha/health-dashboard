@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 1:15 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/23/22, 9:18 PM
  *
  *
  */
@@ -10,7 +10,6 @@ import { MemberRoleDropdown } from "../members/others/MemberRoleDropdown";
 import { SubscriptionModal } from "./subscriptionModal";
 import { SubscriptionTable } from "./subscriptionTable";
 import React from "react";
-import { MainLayout } from "@/layout/MainLayout";
 import { Loader } from "@/components/Loader";
 import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
@@ -23,7 +22,7 @@ const SubscriptionPage: React.FC = () => {
   const { isLoading: loading } = useSubscriptionList(Number(selectedRole.id));
 
   return (
-    <MainLayout>
+    <>
       {roleListLoading ? (
         <Loader />
       ) : (
@@ -49,7 +48,7 @@ const SubscriptionPage: React.FC = () => {
           </div>
         </div>
       )}
-    </MainLayout>
+    </>
   );
 };
 

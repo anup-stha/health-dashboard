@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 10:13 PM
+ * Last Modified 1/23/22, 9:24 PM
  *
  *
  */
@@ -19,6 +19,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
+import { MainLayout } from "@/layout/MainLayout";
+import { useRouter } from "next/router";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,8 +109,27 @@ const favicons: any = [
 ];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+
+  if (router.pathname === "/") {
+    return (
+      <>
+        <NextNProgress
+          color="#22c55e"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={4}
+          showOnShallow={false}
+          options={{ showSpinner: false }}
+        />
+        <ToastComponent />
+        <Component {...pageProps} />{" "}
+      </>
+    );
+  }
+
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>Sunya Health</title>
         {favicons.map((linkProps: any) => (
@@ -122,15 +143,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             startPosition={0.3}
             stopDelayMs={200}
             height={4}
-            showOnShallow={true}
+            showOnShallow={false}
             options={{ showSpinner: false }}
           />
+
           <Component {...pageProps} />
+
           <ToastComponent />
           <ReactQueryDevtools initialIsOpen={false} />
         </SkeletonTheme>
       </QueryClientProvider>
-    </>
+    </MainLayout>
   );
 };
 

@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/23/22, 1:59 PM
+ * Last Modified 1/23/22, 9:19 PM
  *
  *
  */
 
-import { MainLayout } from "@/layout/MainLayout";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useMemberStore } from "@/modules/members/useMemberStore";
@@ -44,11 +43,11 @@ const PatientTestReport = () => {
   }, [idX]);
 
   return (
-    <MainLayout>
+    <>
       <MainHead title={`Patient Report`} />
 
       <MemberTest />
-    </MainLayout>
+    </>
   );
 };
 

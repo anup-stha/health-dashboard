@@ -1,14 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:11 PM
+ * Last Modified 1/23/22, 9:17 PM
  *
  *
  */
 
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-import { MainLayout } from "@/layout/MainLayout";
 import { TestDetails } from "@/modules/tests/testDetails";
 import { testStore } from "@/modules/tests/testStore";
 import { getTests } from "@/services/requests/testRequests";
@@ -41,7 +40,7 @@ const Test: NextPage<any> = () => {
   return (
     <>
       <MainHead title={`Test - ${router.query["test"]}`} />
-      <MainLayout>{!loading ? <TestDetails /> : <Loader />}</MainLayout>
+      {!loading ? <TestDetails /> : <Loader />}
     </>
   );
 };

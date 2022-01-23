@@ -1,27 +1,37 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/3/22, 6:17 PM
+ * Last Modified 1/23/22, 9:10 PM
  *
  *
  */
 
-import { Sidebar } from "@/routes/SideBar";
 import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarToggleButton";
-import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { MainHeader } from "./MainHeader";
+import { Sidebar } from "@/routes/SideBar";
+import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
+import React, { useCallback, useEffect, useState } from "react";
 
-export const MainLayout = ({ children }: any) => {
-  const { open } = useSideBarStore();
+const Layout = ({ children }: any) => {
+  const open = useSideBarStore(useCallback((state) => state.open, []));
+  const [hydrated, setHydrated] = useState(false);
 
-  return (
-    <div suppressHydrationWarning={true}>
-      <Sidebar />
+  useEffect(() => {
+    try {
+      setHydrated(useSideBarStore.persist.hasHydrated());
+    } catch (error) {
+      setHydrated(false);
+    }
+  }, [hydrated]);
+
+  return hydrated ? (
+    <div>
       <ToggleButton />
+      <Sidebar />
       <div
         className={`${
           open
-            ? " relative w-full pl-[18%] md:w-full md:ml-0 sm:pl-0"
+            ? "relative w-full pl-[18%] md:w-full md:ml-0 sm:pl-0"
             : "relative w-full pl-24 sm:pl-0"
         } transition-all duration-200 h-full print:pl-0`}
       >
@@ -33,5 +43,7 @@ export const MainLayout = ({ children }: any) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
+
+export const MainLayout = React.memo(Layout);

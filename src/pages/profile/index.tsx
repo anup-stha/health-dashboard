@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 11:59 AM
+ * Last Modified 1/23/22, 9:18 PM
  *
  *
  */
 
 import { withAuth } from "@/shared/hoc/withAuth";
-import { MainLayout } from "@/layout/MainLayout";
 import { ProfilePage } from "@/modules/profile";
 import React, { useEffect, useState } from "react";
 import { getCurrentUserProfile } from "@/services/requests/authRequests";
@@ -37,9 +36,7 @@ const Profile = () => {
     <>
       <MainHead title={`Profile`} />
 
-      <MainLayout>
-        {loading && isLoading ? <Loader /> : <ProfilePage />}
-      </MainLayout>
+      {loading && isLoading ? <Loader /> : <ProfilePage />}
     </>
   );
 };

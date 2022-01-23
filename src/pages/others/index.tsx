@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 11:59 AM
+ * Last Modified 1/23/22, 9:18 PM
  *
  *
  */
 
 import type { NextPage } from "next";
-import { MainLayout } from "@/layout/MainLayout";
 import { OthersPage } from "@/modules/others";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
@@ -18,9 +17,8 @@ const others: NextPage = () => {
   return (
     <>
       <MainHead title={`Other Fields`} />
-      <MainLayout>
-        <OthersPage />
-      </MainLayout>
+
+      <OthersPage />
     </>
   );
 };

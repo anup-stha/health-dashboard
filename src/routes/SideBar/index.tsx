@@ -1,21 +1,21 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 3:03 PM
+ * Last Modified 1/23/22, 9:17 PM
  *
  *
  */
 
 import Image from "next/image";
 import LetteredAvatar from "react-avatar";
-import { useSideBarStore } from "./useSideBarStore";
 import React from "react";
 import { NavBar } from "./NavBar";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { Transition } from "@headlessui/react";
+import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 
-export const Sidebar: React.FC = () => {
+export const Sidebar: React.FC<any> = () => {
   const open = useSideBarStore((state) => state.open);
   const user = useAuthStore((state) => state.user);
   const systemVersion = useGlobalState((state) => state.base.system_version);

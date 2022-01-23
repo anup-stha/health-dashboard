@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 1:01 PM
+ * Last Modified 1/23/22, 9:19 PM
  *
  *
  */
@@ -10,8 +10,6 @@ import React, { useEffect } from "react";
 import { NextPage } from "next";
 
 import { withAuth } from "@/shared/hoc/withAuth";
-
-import { MainLayout } from "@/layout/MainLayout";
 import { withRole } from "@/shared/hoc/withRole";
 import { SubMemberProfile } from "@/modules/members/SubMemberProfile";
 import { useRouter } from "next/router";
@@ -56,9 +54,9 @@ const MemberProfilePage: NextPage<any> = () => {
   return (
     <>
       <MainHead title={`Members - ${router.query["next-profile"]}`} />
-      <MainLayout>
+      <>
         <SubMemberProfile />
-      </MainLayout>
+      </>
     </>
   );
 };

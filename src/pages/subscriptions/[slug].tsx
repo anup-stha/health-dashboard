@@ -1,13 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:11 PM
+ * Last Modified 1/23/22, 9:18 PM
  *
  *
  */
 
 import { NextPage } from "next";
-import { MainLayout } from "@/layout/MainLayout";
 import {
   listSubscriptionDetail,
   useSubscriptionList,
@@ -49,13 +48,12 @@ const SubscriptionDetailsPage: NextPage = () => {
   return (
     <>
       <MainHead title={`Subscriptions - ${slug}`} />
-      <MainLayout>
-        {subsLoading || testLoading || loading ? (
-          <Loader />
-        ) : (
-          <SubsDescriptionPage selected={selectedSubscription} />
-        )}
-      </MainLayout>
+
+      {subsLoading || testLoading || loading ? (
+        <Loader />
+      ) : (
+        <SubsDescriptionPage selected={selectedSubscription} />
+      )}
     </>
   );
 };

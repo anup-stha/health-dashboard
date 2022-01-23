@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 2:36 PM
+ * Last Modified 1/23/22, 9:18 PM
  *
  *
  */
@@ -11,8 +11,6 @@ import { NextPage } from "next";
 
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-
-import { MainLayout } from "@/layout/MainLayout";
 
 import { MemberProfile } from "@/modules/members/MemberProfile";
 import { useRouter } from "next/router";
@@ -40,9 +38,9 @@ const MemberProfilePage: NextPage<any> = () => {
     <>
       <MainHead title={`Members - ${router.query.profile}`} />
 
-      <MainLayout>
+      <>
         <MemberProfile />
-      </MainLayout>
+      </>
     </>
   );
 };
