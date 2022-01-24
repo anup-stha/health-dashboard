@@ -1,14 +1,19 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/7/22, 12:54 PM
+ * Last Modified 1/24/22, 11:49 AM
  *
  *
  */
 
 import { CurrentLoggedInMember, LoginResponse } from "@/types";
 import create from "zustand";
-import { combine, devtools, persist } from "zustand/middleware";
+import {
+  combine,
+  devtools,
+  persist,
+  subscribeWithSelector,
+} from "zustand/middleware";
 
 const userDataKey = "@sunya/user-data";
 const initialState = {
@@ -54,5 +59,7 @@ export const store = combine(initialState, (set) => ({
 }));
 
 export const useAuthStore = create(
-  devtools(persist(store, { name: userDataKey }), { name: "auth" })
+  devtools(subscribeWithSelector(persist(store, { name: userDataKey })), {
+    name: "auth",
+  })
 );

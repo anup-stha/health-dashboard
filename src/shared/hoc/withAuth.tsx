@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/5/22, 11:30 AM
+ * Last Modified 1/24/22, 11:52 AM
  *
  *
  */
@@ -12,17 +12,17 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 export const withAuth = (WrappedComponent: React.FC) => {
   const RequireAuthentication = (props: React.Props<any>) => {
-    const accessToken = useAuthStore.getState().token;
+    const accessToken = useAuthStore((state) => state.token);
     const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
     const router = useRouter();
 
     useEffect(() => {
       setIsAuthenticated(!!accessToken);
       return useAuthStore.subscribe(
+        (s: any) => s.token,
         () => {
           router.push(`/`);
-        },
-        (s: any) => s.token
+        }
       );
     }, [router, accessToken]);
 
