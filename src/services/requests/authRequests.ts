@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/17/22, 12:48 PM
+ * Last Modified 1/24/22, 10:51 AM
  *
  *
  */
@@ -52,13 +52,14 @@ export const logOut = () => {
     privateAgent
       .post<LogoutRequest>("auth/logout/")
       .then(() => {
+        Router.push("/");
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
+
         useMemberStore
           .getState()
           .setSelectedRole({ id: 0, name: "Choose any role" } as Role);
         queryClient.clear();
-        Router.push("/");
         resolve("Logged Out Successfully");
       })
       .catch(() => {

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 9:17 PM
+ * Last Modified 1/24/22, 10:55 AM
  *
  *
  */
@@ -36,12 +36,14 @@ export const Sidebar: React.FC<any> = () => {
           enterTo="opacity-100 translate-y-0"
         >
           <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
-            <LetteredAvatar
-              name={user.name}
-              size="50"
-              round={true}
-              maxInitials={2}
-            />
+            {user.name && (
+              <LetteredAvatar
+                name={user.name}
+                size="50"
+                round={true}
+                maxInitials={2}
+              />
+            )}
 
             <div className="flex flex-col w-3/4">
               <span className="text-black font-semibold text-xl line-clamp-1">

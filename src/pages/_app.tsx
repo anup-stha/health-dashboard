@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 9:24 PM
+ * Last Modified 1/24/22, 10:39 AM
  *
  *
  */
@@ -110,26 +110,17 @@ const favicons: any = [
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-
-  if (router.pathname === "/") {
-    return (
-      <>
-        <NextNProgress
-          color="#22c55e"
-          startPosition={0.3}
-          stopDelayMs={200}
-          height={4}
-          showOnShallow={false}
-          options={{ showSpinner: false }}
-        />
-        <ToastComponent />
-        <Component {...pageProps} />{" "}
-      </>
+  const RenderedComponent =
+    router.pathname === "/" ? (
+      <Component {...pageProps} />
+    ) : (
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     );
-  }
 
   return (
-    <MainLayout>
+    <>
       <Head>
         <title>Sunya Health</title>
         {favicons.map((linkProps: any) => (
@@ -147,13 +138,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             options={{ showSpinner: false }}
           />
 
-          <Component {...pageProps} />
-
+          {RenderedComponent}
           <ToastComponent />
           <ReactQueryDevtools initialIsOpen={false} />
         </SkeletonTheme>
       </QueryClientProvider>
-    </MainLayout>
+      ;
+    </>
   );
 };
 

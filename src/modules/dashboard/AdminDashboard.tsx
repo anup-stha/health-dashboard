@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/17/22, 12:45 PM
+ * Last Modified 1/24/22, 10:46 AM
  *
  *
  */
@@ -14,14 +14,12 @@ import {
   StatCardGroup,
   StatCardGroupVariant2,
 } from "@/modules/dashboard/cards/StatCardGroup";
-import { useRoleList } from "@/services/requests/roleRequests";
 import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
 import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 
 export const AdminDashboard: React.FC = () => {
   const user = useAuthStore().user;
   const { data, isLoading, error } = useDashboardQuery();
-  const {} = useRoleList();
 
   if (isLoading || error) return <Loader />;
 

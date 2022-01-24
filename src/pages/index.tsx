@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 1:06 PM
+ * Last Modified 1/24/22, 10:44 AM
  *
  *
  */
@@ -25,6 +25,8 @@ const Home: NextPage = () => {
           setRouterLoading(false);
         })
       : setRouterLoading(false);
+
+    return () => setRouterLoading(false);
   }, [hasTokens, router]);
 
   if (routerLoading) {
