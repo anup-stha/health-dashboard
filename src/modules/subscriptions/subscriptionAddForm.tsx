@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 9:54 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/25/22, 9:27 PM
  *
  *
  */
@@ -9,7 +9,6 @@ import { PrimaryInput } from "@/components/Input";
 
 import { useForm } from "react-hook-form";
 import { Modal } from "@/components/Modal/useModal";
-import { useMemberStore } from "../members/useMemberStore";
 import { alert } from "@/components/Alert";
 import {
   addSubscription,
@@ -20,6 +19,7 @@ import React from "react";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -40,7 +40,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
   type,
   id,
 }) => {
-  const { selectedRole } = useMemberStore();
+  const selectedRole = useCurrentMemberStore((state) => state.role);
+
   const { subscriptionList } = useSubscriptionStore();
   const data: any = subscriptionList.list.filter(
     (element) => element.id === id

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:15 PM
+ * Last Modified 1/25/22, 5:56 PM
  *
  *
  */
@@ -25,13 +25,12 @@ export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
 };
 
 export const listTests = () => {
-  privateAgent
+  return privateAgent
     .get<ListTestResponse>(`test/categories/`)
     .then((response) => {
       testStore.getState().setTestList(response.data.data);
       return response.data.data;
-    })
-    .catch((error) => error.response);
+    });
 };
 
 export const useTestList = () => {

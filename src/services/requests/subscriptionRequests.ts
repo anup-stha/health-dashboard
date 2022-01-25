@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 10:19 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/25/22, 8:25 PM
  *
  *
  */
@@ -18,7 +18,7 @@ import {
   SubscriptionUpdateBody,
 } from "@/types";
 import { privateAgent } from ".";
-import { useMemberStore } from "@/modules/members/useMemberStore";
+import { useMemberStore } from "@/modules/member/useMemberStore";
 import Router from "next/router";
 import { useQuery } from "react-query";
 
@@ -41,7 +41,7 @@ export const useSubscriptionList = (roleId: number) => {
     ["subscription-list", roleId],
     () => listSubscriptions(roleId),
     {
-      enabled: !!roleId,
+      enabled: !!roleId || roleId === 4,
     }
   );
 };

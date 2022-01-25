@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/10/22, 8:57 AM
+ * Last Modified 1/25/22, 9:09 PM
  *
  *
  */
@@ -25,6 +25,6 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: [],
+    domains: ["sunya-bucket.s3.us-west-2.amazonaws.com"],
   },
 });

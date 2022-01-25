@@ -10,8 +10,7 @@ import React from "react";
 import { AvatarWithEmail, DefaultAvatar } from "../Avatar";
 import { BooleanTag } from "../others/BooleanTag";
 import { Flag } from "../others/Flag";
-import { Copy, MoreVertical } from "react-feather";
-import { Edit } from "react-feather";
+import { Copy, Edit, MoreVertical } from "react-feather";
 
 export const UserTableRowComponent = ({ data, key }: any) => {
   return (

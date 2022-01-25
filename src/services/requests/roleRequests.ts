@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/18/22, 4:35 PM
+ * Last Modified 1/25/22, 8:36 PM
  *
  *
  */
@@ -18,9 +18,8 @@ import {
 
 import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useQuery } from "react-query";
-import Router from "next/router";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
@@ -29,13 +28,6 @@ export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
 export const getRoleList = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
     useRoleStore.getState().setRoleList(response.data.data);
-    const selectedRole = response.data.data.filter(
-      (role) => role.id === Number(Router.query.role)
-    );
-
-    Router.query.role &&
-      useMemberStore.getState().setSelectedRole(selectedRole[0]);
-
     return response.data;
   });
 };
@@ -43,6 +35,8 @@ export const getRoleList = () => {
 export const useRoleList = () => {
   return useQuery("role-list", () => getRoleList(), {
     staleTime: Infinity,
+    onSuccess: ({ data }) =>
+      useCurrentMemberStore.getState().setCurrentRole(data[data.length - 1]),
   });
 };
 
@@ -61,11 +55,6 @@ export const useRoleDetails = (roleId: number, callSuccess = true) => {
   return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
     enabled: roleId !== 0,
     staleTime: Infinity,
-    onSuccess: (response) => {
-      callSuccess &&
-        response &&
-        useMemberStore.getState().setSelectedRole(response.data.data);
-    },
   });
 };
 

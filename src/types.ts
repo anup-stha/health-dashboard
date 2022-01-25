@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 8:02 PM
+ * Last Modified 1/25/22, 9:42 PM
  *
  *
  */
@@ -76,12 +76,12 @@ export type User = {
 export type LoginResponse = StatusType & {
   data: {
     token: string;
-    user: CurrentLoggedInMember;
+    user: any;
   };
 };
 
 export type ProfileRequestResponse = StatusType & {
-  data: CurrentLoggedInMember;
+  data: any;
 };
 
 export type LoginRequest = {
@@ -200,7 +200,7 @@ export type NormalMemberAddReq = {
   phone: string;
   ref_key?: string | number;
   dob_ad: number;
-  dob_bs?: number;
+  dob_bs?: string;
   gender: string;
   marital_status: string;
 };
@@ -223,9 +223,7 @@ export type MemberListResponse = StatusType & {
 };
 
 export type MemberUpdateResponse = StatusType & {
-  data: BasicMember & {
-    role: RoleSummary;
-  };
+  data: any;
 };
 
 export type MemberDetails = {

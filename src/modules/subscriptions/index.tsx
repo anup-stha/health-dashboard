@@ -1,25 +1,25 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 9:18 PM
+ * Last Modified 1/25/22, 9:29 PM
  *
  *
  */
 
-import { MemberRoleDropdown } from "../members/others/MemberRoleDropdown";
 import { SubscriptionModal } from "./subscriptionModal";
 import { SubscriptionTable } from "./subscriptionTable";
 import React from "react";
 import { Loader } from "@/components/Loader";
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useRoleList } from "@/services/requests/roleRequests";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { MemberRoleDropdown } from "../member/others/MemberRoleDropdown";
 
 const SubscriptionPage: React.FC = () => {
-  const { selectedRole } = useMemberStore();
+  const selectedRole = useCurrentMemberStore((state) => state.role);
   const { isLoading: roleListLoading } = useRoleList();
 
-  const { isLoading: loading } = useSubscriptionList(Number(selectedRole.id));
+  const { isFetching: loading } = useSubscriptionList(Number(selectedRole.id));
 
   return (
     <>

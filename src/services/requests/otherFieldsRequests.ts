@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 11:28 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/25/22, 3:25 PM
  *
  *
  */
@@ -13,7 +13,7 @@ import {
   OtherFieldsPostBody,
   OtherFieldsPostResponse,
 } from "@/types";
-import { useMemberStore } from "@/modules/members/useMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 export const getMedicalHistoryList = (memberId: number) => {
   return privateAgent.get<MedicalHistoryGetResponse>(
@@ -95,7 +95,21 @@ export const postMedicalHistoryToPatient = (memberId: number, data: any) => {
         data: finalReqBody,
       })
       .then((response) => {
-        useMemberStore.getState().setPatientMedicalHistoryList(response.data);
+        const currentMember = useCurrentMemberStore.getState().member;
+        const currentUser = useCurrentMemberStore.getState().user;
+
+        if (currentMember.id === memberId) {
+          useCurrentMemberStore.getState().setCurrentMember({
+            ...currentMember,
+            medical_history: response.data.data,
+          });
+        } else {
+          useCurrentMemberStore.getState().setCurrentUser({
+            ...currentUser,
+            medical_history: response.data.data,
+          });
+        }
+
         resolve(response.data.message);
       })
       .catch((error) => {

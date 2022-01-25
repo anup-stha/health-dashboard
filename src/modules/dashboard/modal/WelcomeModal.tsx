@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/11/22, 8:51 PM
+ * Last Modified 1/25/22, 9:23 PM
  *
  *
  */
@@ -95,6 +95,19 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                   alt={"Welcome Image"}
                   priority={true}
                 />
+                {imageIndex !== images.length - 1 && (
+                  <div className="hidden">
+                    <Image
+                      src={images[imageIndex + 1].link + "?ap=em"}
+                      width={1920}
+                      height={1024}
+                      className={"rounded-xl"}
+                      objectFit={imageIndex !== 1 ? "cover" : "contain"}
+                      alt={"Welcome Image"}
+                      priority={true}
+                    />
+                  </div>
+                )}
               </motion.div>
             </AnimatePresence>
           </div>

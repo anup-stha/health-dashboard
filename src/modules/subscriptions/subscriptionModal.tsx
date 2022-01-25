@@ -1,17 +1,17 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:21 PM
+ * Last Modified 1/25/22, 9:27 PM
  *
  *
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { useMemberStore } from "../members/useMemberStore";
 import React from "react";
 import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
 import { Button } from "@/components/Button";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 type subscriptionModalProps = {
   type: "add" | "edit";
@@ -22,7 +22,7 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
   type,
   id,
 }) => {
-  const { selectedRole } = useMemberStore();
+  const { role: selectedRole } = useCurrentMemberStore();
   const data: any = useSubscriptionStore
     .getState()
     .subscriptionList.list.filter((element) => element.id === id)[0];

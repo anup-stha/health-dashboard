@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 2:43 PM
+ * Last Modified 1/25/22, 3:15 PM
  *
  *
  */
 
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import {
   MemberDetailCategoryAddResponse,
   MemberDetailCategoryBody,
@@ -19,11 +18,12 @@ import {
   OrgMemberAddRes,
 } from "@/types";
 import { privateAgent } from ".";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 export const getMembersList = (roleId: number, pageNumber: number = 1) => {
-  return privateAgent.get<MemberListResponse>(
-    `/member/list/${roleId}?page=${pageNumber}`
-  );
+  return privateAgent
+    .get<MemberListResponse>(`/member/list/${roleId}?page=${pageNumber}`)
+    .then((response) => response.data.data);
 };
 
 export const getNestedMemberList = (
@@ -37,8 +37,6 @@ export const getNestedMemberList = (
 };
 
 export const postOrgMember = (body: any) => {
-  console.log(body);
-
   return privateAgent.post<OrgMemberAddRes>("user/store", body);
 };
 
@@ -124,7 +122,20 @@ export const addDetailsToMember = (
         data: requestBody,
       })
       .then((response) => {
-        useMemberStore.getState().setSelectedMemberDetails(response.data.data);
+        const currentMember = useCurrentMemberStore.getState().member;
+        const currentUser = useCurrentMemberStore.getState().user;
+
+        if (currentMember.id === memberId) {
+          useCurrentMemberStore.getState().setCurrentMember({
+            ...currentMember,
+            details: response.data.data,
+          });
+        } else {
+          useCurrentMemberStore
+            .getState()
+            .setCurrentUser({ ...currentUser, details: response.data.data });
+        }
+
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -138,9 +149,11 @@ export const getMemberTestList = (
   testCategoryId: number,
   pageNumber: number = 1
 ) => {
-  return privateAgent.get<MemberTestListResponse>(
-    `test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`
-  );
+  return privateAgent
+    .get<MemberTestListResponse>(
+      `test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`
+    )
+    .then((response) => response.data.data);
 };
 
 export const getMemberTestReportByDate = (

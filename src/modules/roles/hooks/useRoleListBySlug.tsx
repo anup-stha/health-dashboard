@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:33 AM
+ * Last Modified 1/25/22, 9:42 PM
  *
  *
  */
@@ -16,8 +16,8 @@ export const useRoleListBySlug = (role_slug: string) => {
     () => getRoleListBySlug(role_slug),
     {
       enabled: !!role_slug,
-      onSuccess: (response) => {
-        response && useRoleStore.getState().setRoleListBySlug(response.data);
+      onSuccess: (data) => {
+        data && useRoleStore.getState().setRoleListBySlug(data.data);
       },
     }
   );

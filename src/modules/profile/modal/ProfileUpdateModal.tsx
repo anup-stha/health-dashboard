@@ -1,15 +1,15 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/23/21, 3:43 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 1/25/22, 9:18 PM
  *
  *
  */
 
 import { Modal } from "@/components/Modal/useModal";
-import { MemberAddForm } from "@/modules/members/form/MemberAddForm";
 import React from "react";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { MemberAddEditForm } from "@/modules/member/form/MemberAddEditForm";
 
 export const ProfileUpdateModal = () => {
   const { user } = useAuthStore();
@@ -25,7 +25,7 @@ export const ProfileUpdateModal = () => {
       <Modal.Content>
         <Modal.Title>Update Profile</Modal.Title>
         <div className="flex flex-col space-y-4 ">
-          <MemberAddForm initialData={user} type={"edit"} />
+          <MemberAddEditForm initialData={user} type={"edit"} />
         </div>
       </Modal.Content>
     </Modal>

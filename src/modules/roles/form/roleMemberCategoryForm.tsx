@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/17/22, 3:11 PM
+ * Last Modified 1/25/22, 8:46 PM
  *
  *
  */
@@ -17,7 +17,7 @@ import { useGlobalState } from "@/modules/useGlobalState";
 import {
   postMemberCategoryToast,
   postUpdateMemberCategoryToast,
-} from "@/modules/members/api/toasts/membersToast";
+} from "@/modules/member/api/toasts/membersToast";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";

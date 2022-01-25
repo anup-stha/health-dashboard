@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 10:44 AM
+ * Last Modified 1/25/22, 12:32 PM
  *
  *
  */
@@ -39,7 +39,38 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
             },
         error: msgs.error
           ? msgs.error
-          : (data: any) => `${data ? data.data.message : "Error"}`,
+          : (data) => {
+              return `${data ? data.data.message : "Error"}`;
+            },
+      },
+      { id: id }
+    )
+  );
+};
+
+export const toastAlert = ({
+  type = "promise",
+  promise,
+  msgs,
+  id,
+}: toastProps) => {
+  return (
+    promise &&
+    msgs &&
+    toast.promise(
+      promise,
+      {
+        loading: msgs.loading ?? "Loading Content",
+        success: msgs.success
+          ? msgs.success
+          : (data) => {
+              return `${data}`;
+            },
+        error: msgs.error
+          ? msgs.error
+          : (data) => {
+              return `${data ? data.response.data.message : "Error"}`;
+            },
       },
       { id: id }
     )

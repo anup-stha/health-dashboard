@@ -6,7 +6,7 @@
  *
  */
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useComponentVisible = (initialIsVisible: any) => {
   const [isComponentVisible, setIsComponentVisible] =

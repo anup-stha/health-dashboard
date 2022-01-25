@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 10:51 AM
+ * Last Modified 1/25/22, 8:35 PM
  *
  *
  */
@@ -15,14 +15,13 @@ import {
   MemberUpdateResponse,
   NullDataResponse,
   ProfileRequestResponse,
-  Role,
 } from "@/types";
 import Router from "next/router";
 import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
-import { useMemberStore } from "@/modules/members/useMemberStore";
 import { queryClient } from "@/pages/_app";
 import { getGlobalStates } from "@/services/requests/globalRequests";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -55,11 +54,8 @@ export const logOut = () => {
         Router.push("/");
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
-
-        useMemberStore
-          .getState()
-          .setSelectedRole({ id: 0, name: "Choose any role" } as Role);
         queryClient.clear();
+        localStorage.clear();
         resolve("Logged Out Successfully");
       })
       .catch(() => {
@@ -100,14 +96,12 @@ export const updateUserProfile = (
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
       .then((response) => {
         getCurrentUserProfile().then(() => resolve(response.data.message));
-        const newList = useMemberStore
-          .getState()
-          .memberList.map((element) =>
-            element.id === profileId ? response.data.data : element
-          );
-        useMemberStore.getState().setOnlyMemberList(newList);
-        useMemberStore.getState().setSelectedMember(response.data.data);
-        useMemberStore.getState().setSelectedMemberBySlug(response.data.data);
+        const member = useCurrentMemberStore.getState().member;
+        if (member.id === response.data.data.id) {
+          useCurrentMemberStore.getState().setCurrentMember(response.data.data);
+        } else {
+          useCurrentMemberStore.getState().setCurrentUser(response.data.data);
+        }
 
         resolve(response.data.message);
       })

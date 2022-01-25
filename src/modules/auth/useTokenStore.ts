@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 11:49 AM
+ * Last Modified 1/25/22, 9:17 PM
  *
  *
  */
 
-import { CurrentLoggedInMember, LoginResponse } from "@/types";
+import { LoginResponse } from "@/types";
 import create from "zustand";
 import {
   combine,
@@ -14,12 +14,13 @@ import {
   persist,
   subscribeWithSelector,
 } from "zustand/middleware";
+import { Member } from "@/modules/member/types";
 
 const userDataKey = "@sunya/user-data";
 const initialState = {
   status: false,
   token: "",
-  user: {} as CurrentLoggedInMember,
+  user: {} as Member,
   guided: false,
 };
 
@@ -37,7 +38,7 @@ export const store = combine(initialState, (set) => ({
       user: res.data.user,
     });
   },
-  setUserProfile: (res: CurrentLoggedInMember) => {
+  setUserProfile: (res: Member) => {
     set((state) => ({
       ...state,
       user: res,
@@ -48,7 +49,7 @@ export const store = combine(initialState, (set) => ({
     set({
       status: false,
       token: "",
-      user: {} as CurrentLoggedInMember,
+      user: {} as Member,
     });
   },
   setToken: (token: string) => {

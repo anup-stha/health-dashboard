@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/6/22, 12:21 PM
+ * Last Modified 1/25/22, 9:28 PM
  *
  *
  */
@@ -14,11 +14,11 @@ import { Subscription } from "@/types";
 import React from "react";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { useRouter } from "next/router";
-import { useMemberStore } from "@/modules/members/useMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();
-  const { selectedRole } = useMemberStore();
+  const { role: selectedRole } = useCurrentMemberStore();
 
   return subscriptionList.list.length === 0 || selectedRole.id === 0 ? (
     <div className="flex justify-center">
@@ -61,7 +61,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
   loading,
 }) => {
   const router = useRouter();
-  const { selectedRole } = useMemberStore();
+  const { role: selectedRole } = useCurrentMemberStore();
 
   return !loading ? (
     data ? (

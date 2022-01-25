@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 9:18 PM
+ * Last Modified 1/25/22, 9:41 PM
  *
  *
  */
@@ -30,7 +30,7 @@ const Profile = () => {
     getProfile();
   }, []);
 
-  const { isLoading } = useMemberSubsDetails(user.member_id);
+  const { isLoading } = useMemberSubsDetails(user.id);
 
   return (
     <>

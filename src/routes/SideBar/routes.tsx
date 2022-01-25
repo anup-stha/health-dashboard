@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 12:06 PM
+ * Last Modified 1/25/22, 8:34 PM
  *
  *
  */
@@ -60,6 +60,9 @@ const adminExtraRoute = [
   "/members/[profile]/[next-profile]",
   "/subscriptions/[slug]",
   "/members/[profile]/[next-profile]/test_report",
+  "/member/[profile]",
+  "/member/[profile]/[user]",
+  "/member/[profile]/[user]/test_report",
 ];
 export const superAdminNavRoutes: RouteObjectType[] = [
   {
@@ -69,10 +72,10 @@ export const superAdminNavRoutes: RouteObjectType[] = [
     link: "/dashboard",
   },
   {
-    id: 2,
-    title: "Members",
+    id: 21,
+    title: "Member",
     icon: <UserList size={24} />,
-    link: "/members",
+    link: "/member",
   },
   {
     id: 3,
@@ -117,8 +120,8 @@ export const superAdminNavRoutes: RouteObjectType[] = [
 ];
 
 export const orgExtraRoutes = [
-  "/members/[profile]",
-  "/members/[profile]/test_report",
+  "/member/[profile]",
+  "/member/[profile]/test_report",
 ];
 export const orgNavRoutes: RouteObjectType[] = [
   {
@@ -128,10 +131,10 @@ export const orgNavRoutes: RouteObjectType[] = [
     link: "/dashboard",
   },
   {
-    id: 2,
-    title: "Members",
+    id: 21,
+    title: "Member",
     icon: <UserList size={24} />,
-    link: "/members",
+    link: "/member",
   },
   {
     id: 3,
