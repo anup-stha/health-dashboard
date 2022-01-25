@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:51 PM
+ * Last Modified 1/25/22, 9:57 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import {
 } from "@/services/requests/memberRequests";
 import { GreenLineButton, RedLineButton } from "@/components/Button";
 import { Member } from "@/modules/member/types";
+import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 
 type MemberToggleProps = {
   toggle: "active" | "verified";
@@ -30,16 +31,36 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   setCurrentState,
   selectedMemberDetails,
 }) => {
+  const { member, user, setCurrentMember, setCurrentUser } =
+    useCurrentMemberStore();
+
+  const onToggleActive = (status: boolean) => {
+    if (member.id === memberId) {
+      setCurrentMember({ ...member, active: status });
+    } else if (user.id === memberId) {
+      setCurrentUser({ ...user, active: status });
+    }
+    setCurrentState(status);
+  };
+
+  const onToggleVerified = (status: boolean) => {
+    if (member.id === memberId) {
+      setCurrentMember({ ...member, verified: status });
+    } else if (user.id === memberId) {
+      setCurrentUser({ ...user, verified: status });
+    }
+    setCurrentState(status);
+  };
   const promise = () =>
     toggle === "active"
       ? toggleActiveForMember(
           Number(memberId),
           selectedMemberDetails.active ? 0 : 1
-        ).then(() => setCurrentState(!currentState))
+        ).then(() => onToggleActive(!currentState))
       : toggleVerifiedForMember(
           Number(memberId),
           selectedMemberDetails.verified ? 0 : 1
-        ).then(() => setCurrentState(!currentState));
+        ).then(() => onToggleVerified(!currentState));
 
   const onToggleHandler = async () => {
     await alert({
