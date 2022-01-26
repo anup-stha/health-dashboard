@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 6:06 PM
+ * Last Modified 1/26/22, 8:05 PM
  *
  *
  */
@@ -18,6 +18,7 @@ import LetteredAvatar from "react-avatar";
 import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 import { Member } from "@/modules/member/types";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 type OrgTableRowType = {
   data?: Member;
@@ -54,14 +55,22 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
               <div
                 className={`${
                   data.active ? "bg-green-500" : "bg-red-700"
-                } w-4 h-4 rounded-full absolute right-0 shadow-sm ring-2 ring-white`}
+                } w-4 h-4 rounded-full absolute right-0 shadow-sm ring-2 ring-white z-10`}
               />
-              <LetteredAvatar
-                name={data.name}
-                size={"50"}
-                round={true}
-                maxInitials={2}
-              />
+              {data.image ? (
+                <div
+                  className={`w-[4.2rem] h-[4.2rem] rounded-full object-contain overflow-hidden relative`}
+                >
+                  <Image src={data.image} layout={"fill"} objectFit={"cover"} />
+                </div>
+              ) : (
+                <LetteredAvatar
+                  name={data.name}
+                  size={"50"}
+                  round={true}
+                  maxInitials={2}
+                />
+              )}
             </div>
             <div className="ml-4 flex flex-col">
               <div

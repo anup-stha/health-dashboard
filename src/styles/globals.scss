@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 1:47 PM
+ * Last Modified 1/26/22, 8:21 PM
  *
  *
  */
@@ -90,6 +90,17 @@ html {
   html {
     font-size: 110%;
   }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  @apply text-xl text-gray-500 font-semibold hover:text-gray-900;
 }
 
 // PAGINATION
@@ -351,6 +362,7 @@ datalist {
   bottom: 0;
   width: 100%;
 }
+
 .page-header {
   position: fixed;
   top: 0;
@@ -392,10 +404,12 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 8px;
   height: 8px;
 }
+
 .scrollbar-1::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 4px;
 }
+
 .scrollbar-1::-webkit-scrollbar-thumb {
   background-color: #dfdfdf;
   border-radius: 4px;

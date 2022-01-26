@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 5:32 PM
+ * Last Modified 1/26/22, 2:30 PM
  *
  *
  */
@@ -205,7 +205,32 @@ export const RadioInputController: React.FC<RadioInputProps> = ({
   );
 };
 
+export const FileInput = React.forwardRef<HTMLInputElement, HookInputProps>(
+  ({ label, error, onChange, ...props }, ref) => {
+    return (
+      <div className="flex space-x-2">
+        <input
+          {...props}
+          type="file"
+          ref={ref}
+          onChange={onChange}
+          className="hidden"
+          id="file"
+        />
+        <button
+          type={"button"}
+          className="text-xl capitalize"
+          onClick={() => document.getElementById("file")?.click()}
+        >
+          Choose Photo
+        </button>
+      </div>
+    );
+  }
+);
+
 PrimaryInput.displayName = "PrimaryInput";
 SwitchInput.displayName = "SwitchInput";
 RadioInput.displayName = "RadioInput";
 SearchInput.displayName = "SearchInput";
+FileInput.displayName = "FileInput";

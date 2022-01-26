@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 10:55 AM
+ * Last Modified 1/26/22, 8:11 PM
  *
  *
  */
@@ -36,13 +36,24 @@ export const Sidebar: React.FC<any> = () => {
           enterTo="opacity-100 translate-y-0"
         >
           <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
-            {user.name && (
-              <LetteredAvatar
-                name={user.name}
-                size="50"
-                round={true}
-                maxInitials={2}
-              />
+            {user.image ? (
+              <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
+                <Image
+                  src={user.image}
+                  layout="fill"
+                  alt="Avatar"
+                  objectFit="contain"
+                />
+              </div>
+            ) : (
+              user.name && (
+                <LetteredAvatar
+                  name={user.name}
+                  size="50"
+                  round={true}
+                  maxInitials={2}
+                />
+              )
             )}
 
             <div className="flex flex-col w-3/4">
@@ -57,12 +68,25 @@ export const Sidebar: React.FC<any> = () => {
         </Transition>
         <Transition show={!open}>
           <div className="py-4 sm:hidden">
-            <LetteredAvatar
-              name={user.name}
-              size="50"
-              round={true}
-              maxInitials={2}
-            />
+            {user.image ? (
+              <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
+                <Image
+                  src={user.image}
+                  layout="fill"
+                  alt="Avatar"
+                  objectFit="contain"
+                />
+              </div>
+            ) : (
+              user.name && (
+                <LetteredAvatar
+                  name={user.name}
+                  size="50"
+                  round={true}
+                  maxInitials={2}
+                />
+              )
+            )}
           </div>
         </Transition>
         <NavBar />

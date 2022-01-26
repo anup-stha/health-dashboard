@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 9:02 PM
+ * Last Modified 1/26/22, 8:22 PM
  *
  *
  */
@@ -28,7 +28,10 @@ export const ProfileDetails: React.FC<MemberDetailsProps> = ({
       <ProfileHeader selectedMember={selectedMember} />
       {selectedMember && (
         <div className="min-h-[10rem] p-4">
-          <ProfileStatus selectedMember={selectedMember} />
+          {selectedMember.id !== 1 ? (
+            <ProfileStatus selectedMember={selectedMember} />
+          ) : null}
+
           <div className="mt-20 font-medium text-gray-700 flex gap-x-6 sm:flex-col sm:gap-y-4 items-stretch">
             <ProfilePrimaryDetails selectedMember={selectedMember} />
             <ProfileOtherDetails details={selectedMember.details} />

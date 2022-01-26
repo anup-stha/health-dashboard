@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 10:33 AM
+ * Last Modified 1/26/22, 8:22 PM
  *
  *
  */
@@ -50,7 +50,7 @@ export const ProfilePage: React.FC = () => {
           <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
             <ProfileUpdateModal />
             <PasswordModal />
-            {!isLoading && data && (
+            {!isLoading && data && user.id !== 1 && (
               <MemberOtherDetailModal
                 otherDetails={user.details}
                 memberData={user}
@@ -58,7 +58,6 @@ export const ProfilePage: React.FC = () => {
               />
             )}
 
-            <hr className={" border-t-2 border-gray-200 "} />
             <div
               onClick={() => onLogOut()}
               className="p-6  text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850"

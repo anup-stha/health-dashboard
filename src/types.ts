@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:42 PM
+ * Last Modified 1/26/22, 7:13 PM
  *
  *
  */
@@ -503,3 +503,5 @@ export type MedicalHistory = {
 };
 
 export type MedicalHistoryGetResponse = StatusType & { data: MedicalHistory[] };
+
+export type ImageUploadResponse = StatusType & { data: string };

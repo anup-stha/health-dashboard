@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/6/22, 7:08 PM
+ * Last Modified 1/26/22, 4:00 PM
  *
  *
  */
@@ -14,6 +14,7 @@ import { logoutUser } from "@/services/requests";
 import { Popover, Transition } from "@headlessui/react";
 import { CaretDown } from "phosphor-react";
 import LetteredAvatar from "react-avatar";
+import Image from "next/image";
 
 export const ImageAvatar: React.FC = () => {
   const { push } = useRouter();
@@ -35,12 +36,23 @@ export const ImageAvatar: React.FC = () => {
         <>
           <Popover.Button>
             <div className="flex items-center space-x-2">
-              <LetteredAvatar
-                name={user.name}
-                size="30"
-                round={true}
-                maxInitials={2}
-              />
+              {user.image ? (
+                <div className="w-10 h-10 bg-white rounded-full relative overflow-hidden">
+                  <Image
+                    src={user.image}
+                    layout="fill"
+                    alt="Avatar"
+                    objectFit="contain"
+                  />
+                </div>
+              ) : (
+                <LetteredAvatar
+                  name={user.name}
+                  size="30"
+                  round={true}
+                  maxInitials={2}
+                />
+              )}
 
               <div
                 className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}

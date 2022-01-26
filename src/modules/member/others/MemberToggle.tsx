@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 9:57 PM
+ * Last Modified 1/26/22, 8:28 PM
  *
  *
  */
@@ -68,7 +68,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       promise: promise(),
       msgs: {
         loading: "Updating Status",
-        success: "Active Status Updated",
+        success: "Status Updated",
       },
       id: "toggle-active",
     });

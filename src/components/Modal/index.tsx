@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 7:13 PM
+ * Last Modified 1/26/22, 8:20 PM
  *
  *
  */
@@ -23,13 +23,17 @@ export type IModalProps = {
     | "max-w-7xl"
     | "max-w-8xl";
   opacity?: string;
+  onClose?: () => void;
 };
 
 export const ModalContent: React.FC<IModalProps> = React.memo(
-  ({ children, width = "max-w-3xl", opacity = "opacity-30" }) => {
+  ({ children, width = "max-w-3xl", opacity = "opacity-30", onClose }) => {
     const { setIsOpen, isOpen } = useModal();
 
-    const closeModal = () => setIsOpen(false);
+    const closeModal = () => {
+      onClose && onClose();
+      setIsOpen(false);
+    };
 
     return (
       <Transition appear show={isOpen} as={Fragment} data-testid="modal">
@@ -57,7 +61,7 @@ export const ModalContent: React.FC<IModalProps> = React.memo(
               leaveTo="opacity-0 scale-90 -translate-y-32"
             >
               <div
-                className={`inline-block w-full ${width} px-10 py-10 sm:px-8 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
+                className={`inline-block w-full ${width} px-8 py-6 sm:px-4 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl`}
               >
                 {children}
               </div>
@@ -159,28 +163,33 @@ export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
 };
 
 export interface IModalFormProps {
-  onSubmit: () => Promise<any>;
+  onSubmit: (e?: any) => Promise<any>;
   children: React.ReactNode;
   className?: string;
+  encType?: string;
 }
 
-export const Form: React.FC<IModalFormProps> = ({
-  onSubmit,
-  children,
-  className,
-}) => {
-  const { setIsOpen } = useModal();
+export const Form: React.FC<IModalFormProps> = React.memo(
+  ({ onSubmit, children, encType, className }) => {
+    const { setIsOpen } = useModal();
 
-  const onSubmitFn = async (e: any) => {
-    e.preventDefault();
-    await onSubmit()
-      .then(() => setIsOpen(false))
-      .catch(() => {});
-  };
+    const onSubmitFn = async (e: any) => {
+      e.preventDefault();
+      await onSubmit()
+        .then(() => setIsOpen(false))
+        .catch(() => {});
+    };
 
-  return (
-    <form onSubmit={(e) => onSubmitFn(e)} className={className ?? `space-y-8`}>
-      {children}
-    </form>
-  );
-};
+    return (
+      <form
+        onSubmit={(e) => onSubmitFn(e)}
+        className={className ?? `space-y-8`}
+        encType={encType}
+      >
+        {children}
+      </form>
+    );
+  }
+);
+
+Form.displayName = "Form";
