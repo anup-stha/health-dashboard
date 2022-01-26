@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:21 PM
+ * Last Modified 1/26/22, 10:33 AM
  *
  *
  */
@@ -17,9 +17,13 @@ import { ProfileOtherDetails } from "@/modules/members/profile/ProfileAllDetails
 import { MemberDetailAddModal } from "@/modules/members/modal/MemberDetailAddModal"; */
 import { ProfileSubscription } from "@/modules/member/others/ProfileSubscription";
 import { ProfileDetails } from "@/modules/member/others/ProfileDetails";
+import { useRoleDetails } from "@/services/requests/roleRequests";
+import { MemberOtherDetailModal } from "@/modules/member/modal/MemberOtherDetailModal";
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuthStore();
+
+  const { data, isLoading } = useRoleDetails(user.role ? user.role.id : 0);
 
   const onLogOut = async () => {
     await alert({
@@ -46,13 +50,13 @@ export const ProfilePage: React.FC = () => {
           <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
             <ProfileUpdateModal />
             <PasswordModal />
-            {/*  {roleDetails?.data.data && (
-              <MemberDetailAddModal
-                otherDetails={data?.data.data ?? []}
+            {!isLoading && data && (
+              <MemberOtherDetailModal
+                otherDetails={user.details}
                 memberData={user}
-                selectedRole={roleDetails?.data.data}
+                selectedRole={data.data.data}
               />
-            )} */}
+            )}
 
             <hr className={" border-t-2 border-gray-200 "} />
             <div

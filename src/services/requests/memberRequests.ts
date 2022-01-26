@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 3:15 PM
+ * Last Modified 1/26/22, 10:41 AM
  *
  *
  */
@@ -19,6 +19,8 @@ import {
 } from "@/types";
 import { privateAgent } from ".";
 import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
 
 export const getMembersList = (roleId: number, pageNumber: number = 1) => {
   return privateAgent
@@ -124,13 +126,16 @@ export const addDetailsToMember = (
       .then((response) => {
         const currentMember = useCurrentMemberStore.getState().member;
         const currentUser = useCurrentMemberStore.getState().user;
+        const loggedInUser = useAuthStore.getState().user;
 
-        if (currentMember.id === memberId) {
+        if (loggedInUser.id === memberId) {
+          getCurrentUserProfile().then(() => resolve(response.data.message));
+        } else if (currentMember.id === memberId) {
           useCurrentMemberStore.getState().setCurrentMember({
             ...currentMember,
             details: response.data.data,
           });
-        } else {
+        } else if (currentUser.id === memberId) {
           useCurrentMemberStore
             .getState()
             .setCurrentUser({ ...currentUser, details: response.data.data });

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 8:35 PM
+ * Last Modified 1/26/22, 10:45 AM
  *
  *
  */
@@ -53,16 +53,16 @@ export const logOut = () => {
       .then(() => {
         Router.push("/");
         useAuthStore.getState().removeUserData();
+        useCurrentMemberStore.persist.clearStorage();
         useGlobalState.getState().clearGlobalState();
         queryClient.clear();
-        localStorage.clear();
         resolve("Logged Out Successfully");
       })
       .catch(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
-        queryClient.clear();
 
+        queryClient.clear();
         Router.push("/");
         resolve("Logged Out Successfully");
       })
@@ -95,11 +95,14 @@ export const updateUserProfile = (
     privateAgent
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
       .then((response) => {
-        getCurrentUserProfile().then(() => resolve(response.data.message));
         const member = useCurrentMemberStore.getState().member;
-        if (member.id === response.data.data.id) {
+        const user = useCurrentMemberStore.getState().user;
+        const loggedInUser = useAuthStore.getState().user;
+        if (loggedInUser.id === response.data.data.id) {
+          getCurrentUserProfile().then(() => resolve(response.data.message));
+        } else if (member.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentMember(response.data.data);
-        } else {
+        } else if (user.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentUser(response.data.data);
         }
 

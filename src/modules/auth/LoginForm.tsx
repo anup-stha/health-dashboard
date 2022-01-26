@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/12/22, 7:31 PM
+ * Last Modified 1/26/22, 10:47 AM
  *
  *
  */
@@ -42,8 +42,6 @@ const LoginForm: React.FC<any> = () => {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  console.log(errors);
 
   return (
     <form

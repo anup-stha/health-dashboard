@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/24/22, 3:39 PM
+ * Last Modified 1/26/22, 10:12 AM
  *
  *
  */
@@ -56,6 +56,7 @@ export type Member = {
   can_login: boolean;
   ref_key: string;
   role: MemberRole;
+  image: string;
   medical_history: MemberMedicalHistory[];
   details: MemberOtherDetails[];
 };
