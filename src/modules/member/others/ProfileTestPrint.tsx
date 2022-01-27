@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:56 PM
+ * Last Modified 1/27/22, 2:24 PM
  *
  *
  */
@@ -54,7 +54,7 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                       Address: {member.address}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider ">
-                      Address: {member.gender}
+                      Gender: {member.gender}
                     </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider">
                       Date of birth:{" "}
@@ -82,18 +82,8 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                 </h1>
               </div>
             </div>
-            <div className="bg-gray-100 w-full mr-4 grid grid-cols-3">
-              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
-                Test Date
-              </span>
-              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
-                Test Result
-              </span>
-              <span className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider">
-                Test Notes
-              </span>
-            </div>
           </div>
+          <hr />
         </div>
 
         <div className="page-footer">

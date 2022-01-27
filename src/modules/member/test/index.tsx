@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:59 PM
+ * Last Modified 1/27/22, 12:45 PM
  *
  *
  */
@@ -20,7 +20,7 @@ import { Loader } from "@/components/Loader";
 import LetteredAvatar from "react-avatar";
 import { WarningOctagon } from "phosphor-react";
 import { Member } from "@/modules/member/types";
-import { ProfileTestPrint } from "@/modules/member/others/ProfileTestPrint";
+import { ProfileAllTestPrint } from "@/modules/member/others/ProfileAllTestPrint";
 
 interface IMemberTest {
   current_member: Member;
@@ -83,9 +83,9 @@ export const MemberTest = ({ current_member }: IMemberTest) => {
   return (
     <>
       {current_member && (
-        <ProfileTestPrint
+        <ProfileAllTestPrint
           test_name={"Test Report"}
-          test={subTestDetails}
+          test={subTestGroups}
           member={current_member}
           ref={componentRef}
         />

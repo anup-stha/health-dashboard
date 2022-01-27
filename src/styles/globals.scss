@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 8:21 PM
+ * Last Modified 1/27/22, 2:22 PM
  *
  *
  */
@@ -349,12 +349,12 @@ datalist {
 
 .page-header,
 .page-header-space {
-  height: 220px;
+  height: 155px;
 }
 
 .page-footer,
 .page-footer-space {
-  height: 50px;
+  height: 30px;
 }
 
 .page-footer {
@@ -389,7 +389,7 @@ datalist {
 
 @page {
   size: A4;
-  margin: 0.25in 0.5in;
+  margin: 0.25in 0.4in;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
