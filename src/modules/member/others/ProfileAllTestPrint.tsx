@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/27/22, 2:18 PM
+ * Last Modified 1/27/22, 4:51 PM
  *
  *
  */
@@ -38,9 +38,6 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                 </h1>
                 {member && (
                   <div>
-                    <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
-                      Id: {member.member_code}
-                    </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
                       Name: {member.name}
                     </h1>
@@ -89,7 +86,7 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
               ) on {moment(new Date()).format("MMM Do YYYY, h:mm:ss A")}
             </div>
 
-            <div className="page_number" />
+            <span>{member.member_code}</span>
           </div>
         </div>
         <table className="w-full table-fixed">

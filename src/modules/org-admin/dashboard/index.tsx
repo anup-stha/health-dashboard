@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/27/22, 3:49 PM
+ * Last Modified 1/27/22, 5:00 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
 import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
 import { Loader } from "@/components/Loader";
 import {
+  OrgStatCardGroup,
   StatCardGroup,
   StatCardGroupVariant2,
 } from "@/modules/dashboard/cards/StatCardGroup";
@@ -92,7 +93,12 @@ export const OrgAdminDashboard = () => {
 
       <div className="w-full flex items-start gap-6 md:flex-col relative sm:gap-4">
         <div className="w-5/6 h-full flex flex-col gap-6 md:w-full md:gap-4">
-          <StatCardGroup data={data} />
+          {user.id === 1 ? (
+            <StatCardGroup data={data} />
+          ) : (
+            <OrgStatCardGroup data={data} />
+          )}
+
           <StatCardGroupVariant2 data={data} />
         </div>
       </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/27/22, 2:24 PM
+ * Last Modified 1/27/22, 4:52 PM
  *
  *
  */
@@ -35,7 +35,7 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
   ({ test_name, test, member }, ref) => {
     return (
       <div className="hidden print:flex w-full" ref={ref}>
-        <div className="page-header w-full">
+        <div className="page-header w-full space-y-4">
           <div className="flex flex-col space-y-8 w-full">
             <div className="flex justify-between items-end w-full">
               <div className="flex flex-col gap-4">
@@ -87,30 +87,27 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
         </div>
 
         <div className="page-footer">
-          <div className="flex w-full items-center">
+          <hr />
+          <div className="flex w-full items-center pt-4 justify-between">
             <div>
               Printed By Sunya Health ({" "}
               <span className="text-green-700">
                 {!isServer && window.location.hostname}
               </span>{" "}
-              ) on {moment(new Date()).format("MMM Do YYYY")}
+              ) on {moment(new Date()).format("MMM Do YYYY, h:mm:ss A")}
             </div>
+
+            <span>{member.member_code}</span>
           </div>
         </div>
 
         <table className="w-full table-fixed">
-          <thead className="">
-            <tr>
-              <td>
-                <div className="page-header-space" />
-              </td>
-            </tr>
-          </thead>
+          <div className="page-header-space" />
 
-          <tbody className="divide-y divide-gray-200 w-screen">
+          <tbody className="divide-y divide-gray-700/20 w-screen">
             {test.map((data, index) => (
               <tr key={index} className="w-full">
-                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap  ">
+                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap align-top ">
                   <div className="">
                     <span className="block">
                       {moment(utcDateToLocal(data.test_date)).format(
