@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:08 PM
+ * Last Modified 1/27/22, 3:49 PM
  *
  *
  */
@@ -10,6 +10,13 @@ import React from "react";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useRoleList } from "@/services/requests/roleRequests";
 import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
+import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
+import { Loader } from "@/components/Loader";
+import {
+  StatCardGroup,
+  StatCardGroupVariant2,
+} from "@/modules/dashboard/cards/StatCardGroup";
+import { UnVerifiedModal } from "@/modules/org-admin/dashboard/UnVerifiedModal";
 
 export const orgAdminWelcomeSlides = [
   {
@@ -66,9 +73,14 @@ export const orgAdminWelcomeSlides = [
 export const OrgAdminDashboard = () => {
   const { user } = useAuthStore();
   const {} = useRoleList();
+  const { data, isLoading, error } = useDashboardQuery();
+
+  if (isLoading || error) return <Loader />;
 
   return (
     <div className="px-10 -mt-2 pb-8 sm:p-6 space-y-8 w-full dashboard-bg-2">
+      {user.verified || user.id === 1 ? null : <UnVerifiedModal />}
+
       <div>
         <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
           Hello, {user.name}
@@ -76,6 +88,13 @@ export const OrgAdminDashboard = () => {
         <p className="text-xl text-gray-500 font-medium">
           Welcome Back To Dashboard!
         </p>
+      </div>
+
+      <div className="w-full flex items-start gap-6 md:flex-col relative sm:gap-4">
+        <div className="w-5/6 h-full flex flex-col gap-6 md:w-full md:gap-4">
+          <StatCardGroup data={data} />
+          <StatCardGroupVariant2 data={data} />
+        </div>
       </div>
       <WelcomeModal images={orgAdminWelcomeSlides} />
     </div>

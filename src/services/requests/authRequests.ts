@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 8:27 PM
+ * Last Modified 1/27/22, 2:45 PM
  *
  *
  */
@@ -22,7 +22,6 @@ import { useGlobalState } from "@/modules/useGlobalState";
 import { queryClient } from "@/pages/_app";
 import { getGlobalStates } from "@/services/requests/globalRequests";
 import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
-import toast from "react-hot-toast";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -36,14 +35,6 @@ export const login = (loginRequest: LoginRequest) => {
         useAuthStore.getState().setUserData(response.data);
         if (!useAuthStore.getState().guided)
           useAuthStore.getState().setGuided(false);
-        if (
-          !response.data.data.user.verified &&
-          response.data.data.user.id !== 1
-        ) {
-          toast.error("Please contact Sunya Health to get verified", {
-            duration: 5000,
-          });
-        }
 
         Router.push("/dashboard");
         await getGlobalStates();

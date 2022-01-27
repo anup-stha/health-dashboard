@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/14/22, 3:56 PM
+ * Last Modified 1/27/22, 2:35 PM
  *
  *
  */
@@ -19,6 +19,7 @@ import {
 import React from "react";
 import { StatCardRect } from "@/modules/dashboard/cards/StatCardRect";
 import { StatCardApp } from "@/modules/dashboard/cards/StatCardApp";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 type StatCardGroupProps = {
   data: any;
@@ -79,9 +80,15 @@ export const StatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
 export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
   data,
 }) => {
+  const user = useAuthStore((state) => state.user);
+
   return (
-    <div className="w-full grid-cols-2 grid gap-6 lg:grid-cols-1 sm:gap-4">
-      <div className="flex flex-col gap-6 h-full">
+    <div
+      className={`w-full  grid ${
+        user.id === 1 ? "grid-cols-2" : ""
+      } gap-6 lg:grid-cols-1 sm:gap-4`}
+    >
+      <div className={`flex ${user.id === 1 ? "flex-col" : ""}   gap-6 h-full`}>
         <StatCardRect
           icon={
             <div className="bg-lime-600 p-8 rounded-full">
@@ -107,7 +114,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
           ]}
         />
       </div>
-      <StatCardApp />
+      {user.id === 1 ? <StatCardApp /> : null}
     </div>
   );
 };
