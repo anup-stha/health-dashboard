@@ -6,7 +6,7 @@
  *
  */
 
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { ProfileDetails } from "@/modules/member/others/ProfileDetails";
 import { ProfileTestSection } from "@/modules/member/others/ProfileTestSection";
 import { PatientMedicalHistory } from "@/modules/member/others/PatientMedicalHistory";

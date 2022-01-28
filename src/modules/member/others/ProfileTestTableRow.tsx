@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 3:56 PM
+ * Last Modified 1/28/22, 11:53 AM
  *
  *
  */
@@ -15,6 +15,7 @@ import { TableView } from "@/components/Table";
 import { utcDateToLocal } from "@/modules/member/utils/utcDateToLocal";
 
 type ProfileTestData = {
+  id: number;
   app_slug: string;
   test_name: string;
   test_date: Date;
@@ -22,8 +23,8 @@ type ProfileTestData = {
 };
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
   return data ? (
-    <tr>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
+    <tr key={data.id}>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700 align-top">
         <div className="flex flex-col space-y-2">
           <span>
             {moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}
@@ -32,7 +33,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap ">
+      <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
         {data.tests.map((element, index) => (
           <div key={index} className="flex space-x-2 text-gray-700">
             <span className="font-medium text-gray-500">

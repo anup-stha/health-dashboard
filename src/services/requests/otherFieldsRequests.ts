@@ -13,7 +13,7 @@ import {
   OtherFieldsPostBody,
   OtherFieldsPostResponse,
 } from "@/types";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const getMedicalHistoryList = (memberId: number) => {
   return privateAgent.get<MedicalHistoryGetResponse>(

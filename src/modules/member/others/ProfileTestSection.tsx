@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 9:02 PM
+ * Last Modified 1/28/22, 11:49 AM
  *
  *
  */
@@ -69,7 +69,10 @@ export const ProfileTestSection = ({ selectedMember }: IProfileTestSection) => {
               {Object.keys(chartData).length !== 0 && (
                 <TestLineChart datas={chartData} />
               )}
-              <ProfileTestTab testList={testDetailsList} />
+              <ProfileTestTab
+                testList={testDetailsList}
+                selectedMember={selectedMember}
+              />
             </>
           )}
         </div>

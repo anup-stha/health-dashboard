@@ -11,7 +11,7 @@ import { MemberTest } from "@/modules/member/test";
 import { MainHead } from "@/layout/MainHead";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import isEmpty from "lodash/isEmpty";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";

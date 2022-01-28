@@ -18,7 +18,7 @@ import {
   OrgMemberAddRes,
 } from "@/types";
 import { privateAgent } from ".";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { getCurrentUserProfile } from "@/services/requests/authRequests";
 

@@ -11,7 +11,7 @@ import React from "react";
 import { SubscriptionForm } from "@/modules/subscriptions/subscriptionAddForm";
 import { Button } from "@/components/Button";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 type subscriptionModalProps = {
   type: "add" | "edit";

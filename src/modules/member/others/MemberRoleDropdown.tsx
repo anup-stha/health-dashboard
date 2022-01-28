@@ -12,7 +12,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 interface MemberRoleDropdownProps {
   roleList?: Role[];

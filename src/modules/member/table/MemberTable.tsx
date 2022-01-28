@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 11:38 AM
+ * Last Modified 1/28/22, 10:13 AM
  *
  *
  */
@@ -9,11 +9,11 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useMemberList } from "@/modules/member/api/hooks/useMemberList";
 import { TableView } from "@/components/Table";
 import { Loader } from "@/components/Loader";
-import { MemberTableRow } from "@/modules/member/MemberTableRow";
+import { MemberTableRow } from "@/modules/member/table/MemberTableRow";
 
 export const MemberTable = () => {
   const router = useRouter();
@@ -28,8 +28,6 @@ export const MemberTable = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, [router.query.page]);
-
-  console.log(data);
 
   return !currentRole ? (
     <div className="flex justify-center">

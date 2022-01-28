@@ -6,10 +6,10 @@
  *
  */
 
-import { MemberProfile } from "@/modules/member/MemberProfile";
+import { MemberProfile } from "@/modules/member/profile/MemberProfile";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";

@@ -14,7 +14,7 @@ import {
 } from "@/services/requests/memberRequests";
 import { GreenLineButton, RedLineButton } from "@/components/Button";
 import { Member } from "@/modules/member/types";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 type MemberToggleProps = {
   toggle: "active" | "verified";

@@ -26,7 +26,7 @@ import { ProfileSubsData } from "@/modules/member/others/MemberProfileSubsData";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDown } from "react-feather";
-import { useMemberStore } from "@/modules/member/useMemberStore";
+import { useMemberStore } from "@/modules/member/utils/useMemberStore";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 

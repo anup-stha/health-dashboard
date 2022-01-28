@@ -8,14 +8,14 @@
 
 import React, { useEffect } from "react";
 import { MemberRoleDropdown } from "@/modules/member/others/MemberRoleDropdown";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
 import { useNestedMemberList } from "@/modules/member/api/hooks/useNestedMemberList";
 import { useRouter } from "next/router";
 import { WarningOctagon } from "phosphor-react";
 import { TableView } from "@/components/Table";
 import { Loader } from "@/components/Loader";
-import { UserTableRow } from "@/modules/member/UserTableRow";
+import { UserTableRow } from "@/modules/member/table/UserTableRow";
 import { ProfileListLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
 export const UsersTable = () => {

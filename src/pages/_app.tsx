@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 6:45 PM
+ * Last Modified 1/28/22, 10:08 AM
  *
  *
  */
@@ -10,8 +10,6 @@ import type { AppProps } from "next/app";
 import * as React from "react";
 import "../styles/globals.scss";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
-import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ToastComponent } from "@/components/Alert/Toast";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -120,7 +118,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     );
 
   return (
-    <>
+    <React.StrictMode>
       <Head>
         <title>Sunya Health</title>
         {favicons.map((linkProps: any) => (
@@ -128,23 +126,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         ))}
       </Head>
       <QueryClientProvider client={queryClient}>
-        <SkeletonTheme>
-          <NextNProgress
-            color="#22c55e"
-            startPosition={0.3}
-            stopDelayMs={200}
-            height={4}
-            showOnShallow={false}
-            options={{ showSpinner: false }}
-          />
+        <NextNProgress
+          color="#22c55e"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={4}
+          showOnShallow={false}
+          options={{ showSpinner: false }}
+        />
 
-          {RenderedComponent}
-          <ToastComponent />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </SkeletonTheme>
+        {RenderedComponent}
+        <ToastComponent />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-      ;
-    </>
+    </React.StrictMode>
   );
 };
 

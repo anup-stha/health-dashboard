@@ -7,9 +7,9 @@
  */
 
 import { MemberRoleDropdown } from "@/modules/member/others/MemberRoleDropdown";
-import { MemberTable } from "@/modules/member/MemberTable";
+import { MemberTable } from "@/modules/member/table/MemberTable";
 import { MemberModal } from "@/modules/member/modal/MemberModal";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 const MemberListPage = () => {
   const currentRole = useCurrentMemberStore((state) => state.role);

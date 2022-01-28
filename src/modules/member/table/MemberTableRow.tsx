@@ -15,7 +15,7 @@ import { MoreVertical } from "react-feather";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 import LetteredAvatar from "react-avatar";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { Member } from "@/modules/member/types";
 import { useRouter } from "next/router";
 import Image from "next/image";

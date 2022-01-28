@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 8:11 PM
+ * Last Modified 1/28/22, 10:20 AM
  *
  *
  */
@@ -103,6 +103,7 @@ export const Sidebar: React.FC<any> = () => {
               src={"/assets/sidebar-illustration.svg"}
               layout={"fill"}
               alt="Super User Illustration"
+              priority={true}
               objectFit={"cover"}
             />
           </div>

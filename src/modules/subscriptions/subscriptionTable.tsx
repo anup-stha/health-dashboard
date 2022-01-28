@@ -14,7 +14,7 @@ import { Subscription } from "@/types";
 import React from "react";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { useRouter } from "next/router";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();

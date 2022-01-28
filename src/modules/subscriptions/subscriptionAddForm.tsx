@@ -19,7 +19,7 @@ import React from "react";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";

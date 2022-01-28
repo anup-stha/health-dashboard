@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:56 PM
+ * Last Modified 1/28/22, 11:49 AM
  *
  *
  */
@@ -14,9 +14,9 @@ import { useReactToPrint } from "react-to-print";
 import moment from "moment";
 import { utcDateToLocal } from "@/modules/member/utils/utcDateToLocal";
 import { MemberTestList, PaginationObject } from "@/types";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
 import { ProfileTestPrint } from "@/modules/member/others/ProfileTestPrint";
 import { getSubTestList } from "@/modules/member/others/ProfileTestTab";
+import { Member } from "@/modules/member/types";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -24,12 +24,15 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 interface IProfileTestExport {
   testList: { list: MemberTestList[]; pagination: PaginationObject };
+  selectedMember: Member;
 }
 
-export const ProfileTestExport = ({ testList }: IProfileTestExport) => {
+export const ProfileTestExport = ({
+  testList,
+  selectedMember: currentMember,
+}: IProfileTestExport) => {
   const componentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
-  const currentMember = useCurrentMemberStore((state) => state.member);
 
   const excelData =
     Object.keys(testList).length !== 0

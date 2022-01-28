@@ -17,7 +17,7 @@ import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFields
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useAddPatient } from "@/modules/member/api/hooks/useMemberList";
 import moment from "moment";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { toastAlert } from "@/components/Alert";
 import { MedicalHistoryForm } from "@/modules/member/form/MedicalHistoryForm";
 

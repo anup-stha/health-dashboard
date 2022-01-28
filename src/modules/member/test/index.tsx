@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { PrimaryInput } from "@/components/Input";
 import { GrayButton, PrimaryButton } from "@/components/Button";
 import { useTestReportByDate } from "@/modules/member/api/hooks/useTestReportByDate";
-import { useMemberStore } from "@/modules/member/useMemberStore";
+import { useMemberStore } from "@/modules/member/utils/useMemberStore";
 import React, { useEffect, useRef } from "react";
 import { TableView } from "@/components/Table";
 import { ProfileTestTableRow } from "@/modules/member/others/ProfileTestTableRow";

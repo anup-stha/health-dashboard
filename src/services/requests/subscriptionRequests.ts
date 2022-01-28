@@ -18,7 +18,7 @@ import {
   SubscriptionUpdateBody,
 } from "@/types";
 import { privateAgent } from ".";
-import { useMemberStore } from "@/modules/member/useMemberStore";
+import { useMemberStore } from "@/modules/member/utils/useMemberStore";
 import Router from "next/router";
 import { useQuery } from "react-query";
 

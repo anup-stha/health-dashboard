@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/27/22, 4:51 PM
+ * Last Modified 1/28/22, 12:01 PM
  *
  *
  */
@@ -32,7 +32,7 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
         <div className="page-header w-full">
           <div className="flex flex-col space-y-4 w-full">
             <div className="flex justify-between items-center w-full">
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 pt-2">
                 <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
                   Test Report
                 </h1>

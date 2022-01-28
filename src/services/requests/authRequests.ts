@@ -21,7 +21,7 @@ import { privateAgent, publicAgent } from ".";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { queryClient } from "@/pages/_app";
 import { getGlobalStates } from "@/services/requests/globalRequests";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>

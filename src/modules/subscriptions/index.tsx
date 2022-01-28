@@ -12,7 +12,7 @@ import React from "react";
 import { Loader } from "@/components/Loader";
 import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useRoleList } from "@/services/requests/roleRequests";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { MemberRoleDropdown } from "../member/others/MemberRoleDropdown";
 
 const SubscriptionPage: React.FC = () => {

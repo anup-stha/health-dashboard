@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/27/22, 4:52 PM
+ * Last Modified 1/28/22, 12:00 PM
  *
  *
  */
@@ -38,15 +38,12 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
         <div className="page-header w-full space-y-4">
           <div className="flex flex-col space-y-8 w-full">
             <div className="flex justify-between items-end w-full">
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 pt-2">
                 <h1 className="text-gray-900 font-semibold text-4xl tracking-wider">
                   {test_name} Report
                 </h1>
                 {member && (
                   <div>
-                    <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
-                      Id: {member.member_code}
-                    </h1>
                     <h1 className="text-gray-700 font-semibold text-2xl tracking-wider capitalize">
                       Name: {member.name}
                     </h1>
@@ -83,7 +80,6 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
               </div>
             </div>
           </div>
-          <hr />
         </div>
 
         <div className="page-footer">
@@ -102,9 +98,17 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
         </div>
 
         <table className="w-full table-fixed">
-          <div className="page-header-space" />
+          <thead className="">
+            <tr>
+              <td>
+                <div className="page-header-space" />
+              </td>
+              <td />
+              <td />
+            </tr>
+          </thead>
 
-          <tbody className="divide-y divide-gray-700/20 w-screen">
+          <tbody className="divide-y divide-gray-700/20 w-screen border-t border-gray-700/20 ">
             {test.map((data, index) => (
               <tr key={index} className="w-full">
                 <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap align-top ">

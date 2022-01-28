@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 10:32 AM
+ * Last Modified 1/28/22, 11:54 AM
  *
  *
  */
@@ -16,14 +16,19 @@ import React from "react";
 import { WarningOctagon } from "phosphor-react";
 import { MemberTestList, PaginationObject } from "@/types";
 import { ProfileTestExport } from "@/modules/member/others/ProfileTestExport";
+import { Member } from "@/modules/member/types";
 
 interface IProfileTestTabProps {
   testList:
     | { list: MemberTestList[]; pagination: PaginationObject }
     | undefined;
+  selectedMember: Member;
 }
 
-export const ProfileTestTab = ({ testList }: IProfileTestTabProps) => {
+export const ProfileTestTab = ({
+  testList,
+  selectedMember,
+}: IProfileTestTabProps) => {
   const subTestList = testList ? getSubTestList(testList.list) : [];
 
   const activeClassName =
@@ -55,7 +60,10 @@ export const ProfileTestTab = ({ testList }: IProfileTestTabProps) => {
             Grid
           </Tab>
         </Tab.List>
-        <ProfileTestExport testList={testList} />
+        <ProfileTestExport
+          testList={testList}
+          selectedMember={selectedMember}
+        />
       </div>
       <hr className="border-t-[1px] border-gray-200 " />
       {testList && (
@@ -86,6 +94,7 @@ export const getSubTestList = (testList: MemberTestList[]) => {
     return Object.assign(
       {},
       {
+        id: element.id,
         app_slug: element.app_slug,
         test_date: element.test_date,
 

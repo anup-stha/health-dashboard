@@ -15,7 +15,7 @@ import React, { Fragment } from "react";
 import { MemberDetailCategory } from "@/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import moment from "moment";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { alert, toastAlert } from "@/components/Alert";
 import { useAddPatient } from "@/modules/member/api/hooks/useMemberList";
 import { updateUserProfile } from "@/services/requests/authRequests";

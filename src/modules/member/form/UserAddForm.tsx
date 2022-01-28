@@ -14,7 +14,7 @@ import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import React, { Fragment } from "react";
 import { MemberDetailCategory } from "@/types";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useAddUser } from "@/modules/member/api/hooks/useMemberList";
 import { toastAlert } from "@/components/Alert";
 

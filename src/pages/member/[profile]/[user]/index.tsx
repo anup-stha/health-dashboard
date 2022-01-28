@@ -8,9 +8,9 @@
 
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
-import { SubMemberProfile } from "@/modules/member/SubMemberProfile";
+import { SubMemberProfile } from "@/modules/member/profile/SubMemberProfile";
 import { useRouter } from "next/router";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useEffect } from "react";
 import isEmpty from "lodash/isEmpty";
 import toast from "react-hot-toast";

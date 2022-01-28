@@ -19,7 +19,7 @@ import {
 import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useQuery } from "react-query";
-import { useCurrentMemberStore } from "@/modules/member/useCurrentMemberStore";
+import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
   return privateAgent.get("role/");
