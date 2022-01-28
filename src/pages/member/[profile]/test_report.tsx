@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 6:57 PM
+ * Last Modified 1/28/22, 6:12 PM
  *
  *
  */
@@ -32,7 +32,7 @@ const PatientTestReport = () => {
     <Loader />
   ) : (
     <>
-      <MainHead title={`Patient Report`} />
+      <MainHead title={`${currentMember.name.split(" ")[0]} Patient Report`} />
       <MemberTest current_member={currentMember} />
     </>
   );
