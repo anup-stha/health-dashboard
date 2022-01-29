@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/26/22, 8:05 PM
+ * Last Modified 1/29/22, 9:01 AM
  *
  *
  */
@@ -108,12 +108,12 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
         <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
           <div className="flex hover:text-gray-800 items-center gap-2">
             <PhoneCall weight="duotone" size={18} />
-            <a href={`tel:${data.phone}`}>{data.phone}</a>
+            <a href={`tel:${data.phone}`}>{data.phone.slice(0, 14)}</a>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-lg text-gray-700 font-semibold capitalize">
-            {data.address}
+            {data.address.slice(0, 25)}
           </div>
           <div className="text-lg text-gray-500 font-medium">
             <a
@@ -157,7 +157,10 @@ export const MemberTableRow: React.FC<OrgTableRowType> = ({
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 -translate-y-1"
                   >
-                    <Popover.Panel className="cursor-pointer absolute z-10 w-52 p-1 mt-3 right-14 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
+                    <Popover.Panel
+                      onClick={onMemberClick}
+                      className="cursor-pointer absolute z-10 w-52 p-1 mt-3 right-14 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2"
+                    >
                       <div className="overflow-hidden">
                         <a className="bg-white flex items-center transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70">
                           <div className="py-2 text-xl flex items-center px-4 gap-2 text-gray-700  group-hover:text-white ">

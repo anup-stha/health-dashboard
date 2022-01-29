@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:52 PM
+ * Last Modified 1/29/22, 9:06 AM
  *
  *
  */
@@ -21,12 +21,12 @@ export const ProfileDataDetail: React.FC<ProfileDataDetailProps> = ({
   return !href ? (
     <div className="flex gap-x-4 text-xl items-center">
       <div className="text-gray-800 ">{icon}</div>
-      <span>{detail}</span>
+      <span>{detail.slice(0, 32)}</span>
     </div>
   ) : (
     <a href={href} className="flex gap-x-4 text-xl items-center">
       <div className="text-gray-800 ">{icon}</div>
-      <span>{detail}</span>
+      <span>{detail.slice(0, 32)}</span>
     </a>
   );
 };
