@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/26/22, 10:12 AM
+ * Last Modified 1/29/22, 6:46 PM
  *
  *
  */
@@ -40,6 +40,7 @@ export type Member = {
   id: number;
   member_code: string;
   parent_member_id: number;
+  member_id?: number;
   uuid: string;
   name: string;
   lat: number;
