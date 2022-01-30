@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:47 PM
+ * Last Modified 1/30/22, 11:13 AM
  *
  *
  */
@@ -15,6 +15,7 @@ import {
   postUpdateMemberCategory,
 } from "@/services/requests/memberRequests";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { alert } from "@/components/Alert";
 
 export const postMemberCategoryToast = (body: MemberDetailCategoryBody) => {
   const postMemberCategoryPromise = new Promise((resolve, reject) =>

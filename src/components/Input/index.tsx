@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 2:30 PM
+ * Last Modified 1/30/22, 11:27 AM
  *
  *
  */
@@ -125,7 +125,7 @@ export const SearchInput = React.forwardRef<
 });
 
 export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
-  ({ label, error, ...props }, ref) => {
+  ({ label, error, checked, ...props }, ref) => {
     return (
       <div className="  mb-12">
         <label htmlFor={label} className="flex items-center cursor-pointer">
@@ -137,7 +137,8 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
               id={label}
               type="checkbox"
               className="sr-only"
-              checked={props.checked}
+              defaultChecked={true}
+              checked={checked}
               ref={ref}
             />
             <div className="w-14 h-6 bg-gray-400 rounded-full shadow-inner" />
