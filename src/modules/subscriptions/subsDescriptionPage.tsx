@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 10:12 PM
+ * Last Modified 1/30/22, 3:36 PM
  *
  *
  */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { BooleanTag } from "@/components/others/BooleanTag";
@@ -18,13 +18,14 @@ import {
 import { TableView } from "@/components/Table";
 import { Button, RedLineButton } from "@/components/Button";
 import { useForm } from "react-hook-form";
-import { DropdownController } from "../roles/form/roleMemberCategoryForm";
+import { MultiDropdown } from "../roles/form/roleMemberCategoryForm";
 import { TestSubCategory } from "@/types";
 import { useRouter } from "next/router";
 import { CheckCircle, WarningOctagon, XCircle } from "phosphor-react";
 import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
 import { testStore } from "@/modules/tests/testStore";
 import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
+import { differenceWith, isEqual } from "lodash";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -44,12 +45,27 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
     testList[0] ? testList[0].id : 0
   );
 
-  const selectedTest = testList.filter(
-    (element) => element.id === selectedId
-  )[0];
+  const selectedTest = useMemo(
+    () => testList.filter((element) => element.id === selectedId)[0],
+    [selectedId, testList]
+  );
 
   const getTestSubCategory = (testId: number) =>
     testList.filter((element) => element.id === testId)[0].sub_categories;
+
+  const getFilteredTestCategory = (testId: number) => {
+    const testList = getTestSubCategory(testId);
+
+    const testIndexInSubs = subscriptionDetails.findIndex(
+      (element) => element.id === testId
+    );
+
+    return differenceWith(
+      testList,
+      subscriptionDetails[testIndexInSubs].sub_categories,
+      isEqual
+    );
+  };
 
   const tabs = testList.map(
     (test) =>
@@ -131,39 +147,50 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                   if (test === undefined)
                     return (
                       <Tab.Panel key={index}>
-                        <div className={"flex flex-col space-y-4"}>
-                          <div className="flex flex-col">
-                            <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
-                              {selectedTest.name}
-                            </h1>
-                            <div className="flex space-x-2">
-                              <BooleanTag
-                                type={"info"}
-                                trueStatement={`Slug: ${selectedTest.slug}`}
-                              />
-                              <BooleanTag
-                                type={"info"}
-                                trueStatement={`Public:${
-                                  selectedTest.public ? " Yes" : " No"
-                                }`}
-                              />
-                              <BooleanTag
-                                type={"info"}
-                                trueStatement={`${
-                                  subscriptionDetails.some(
-                                    (element) => element.id === selectedTest.id
-                                  )
-                                    ? "Assigned"
-                                    : "Not Assigned"
-                                }`}
+                        <div className="w-full flex flex-col space-y-2">
+                          <div
+                            className={
+                              "flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4"
+                            }
+                          >
+                            <div className="flex flex-col">
+                              <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                                {selectedTest.name}
+                              </h1>
+                              <div className="flex space-x-2">
+                                <BooleanTag
+                                  type={"info"}
+                                  trueStatement={`Slug: ${selectedTest.slug}`}
+                                />
+                                <BooleanTag
+                                  type={"info"}
+                                  trueStatement={`Public:${
+                                    selectedTest.public ? " Yes" : " No"
+                                  }`}
+                                />
+                                <BooleanTag
+                                  type={"info"}
+                                  trueStatement={`${
+                                    subscriptionDetails.some(
+                                      (element) =>
+                                        element.id === selectedTest.id
+                                    )
+                                      ? "Assigned"
+                                      : "Not Assigned"
+                                  }`}
+                                />
+                              </div>
+                            </div>
+                            <div className="flex">
+                              <SubsTestDropdown
+                                label={"Choose a test"}
+                                options={getTestSubCategory(Number(selectedId))}
                               />
                             </div>
                           </div>
-                          <div className="w-full">
-                            <SubsTestDropdown
-                              label={"Choose a test"}
-                              options={getTestSubCategory(Number(selectedId))}
-                            />
+                          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+                            <WarningOctagon size={24} />{" "}
+                            <span>No Test Assigned</span>
                           </div>
                         </div>
                       </Tab.Panel>
@@ -213,10 +240,11 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                           </div>{" "}
                           <div className={"flex"}>
                             <SubsTestDropdown
-                              options={getTestSubCategory(test.id)}
+                              options={getFilteredTestCategory(test.id)}
                             />
                           </div>
                         </div>
+
                         <TableView
                           data={subCategories}
                           tableHeadings={[
@@ -319,7 +347,7 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
   options,
   label = "",
 }) => {
-  const { handleSubmit, control, formState } = useForm();
+  const { handleSubmit, control, formState, reset } = useForm();
   const router = useRouter();
   const { isDirty, isValid } = formState;
 
@@ -333,25 +361,29 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
 
   return (
     <form
-      onSubmit={handleSubmit(
-        async (data) =>
+      onSubmit={handleSubmit(async (data) => {
+        data.sub_test.map(async (test: any, index: number) => {
           await alert({
             type: "promise",
             promise: assignTestToSubscription(
               Number(options[0].category_id),
-              Number(data.sub_test.split("-")[0]),
+              Number(test.split("-")[0]),
               Number(router.query.id)
             ),
             msgs: {
               loading: "Assigning",
             },
             id: "Test-assign",
-          })
-      )}
+          });
+          if (index === data.sub_test.length - 1) {
+            reset();
+          }
+        });
+      })}
       className={"flex lg:w-full space-x-4 items-end"}
     >
-      <div className={"w-64"}>
-        <DropdownController
+      <div className={"w-96"}>
+        <MultiDropdown
           options={subtestOptions}
           name={"sub_test"}
           label={label}

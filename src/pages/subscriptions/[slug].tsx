@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/30/22, 10:14 AM
+ * Last Modified 1/30/22, 12:26 PM
  *
  *
  */
@@ -43,7 +43,7 @@ const SubscriptionDetailsPage: NextPage = () => {
         .catch(() => setLoading(false));
     };
     router.isReady && getSubscriptionTestDetails();
-  }, []);
+  }, [router]);
 
   return (
     <>

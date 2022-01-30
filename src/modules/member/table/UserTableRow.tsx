@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/29/22, 9:06 AM
+ * Last Modified 1/30/22, 3:40 PM
  *
  *
  */
@@ -61,7 +61,12 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
                 <div
                   className={`w-[4.2rem] h-[4.2rem] rounded-full object-contain overflow-hidden relative`}
                 >
-                  <Image src={data.image} layout={"fill"} objectFit={"cover"} />
+                  <Image
+                    src={data.image}
+                    layout={"fill"}
+                    objectFit={"cover"}
+                    alt={"profile"}
+                  />
                 </div>
               ) : (
                 <LetteredAvatar

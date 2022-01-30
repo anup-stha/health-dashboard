@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/26/22, 8:21 PM
+ * Last Modified 1/30/22, 3:40 PM
  *
  *
  */
@@ -51,7 +51,7 @@ export const ProfileImageModal = ({
                 !isNewImage ? "hidden" : "block"
               }`}
             >
-              <img id={"output"} className={"rounded-full"} />
+              <img id={"output"} className={"rounded-full"} alt={"profile"} />
             </div>
 
             {!isNewImage &&
@@ -60,6 +60,7 @@ export const ProfileImageModal = ({
                   className={`w-40 h-40 rounded-full object-contain overflow-hidden relative`}
                 >
                   <Image
+                    alt={"profile"}
                     src={selectedMember.image}
                     layout={"fill"}
                     objectFit={"contain"}
