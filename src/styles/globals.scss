@@ -1,7 +1,7 @@
 /*!
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/28/22, 11:57 AM
+ * Last Modified 1/31/22, 12:02 PM
  *
  *
  */
@@ -251,10 +251,6 @@ input[type="file"] {
 input:checked ~ .dot {
   transform: translateX(100%);
   @apply bg-green-600;
-}
-
-.profile {
-  @apply bg-gray-400;
 }
 
 datalist {
