@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 12:32 PM
+ * Last Modified 1/31/22, 2:40 PM
  *
  *
  */
@@ -34,7 +34,6 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
         success: msgs.success
           ? msgs.success
           : (data) => {
-              console.log(data);
               return `${data}`;
             },
         error: msgs.error

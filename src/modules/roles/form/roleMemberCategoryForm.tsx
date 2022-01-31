@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/30/22, 3:43 PM
+ * Last Modified 1/31/22, 2:45 PM
  *
  *
  */
@@ -18,14 +18,11 @@ import {
   postMemberCategoryToast,
   postUpdateMemberCategoryToast,
 } from "@/modules/member/api/toasts/membersToast";
-import makeAnimated from "react-select/animated";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
   id: number;
 };
-
-const animatedComponents = makeAnimated();
 
 export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
   type,
@@ -257,7 +254,6 @@ export const MultiDropdown: React.FC<DropdownProps> = ({
         render={({ field: { onChange, value, ref } }) => (
           <Select
             ref={ref}
-            components={animatedComponents}
             options={options}
             value={options.filter((option) => value?.includes(option.value))}
             defaultValue={options.filter((option) =>

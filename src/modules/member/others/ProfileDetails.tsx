@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/31/22, 1:05 PM
+ * Last Modified 1/31/22, 2:45 PM
  *
  *
  */
@@ -30,6 +30,7 @@ export const ProfileDetails: React.FC<MemberDetailsProps> = ({
           layout={"fill"}
           objectFit={"cover"}
           objectPosition={"left center"}
+          alt={"cover image"}
         />
       </div>
 

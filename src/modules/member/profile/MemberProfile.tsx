@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:27 PM
+ * Last Modified 1/31/22, 2:29 PM
  *
  *
  */
@@ -26,7 +26,7 @@ const MemberProfile = () => {
   const selectedRole = useCurrentMemberStore((state) => state.role);
   const user = useAuthStore((state) => state.user);
 
-  const { isLoading } = useMemberSubsDetails(
+  const { isFetching } = useMemberSubsDetails(
     user.id !== 1 ? 0 : selectedMember.id
   );
   const { isFetching: subsLoading } = useSubscriptionList(
@@ -51,7 +51,7 @@ const MemberProfile = () => {
       <div className="w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
         {selectedMember.role.slug === "patient" ||
         selectedMember.role.slug === "org_operator" ? null : subsLoading &&
-          isLoading ? (
+          isFetching ? (
           <ProfileSubsLoadingState />
         ) : (
           <ProfileSubscription member_id={selectedMember.id} />
