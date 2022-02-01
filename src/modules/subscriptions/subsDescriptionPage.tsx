@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/30/22, 3:36 PM
+ * Last Modified 2/1/22, 4:57 PM
  *
  *
  */
@@ -26,6 +26,7 @@ import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
 import { testStore } from "@/modules/tests/testStore";
 import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
 import { differenceWith, isEqual } from "lodash";
+import { Heading } from "@/components/Headings";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -77,14 +78,8 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
 
   return (
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 w-full space-y-8">
-      <div className="flex flex-col">
-        <h1 className="text-4xl font-semibold text-neutral-800 capitalize">
-          {selected ? selected.name : ""}
-        </h1>
-        <p className="text-xl font-semibold text-neutral-500 pl-1">
-          {selected ? selected.slug : ""}
-        </p>
-      </div>
+      <Heading title={selected.name ?? ""} subtitle={selected.slug ?? ""} />
+
       <hr className="border-t-[1px] border-gray-200" />
       <div className={"space-y-4"}>
         <div className="flex flex-col">

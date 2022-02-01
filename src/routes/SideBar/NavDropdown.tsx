@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 8:30 PM
+ * Last Modified 2/1/22, 3:31 PM
  *
  *
  */
@@ -34,31 +34,39 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   };
 
   return (
-    <ul className="flex flex-col">
+    <ul className="flex flex-col w-full">
       <li onClick={() => onExpandChange()} className={mainItemStyles}>
-        <div
-          className={`flex peer ${
-            open
-              ? "items-start justify-start px-4"
-              : "items-center px-4 delay-300"
-          }`}
-        >
-          <span
-            className={`flex items-center gap-x-4 w-full ${
-              expand || isPathSelected ? "text-gray-800" : ""
-            }  `}
+        <div className={"peer flex  w-full"}>
+          <div
+            className={`flex relative items-start justify-start px-4 w-full ${
+              open ? "translate-x-0" : "-translate-x-96 w-0"
+            } transition-transform duration-100 w-full`}
           >
-            <div className={`${!open && "sm:hidden"}`}>{subRoutes.icon}</div>
-            {open && (
+            <span
+              className={`flex items-center gap-x-4 text-lg w-full ${
+                expand ? "font-bold text-gray-900" : "font-semibold"
+              } `}
+            >
+              <div className={"sm:hidden"}>{subRoutes.icon}</div>
+
               <div className={`flex items-center justify-between w-full`}>
-                <span className={`text-xl font-semibold sm:text-lg `}>
-                  {subRoutes.title}
-                </span>
+                <span className={`sm:text-lg`}>{subRoutes.title}</span>
                 <CaretDown weight="bold" size={24} />
               </div>
-            )}
-          </span>
+            </span>
+          </div>
+
+          <div
+            className={`flex relative items-center  ${
+              !open
+                ? "opacity-100 -translate-x-8 transition-opacity duration-500 px-4"
+                : "opacity-0 w-0 p-0"
+            }  `}
+          >
+            <div className={`sm:hidden`}>{subRoutes.icon}</div>
+          </div>
         </div>
+
         {!open && (
           <div className=" text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800  h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
             {subRoutes.title}
@@ -68,7 +76,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
       {expand && (
         <div
-          className={open ? "border-gray-300 border-l-2 ml-8 space-y-2" : ""}
+          className={open ? "border-gray-300 border-l-2 ml-8 space-y-1" : ""}
         >
           {expand &&
             subRoutes.children &&

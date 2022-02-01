@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 8:09 AM
+ * Last Modified 2/1/22, 4:58 PM
  *
  *
  */
@@ -27,6 +27,7 @@ import { OtherFields, OtherFieldsPostBody } from "@/types";
 import Image from "next/image";
 import { Loader } from "@/components/Loader";
 import omit from "lodash/omit";
+import { Heading } from "@/components/Headings";
 
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();
@@ -39,12 +40,12 @@ export const OthersPage = () => {
       <div className="flex flex-col space-y-6">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <div>
-            <h1 className="text-4xl font-semibold text-gray-850">
-              Patient Medical History
-            </h1>
-            <p className="text-lg font-semibold text-gray-500">
-              List of all Medical History Fields. Click on Add Button to add new
-            </p>
+            <Heading
+              title={"Patient Medical History"}
+              subtitle={
+                "List of all Medical History Fields. Click on Add Button to add new"
+              }
+            />
           </div>
 
           <div className="flex space-x-4">

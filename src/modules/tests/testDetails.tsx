@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/27/21, 4:59 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/1/22, 4:55 PM
  *
  *
  */
@@ -11,20 +11,15 @@ import { TestCard } from "./TestCard";
 import { TestModal } from "./testAddModal";
 import { TestDeleteZone } from "../roles/others/DeleteZone";
 import { TestUpdateZone } from "@/modules/tests/TestUpdateZone";
+import { Heading } from "@/components/Headings";
 
 export const TestDetails = () => {
   const { selectedTest } = testStore();
 
   return (
     <div className="px-10  py-10 overflow-visible sm:p-8 space-y-8">
-      <div className="flex flex-col space-y-2 ">
-        <h1 className="text-5xl font-semibold text-gray-900">
-          {selectedTest.name}
-        </h1>
-        <p className="text-xl font-semibold text-gray-500 w-3/4">
-          {selectedTest.slug}
-        </p>
-      </div>
+      <Heading title={selectedTest.name} subtitle={selectedTest.desc} />
+
       <hr className="border-t-[1px] border-gray-200" />
 
       <div className="space-y-4">

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/28/22, 6:15 PM
+ * Last Modified 2/1/22, 2:39 PM
  *
  *
  */
@@ -24,18 +24,18 @@ export const Sidebar: React.FC<any> = () => {
     <nav
       className={`${
         open
-          ? "w-[18%] px-4 py-4 sm:w-3/5 md:w-1/3 lg:w-1/4"
+          ? "w-[23rem] px-4 py-4 sm:w-3/5 md:w-1/3 lg:w-1/4"
           : "w-24 px-4 sm:w-0 sm:p-0 "
-      }  print:hidden transition-all duration-300 h-screen min-h-0 z-40 fixed shadow-E400 bg-white space-y-12 text-3xl flex flex-col justify-between `}
+      }  print:hidden transition-all duration-100 h-screen min-h-0 z-40 fixed shadow-E400 bg-white space-y-12 text-3xl flex flex-col justify-between `}
     >
-      <div className="flex flex-col space-y-12">
+      <div className="flex flex-col space-y-8">
         <Transition
           show={open}
           enter="transition-opacity transition-transform duration-200"
           enterFrom="opacity-0 -translate-y-24 "
           enterTo="opacity-100 translate-y-0"
         >
-          <div className=" w-full bg-white shadow-E500 rounded-md p-4 flex items-center space-x-2">
+          <div className=" w-full bg-white ring-1 ring-gray-400/40 rounded-md p-4 flex items-center space-x-2">
             {user.image ? (
               <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
                 <Image

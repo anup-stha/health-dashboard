@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 9:23 PM
+ * Last Modified 2/1/22, 4:39 PM
  *
  *
  */
@@ -63,10 +63,10 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
     <Modal open={!guided}>
       <Modal.Button type={"open"}>{children ?? null}</Modal.Button>
       <Modal.Content width={"max-w-7xl"} opacity={"opacity-60"}>
-        <div className="flex flex-col space-y-2 h-[78vh]">
+        <div className="flex flex-col justify-between space-y-4">
           <div className="flex flex-col">
             <Modal.Title>{images[imageIndex].title}</Modal.Title>
-            <p className="text-lg text-gray-500 font-medium h-14">
+            <p className="text-lg text-gray-500 font-medium">
               {images[imageIndex].subtitle}
             </p>
           </div>
@@ -84,14 +84,13 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
-                className="slider-img"
+                className="slider-img h-full w-full"
               >
                 <Image
                   src={images[imageIndex].link + "?ap=em"}
-                  width={1920}
-                  height={1024}
+                  layout="fill"
                   className={"rounded-xl"}
-                  objectFit={imageIndex !== 1 ? "cover" : "contain"}
+                  objectFit={"cover"}
                   alt={"Welcome Image"}
                   priority={true}
                 />
@@ -100,7 +99,7 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                     <Image
                       src={images[imageIndex + 1].link + "?ap=em"}
                       width={1920}
-                      height={1024}
+                      height={1000}
                       className={"rounded-xl"}
                       objectFit={imageIndex !== 1 ? "cover" : "contain"}
                       alt={"Welcome Image"}

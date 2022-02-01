@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/1/22, 12:04 PM
  *
  *
  */
@@ -59,7 +59,9 @@ privateAgent.interceptors.response.use(
         })
         .catch((error) => {
           useAuthStore.getState().removeUserData();
-          toast.error("Credentials Has Expired! Please Log In Again!!");
+          toast.error("Credentials Has Expired! Please Log In Again!!", {
+            id: "log-out-toast",
+          });
         });
     }
     return Promise.reject(error);

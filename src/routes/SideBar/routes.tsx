@@ -1,12 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 8:34 PM
+ * Last Modified 2/1/22, 12:28 PM
  *
  *
  */
 
 import {
+  House,
   Polygon,
   Question,
   Sliders,
@@ -68,7 +69,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <Home variant={"Broken"} size={24} />,
+    icon: <House size={24} />,
     link: "/dashboard",
   },
   {
@@ -80,7 +81,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   {
     id: 3,
     title: "Settings",
-    icon: <Sliders size={28} />,
+    icon: <Sliders size={24} />,
     children: [
       {
         id: 1,

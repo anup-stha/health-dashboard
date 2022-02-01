@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 9:18 PM
+ * Last Modified 2/1/22, 4:49 PM
  *
  *
  */
@@ -22,6 +22,7 @@ import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 import { useRouter } from "next/router";
 import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
 import { MainHead } from "@/layout/MainHead";
+import { Heading } from "@/components/Headings";
 
 const RoleDetailPage = () => {
   const router = useRouter();
@@ -75,11 +76,18 @@ const RoleDetailPage = () => {
         <div className="px-10 py-10 overflow-visible sm:p-6">
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
-              <h1 className="text-5xl font-semibold text-gray-900 capitalize">
-                {selectedRole &&
+              <Heading
+                title={
+                  selectedRole &&
                   allRoleList.data.filter((role) => role.id === Number(idX))[0]
-                    .name}
-              </h1>
+                    .name
+                }
+                subtitle={
+                  selectedRole &&
+                  allRoleList.data.filter((role) => role.id === Number(idX))[0]
+                    .desc
+                }
+              />
             </div>
 
             <hr className="border-t-[1px] border-gray-200" />

@@ -1,17 +1,21 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 10:03 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/1/22, 4:47 PM
  *
  *
  */
 
-type SectionHeadingProps = {
-  children: React.ReactNode;
-};
+interface IHeadingProps {
+  title: string;
+  subtitle: string;
+}
 
-const SectionHeading: React.FC<SectionHeadingProps> = ({ children }) => {
-  return <h2 className="text-3xl font-semibold text-gray-900">{children}</h2>;
+export const Heading = ({ title, subtitle }: IHeadingProps) => {
+  return (
+    <div>
+      <h1 className="text-4xl font-semibold text-gray-850">{title}</h1>
+      <p className="text-lg font-semibold text-gray-500">{subtitle}</p>
+    </div>
+  );
 };
-
-export default SectionHeading;
