@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 12:00 PM
+ * Last Modified 2/2/22, 12:36 PM
  *
  *
  */
@@ -16,6 +16,7 @@ import { Member } from "@/modules/member/types";
 type ProfileTestData = {
   app_slug: string;
   test_date: Date;
+  temperature: number | null;
   tests: { [p: string]: any }[];
 };
 
@@ -121,6 +122,12 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                     <span className={"block"}>
                       {moment(utcDateToLocal(data.test_date)).format("h:mm A")}
                     </span>
+                  </div>
+                </td>
+                <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap align-top ">
+                  <div className="">
+                    <span className="text-gray-600"> Temperature </span>
+                    <span className={"block"}>{data.temperature ?? "N/A"}</span>
                   </div>
                 </td>
                 <td className="capitalize py-4 text-xl space-y-2 break-words ">

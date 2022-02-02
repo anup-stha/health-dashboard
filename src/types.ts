@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 7:13 PM
+ * Last Modified 2/2/22, 12:16 PM
  *
  *
  */
@@ -428,6 +428,7 @@ export type MemberTestList = {
   test_name: string;
   app_slug: string;
   test_slug: string;
+  temperature: number | null;
   report: MemberTestReport[];
 };
 

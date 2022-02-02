@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 11:49 AM
+ * Last Modified 2/2/22, 12:25 PM
  *
  *
  */
@@ -42,6 +42,7 @@ export const ProfileTestExport = ({
             {
               test_name: element.test_name,
               test_app: element.app_slug,
+              temperature: element.temperature,
               test_date: moment(utcDateToLocal(element.test_date)).format(
                 "YYYY/MM/DD"
               ),

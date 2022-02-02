@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 11:54 AM
+ * Last Modified 2/2/22, 12:20 PM
  *
  *
  */
@@ -72,7 +72,12 @@ export const ProfileTestTab = ({
             <Tab.Panel>
               <TableView
                 data={subTestList}
-                tableHeadings={["Test Date", "Test Result", "Test Notes"]}
+                tableHeadings={[
+                  "Test Date",
+                  "Temperature",
+                  "Test Result",
+                  "Test Notes",
+                ]}
                 search={false}
                 tableRowComponent={<ProfileTestTableRow />}
                 paginate={true}
@@ -97,6 +102,7 @@ export const getSubTestList = (testList: MemberTestList[]) => {
         id: element.id,
         app_slug: element.app_slug,
         test_date: element.test_date,
+        temperature: element.temperature,
 
         tests: element.report.map((sub) => ({
           [sub.name]: sub.value,

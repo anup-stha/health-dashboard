@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/28/22, 11:53 AM
+ * Last Modified 2/2/22, 12:24 PM
  *
  *
  */
@@ -9,7 +9,7 @@
 import { MemberTestListData, MemberTestReport } from "@/types";
 import React from "react";
 import moment from "moment";
-import { GooglePlayLogo } from "phosphor-react";
+import { GooglePlayLogo, Thermometer } from "phosphor-react";
 import { Calendar } from "iconsax-react";
 import { TableView } from "@/components/Table";
 import { utcDateToLocal } from "@/modules/member/utils/utcDateToLocal";
@@ -19,6 +19,7 @@ type ProfileTestData = {
   app_slug: string;
   test_name: string;
   test_date: Date;
+  temperature: null | string;
   tests: { [p: string]: any }[];
 };
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
@@ -32,6 +33,9 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
 
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
+      </td>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700 align-top">
+        {data.temperature ?? "N/A"}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
         {data.tests.map((element, index) => (
@@ -111,6 +115,16 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
                   </p>
                   <h1 className="text-gray-500 font-semibold text-xl tracking-wider">
                     {utcDateToLocal(test.test_date)}
+                  </h1>
+                </div>
+                <div className="flex space-x-4 items-center">
+                  <p className="text-gray-700 font-semibold text-xl tracking-wider flex items-center space-x-2">
+                    <Thermometer size={18} weight={"duotone"} />
+
+                    <span>Temperature:</span>
+                  </p>
+                  <h1 className="text-gray-500 font-semibold text-xl tracking-wider">
+                    {test.temperature ?? "N/A"}
                   </h1>
                 </div>
 

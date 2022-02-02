@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 3:57 PM
+ * Last Modified 2/2/22, 11:27 AM
  *
  *
  */
@@ -53,7 +53,7 @@ export const NavItem: React.FC<NavItemProps> = ({
             <span className="flex items-center gap-x-4 text-lg">
               <div className={"sm:hidden"}>{route.icon}</div>
 
-              <span className={"sm:text-lg"}>{route.title}</span>
+              <span className={"sm:text-lg line-clamp-1 "}>{route.title}</span>
             </span>
           </div>
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/24/22, 5:26 PM
+ * Last Modified 2/2/22, 12:30 PM
  *
  *
  */
@@ -76,7 +76,6 @@ export const TableView: React.FC<TableViewPropsType> = ({
                     );
                   });
 
-                  console.log(searchedData);
                   searchedData && setTableData(searchedData);
                 }}
                 placeholder={"Start Searching ...."}

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 12:01 PM
+ * Last Modified 2/2/22, 12:32 PM
  *
  *
  */
@@ -15,6 +15,7 @@ import { utcDateToLocal } from "@/modules/member/utils/utcDateToLocal";
 
 interface PrintTestComponentProps {
   test_name: string;
+
   test: any;
   member: Member;
 }
@@ -106,6 +107,7 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                   </td>
                   <td />
                   <td />
+                  <td />
                 </tr>
                 {test[element].map(
                   (report: Record<any, any>, index: number) => (
@@ -121,6 +123,14 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                             {moment(utcDateToLocal(report.test_date)).format(
                               "h:mm A"
                             )}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap align-top ">
+                        <div className="">
+                          <span className="text-gray-600"> Temperature </span>
+                          <span className={"block"}>
+                            {report.temperature ?? "N/A"}
                           </span>
                         </div>
                       </td>

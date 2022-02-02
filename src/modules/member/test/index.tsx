@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/27/22, 12:45 PM
+ * Last Modified 2/2/22, 12:30 PM
  *
  *
  */
@@ -179,6 +179,7 @@ export const MemberTest = ({ current_member }: IMemberTest) => {
                       data={subTestGroups[element]}
                       tableHeadings={[
                         `${element} Test Date`,
+                        "Temperature",
                         `${element} Test Result`,
                         `${element} Test Notes`,
                       ]}
