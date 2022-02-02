@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/31/22, 2:45 PM
+ * Last Modified 2/2/22, 1:33 PM
  *
  *
  */
@@ -33,7 +33,11 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
     id && memberCategoryList.filter((category) => category.id === id)[0];
 
   const { register, handleSubmit, control } = useForm({
-    defaultValues: categoryInitialData ? categoryInitialData : {},
+    defaultValues: categoryInitialData
+      ? categoryInitialData
+      : {
+          required: true,
+        },
   });
 
   const options = useGlobalState
@@ -74,7 +78,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
         />
         <SwitchInput
           label="Required"
-          type="number"
+          type="checkbox"
           placeholder="Enter Required Field"
           {...register("required")}
         />

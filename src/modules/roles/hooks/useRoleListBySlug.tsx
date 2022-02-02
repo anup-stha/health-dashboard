@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:42 PM
+ * Last Modified 2/2/22, 2:39 PM
  *
  *
  */
@@ -16,6 +16,7 @@ export const useRoleListBySlug = (role_slug: string) => {
     () => getRoleListBySlug(role_slug),
     {
       enabled: !!role_slug,
+      refetchOnWindowFocus: true,
       onSuccess: (data) => {
         data && useRoleStore.getState().setRoleListBySlug(data.data);
       },

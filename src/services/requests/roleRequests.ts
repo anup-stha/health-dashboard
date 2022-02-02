@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 8:36 PM
+ * Last Modified 2/2/22, 3:23 PM
  *
  *
  */
@@ -21,8 +21,13 @@ import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useQuery } from "react-query";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
-export const listRole = (): Promise<AxiosResponse<RoleListResponse>> => {
-  return privateAgent.get("role/");
+export const listRole = () => {
+  return privateAgent.get<RoleListResponse>("role/").then((response) => {
+    useCurrentMemberStore
+      .getState()
+      .setCurrentRole(response.data.data[response.data.data.length - 1]);
+    return response;
+  });
 };
 
 export const getRoleList = () => {
@@ -34,7 +39,7 @@ export const getRoleList = () => {
 
 export const useRoleList = () => {
   return useQuery("role-list", () => getRoleList(), {
-    staleTime: Infinity,
+    refetchOnWindowFocus: true,
     onSuccess: ({ data }) =>
       useCurrentMemberStore.getState().setCurrentRole(data[data.length - 1]),
   });

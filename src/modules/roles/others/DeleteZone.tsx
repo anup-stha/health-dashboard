@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 2:56 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/2/22, 1:12 PM
  *
  *
  */
@@ -21,7 +21,7 @@ export const DeleteZone = () => {
         </p>
       </div>
       <DeleteModal
-        closeButton={<WarningButton>Delete</WarningButton>}
+        closeButton={<WarningButton disabled>Delete</WarningButton>}
         title="You are about to delete this role"
         subTitles={["This will delete your role forever", "Are you sure ?"]}
       />
@@ -41,7 +41,7 @@ export const TestDeleteZone = () => {
         </p>
       </div>
       <DeleteModal
-        closeButton={<WarningButton>Delete</WarningButton>}
+        closeButton={<WarningButton disabled>Delete</WarningButton>}
         title="You are about to delete this test"
         subTitles={["This will delete your test forever", "Are you sure ?"]}
       />
@@ -62,7 +62,7 @@ export const SubscriptionDeleteZone = () => {
         </p>
       </div>
       <DeleteModal
-        closeButton={<WarningButton>Delete</WarningButton>}
+        closeButton={<WarningButton disabled>Delete</WarningButton>}
         title="You are about to delete this subscription"
         subTitles={[
           "This will delete your subscription forever",

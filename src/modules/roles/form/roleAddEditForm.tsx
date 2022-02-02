@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/31/21, 8:04 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/2/22, 2:17 PM
  *
  *
  */
@@ -42,7 +42,7 @@ export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
           memberLimit: role.member_limit,
           public: role.public,
         }
-      : { title: "", description: "", memberLimit: 0, public: false },
+      : { title: "", description: "", memberLimit: 0, public: true },
   });
 
   return (

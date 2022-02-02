@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/30/22, 3:40 PM
+ * Last Modified 2/2/22, 1:22 PM
  *
  *
  */
@@ -11,7 +11,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { CaretDoubleRight, PhoneCall } from "phosphor-react";
 import { Popover, Transition } from "@headlessui/react";
 import { MoreVertical } from "react-feather";
-import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 import LetteredAvatar from "react-avatar";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
@@ -126,14 +125,6 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
 
         <td className="px-4 py-4">
           <div className={`flex items-center space-x-4 px-4`}>
-            <DeleteModal
-              title="You are about to delete a member"
-              subTitles={[
-                "This will delete your member forever",
-                "Are you sure ?",
-              ]}
-            />
-
             <Popover className="relative">
               {({ open }: any) => (
                 <>

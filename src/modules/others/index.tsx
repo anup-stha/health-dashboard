@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 4:58 PM
+ * Last Modified 2/2/22, 2:20 PM
  *
  *
  */
@@ -9,8 +9,7 @@
 import { Button } from "@/components/Button";
 import { TableView } from "@/components/Table";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { Edit, Trash } from "iconsax-react";
-import { DeleteModal } from "@/components/Modal/DeleteModal";
+import { Edit } from "iconsax-react";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { Modal } from "@/components/Modal/useModal";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
@@ -109,7 +108,7 @@ export const OthersTableRow: React.FC<OthersTableRowProps> = ({
 
       <td className="px-6 py-4 flex gap-2">
         <OtherFieldAddEditModal type={"edit"} data={data} />
-        <DeleteModal
+        {/*  <DeleteModal
           closeButton={
             <Trash
               size={28}
@@ -120,7 +119,7 @@ export const OthersTableRow: React.FC<OthersTableRowProps> = ({
           }
           title={"You are about to delete this field"}
           subTitles={["Please be sure before you delete this"]}
-        />
+        /> */}
       </td>
     </tr>
   ) : (
@@ -171,7 +170,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
   console.log(initialData);
 
   const { register, handleSubmit, control } = useForm<OtherFieldsPostBody>({
-    defaultValues: omit(initialData, "id"),
+    defaultValues: { ...omit(initialData, "id"), required: true },
   });
   const options = useGlobalState
     .getState()

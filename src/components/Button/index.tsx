@@ -1,11 +1,10 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 2:10 PM
+ * Last Modified 2/2/22, 1:12 PM
  *
  *
  */
-
 import React from "react";
 
 type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
@@ -114,11 +113,13 @@ export const WarningButton: React.FC<ButtonProps> = ({
   extraClassName,
   onClick,
   width,
+  ...props
 }) => {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={props.disabled}
       className={`flex items-center  ${
         width && "w-full justify-center py-4"
       } capitalize px-12 py-4  text-center text-xl font-medium text-white bg-red-600 rounded-md disabled:opacity-80 gap-x-2 hover:bg-red-800 shadow-lg disabled:cursor-not-allowed`}

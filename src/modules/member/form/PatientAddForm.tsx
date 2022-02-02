@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:44 PM
+ * Last Modified 2/2/22, 2:26 PM
  *
  *
  */
@@ -73,7 +73,6 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
         };
 
         const keys = Object.keys(body);
-        console.log(keys);
 
         const finalBody = keys.reduce((acc: patientDetails, curr: any) => {
           if (isNaN(Number(curr.split("-")[0]))) {

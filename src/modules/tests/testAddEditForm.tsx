@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/15/21, 3:46 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/2/22, 2:18 PM
  *
  *
  */
@@ -42,7 +42,7 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({
     defaultValues: {
       name: selectedTest && type === "edit" ? selectedTest.name : "",
       desc: selectedTest && type === "edit" ? selectedTest.desc : "",
-      public: selectedTest && type === "edit" ? selectedTest.public : false,
+      public: selectedTest && type === "edit" ? selectedTest.public : true,
     },
   });
   return (

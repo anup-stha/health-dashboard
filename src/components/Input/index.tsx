@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/30/22, 11:27 AM
+ * Last Modified 2/2/22, 1:33 PM
  *
  *
  */
@@ -137,7 +137,6 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
               id={label}
               type="checkbox"
               className="sr-only"
-              defaultChecked={true}
               checked={checked}
               ref={ref}
             />
