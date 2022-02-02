@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 8:25 PM
+ * Last Modified 2/2/22, 12:48 PM
  *
  *
  */
@@ -231,5 +231,27 @@ export const useMemberSubsDetails = (memberId: number) => {
     {
       enabled: !!memberId,
     }
+  );
+};
+
+type TestBulkAssignRequestBody = {
+  subscription_id: number;
+  data: {
+    test_cat_id: number;
+    test_sub_cat_id: number;
+  }[];
+};
+
+export const assignTestToSubscriptionBulk = (
+  body: TestBulkAssignRequestBody
+) => {
+  return new Promise((resolve, reject) =>
+    privateAgent
+      .post<any>(`subscription/tests`, body)
+      .then(async (response) => {
+        await listSubscriptionDetail(Number(body.subscription_id));
+        resolve(response.data.message);
+      })
+      .catch((error) => reject(error.response))
   );
 };

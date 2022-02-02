@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 4:57 PM
+ * Last Modified 2/2/22, 12:57 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore"
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { alert } from "@/components/Alert";
 import {
-  assignTestToSubscription,
+  assignTestToSubscriptionBulk,
   removeTestFromSubscription,
 } from "@/services/requests/subscriptionRequests";
 import { TableView } from "@/components/Table";
@@ -357,22 +357,22 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        data.sub_test.map(async (test: any, index: number) => {
-          await alert({
-            type: "promise",
-            promise: assignTestToSubscription(
-              Number(options[0].category_id),
-              Number(test.split("-")[0]),
-              Number(router.query.id)
-            ),
-            msgs: {
-              loading: "Assigning",
-            },
-            id: "Test-assign",
-          });
-          if (index === data.sub_test.length - 1) {
-            reset();
-          }
+        await alert({
+          type: "promise",
+          promise: assignTestToSubscriptionBulk({
+            subscription_id: Number(router.query.id),
+            data: data.sub_test.map((test: string) => {
+              return {
+                test_cat_id: options[0].category_id,
+                test_sub_cat_id: Number(test.split("-")[0]),
+              };
+            }),
+          }).then(() => reset()),
+          msgs: {
+            loading: "Assigning Test",
+            success: "Successfully Assigned",
+          },
+          id: "Test-assign",
         });
       })}
       className={"flex lg:w-full space-x-4 items-end"}
