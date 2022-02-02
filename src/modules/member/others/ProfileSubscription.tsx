@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/29/22, 6:50 PM
+ * Last Modified 2/2/22, 6:20 PM
  *
  *
  */
@@ -11,7 +11,7 @@ import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore"
 import { ApexOptions } from "apexcharts";
 
 import dynamic from "next/dynamic";
-import { GrayButton, WarningButton } from "@/components/Button";
+import { Button, GrayButton, WarningButton } from "@/components/Button";
 import { alert } from "@/components/Alert";
 import {
   assignSubscriptionToMember,
@@ -243,25 +243,33 @@ export const ProfileSubscription: React.FC<ProfileSubscriptionProps> = ({
                   />
                 </div>
               </div>
-              <div className="mt-4">
-                {" "}
+              <div className="mt-4 flex flex-col w-full items-stretch justify-center space-y-2">
                 {user.id === 1 && (
-                  <WarningButton
-                    onClick={async () => {
-                      await alert({
-                        type: "promise",
-                        promise: removeSubscriptionFromMember(
-                          Number(member_id)
-                        ),
-                        msgs: {
-                          loading: "Removing",
-                        },
-                        id: "remove-subs",
-                      });
-                    }}
-                  >
-                    Unlink
-                  </WarningButton>
+                  <>
+                    <Button
+                      onClick={() => {
+                        router.push("/member/org_admin/invoice");
+                      }}
+                    >
+                      Generate Invoice
+                    </Button>
+                    <WarningButton
+                      onClick={async () => {
+                        await alert({
+                          type: "promise",
+                          promise: removeSubscriptionFromMember(
+                            Number(member_id)
+                          ),
+                          msgs: {
+                            loading: "Removing",
+                          },
+                          id: "remove-subs",
+                        });
+                      }}
+                    >
+                      Unlink Subscription
+                    </WarningButton>
+                  </>
                 )}
               </div>
             </div>

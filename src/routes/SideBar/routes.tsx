@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 12:28 PM
+ * Last Modified 2/2/22, 6:20 PM
  *
  *
  */
@@ -57,11 +57,10 @@ export type RouteObjectType =
 const adminExtraRoute = [
   "/roles/[slug]",
   "/tests/[test]",
-  "/members/[profile]",
-  "/members/[profile]/[next-profile]",
   "/subscriptions/[slug]",
   "/members/[profile]/[next-profile]/test_report",
   "/member/[profile]",
+  "/member/[profile]/invoice",
   "/member/[profile]/[user]",
   "/member/[profile]/[user]/test_report",
 ];

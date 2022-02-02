@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 1:12 PM
+ * Last Modified 2/2/22, 6:09 PM
  *
  *
  */
@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled ?? loading}
       className={`flex items-center ${buttonPadding} ${
         width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer text-center text-xl font-semibold text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+      } capitalize cursor-pointer justify-center text-center text-xl font-semibold text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
       <span className={"sm:line-clamp-1"}>{children}</span>
@@ -122,7 +122,7 @@ export const WarningButton: React.FC<ButtonProps> = ({
       disabled={props.disabled}
       className={`flex items-center  ${
         width && "w-full justify-center py-4"
-      } capitalize px-12 py-4  text-center text-xl font-medium text-white bg-red-600 rounded-md disabled:opacity-80 gap-x-2 hover:bg-red-800 shadow-lg disabled:cursor-not-allowed`}
+      } capitalize px-12 py-4 justify-center text-center text-xl font-medium text-white bg-red-600 rounded-md disabled:opacity-80 gap-x-2 hover:bg-red-800 shadow-lg disabled:cursor-not-allowed`}
     >
       {children}
     </button>
