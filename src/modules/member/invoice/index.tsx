@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/2/22, 11:31 PM
+ * Last Modified 2/3/22, 10:53 AM
  *
  *
  */
@@ -63,17 +63,17 @@ export const MemberInvoicePage = () => {
               <span> Nepal</span>
             </div>
           </div>
-          <div className="bg-emerald-600 rounded-xl text-white w-full text-lg p-10 flex items-center justify-between">
-            <div className="flex flex-col gap-2">
+          <div className="invoice-top-bg shadow-lg rounded-xl text-white w-full text-lg p-10 flex items-center justify-between">
+            <div className="flex flex-col gap-3">
               <span className={"font-semibold"}>Invoice Number</span>
-              <span>INV-2022-010</span>
+              <span className="font-medium">INV-2022-010</span>
               <div className="flex gap-1">
                 <span className="text-gray-100">Issued Date:</span>
-                <span>11 Jan 2022</span>
+                <span className="font-medium">11 Jan 2022</span>
               </div>
               <div className="flex gap-1">
                 <span className="text-gray-100">Due Date:</span>
-                <span>22 Jan 2022</span>
+                <span className="font-medium">22 Jan 2022</span>
               </div>
             </div>
             <div className="flex flex-col gap-2 text-right">
@@ -89,7 +89,7 @@ export const MemberInvoicePage = () => {
                 Subscription Details
               </span>
               <span className="text-gray-400 font-medium">
-                Check below for details.
+                Check below for subscriptions
               </span>
             </div>
             <button className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100">
@@ -98,16 +98,20 @@ export const MemberInvoicePage = () => {
             </button>
           </div>
           <div className="flex flex-col -mt-6">
-            <div className="w-full border-t-[1px] border-b-[1px] border-gray-400/40 text-gray-500 flex p-4 text-lg gap-8">
+            <div className="w-full border-t-[1px] border-b-[1px] border-gray-400/40 text-gray-500/70 flex p-4 text-lg gap-8">
               <span className="font-medium w-2/3">Subscription Name</span>
 
               <span className="font-medium w-1/5">Total Tests</span>
               <span className="font-medium w-1/5 ">Period</span>
-              <span className="font-medium w-1/3">Price</span>
+              <span className="font-medium w-1/3 text-right">
+                Subscription Price
+              </span>
             </div>
-            <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 text-lg gap-8">
-              <div className="font-semibold flex flex-col gap-2 text-gray-700 w-2/3">
-                <span>Organization Yearly Subscription </span>
+            <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8">
+              <div className="font-semibold flex flex-col gap-2 text-gray-800 w-2/3">
+                <span className="text-xl">
+                  Organization Yearly Subscription{" "}
+                </span>
                 <span className="text-gray-400 font-medium">
                   Acuity, Vitals, ECG, BMI, Urine, Glucose
                 </span>
@@ -117,7 +121,7 @@ export const MemberInvoicePage = () => {
               <span className="font-semibold text-gray-700 w-1/5 ">
                 365 days
               </span>
-              <span className="font-semibold text-gray-700 w-1/3">
+              <span className="font-semibold text-gray-700 w-1/3 text-right">
                 Rs. 100000.00
               </span>
             </div>
@@ -182,8 +186,8 @@ export const MemberInvoicePage = () => {
                   <span className="font-semibold text-gray-700">Rs. 25</span>
                   <span className="font-semibold text-gray-700">Rs. 1400</span>
                 </div>
-                <span className="font-semibold mt-10 pt-4 border-t-[1px] border-gray-400/40 text-gray-800 -ml-8 text-2xl font-Inter">
-                  Rs. 1001425
+                <span className="font-semibold mt-10 pt-4 border-t-[1px] border-gray-400/40 text-gray-800 -ml-8 text-2xl">
+                  Rs. <span className="font-Inter">1001425</span>
                 </span>
               </div>
             </div>
