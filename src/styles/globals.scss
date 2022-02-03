@@ -411,13 +411,10 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 4px;
 }
 
-
 .invoice-top-bg {
-  background: url('/assets/invoice-bg.svg'), url('/assets/invoice-bg-1.svg');
-  background-color: #4CBB17;
+  background: url("/assets/invoice-bg.svg"), url("/assets/invoice-bg-1.svg");
+  background-color: #4cbb17;
   background-size: 60%, 70%;
   background-repeat: no-repeat;
   background-position: 160% 80%, -118% 24%;
-
 }
-

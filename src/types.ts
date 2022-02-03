@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 12:16 PM
+ * Last Modified 2/3/22, 2:21 PM
  *
  *
  */
@@ -506,3 +506,20 @@ export type MedicalHistory = {
 export type MedicalHistoryGetResponse = StatusType & { data: MedicalHistory[] };
 
 export type ImageUploadResponse = StatusType & { data: string };
+
+export type InvoiceRequestBody = {
+  member_id: number;
+  transaction_date: number;
+  gross_amount: number;
+  vat_amount: number;
+  discount_amount: number;
+  net_amount: number;
+  paid: 1 | 0;
+  subscription_detail: MemberSubscriptionDetails;
+};
+
+export type InvoiceResponse = StatusType & {
+  data: InvoiceRequestBody & {
+    invoice_no: number;
+  };
+};

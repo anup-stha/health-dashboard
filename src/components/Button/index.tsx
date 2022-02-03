@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 6:09 PM
+ * Last Modified 2/3/22, 12:32 PM
  *
  *
  */
@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   const buttonPadding =
     buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-md"
+      ? "px-8 py-4 sm:px-8 shadow-md text-lg"
       : "px-12 py-4 sm:px-8 shadow-E400";
 
   return (

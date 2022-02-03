@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/3/22, 10:53 AM
+ * Last Modified 2/3/22, 3:11 PM
  *
  *
  */
@@ -9,16 +9,70 @@
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import Image from "next/image";
 import LetteredAvatar from "react-avatar";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { Sliders } from "phosphor-react";
-import { PrimaryButton } from "@/components/Button";
+import { Button, PrimaryButton } from "@/components/Button";
+import { Dialog, Transition } from "@headlessui/react";
+import { PrimaryInput } from "@/components/Input";
+import { useForm } from "react-hook-form";
+import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
+import { Loader } from "@/components/Loader";
+import { postInvoiceToast } from "@/modules/member/api/toasts/invoiceToast";
+import { useMemberStore } from "../utils/useMemberStore";
 
 export const MemberInvoicePage = () => {
   const user = useAuthStore((state) => state.user);
   const selectedMember = useCurrentMemberStore((state) => state.member);
+  const invoiceId = useMemberStore((state) => state.invoice_id);
+  const { isLoading, data: selectedSubscription } = useMemberSubsDetails(
+    user.id !== 1 ? 0 : selectedMember.id
+  );
 
-  return (
+  const [vat, setVat] = useState(13);
+  const [discount, setDiscount] = useState(10);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [invoiceData, setInvoiceData] = useState({
+    gross_amount: 0,
+    vat_amount: 0,
+    discount_amount: 0,
+    net_amount: 0,
+  });
+
+  const { handleSubmit, register } = useForm({
+    defaultValues: {
+      vat,
+      discount,
+    },
+  });
+
+  const getInvoiceData = (discount_per: number, vat_per: number) => {
+    if (!selectedSubscription) return;
+    const price = +selectedSubscription.plan.price;
+    return {
+      gross_amount: price,
+      discount_amount: price * (discount_per / 100),
+      vat_amount: price * (vat_per / 100),
+      net_amount:
+        price - price * (discount_per / 100) + price * (vat_per / 100),
+    };
+  };
+
+  const closeModal = () => setIsOpen(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  useEffect(() => {
+    const data = getInvoiceData(discount, vat);
+    data && setInvoiceData(data);
+  }, [selectedSubscription]);
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="w-full flex items-start gap-x-8">
         <div className=" rounded-lg bg-white w-3/4 shadow-md p-8 flex flex-col gap-10">
@@ -66,10 +120,10 @@ export const MemberInvoicePage = () => {
           <div className="invoice-top-bg shadow-lg rounded-xl text-white w-full text-lg p-10 flex items-center justify-between">
             <div className="flex flex-col gap-3">
               <span className={"font-semibold"}>Invoice Number</span>
-              <span className="font-medium">INV-2022-010</span>
+              <span className="font-medium">INV-{invoiceId}</span>
               <div className="flex gap-1">
                 <span className="text-gray-100">Issued Date:</span>
-                <span className="font-medium">11 Jan 2022</span>
+                <span className="font-medium"></span>
               </div>
               <div className="flex gap-1">
                 <span className="text-gray-100">Due Date:</span>
@@ -92,10 +146,87 @@ export const MemberInvoicePage = () => {
                 Check below for subscriptions
               </span>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100">
+
+            <button
+              onClick={openModal}
+              className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100 relative"
+            >
               <Sliders size={24} />
               <span>Customize</span>
             </button>
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="fixed inset-0 z-40"
+                onClose={closeModal}
+              >
+                <div className=" px-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-20" />
+                  </Transition.Child>
+
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-100"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-100"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <div className="inline-block w-full max-w-md p-6 my-[29vh] ml-[28vw] text-left align-middle transition-all transform bg-white shadow-lg rounded-xl ring-1 ring-gray-200">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-xl font-semibold leading-6 text-gray-900"
+                      >
+                        Customize Invoice
+                      </Dialog.Title>
+                      <form
+                        className="mt-6 grid grid-cols-2 gap-4"
+                        onSubmit={handleSubmit((value) => {
+                          setDiscount(+value.discount);
+                          setVat(+value.vat);
+                          const data = getInvoiceData(
+                            +value.discount,
+                            +value.vat
+                          );
+                          data && setInvoiceData(data);
+                          closeModal();
+                        })}
+                      >
+                        <PrimaryInput
+                          min={0}
+                          max={100}
+                          label={"Discount"}
+                          type={"number"}
+                          placeholder={"Enter Discount %"}
+                          {...register("discount")}
+                        />
+                        <PrimaryInput
+                          min={0}
+                          max={100}
+                          label={"VAT"}
+                          type={"number"}
+                          placeholder={"Enter VAT %"}
+                          {...register("vat")}
+                        />
+                        <div className="mt-2">
+                          <Button buttonSize={"small"}>Customize</Button>
+                        </div>
+                      </form>
+                    </div>
+                  </Transition.Child>
+                </div>
+              </Dialog>
+            </Transition>
           </div>
           <div className="flex flex-col -mt-6">
             <div className="w-full border-t-[1px] border-b-[1px] border-gray-400/40 text-gray-500/70 flex p-4 text-lg gap-8">
@@ -107,7 +238,7 @@ export const MemberInvoicePage = () => {
                 Subscription Price
               </span>
             </div>
-            <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8">
+            <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8 text-lg">
               <div className="font-semibold flex flex-col gap-2 text-gray-800 w-2/3">
                 <span className="text-xl">
                   Organization Yearly Subscription{" "}
@@ -117,12 +248,14 @@ export const MemberInvoicePage = () => {
                 </span>
               </div>
 
-              <span className="font-semibold text-gray-700 w-1/5">5 tests</span>
+              <span className="font-semibold text-gray-700 w-1/5 ">
+                5 tests
+              </span>
               <span className="font-semibold text-gray-700 w-1/5 ">
                 365 days
               </span>
               <span className="font-semibold text-gray-700 w-1/3 text-right">
-                Rs. 100000.00
+                Rs. {selectedSubscription.plan.price}
               </span>
             </div>
             <div className=" w-full flex px-4 py-12 text-lg gap-8">
@@ -158,7 +291,7 @@ export const MemberInvoicePage = () => {
                     <div className="font-medium text-gray-500">
                       Payment Received:{" "}
                       <span className={"font-semibold text-gray-600"}>
-                        Rs. 100000/-
+                        Rs. {invoiceData.net_amount}
                       </span>
                     </div>
                   </div>
@@ -181,13 +314,18 @@ export const MemberInvoicePage = () => {
               </div>
 
               <div className="font-semibold flex flex-col text-gray-700 w-1/3 gap-4 text-right  ">
-                <span> Rs. 100000.00</span>
+                <span> Rs. {invoiceData.gross_amount}</span>
                 <div className="flex flex-col gap-4">
-                  <span className="font-semibold text-gray-700">Rs. 25</span>
-                  <span className="font-semibold text-gray-700">Rs. 1400</span>
+                  <span className="font-semibold text-gray-700">
+                    Rs. {invoiceData.discount_amount}
+                  </span>
+                  <span className="font-semibold text-gray-700">
+                    Rs. {invoiceData.vat_amount}
+                  </span>
                 </div>
                 <span className="font-semibold mt-10 pt-4 border-t-[1px] border-gray-400/40 text-gray-800 -ml-8 text-2xl">
-                  Rs. <span className="font-Inter">1001425</span>
+                  Rs.{" "}
+                  <span className="font-Inter">{invoiceData.net_amount}</span>
                 </span>
               </div>
             </div>
@@ -243,8 +381,19 @@ export const MemberInvoicePage = () => {
               </span>
             </div>
           </div>
-          <PrimaryButton className="py-5 rounded-xl flex items-center justify-center text-xl">
-            Send Invoice
+          <PrimaryButton
+            className="py-5 rounded-xl flex items-center justify-center text-xl"
+            onClick={() => {
+              postInvoiceToast({
+                ...invoiceData,
+                member_id: selectedMember.id,
+                paid: 1,
+                subscription_detail: selectedSubscription,
+                transaction_date: Date.now(),
+              });
+            }}
+          >
+            Generate Invoice
           </PrimaryButton>
         </div>
       </div>
