@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/3/22, 3:11 PM
+ * Last Modified 2/3/22, 7:48 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import LetteredAvatar from "react-avatar";
 import React, { Fragment, useEffect, useState } from "react";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { Sliders } from "phosphor-react";
-import { Button, PrimaryButton } from "@/components/Button";
+import { Button, GrayButton, PrimaryButton } from "@/components/Button";
 import { Dialog, Transition } from "@headlessui/react";
 import { PrimaryInput } from "@/components/Input";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
 import { Loader } from "@/components/Loader";
 import { postInvoiceToast } from "@/modules/member/api/toasts/invoiceToast";
 import { useMemberStore } from "../utils/useMemberStore";
+import moment from "moment";
 
 export const MemberInvoicePage = () => {
   const user = useAuthStore((state) => state.user);
@@ -123,11 +124,15 @@ export const MemberInvoicePage = () => {
               <span className="font-medium">INV-{invoiceId}</span>
               <div className="flex gap-1">
                 <span className="text-gray-100">Issued Date:</span>
-                <span className="font-medium"></span>
+                <span className="font-medium">
+                  {moment().format("DD MMM YYYY")}
+                </span>
               </div>
               <div className="flex gap-1">
                 <span className="text-gray-100">Due Date:</span>
-                <span className="font-medium">22 Jan 2022</span>
+                <span className="font-medium">
+                  {moment().add(10, "days").format("DD MMM YYYY")}
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-2 text-right">
@@ -381,13 +386,34 @@ export const MemberInvoicePage = () => {
               </span>
             </div>
           </div>
+          <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
+            <div className="text-lg capitalize flex gap-1">
+              <span className="font-semibold text-gray-900">Amount Due </span>
+              <span className="font-medium text-gray-400">(NPR)</span>
+            </div>
+            <div className="text-xl capitalize flex items-end gap-1">
+              <span className="font-semibold text-3xl leading-7 font-Inter text-slate-900">
+                Rs. {invoiceData.net_amount}
+              </span>
+              <span className="font-medium text-base text-gray-400">
+                (Tax Incl.)
+              </span>
+            </div>
+            <div className="py-3 px-6 rounded-xl bg-red-100 text-red-500 text-lg font-semibold shadow-sm self-start">
+              Due on {moment().add(10, "days").format("DD MMM YYYY")}
+            </div>
+            <hr className="border-t-[1px] border-gray-400/40" />
+            <div>
+              <GrayButton width="full">Mark as Paid</GrayButton>
+            </div>
+          </div>
           <PrimaryButton
             className="py-5 rounded-xl flex items-center justify-center text-xl"
             onClick={() => {
               postInvoiceToast({
                 ...invoiceData,
                 member_id: selectedMember.id,
-                paid: 1,
+                paid: 0,
                 subscription_detail: selectedSubscription,
                 transaction_date: Date.now(),
               });

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:09 PM
+ * Last Modified 2/3/22, 7:30 PM
  *
  *
  */
@@ -75,7 +75,10 @@ module.exports = {
       colors: {
         gray: { ...colors.neutral, 850: "#383838" },
 
-        green: colors.green,
+        green: {
+          ...colors.green,
+          500: "#4cbb17",
+        },
         yellow: {
           75: "#fff0b3",
           500: "#ff8b00",
