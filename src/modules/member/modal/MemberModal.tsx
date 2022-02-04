@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 6:06 PM
+ * Last Modified 2/4/22, 12:11 PM
  *
  *
  */
@@ -51,7 +51,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
         ) : (
           button ?? (
             <div className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-              Update Member Profile Details
+              Update Profile Details
             </div>
           )
         )}

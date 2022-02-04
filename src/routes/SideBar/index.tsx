@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 2:39 PM
+ * Last Modified 2/4/22, 11:58 AM
  *
  *
  */
@@ -42,7 +42,7 @@ export const Sidebar: React.FC<any> = () => {
                   src={user.image}
                   layout="fill"
                   alt="Avatar"
-                  objectFit="contain"
+                  objectFit="cover"
                   priority={true}
                 />
               </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/31/22, 2:29 PM
+ * Last Modified 2/4/22, 12:17 PM
  *
  *
  */
@@ -20,6 +20,7 @@ import {
 import React from "react";
 import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { InvoiceHistory } from "@/modules/member/invoice/InvoiceHistory";
 
 const MemberProfile = () => {
   const selectedMember = useCurrentMemberStore((state) => state.member);
@@ -56,6 +57,9 @@ const MemberProfile = () => {
         ) : (
           <ProfileSubscription member_id={selectedMember.id} />
         )}
+        {selectedMember.role.slug === "org_admin" ? (
+          <InvoiceHistory member_id={selectedMember.id} />
+        ) : null}
         <MemberProfileControls
           selectedRole={selectedRole}
           selectedMember={selectedMember}

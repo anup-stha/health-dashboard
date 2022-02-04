@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 1:27 PM
+ * Last Modified 2/4/22, 12:11 PM
  *
  *
  */
@@ -53,7 +53,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
       <Modal.Button type={"open"}>
         {children ?? (
           <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member Other
+            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Other
             Details
           </div>
         )}
