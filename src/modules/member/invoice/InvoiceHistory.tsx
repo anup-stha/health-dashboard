@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 3:43 PM
+ * Last Modified 2/4/22, 4:20 PM
  *
  *
  */
@@ -19,7 +19,7 @@ interface IPropsInvoiceHistory {
 }
 
 export const InvoiceHistory = ({ member_id }: IPropsInvoiceHistory) => {
-  const { data } = useInvoiceList(member_id);
+  const { data } = useInvoiceList(member_id, 1);
 
   return data ? (
     <div className="print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-8 space-y-4">

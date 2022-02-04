@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 3:23 PM
+ * Last Modified 2/4/22, 4:34 PM
  *
  *
  */
@@ -20,6 +20,7 @@ import { privateAgent } from ".";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useQuery } from "react-query";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
+import isEmpty from "lodash/isEmpty";
 
 export const listRole = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
@@ -40,8 +41,20 @@ export const getRoleList = () => {
 export const useRoleList = () => {
   return useQuery("role-list", () => getRoleList(), {
     refetchOnWindowFocus: true,
-    onSuccess: ({ data }) =>
-      useCurrentMemberStore.getState().setCurrentRole(data[data.length - 1]),
+    onSuccess: ({ data }) => {
+      const role = useCurrentMemberStore.getState().role;
+      if (isEmpty(role)) {
+        useCurrentMemberStore.getState().setCurrentRole(data[data.length - 1]);
+      } else {
+        const selectedRoleFromResponse = data.find(
+          (resRole) => resRole.id === role.id
+        );
+        selectedRoleFromResponse &&
+          useCurrentMemberStore
+            .getState()
+            .setCurrentRole(selectedRoleFromResponse);
+      }
+    },
   });
 };
 

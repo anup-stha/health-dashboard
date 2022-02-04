@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 3:47 PM
+ * Last Modified 2/4/22, 4:28 PM
  *
  *
  */
@@ -22,24 +22,31 @@ import { postInvoiceToast } from "@/modules/member/api/toasts/invoiceToast";
 import { useMemberStore } from "../utils/useMemberStore";
 import moment from "moment";
 import { Heading } from "@/components/Headings";
+import { useInvoiceList } from "@/modules/member/api/hooks/useInvoiceList";
+import { useRouter } from "next/router";
 
 interface IMemberInvoicePage {
   invoice_id?: number;
 }
 
 export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
-  console.log(invoice_id);
-
+  const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const selectedMember = useCurrentMemberStore((state) => state.member);
   const invoiceId = useMemberStore((state) => state.invoice_id);
   const { isLoading, data: selectedSubscription } = useMemberSubsDetails(
     user.id !== 1 ? 0 : selectedMember.id
   );
+  const [paid, setPaid] = useState(false);
 
   const [vat, setVat] = useState(13);
   const [discount, setDiscount] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
+
+  const { data: invoiceList, isLoading: invoiceLoading } = useInvoiceList(
+    selectedMember.id,
+    invoice_id
+  );
 
   const [invoiceData, setInvoiceData] = useState({
     gross_amount: 0,
@@ -74,22 +81,49 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
   };
 
   useEffect(() => {
-    const data = getInvoiceData(discount, vat);
-    data && setInvoiceData(data);
-  }, [selectedSubscription]);
+    if (invoiceList && invoice_id) {
+      const selectedInvoice = invoiceList.data.data.find(
+        (invoice) => invoice.invoice_no === invoice_id
+      );
+
+      if (selectedInvoice) {
+        setInvoiceData({
+          gross_amount: selectedInvoice.gross_amount,
+          discount_amount: selectedInvoice.discount_amount,
+          vat_amount: selectedInvoice.vat_amount,
+          net_amount: selectedInvoice.net_amount,
+        });
+        setPaid(!!selectedInvoice.paid);
+        useMemberStore
+          .getState()
+          .setInvoiceId(`0${selectedInvoice.invoice_no}`);
+      } else {
+        router.push("/404");
+      }
+    } else {
+      const data = getInvoiceData(discount, vat);
+      data && setInvoiceData(data);
+    }
+  }, [selectedSubscription, invoice_id, invoiceList]);
 
   useEffect(() => {
-    useMemberStore.getState().setInvoiceId("__");
+    !invoice_id && useMemberStore.getState().setInvoiceId("__");
   }, []);
 
-  return isLoading ? (
+  return isLoading || invoiceLoading ? (
     <Loader />
   ) : (
     <div className="px-10 py-10 overflow-visible sm:p-6">
       <div className="flex flex-col gap-y-8">
         <Heading
-          title={"Generate New Invoice"}
-          subtitle={"Select discount and vat amount to generate a new invoice"}
+          title={
+            !invoice_id ? "Generate New Invoice" : `Invoice INV-0${invoice_id}`
+          }
+          subtitle={
+            !invoice_id
+              ? "Select discount and vat amount to generate a new invoice"
+              : "Details of Invoice"
+          }
         />
 
         <div className="w-full flex items-start gap-x-8">
@@ -171,7 +205,8 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
 
               <button
                 onClick={openModal}
-                className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100 relative"
+                disabled={!!invoice_id}
+                className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100 relative disabled:cursor-not-allowed"
               >
                 <Sliders size={24} />
                 <span>Customize</span>
@@ -407,9 +442,12 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                 </span>
               </div>
             </div>
+
             <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
               <div className="text-lg capitalize flex gap-1">
-                <span className="font-semibold text-gray-900">Amount Due </span>
+                <span className="font-semibold text-gray-900">
+                  Amount {paid ? "Paid" : "Due"}{" "}
+                </span>
                 <span className="font-medium text-gray-400">(NPR)</span>
               </div>
               <div className="text-xl capitalize flex items-end gap-1">
@@ -420,28 +458,41 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                   (Tax Incl.)
                 </span>
               </div>
-              <div className="py-3 px-6 rounded-xl bg-red-100 text-red-500 text-lg font-semibold shadow-sm self-start">
-                Due on {moment().add(10, "days").format("DD MMM YYYY")}
+              <div
+                className={`py-3 px-6 rounded-xl ${
+                  paid
+                    ? "bg-green-100 text-green-600"
+                    : "bg-red-100 text-red-500"
+                }  text-lg font-semibold shadow-sm self-start`}
+              >
+                {paid ? "Paid" : "Due"} on{" "}
+                {moment().add(10, "days").format("DD MMM YYYY")}
               </div>
-              <hr className="border-t-[1px] border-gray-400/40" />
-              <div>
-                <GrayButton width="full">Mark as Paid</GrayButton>
-              </div>
+              {!paid ? (
+                <>
+                  <hr className="border-t-[1px] border-gray-400/40" />
+                  <div>
+                    <GrayButton width="full">Mark as Paid</GrayButton>
+                  </div>
+                </>
+              ) : null}
             </div>
-            <PrimaryButton
-              className="py-5 rounded-xl flex items-center justify-center text-xl"
-              onClick={() => {
-                postInvoiceToast({
-                  ...invoiceData,
-                  member_id: selectedMember.id,
-                  paid: 0,
-                  subcription_detail: selectedSubscription,
-                  transaction_date: Date.now(),
-                });
-              }}
-            >
-              Generate Invoice
-            </PrimaryButton>
+            {invoice_id ? null : (
+              <PrimaryButton
+                className="py-5 rounded-xl flex items-center justify-center text-xl"
+                onClick={() => {
+                  postInvoiceToast({
+                    ...invoiceData,
+                    member_id: selectedMember.id,
+                    paid: 0,
+                    subcription_detail: selectedSubscription,
+                    transaction_date: Date.now(),
+                  });
+                }}
+              >
+                Generate Invoice
+              </PrimaryButton>
+            )}
           </div>
         </div>
       </div>
