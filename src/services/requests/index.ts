@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/6/22, 10:58 AM
+ * Last Modified 2/6/22, 11:06 AM
  *
  *
  */
@@ -20,12 +20,6 @@ export const publicAgent = axios.create({
   baseURL,
 });
 
-publicAgent.interceptors.request.use((config) => {
-  if (config.headers) {
-    config.headers["Access-Control-Allow-Origin"] = "*";
-  }
-});
-
 privateAgent.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
@@ -37,7 +31,9 @@ privateAgent.interceptors.request.use(
   },
   () => {
     useAuthStore.getState().removeUserData();
-    toast.error("Credentials Has Expired! Please Log In Again!!");
+    toast.error("Credentials Has Expired! Please Log In Again!!", {
+      id: "credentials-error",
+    });
   }
 );
 
