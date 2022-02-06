@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 10:45 PM
+ * Last Modified 2/6/22, 1:25 PM
  *
  *
  */
@@ -22,6 +22,7 @@ import { useGlobalState } from "@/modules/useGlobalState";
 import { queryClient } from "@/pages/_app";
 import { getGlobalStates } from "@/services/requests/globalRequests";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
+import { DeviceListResponse } from "@/modules/member/types";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -128,4 +129,10 @@ export const changePassword = (old_password: string, new_password: string) => {
         reject(error.response);
       });
   });
+};
+
+export const getUserDeviceHistory = (member_id: number) => {
+  return privateAgent
+    .get<DeviceListResponse>(`auth/devices/${member_id}`)
+    .then((response) => response.data.data);
 };

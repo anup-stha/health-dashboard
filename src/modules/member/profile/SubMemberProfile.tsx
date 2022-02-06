@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 8:15 PM
+ * Last Modified 2/6/22, 1:17 PM
  *
  *
  */
@@ -11,6 +11,7 @@ import { ProfileDetails } from "@/modules/member/others/ProfileDetails";
 import { ProfileTestSection } from "@/modules/member/others/ProfileTestSection";
 import { PatientMedicalHistory } from "@/modules/member/others/PatientMedicalHistory";
 import { MemberProfileControls } from "@/modules/member/others/MemberProfileControls";
+import { DeviceHistory } from "@/modules/member/device_history";
 
 export const SubMemberProfile = () => {
   const selectedMember = useCurrentMemberStore((state) => state.user);
@@ -25,6 +26,11 @@ export const SubMemberProfile = () => {
             <ProfileTestSection selectedMember={selectedMember} />
             <PatientMedicalHistory selectedMember={selectedMember} />
           </>
+        ) : null}
+        {selectedRole.permissions.find(
+          (permission) => permission.slug === "login"
+        ) ? (
+          <DeviceHistory member_id={selectedMember.id} />
         ) : null}
       </div>
       <div className="w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">

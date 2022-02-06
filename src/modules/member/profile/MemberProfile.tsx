@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 12:17 PM
+ * Last Modified 2/6/22, 2:34 PM
  *
  *
  */
@@ -21,6 +21,7 @@ import React from "react";
 import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { InvoiceHistory } from "@/modules/member/invoice/InvoiceHistory";
+import { DeviceHistory } from "@/modules/member/device_history";
 
 const MemberProfile = () => {
   const selectedMember = useCurrentMemberStore((state) => state.member);
@@ -47,6 +48,11 @@ const MemberProfile = () => {
           <ProfileTestSection selectedMember={selectedMember} />
         ) : selectedMember.role.slug === "org_admin" ? (
           <UsersTable />
+        ) : null}
+        {selectedRole.permissions.find(
+          (permission) => permission.slug === "login"
+        ) && user.id === 1 ? (
+          <DeviceHistory member_id={selectedMember.id} />
         ) : null}
       </div>
       <div className="w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/29/22, 6:46 PM
+ * Last Modified 2/6/22, 1:25 PM
  *
  *
  */
@@ -73,4 +73,34 @@ export type MemberListPagination = {
 export type MemberData = {
   list: Member[];
   pagination: MemberListPagination;
+};
+export type DeviceList = Device[];
+
+export type DeviceDetail = {
+  Brand: string;
+  Model: string;
+  ID: string;
+  SDK: string;
+  Manufacture: string;
+  User: string;
+  Type: string;
+  Base: string;
+  Incremental: string;
+  Board: string;
+  Host: string;
+  FingerPrint: string;
+  "Version Code": string;
+};
+export type Device = {
+  id: number;
+  device_id: string;
+  os_type: string;
+  app_slug: string;
+  device_detail: DeviceDetail;
+};
+
+export type DeviceListResponse = {
+  status: boolean;
+  message: string;
+  data: DeviceList;
 };
