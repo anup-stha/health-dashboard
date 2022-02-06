@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 12:41 PM
+ * Last Modified 2/6/22, 8:36 PM
  *
  *
  */
@@ -134,8 +134,8 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
           }
         />
 
-        <div className="w-full flex items-start gap-x-8">
-          <div className="rounded-lg bg-white w-3/4 shadow-md p-8 flex flex-col gap-10">
+        <div className="w-full flex items-start gap-8 md:flex-col">
+          <div className="rounded-lg bg-white w-3/4 shadow-md p-8 flex flex-col gap-10 md:w-full">
             <div className="flex items-center justify-between">
               <div className="flex items-center ">
                 <div className="relative h-20 w-20 cursor-pointer">
@@ -308,7 +308,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                   <span className="text-xl">
                     Organization Yearly Subscription{" "}
                   </span>
-                  <span className="text-gray-400 font-medium">
+                  <span className="text-gray-400 font-medium md:text-sm">
                     Acuity, Vitals, ECG, BMI, Urine, Glucose
                   </span>
                 </div>
@@ -323,8 +323,8 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                   Rs. {selectedSubscription.plan.price}
                 </span>
               </div>
-              <div className=" w-full flex px-4 py-12 text-lg gap-8">
-                <div className="w-2/3 flex flex-col gap-4">
+              <div className="w-full flex px-4 py-12 text-lg gap-8 md:flex-col-reverse md:relative">
+                <div className="w-2/3 flex flex-col gap-4 md:w-full">
                   <div className="w-full flex item-center justify-between">
                     <span className="font-semibold text-xl text-gray-800">
                       Payment Information
@@ -336,6 +336,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                       Select Payment
                     </button>
                   </div>
+
                   <div className="bg-gray-50 rounded-xl shadow-sm w-full p-6">
                     <div className={"flex flex-col"}>
                       <span className="font-semibold text-gray-800 pb-3">
@@ -363,26 +364,26 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                   </div>
                 </div>
 
-                <span className="w-1/5" />
+                <div className="w-1/5 md:w-0" />
 
-                <div className="w-1/5 font-semibold text-gray-800 flex flex-col  gap-4">
+                <div className="w-1/5 md:w-full font-semibold text-gray-800 flex flex-col gap-4 md:absolute md:top-12">
                   <span className="font-semibold text-gray-800 ">
                     Sub Total
                   </span>
                   <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-gray-400">
+                    <span className="font-semibold text-gray-400 whitespace-nowrap">
                       Discount Amt.
                     </span>
                     <span className="font-semibold text-gray-400">
                       Total Tax
                     </span>
                   </div>
-                  <span className="font-semibold mt-10 pt-6 border-t-[1px] border-gray-400/40 text-gray-400">
+                  <span className="font-semibold mt-10 pt-6 border-t-[1px] md:border-0 border-gray-400/40 text-gray-400">
                     Total Amount
                   </span>
                 </div>
 
-                <div className="font-semibold flex flex-col text-gray-700 w-1/3 gap-4 text-right  ">
+                <div className="font-semibold flex flex-col text-gray-700 w-1/3 gap-4 text-right md:w-full  ">
                   <span> Rs. {invoiceData.gross_amount}</span>
                   <div className="flex flex-col gap-4">
                     <span className="font-semibold text-gray-700">
@@ -401,7 +402,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
             </div>
           </div>
 
-          <div className="w-1/4 gap-8 flex flex-col ">
+          <div className="w-1/4 gap-8 flex flex-col md:w-full">
             <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
               <span className="font-semibold text-xl text-gray-800">
                 Customer Details
