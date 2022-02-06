@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 12:04 PM
+ * Last Modified 2/6/22, 10:58 AM
  *
  *
  */
@@ -20,11 +20,18 @@ export const publicAgent = axios.create({
   baseURL,
 });
 
+publicAgent.interceptors.request.use((config) => {
+  if (config.headers) {
+    config.headers["Access-Control-Allow-Origin"] = "*";
+  }
+});
+
 privateAgent.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
     if (token && config.headers) {
       config.headers["Authorization"] = `${token}`;
+      config.headers["Access-Control-Allow-Origin"] = "*";
     }
     return config;
   },
