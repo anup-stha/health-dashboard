@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 6:15 PM
+ * Last Modified 2/6/22, 10:26 AM
  *
  *
  */
@@ -42,8 +42,7 @@ export const ImageAvatar: React.FC = () => {
                     src={user.image}
                     layout="fill"
                     alt="Avatar"
-                    objectFit="contain"
-                    priority={true}
+                    objectFit="cover"
                   />
                 </div>
               ) : (

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 3:10 PM
+ * Last Modified 2/6/22, 10:24 AM
  *
  *
  */
@@ -12,7 +12,7 @@ import { privateAgent } from "@/services/requests/index";
 export const postInvoice = (invoice_data: Omit<Invoice, "invoice_no">) => {
   return privateAgent.post<InvoiceResponse>(`invoice`, {
     ...invoice_data,
-    subcription_detail: JSON.stringify(invoice_data.subcription_detail),
+    subcription_detail: JSON.stringify(invoice_data.subscription_detail),
   });
 };
 

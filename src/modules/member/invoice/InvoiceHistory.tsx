@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 4:20 PM
+ * Last Modified 2/6/22, 10:25 AM
  *
  *
  */
@@ -21,7 +21,7 @@ interface IPropsInvoiceHistory {
 export const InvoiceHistory = ({ member_id }: IPropsInvoiceHistory) => {
   const { data } = useInvoiceList(member_id, 1);
 
-  return data ? (
+  return data && data.data.data.length !== 0 ? (
     <div className="print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-8 space-y-4">
       <span className="font-semibold text-2xl text-gray-900">
         Invoice History
@@ -99,7 +99,7 @@ const InvoiceHistoryItem = ({ invoice }: { invoice: Invoice }) => {
           INV-0{invoice.invoice_no}
         </span>
         <span className="font-semibold text-base text-gray-600">
-          {invoice.subcription_detail.plan.name}
+          {invoice.subscription_detail.plan.name}
         </span>
       </div>
       <div>

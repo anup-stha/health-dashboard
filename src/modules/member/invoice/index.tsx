@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/4/22, 4:28 PM
+ * Last Modified 2/6/22, 10:24 AM
  *
  *
  */
@@ -485,7 +485,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                     ...invoiceData,
                     member_id: selectedMember.id,
                     paid: 0,
-                    subcription_detail: selectedSubscription,
+                    subscription_detail: selectedSubscription,
                     transaction_date: Date.now(),
                   });
                 }}

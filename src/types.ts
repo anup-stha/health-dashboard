@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/4/22, 3:10 PM
+ * Last Modified 2/6/22, 10:24 AM
  *
  *
  */
@@ -515,7 +515,7 @@ export type Invoice = {
   discount_amount: number;
   net_amount: number;
   paid: 1 | 0;
-  subcription_detail: MemberSubscriptionDetails;
+  subscription_detail: MemberSubscriptionDetails;
   invoice_no: number;
 };
 
