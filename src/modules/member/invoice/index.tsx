@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 10:24 AM
+ * Last Modified 2/6/22, 12:41 PM
  *
  *
  */
@@ -18,12 +18,16 @@ import { PrimaryInput } from "@/components/Input";
 import { useForm } from "react-hook-form";
 import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
 import { Loader } from "@/components/Loader";
-import { postInvoiceToast } from "@/modules/member/api/toasts/invoiceToast";
+import {
+  postInvoiceToast,
+  putInvoiceAsPaidToast,
+} from "@/modules/member/api/toasts/invoiceToast";
 import { useMemberStore } from "../utils/useMemberStore";
 import moment from "moment";
 import { Heading } from "@/components/Headings";
 import { useInvoiceList } from "@/modules/member/api/hooks/useInvoiceList";
 import { useRouter } from "next/router";
+import { Invoice } from "@/types";
 
 interface IMemberInvoicePage {
   invoice_id?: number;
@@ -33,6 +37,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const selectedMember = useCurrentMemberStore((state) => state.member);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const invoiceId = useMemberStore((state) => state.invoice_id);
   const { isLoading, data: selectedSubscription } = useMemberSubsDetails(
     user.id !== 1 ? 0 : selectedMember.id
@@ -43,7 +48,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
   const [discount, setDiscount] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: invoiceList, isLoading: invoiceLoading } = useInvoiceList(
+  const { data: invoiceList, isFetching } = useInvoiceList(
     selectedMember.id,
     invoice_id
   );
@@ -82,11 +87,14 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
 
   useEffect(() => {
     if (invoiceList && invoice_id) {
+      console.table(invoiceList);
       const selectedInvoice = invoiceList.data.data.find(
         (invoice) => invoice.invoice_no === invoice_id
       );
 
       if (selectedInvoice) {
+        setSelectedInvoice(selectedInvoice);
+        console.log(selectedInvoice);
         setInvoiceData({
           gross_amount: selectedInvoice.gross_amount,
           discount_amount: selectedInvoice.discount_amount,
@@ -98,19 +106,19 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
           .getState()
           .setInvoiceId(`0${selectedInvoice.invoice_no}`);
       } else {
-        router.push("/404");
+        !isFetching && router.push("/404");
       }
     } else {
       const data = getInvoiceData(discount, vat);
       data && setInvoiceData(data);
     }
-  }, [selectedSubscription, invoice_id, invoiceList]);
+  }, [selectedSubscription, invoice_id, invoiceList, isFetching]);
 
   useEffect(() => {
     !invoice_id && useMemberStore.getState().setInvoiceId("__");
   }, []);
 
-  return isLoading || invoiceLoading ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -182,7 +190,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                 <div className="flex gap-1">
                   <span className="text-gray-100">Due Date:</span>
                   <span className="font-medium">
-                    {moment().add(10, "days").format("DD MMM YYYY")}
+                    {moment().add(15, "days").format("DD MMM YYYY")}
                   </span>
                 </div>
               </div>
@@ -443,40 +451,54 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
               </div>
             </div>
 
-            <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
-              <div className="text-lg capitalize flex gap-1">
-                <span className="font-semibold text-gray-900">
-                  Amount {paid ? "Paid" : "Due"}{" "}
-                </span>
-                <span className="font-medium text-gray-400">(NPR)</span>
+            {selectedInvoice ? (
+              <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
+                <div className="text-lg capitalize flex gap-1">
+                  <span className="font-semibold text-gray-900">
+                    Amount {paid ? "Paid" : "Due"}{" "}
+                  </span>
+                  <span className="font-medium text-gray-400">(NPR)</span>
+                </div>
+                <div className="text-xl capitalize flex items-end gap-1">
+                  <span className="font-semibold text-3xl leading-7 font-Inter text-slate-900">
+                    Rs. {invoiceData.net_amount}
+                  </span>
+                  <span className="font-medium text-base text-gray-400">
+                    (Tax Incl.)
+                  </span>
+                </div>
+                <div
+                  className={`py-3 px-6 rounded-xl ${
+                    paid
+                      ? "bg-green-100 text-green-600"
+                      : "bg-red-100 text-red-500"
+                  }  text-lg font-semibold shadow-sm self-start`}
+                >
+                  {paid ? "Paid" : "Due"} on{" "}
+                  {selectedInvoice && paid
+                    ? moment
+                        .unix(selectedInvoice.transaction_date / 1000)
+                        .format("DD MMM YYYY")
+                    : moment().add(15, "days").format("DD MMM YYYY")}
+                </div>
+                {!paid ? (
+                  <>
+                    <hr className="border-t-[1px] border-gray-400/40" />
+                    <div>
+                      <GrayButton
+                        width="full"
+                        onClick={() => {
+                          invoice_id &&
+                            putInvoiceAsPaidToast(selectedInvoice.id);
+                        }}
+                      >
+                        Mark as Paid
+                      </GrayButton>
+                    </div>
+                  </>
+                ) : null}
               </div>
-              <div className="text-xl capitalize flex items-end gap-1">
-                <span className="font-semibold text-3xl leading-7 font-Inter text-slate-900">
-                  Rs. {invoiceData.net_amount}
-                </span>
-                <span className="font-medium text-base text-gray-400">
-                  (Tax Incl.)
-                </span>
-              </div>
-              <div
-                className={`py-3 px-6 rounded-xl ${
-                  paid
-                    ? "bg-green-100 text-green-600"
-                    : "bg-red-100 text-red-500"
-                }  text-lg font-semibold shadow-sm self-start`}
-              >
-                {paid ? "Paid" : "Due"} on{" "}
-                {moment().add(10, "days").format("DD MMM YYYY")}
-              </div>
-              {!paid ? (
-                <>
-                  <hr className="border-t-[1px] border-gray-400/40" />
-                  <div>
-                    <GrayButton width="full">Mark as Paid</GrayButton>
-                  </div>
-                </>
-              ) : null}
-            </div>
+            ) : null}
             {invoice_id ? null : (
               <PrimaryButton
                 className="py-5 rounded-xl flex items-center justify-center text-xl"
@@ -487,6 +509,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                     paid: 0,
                     subscription_detail: selectedSubscription,
                     transaction_date: Date.now(),
+                    due_days: 15,
                   });
                 }}
               >
