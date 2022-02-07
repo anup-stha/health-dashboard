@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 2:25 PM
+ * Last Modified 2/7/22, 2:10 PM
  *
  *
  */
@@ -12,12 +12,14 @@ import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import React, { Fragment } from "react";
-import { MemberDetailCategory } from "@/types";
+import { MemberDetailCategory, Role } from "@/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import moment from "moment";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { alert, toastAlert } from "@/components/Alert";
-import { useAddPatient } from "@/modules/member/api/hooks/useMemberList";
+import {
+  useAddPatient,
+  useNestedAddPatient,
+} from "@/modules/member/api/hooks/useMemberList";
 import { updateUserProfile } from "@/services/requests/authRequests";
 import { Member } from "@/modules/member/types";
 
@@ -42,6 +44,8 @@ interface UserAddFormProps
   > {
   type?: "edit" | "add";
   initialData?: Member;
+  selectedRole: Role;
+  parent_member_id?: number;
 }
 
 export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
@@ -51,10 +55,15 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
   register,
   reset,
   initialData,
+  selectedRole,
+  parent_member_id,
 }) => {
   useGetOtherFieldsList();
-  const selectedRole = useCurrentMemberStore((state) => state.role);
   const { mutateAsync: mutate } = useAddPatient();
+
+  const { mutateAsync: nestedmutate } = useNestedAddPatient(
+    parent_member_id ?? 0
+  );
 
   return handleSubmit && register && control && reset ? (
     <Modal.Form
@@ -96,10 +105,20 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
           return acc;
         }, {});
 
-        type === "add"
+        parent_member_id
           ? await toastAlert({
               type: "promise",
-              promise: mutate(finalBody),
+              promise: nestedmutate(finalBody).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "patient-add-toast",
+            })
+          : type === "add"
+          ? await toastAlert({
+              type: "promise",
+              promise: mutate(finalBody).then(() => reset()),
               msgs: {
                 loading: "Adding Member",
                 success: "Added Successfully",
@@ -108,10 +127,13 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
             })
           : initialData &&
             (await alert({
-              promise: updateUserProfile(initialData.id, {
-                ...data,
-                dob_ad: moment(data.dob_ad).unix(),
-              }),
+              promise: updateUserProfile(
+                initialData.member_id ?? initialData.id,
+                {
+                  ...data,
+                  dob_ad: moment(data.dob_ad).unix(),
+                }
+              ),
               msgs: {
                 loading: "Updating Member",
                 success: "Updated Successfully",

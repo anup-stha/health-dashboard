@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 6:47 PM
+ * Last Modified 2/7/22, 1:48 PM
  *
  *
  */
@@ -17,8 +17,13 @@ import { TableView } from "@/components/Table";
 import { Loader } from "@/components/Loader";
 import { UserTableRow } from "@/modules/member/table/UserTableRow";
 import { ProfileListLoadingState } from "@/components/state/ProfileSubsLoadingState";
+import { MemberModal } from "@/modules/member/modal/MemberModal";
 
-export const UsersTable = () => {
+interface IUsersTable {
+  parent_member_id?: number;
+}
+
+export const UsersTable = ({ parent_member_id }: IUsersTable) => {
   const router = useRouter();
   const selectedRole = useCurrentMemberStore((state) => state.role);
   const currentMember = useCurrentMemberStore((state) => state.member);
@@ -49,24 +54,30 @@ export const UsersTable = () => {
             Organization Member List
           </h1>
           <h1 className="text-gray-500 font-medium text-lg print:hidden">
-            List of All Organization Members Added by Organization Admin and
-            Organization Operators
+            List of All Organization Members
           </h1>
         </div>
-        <MemberRoleDropdown
-          roleList={data.data.data}
-          selectedRole={userRole}
-          setSelectedRole={setUserRole}
-        />
+        <div className="flex space-x-2">
+          <MemberRoleDropdown
+            roleList={data.data.data}
+            selectedRole={userRole}
+            setSelectedRole={setUserRole}
+          />
+          <MemberModal
+            type={"add"}
+            selectedRole={userRole}
+            parent_member_id={parent_member_id}
+          />
+        </div>
       </div>
       {usersList ? (
-        usersList.data.data.list.length === 0 ? (
+        usersList.list.length === 0 ? (
           <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
             <WarningOctagon size={24} /> <span>No Details Found</span>
           </div>
         ) : (
           <TableView
-            data={usersList?.data.data.list.map((element) => ({
+            data={usersList?.list.map((element) => ({
               ...element,
               role_id: selectedRole.id,
               role_slug: selectedRole.slug,
@@ -82,7 +93,7 @@ export const UsersTable = () => {
             tableRowComponent={<UserTableRow />}
             loading={!data.data}
             paginate={true}
-            paginateObject={usersList.data.data.pagination}
+            paginateObject={usersList.pagination}
           />
         )
       ) : (

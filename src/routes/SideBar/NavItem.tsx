@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 3:21 PM
+ * Last Modified 2/7/22, 2:29 PM
  *
  *
  */
@@ -69,7 +69,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         </div>
 
         {!open && (
-          <div className="text-gray-50 rounded-md shadow-E200 bg-gray-800 font-normal h-0 peer-hover:h-10 absolute top-0 translate-y-1/4 left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+          <div className="pointer-events-none text-gray-50 rounded-md shadow-E200 bg-gray-800 font-normal h-10 absolute top-0 translate-y-1/4 left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
             {route.title}
           </div>
         )}

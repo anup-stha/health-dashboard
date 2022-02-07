@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/2/22, 2:26 PM
+ * Last Modified 2/7/22, 1:29 PM
  *
  *
  */
@@ -12,14 +12,16 @@ import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import React, { Fragment } from "react";
-import { MemberDetailCategory } from "@/types";
+import { MemberDetailCategory, Role } from "@/types";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
-import { useAddPatient } from "@/modules/member/api/hooks/useMemberList";
+import {
+  useAddPatient,
+  useNestedAddPatient,
+} from "@/modules/member/api/hooks/useMemberList";
 import moment from "moment";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import { toastAlert } from "@/components/Alert";
 import { MedicalHistoryForm } from "@/modules/member/form/MedicalHistoryForm";
+import { toastAlert } from "@/components/Alert";
 
 interface UserAddFormData {
   name: string;
@@ -41,6 +43,8 @@ interface UserAddFormProps
     >
   > {
   type?: "edit" | "add";
+  selectedRole: Role;
+  parent_member_id?: number;
 }
 
 export const PatientAddForm: React.FC<UserAddFormProps> = ({
@@ -50,14 +54,18 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
   register,
   reset,
   watch,
+  selectedRole,
+  parent_member_id,
 }) => {
   useGetOtherFieldsList();
-  const selectedRole = useCurrentMemberStore((state) => state.role);
   const medicalHistoryFields = useOtherFieldsStore(
     (state) => state.othersFieldList.data
   );
 
   const { mutateAsync: mutate } = useAddPatient();
+  const { mutateAsync: nestedmutate } = useNestedAddPatient(
+    parent_member_id ?? 0
+  );
 
   type patientDetails = {
     [key: string]: any;
@@ -70,6 +78,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
           ...data,
           dob_ad: moment(data.dob_ad).unix(),
           role_id: selectedRole.id,
+          parent_member_id,
         };
 
         const keys = Object.keys(body);
@@ -118,15 +127,25 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
           return acc;
         }, {});
 
-        await toastAlert({
-          type: "promise",
-          promise: mutate(finalBody),
-          msgs: {
-            loading: "Adding Member",
-            success: "Added Successfully",
-          },
-          id: "patient-add-toast",
-        });
+        parent_member_id
+          ? await toastAlert({
+              type: "promise",
+              promise: nestedmutate(finalBody).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "patient-add-toast",
+            })
+          : await toastAlert({
+              type: "promise",
+              promise: mutate(finalBody).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "patient-add-toast",
+            });
       })}
     >
       <Modal.Scrollable>

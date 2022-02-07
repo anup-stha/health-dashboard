@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 6:45 PM
+ * Last Modified 2/7/22, 1:37 PM
  *
  *
  */
@@ -50,6 +50,32 @@ export const useAddPatient = () => {
   });
 };
 
+export const useNestedAddPatient = (parent_member_id: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(postNormalMember, {
+    onSuccess: (newMember) => {
+      const role = newMember.data.data.role.id;
+
+      const previousList: any = queryClient.getQueryData([
+        "member-list-nested",
+        role,
+        parent_member_id,
+        1,
+      ]);
+      previousList.list.length === 20 && previousList.list.pop();
+
+      queryClient.setQueryData(
+        ["member-list-nested", role, parent_member_id, 1],
+        () => ({
+          list: [newMember.data.data, ...previousList.list],
+          pagination: previousList.pagination,
+        })
+      );
+    },
+  });
+};
+
 export const useAddUser = () => {
   const queryClient = useQueryClient();
 
@@ -66,6 +92,30 @@ export const useAddUser = () => {
         list: [newMember.data.data, ...previousList.list],
         pagination: previousList.pagination,
       }));
+    },
+  });
+};
+
+export const useNestedAddUser = (parent_member_id: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(postOrgMember, {
+    onSuccess: (newMember) => {
+      const role = newMember.data.data.role.id;
+      const previousList: any = queryClient.getQueryData([
+        "member-list-nested",
+        role,
+        parent_member_id,
+        1,
+      ]);
+      previousList.list.length === 20 && previousList.list.pop();
+      queryClient.setQueryData(
+        ["member-list-nested", role, parent_member_id, 1],
+        () => ({
+          list: [newMember.data.data, ...previousList.list],
+          pagination: previousList.pagination,
+        })
+      );
     },
   });
 };

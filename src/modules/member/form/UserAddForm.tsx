@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 2:05 PM
+ * Last Modified 2/7/22, 1:35 PM
  *
  *
  */
@@ -13,9 +13,11 @@ import { Button } from "@/components/Button";
 import moment from "moment";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import React, { Fragment } from "react";
-import { MemberDetailCategory } from "@/types";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import { useAddUser } from "@/modules/member/api/hooks/useMemberList";
+import { MemberDetailCategory, Role } from "@/types";
+import {
+  useAddUser,
+  useNestedAddUser,
+} from "@/modules/member/api/hooks/useMemberList";
 import { toastAlert } from "@/components/Alert";
 
 interface UserAddFormData {
@@ -38,6 +40,8 @@ interface UserAddFormProps
     >
   > {
   type?: "edit" | "add";
+  parent_member_id?: number;
+  selectedRole: Role;
 }
 
 export const UserAddForm: React.FC<UserAddFormProps> = ({
@@ -47,10 +51,11 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
   register,
   reset,
   watch,
+  parent_member_id,
+  selectedRole,
 }) => {
-  const selectedRole = useCurrentMemberStore((state) => state.role);
-
   const { mutateAsync: mutate } = useAddUser();
+  const { mutateAsync: nestedmutate } = useNestedAddUser(parent_member_id ?? 0);
 
   return handleSubmit && register && control && reset ? (
     <Modal.Form
@@ -59,6 +64,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
           ...data,
           dob_ad: moment(data.dob_ad).unix(),
           role_id: Number(selectedRole.id),
+          parent_member_id,
         };
         const values = Object.values(body);
         const keys = Object.keys(body);
@@ -90,15 +96,25 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
           return acc;
         }, {});
-        await toastAlert({
-          type: "promise",
-          promise: mutate(finalBody).then(() => reset()),
-          msgs: {
-            loading: "Adding Member",
-            success: "Added Successfully",
-          },
-          id: "member-add-toast",
-        });
+        parent_member_id
+          ? await toastAlert({
+              type: "promise",
+              promise: nestedmutate(finalBody).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "patient-add-toast",
+            })
+          : await toastAlert({
+              type: "promise",
+              promise: mutate(finalBody).then(() => reset()),
+              msgs: {
+                loading: "Adding Member",
+                success: "Added Successfully",
+              },
+              id: "member-add-toast",
+            });
       })}
     >
       <Modal.Scrollable>

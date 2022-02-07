@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 11:48 AM
+ * Last Modified 2/7/22, 2:12 PM
  *
  *
  */
@@ -29,10 +29,12 @@ const Layout = ({ children }: any) => {
       {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
         <div
           className={
-            "bg-triangle absolute bg-black text-white w-32 h-32 z-50 text-4xl font-semibold"
+            "bg-triangle fixed bg-black text-white w-32 h-32 z-50 text-4xl font-semibold sm:w-24 sm:h-24 sm:text-3xl"
           }
         >
-          <span className="-rotate-45 absolute top-[1.3rem] left-2">DEV</span>
+          <span className="-rotate-45 absolute top-[1.3rem] left-2 sm:top-3.5 sm:left-1">
+            DEV
+          </span>
         </div>
       ) : null}
 

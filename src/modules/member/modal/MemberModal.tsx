@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/4/22, 12:11 PM
+ * Last Modified 2/7/22, 1:46 PM
  *
  *
  */
 
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
-import React from "react";
+import React, { useEffect } from "react";
 import { Role } from "@/types";
 import { useForm } from "react-hook-form";
 import { PatientAddForm } from "@/modules/member/form/PatientAddForm";
@@ -23,6 +23,7 @@ interface MemberModalProps {
   initialData?: Member;
   button?: React.ReactNode;
   selectedRole: Role;
+  parent_member_id?: number;
 }
 
 export const MemberModal: React.FC<MemberModalProps> = ({
@@ -30,13 +31,20 @@ export const MemberModal: React.FC<MemberModalProps> = ({
   initialData,
   button,
   selectedRole,
+  parent_member_id,
 }) => {
-  const { register, handleSubmit, control, reset, watch } = useForm({
-    defaultValues: {
-      ...initialData,
-      dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
-    },
-  });
+  const { register, handleSubmit, control, reset, watch, unregister } = useForm(
+    {
+      defaultValues: {
+        ...initialData,
+        dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+      },
+    }
+  );
+
+  useEffect(() => {
+    unregister();
+  }, [selectedRole.id]);
 
   return (
     <Modal>
@@ -65,7 +73,9 @@ export const MemberModal: React.FC<MemberModalProps> = ({
         <div className="flex flex-col space-y-4 ">
           {selectedRole && selectedRole.slug === "patient" && type === "add" ? (
             <PatientAddForm
+              selectedRole={selectedRole}
               handleSubmit={handleSubmit}
+              parent_member_id={parent_member_id}
               control={control}
               register={register}
               reset={reset}
@@ -83,10 +93,13 @@ export const MemberModal: React.FC<MemberModalProps> = ({
               register={register}
               reset={reset}
               watch={watch}
+              selectedRole={selectedRole}
+              parent_member_id={parent_member_id}
             />
           ) : (
             <MemberAddEditForm
               type={type}
+              selectedRole={selectedRole}
               initialData={initialData}
               handleSubmit={handleSubmit}
               control={control}

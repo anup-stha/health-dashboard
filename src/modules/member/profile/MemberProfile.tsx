@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 2:34 PM
+ * Last Modified 2/7/22, 12:21 PM
  *
  *
  */
@@ -47,7 +47,7 @@ const MemberProfile = () => {
         ) : selectedMember.role.slug === "individual" ? (
           <ProfileTestSection selectedMember={selectedMember} />
         ) : selectedMember.role.slug === "org_admin" ? (
-          <UsersTable />
+          <UsersTable parent_member_id={selectedMember.id} />
         ) : null}
         {selectedRole.permissions.find(
           (permission) => permission.slug === "login"

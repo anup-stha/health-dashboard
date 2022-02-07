@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/29/22, 6:49 PM
+ * Last Modified 2/7/22, 2:08 PM
  *
  *
  */
@@ -45,7 +45,7 @@ export const ProfilePage: React.FC = () => {
           {user.id !== 1 && <ProfileSubscription member_id={user.member_id} />}
 
           <div className=" w-full h-auto bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 py-2 px-4 self-start">
-            <ProfileUpdateModal />
+            <ProfileUpdateModal user={user} />
             <PasswordModal />
             {!isLoading && data && user.id !== 1 && (
               <MemberOtherDetailModal

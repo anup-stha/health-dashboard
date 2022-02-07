@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 3:31 PM
+ * Last Modified 2/7/22, 2:29 PM
  *
  *
  */
@@ -35,7 +35,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
   return (
     <ul className="flex flex-col w-full">
-      <li onClick={() => onExpandChange()} className={mainItemStyles}>
+      <li className={mainItemStyles} onClick={() => onExpandChange()}>
         <div className={"peer flex  w-full"}>
           <div
             className={`flex relative items-start justify-start px-4 w-full ${
@@ -49,7 +49,10 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
             >
               <div className={"sm:hidden"}>{subRoutes.icon}</div>
 
-              <div className={`flex items-center justify-between w-full`}>
+              <div
+                className={`flex items-center justify-between w-full`}
+                onClick={() => onExpandChange()}
+              >
                 <span className={`sm:text-lg`}>{subRoutes.title}</span>
                 <CaretDown weight="bold" size={24} />
               </div>
@@ -68,7 +71,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
         </div>
 
         {!open && (
-          <div className=" text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800  h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+          <div className="pointer-events-none text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800 h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
             {subRoutes.title}
           </div>
         )}
