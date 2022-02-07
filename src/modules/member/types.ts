@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 1:25 PM
+ * Last Modified 2/7/22, 11:31 AM
  *
  *
  */
@@ -91,6 +91,7 @@ export type DeviceDetail = {
   FingerPrint: string;
   "Version Code": string;
 };
+
 export type Device = {
   id: number;
   device_id: string;

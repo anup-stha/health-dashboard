@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 12:53 PM
+ * Last Modified 2/7/22, 11:48 AM
  *
  *
  */
@@ -25,9 +25,20 @@ const Layout = ({ children }: any) => {
   }, [hydrated]);
 
   return hydrated ? (
-    <div>
+    <div className="relative">
+      {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
+        <div
+          className={
+            "bg-triangle absolute bg-black text-white w-32 h-32 z-50 text-4xl font-semibold"
+          }
+        >
+          <span className="-rotate-45 absolute top-[1.3rem] left-2">DEV</span>
+        </div>
+      ) : null}
+
       <ToggleButton />
       <Sidebar />
+
       <div
         className={`${
           open

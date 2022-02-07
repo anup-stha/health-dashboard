@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 12:49 PM
+ * Last Modified 2/7/22, 11:52 AM
  *
  *
  */
@@ -16,10 +16,21 @@ export const LoginPage = () => {
     <div
       suppressHydrationWarning={true}
       data-testid={"login-page"}
-      className="flex flex-col items-center justify-center w-full min-h-screen py-20 bg-gray-100 sm:bg-gray-200  lg:py-8 md:px-8 sm:p-0 sm:h-screen"
+      className="relative flex flex-col items-center justify-center w-full min-h-screen py-20 bg-gray-100 sm:bg-gray-200  lg:py-8 md:px-8 sm:p-0 sm:h-screen"
     >
       <div className="flex w-full bg-white max-w-6xl flex-grow rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none h-full">
-        <div className="flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
+        <div className="relative flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
+          {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
+            <div
+              className={
+                "bg-triangle absolute bg-black text-white w-32 h-32 z-50 text-4xl font-semibold top-0 left-0 rounded-tl-3xl"
+              }
+            >
+              <span className="-rotate-45 absolute top-[1.3rem] left-2">
+                DEV
+              </span>
+            </div>
+          ) : null}
           <Image
             src="/assets/logo-sunya.svg"
             alt="Login Avatar"
