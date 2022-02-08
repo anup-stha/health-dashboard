@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 1:46 PM
+ * Last Modified 2/8/22, 12:41 PM
  *
  *
  */
@@ -16,6 +16,8 @@ import { UserAddForm } from "@/modules/member/form/UserAddForm";
 import { MemberAddEditForm } from "@/modules/member/form/MemberAddEditForm";
 import { Member } from "@/modules/member/types";
 import moment from "moment";
+import toast from "react-hot-toast";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 interface MemberModalProps {
   type: "add" | "edit";
@@ -33,6 +35,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
   selectedRole,
   parent_member_id,
 }) => {
+  const currentUser = useAuthStore((state) => state.user);
   const { register, handleSubmit, control, reset, watch, unregister } = useForm(
     {
       defaultValues: {
@@ -46,12 +49,39 @@ export const MemberModal: React.FC<MemberModalProps> = ({
     unregister();
   }, [selectedRole.id]);
 
+  const getIfPermitted = () => {
+    if (currentUser.id === 1) {
+      return true;
+    } else if (selectedRole.slug === "patient") {
+      return currentUser.role.permissions.some(
+        (permission) => permission.slug === "create_patient"
+      );
+    } else if (selectedRole.slug === "org_operator") {
+      return currentUser.role.permissions.some(
+        (permission) => permission.slug === "create_operator"
+      );
+    }
+    return false;
+  };
+
   return (
     <Modal>
-      <Modal.Button type="open" disabled={selectedRole.id === 0}>
+      <Modal.Button
+        type="open"
+        disabled={selectedRole.id === 0 || !getIfPermitted()}
+      >
         {type === "add" ? (
           <Button
-            disabled={selectedRole.id === 0}
+            onClick={() => {
+              !getIfPermitted() &&
+                toast.error(
+                  "You don't have the permission to add. Please contact Sunya Health",
+                  {
+                    duration: 4000,
+                    id: "permission-error",
+                  }
+                );
+            }}
             data-testid={`${type}-modal-open-btn`}
           >
             Add {selectedRole.id !== 0 && selectedRole.name} User

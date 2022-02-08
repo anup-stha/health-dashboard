@@ -1,10 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/7/22, 11:31 AM
+ * Last Modified 2/8/22, 12:24 PM
  *
  *
  */
+
+import { Permission } from "@/types";
 
 export type MemberListResponse = {
   status: boolean;
@@ -17,6 +19,7 @@ export type MemberRole = {
   name: string;
   slug: string;
   desc: string;
+  permissions: Permission[];
 };
 
 export type MemberMedicalHistory = {

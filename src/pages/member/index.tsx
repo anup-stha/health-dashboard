@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 6:11 PM
+ * Last Modified 2/8/22, 12:21 PM
  *
  *
  */
@@ -11,6 +11,8 @@ import { MemberListPage } from "@/modules/member";
 import { useRoleList } from "@/services/requests/roleRequests";
 import { Loader } from "@/components/Loader";
 import { MainHead } from "@/layout/MainHead";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const MemberPage: NextPage = () => {
   const { isLoading } = useRoleList();
@@ -25,4 +27,4 @@ const MemberPage: NextPage = () => {
   );
 };
 
-export default MemberPage;
+export default withAuth(withRole(MemberPage));
