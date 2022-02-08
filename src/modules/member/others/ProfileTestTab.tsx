@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/2/22, 12:20 PM
+ * Last Modified 2/8/22, 12:52 PM
  *
  *
  */
@@ -104,10 +104,12 @@ export const getSubTestList = (testList: MemberTestList[]) => {
         test_date: element.test_date,
         temperature: element.temperature,
 
-        tests: element.report.map((sub) => ({
-          [sub.name]: sub.value,
-          [`Note`]: sub.note,
-        })),
+        tests: element.report.map((sub) => {
+          return {
+            [sub.name]: sub.value,
+            [`Note`]: sub.note,
+          };
+        }),
       }
     );
   });

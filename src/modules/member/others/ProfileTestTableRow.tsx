@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 12:24 PM
+ * Last Modified 2/8/22, 1:07 PM
  *
  *
  */
@@ -13,6 +13,7 @@ import { GooglePlayLogo, Thermometer } from "phosphor-react";
 import { Calendar } from "iconsax-react";
 import { TableView } from "@/components/Table";
 import { utcDateToLocal } from "@/modules/member/utils/utcDateToLocal";
+import { isValidHttpUrl } from "@/utils/isValidHttpUrl";
 
 type ProfileTestData = {
   id: number;
@@ -38,16 +39,31 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
         {data.temperature ?? "N/A"}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
-        {data.tests.map((element, index) => (
-          <div key={index} className="flex space-x-2 text-gray-700">
-            <span className="font-medium text-gray-500">
-              {Object.keys(element)[0]} :{" "}
-            </span>
-            <span className="font-semibold line-clamp-1">
-              {Object.values(element)[0]}
-            </span>
-          </div>
-        ))}
+        {data.tests.map((element, index) => {
+          if (isValidHttpUrl(Object.values(element)[0])) {
+            return (
+              <div key={index} className="flex space-x-2">
+                <a
+                  href={Object.values(element)[0]}
+                  className="font-semibold text-gray-600 cursor-pointer underline hover:text-gray-800"
+                >
+                  Report Link
+                </a>
+              </div>
+            );
+          }
+
+          return (
+            <div key={index} className="flex space-x-2 text-gray-700">
+              <span className="font-medium text-gray-500">
+                {Object.keys(element)[0]} :{" "}
+              </span>
+              <span className="font-semibold line-clamp-1">
+                {Object.values(element)[0]}
+              </span>
+            </div>
+          );
+        })}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-gray-600">
         {data.tests.map((element, index) => (
