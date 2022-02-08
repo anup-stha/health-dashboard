@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/8/22, 1:38 PM
+ * Last Modified 2/8/22, 4:26 PM
  *
  *
  */
@@ -52,7 +52,7 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
               });
             }}
           >
-            Delete
+            Remove History
           </GrayButton>
         ) : null}
       </div>
@@ -60,7 +60,7 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
         <TableView
           data={data.sort((a, b) => (a.id < b.id ? 1 : -1))}
           tableRowComponent={<DeviceHistoryTableRow />}
-          tableHeadings={["Device Info", "Device Id", "Device Details"]}
+          tableHeadings={["Device Info", "Device Model", "Device Details"]}
         />
       ) : (
         <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">

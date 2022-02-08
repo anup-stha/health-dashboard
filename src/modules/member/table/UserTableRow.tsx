@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/2/22, 1:22 PM
+ * Last Modified 2/8/22, 4:23 PM
  *
  *
  */
@@ -54,7 +54,7 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
               <div
                 className={`${
                   data.active ? "bg-green-500" : "bg-red-700"
-                } w-4 h-4 rounded-full absolute right-0 shadow-sm ring-2 ring-white`}
+                } w-4 h-4 rounded-full absolute right-0 shadow-sm ring-2 ring-white z-10`}
               />
               {data.image ? (
                 <div

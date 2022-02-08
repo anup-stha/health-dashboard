@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/7/22, 1:48 PM
+ * Last Modified 2/8/22, 4:18 PM
  *
  *
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { MemberRoleDropdown } from "@/modules/member/others/MemberRoleDropdown";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
@@ -34,10 +34,6 @@ export const UsersTable = ({ parent_member_id }: IUsersTable) => {
   );
 
   const { data } = useRoleListBySlug(selectedRole.slug);
-
-  useEffect(() => {
-    data?.data && setUserRole(data?.data.data[0]);
-  }, [data?.data]);
 
   const { data: usersList } = useNestedMemberList(
     userRole ? Number(userRole.id) : 0,
