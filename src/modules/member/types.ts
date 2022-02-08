@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/8/22, 12:24 PM
+ * Last Modified 2/8/22, 1:19 PM
  *
  *
  */
@@ -107,4 +107,10 @@ export type DeviceListResponse = {
   status: boolean;
   message: string;
   data: DeviceList;
+};
+
+export type StringResponse = {
+  status: boolean;
+  message: string;
+  data: string;
 };

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 2:36 PM
+ * Last Modified 2/8/22, 1:38 PM
  *
  *
  */
@@ -13,6 +13,9 @@ import { Device } from "@/modules/member/types";
 import { Loader } from "@/components/Loader";
 import Image from "next/image";
 import { WarningOctagon } from "phosphor-react";
+import { GrayButton } from "@/components/Button";
+import * as deviceHistory from "@/modules/member/api/hooks/useDeviceHistory";
+import { toastAlert } from "@/components/Alert";
 
 interface IDeviceHistory {
   member_id: number;
@@ -20,6 +23,9 @@ interface IDeviceHistory {
 
 export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
   const { data } = useUserDeviceHistory(member_id);
+  const { mutateAsync } = deviceHistory.useDelete(member_id);
+
+  console.log(data);
 
   return (
     <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">
@@ -32,6 +38,23 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
             List of all Devices that user has logged into.
           </h1>
         </div>
+        {data && data.length !== 0 ? (
+          <GrayButton
+            onClick={async () => {
+              await toastAlert({
+                type: "promise",
+                promise: mutateAsync(member_id),
+                msgs: {
+                  loading: "Deleting Device History",
+                  success: "Deleted Device History Successfully",
+                },
+                id: "device-history",
+              });
+            }}
+          >
+            Delete
+          </GrayButton>
+        ) : null}
       </div>
       {data && data.length !== 0 ? (
         <TableView
