@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/7/22, 3:59 PM
+ * Last Modified 2/8/22, 11:06 AM
  *
  *
  */
@@ -24,8 +24,8 @@ const MemberListPage = () => {
     .roleList.sort((a, b) => a.name.localeCompare(b.name));
 
   useEffect(() => {
-    !currentRole && setSelected(roleList[0]);
-  }, [loggedInUser.uuid]);
+    setSelected(roleList[0]);
+  }, [loggedInUser.id]);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
