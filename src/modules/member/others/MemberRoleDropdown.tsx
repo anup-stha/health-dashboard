@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 10:59 AM
+ * Last Modified 2/8/22, 10:33 AM
  *
  *
  */
@@ -34,6 +34,10 @@ export const MemberRoleDropdown = ({
 
   const selected = useCurrentMemberStore((state) => state.role);
   const setSelected = useCurrentMemberStore((state) => state.setCurrentRole);
+
+  useEffect(() => {
+    setSelected(roleList[0]);
+  }, [roleList]);
 
   useEffect(() => {
     Object.keys(selected).length !== 0 &&

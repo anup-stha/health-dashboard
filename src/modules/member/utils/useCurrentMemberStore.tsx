@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 11:36 AM
+ * Last Modified 2/8/22, 10:32 AM
  *
  *
  */
@@ -41,6 +41,11 @@ const store = combine(initialState, (set) => ({
   setCurrentUserRole: (role: Role) => {
     set({
       userRole: role,
+    });
+  },
+  clearCurrentMemberStore: () => {
+    set({
+      role: {} as Role,
     });
   },
 }));

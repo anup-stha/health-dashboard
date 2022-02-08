@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 2:06 PM
+ * Last Modified 2/7/22, 3:59 PM
  *
  *
  */
@@ -55,6 +55,7 @@ export const logOut = () => {
         Router.push("/");
         useAuthStore.getState().removeUserData();
         useCurrentMemberStore.persist.clearStorage();
+        useCurrentMemberStore.getState().clearCurrentMemberStore();
         useGlobalState.getState().clearGlobalState();
         queryClient.clear();
         resolve("Logged Out Successfully");
@@ -62,7 +63,7 @@ export const logOut = () => {
       .catch(() => {
         useAuthStore.getState().removeUserData();
         useGlobalState.getState().clearGlobalState();
-
+        useCurrentMemberStore.getState().clearCurrentMemberStore();
         queryClient.clear();
         Router.push("/");
         resolve("Logged Out Successfully");

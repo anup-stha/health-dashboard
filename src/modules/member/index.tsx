@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/1/22, 4:47 PM
+ * Last Modified 2/7/22, 3:59 PM
  *
  *
  */
@@ -11,9 +11,21 @@ import { MemberTable } from "@/modules/member/table/MemberTable";
 import { MemberModal } from "@/modules/member/modal/MemberModal";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { Heading } from "@/components/Headings";
+import { useEffect } from "react";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 
 const MemberListPage = () => {
   const currentRole = useCurrentMemberStore((state) => state.role);
+  const setSelected = useCurrentMemberStore((state) => state.setCurrentRole);
+  const loggedInUser = useAuthStore((state) => state.user);
+  const roleList = useRoleStore
+    .getState()
+    .roleList.sort((a, b) => a.name.localeCompare(b.name));
+
+  useEffect(() => {
+    !currentRole && setSelected(roleList[0]);
+  }, [loggedInUser.uuid]);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
