@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 10:13 AM
+ * Last Modified 2/9/22, 7:24 PM
  *
  *
  */
@@ -29,16 +29,24 @@ export const MemberTable = () => {
     window.scroll(0, 0);
   }, [router.query.page]);
 
-  return !currentRole ? (
-    <div className="flex justify-center">
-      <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
+  return !currentRole || data?.list.length === 0 ? (
+    <div className="flex flex-col justify-start py-32 items-center gap-4">
+      <div className="object-contain w-full h-32 relative ">
         <Image
-          src="/assets/empty.svg"
+          src="/assets/not-found.svg"
           alt="Empty State"
           layout="fill"
-          objectFit="cover"
+          objectFit="contain"
           priority={true}
-        />
+        />{" "}
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="text-3xl font-semibold text-green-600">
+          No Member found
+        </div>
+        <div className="text-lg font-medium text-gray-500">
+          Please switch role or add a new member.
+        </div>
       </div>
     </div>
   ) : (

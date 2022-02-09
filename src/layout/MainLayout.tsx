@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 2:12 PM
+ * Last Modified 2/9/22, 7:13 PM
  *
  *
  */
@@ -50,7 +50,7 @@ const Layout = ({ children }: any) => {
       >
         <MainHeader />
         <div
-          className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 h-full print:pt-0`}
+          className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 print:pt-0 h-screen`}
         >
           {children}
         </div>

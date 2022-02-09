@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 12:30 PM
+ * Last Modified 2/9/22, 7:31 PM
  *
  *
  */
@@ -56,9 +56,9 @@ export const TableView: React.FC<TableViewPropsType> = ({
   return (
     <div>
       {!loading ? (
-        <div className={"flex flex-col space-y-2"}>
+        <div className={"flex flex-col  space-y-2"}>
           {search && (
-            <div className="flex space-x-6 max-w-xl relative print:hidden ml-1">
+            <div className=" flex space-x-6 max-w-xl relative print:hidden ml-1">
               <SearchInput
                 value={searchTerm}
                 onChange={(e) => {
@@ -109,15 +109,23 @@ export const TableView: React.FC<TableViewPropsType> = ({
           )}
 
           {tableData.length === 0 ? (
-            <div className="flex justify-center items-start">
-              <div className="w-[48vw] h-[60vh] md:w-full md:h-[50vh] relative">
+            <div className="flex flex-col justify-start py-32 items-center gap-4">
+              <div className="object-contain w-full h-32 relative self-start ">
                 <Image
-                  src="/assets/empty.svg"
+                  src="/assets/not-found.svg"
                   alt="Empty State"
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain"
                   priority={true}
-                />
+                />{" "}
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-semibold text-green-600">
+                  No Data found
+                </div>
+                <div className="text-lg font-medium text-gray-500">
+                  Please change your search to find more data.
+                </div>
               </div>
             </div>
           ) : (

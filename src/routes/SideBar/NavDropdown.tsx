@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 2:29 PM
+ * Last Modified 2/9/22, 7:04 PM
  *
  *
  */
@@ -36,7 +36,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   return (
     <ul className="flex flex-col w-full">
       <li className={mainItemStyles} onClick={() => onExpandChange()}>
-        <div className={"peer flex  w-full"}>
+        <div className={"peer flex w-full"}>
           <div
             className={`flex relative items-start justify-start px-4 w-full ${
               open ? "translate-x-0" : "-translate-x-96 w-0"
@@ -49,10 +49,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
             >
               <div className={"sm:hidden"}>{subRoutes.icon}</div>
 
-              <div
-                className={`flex items-center justify-between w-full`}
-                onClick={() => onExpandChange()}
-              >
+              <div className={`flex items-center justify-between w-full`}>
                 <span className={`sm:text-lg`}>{subRoutes.title}</span>
                 <CaretDown weight="bold" size={24} />
               </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:28 PM
+ * Last Modified 2/9/22, 7:22 PM
  *
  *
  */
@@ -21,15 +21,23 @@ export const SubscriptionTable = () => {
   const { role: selectedRole } = useCurrentMemberStore();
 
   return subscriptionList.list.length === 0 || selectedRole.id === 0 ? (
-    <div className="flex justify-center">
-      <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
+    <div className="flex flex-col justify-start py-32 items-center gap-4">
+      <div className="object-contain w-full h-32 relative ">
         <Image
-          src="/assets/empty.svg"
+          src="/assets/not-found.svg"
           alt="Empty State"
           layout="fill"
-          objectFit="cover"
+          objectFit="contain"
           priority={true}
         />{" "}
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="text-3xl font-semibold text-green-600">
+          No Subscription found
+        </div>
+        <div className="text-lg font-medium text-gray-500">
+          Please switch role or add a new subscription.
+        </div>
       </div>
     </div>
   ) : (

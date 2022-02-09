@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 4:57 PM
+ * Last Modified 2/9/22, 7:23 PM
  *
  *
  */
@@ -27,8 +27,8 @@ const SubscriptionPage: React.FC = () => {
       {roleListLoading ? (
         <Loader />
       ) : (
-        <div className="px-10 py-10 overflow-visible  sm:px-6 sm:py-6">
-          <div className="flex flex-col space-y-6">
+        <div className="px-10 py-10 overflow-visible h-full sm:px-6 sm:py-6">
+          <div className="flex flex-col space-y-6 h-full">
             <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
               <Heading
                 title={"Subscriptions"}
