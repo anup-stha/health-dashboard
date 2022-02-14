@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/8/22, 4:15 PM
+ * Last Modified 2/14/22, 1:08 PM
  *
  *
  */
@@ -11,6 +11,8 @@ import { MemberTable } from "@/modules/member/table/MemberTable";
 import { MemberModal } from "@/modules/member/modal/MemberModal";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import { Heading } from "@/components/Headings";
+import React from "react";
+import { ExcelImport } from "@/modules/member/excel/ExcelImport";
 
 const MemberListPage = () => {
   const currentRole = useCurrentMemberStore((state) => state.role);
@@ -29,6 +31,7 @@ const MemberListPage = () => {
           <div className="flex space-x-4">
             <MemberRoleDropdown />
             <MemberModal type="add" selectedRole={currentRole} />
+            {currentRole.slug === "patient" && <ExcelImport />}
           </div>
         </div>
         <MemberTable />

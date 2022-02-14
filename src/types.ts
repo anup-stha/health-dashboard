@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/6/22, 12:34 PM
+ * Last Modified 2/13/22, 9:21 AM
  *
  *
  */
@@ -527,4 +527,14 @@ export type InvoiceResponse = StatusType & {
 
 export type InvoiceListResponse = StatusType & {
   data: Invoice[];
+};
+
+export type MemberBulkData = {
+  data: {
+    name: string;
+    dob_ad: string;
+    gender: string;
+    ref_key: string;
+    patient_code: string;
+  }[];
 };

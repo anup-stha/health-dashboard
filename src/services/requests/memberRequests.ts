@@ -1,12 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 1:10 PM
+ * Last Modified 2/13/22, 9:23 AM
  *
  *
  */
 
 import {
+  MemberBulkData,
   MemberDetailCategoryAddResponse,
   MemberDetailCategoryBody,
   MemberDetailCategoryUpdateBody,
@@ -176,4 +177,8 @@ export const getMemberTestReportByDate = (
   return privateAgent.get<MemberTestListResponse>(
     `test/report?from_time_stamp=${from_time_stamp}&to_time_stamp=${to_time_stamp}&member_id=${memberId}`
   );
+};
+
+export const postMemberBulk = (body: MemberBulkData) => {
+  return privateAgent.post("member/bulk", body);
 };
