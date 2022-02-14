@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/31/22, 2:45 PM
+ * Last Modified 2/14/22, 5:49 PM
  *
  *
  */
@@ -52,4 +52,4 @@ export const ProfileDetails: React.FC<MemberDetailsProps> = ({
 };
 
 export const dateConvert = (epochInSec: number) =>
-  moment(epochInSec * 1000).format("MMMM Do YYYY");
+  moment(epochInSec * 1000).format("MMMM Do, YYYY");

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/14/22, 1:08 PM
+ * Last Modified 2/14/22, 5:38 PM
  *
  *
  */
@@ -41,3 +41,4 @@ const MemberListPage = () => {
 };
 
 export { MemberListPage };
+export { ProfileOverviewTab } from "@/modules/member/new/ProfileOverviewTab";

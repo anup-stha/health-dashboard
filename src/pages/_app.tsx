@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/28/22, 10:08 AM
+ * Last Modified 2/14/22, 1:37 PM
  *
  *
  */
@@ -109,7 +109,7 @@ const favicons: any = [
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const RenderedComponent =
-    router.pathname === "/" ? (
+    router.pathname === "/" || router.pathname === "/temp" ? (
       <Component {...pageProps} />
     ) : (
       <MainLayout>
