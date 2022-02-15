@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 3:28 PM
+ * Last Modified 2/15/22, 3:37 PM
  *
  *
  */
@@ -19,7 +19,8 @@ type TabType =
   | "billing"
   | "tests"
   | "devices"
-  | "settings";
+  | "settings"
+  | "medical history";
 
 /**
  *
@@ -49,7 +50,7 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
     case "org_operator":
       return ["overview", "members", "devices", "settings"];
     case "patient":
-      return ["overview", "tests", "settings"];
+      return ["overview", "tests", "medical history", "settings"];
     default:
       return ["overview", "settings"];
   }

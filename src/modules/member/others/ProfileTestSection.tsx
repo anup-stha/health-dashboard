@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/28/22, 11:49 AM
+ * Last Modified 2/15/22, 3:40 PM
  *
  *
  */
@@ -25,7 +25,7 @@ interface IProfileTestSection {
   selectedMember: Member;
 }
 
-export const ProfileTestSection = ({ selectedMember }: IProfileTestSection) => {
+const TestTab = ({ selectedMember }: IProfileTestSection) => {
   const router = useRouter();
   const { isLoading } = useTestList();
   const testList = testStore((state) => state.testList);
@@ -44,8 +44,8 @@ export const ProfileTestSection = ({ selectedMember }: IProfileTestSection) => {
   const chartData = testDetailsList ? getChartData(testDetailsList.list) : {};
 
   return !isLoading || testList ? (
-    <div className="print:hidden print:p-4 w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10">
-      <div className={"p-6 flex flex-col space-y-8 sm:space-y-4"}>
+    <div className="print:hidden">
+      <div className={"flex flex-col space-y-8 sm:space-y-4"}>
         <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
           <div className="print:hidden">
             <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
@@ -80,3 +80,5 @@ export const ProfileTestSection = ({ selectedMember }: IProfileTestSection) => {
     </div>
   ) : null;
 };
+
+export const ProfileTestSection = React.memo(TestTab);

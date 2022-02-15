@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 11:49 AM
+ * Last Modified 2/15/22, 3:39 PM
  *
  *
  */
@@ -20,7 +20,7 @@ export const PatientMedicalHistory = ({
   selectedMember,
 }: IProfileTestSection) => {
   return (
-    <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">
+    <div className="print:hidden space-y-8">
       <div className="print:hidden">
         <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
           Patient Medical History

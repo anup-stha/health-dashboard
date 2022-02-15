@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 3:27 PM
+ * Last Modified 2/15/22, 3:53 PM
  *
  *
  */
@@ -17,6 +17,8 @@ import { ProfileOverviewTab } from "@/modules/member";
 import { MembersTab } from "@/modules/member/new/MembersTab";
 import { DeviceHistory } from "@/modules/member/device_history";
 import LetteredAvatar from "react-avatar";
+import { ProfileTestSection } from "@/modules/member/others/ProfileTestSection";
+import { PatientMedicalHistory } from "@/modules/member/others/PatientMedicalHistory";
 
 type TabItemsType =
   | "overview"
@@ -25,7 +27,8 @@ type TabItemsType =
   | "billing"
   | "tests"
   | "devices"
-  | "settings";
+  | "settings"
+  | "medical history";
 
 const MemberProfile = () => {
   const selectedMember = useCurrentMemberStore((state) => state.member);
@@ -133,7 +136,7 @@ const MemberProfile = () => {
               className={`text-[1.3rem] cursor-pointer ${
                 tab === selectedTab
                   ? "text-green-500 font-semibold"
-                  : "text-gray-400 font-medium"
+                  : "text-gray-400 font-semibold"
               }  pb-6 capitalize relative`}
             >
               {tab}
@@ -167,6 +170,10 @@ const MemberProfile = () => {
               <MembersTab parent_member_id={selectedMember.id} />
             ) : selectedTab === "devices" ? (
               <DeviceHistory member_id={selectedMember.id} />
+            ) : selectedTab === "tests" ? (
+              <ProfileTestSection selectedMember={selectedMember} />
+            ) : selectedTab === "medical history" ? (
+              <PatientMedicalHistory selectedMember={selectedMember} />
             ) : null}
           </motion.div>
         </AnimatePresence>
