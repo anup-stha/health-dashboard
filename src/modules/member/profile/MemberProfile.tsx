@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/14/22, 6:03 PM
+ * Last Modified 2/15/22, 3:27 PM
  *
  *
  */
@@ -14,6 +14,9 @@ import { Location, ProfileCircle } from "iconsax-react";
 import { Envelope } from "phosphor-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ProfileOverviewTab } from "@/modules/member";
+import { MembersTab } from "@/modules/member/new/MembersTab";
+import { DeviceHistory } from "@/modules/member/device_history";
+import LetteredAvatar from "react-avatar";
 
 type TabItemsType =
   | "overview"
@@ -47,14 +50,22 @@ const MemberProfile = () => {
     <div className="px-10 py-8 w-full flex flex-col gap-8">
       <div className="w-full bg-white rounded-2xl shadow-sm p-8 pb-0 flex flex-col gap-14">
         <div className="flex gap-8">
-          <div className="h-56 w-56 relative">
-            <Image
-              src={selectedMember.image}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-xl shadow-sm"
-              alt="profile image"
-            />
+          <div className="h-56 w-56 relative rounded-xl overflow-hidden">
+            {selectedMember.image ? (
+              <Image
+                src={selectedMember.image}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-xl shadow-sm"
+                alt="profile image"
+              />
+            ) : (
+              <LetteredAvatar
+                name={selectedMember.name}
+                size="100%"
+                maxInitials={2}
+              />
+            )}
           </div>
           <div className="py-1.5 flex flex-col justify-between">
             <div className="flex flex-col space-y-2">
@@ -145,13 +156,17 @@ const MemberProfile = () => {
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 20 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.01 }}
           >
             {selectedTab === "overview" ? (
               <ProfileOverviewTab
                 primary_details={selectedMember}
                 other_details={selectedMember.details}
               />
+            ) : selectedTab === "members" ? (
+              <MembersTab parent_member_id={selectedMember.id} />
+            ) : selectedTab === "devices" ? (
+              <DeviceHistory member_id={selectedMember.id} />
             ) : null}
           </motion.div>
         </AnimatePresence>

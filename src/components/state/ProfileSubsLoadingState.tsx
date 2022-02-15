@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/25/22, 6:16 PM
+ * Last Modified 2/15/22, 2:09 PM
  *
  *
  */
@@ -26,7 +26,7 @@ export const ProfileSubsLoadingState = () => {
 
 export const ProfileListLoadingState = () => {
   return (
-    <div className=" print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+    <div className=" print:hidden self-start flex flex-col w-full  space-y-4">
       <div className="w-1/5">
         <Skeleton count={1} duration={2} height={"1rem"} />
       </div>

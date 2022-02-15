@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/26/22, 8:10 PM
+ * Last Modified 2/15/22, 3:27 PM
  *
  *
  */
@@ -42,6 +42,7 @@ export const ProfileHeader = ({ selectedMember }: IProfileHeader) => {
                     name={selectedMember.name}
                     size="120"
                     round={true}
+                    unstyled
                     maxInitials={2}
                   />
                 </div>

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/11/22, 12:30 PM
+ * Last Modified 2/15/22, 2:33 PM
  *
  *
  */
@@ -17,6 +17,7 @@ type DeleteModalProps = {
   title?: string;
   subTitles?: string[];
   closeButton?: React.ReactNode;
+  disabled?: boolean;
 };
 
 export const DeleteModal: React.FC<DeleteModalProps> = ({
@@ -24,14 +25,26 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
   title,
   subTitles,
   closeButton,
+  disabled = true,
 }) => {
   return (
     <Modal>
-      <div className="cursor-not-allowed">
-        {closeButton ?? (
+      {!disabled ? (
+        <Modal.Button type="open">
+          <div className={`${disabled && "cursor-not-allowed"}`}>
+            {closeButton ?? (
+              <Trash
+                name="delete"
+                className="text-gray-400 hover:text-gray-800"
+              />
+            )}
+          </div>
+        </Modal.Button>
+      ) : (
+        closeButton ?? (
           <Trash name="delete" className="text-gray-400 hover:text-gray-800" />
-        )}
-      </div>
+        )
+      )}
 
       <Modal.Content width="max-w-3xl">
         <div className="flex flex-col items-center justify-center space-y-4">

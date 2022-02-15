@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/14/22, 5:50 PM
+ * Last Modified 2/15/22, 1:53 PM
  *
  *
  */
@@ -46,6 +46,14 @@ export function ProfileOverviewTab({
             <div className="text-xl font-medium text-gray-400">
               Marital Status
             </div>
+            {other_details.map((detail) => (
+              <div
+                key={detail.id}
+                className="text-xl font-medium text-gray-400"
+              >
+                {detail.name}
+              </div>
+            ))}
           </div>
           <div className="flex flex-col gap-8">
             <div className="text-xl font-Inter font-semibold text-gray-800">
@@ -78,6 +86,14 @@ export function ProfileOverviewTab({
             <div className="text-xl font-semibold text-gray-850">
               {primary_details.marital_status}
             </div>
+            {other_details.map((detail) => (
+              <div
+                key={detail.id}
+                className="text-xl font-semibold text-gray-850"
+              >
+                {detail.value}
+              </div>
+            ))}
           </div>
         </div>
       </div>

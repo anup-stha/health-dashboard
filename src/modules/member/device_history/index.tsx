@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/8/22, 4:26 PM
+ * Last Modified 2/15/22, 2:33 PM
  *
  *
  */
@@ -16,19 +16,23 @@ import { WarningOctagon } from "phosphor-react";
 import { GrayButton } from "@/components/Button";
 import * as deviceHistory from "@/modules/member/api/hooks/useDeviceHistory";
 import { toastAlert } from "@/components/Alert";
+import { ProfileListLoadingState } from "@/components/state/ProfileSubsLoadingState";
+import { DeleteModal } from "@/components/Modal/DeleteModal";
 
 interface IDeviceHistory {
   member_id: number;
 }
 
 export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
-  const { data } = useUserDeviceHistory(member_id);
+  const { data, isLoading } = useUserDeviceHistory(member_id);
   const { mutateAsync } = deviceHistory.useDelete(member_id);
 
-  console.log(data);
+  if (isLoading) {
+    return <ProfileListLoadingState />;
+  }
 
   return (
-    <div className="print:hidden w-full bg-white rounded-xl sm:w-full  ring-1 ring-black ring-opacity-10 p-6 space-y-8">
+    <div className="print:hidden w-full sm:w-full space-y-8">
       <div className="flex justify-between items-center">
         <div className="print:hidden">
           <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
@@ -39,21 +43,27 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
           </h1>
         </div>
         {data && data.length !== 0 ? (
-          <GrayButton
-            onClick={async () => {
-              await toastAlert({
-                type: "promise",
-                promise: mutateAsync(member_id),
-                msgs: {
-                  loading: "Deleting Device History",
-                  success: "Deleted Device History Successfully",
-                },
-                id: "device-history",
-              });
-            }}
-          >
-            Remove History
-          </GrayButton>
+          <>
+            <DeleteModal
+              title={"Remove Device History"}
+              subTitles={[
+                "This will remove all devices and log you out of all devices you have logged into",
+              ]}
+              disabled={false}
+              closeButton={<GrayButton>Remove History</GrayButton>}
+              onDelete={async () => {
+                await toastAlert({
+                  type: "promise",
+                  promise: mutateAsync(member_id),
+                  msgs: {
+                    loading: "Deleting Device History",
+                    success: "Deleted Device History Successfully",
+                  },
+                  id: "device-history",
+                });
+              }}
+            />
+          </>
         ) : null}
       </div>
       {data && data.length !== 0 ? (

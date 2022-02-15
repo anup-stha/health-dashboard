@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/14/22, 5:35 PM
+ * Last Modified 2/15/22, 3:28 PM
  *
  *
  */
@@ -49,7 +49,7 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
     case "org_operator":
       return ["overview", "members", "devices", "settings"];
     case "patient":
-      return ["overview", "members", "tests", "settings"];
+      return ["overview", "tests", "settings"];
     default:
       return ["overview", "settings"];
   }
