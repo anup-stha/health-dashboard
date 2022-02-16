@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/26/22, 8:28 PM
+ * Last Modified 2/16/22, 10:43 AM
  *
  *
  */
@@ -12,9 +12,9 @@ import {
   toggleActiveForMember,
   toggleVerifiedForMember,
 } from "@/services/requests/memberRequests";
-import { GreenLineButton, RedLineButton } from "@/components/Button";
 import { Member } from "@/modules/member/types";
 import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
+import { Menu } from "@headlessui/react";
 
 type MemberToggleProps = {
   toggle: "active" | "verified";
@@ -75,26 +75,38 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   };
 
   return currentState ? (
-    <RedLineButton
-      buttonSize={"small"}
-      width={"full"}
-      onClick={() => onToggleHandler()}
-    >
-      Mark{" "}
-      {currentState
-        ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
-        : toggle}
-    </RedLineButton>
+    <Menu.Item onClick={onToggleHandler}>
+      {({ active: btnActive }) => (
+        <button
+          className={`${
+            btnActive ? `text-red-500 bg-red-50 text-white` : "text-gray-700"
+          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+        >
+          <span>
+            Mark{" "}
+            {currentState
+              ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
+              : toggle}
+          </span>
+        </button>
+      )}
+    </Menu.Item>
   ) : (
-    <GreenLineButton
-      buttonSize={"small"}
-      width={"full"}
-      onClick={() => onToggleHandler()}
-    >
-      Mark{" "}
-      {currentState
-        ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
-        : toggle}
-    </GreenLineButton>
+    <Menu.Item onClick={onToggleHandler}>
+      {({ active }) => (
+        <button
+          className={`${
+            active ? "text-green-500 bg-green-50" : "text-gray-900"
+          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+        >
+          <span>
+            Mark{" "}
+            {currentState
+              ? `${toggle === "active" ? "active" : "Verified"}`
+              : toggle}
+          </span>
+        </button>
+      )}
+    </Menu.Item>
   );
 };

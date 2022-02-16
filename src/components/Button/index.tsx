@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/3/22, 12:32 PM
+ * Last Modified 2/16/22, 8:40 AM
  *
  *
  */
@@ -30,8 +30,8 @@ export const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   const buttonPadding =
     buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-md text-lg"
-      : "px-12 py-4 sm:px-8 shadow-E400";
+      ? "px-8 py-4 sm:px-8 shadow-md text-lg rounded-lg"
+      : "px-12 py-4 sm:px-8 shadow-E400 rounded-sm";
 
   return (
     <button
@@ -41,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled ?? loading}
       className={`flex items-center ${buttonPadding} ${
         width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer justify-center text-center text-xl font-semibold text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
+      } capitalize cursor-pointer justify-center text-center text-xl font-semibold text-white bg-green-500  disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
       <span className={"sm:line-clamp-1"}>{children}</span>
