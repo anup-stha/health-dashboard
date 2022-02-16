@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 3:40 PM
+ * Last Modified 2/16/22, 2:12 PM
  *
  *
  */
@@ -43,42 +43,46 @@ const TestTab = ({ selectedMember }: IProfileTestSection) => {
 
   const chartData = testDetailsList ? getChartData(testDetailsList.list) : {};
 
-  return !isLoading || testList ? (
-    <div className="print:hidden">
-      <div className={"flex flex-col space-y-8 sm:space-y-4"}>
-        <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
-          <div className="print:hidden">
-            <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-              Tests
-            </h1>
-            <h1 className="text-gray-500 font-medium text-lg print:hidden">
-              Please choose a test to show results of that test
-            </h1>
-          </div>
-          <TestDropdown
-            testList={testList}
-            selectedTest={selectedTest}
-            setSelectedTest={setSelectedTest}
-          />
-        </div>
-        <div className="space-y-4">
-          {testLoading ? (
-            <Loader />
-          ) : (
-            <>
-              {Object.keys(chartData).length !== 0 && (
-                <TestLineChart datas={chartData} />
-              )}
-              <ProfileTestTab
-                testList={testDetailsList}
-                selectedMember={selectedMember}
+  return (
+    <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+      {!isLoading || testList ? (
+        <div className="print:hidden">
+          <div className={"flex flex-col space-y-8 sm:space-y-4"}>
+            <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
+              <div className="print:hidden">
+                <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+                  Tests
+                </h1>
+                <h1 className="text-gray-500 font-medium text-lg print:hidden">
+                  Please choose a test to show results of that test
+                </h1>
+              </div>
+              <TestDropdown
+                testList={testList}
+                selectedTest={selectedTest}
+                setSelectedTest={setSelectedTest}
               />
-            </>
-          )}
+            </div>
+            <div className="space-y-4">
+              {testLoading ? (
+                <Loader />
+              ) : (
+                <>
+                  {Object.keys(chartData).length !== 0 && (
+                    <TestLineChart datas={chartData} />
+                  )}
+                  <ProfileTestTab
+                    testList={testDetailsList}
+                    selectedMember={selectedMember}
+                  />
+                </>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
-  ) : null;
+  );
 };
 
 export const ProfileTestSection = React.memo(TestTab);

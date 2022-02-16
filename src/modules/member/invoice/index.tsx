@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 8:36 PM
+ * Last Modified 2/16/22, 3:16 PM
  *
  *
  */
@@ -39,7 +39,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
   const selectedMember = useCurrentMemberStore((state) => state.member);
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const invoiceId = useMemberStore((state) => state.invoice_id);
-  const { isLoading, data: selectedSubscription } = useMemberSubsDetails(
+  const { data: selectedSubscription } = useMemberSubsDetails(
     user.id !== 1 ? 0 : selectedMember.id
   );
   const [paid, setPaid] = useState(false);
@@ -118,7 +118,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
     !invoice_id && useMemberStore.getState().setInvoiceId("__");
   }, []);
 
-  return isLoading ? (
+  return !selectedSubscription ? (
     <Loader />
   ) : (
     <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -306,7 +306,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
               <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8 text-lg">
                 <div className="font-semibold flex flex-col gap-2 text-gray-800 w-2/3">
                   <span className="text-xl">
-                    Organization Yearly Subscription{" "}
+                    {selectedSubscription.plan.name}
                   </span>
                   <span className="text-gray-400 font-medium md:text-sm">
                     Acuity, Vitals, ECG, BMI, Urine, Glucose
@@ -320,7 +320,7 @@ export const MemberInvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                   365 days
                 </span>
                 <span className="font-semibold text-gray-700 w-1/3 text-right">
-                  Rs. {selectedSubscription.plan.price}
+                  Rs. {selectedSubscription?.plan?.price}
                 </span>
               </div>
               <div className="w-full flex px-4 py-12 text-lg gap-8 md:flex-col-reverse md:relative">

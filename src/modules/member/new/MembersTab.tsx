@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 2:12 PM
+ * Last Modified 2/16/22, 2:11 PM
  *
  *
  */
@@ -53,64 +53,70 @@ function Tab({ parent_member_id }: IMembersTable) {
     );
   }
 
-  return data ? (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold text-gray-800">Members List</h1>
-          <p className="text-gray-500 font-medium text-lg print:hidden">
-            List of All Organization Members
-          </p>
-        </div>
-
-        <div className="flex gap-4">
-          <MemberRoleDropdown
-            roleList={data?.data.data}
-            selectedRole={userRole}
-            setSelectedRole={setUserRole}
-          />
-          <MemberModal
-            type={"add"}
-            selectedRole={userRole}
-            parent_member_id={parent_member_id}
-          />
-        </div>
-      </div>
-
-      <div>
-        {usersList ? (
-          usersList.list.length === 0 ? (
-            <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
-              <WarningOctagon size={24} /> <span>No Details Found</span>
+  return (
+    <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+      {data ? (
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold text-gray-800">
+                Members List
+              </h1>
+              <p className="text-gray-500 font-medium text-lg print:hidden">
+                List of All Organization Members
+              </p>
             </div>
-          ) : (
-            <TableView
-              data={usersList?.list.map((element) => ({
-                ...element,
-                role_id: selectedRole.id,
-                role_slug: selectedRole.slug,
-              }))}
-              tableHeadings={[
-                "Member Name",
-                "Code",
-                "Phone Number",
-                "Address",
-                "",
-              ]}
-              searchTerms={["name", "member_code"]}
-              tableRowComponent={<UserTableRow />}
-              loading={!data.data}
-              paginate={true}
-              paginateObject={usersList.pagination}
-            />
-          )
-        ) : (
-          <ProfileListLoadingState />
-        )}
-      </div>
+
+            <div className="flex gap-4">
+              <MemberRoleDropdown
+                roleList={data?.data.data}
+                selectedRole={userRole}
+                setSelectedRole={setUserRole}
+              />
+              <MemberModal
+                type={"add"}
+                selectedRole={userRole}
+                parent_member_id={parent_member_id}
+              />
+            </div>
+          </div>
+
+          <div>
+            {usersList ? (
+              usersList.list.length === 0 ? (
+                <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+                  <WarningOctagon size={24} /> <span>No Details Found</span>
+                </div>
+              ) : (
+                <TableView
+                  data={usersList?.list.map((element) => ({
+                    ...element,
+                    role_id: selectedRole.id,
+                    role_slug: selectedRole.slug,
+                  }))}
+                  tableHeadings={[
+                    "Member Name",
+                    "Code",
+                    "Phone Number",
+                    "Address",
+                    "",
+                  ]}
+                  searchTerms={["name", "member_code"]}
+                  tableRowComponent={<UserTableRow />}
+                  loading={!data.data}
+                  paginate={true}
+                  paginateObject={usersList.pagination}
+                />
+              )
+            ) : (
+              <ProfileListLoadingState />
+            )}
+          </div>
+        </div>
+      ) : (
+        <ProfileListLoadingState />
+      )}{" "}
     </div>
-  ) : (
-    <ProfileListLoadingState />
   );
 }
 

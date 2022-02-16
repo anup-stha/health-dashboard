@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 1:53 PM
+ * Last Modified 2/16/22, 2:10 PM
  *
  *
  */
@@ -24,8 +24,8 @@ export function ProfileOverviewTab({
   primary_details,
 }: IProfileOverviewTabProps) {
   return (
-    <>
-      <h1 className="text-2xl font-semibold text-gray-800">Profile Overview</h1>
+    <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+      <h1 className="text-3xl font-semibold text-gray-800">Profile Overview</h1>
       <div className="h-0.5 bg-slate-200 w-full absolute left-0 top-20" />
       <div className="flex flex-col mt-12">
         <div className="grid grid-cols-2 gap-4 w-1/2">
@@ -97,6 +97,6 @@ export function ProfileOverviewTab({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

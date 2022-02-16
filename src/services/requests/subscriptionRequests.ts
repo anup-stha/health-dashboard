@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 12:48 PM
+ * Last Modified 2/16/22, 3:14 PM
  *
  *
  */
@@ -21,6 +21,7 @@ import { privateAgent } from ".";
 import { useMemberStore } from "@/modules/member/utils/useMemberStore";
 import Router from "next/router";
 import { useQuery } from "react-query";
+import { queryClient } from "@/pages/_app";
 
 export const listSubscriptions = (roleId: number) => {
   return privateAgent
@@ -109,6 +110,7 @@ export const assignSubscriptionToMember = (
       })
       .then(async (response) => {
         await getMemberSubscriptionDetails(member_id).then(() => {
+          queryClient.invalidateQueries("member-subs-details");
           resolve(response.data.message);
         });
       })
@@ -193,6 +195,7 @@ export const getMemberSubscriptionDetails = (member_id: number) => {
         useMemberStore
           .getState()
           .setSelectedMemberSubscription(response.data.data);
+        console.log(response);
         useSubscriptionStore
           .getState()
           .setSubscription(response.data.data.plan);

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 3:37 PM
+ * Last Modified 2/16/22, 12:46 PM
  *
  *
  */
@@ -52,6 +52,6 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
     case "patient":
       return ["overview", "tests", "medical history", "settings"];
     default:
-      return ["overview", "settings"];
+      return ["overview", "subscriptions", "settings"];
   }
 }

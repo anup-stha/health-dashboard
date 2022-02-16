@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 10:41 AM
+ * Last Modified 2/16/22, 2:10 PM
  *
  *
  */
@@ -27,6 +27,7 @@ import { PatientMedicalHistory } from "@/modules/member/others/PatientMedicalHis
 import { Button } from "@/components/Button";
 import { Menu, Transition } from "@headlessui/react";
 import { MemberToggle } from "@/modules/member/others/MemberToggle";
+import { SubscriptionTab } from "@/modules/member/new/SubscriptionTab";
 
 type TabItemsType =
   | "overview"
@@ -76,6 +77,7 @@ const MemberProfile = () => {
               <LetteredAvatar
                 name={selectedMember.name}
                 size="100%"
+                className="rounded-xl overflow-hidden"
                 maxInitials={2}
               />
             )}
@@ -225,33 +227,35 @@ const MemberProfile = () => {
           ))}
         </nav>
       </div>
-      <div className="w-full bg-white rounded-2xl shadow-sm p-8 flex flex-col gap-14 relative">
-        <AnimatePresence exitBeforeEnter>
-          <motion.div
-            key={selectedTab ?? "empty"}
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.1 }}
-          >
-            {selectedTab === "overview" ? (
-              <ProfileOverviewTab
-                primary_details={selectedMember}
-                other_details={selectedMember.details}
-              />
-            ) : selectedTab === "members" ? (
-              <MembersTab parent_member_id={selectedMember.id} />
-            ) : selectedTab === "devices" ? (
-              <DeviceHistory member_id={selectedMember.id} />
-            ) : selectedTab === "tests" ? (
-              <ProfileTestSection selectedMember={selectedMember} />
-            ) : selectedTab === "medical history" ? (
-              <PatientMedicalHistory selectedMember={selectedMember} />
-            ) : null}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      ;
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          key={selectedTab ?? "empty"}
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.1 }}
+        >
+          {selectedTab === "overview" ? (
+            <ProfileOverviewTab
+              primary_details={selectedMember}
+              other_details={selectedMember.details}
+            />
+          ) : selectedTab === "members" ? (
+            <MembersTab parent_member_id={selectedMember.id} />
+          ) : selectedTab === "devices" ? (
+            <DeviceHistory member_id={selectedMember.id} />
+          ) : selectedTab === "tests" ? (
+            <ProfileTestSection selectedMember={selectedMember} />
+          ) : selectedTab === "medical history" ? (
+            <PatientMedicalHistory selectedMember={selectedMember} />
+          ) : selectedTab === "subscriptions" ? (
+            <SubscriptionTab
+              member_id={selectedMember.id}
+              role_id={selectedMember.role.id}
+            />
+          ) : null}
+        </motion.div>
+      </AnimatePresence>
     </div>
     /*  <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
        <div className="w-3/4 space-y-8 lg:w-full">

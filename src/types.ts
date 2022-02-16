@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/13/22, 9:21 AM
+ * Last Modified 2/16/22, 3:06 PM
  *
  *
  */
@@ -351,11 +351,13 @@ export type Subscription = {
   name: string;
   price: string;
   slug: string;
+  currency: string;
   interval_type: string;
   interval_value: number;
   grace_period: number;
   sync_limit: number;
   test_limit: number;
+  test_categories: any[];
 };
 
 export type SubscriptionListResponse = StatusType & {
@@ -394,11 +396,13 @@ export type MemberSubscriptionDetails = {
   end_date: number;
   active: boolean;
   total_test_count: number;
+  currency: string;
   plan: {
     id: number;
     name: string;
     price: string;
     slug: string;
+    currency: string;
     interval_type: string;
     interval_value: number;
     grace_period: number;

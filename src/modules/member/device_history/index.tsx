@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 2:33 PM
+ * Last Modified 2/16/22, 2:11 PM
  *
  *
  */
@@ -32,51 +32,53 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
   }
 
   return (
-    <div className="print:hidden w-full sm:w-full space-y-8">
-      <div className="flex justify-between items-center">
-        <div className="print:hidden">
-          <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
-            Device History
-          </h1>
-          <h1 className="text-gray-500 font-medium text-lg print:hidden">
-            List of all Devices that user has logged into.
-          </h1>
+    <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+      <div className="print:hidden w-full sm:w-full space-y-8">
+        <div className="flex justify-between items-center">
+          <div className="print:hidden">
+            <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+              Device History
+            </h1>
+            <h1 className="text-gray-500 font-medium text-lg print:hidden">
+              List of all Devices that user has logged into.
+            </h1>
+          </div>
+          {data && data.length !== 0 ? (
+            <>
+              <DeleteModal
+                title={"Remove Device History"}
+                subTitles={[
+                  "This will remove all devices and log you out of all devices you have logged into",
+                ]}
+                disabled={false}
+                closeButton={<GrayButton>Remove History</GrayButton>}
+                onDelete={async () => {
+                  await toastAlert({
+                    type: "promise",
+                    promise: mutateAsync(member_id),
+                    msgs: {
+                      loading: "Deleting Device History",
+                      success: "Deleted Device History Successfully",
+                    },
+                    id: "device-history",
+                  });
+                }}
+              />
+            </>
+          ) : null}
         </div>
         {data && data.length !== 0 ? (
-          <>
-            <DeleteModal
-              title={"Remove Device History"}
-              subTitles={[
-                "This will remove all devices and log you out of all devices you have logged into",
-              ]}
-              disabled={false}
-              closeButton={<GrayButton>Remove History</GrayButton>}
-              onDelete={async () => {
-                await toastAlert({
-                  type: "promise",
-                  promise: mutateAsync(member_id),
-                  msgs: {
-                    loading: "Deleting Device History",
-                    success: "Deleted Device History Successfully",
-                  },
-                  id: "device-history",
-                });
-              }}
-            />
-          </>
-        ) : null}
+          <TableView
+            data={data.sort((a, b) => (a.id < b.id ? 1 : -1))}
+            tableRowComponent={<DeviceHistoryTableRow />}
+            tableHeadings={["Device Info", "Device Model", "Device Details"]}
+          />
+        ) : (
+          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+            <WarningOctagon size={24} /> <span>No Device Details Found</span>
+          </div>
+        )}
       </div>
-      {data && data.length !== 0 ? (
-        <TableView
-          data={data.sort((a, b) => (a.id < b.id ? 1 : -1))}
-          tableRowComponent={<DeviceHistoryTableRow />}
-          tableHeadings={["Device Info", "Device Model", "Device Details"]}
-        />
-      ) : (
-        <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
-          <WarningOctagon size={24} /> <span>No Device Details Found</span>
-        </div>
-      )}
     </div>
   );
 };
