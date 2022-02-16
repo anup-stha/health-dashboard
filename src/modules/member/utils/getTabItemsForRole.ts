@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 12:46 PM
+ * Last Modified 2/16/22, 3:26 PM
  *
  *
  */
@@ -30,23 +30,9 @@ type TabType =
 export function getTabItemsForRole(role: RoleType): TabType[] {
   switch (role) {
     case "individual":
-      return [
-        "overview",
-        "subscriptions",
-        "billing",
-        "tests",
-        "devices",
-        "settings",
-      ];
+      return ["overview", "subscriptions", "tests", "devices", "settings"];
     case "org_admin":
-      return [
-        "overview",
-        "members",
-        "subscriptions",
-        "billing",
-        "devices",
-        "settings",
-      ];
+      return ["overview", "members", "subscriptions", "devices", "settings"];
     case "org_operator":
       return ["overview", "members", "devices", "settings"];
     case "patient":

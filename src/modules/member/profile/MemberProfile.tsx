@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 2:10 PM
+ * Last Modified 2/16/22, 3:59 PM
  *
  *
  */
@@ -44,21 +44,11 @@ const MemberProfile = () => {
   const selectedRole = useCurrentMemberStore((state) => state.role);
   const [active, setActive] = useState(selectedMember.active);
   const [verified, setVerified] = useState(selectedMember.verified);
-  /*
-    const user = useAuthStore((state) => state.user);
-  */
 
   const [selectedTab, setSelectedTab] = useState<TabItemsType>("overview");
   const [tabList] = useState<TabItemsType[]>(
     getTabItemsForRole(selectedRole.slug)
   );
-
-  /*   const { isFetching } = useMemberSubsDetails(
-      user.id !== 1 ? 0 : selectedMember.id
-    );
-    const { isFetching: subsLoading } = useSubscriptionList(
-      user.id! !== 1 ? 0 : Number(selectedRole.id)
-    ); */
 
   return (
     <div className="px-10 py-8 w-full flex flex-col gap-8">
@@ -217,6 +207,7 @@ const MemberProfile = () => {
               {tab}
               {tab === selectedTab ? (
                 <motion.div
+                  transition={{ duration: 0.1 }}
                   layoutId="underline"
                   className={
                     "h-1 w-full absolute right-0 bottom-0 bg-green-500"
@@ -257,41 +248,6 @@ const MemberProfile = () => {
         </motion.div>
       </AnimatePresence>
     </div>
-    /*  <div className="flex gap-8 p-10 lg:flex-col 3xl:max-w-8xl 3xl:justify-center sm:p-6">
-       <div className="w-3/4 space-y-8 lg:w-full">
-         <ProfileDetails selectedMember={selectedMember} />
-         {selectedMember.role.slug === "patient" ? (
-           <>
-             <ProfileTestSection selectedMember={selectedMember} />
-             <PatientMedicalHistory selectedMember={selectedMember} />
-           </>
-         ) : selectedMember.role.slug === "individual" ? (
-           <ProfileTestSection selectedMember={selectedMember} />
-         ) : selectedMember.role.slug === "org_admin" ? (
-           <UsersTable parent_member_id={selectedMember.id} />
-         ) : null}
-         {selectedRole.permissions.find(
-           (permission) => permission.slug === "login"
-         ) && user.id === 1 ? (
-           <DeviceHistory member_id={selectedMember.id} />
-         ) : null}
-       </div>
-       <div className="w-1/4 lg:w-full h-auto lg:grid lg:grid-cols-2  flex flex-col sm:flex sm:flex-col gap-8 ">
-         {selectedMember.role.slug === "patient" ||
-         selectedMember.role.slug === "org_operator" ? null : subsLoading &&
-           isFetching ? (
-           <ProfileSubsLoadingState />
-         ) : (
-           <ProfileSubscription member_id={selectedMember.id} />
-         )}
-         {selectedMember.role.slug === "org_admin" ? (
-           <InvoiceHistory member_id={selectedMember.id} />
-         ) : null}
-         <MemberProfileControls
-           selectedRole={selectedRole}
-           selectedMember={selectedMember}
-         />
-       </div>  </div> */
   );
 };
 

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 2:41 PM
+ * Last Modified 2/16/22, 4:52 PM
  *
  *
  */
@@ -13,7 +13,6 @@ import {
   useMemberSubsDetails,
   useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
-import { Loader } from "@/components/Loader";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import isEmpty from "lodash/isEmpty";
 import { WarningOctagon } from "phosphor-react";
@@ -29,6 +28,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronDown } from "react-feather";
 import { InvoiceHistory } from "@/modules/member/invoice/InvoiceHistory";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
+import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
 interface ISubscriptionTab {
   member_id: number;
@@ -41,18 +41,21 @@ interface ISubscriptionTab {
  * @param {number} member_id - id of member in member list or member_id if it's there
  * @return {JSX.Element}
  */
-export function SubscriptionTab({ member_id, role_id }: ISubscriptionTab) {
+function Tab({ member_id, role_id }: ISubscriptionTab) {
   const router = useRouter();
-  const { isLoading, data } = useMemberSubsDetails(member_id);
+  const { isLoading } = useMemberSubsDetails(member_id);
   const { isLoading: subsLoading } = useSubscriptionList(role_id);
   const user = useAuthStore((state) => state.user);
   const { subscriptionList, selectedSubscription } = useSubscriptionStore();
   const { selectedMemberSubscription } = useMemberStore();
   const { start_date, end_date } = selectedMemberSubscription;
 
-  console.log(data);
-
-  if (isLoading || subsLoading) return <Loader />;
+  if (isLoading || subsLoading)
+    return (
+      <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+        <ProfileSubsLoadingState />
+      </div>
+    );
 
   return (
     <div className="flex items-start gap-4">
@@ -90,8 +93,11 @@ export function SubscriptionTab({ member_id, role_id }: ISubscriptionTab) {
                 </div>
               ) : (
                 <>
-                  <div className="flex items-center  space-x-4 w-full">
-                    <div className={"w-[58%]"}>
+                  <div className="flex items-end  space-x-4 w-full">
+                    <div className={"w-1/3"}>
+                      <span className="text-xl font-medium text-gray-500 ">
+                        Choose a Subscription
+                      </span>
                       <SubscriptionDropdown />
                     </div>
                     <div className={"w-1/2"}>
@@ -270,3 +276,5 @@ export function SubscriptionTab({ member_id, role_id }: ISubscriptionTab) {
     </div>
   );
 }
+
+export const SubscriptionTab = React.memo(Tab);

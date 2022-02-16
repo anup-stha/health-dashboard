@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 2:11 PM
+ * Last Modified 2/16/22, 3:40 PM
  *
  *
  */
@@ -28,7 +28,11 @@ export const DeviceHistory = ({ member_id }: IDeviceHistory) => {
   const { mutateAsync } = deviceHistory.useDelete(member_id);
 
   if (isLoading) {
-    return <ProfileListLoadingState />;
+    return (
+      <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+        <ProfileListLoadingState />
+      </div>
+    );
   }
 
   return (

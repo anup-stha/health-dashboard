@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 2:18 PM
+ * Last Modified 2/16/22, 4:50 PM
  *
  *
  */
@@ -10,16 +10,19 @@ import { useInvoiceList } from "@/modules/member/api/hooks/useInvoiceList";
 import React, { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { CaretDown, CaretUp } from "phosphor-react";
+import { CaretDown, CaretUp, WarningOctagon } from "phosphor-react";
 import { Invoice } from "@/types";
 import { useRouter } from "next/router";
+import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
 interface IPropsInvoiceHistory {
   member_id: number;
 }
 
 export const InvoiceHistory = ({ member_id }: IPropsInvoiceHistory) => {
-  const { data } = useInvoiceList(member_id, 1);
+  const { data, isLoading } = useInvoiceList(member_id, 1);
+
+  if (isLoading) return <ProfileSubsLoadingState />;
 
   return data && data.data.data.length !== 0 ? (
     <div className="print:hidden self-start flex flex-col w-full space-y-4">
@@ -81,7 +84,17 @@ export const InvoiceHistory = ({ member_id }: IPropsInvoiceHistory) => {
         </Disclosure>
       ) : null}
     </div>
-  ) : null;
+  ) : (
+    <div className="print:hidden self-start flex flex-col w-full space-y-4">
+      <span className="font-semibold text-2xl text-gray-900">
+        Invoice History
+      </span>
+      <div className="print:hidden flex items-center text-red-500 space-x-4">
+        <WarningOctagon size={40} />
+        <span className={"font-semibold text-xl"}>No Invoices Found</span>
+      </div>
+    </div>
+  );
 };
 
 const InvoiceHistoryItem = ({ invoice }: { invoice: Invoice }) => {

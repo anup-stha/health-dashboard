@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/15/22, 2:09 PM
+ * Last Modified 2/16/22, 3:39 PM
  *
  *
  */
@@ -11,7 +11,7 @@ import React from "react";
 
 export const ProfileSubsLoadingState = () => {
   return (
-    <div className=" print:hidden self-start flex flex-col w-full  bg-white rounded-xl ring-1 ring-black ring-opacity-10 py-6 px-6 space-y-4">
+    <div className=" space-y-4">
       <div className="w-2/3">
         <Skeleton count={1} duration={2} />
       </div>
