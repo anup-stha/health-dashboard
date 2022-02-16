@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/5/22, 11:30 AM
+ * Last Modified 2/16/22, 10:11 PM
  *
  *
  */
@@ -22,4 +22,10 @@ export const getGlobalStates = () => {
         reject(error.response);
       })
   );
+};
+
+export const getOverviewData = (member_id: number) => {
+  return privateAgent
+    .get<any>(`dashboard/org_overview/${member_id}`)
+    .then((response) => response.data.data);
 };

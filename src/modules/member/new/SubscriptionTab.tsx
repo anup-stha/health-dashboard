@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 4:52 PM
+ * Last Modified 2/16/22, 10:06 PM
  *
  *
  */
@@ -58,8 +58,8 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
     );
 
   return (
-    <div className="flex items-start gap-4">
-      <div className="bg-white w-2/3 rounded-2xl shadow-sm p-8 flex flex-col relative">
+    <div className="flex items-start md:flex-col gap-4">
+      <div className="bg-white w-2/3 md:w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
         <div className="flex flex-col gap-6">
           <div>
             <h1 className="text-3xl font-semibold text-gray-800">
@@ -85,15 +85,15 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                       </span>
                     </span>
                   ) : (
-                    <span className={"font-semibold"}>
+                    <span className={"font-semibold text-xl"}>
                       No Subscription Found. Please contact Sunya Health
                       Administrator
                     </span>
                   )}
                 </div>
-              ) : (
+              ) : user.id === 1 ? (
                 <>
-                  <div className="flex items-end  space-x-4 w-full">
+                  <div className="flex items-end space-x-4 w-full">
                     <div className={"w-1/3"}>
                       <span className="text-xl font-medium text-gray-500 ">
                         Choose a Subscription
@@ -120,13 +120,21 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                     </div>
                   </div>
                 </>
+              ) : (
+                <div className="print:hidden flex items-center text-red-500 space-x-4">
+                  <WarningOctagon size={40} />
+                  <span className={"font-semibold text-xl"}>
+                    No Subscription Found. Please contact Sunya Health
+                    Administrator
+                  </span>
+                </div>
               )}
             </>
           ) : (
             <>
               <div className="mt-1">
                 <div className="flex flex-col">
-                  <div className="flex items-center -translate-x-14 -translate-y-4">
+                  <div className="flex items-center -translate-x-14 -translate-y-4 ">
                     <SubscriptionChart
                       start_date={start_date}
                       end_date={end_date}
@@ -140,7 +148,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                           <span className="text-xl font-medium text-gray-400">
                             Duration:
                           </span>
-                          <span className="text-xl font-semibold text-gray-600">
+                          <span className="text-xl font-semibold text-gray-600 whitespace-nowrap">
                             {" "}
                             {moment(
                               selectedMemberSubscription.start_date * 1000
@@ -268,7 +276,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
           )}
         </div>
       </div>
-      <div className="w-1/3 flex-col">
+      <div className="w-1/3 md:w-full flex-col">
         <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col relative">
           <InvoiceHistory member_id={member_id} />
         </div>

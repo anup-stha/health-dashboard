@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 2:11 PM
+ * Last Modified 2/16/22, 9:21 PM
  *
  *
  */
@@ -57,7 +57,7 @@ function Tab({ parent_member_id }: IMembersTable) {
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
       {data ? (
         <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:gap-4">
             <div>
               <h1 className="text-3xl font-semibold text-gray-800">
                 Members List

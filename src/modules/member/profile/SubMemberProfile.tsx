@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 3:28 PM
+ * Last Modified 2/16/22, 10:17 PM
  *
  *
  */
@@ -28,6 +28,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ProfileOverviewTab } from "@/modules/member";
 import { MembersTab } from "@/modules/member/new/MembersTab";
 import { SubscriptionTab } from "@/modules/member/new/SubscriptionTab";
+import { MemberOtherDetailModal } from "@/modules/member/modal/MemberOtherDetailModal";
+import { MemberModal } from "@/modules/member/modal/MemberModal";
+import { useOverviewData } from "@/modules/member/api/hooks/useOverviewData";
 
 type TabItemsType =
   | "overview"
@@ -49,112 +52,122 @@ export const SubMemberProfile = () => {
   const [tabList] = useState<TabItemsType[]>(
     getTabItemsForRole(selectedRole.slug)
   );
+  const { data } = useOverviewData(selectedMember.id);
 
   return (
-    <div className="px-10 py-8 w-full flex flex-col gap-8">
-      <div className="w-full bg-white rounded-2xl shadow-sm p-8 pb-0 flex flex-col gap-14">
-        <div className="flex space-x-8">
-          <div className="flex-shrink-0 h-56 w-56 relative rounded-xl">
-            {selectedMember.image ? (
-              <Image
-                src={selectedMember.image}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-xl shadow-sm"
-                alt="profile image"
+    <div className="px-10 py-8 md:px-4 w-full flex flex-col gap-8">
+      <div className="w-full bg-white rounded-2xl shadow-sm p-8 pb-0 flex flex-col gap-14 md:gap-6">
+        <div className="flex md:flex-col justify-between md:gap-8">
+          <div className="flex gap-8">
+            <div className="flex-shrink-0 h-56 w-56  relative rounded-xl">
+              {selectedMember.image ? (
+                <Image
+                  src={selectedMember.image}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-xl shadow-sm"
+                  alt="profile image"
+                />
+              ) : (
+                <LetteredAvatar
+                  name={selectedMember.name}
+                  size="100%"
+                  className="rounded-xl overflow-hidden"
+                  maxInitials={2}
+                />
+              )}
+              <div
+                className={`w-6 h-6 shadow-xl ${
+                  active ? "bg-green-500" : "bg-red-500"
+                } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
               />
-            ) : (
-              <LetteredAvatar
-                name={selectedMember.name}
-                size="100%"
-                className="rounded-xl overflow-hidden"
-                maxInitials={2}
-              />
-            )}
-            <div
-              className={`w-6 h-6 shadow-xl ${
-                active ? "bg-green-500" : "bg-red-500"
-              } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
-            />
-          </div>
-          <div className="py-1.5 flex flex-col justify-between w-full">
-            <div className="flex items-center justify-between w-full">
-              <div className="flex flex-col space-y-2">
-                <div className="flex gap-2">
-                  <h1 className="text-3xl font-bold text-gray-900">
-                    {selectedMember.name}
-                  </h1>
-                  {verified ? (
-                    <CircleWavyCheck
-                      size={24}
-                      weight="duotone"
-                      className={"text-green-600"}
-                    />
-                  ) : (
-                    <CircleWavyWarning
-                      size={24}
-                      weight="duotone"
-                      className={"text-red-600"}
-                    />
-                  )}
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex items-start space-x-1">
-                    <ProfileCircle
-                      size={18}
-                      variant="Bulk"
-                      color={"rgb(163 163 163)"}
-                    />
-                    <span className={"text-gray-400 font-semibold text-lg"}>
-                      {selectedRole.name}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Location
-                      size={18}
-                      variant="Bulk"
-                      color={"rgb(163 163 163)"}
-                    />
-                    <span className={"text-gray-400 font-semibold text-lg"}>
-                      {selectedMember.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Envelope
-                      size={18}
-                      weight="duotone"
-                      color={"rgb(163 163 163)"}
-                    />
-                    <span className={"text-gray-400 font-semibold text-lg"}>
-                      {selectedMember.email}
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="self-start grid grid-cols-3 gap-4">
-              <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-gray-300 flex flex-col">
-                <span className="font-Inter text-2xl font-bold text-gray-900">
-                  10
-                </span>
-                <span className="text-lg font-semibold text-gray-500">
-                  Total Operators
-                </span>
+            <div className="py-1.5 flex flex-col justify-between md:gap-4 w-full">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex flex-col gap-2 md:gap-1">
+                  <div className="flex items-center  gap-2">
+                    <h1 className="text-3xl font-bold text-gray-900 line-clamp-1">
+                      {selectedMember.name}
+                    </h1>
+                    {verified ? (
+                      <CircleWavyCheck
+                        size={24}
+                        weight="duotone"
+                        className={"text-green-600"}
+                      />
+                    ) : (
+                      <CircleWavyWarning
+                        size={24}
+                        weight="duotone"
+                        className={"text-red-600"}
+                      />
+                    )}
+                  </div>
+
+                  <div className="flex md:flex-col md:gap-0 gap-4">
+                    <div className="flex items-start space-x-1">
+                      <ProfileCircle
+                        size={18}
+                        variant="Bulk"
+                        color={"rgb(163 163 163)"}
+                      />
+                      <span className={"text-gray-400 font-semibold text-lg"}>
+                        {selectedRole.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Location
+                        size={18}
+                        variant="Bulk"
+                        color={"rgb(163 163 163)"}
+                      />
+                      <span className={"text-gray-400 font-semibold text-lg"}>
+                        {selectedMember.address}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Envelope
+                        size={18}
+                        weight="duotone"
+                        color={"rgb(163 163 163)"}
+                      />
+                      <span className={"text-gray-400 font-semibold text-lg"}>
+                        {selectedMember.email}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-gray-300 flex flex-col">
-                <span className="font-Inter text-2xl font-bold text-gray-900">
-                  110
-                </span>
-                <span className="text-lg font-semibold text-gray-500">
-                  Total Patients
-                </span>
+              <div className="self-start grid grid-cols-3 md:grid-cols-2 gap-4">
+                <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-gray-300 flex flex-col">
+                  <span className="font-Inter text-2xl font-bold text-gray-900">
+                    {data?.total_tests ?? 0}
+                  </span>
+                  <span className="text-lg font-semibold text-gray-500">
+                    Total tests
+                  </span>
+                </div>
               </div>
             </div>
           </div>
           <div className="flex-shrink-0 self-start flex space-x-4 relative">
-            <Button buttonSize="small">Edit Profile</Button>
-            <Menu>
+            <MemberOtherDetailModal
+              otherDetails={selectedMember.details}
+              memberData={selectedMember}
+              selectedRole={selectedRole}
+            >
+              <Button color="bg-gray-500" buttonSize="small">
+                Edit Other Details
+              </Button>
+            </MemberOtherDetailModal>
+            <MemberModal
+              type={"edit"}
+              selectedRole={selectedRole}
+              initialData={selectedMember}
+              button={<Button buttonSize="small">Edit Profile</Button>}
+            />
+
+            <Menu className="z-20" as="div">
               <Menu.Button>
                 <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
                   <DotsThreeOutline weight="duotone" size={20} />
@@ -193,7 +206,7 @@ export const SubMemberProfile = () => {
             </Menu>
           </div>
         </div>
-        <nav className="flex gap-14">
+        <nav className="flex md:mt-8 gap-14 overflow-x-scroll sidebar">
           {tabList.map((tab) => (
             <div
               key={tab}
@@ -207,6 +220,7 @@ export const SubMemberProfile = () => {
               {tab}
               {tab === selectedTab ? (
                 <motion.div
+                  transition={{ duration: 0.1 }}
                   layoutId="underline"
                   className={
                     "h-1 w-full absolute right-0 bottom-0 bg-green-500"
@@ -246,6 +260,7 @@ export const SubMemberProfile = () => {
           ) : null}
         </motion.div>
       </AnimatePresence>
+      ;
     </div>
   );
 };

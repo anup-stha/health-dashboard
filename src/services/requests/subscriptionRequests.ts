@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 3:14 PM
+ * Last Modified 2/16/22, 10:00 PM
  *
  *
  */
@@ -124,6 +124,7 @@ export const removeSubscriptionFromMember = (member_id: number) => {
       .delete<any>(`subscription/member/${member_id}`)
       .then(async (response) => {
         await getMemberSubscriptionDetails(member_id).catch(() => {
+          queryClient.invalidateQueries("member-subs-details");
           resolve(response.data.message);
         });
       })

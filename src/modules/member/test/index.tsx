@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/2/22, 12:30 PM
+ * Last Modified 2/16/22, 10:48 PM
  *
  *
  */
@@ -21,6 +21,7 @@ import LetteredAvatar from "react-avatar";
 import { WarningOctagon } from "phosphor-react";
 import { Member } from "@/modules/member/types";
 import { ProfileAllTestPrint } from "@/modules/member/others/ProfileAllTestPrint";
+import Image from "next/image";
 
 interface IMemberTest {
   current_member: Member;
@@ -93,7 +94,15 @@ export const MemberTest = ({ current_member }: IMemberTest) => {
 
       <div className="px-10 py-10 overflow-visible sm:p-6">
         <div className="print:hidden relative w-full bg-white rounded-xl sm:w-full ring-1 ring-black ring-opacity-10 overflow-hidden">
-          <div className="relative w-full h-52 z-0 profile" />
+          <div className="relative w-full h-52 z-0 profile ">
+            <Image
+              src="/assets/cover-bg.svg"
+              layout={"fill"}
+              objectFit={"cover"}
+              objectPosition={"left center"}
+              alt={"cover image"}
+            />
+          </div>
 
           <div className="absolute left-[1.7%] top-40 z-0 flex items-center gap-x-6">
             <div className="ring-4 ring-white rounded-full">

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 1:40 PM
+ * Last Modified 2/16/22, 9:23 PM
  *
  *
  */
@@ -111,8 +111,8 @@ export const SubscriptionChart = ({
       options={options}
       type={"radialBar"}
       series={options.series}
-      width={"260px"}
-      height={"260px"}
+      width={"230px"}
+      height={"230px"}
     />
   ) : null;
 };

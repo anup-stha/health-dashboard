@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/8/22, 1:20 PM
+ * Last Modified 2/16/22, 10:31 PM
  *
  *
  */
@@ -31,6 +31,7 @@ export const login = (loginRequest: LoginRequest) => {
         email: loginRequest.email,
         password: loginRequest.password,
         device_type: "w",
+        device_details: window.navigator.userAgent,
       })
       .then(async (response) => {
         useAuthStore.getState().setUserData(response.data);
@@ -52,13 +53,14 @@ export const logOut = () => {
     privateAgent
       .post<LogoutRequest>("auth/logout/")
       .then(() => {
-        Router.push("/");
-        useAuthStore.getState().removeUserData();
-        useCurrentMemberStore.persist.clearStorage();
-        useCurrentMemberStore.getState().clearCurrentMemberStore();
-        useGlobalState.getState().clearGlobalState();
-        queryClient.clear();
-        resolve("Logged Out Successfully");
+        Router.push("/").then(() => {
+          useAuthStore.getState().removeUserData();
+          useCurrentMemberStore.persist.clearStorage();
+          useCurrentMemberStore.getState().clearCurrentMemberStore();
+          useGlobalState.getState().clearGlobalState();
+          queryClient.clear();
+          resolve("Logged Out Successfully");
+        });
       })
       .catch(() => {
         useAuthStore.getState().removeUserData();

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/8/22, 12:52 PM
+ * Last Modified 2/16/22, 10:46 PM
  *
  *
  */
@@ -17,6 +17,9 @@ import { WarningOctagon } from "phosphor-react";
 import { MemberTestList, PaginationObject } from "@/types";
 import { ProfileTestExport } from "@/modules/member/others/ProfileTestExport";
 import { Member } from "@/modules/member/types";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import Link from "next/link";
+import { GrayButton } from "@/components/Button";
 
 interface IProfileTestTabProps {
   testList:
@@ -30,6 +33,7 @@ export const ProfileTestTab = ({
   selectedMember,
 }: IProfileTestTabProps) => {
   const subTestList = testList ? getSubTestList(testList.list) : [];
+  const user = useAuthStore((state) => state.user);
 
   const activeClassName =
     "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold";
@@ -60,10 +64,27 @@ export const ProfileTestTab = ({
             Grid
           </Tab>
         </Tab.List>
-        <ProfileTestExport
-          testList={testList}
-          selectedMember={selectedMember}
-        />
+        <div className="flex items-start space-x-2">
+          <ProfileTestExport
+            testList={testList}
+            selectedMember={selectedMember}
+          />{" "}
+          {selectedMember.role && selectedMember.role.slug === "patient" ? (
+            user.id === 1 ? (
+              <Link href={`/member/org_admin/patient/test_report`} passHref>
+                <GrayButton className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                  Generate Test Report
+                </GrayButton>
+              </Link>
+            ) : (
+              <Link href={`/member/patient/test_report`} passHref>
+                <GrayButton className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                  Generate Test Report
+                </GrayButton>
+              </Link>
+            )
+          ) : null}
+        </div>
       </div>
       <hr className="border-t-[1px] border-gray-200 " />
       {testList && (

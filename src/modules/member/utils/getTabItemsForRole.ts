@@ -1,10 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 3:26 PM
+ * Last Modified 2/16/22, 9:40 PM
  *
  *
  */
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 type RoleType =
   | "org_admin"
@@ -30,14 +32,17 @@ type TabType =
 export function getTabItemsForRole(role: RoleType): TabType[] {
   switch (role) {
     case "individual":
-      return ["overview", "subscriptions", "tests", "devices", "settings"];
+      return ["overview", "subscriptions", "tests", "devices"];
     case "org_admin":
-      return ["overview", "members", "subscriptions", "devices", "settings"];
+      if (useAuthStore.getState().user.id !== 1) {
+        return ["overview", "subscriptions"];
+      }
+      return ["overview", "members", "subscriptions", "devices"];
     case "org_operator":
-      return ["overview", "members", "devices", "settings"];
+      return ["overview", "members", "devices"];
     case "patient":
-      return ["overview", "tests", "medical history", "settings"];
+      return ["overview", "tests", "medical history"];
     default:
-      return ["overview", "subscriptions", "settings"];
+      return ["overview"];
   }
 }
