@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/14/22, 5:38 PM
+ * Last Modified 2/16/22, 11:27 PM
  *
  *
  */
@@ -28,7 +28,7 @@ const MemberListPage = () => {
             }
           />
 
-          <div className="flex space-x-4">
+          <div className="flex sm:flex-col gap-4">
             <MemberRoleDropdown />
             <MemberModal type="add" selectedRole={currentRole} />
             {currentRole.slug === "patient" && <ExcelImport />}

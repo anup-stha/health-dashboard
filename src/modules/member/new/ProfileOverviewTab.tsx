@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 9:19 PM
+ * Last Modified 2/16/22, 11:25 PM
  *
  *
  */
@@ -56,40 +56,40 @@ export function ProfileOverviewTab({
             ))}
           </div>
           <div className="flex flex-col gap-8">
-            <div className="text-xl font-Inter font-semibold text-gray-800">
+            <div className="text-xl font-Inter line-clamp-1 font-semibold text-gray-800">
               {primary_details.member_code}
             </div>
-            <div className="text-xl font-semibold text-gray-800">
+            <div className="text-xl font-semibold line-clamp-1 text-gray-800">
               {primary_details.name}
             </div>
             <a
               href={`mailto: ${primary_details.email}`}
-              className="text-xl font-semibold text-gray-800"
+              className="text-xl font-semibold line-clamp-1 text-gray-800"
             >
               {primary_details.email}
             </a>
             <a
               href={`tel: ${primary_details.phone}`}
-              className="text-xl font-semibold text-gray-850"
+              className="text-xl font-semibold line-clamp-1 text-gray-850"
             >
               +977-{primary_details.phone}
             </a>
-            <div className="text-xl font-semibold text-gray-850">
+            <div className="text-xl font-semibold line-clamp-1 text-gray-850">
               {dateConvert(primary_details.dob_ad)}
             </div>
-            <div className="text-xl font-semibold text-gray-850">
+            <div className="text-xl font-semibold line-clamp-1 text-gray-850">
               {primary_details.address}
             </div>
-            <div className="text-xl font-semibold text-gray-850">
+            <div className="text-xl font-semibold line-clamp-1 text-gray-850">
               {primary_details.gender}
             </div>
-            <div className="text-xl font-semibold text-gray-850">
+            <div className="text-xl font-semibold line-clamp-1 text-gray-850">
               {primary_details.marital_status}
             </div>
             {other_details.map((detail) => (
               <div
                 key={detail.id}
-                className="text-xl font-semibold text-gray-850"
+                className="text-xl font-semibold line-clamp-1 text-gray-850"
               >
                 {detail.value}
               </div>

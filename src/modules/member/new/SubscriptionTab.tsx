@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/16/22, 10:06 PM
+ * Last Modified 2/16/22, 11:26 PM
  *
  *
  */
@@ -134,7 +134,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
             <>
               <div className="mt-1">
                 <div className="flex flex-col">
-                  <div className="flex items-center -translate-x-14 -translate-y-4 ">
+                  <div className="flex items-center sm:flex-col sm:translate-x-0  -translate-x-14 -translate-y-4 ">
                     <SubscriptionChart
                       start_date={start_date}
                       end_date={end_date}

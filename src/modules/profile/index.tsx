@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 10:31 PM
+ * Last Modified 2/16/22, 11:29 PM
  *
  *
  */
@@ -57,7 +57,7 @@ export const ProfilePage: React.FC = () => {
         <div className="px-10 py-8 md:px-4 w-full flex flex-col gap-8">
           <div className="w-full bg-white rounded-2xl shadow-sm p-8 pb-0 flex flex-col gap-14 md:gap-6">
             <div className="flex md:flex-col justify-between md:gap-8">
-              <div className="flex gap-8">
+              <div className="flex gap-8 flex gap-8 sm:flex-col">
                 <ProfileImageModal selectedMember={user}>
                   <div className="flex-shrink-0 h-56 w-56 cursor-pointer relative rounded-xl">
                     {user.image ? (
