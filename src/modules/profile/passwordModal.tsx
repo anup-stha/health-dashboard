@@ -7,11 +7,13 @@
  */
 
 import Image from "next/image";
-import { PrimaryInput } from "@/components/Input";
-import { Button, GrayButton } from "@/components/Button";
-import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
+
 import { alert } from "@/components/Alert";
+import { Button, GrayButton } from "@/components/Button";
+import { PrimaryInput } from "@/components/Input";
+import { Modal } from "@/components/Modal/useModal";
+
 import { changePassword } from "@/services/requests/authRequests";
 
 type ChangePasswordFormData = {
@@ -65,19 +67,19 @@ export const PasswordModal = () => {
                 <PrimaryInput
                   label="Old Password"
                   type="password"
-                  placeholder={"Enter Old Password"}
+                  placeholder="Enter Old Password"
                   {...register("oldPassword")}
                 />
                 <PrimaryInput
                   label="New Password"
                   type="password"
-                  placeholder={"Enter New Password"}
+                  placeholder="Enter New Password"
                   {...register("newPassword")}
                 />{" "}
                 <PrimaryInput
                   label="Confirm New Password"
                   type="password"
-                  placeholder={"Confirm New Password"}
+                  placeholder="Confirm New Password"
                   {...register("confirmNewPassword")}
                 />
               </div>

@@ -7,12 +7,14 @@
  */
 
 import type { NextPage } from "next";
-import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { LoginPage } from "@/modules/auth/LoginPage";
-import { MainHead } from "@/layout/MainHead";
+import React, { useEffect, useState } from "react";
+
 import { MainLoader } from "@/components/Loader";
+
+import { MainHead } from "@/layout/MainHead";
+import { LoginPage } from "@/modules/auth/LoginPage";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -35,7 +37,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <MainHead title={"Login"} />
+      <MainHead title="Login" />
       <LoginPage />
     </>
   );

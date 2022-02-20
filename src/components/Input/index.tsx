@@ -6,11 +6,12 @@
  *
  */
 
+import { RadioGroup } from "@headlessui/react";
 import { Eye, EyeClosed } from "phosphor-react";
 import React from "react";
-import InputErrorPop from "../PopOver";
 import { Controller } from "react-hook-form";
-import { RadioGroup } from "@headlessui/react";
+
+import InputErrorPop from "../PopOver";
 
 type ExtraInputProps = {
   label?: string;
@@ -183,7 +184,7 @@ export const RadioInputController: React.FC<RadioInputProps> = ({
         <RadioGroup
           value={field.value}
           onChange={field.onChange}
-          className={"flex space-x-6 focus-visible:outline-amber-800"}
+          className="flex space-x-6 focus-visible:outline-amber-800"
         >
           {labelOptions.map((labelOption, index) => (
             <RadioGroup.Option
@@ -218,7 +219,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, HookInputProps>(
           id="file"
         />
         <button
-          type={"button"}
+          type="button"
           className="text-xl capitalize"
           onClick={() => document.getElementById("file")?.click()}
         >

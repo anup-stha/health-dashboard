@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 8:20 PM
+ * Last Modified 2/20/22, 2:16 PM
  *
  *
  */
 
-import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
+
 import { useModal } from "./useModal";
 import { Button as UIButton } from "../Button";
 
@@ -175,9 +176,7 @@ export const Form: React.FC<IModalFormProps> = React.memo(
 
     const onSubmitFn = async (e: any) => {
       e.preventDefault();
-      await onSubmit()
-        .then(() => setIsOpen(false))
-        .catch(() => {});
+      await onSubmit().then(() => setIsOpen(false));
     };
 
     return (

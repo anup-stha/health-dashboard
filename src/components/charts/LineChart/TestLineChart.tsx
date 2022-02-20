@@ -1,15 +1,15 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/3/22, 6:31 PM
+ * Last Modified 2/20/22, 2:17 PM
  *
  *
  */
 
-import Chart from "react-apexcharts";
-import React, { useState } from "react";
 import { ApexOptions } from "apexcharts";
 import omit from "lodash/omit";
+import React, { useState } from "react";
+import Chart from "react-apexcharts";
 
 type LineChartProps = {
   color?: string[];
@@ -87,7 +87,6 @@ export const LineChart: React.FC<LineChartProps> = ({
       gradient: {
         shadeIntensity: 1,
         inverseColors: false,
-        // @ts-ignore: Unreachable code error
         colorStops: [
           [
             {

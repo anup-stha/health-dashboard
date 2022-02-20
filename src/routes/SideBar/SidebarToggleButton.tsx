@@ -7,6 +7,7 @@
  */
 
 import { CaretLeft, CaretRight, XCircle } from "phosphor-react";
+
 import { useSideBarStore } from "./useSideBarStore";
 
 export const SideBarToggleButton = () => {
@@ -27,21 +28,17 @@ export const SideBarToggleButton = () => {
 
       {open ? (
         <div
-          className={
-            "hidden sm:flex z-50 fixed top-8 cursor-pointer right-8 text-green rounded-full bg-white shadow-E200 transition-all duration-100"
-          }
+          className="hidden sm:flex z-50 fixed top-8 cursor-pointer right-8 text-green rounded-full bg-white shadow-E200 transition-all duration-100"
           onClick={() => toggleOpen()}
         >
-          <XCircle size={52} weight={"fill"} color={"#111"} />
+          <XCircle size={52} weight="fill" color="#111" />
         </div>
       ) : (
         <div
-          className={
-            "hidden sm:flex z-50 fixed top-10 cursor-pointer -right-64 text-green rounded-full bg-white shadow-E200 transition-all duration-100"
-          }
+          className="hidden sm:flex z-50 fixed top-10 cursor-pointer -right-64 text-green rounded-full bg-white shadow-E200 transition-all duration-100"
           onClick={() => toggleOpen()}
         >
-          <XCircle size={52} weight={"fill"} color={"#111"} />
+          <XCircle size={52} weight="fill" color="#111" />
         </div>
       )}
     </>

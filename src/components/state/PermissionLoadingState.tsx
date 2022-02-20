@@ -26,7 +26,7 @@ export const PermissionPageLoadingState: React.FC<
             <Skeleton
               count={1}
               duration={2}
-              height={"3rem"}
+              height="3rem"
               className="rounded-xl "
             />
           </div>
@@ -35,7 +35,7 @@ export const PermissionPageLoadingState: React.FC<
               <Skeleton
                 count={1}
                 duration={2}
-                height={"2rem"}
+                height="2rem"
                 className="rounded-xl"
               />
             </div>
@@ -43,7 +43,7 @@ export const PermissionPageLoadingState: React.FC<
               <Skeleton
                 count={1}
                 duration={2}
-                height={"2rem"}
+                height="2rem"
                 className="rounded-xl"
               />
             </div>
@@ -53,37 +53,37 @@ export const PermissionPageLoadingState: React.FC<
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />{" "}
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"11rem"}
+                height="11rem"
                 className="rounded-2xl"
               />
             </div>
@@ -93,7 +93,7 @@ export const PermissionPageLoadingState: React.FC<
               <Skeleton
                 count={1}
                 duration={2}
-                height={"2rem"}
+                height="2rem"
                 className="rounded-xl"
               />
             </div>
@@ -101,7 +101,7 @@ export const PermissionPageLoadingState: React.FC<
               <Skeleton
                 count={1}
                 duration={2}
-                height={"2rem"}
+                height="2rem"
                 className="rounded-xl"
               />
             </div>
@@ -110,7 +110,7 @@ export const PermissionPageLoadingState: React.FC<
             <Skeleton
               count={1}
               duration={2}
-              height={"11rem"}
+              height="11rem"
               className="rounded-2xl"
             />
           </div>

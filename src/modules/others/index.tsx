@@ -6,27 +6,30 @@
  *
  */
 
-import { Button } from "@/components/Button";
-import { TableView } from "@/components/Table";
-import { BooleanTag } from "@/components/others/BooleanTag";
 import { Edit } from "iconsax-react";
-import { useGlobalState } from "@/modules/useGlobalState";
-import { Modal } from "@/components/Modal/useModal";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import omit from "lodash/omit";
+import Image from "next/image";
 import React from "react";
-import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/Button";
+import { Heading } from "@/components/Headings";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { Loader } from "@/components/Loader";
+import { Modal } from "@/components/Modal/useModal";
+import { BooleanTag } from "@/components/others/BooleanTag";
+import { TableView } from "@/components/Table";
+
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import {
   postOtherFieldToast,
   putOtherFieldToast,
 } from "@/modules/others/utils/toasts/othersPageToast";
+import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+import { useGlobalState } from "@/modules/useGlobalState";
+
 import { OtherFields, OtherFieldsPostBody } from "@/types";
-import Image from "next/image";
-import { Loader } from "@/components/Loader";
-import omit from "lodash/omit";
-import { Heading } from "@/components/Headings";
 
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();
@@ -40,15 +43,13 @@ export const OthersPage = () => {
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <div>
             <Heading
-              title={"Patient Medical History"}
-              subtitle={
-                "List of all Medical History Fields. Click on Add Button to add new"
-              }
+              title="Patient Medical History"
+              subtitle="List of all Medical History Fields. Click on Add Button to add new"
             />
           </div>
 
           <div className="flex space-x-4">
-            <OtherFieldAddEditModal type={"add"} />
+            <OtherFieldAddEditModal type="add" />
           </div>
         </div>
         {isLoading ? (
@@ -100,14 +101,11 @@ export const OthersTableRow: React.FC<OthersTableRowProps> = ({
         {data.value_type}
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag
-          type={"info"}
-          trueStatement={data.required ? "Yes" : "No"}
-        />
+        <BooleanTag type="info" trueStatement={data.required ? "Yes" : "No"} />
       </td>
 
       <td className="px-6 py-4 flex gap-2">
-        <OtherFieldAddEditModal type={"edit"} data={data} />
+        <OtherFieldAddEditModal type="edit" data={data} />
         {/*  <DeleteModal
           closeButton={
             <Trash
@@ -138,15 +136,15 @@ export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({
 }) => {
   return (
     <Modal>
-      <Modal.Button type={"open"}>
+      <Modal.Button type="open">
         {type === "add" ? (
           <Button>Add Other Field</Button>
         ) : (
           <Edit
-            variant={"Broken"}
+            variant="Broken"
             size={28}
-            color={"#555"}
-            className={"cursor-pointer"}
+            color="#555"
+            className="cursor-pointer"
           />
         )}
       </Modal.Button>
@@ -197,8 +195,8 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
         />
         <DropdownController
           options={options}
-          name={"value_type"}
-          label={"Select Value Type"}
+          name="value_type"
+          label="Select Value Type"
           control={control}
         />
 

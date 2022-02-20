@@ -1,11 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 6:20 PM
+ * Last Modified 2/20/22, 1:32 PM
  *
  *
  */
 
+import { Category2, Home } from "iconsax-react";
 import {
   House,
   Polygon,
@@ -16,10 +17,10 @@ import {
   Users,
 } from "phosphor-react";
 import React from "react";
-import { Category2, Home } from "iconsax-react";
+
+import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
 import { orgAdminWelcomeSlides } from "@/modules/org-admin/dashboard";
-import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 
 const convertToLink = (
   json: RouteObjectType[],
@@ -58,11 +59,10 @@ const adminExtraRoute = [
   "/roles/[slug]",
   "/tests/[test]",
   "/subscriptions/[slug]",
-  "/members/[profile]/[next-profile]/test_report",
-  "/member/[profile]",
-  "/member/[profile]/invoice",
-  "/member/[profile]/[user]",
-  "/member/[profile]/[user]/test_report",
+  "/members/[profile]",
+  "/members/[profile]/invoice",
+  "/members/[profile]/[user]",
+  "/members/[profile]/[user]/test_report",
 ];
 export const superAdminNavRoutes: RouteObjectType[] = [
   {
@@ -73,9 +73,9 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   },
   {
     id: 21,
-    title: "Member",
+    title: "Members",
     icon: <UserList size={24} />,
-    link: "/member",
+    link: "/members",
   },
   {
     id: 3,
@@ -103,7 +103,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
       {
         id: 4,
         title: "Others",
-        icon: <Category2 variant={"Broken"} size={24} color={"gray"} />,
+        icon: <Category2 variant="Broken" size={24} color="gray" />,
         link: "/others",
       },
       {
@@ -120,8 +120,8 @@ export const superAdminNavRoutes: RouteObjectType[] = [
 ];
 
 export const orgExtraRoutes = [
-  "/member/[profile]",
-  "/member/[profile]/test_report",
+  "/members/[profile]",
+  "/members/[profile]/test_report",
 ];
 export const orgNavRoutes: RouteObjectType[] = [
   {
@@ -132,9 +132,9 @@ export const orgNavRoutes: RouteObjectType[] = [
   },
   {
     id: 21,
-    title: "Member",
+    title: "Members",
     icon: <UserList size={24} />,
-    link: "/member",
+    link: "/members",
   },
   {
     id: 3,

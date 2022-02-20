@@ -1,19 +1,20 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 3:25 PM
+ * Last Modified 2/20/22, 1:56 PM
  *
  *
  */
 
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { privateAgent } from "@/services/requests/index";
+
 import {
   MedicalHistoryGetResponse,
   OtherFieldsGetResponse,
   OtherFieldsPostBody,
   OtherFieldsPostResponse,
 } from "@/types";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const getMedicalHistoryList = (memberId: number) => {
   return privateAgent.get<MedicalHistoryGetResponse>(

@@ -1,28 +1,30 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 4:49 PM
+ * Last Modified 2/20/22, 2:15 PM
  *
  *
  */
 
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+import { Heading } from "@/components/Headings";
 import { PermissionPageLoadingState } from "@/components/state/PermissionLoadingState";
-import { withAuth } from "@/shared/hoc/withAuth";
-import { withRole } from "@/shared/hoc/withRole";
+
+import { MainHead } from "@/layout/MainHead";
 import { Permissions } from "@/modules/permissions";
+import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
 import { DeleteZone } from "@/modules/roles/others/DeleteZone";
 import { RoleMemberCategory } from "@/modules/roles/others/roleMemberCategory";
+import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   getAllPermissions,
   getRoleDetails,
 } from "@/services/requests/roleRequests";
-import { useEffect } from "react";
-import { UpdateZone } from "@/modules/roles/others/UpdateZone";
-import { useRouter } from "next/router";
-import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
-import { MainHead } from "@/layout/MainHead";
-import { Heading } from "@/components/Headings";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const RoleDetailPage = () => {
   const router = useRouter();
@@ -58,12 +60,16 @@ const RoleDetailPage = () => {
 
           setLoading(false);
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.warn(error);
+        });
     };
     const listAllPermissions = async () => {
       await getAllPermissions()
         .then((response) => setSelectedPermission({ all: response.data.data }))
-        .catch(() => {});
+        .catch((error) => {
+          console.warn(error);
+        });
     };
     listAllPermissions();
     idX && getRoleDetail();

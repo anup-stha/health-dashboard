@@ -1,20 +1,23 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/9/22, 7:22 PM
+ * Last Modified 2/20/22, 2:19 PM
  *
  *
  */
 
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React from "react";
+
+import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
-import Image from "next/image";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+
 import { useSubscriptionStore } from "./subscriptionStore";
+
 import { Subscription } from "@/types";
-import React from "react";
-import { BooleanTag } from "@/components/others/BooleanTag";
-import { useRouter } from "next/router";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();
@@ -87,7 +90,7 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
           </div>
         </td>
         <td className="whitespace-nowrap text-lg">
-          <BooleanTag type={"info"} trueStatement={data.price} />
+          <BooleanTag type="info" trueStatement={data.price} />
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="text-lg text-gray-900 font-semibold capitalize">

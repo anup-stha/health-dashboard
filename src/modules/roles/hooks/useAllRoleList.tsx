@@ -7,8 +7,9 @@
  */
 
 import { useQuery } from "react-query";
-import { getAllRoleList } from "@/services/requests/roleRequests";
+
 import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { getAllRoleList } from "@/services/requests/roleRequests";
 
 export const useAllRoleList = () => {
   return useQuery(["all_roles"], () => getAllRoleList(), {

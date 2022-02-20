@@ -6,12 +6,14 @@
  *
  */
 
+import { Plus } from "phosphor-react";
+import React from "react";
+import * as Yup from "yup";
+
 import { InfoButton } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
-import { Plus } from "phosphor-react";
-import * as Yup from "yup";
+
 import { RoleAddEditForm } from "@/modules/roles/form/roleAddEditForm";
-import React from "react";
 
 type RoleModalProps = {
   type: "add" | "edit";

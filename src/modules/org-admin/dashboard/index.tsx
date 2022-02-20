@@ -1,23 +1,25 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/27/22, 5:00 PM
+ * Last Modified 2/20/22, 2:18 PM
  *
  *
  */
 
 import React from "react";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useRoleList } from "@/services/requests/roleRequests";
-import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
-import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
+
 import { Loader } from "@/components/Loader";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import {
   OrgStatCardGroup,
   StatCardGroup,
   StatCardGroupVariant2,
 } from "@/modules/dashboard/cards/StatCardGroup";
+import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
+import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
 import { UnVerifiedModal } from "@/modules/org-admin/dashboard/UnVerifiedModal";
+import { useRoleList } from "@/services/requests/roleRequests";
 
 export const orgAdminWelcomeSlides = [
   {
@@ -73,7 +75,7 @@ export const orgAdminWelcomeSlides = [
 
 export const OrgAdminDashboard = () => {
   const { user } = useAuthStore();
-  const {} = useRoleList();
+  useRoleList();
   const { data, isLoading, error } = useDashboardQuery();
 
   if (isLoading || error) return <Loader />;

@@ -6,8 +6,8 @@
  *
  */
 
-import { NextSeo } from "next-seo";
 import { isArray } from "lodash";
+import { NextSeo } from "next-seo";
 import React from "react";
 
 type mainHeadProps = {
@@ -18,7 +18,7 @@ export const MainHead: React.FC<mainHeadProps> = ({ title }) => {
   return (
     <NextSeo
       title={`Sunya Health ${
-        !!title
+        title
           ? `| ${
               !isArray(title) &&
               title &&

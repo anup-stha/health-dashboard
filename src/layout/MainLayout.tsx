@@ -6,11 +6,13 @@
  *
  */
 
-import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarToggleButton";
-import { MainHeader } from "./MainHeader";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { Sidebar } from "@/routes/SideBar";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
-import React, { useCallback, useEffect, useState } from "react";
+
+import { MainHeader } from "./MainHeader";
+import { SideBarToggleButton as ToggleButton } from "../routes/SideBar/SidebarToggleButton";
 
 const Layout = ({ children }: any) => {
   const open = useSideBarStore(useCallback((state) => state.open, []));
@@ -27,11 +29,7 @@ const Layout = ({ children }: any) => {
   return hydrated ? (
     <div className="relative">
       {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
-        <div
-          className={
-            "bg-triangle fixed bg-black text-white w-32 h-32 z-50 text-4xl font-semibold sm:w-24 sm:h-24 sm:text-3xl"
-          }
-        >
+        <div className="bg-triangle fixed bg-black text-white w-32 h-32 z-50 text-4xl font-semibold sm:w-24 sm:h-24 sm:text-3xl">
           <span className="-rotate-45 absolute top-[1.3rem] left-2 sm:top-3.5 sm:left-1">
             DEV
           </span>
@@ -49,9 +47,7 @@ const Layout = ({ children }: any) => {
         } transition-all duration-200 h-full print:pl-0`}
       >
         <MainHeader />
-        <div
-          className={`3xl:flex 3xl:items-center 3xl:justify-center pt-36 print:pt-0 h-screen`}
-        >
+        <div className="3xl:flex 3xl:items-center 3xl:justify-center pt-36 print:pt-0 h-screen">
           {children}
         </div>
       </div>

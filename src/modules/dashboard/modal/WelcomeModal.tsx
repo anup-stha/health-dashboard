@@ -6,13 +6,15 @@
  *
  */
 
-import React, { useState } from "react";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { wrap } from "popmotion";
-import { Modal } from "@/components/Modal/useModal";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, GrayButton } from "@/components/Button";
 import Image from "next/image";
+import { wrap } from "popmotion";
+import React, { useState } from "react";
+
+import { Button, GrayButton } from "@/components/Button";
+import { Modal } from "@/components/Modal/useModal";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 type WelcomeModalImage = {
   link: string;
@@ -61,8 +63,8 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
   };
   return (
     <Modal open={!guided}>
-      <Modal.Button type={"open"}>{children ?? null}</Modal.Button>
-      <Modal.Content width={"max-w-7xl"} opacity={"opacity-60"}>
+      <Modal.Button type="open">{children ?? null}</Modal.Button>
+      <Modal.Content width="max-w-7xl" opacity="opacity-60">
         <div className="flex flex-col justify-between space-y-4">
           <div className="flex flex-col">
             <Modal.Title>{images[imageIndex].title}</Modal.Title>
@@ -89,9 +91,9 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                 <Image
                   src={images[imageIndex].link + "?ap=em"}
                   layout="fill"
-                  className={"rounded-xl"}
-                  objectFit={"cover"}
-                  alt={"Welcome Image"}
+                  className="rounded-xl"
+                  objectFit="cover"
+                  alt="Welcome Image"
                   priority={true}
                 />
                 {imageIndex !== images.length - 1 && (
@@ -100,9 +102,9 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                       src={images[imageIndex + 1].link + "?ap=em"}
                       width={1920}
                       height={1000}
-                      className={"rounded-xl"}
+                      className="rounded-xl"
                       objectFit={imageIndex !== 1 ? "cover" : "contain"}
-                      alt={"Welcome Image"}
+                      alt="Welcome Image"
                       priority={true}
                     />
                   </div>
@@ -111,7 +113,7 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
             </AnimatePresence>
           </div>
           <div className="self-end flex justify-between w-full z-40">
-            <Modal.Button type={"close"}>
+            <Modal.Button type="close">
               <GrayButton onClick={() => setGuided(true)}>Skip</GrayButton>
             </Modal.Button>
             <div className="flex space-x-2">
@@ -120,7 +122,7 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
               )}
 
               {images[imageIndex].pos === images.length ? (
-                <Modal.Button type={"close"}>
+                <Modal.Button type="close">
                   <Button onClick={() => setGuided(true)}>Finish</Button>
                 </Modal.Button>
               ) : (

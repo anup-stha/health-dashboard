@@ -6,26 +6,23 @@
  *
  */
 
-import React from "react";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
+import React from "react";
+
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
   return (
     <div
       suppressHydrationWarning={true}
-      data-testid={"login-page"}
+      data-testid="login-page"
       className="relative flex flex-col items-center justify-center w-full min-h-screen py-20 bg-gray-100 sm:bg-gray-200  lg:py-8 md:px-8 sm:p-0 sm:h-screen"
     >
       <div className="flex w-full bg-white max-w-6xl flex-grow rounded-3xl shadow-E400 3xl:max-w-[60%] sm:max-w-none h-full">
         <div className="relative flex flex-col items-center justify-center w-2/5 bg-green-400 rounded-tr-none rounded-br-none sm:rounded-none sm:w-0 gap-y-24 z-2 bg-transition rounded-3xl sm:opacity-0 ">
           {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
-            <div
-              className={
-                "bg-triangle absolute bg-black text-white w-32 h-32 z-50 text-4xl font-semibold top-0 left-0 rounded-tl-3xl"
-              }
-            >
+            <div className="bg-triangle absolute bg-black text-white w-32 h-32 z-50 text-4xl font-semibold top-0 left-0 rounded-tl-3xl">
               <span className="-rotate-45 absolute top-[1.3rem] left-2">
                 DEV
               </span>

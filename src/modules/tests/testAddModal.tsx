@@ -6,12 +6,15 @@
  *
  */
 
+import { Plus } from "phosphor-react";
+import React from "react";
+
 import { InfoButton } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
-import { Test } from "@/types";
-import { Plus } from "phosphor-react";
+
 import { TestAddEditForm } from "@/modules/tests/testAddEditForm";
-import React from "react";
+
+import { Test } from "@/types";
 
 type RoleModalProps = {
   variant: "test" | "subtest";

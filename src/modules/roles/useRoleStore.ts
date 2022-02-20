@@ -1,20 +1,22 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/4/22, 10:57 AM
+ * Last Modified 2/20/22, 2:15 PM
  *
  *
  */
 
+import create from "zustand";
+import { combine, devtools } from "zustand/middleware";
+
 import { getAllPermissions, listRole } from "@/services/requests/roleRequests";
+
 import {
   MemberDetailCategory,
   Permission,
   Role,
   RoleListResponse,
 } from "@/types";
-import create from "zustand";
-import { combine, devtools } from "zustand/middleware";
 
 type roleInitialStateProps = {
   allRoleList: {
@@ -115,7 +117,9 @@ const store = combine(initialState, (set) => ({
       .then((response) => {
         set({ roleList: response.data.data });
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.warn(error);
+      });
   },
 
   addMemberDetail: (data: any) => {

@@ -1,35 +1,36 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 11:29 PM
+ * Last Modified 2/20/22, 2:22 PM
  *
  *
  */
 
-import React, { useState } from "react";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { AnimatePresence, motion } from "framer-motion";
+import { Location, ProfileCircle } from "iconsax-react";
 import Image from "next/image";
-import LetteredAvatar from "react-avatar";
 import {
   Camera,
   CircleWavyCheck,
   CircleWavyWarning,
   Envelope,
 } from "phosphor-react";
-import { Location, ProfileCircle } from "iconsax-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ProfileOverviewTab } from "@/modules/member";
-import { PatientMedicalHistory } from "@/modules/member/others/PatientMedicalHistory";
-import { SubscriptionTab } from "@/modules/member/new/SubscriptionTab";
-import { getTabItemsForRole } from "@/modules/member/utils/getTabItemsForRole";
-import { TabItemsType } from "../member/profile/MemberProfile";
-import { ProfileImageModal } from "@/modules/profile/modal/ProfileImageModal";
+import React, { useState } from "react";
+import LetteredAvatar from "react-avatar";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
+import { PatientMedicalHistory } from "@/modules/members/components/tabs/PatientMedicalHistoryTab";
+import { SubscriptionTab } from "@/modules/members/components/tabs/SubscriptionTab";
+import { getTabItemsForRole } from "@/modules/members/utils/getTabItemsForRole";
+import { ProfileImageModal } from "@/modules/profile/modal/ProfileImageModal";
+
+import { ProfileOverviewTab } from "../members/components/tabs/ProfileOverviewTab";
 
 export const ProfilePage: React.FC = () => {
   const user = useAuthStore((state) => state.user);
-  const [selectedTab, setSelectedTab] = useState<TabItemsType>("overview");
-  const [tabList] = useState<TabItemsType[]>(
+  const [selectedTab, setSelectedTab] = useState<any>("overview");
+  const [tabList] = useState<any[]>(
     getTabItemsForRole(user.role ? user.role.slug : "superadmin")
   );
 
@@ -82,7 +83,7 @@ export const ProfilePage: React.FC = () => {
                       } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
                     />
                     <div className="bg-white flex items-center justify-center rounded-full text-gray-850 w-10 h-10 text-3xl absolute -right-4 -top-4">
-                      <Camera weight={"duotone"} />
+                      <Camera weight="duotone" />
                     </div>
                   </div>
                 </ProfileImageModal>
@@ -98,13 +99,13 @@ export const ProfilePage: React.FC = () => {
                           <CircleWavyCheck
                             size={24}
                             weight="duotone"
-                            className={"text-green-600"}
+                            className="text-green-600"
                           />
                         ) : (
                           <CircleWavyWarning
                             size={24}
                             weight="duotone"
-                            className={"text-red-600"}
+                            className="text-red-600"
                           />
                         )}
                       </div>
@@ -114,11 +115,9 @@ export const ProfilePage: React.FC = () => {
                           <ProfileCircle
                             size={18}
                             variant="Bulk"
-                            color={"rgb(163 163 163)"}
+                            color="rgb(163 163 163)"
                           />
-                          <span
-                            className={"text-gray-400 font-semibold text-lg"}
-                          >
+                          <span className="text-gray-400 font-semibold text-lg">
                             {user.name}
                           </span>
                         </div>
@@ -126,11 +125,9 @@ export const ProfilePage: React.FC = () => {
                           <Location
                             size={18}
                             variant="Bulk"
-                            color={"rgb(163 163 163)"}
+                            color="rgb(163 163 163)"
                           />
-                          <span
-                            className={"text-gray-400 font-semibold text-lg"}
-                          >
+                          <span className="text-gray-400 font-semibold text-lg">
                             {user.address}
                           </span>
                         </div>
@@ -138,11 +135,9 @@ export const ProfilePage: React.FC = () => {
                           <Envelope
                             size={18}
                             weight="duotone"
-                            color={"rgb(163 163 163)"}
+                            color="rgb(163 163 163)"
                           />
-                          <span
-                            className={"text-gray-400 font-semibold text-lg"}
-                          >
+                          <span className="text-gray-400 font-semibold text-lg">
                             {user.email}
                           </span>
                         </div>
@@ -200,9 +195,7 @@ export const ProfilePage: React.FC = () => {
                     <motion.div
                       transition={{ duration: 0.1 }}
                       layoutId="underline"
-                      className={
-                        "h-1 w-full absolute right-0 bottom-0 bg-green-500"
-                      }
+                      className="h-1 w-full absolute right-0 bottom-0 bg-green-500"
                     />
                   ) : null}
                 </div>

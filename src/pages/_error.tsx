@@ -17,7 +17,7 @@ interface IErrorPageProps {
 const Error: NextPage<IErrorPageProps> = ({ statusCode }) => {
   return (
     <div className="flex items-center justify-center h-screen">
-      <Image src={"/assets/404.svg"} alt="Error" />
+      <Image src="/assets/404.svg" alt="Error" />
     </div>
   );
 };

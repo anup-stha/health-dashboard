@@ -6,9 +6,10 @@
  *
  */
 
-import React from "react";
-import AlertComponent from "./ToastComponent";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import React from "react";
+
+import AlertComponent from "./ToastComponent";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

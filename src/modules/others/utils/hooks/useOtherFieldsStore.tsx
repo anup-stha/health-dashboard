@@ -6,13 +6,14 @@
  *
  */
 
+import create from "zustand";
+import { combine, devtools } from "zustand/middleware";
+
 import {
   OtherFields,
   OtherFieldsGetResponse,
   OtherFieldsPostResponse,
 } from "@/types";
-import { combine, devtools } from "zustand/middleware";
-import create from "zustand";
 
 const initialState = {
   othersFieldList: {

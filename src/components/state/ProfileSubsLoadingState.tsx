@@ -6,8 +6,8 @@
  *
  */
 
-import Skeleton from "react-loading-skeleton";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 
 export const ProfileSubsLoadingState = () => {
   return (
@@ -28,12 +28,12 @@ export const ProfileListLoadingState = () => {
   return (
     <div className=" print:hidden self-start flex flex-col w-full  space-y-4">
       <div className="w-1/5">
-        <Skeleton count={1} duration={2} height={"1rem"} />
+        <Skeleton count={1} duration={2} height="1rem" />
       </div>
       <div>
         <Skeleton count={1} duration={2} />
       </div>
-      <Skeleton count={1} duration={2} height={"32rem"} />
+      <Skeleton count={1} duration={2} height="32rem" />
     </div>
   );
 };

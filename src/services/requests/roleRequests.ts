@@ -1,12 +1,20 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/4/22, 4:34 PM
+ * Last Modified 2/20/22, 2:14 PM
  *
  *
  */
 
 import { AxiosResponse } from "axios";
+import isEmpty from "lodash/isEmpty";
+import { useQuery } from "react-query";
+
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
+
+import { privateAgent } from ".";
+
 import {
   NullDataResponse,
   PermissionListResponse,
@@ -15,12 +23,6 @@ import {
   RoleListResponse,
   RoleUpdateBody,
 } from "@/types";
-
-import { privateAgent } from ".";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useQuery } from "react-query";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import isEmpty from "lodash/isEmpty";
 
 export const listRole = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
@@ -162,7 +164,9 @@ export const getRoleDetail = async (idX: number) => {
         deselected: [],
       });
     })
-    .catch(() => {});
+    .catch((error) => {
+      console.warn(error);
+    });
 };
 export const addPermissionToRole = (id: number, permId: number[]) => {
   return new Promise((resolve, reject) =>

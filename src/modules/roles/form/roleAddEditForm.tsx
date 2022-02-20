@@ -7,12 +7,14 @@
  */
 
 import React from "react";
-import { Modal } from "@/components/Modal/useModal";
 import { useForm } from "react-hook-form";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
+
 import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { Modal } from "@/components/Modal/useModal";
+
+import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { addRole, updateRole } from "@/services/requests/roleRequests";
 
 type RoleAddEditFormProps = {

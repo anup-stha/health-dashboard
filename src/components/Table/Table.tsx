@@ -1,25 +1,23 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/28/21, 12:33 PM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/20/22, 2:17 PM
  *
  *
  */
 
-import React, { JSXElementConstructor, ReactElement, useState } from "react";
+import React, { ReactElement, useState } from "react";
+
 import { ListBox } from "../Listbox";
 
 export interface TableProps {
-  data: Object[];
+  data: Record<string, any>;
   pageNumber?: number;
   pageLimit?: number;
 
   tableHeadings?: string[];
-  tableRowComponent: ReactElement<any, string | JSXElementConstructor<any>>;
-  tableMobileViewComponent?: ReactElement<
-    any,
-    string | JSXElementConstructor<any>
-  >;
+  tableRowComponent: ReactElement;
+  tableMobileViewComponent?: ReactElement;
   setData?: any;
   setEdit?: any;
   setOrganisationList?: any;

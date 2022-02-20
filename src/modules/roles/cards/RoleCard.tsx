@@ -6,12 +6,14 @@
  *
  */
 
-import { Button } from "@/components/Button";
-import { Warning } from "phosphor-react";
 import { useRouter } from "next/router";
-import { useRoleStore } from "../useRoleStore";
-import { BooleanTag } from "@/components/others/BooleanTag";
+import { Warning } from "phosphor-react";
 import React from "react";
+
+import { Button } from "@/components/Button";
+import { BooleanTag } from "@/components/others/BooleanTag";
+
+import { useRoleStore } from "../useRoleStore";
 
 type RoleCardPropsType = {
   id: number | string;
@@ -34,9 +36,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
 }) => {
   const router = useRouter();
   return permissionCount !== 0 ? (
-    <div
-      className={`relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`}
-    >
+    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
@@ -44,7 +44,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
               {title}
             </h1>
             <h1 className="whitespace-nowrap text-base">
-              <BooleanTag type={"info"} trueStatement={`Slug: ${slug}`} />
+              <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
 
@@ -82,9 +82,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
     </div>
   ) : (
-    <div
-      className={`relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10`}
-    >
+    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10">
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
@@ -92,7 +90,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
               {title}
             </h1>
             <h1 className="whitespace-nowrap text-base">
-              <BooleanTag type={"info"} trueStatement={`Slug: ${slug}`} />
+              <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
           <div className="font-bold text-lg text-red-500 flex gap-x-1 items-center">

@@ -7,6 +7,7 @@
  */
 
 import React from "react";
+
 import { StatCardProps } from "@/modules/dashboard/cards/StatCard";
 
 export const StatCardRect: React.FC<StatCardProps> = ({

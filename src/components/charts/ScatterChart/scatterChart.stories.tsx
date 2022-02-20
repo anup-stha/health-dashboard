@@ -1,15 +1,16 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/18/22, 9:05 PM
  *
  *
  */
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { scatterData, scatterDateData } from "components/data";
 import React from "react";
+
 import { ScatterChart } from "./index";
+import { scatterData, scatterDateData } from "../../data";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

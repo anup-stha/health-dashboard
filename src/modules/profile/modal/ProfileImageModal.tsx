@@ -1,23 +1,26 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/30/22, 3:40 PM
+ * Last Modified 2/20/22, 2:20 PM
  *
  *
  */
 
-import { Modal } from "@/components/Modal/useModal";
-import LetteredAvatar from "react-avatar";
-import React, { useState } from "react";
-import { Member } from "@/modules/member/types";
-import { Button } from "@/components/Button";
-import { privateAgent } from "@/services/requests";
-import { alert } from "@/components/Alert";
 import Image from "next/image";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { ImageUploadResponse } from "@/types";
+import React, { useState } from "react";
+import LetteredAvatar from "react-avatar";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+
+import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { Modal } from "@/components/Modal/useModal";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { Member } from "@/modules/members/types";
+import { privateAgent } from "@/services/requests";
+
+import { ImageUploadResponse } from "@/types";
 
 interface IProfileImageModalProps {
   children: React.ReactNode;
@@ -35,7 +38,7 @@ export const ProfileImageModal = ({
 
   return (
     <Modal>
-      <Modal.Button type={"open"}>{children}</Modal.Button>
+      <Modal.Button type="open">{children}</Modal.Button>
       <Modal.Content onClose={() => setIsNewImage(false)}>
         <div className="space-y-10 flex flex-col justify-center">
           <div className="space-y-4 ">
@@ -51,19 +54,17 @@ export const ProfileImageModal = ({
                 !isNewImage ? "hidden" : "block"
               }`}
             >
-              <img id={"output"} className={"rounded-full"} alt={"profile"} />
+              <img id="output" className="rounded-full" alt="profile" />
             </div>
 
             {!isNewImage &&
               (selectedMember.image ? (
-                <div
-                  className={`w-40 h-40 rounded-full object-contain overflow-hidden relative`}
-                >
+                <div className="w-40 h-40 rounded-full object-contain overflow-hidden relative">
                   <Image
-                    alt={"profile"}
+                    alt="profile"
                     src={selectedMember.image}
-                    layout={"fill"}
-                    objectFit={"contain"}
+                    layout="fill"
+                    objectFit="contain"
                   />
                 </div>
               ) : (

@@ -7,13 +7,14 @@
  */
 
 import React from "react";
-import { Pagination } from "../Pagination";
-import { Table } from "../Table/Table";
 import useSWR from "swr";
+
+import { Pagination } from "../Pagination";
 import {
   UserCardView,
   UserTableRowComponent,
 } from "../Table/DefaultUserTableRow";
+import { Table } from "../Table/Table";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 

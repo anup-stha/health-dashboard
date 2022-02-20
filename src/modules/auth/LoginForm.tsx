@@ -1,19 +1,20 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/26/22, 10:47 AM
+ * Last Modified 2/20/22, 2:18 PM
  *
  *
  */
 
-import React from "react";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-
-import { PrimaryInput } from "@/components/Input";
-import { Button } from "@/components/Button";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
 import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { PrimaryInput } from "@/components/Input";
+
 import { login } from "@/services/requests/authRequests";
 
 interface LoginFormValues {
@@ -25,7 +26,7 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .matches(
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       "Not a valid Email"
     )
     .email("Not a Valid Email")

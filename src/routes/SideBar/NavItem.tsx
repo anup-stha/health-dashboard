@@ -7,10 +7,11 @@
  */
 
 import { useRouter } from "next/router";
+import React from "react";
+import { isMobile } from "react-device-detect";
+
 import { RouteObjectType } from "./routes";
 import { useSideBarStore } from "./useSideBarStore";
-import { isMobile } from "react-device-detect";
-import React from "react";
 
 type NavItemProps = {
   route: RouteObjectType;
@@ -44,16 +45,16 @@ export const NavItem: React.FC<NavItemProps> = ({
             });
         }}
       >
-        <div className={"peer flex"}>
+        <div className="peer flex">
           <div
             className={`flex relative items-start justify-start px-4  ${
               open ? "translate-x-0" : "-translate-x-96 w-0 p-0 "
             } transition-all duration-100 `}
           >
             <span className="flex items-center gap-x-4 text-lg">
-              <div className={"sm:hidden"}>{route.icon}</div>
+              <div className="sm:hidden">{route.icon}</div>
 
-              <span className={"sm:text-lg line-clamp-1"}>{route.title}</span>
+              <span className="sm:text-lg line-clamp-1">{route.title}</span>
             </span>
           </div>
 
@@ -64,7 +65,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                 : "opacity-0 w-0 p-0"
             }  `}
           >
-            <div className={"sm:hidden"}>{route.icon}</div>
+            <div className="sm:hidden">{route.icon}</div>
           </div>
         </div>
 

@@ -6,11 +6,13 @@
  *
  */
 
-import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
-import { useRouter } from "next/router";
-import Breadcrumbs from "./BreadCrumb";
 import { HambergerMenu } from "iconsax-react";
+import { useRouter } from "next/router";
+
+import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { ImageAvatar } from "@/services/Avatar";
+
+import Breadcrumbs from "./BreadCrumb";
 
 export const MainHeader: React.FC = () => {
   const router = useRouter();
@@ -25,16 +27,14 @@ export const MainHeader: React.FC = () => {
       <div className="h-24 flex items-center justify-between px-12 sm:px-4">
         <div>
           <HambergerMenu
-            variant={"Broken"}
-            className={"cursor-pointer hidden sm:flex"}
+            variant="Broken"
+            className="cursor-pointer hidden sm:flex"
             size={44}
             onClick={() => toggleOpen()}
           />
           {open && (
             <div
-              className={
-                "hidden sm:flex sm:fixed sm:inset-0 sm:bg-black sm:opacity-40"
-              }
+              className="hidden sm:flex sm:fixed sm:inset-0 sm:bg-black sm:opacity-40"
               onClick={() => toggleOpen()}
             />
           )}

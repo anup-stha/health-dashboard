@@ -6,14 +6,16 @@
  *
  */
 
+import { Transition } from "@headlessui/react";
 import Image from "next/image";
-import LetteredAvatar from "react-avatar";
 import React from "react";
-import { NavBar } from "./NavBar";
+import LetteredAvatar from "react-avatar";
+
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useGlobalState } from "@/modules/useGlobalState";
-import { Transition } from "@headlessui/react";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
+
+import { NavBar } from "./NavBar";
 
 export const Sidebar: React.FC<any> = () => {
   const open = useSideBarStore((state) => state.open);
@@ -100,11 +102,11 @@ export const Sidebar: React.FC<any> = () => {
         <div className="w-full flex flex-col space-y-2">
           <div className="relative w-full h-64">
             <Image
-              src={"/assets/sidebar-illustration.svg"}
-              layout={"fill"}
+              src="/assets/sidebar-illustration.svg"
+              layout="fill"
               alt="Super User Illustration"
               priority={true}
-              objectFit={"cover"}
+              objectFit="cover"
             />
           </div>
 

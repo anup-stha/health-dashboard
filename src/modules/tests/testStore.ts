@@ -6,9 +6,10 @@
  *
  */
 
-import { Test } from "@/types";
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
+
+import { Test } from "@/types";
 
 type testStoreStateType = {
   testList: Test[];

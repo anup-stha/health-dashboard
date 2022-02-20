@@ -1,12 +1,11 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:17 PM
+ * Last Modified 2/20/22, 2:23 PM
  *
  *
  */
 
-import { LoginResponse } from "@/types";
 import create from "zustand";
 import {
   combine,
@@ -14,7 +13,10 @@ import {
   persist,
   subscribeWithSelector,
 } from "zustand/middleware";
-import { Member } from "@/modules/member/types";
+
+import { Member } from "@/modules/members/types";
+
+import { LoginResponse } from "@/types";
 
 const userDataKey = "@sunya/user-data";
 const initialState = {

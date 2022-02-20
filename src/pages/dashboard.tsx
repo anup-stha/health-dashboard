@@ -1,26 +1,27 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/23/22, 7:49 PM
+ * Last Modified 2/18/22, 9:00 PM
  *
  *
  */
 
 import { NextPage } from "next";
-import { withAuth } from "@/shared/hoc/withAuth";
-import { AdminDashboard } from "@/modules/dashboard/AdminDashboard";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { OrgAdminDashboard } from "@/modules/org-admin/dashboard";
 import { NextSeo } from "next-seo";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { AdminDashboard } from "@/modules/dashboard/AdminDashboard";
+import { OrgAdminDashboard } from "@/modules/org-admin/dashboard";
+import { withAuth } from "@/shared/hoc/withAuth";
 
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user.role;
 
   return (
     <>
-      <NextSeo title={"Sunya Health - Dashboard"} />
+      <NextSeo title="Sunya Health - Dashboard" />
 
-      {role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}
+      {role && role.id === 1 ? <AdminDashboard /> : <OrgAdminDashboard />}
     </>
   );
 };

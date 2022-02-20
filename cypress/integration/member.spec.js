@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/17/22, 4:01 PM
+ * Last Modified 2/20/22, 2:16 PM
  *
  *
  */
@@ -15,8 +15,6 @@ Cypress.Commands.add("login", () => {
 
   cy.get("[data-testid=email]").clear().type("superadmin@sunya.health");
   cy.get("[data-testid=password]").clear().type("sunya.health{enter}");
-
-  cy.wait(5000);
 });
 
 Cypress.on("uncaught:exception", (err, runnable) => {

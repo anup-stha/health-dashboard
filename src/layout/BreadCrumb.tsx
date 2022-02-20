@@ -6,10 +6,10 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import isNaN from "lodash/isNaN";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 type pathArrayProps = {
   label: string;

@@ -7,8 +7,9 @@
  */
 
 /* eslint-disable require-jsdoc */
-import React from "react";
 import Image from "next/image";
+import React from "react";
+
 import Avatar from "./Ed.png";
 
 type AvatarProps = {

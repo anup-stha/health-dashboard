@@ -1,18 +1,20 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/7/22, 2:10 PM
+ * Last Modified 2/20/22, 2:20 PM
  *
  *
  */
 
-import { Modal } from "@/components/Modal/useModal";
+import moment from "moment";
 import React from "react";
 import { useForm } from "react-hook-form";
-import moment from "moment";
-import { MemberAddEditForm } from "@/modules/member/form/MemberAddEditForm";
+
+import { Modal } from "@/components/Modal/useModal";
+
+import { MemberAddEditForm } from "@/modules/members/components/form/MemberAddEditForm";
+import { Member } from "@/modules/members/types";
 import { useRoleDetails } from "@/services/requests/roleRequests";
-import { Member } from "@/modules/member/types";
 
 interface IProfileUpdateModal {
   user: Member;

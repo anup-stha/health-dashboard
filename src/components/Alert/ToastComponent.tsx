@@ -6,10 +6,11 @@
  *
  */
 
+import { action } from "@storybook/addon-actions";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+
 import { alert, toastProps } from "./index";
-import { action } from "@storybook/addon-actions";
 
 const AlertComponent: React.FC<toastProps> = ({ type }) => {
   const toastPromise = () =>

@@ -1,20 +1,23 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/9/22, 7:23 PM
+ * Last Modified 2/20/22, 2:20 PM
  *
  *
  */
 
+import React from "react";
+
+import { Heading } from "@/components/Headings";
+import { Loader } from "@/components/Loader";
+
+import { MemberRoleDropdown } from "@/modules/members/components/dropdown/MemberRoleDropdown";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { useRoleList } from "@/services/requests/roleRequests";
+import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
+
 import { SubscriptionModal } from "./subscriptionModal";
 import { SubscriptionTable } from "./subscriptionTable";
-import React from "react";
-import { Loader } from "@/components/Loader";
-import { useSubscriptionList } from "@/services/requests/subscriptionRequests";
-import { useRoleList } from "@/services/requests/roleRequests";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import { MemberRoleDropdown } from "../member/others/MemberRoleDropdown";
-import { Heading } from "@/components/Headings";
 
 const SubscriptionPage: React.FC = () => {
   const selectedRole = useCurrentMemberStore((state) => state.role);
@@ -31,10 +34,8 @@ const SubscriptionPage: React.FC = () => {
           <div className="flex flex-col space-y-6 h-full">
             <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
               <Heading
-                title={"Subscriptions"}
-                subtitle={
-                  "List of all subscriptions in a tabulated view. If not data found, please change role."
-                }
+                title="Subscriptions"
+                subtitle="List of all subscriptions in a tabulated view. If not data found, please change role."
               />
 
               <div className="flex space-x-4">

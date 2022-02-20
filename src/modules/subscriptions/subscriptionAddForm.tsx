@@ -1,25 +1,26 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/25/22, 9:27 PM
+ * Last Modified 2/20/22, 2:16 PM
  *
  *
  */
-import { PrimaryInput } from "@/components/Input";
-
+import React from "react";
 import { useForm } from "react-hook-form";
-import { Modal } from "@/components/Modal/useModal";
+
 import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { PrimaryInput } from "@/components/Input";
+import { Modal } from "@/components/Modal/useModal";
+
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { useGlobalState } from "@/modules/useGlobalState";
 import {
   addSubscription,
   updateSubscription,
 } from "@/services/requests/subscriptionRequests";
-import { Button } from "@/components/Button";
-import React from "react";
-import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-import { useGlobalState } from "@/modules/useGlobalState";
-import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -61,7 +62,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           }
         : {
             name: data.name,
-            price: data.price.replace(/[^\d\.]*/g, ""),
+            price: data.price.replace(/[^\d.]*/g, ""),
             test_limit: Number(data.test_limit),
             interval_type: data.interval_type,
             interval_value: Number(data.interval_value),
@@ -135,8 +136,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           <div className="w-1/2">
             <DropdownController
               options={options}
-              name={"interval_type"}
-              label={"Interval Type"}
+              name="interval_type"
+              label="Interval Type"
               control={control}
             />
           </div>

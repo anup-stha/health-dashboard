@@ -6,9 +6,10 @@
  *
  */
 
-import { BasicGlobalState } from "@/types";
 import create from "zustand";
 import { combine, devtools, persist } from "zustand/middleware";
+
+import { BasicGlobalState } from "@/types";
 
 const initialState: BasicGlobalState = {
   base: {

@@ -12,7 +12,7 @@ import LoaderComponent from "react-loader-spinner";
 export const Loader = () => {
   return (
     <div className="h-[55vh] flex items-center justify-center">
-      <LoaderComponent type={"Bars"} />
+      <LoaderComponent type="Bars" />
     </div>
   );
 };
@@ -23,7 +23,7 @@ export const MainLoader = () => {
       className="h-screen flex items-center justify-center"
       data-testid="loader"
     >
-      <LoaderComponent type={"Bars"} />
+      <LoaderComponent type="Bars" />
     </div>
   );
 };

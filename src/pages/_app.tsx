@@ -7,18 +7,20 @@
  */
 
 import type { AppProps } from "next/app";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import NextNProgress from "nextjs-progressbar";
 import * as React from "react";
-import "../styles/globals.scss";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import "react-loading-skeleton/dist/skeleton.css";
-import { ToastComponent } from "@/components/Alert/Toast";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-import Head from "next/head";
-import NextNProgress from "nextjs-progressbar";
+import "../styles/globals.scss";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "react-loading-skeleton/dist/skeleton.css";
+
+import { ToastComponent } from "@/components/Alert/Toast";
+
 import { MainLayout } from "@/layout/MainLayout";
-import { useRouter } from "next/router";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

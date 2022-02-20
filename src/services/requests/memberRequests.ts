@@ -1,10 +1,16 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/13/22, 9:23 AM
+ * Last Modified 2/20/22, 10:55 AM
  *
  *
  */
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
+
+import { privateAgent } from ".";
 
 import {
   MemberBulkData,
@@ -18,12 +24,8 @@ import {
   NullDataResponse,
   OrgMemberAddRes,
 } from "@/types";
-import { privateAgent } from ".";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { getCurrentUserProfile } from "@/services/requests/authRequests";
 
-export const getMembersList = (roleId: number, pageNumber: number = 1) => {
+export const getMembersList = (roleId: number, pageNumber = 1) => {
   return privateAgent
     .get<MemberListResponse>(`/member/list/${roleId}?page=${pageNumber}`)
     .then((response) => response.data.data);
@@ -107,7 +109,7 @@ export const getMemberDetails = (memberId: number) => {
 export const addDetailsToMember = (
   roleId: number,
   memberId: number,
-  data: Object
+  data: Record<string, any>
 ) => {
   const values = Object.values(data);
   const keys = Object.keys(data);
@@ -155,7 +157,7 @@ export const addDetailsToMember = (
 export const getMemberTestList = (
   memberId: number,
   testCategoryId: number,
-  pageNumber: number = 1
+  pageNumber = 1
 ) => {
   return privateAgent
     .get<MemberTestListResponse>(

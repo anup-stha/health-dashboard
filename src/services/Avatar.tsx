@@ -6,15 +6,17 @@
  *
  */
 
-import React, { Fragment } from "react";
-import { useRouter } from "next/router";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { alert } from "@/components/Alert";
-import { logoutUser } from "@/services/requests";
 import { Popover, Transition } from "@headlessui/react";
-import { CaretDown } from "phosphor-react";
-import LetteredAvatar from "react-avatar";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { CaretDown } from "phosphor-react";
+import React, { Fragment } from "react";
+import LetteredAvatar from "react-avatar";
+
+import { alert } from "@/components/Alert";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { logoutUser } from "@/services/requests";
 
 export const ImageAvatar: React.FC = () => {
   const { push } = useRouter();

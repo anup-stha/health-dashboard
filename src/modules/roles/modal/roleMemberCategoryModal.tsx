@@ -6,10 +6,12 @@
  *
  */
 
-import { Modal } from "@/components/Modal/useModal";
 import { Edit } from "react-feather";
-import { RoleMemberCategoryForm } from "../form/roleMemberCategoryForm";
+
 import { Button } from "@/components/Button";
+import { Modal } from "@/components/Modal/useModal";
+
+import { RoleMemberCategoryForm } from "../form/roleMemberCategoryForm";
 
 type memberCategoryModalProps = {
   type: "add" | "edit";

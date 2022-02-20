@@ -6,19 +6,22 @@
  *
  */
 
-import { Test } from "@/types";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Modal } from "@/components/Modal/useModal";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
-import { Button } from "@/components/Button";
+
 import { alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { Modal } from "@/components/Modal/useModal";
+
 import {
   addTest,
   addTestCategory,
   updateTest,
   updateTestCategory,
 } from "@/services/requests/testRequests";
+
+import { Test } from "@/types";
 
 type TestAddEditFormProps = {
   variant: "test" | "subtest";

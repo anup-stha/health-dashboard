@@ -6,12 +6,14 @@
  *
  */
 
-import { testStore } from "./testStore";
-import { TestCard } from "./TestCard";
-import { TestModal } from "./testAddModal";
-import { TestDeleteZone } from "../roles/others/DeleteZone";
-import { TestUpdateZone } from "@/modules/tests/TestUpdateZone";
 import { Heading } from "@/components/Headings";
+
+import { TestUpdateZone } from "@/modules/tests/TestUpdateZone";
+
+import { TestModal } from "./testAddModal";
+import { TestCard } from "./TestCard";
+import { testStore } from "./testStore";
+import { TestDeleteZone } from "../roles/others/DeleteZone";
 
 export const TestDetails = () => {
   const { selectedTest } = testStore();
@@ -39,11 +41,7 @@ export const TestDetails = () => {
                 />
               </div>
             ))}
-          <TestModal
-            variant={"subtest"}
-            type="add"
-            selectedTest={selectedTest}
-          />
+          <TestModal variant="subtest" type="add" selectedTest={selectedTest} />
         </div>
       </div>
       <hr className="border-t-[1px] border-gray-200" />

@@ -1,13 +1,21 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 10:00 PM
+ * Last Modified 2/20/22, 12:04 PM
  *
  *
  */
 
 /* eslint-disable camelcase */
+import Router from "next/router";
+import { useQuery } from "react-query";
+
+import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { queryClient } from "@/pages/_app";
+
+import { privateAgent } from ".";
+
 import {
   MemberSubscriptionDetails,
   MemberSubscriptionDetailsResponse,
@@ -17,11 +25,6 @@ import {
   SubscriptionTestDetailsResponse,
   SubscriptionUpdateBody,
 } from "@/types";
-import { privateAgent } from ".";
-import { useMemberStore } from "@/modules/member/utils/useMemberStore";
-import Router from "next/router";
-import { useQuery } from "react-query";
-import { queryClient } from "@/pages/_app";
 
 export const listSubscriptions = (roleId: number) => {
   return privateAgent

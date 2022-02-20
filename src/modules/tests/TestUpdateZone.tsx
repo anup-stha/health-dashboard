@@ -7,6 +7,7 @@
  */
 
 import { TestModal } from "@/modules/tests/testAddModal";
+
 import { Test } from "@/types";
 
 type TestUpdateZoneProps = {
@@ -25,7 +26,7 @@ export const TestUpdateZone: React.FC<TestUpdateZoneProps> = ({
           certain.
         </p>
       </div>
-      <TestModal variant={"test"} type="edit" selectedTest={selectedTest} />
+      <TestModal variant="test" type="edit" selectedTest={selectedTest} />
     </div>
   );
 };

@@ -6,18 +6,18 @@
  *
  */
 
-import { resolveValue, Toast, Toaster } from "react-hot-toast";
 import { Transition } from "@headlessui/react";
-import * as React from "react";
-import { Oval } from "react-loading-icons";
 import { CheckCircle, WarningCircle } from "phosphor-react";
+import * as React from "react";
+import { resolveValue, Toast, Toaster } from "react-hot-toast";
+import { Oval } from "react-loading-icons";
 
 export const ToastComponent = () => {
   return (
     <Toaster gutter={24}>
       {(t: Toast) => {
         return (
-          <Transition as={"div"} appear show={t.visible}>
+          <Transition as="div" appear show={t.visible}>
             {t.type === "loading" ? (
               <Transition.Child
                 as={React.Fragment}
@@ -30,7 +30,7 @@ export const ToastComponent = () => {
               >
                 <div className="flex bg-white max-w-3xl min-w-[30rem] rounded-lg shadow-md">
                   <div className="flex items-center justify-center px-3 bg-gray-500 text-white text-5xl shadow-lg rounded-l-lg">
-                    <Oval strokeWidth={5} height={"2rem"} />
+                    <Oval strokeWidth={5} height="2rem" />
                   </div>
 
                   <div className="px-4 py-3">

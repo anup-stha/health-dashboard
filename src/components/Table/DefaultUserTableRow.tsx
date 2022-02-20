@@ -1,16 +1,16 @@
 /*
  * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
+ * Copyright (c) 2021-2022. All rights reserved.
+ * Last Modified 2/20/22, 2:23 PM
  *
  *
  */
 
 import React from "react";
+import { Copy, Edit, MoreVertical } from "react-feather";
+
 import { AvatarWithEmail, DefaultAvatar } from "../Avatar";
 import { BooleanTag } from "../others/BooleanTag";
-import { Flag } from "../others/Flag";
-import { Copy, Edit, MoreVertical } from "react-feather";
 
 export const UserTableRowComponent = ({ data, key }: any) => {
   return (
@@ -31,9 +31,7 @@ export const UserTableRowComponent = ({ data, key }: any) => {
           />
         </td>
         <td>{data.email}</td>
-        <td>
-          <Flag countryCode={data.country} />
-        </td>
+
         <td>
           <BooleanTag
             type="error"
@@ -78,7 +76,6 @@ export const UserCardView = ({ data, key }: any) => {
             email={data.email}
             image={data.avatar}
           />
-          <Flag countryCode={data.country} />
         </div>
         <div className="flex items-center justify-between">
           <div className="flex space-x-4">

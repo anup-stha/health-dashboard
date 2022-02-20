@@ -5,9 +5,9 @@
  *
  *
  */
-import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { WarningOctagon, X } from "phosphor-react";
+import React, { Fragment, useState } from "react";
 
 export const UnVerifiedModal = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -20,7 +20,7 @@ export const UnVerifiedModal = () => {
         onClose={() => setIsOpen(false)}
         open={true}
       >
-        <Dialog.Overlay className={`fixed inset-0 bg-black opacity-40`} />
+        <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
         <div className="min-h-screen md:px-16 sm:px-4 text-center">
           <Transition.Child as={Fragment}>
             <Dialog.Overlay className="fixed inset-0" />
@@ -39,9 +39,7 @@ export const UnVerifiedModal = () => {
             leaveFrom="opacity-100 scale-100 translate-y-0"
             leaveTo="opacity-0 scale-90 -translate-y-32"
           >
-            <div
-              className={`w-full   inline-block w-full max-w-2xl mt-8 px-4 py-4 sm:px-4 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-sm`}
-            >
+            <div className="w-full   inline-block w-full max-w-2xl mt-8 px-4 py-4 sm:px-4 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-sm">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-4 w-3/4 ">
                   <div className="text-red-500">

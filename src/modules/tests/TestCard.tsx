@@ -6,13 +6,16 @@
  *
  */
 
+import { useRouter } from "next/router";
+import { Trash } from "phosphor-react";
+
 import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
-import { TestSubCategory } from "@/types";
-import { useRouter } from "next/router";
-import { Trash } from "phosphor-react";
+
 import { TestModal } from "@/modules/tests/testAddModal";
+
+import { TestSubCategory } from "@/types";
 
 type TestCardPropsType = {
   id: number | string;
@@ -34,9 +37,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
   const router = useRouter();
 
   return (
-    <div
-      className={`relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200`}
-    >
+    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
       <div className="space-y-1">
         <div className="flex justify-between">
           <h1 className="text-3xl font-semibold text-gray-800 capitalize">
@@ -45,9 +46,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
         </div>
 
         <div className="space-y-3">
-          <div
-            className={`text-lg font-medium text-gray-600 w-full line-clamp-2`}
-          >
+          <div className="text-lg font-medium text-gray-600 w-full line-clamp-2">
             {desc}
           </div>
           <div className=" text-base text-gray-500 font-normal space-x-2">
@@ -81,8 +80,8 @@ export const TestCard: React.FC<TestCardPropsType> = ({
             </Button>
           ) : (
             <TestModal
-              variant={"subtest"}
-              type={"edit"}
+              variant="subtest"
+              type="edit"
               selectedTest={{
                 id,
                 name,

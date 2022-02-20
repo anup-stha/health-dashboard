@@ -9,6 +9,7 @@
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
 import React, { Fragment, useState } from "react";
+
 import { NavItem } from "./NavItem";
 import { RouteObjectType } from "./routes";
 import { useSideBarStore } from "./useSideBarStore";
@@ -36,7 +37,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   return (
     <ul className="flex flex-col w-full">
       <li className={mainItemStyles} onClick={() => onExpandChange()}>
-        <div className={"peer flex w-full"}>
+        <div className="peer flex w-full">
           <div
             className={`flex relative items-start justify-start px-4 w-full ${
               open ? "translate-x-0" : "-translate-x-96 w-0"
@@ -47,10 +48,10 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
                 expand ? "font-bold text-gray-900" : "font-semibold"
               } `}
             >
-              <div className={"sm:hidden"}>{subRoutes.icon}</div>
+              <div className="sm:hidden">{subRoutes.icon}</div>
 
-              <div className={`flex items-center justify-between w-full`}>
-                <span className={`sm:text-lg`}>{subRoutes.title}</span>
+              <div className="flex items-center justify-between w-full">
+                <span className="sm:text-lg">{subRoutes.title}</span>
                 <CaretDown weight="bold" size={24} />
               </div>
             </span>
@@ -63,7 +64,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
                 : "opacity-0 w-0 p-0"
             }  `}
           >
-            <div className={`sm:hidden`}>{subRoutes.icon}</div>
+            <div className="sm:hidden">{subRoutes.icon}</div>
           </div>
         </div>
 

@@ -8,9 +8,10 @@
 
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
-import { useRoleStore } from "../useRoleStore";
+
 import { RoleMemberCategoryModal } from "../modal/roleMemberCategoryModal";
 import { RoleMemberCategoryTable } from "../table/roleMemberCategoryTable";
+import { useRoleStore } from "../useRoleStore";
 
 export const RoleMemberCategory = () => {
   const { selectedRole } = useRoleStore();

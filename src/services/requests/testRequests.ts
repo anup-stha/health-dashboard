@@ -6,7 +6,14 @@
  *
  */
 
+import { AxiosResponse } from "axios";
+import Router from "next/router";
+import { useQuery } from "react-query";
+
 import { testStore } from "@/modules/tests/testStore";
+
+import { privateAgent } from ".";
+
 import {
   AddTestBody,
   AddTestCategoryBody,
@@ -15,10 +22,6 @@ import {
   ListTestResponse,
   UpdateTestCategoryBody,
 } from "@/types";
-import { privateAgent } from ".";
-import Router from "next/router";
-import { useQuery } from "react-query";
-import { AxiosResponse } from "axios";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
   return privateAgent.get("test/categories/");
@@ -54,7 +57,7 @@ export const addTest = (body: AddTestBody) => {
   );
 };
 
-export const updateTest = (id: Number, body: AddTestBody) => {
+export const updateTest = (id: number, body: AddTestBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .put<AddTestResponse>(`test/category/${id}`, {

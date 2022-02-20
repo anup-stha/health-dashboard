@@ -8,6 +8,7 @@
 
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 export const withAuth = (WrappedComponent: React.FC) => {

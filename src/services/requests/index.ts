@@ -6,9 +6,11 @@
  *
  */
 
-import { useAuthStore } from "@/modules/auth/useTokenStore";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+
 import { login, logOut } from "./authRequests";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "";

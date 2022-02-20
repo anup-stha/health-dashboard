@@ -8,6 +8,7 @@
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
 import { TableWithPagination } from "./index";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

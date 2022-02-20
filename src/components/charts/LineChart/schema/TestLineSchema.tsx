@@ -6,9 +6,9 @@
  *
  */
 
-import moment from "moment";
 import { ApexOptions } from "apexcharts";
 import { utcToZonedTime } from "date-fns-tz";
+import moment from "moment";
 
 export const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap

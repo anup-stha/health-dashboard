@@ -6,27 +6,31 @@
  *
  */
 
-import React, { Fragment, useMemo, useState } from "react";
 import { Tab } from "@headlessui/react";
-import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { BooleanTag } from "@/components/others/BooleanTag";
+import { differenceWith, isEqual } from "lodash";
+import { useRouter } from "next/router";
+import { CheckCircle, WarningOctagon, XCircle } from "phosphor-react";
+import React, { Fragment, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { alert } from "@/components/Alert";
+import { Button, RedLineButton } from "@/components/Button";
+import { Heading } from "@/components/Headings";
+import { BooleanTag } from "@/components/others/BooleanTag";
+import { TableView } from "@/components/Table";
+
+import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
+import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { testStore } from "@/modules/tests/testStore";
 import {
   assignTestToSubscriptionBulk,
   removeTestFromSubscription,
 } from "@/services/requests/subscriptionRequests";
-import { TableView } from "@/components/Table";
-import { Button, RedLineButton } from "@/components/Button";
-import { useForm } from "react-hook-form";
+
 import { MultiDropdown } from "../roles/form/roleMemberCategoryForm";
+
 import { TestSubCategory } from "@/types";
-import { useRouter } from "next/router";
-import { CheckCircle, WarningOctagon, XCircle } from "phosphor-react";
-import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
-import { testStore } from "@/modules/tests/testStore";
-import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
-import { differenceWith, isEqual } from "lodash";
-import { Heading } from "@/components/Headings";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -81,7 +85,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
       <Heading title={selected.name ?? ""} subtitle={selected.slug ?? ""} />
 
       <hr className="border-t-[1px] border-gray-200" />
-      <div className={"space-y-4"}>
+      <div className="space-y-4">
         <div className="flex flex-col">
           <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
             Tests
@@ -143,28 +147,24 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                     return (
                       <Tab.Panel key={index}>
                         <div className="w-full flex flex-col space-y-2">
-                          <div
-                            className={
-                              "flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4"
-                            }
-                          >
+                          <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                             <div className="flex flex-col">
                               <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
                                 {selectedTest.name}
                               </h1>
                               <div className="flex space-x-2">
                                 <BooleanTag
-                                  type={"info"}
+                                  type="info"
                                   trueStatement={`Slug: ${selectedTest.slug}`}
                                 />
                                 <BooleanTag
-                                  type={"info"}
+                                  type="info"
                                   trueStatement={`Public:${
                                     selectedTest.public ? " Yes" : " No"
                                   }`}
                                 />
                                 <BooleanTag
-                                  type={"info"}
+                                  type="info"
                                   trueStatement={`${
                                     subscriptionDetails.some(
                                       (element) =>
@@ -178,7 +178,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                             </div>
                             <div className="flex">
                               <SubsTestDropdown
-                                label={"Choose a test"}
+                                label="Choose a test"
                                 options={getTestSubCategory(Number(selectedId))}
                               />
                             </div>
@@ -200,29 +200,25 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
 
                   return (
                     <Tab.Panel key={index}>
-                      <div className={"space-y-4 w-full"}>
-                        <div
-                          className={
-                            "flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4"
-                          }
-                        >
+                      <div className="space-y-4 w-full">
+                        <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                           <div className="space-y-1">
                             <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
                               {test.name}
                             </h1>
                             <div className="flex space-x-2">
                               <BooleanTag
-                                type={"info"}
+                                type="info"
                                 trueStatement={`Slug: ${test.slug}`}
                               />
                               <BooleanTag
-                                type={"info"}
+                                type="info"
                                 trueStatement={`Public:${
                                   test.public ? " Yes" : " No"
                                 }`}
                               />{" "}
                               <BooleanTag
-                                type={"info"}
+                                type="info"
                                 trueStatement={`${
                                   subscriptionDetails.some(
                                     (element) => element.id === selectedTest.id
@@ -233,7 +229,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                               />
                             </div>
                           </div>{" "}
-                          <div className={"flex"}>
+                          <div className="flex">
                             <SubsTestDropdown
                               options={getFilteredTestCategory(test.id)}
                             />
@@ -287,7 +283,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
   const router = useRouter();
 
   return data ? (
-    <tr className={"text-lg"}>
+    <tr className="text-lg">
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="">
@@ -301,10 +297,10 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag type={"info"} trueStatement={data.slug} />
+        <BooleanTag type="info" trueStatement={data.slug} />
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <BooleanTag type={"info"} trueStatement={data.public ? "Yes" : "No"} />
+        <BooleanTag type="info" trueStatement={data.public ? "Yes" : "No"} />
       </td>
       <td className="px-6 py-4">{data.desc}</td>
       <td className="font-medium px-6 py-4 whitespace-nowrap text-lg flex items-center justify-end">
@@ -375,12 +371,12 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
           id: "Test-assign",
         });
       })}
-      className={"flex lg:w-full space-x-4 items-end"}
+      className="flex lg:w-full space-x-4 items-end"
     >
-      <div className={"w-96"}>
+      <div className="w-96">
         <MultiDropdown
           options={subtestOptions}
-          name={"sub_test"}
+          name="sub_test"
           label={label}
           control={control}
         />

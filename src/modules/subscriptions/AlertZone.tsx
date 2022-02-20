@@ -6,8 +6,9 @@
  *
  */
 
-import { SubscriptionModal } from "@/modules/subscriptions/subscriptionModal";
 import { useRouter } from "next/router";
+
+import { SubscriptionModal } from "@/modules/subscriptions/subscriptionModal";
 
 export const AlertZone = () => {
   return <div>Hello World</div>;

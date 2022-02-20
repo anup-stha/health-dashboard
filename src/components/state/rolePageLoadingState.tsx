@@ -27,7 +27,7 @@ export const RolePageLoadingState: React.FC<MemberTableLoadingStateProps> = ({
               <Skeleton
                 count={1}
                 duration={2}
-                height={"4rem"}
+                height="4rem"
                 className="rounded-xl"
               />
             </div>
@@ -35,7 +35,7 @@ export const RolePageLoadingState: React.FC<MemberTableLoadingStateProps> = ({
               <Skeleton
                 count={1}
                 duration={2}
-                height={"2rem"}
+                height="2rem"
                 className="rounded-xl"
               />
             </div>
@@ -45,43 +45,43 @@ export const RolePageLoadingState: React.FC<MemberTableLoadingStateProps> = ({
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />{" "}
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
               <Skeleton
                 count={1}
                 duration={2}
-                height={"14rem"}
+                height="14rem"
                 className="rounded-2xl"
               />
             </div>

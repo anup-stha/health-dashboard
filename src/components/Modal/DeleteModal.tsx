@@ -9,8 +9,9 @@
 import { TrashSimple } from "phosphor-react";
 import React from "react";
 import { Trash } from "react-feather";
-import { WarningButton } from "../Button";
+
 import { Modal } from "./useModal";
+import { WarningButton } from "../Button";
 
 type DeleteModalProps = {
   onDelete?: () => void;

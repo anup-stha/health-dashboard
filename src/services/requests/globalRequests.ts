@@ -6,9 +6,10 @@
  *
  */
 
-import { GlobalStateResponse } from "@/types";
-import { privateAgent } from "@/services/requests/index";
 import { useGlobalState } from "@/modules/useGlobalState";
+import { privateAgent } from "@/services/requests/index";
+
+import { GlobalStateResponse } from "@/types";
 
 export const getGlobalStates = () => {
   return new Promise((resolve, reject) =>

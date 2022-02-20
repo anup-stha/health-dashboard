@@ -7,15 +7,17 @@
  */
 
 import React from "react";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
+
 import { Loader } from "@/components/Loader";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 import {
   StatCardGroup,
   StatCardGroupVariant2,
 } from "@/modules/dashboard/cards/StatCardGroup";
+import { useDashboardQuery } from "@/modules/dashboard/hooks/useDashboardQuery";
 import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
-import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 
 export const AdminDashboard: React.FC = () => {
   const user = useAuthStore().user;

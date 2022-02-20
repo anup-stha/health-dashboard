@@ -1,16 +1,17 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/8/22, 4:18 PM
+ * Last Modified 2/20/22, 1:55 PM
  *
  *
  */
 
-import { useQuery } from "react-query";
-import { getRoleListBySlug } from "@/services/requests/roleRequests";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
 import isEmpty from "lodash/isEmpty";
+import { useQuery } from "react-query";
+
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { getRoleListBySlug } from "@/services/requests/roleRequests";
 
 export const useRoleListBySlug = (role_slug: string) => {
   return useQuery(

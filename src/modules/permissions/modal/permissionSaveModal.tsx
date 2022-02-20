@@ -1,25 +1,28 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/8/22, 7:19 PM
+ * Last Modified 2/20/22, 2:16 PM
  *
  *
  */
 
+import Image from "next/image";
+import React from "react";
+
+import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
-import React from "react";
-import { useRoleStore } from "../../roles/useRoleStore";
-import Image from "next/image";
-import { alert } from "@/components/Alert";
+
 import {
   addPermissionToRole,
   removePermissionFromRole,
 } from "@/services/requests/roleRequests";
 
-type PermissionSaveModalPropType = {};
+import { useRoleStore } from "../../roles/useRoleStore";
 
-const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = ({}) => {
+type PermissionSaveModalPropType = Record<string, any>;
+
+const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
   const { selectedPermission, selectedRole } = useRoleStore();
   return (
     <Modal>

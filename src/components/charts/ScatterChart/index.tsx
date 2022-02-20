@@ -11,6 +11,7 @@ import { ApexOptions } from "apexcharts";
 import * as React from "react";
 import { useState } from "react";
 import Chart from "react-apexcharts";
+
 import { scatterDateData } from "../../data";
 
 type LineChartProps = {

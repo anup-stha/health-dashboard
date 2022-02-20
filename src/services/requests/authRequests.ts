@@ -1,12 +1,22 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 10:31 PM
+ * Last Modified 2/20/22, 2:19 PM
  *
  *
  */
 
+import Router from "next/router";
+
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { DeviceListResponse, StringResponse } from "@/modules/members/types";
+import { useGlobalState } from "@/modules/useGlobalState";
+import { queryClient } from "@/pages/_app";
+import { getGlobalStates } from "@/services/requests/globalRequests";
+
+import { privateAgent, publicAgent } from ".";
+
 import {
   LoginRequest,
   LoginResponse,
@@ -16,13 +26,6 @@ import {
   NullDataResponse,
   ProfileRequestResponse,
 } from "@/types";
-import Router from "next/router";
-import { privateAgent, publicAgent } from ".";
-import { useGlobalState } from "@/modules/useGlobalState";
-import { queryClient } from "@/pages/_app";
-import { getGlobalStates } from "@/services/requests/globalRequests";
-import { useCurrentMemberStore } from "@/modules/member/utils/useCurrentMemberStore";
-import { DeviceListResponse, StringResponse } from "@/modules/member/types";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>

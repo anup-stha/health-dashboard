@@ -1,23 +1,25 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/2/22, 1:33 PM
+ * Last Modified 2/20/22, 1:17 PM
  *
  *
  */
 
-import { PrimaryInput, SwitchInput } from "@/components/Input";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
-import { Controller, useForm } from "react-hook-form";
-import { Modal } from "@/components/Modal/useModal";
 import React from "react";
-import { Button } from "@/components/Button";
+import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
-import { useGlobalState } from "@/modules/useGlobalState";
+
+import { Button } from "@/components/Button";
+import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { Modal } from "@/components/Modal/useModal";
+
 import {
   postMemberCategoryToast,
   postUpdateMemberCategoryToast,
-} from "@/modules/member/api/toasts/membersToast";
+} from "@/modules/roles/toasts/membersToast";
+import { useRoleStore } from "@/modules/roles/useRoleStore";
+import { useGlobalState } from "@/modules/useGlobalState";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -66,8 +68,8 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
       <div className="space-y-4">
         <DropdownController
           options={options}
-          name={"value_type"}
-          label={"Select Value Type"}
+          name="value_type"
+          label="Select Value Type"
           control={control}
         />
         <PrimaryInput
@@ -159,7 +161,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={"z-[100]"}>
+    <div className="z-[100]">
       <label className="input_label">{label}</label>
       <Controller
         name={name}
@@ -250,7 +252,7 @@ export const MultiDropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={"z-[100]"}>
+    <div className="z-[100]">
       <label className="input_label">{label}</label>
       <Controller
         name={name}

@@ -46,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
       } capitalize cursor-pointer justify-center text-center text-xl font-semibold text-white ${color}  disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
-      <span className={"sm:line-clamp-1"}>{children}</span>
+      <span className="sm:line-clamp-1">{children}</span>
     </button>
   );
 };
@@ -140,7 +140,7 @@ export const InfoButton: React.FC<ButtonProps> = ({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E200 disabled:cursor-not-allowed`}
+      className="flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E200 disabled:cursor-not-allowed"
     >
       {children}
     </button>

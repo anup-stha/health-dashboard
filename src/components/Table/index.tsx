@@ -6,14 +6,16 @@
  *
  */
 
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { MagnifyingGlass, X } from "phosphor-react";
 import type { JSXElementConstructor, ReactElement } from "react";
 import React, { useEffect, useState } from "react";
-import { Loader } from "@/components/Loader";
+
 import { SearchInput } from "@/components/Input";
-import Image from "next/image";
-import { MagnifyingGlass, X } from "phosphor-react";
-import { useRouter } from "next/router";
+import { Loader } from "@/components/Loader";
 import { Pagination } from "@/components/Pagination";
+
 import { PaginationObject } from "@/types";
 
 type TableViewPropsType = {
@@ -57,7 +59,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
     return (
       <div>
         {!loading ? (
-          <div className={"flex flex-col  space-y-2"}>
+          <div className="flex flex-col  space-y-2">
             {search && (
               <div className=" flex space-x-6 max-w-xl relative print:hidden ml-1">
                 <SearchInput
@@ -79,10 +81,10 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
 
                     searchedData && setTableData(searchedData);
                   }}
-                  placeholder={"Start Searching ...."}
+                  placeholder="Start Searching ...."
                 />
                 <div
-                  className={"absolute right-4 top-[48%] -translate-y-[50%]"}
+                  className="absolute right-4 top-[48%] -translate-y-[50%]"
                   onClick={() => {
                     setSearchTerm("");
                     setTableData(tableInitialData);
@@ -90,18 +92,14 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                 >
                   {searchTerm !== "" ? (
                     <X
-                      stroke={"transparent"}
-                      className={
-                        "cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
-                      }
+                      stroke="transparent"
+                      className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
                       size={24}
                     />
                   ) : (
                     <MagnifyingGlass
-                      stroke={"transparent"}
-                      className={
-                        "cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
-                      }
+                      stroke="transparent"
+                      className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
                       size={24}
                     />
                   )}

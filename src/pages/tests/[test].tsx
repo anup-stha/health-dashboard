@@ -6,16 +6,18 @@
  *
  */
 
-import { withAuth } from "@/shared/hoc/withAuth";
-import { withRole } from "@/shared/hoc/withRole";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+
+import { Loader } from "@/components/Loader";
+
+import { MainHead } from "@/layout/MainHead";
 import { TestDetails } from "@/modules/tests/testDetails";
 import { testStore } from "@/modules/tests/testStore";
 import { getTests } from "@/services/requests/testRequests";
-import { NextPage } from "next";
-import React, { useEffect } from "react";
-import { Loader } from "@/components/Loader";
-import { useRouter } from "next/router";
-import { MainHead } from "@/layout/MainHead";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const Test: NextPage<any> = () => {
   const router = useRouter();

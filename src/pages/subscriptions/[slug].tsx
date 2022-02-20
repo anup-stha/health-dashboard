@@ -7,19 +7,20 @@
  */
 
 import { NextPage } from "next";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+
+import { Loader } from "@/components/Loader";
+
+import { MainHead } from "@/layout/MainHead";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
 import {
   listSubscriptionDetail,
   useSubscriptionList,
 } from "@/services/requests/subscriptionRequests";
-
-import { withAuth } from "@/shared/hoc/withAuth";
-import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useTestList } from "@/services/requests/testRequests";
-import React, { useEffect, useState } from "react";
-import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
-import { Loader } from "@/components/Loader";
-import { useRouter } from "next/router";
-import { MainHead } from "@/layout/MainHead";
+import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 
 const SubscriptionDetailsPage: NextPage = () => {

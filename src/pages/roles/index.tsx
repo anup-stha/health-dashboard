@@ -6,20 +6,22 @@
  *
  */
 
+import React from "react";
+
 import { RolePageLoadingState } from "@/components/state/rolePageLoadingState";
-import { withAuth } from "@/shared/hoc/withAuth";
-import { withRole } from "@/shared/hoc/withRole";
+
+import { MainHead } from "@/layout/MainHead";
 import RolePage from "@/modules/roles";
 import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
-import React from "react";
-import { MainHead } from "@/layout/MainHead";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const Roles = () => {
   const { isLoading } = useAllRoleList();
 
   return (
     <>
-      <MainHead title={`Roles`} />
+      <MainHead title="Roles" />
 
       {!isLoading ? <RolePage /> : <RolePageLoadingState count={1} />}
     </>

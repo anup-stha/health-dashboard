@@ -7,8 +7,9 @@
  */
 
 import { useQuery } from "react-query";
-import { getOtherFieldsList } from "@/services/requests/otherFieldsRequests";
+
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
+import { getOtherFieldsList } from "@/services/requests/otherFieldsRequests";
 
 export const useGetOtherFieldsList = () => {
   return useQuery(["other_fields-list"], () => getOtherFieldsList(), {

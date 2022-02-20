@@ -6,11 +6,13 @@
  *
  */
 
-import PermissionSaveModal from "./modal/permissionSaveModal";
-import { useRoleStore } from "../roles/useRoleStore";
 import React from "react";
-import { permissionSelectHandler } from "./utils/permissionSelectHandler";
+
 import { CheckBoxCard } from "@/modules/permissions/cards/CheckBoxCard";
+
+import PermissionSaveModal from "./modal/permissionSaveModal";
+import { permissionSelectHandler } from "./utils/permissionSelectHandler";
+import { useRoleStore } from "../roles/useRoleStore";
 
 export const Permissions = () => {
   const { selectedPermission, setSelectedPermission } = useRoleStore();

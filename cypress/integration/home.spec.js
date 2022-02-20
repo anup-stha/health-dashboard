@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/12/22, 8:26 PM
+ * Last Modified 2/20/22, 2:16 PM
  *
  *
  */
@@ -88,7 +88,6 @@ context("Login", () => {
   it("Redirect to dashboard if logged in successfully", () => {
     cy.get("[data-testid=email]").clear().type("superadmin@sunya.health");
     cy.get("[data-testid=password]").clear().type("sunya.health{enter}");
-    cy.wait(1000);
 
     cy.url()
       .should("include", "/dashboard")

@@ -6,12 +6,14 @@
  *
  */
 
+import { alert } from "@/components/Alert";
+
+import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import {
   postOtherFieldDetails,
   putOtherFieldDetails,
 } from "@/services/requests/otherFieldsRequests";
-import { alert } from "@/components/Alert";
-import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
+
 import { OtherFieldsPostBody } from "@/types";
 
 export const postOtherFieldToast = (data: OtherFieldsPostBody) => {

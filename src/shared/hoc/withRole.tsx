@@ -6,10 +6,11 @@
  *
  */
 
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { adminRoutes, orgRoutes } from "@/routes/SideBar/routes";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { adminRoutes, orgRoutes } from "@/routes/SideBar/routes";
 
 export const withRole = (WrappedComponent: React.FC) => {
   const RequirePermission = (props: React.Props<any>) => {

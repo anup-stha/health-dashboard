@@ -7,8 +7,9 @@
  */
 
 import { useQuery } from "react-query";
-import { getDashboardData } from "@/services/requests/authRequests";
+
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { getDashboardData } from "@/services/requests/authRequests";
 
 export const useDashboardQuery = () => {
   return useQuery("dashboard", () => getDashboardData("/dashboard"), {
