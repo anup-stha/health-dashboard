@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 1:54 PM
+ * Last Modified 2/22/22, 9:50 PM
  *
  *
  */
@@ -87,7 +87,10 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
           ) : selectedTab === "medical history" ? (
             <PatientMedicalHistory selectedMember={member} />
           ) : selectedTab === "subscriptions" ? (
-            <SubscriptionTab member_id={member.id} role_id={member.role.id} />
+            <SubscriptionTab
+              member_id={member.member_id ?? member.id}
+              role_id={member.role.id}
+            />
           ) : null}
         </motion.div>
       </AnimatePresence>

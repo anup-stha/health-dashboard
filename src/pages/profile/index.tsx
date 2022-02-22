@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/29/22, 6:50 PM
+ * Last Modified 2/22/22, 9:45 PM
  *
  *
  */
@@ -12,7 +12,7 @@ import { Loader } from "@/components/Loader";
 
 import { MainHead } from "@/layout/MainHead";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { ProfilePage } from "@/modules/profile";
+import { MembersModule } from "@/modules/members";
 import { getCurrentUserProfile } from "@/services/requests/authRequests";
 import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
 import { withAuth } from "@/shared/hoc/withAuth";
@@ -38,7 +38,7 @@ const Profile = () => {
     <>
       <MainHead title="Profile" />
 
-      {loading && isLoading ? <Loader /> : <ProfilePage />}
+      {loading && isLoading ? <Loader /> : <MembersModule.ProfilePage />}
     </>
   );
 };

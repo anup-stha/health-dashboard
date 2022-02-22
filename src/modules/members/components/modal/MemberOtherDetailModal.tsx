@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 10:54 AM
+ * Last Modified 2/22/22, 8:04 PM
  *
  *
  */
@@ -99,7 +99,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   type: "promise",
                   promise: addDetailsToMember(
                     Number(selectedRole.id),
-                    Number(memberData.id),
+                    Number(memberData.member_id ?? memberData.id),
                     values
                   ),
                   msgs: {

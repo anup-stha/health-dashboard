@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 1:21 PM
+ * Last Modified 2/22/22, 9:51 PM
  *
  *
  */
@@ -151,7 +151,6 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                             Duration:
                           </span>
                           <span className="text-xl font-semibold text-gray-600 whitespace-nowrap">
-                            {" "}
                             {moment(
                               selectedMemberSubscription.start_date * 1000
                             ).format("MMM Do, YYYY")}{" "}
@@ -189,14 +188,16 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                         </div>
                       </div>
                       <div className="self-start">
-                        <Button
-                          buttonSize="small"
-                          onClick={() => {
-                            router.push("/members/org_admin/invoice");
-                          }}
-                        >
-                          Get New Invoice
-                        </Button>
+                        {user.id === 1 && (
+                          <Button
+                            buttonSize="small"
+                            onClick={() => {
+                              router.push("/members/org_admin/invoice");
+                            }}
+                          >
+                            Get New Invoice
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>

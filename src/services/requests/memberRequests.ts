@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 10:55 AM
+ * Last Modified 2/22/22, 8:04 PM
  *
  *
  */
@@ -133,7 +133,7 @@ export const addDetailsToMember = (
         const currentUser = useCurrentMemberStore.getState().user;
         const loggedInUser = useAuthStore.getState().user;
 
-        if (loggedInUser.id === memberId) {
+        if (loggedInUser.member_id === memberId) {
           getCurrentUserProfile().then(() => resolve(response.data.message));
         } else if (currentMember.id === memberId) {
           useCurrentMemberStore.getState().setCurrentMember({

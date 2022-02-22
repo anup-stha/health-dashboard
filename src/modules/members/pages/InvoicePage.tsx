@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 1:18 PM
+ * Last Modified 2/22/22, 10:06 PM
  *
  *
  */
@@ -22,8 +22,8 @@ import { Loader } from "@/components/Loader";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useInvoiceList } from "@/modules/members/hooks/query/useInvoiceList";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
+import { Member } from "@/modules/members/types";
 import {
   postInvoiceToast,
   putInvoiceAsPaidToast,
@@ -34,16 +34,19 @@ import { Invoice } from "@/types";
 
 interface IMemberInvoicePage {
   invoice_id?: number;
+  selectedMember: Member;
 }
 
-export const InvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
+export const InvoicePage = ({
+  invoice_id,
+  selectedMember,
+}: IMemberInvoicePage) => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const selectedMember = useCurrentMemberStore((state) => state.member);
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const invoiceId = useMemberStore((state) => state.invoice_id);
   const { data: selectedSubscription } = useMemberSubsDetails(
-    user.id !== 1 ? 0 : selectedMember.id
+    selectedMember.member_id ?? selectedMember.id
   );
   const [paid, setPaid] = useState(false);
 
@@ -52,7 +55,7 @@ export const InvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: invoiceList, isFetching } = useInvoiceList(
-    selectedMember.id,
+    selectedMember.member_id ?? selectedMember.id,
     invoice_id
   );
 
@@ -142,7 +145,7 @@ export const InvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center ">
                 <div className="relative h-20 w-20 cursor-pointer">
-                  {user.image ? (
+                  {user.id === 1 && user.image ? (
                     <div className="w-20 h-20 rounded-full object-contain overflow-hidden relative">
                       <Image
                         src={user.image}
@@ -153,8 +156,8 @@ export const InvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                     </div>
                   ) : (
                     <LetteredAvatar
-                      name={user.name}
-                      size="50"
+                      name="Sunya Health"
+                      size="60"
                       round={true}
                       maxInitials={2}
                     />
@@ -481,7 +484,7 @@ export const InvoicePage = ({ invoice_id }: IMemberInvoicePage) => {
                         .format("DD MMM YYYY")
                     : moment().add(15, "days").format("DD MMM YYYY")}
                 </div>
-                {!paid ? (
+                {!paid && user.id === 1 ? (
                   <>
                     <hr className="border-t-[1px] border-gray-400/40" />
                     <div>

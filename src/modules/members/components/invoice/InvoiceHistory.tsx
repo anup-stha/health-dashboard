@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 11:55 AM
+ * Last Modified 2/22/22, 10:17 PM
  *
  *
  */
@@ -15,6 +15,7 @@ import { BooleanTag } from "@/components/others/BooleanTag";
 import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
 import { useInvoiceList } from "@/modules/members/hooks/query/useInvoiceList";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 
 import { Invoice } from "@/types";
 
@@ -102,14 +103,19 @@ export const InvoiceHistory = ({ member_id }: IPropsInvoiceHistory) => {
 
 const InvoiceHistoryItem = ({ invoice }: { invoice: Invoice }) => {
   const router = useRouter();
+  const selectedMember = useCurrentMemberStore((state) => state.member);
 
   return (
     <div className="py-3 flex w-full items-center justify-between">
       <div
         className="flex flex-col cursor-pointer"
-        onClick={() =>
-          router.push(`/member/org_admin/invoice?id=${invoice.invoice_no}`)
-        }
+        onClick={() => {
+          !router.asPath.includes("profile")
+            ? router.push(
+                `/members/${selectedMember.role.slug}/invoice?id=${invoice.invoice_no}`
+              )
+            : null;
+        }}
       >
         <span className="font-semibold text-xl text-gray-700">
           INV-0{invoice.invoice_no}

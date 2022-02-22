@@ -1,12 +1,13 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/13/22, 4:41 PM
+ * Last Modified 2/22/22, 9:04 PM
  *
  *
  */
 
 import Image from "next/image";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
@@ -21,15 +22,19 @@ type ChangePasswordFormData = {
   oldPassword: string;
   confirmNewPassword: string;
 };
-export const PasswordModal = () => {
+
+export const PasswordModal = ({ close }: { close: any }) => {
   const { handleSubmit, register, reset } = useForm<ChangePasswordFormData>();
 
   return (
     <Modal>
       <Modal.Button type="open">
-        <div className=" p-6 border-b-2 border-gray-200 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850">
+        <button
+          className={` hover:text-red-500 hover:bg-red-50 text-white text-gray-700
+               group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+        >
           Change Password
-        </div>
+        </button>
       </Modal.Button>
       <Modal.Content width="max-w-6xl">
         <div className="flex flex-col space-y-16 sm:-space-y-12">
@@ -53,7 +58,10 @@ export const PasswordModal = () => {
                   promise: changePassword(
                     values.oldPassword,
                     values.newPassword
-                  ).then(() => reset()),
+                  ).then(() => {
+                    close();
+                    reset();
+                  }),
                   msgs: {
                     loading: "Changing Password",
                     success: "Password Changed Successfully",

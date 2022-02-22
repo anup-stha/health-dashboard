@@ -1,15 +1,16 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 1:50 PM
+ * Last Modified 2/22/22, 9:49 PM
  *
  *
  */
 
-import { Menu, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Location, ProfileCircle } from "iconsax-react";
 import Image from "next/image";
 import {
+  Camera,
   CircleWavyCheck,
   CircleWavyWarning,
   DotsThreeOutline,
@@ -17,14 +18,22 @@ import {
 } from "phosphor-react";
 import React, { Fragment, useState } from "react";
 import LetteredAvatar from "react-avatar";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-import { Button } from "@/components/Button";
+import { alert } from "@/components/Alert";
+import { Button, GrayButton } from "@/components/Button";
+import { PrimaryInput } from "@/components/Input";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { MemberOtherDetailModal } from "@/modules/members/components/modal/MemberOtherDetailModal";
+import { ProfileImageModal } from "@/modules/members/components/modal/ProfileImageModal";
 import { MemberToggle } from "@/modules/members/components/profile/MemberToggle";
 import { useGetOverviewData } from "@/modules/members/hooks/query/useGetOverviewData";
 import { Member } from "@/modules/members/types";
+import { logoutUser } from "@/services/requests";
+import { changePassword } from "@/services/requests/authRequests";
 
 import { Role } from "@/types";
 
@@ -32,6 +41,12 @@ interface IMemberProfileHeaderProps {
   member: Member;
   role: Role;
 }
+
+type ChangePasswordFormData = {
+  newPassword: string;
+  oldPassword: string;
+  confirmNewPassword: string;
+};
 
 /**
  *
@@ -43,36 +58,84 @@ export function MemberProfileHeader({
   member,
   role,
 }: IMemberProfileHeaderProps) {
+  const { handleSubmit, register, reset } = useForm<ChangePasswordFormData>();
+
   const [active, setActive] = useState(member.active);
   const [verified, setVerified] = useState(member.verified);
   const { data } = useGetOverviewData(member.id);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const user = useAuthStore((state) => state.user);
+
+  const onLogOut = async () => {
+    await alert({
+      promise: logoutUser(),
+      msgs: {
+        loading: "Logging Out",
+        success: "Logged Out Successfully",
+      },
+      id: "Login Toast",
+    });
+  };
 
   return (
     <div className="flex md:flex-col justify-between md:gap-8">
       <div className="flex gap-8 sm:flex-col">
-        <div className="flex-shrink-0 h-56 w-56  relative rounded-xl">
-          {member.image ? (
-            <Image
-              src={member.image}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-xl shadow-sm"
-              alt="profile image"
+        {user.member_id ? (
+          <ProfileImageModal selectedMember={user}>
+            <div className="flex-shrink-0 h-56 w-56 cursor-pointer relative rounded-xl">
+              {user.image ? (
+                <Image
+                  src={user.image}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-xl shadow-sm"
+                  alt="profile image"
+                />
+              ) : (
+                <LetteredAvatar
+                  name={user.name}
+                  size="100%"
+                  className="rounded-xl overflow-hidden"
+                  maxInitials={2}
+                />
+              )}
+              <div
+                className={`w-6 h-6 shadow-xl ${
+                  user.active ? "bg-green-500" : "bg-red-500"
+                } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
+              />
+              <div className="bg-white flex items-center justify-center rounded-full text-gray-850 w-10 h-10 text-3xl absolute -right-4 -top-4">
+                <Camera weight="duotone" />
+              </div>
+            </div>
+          </ProfileImageModal>
+        ) : (
+          <div className="flex-shrink-0 h-56 w-56  relative rounded-xl">
+            {member.image ? (
+              <Image
+                src={member.image}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-xl shadow-sm"
+                alt="profile image"
+              />
+            ) : (
+              <LetteredAvatar
+                name={member.name}
+                size="100%"
+                className="rounded-xl overflow-hidden"
+                maxInitials={2}
+              />
+            )}
+            <div
+              className={`w-6 h-6 shadow-xl ${
+                active ? "bg-green-500" : "bg-red-500"
+              } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
             />
-          ) : (
-            <LetteredAvatar
-              name={member.name}
-              size="100%"
-              className="rounded-xl overflow-hidden"
-              maxInitials={2}
-            />
-          )}
-          <div
-            className={`w-6 h-6 shadow-xl ${
-              active ? "bg-green-500" : "bg-red-500"
-            } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
-          />
-        </div>
+          </div>
+        )}
+
         <div className="py-1.5 flex flex-col justify-between md:gap-4 w-full">
           <div className="flex items-center justify-between w-full">
             <div className="flex flex-col gap-2 md:gap-1">
@@ -162,6 +225,134 @@ export function MemberProfileHeader({
           button={<Button buttonSize="small">Edit Profile</Button>}
         />
 
+        <Transition appear show={isOpen} as={Fragment} data-testid="modal">
+          <Dialog
+            as="div"
+            open={isOpen}
+            className="fixed inset-0 z-50"
+            onClose={() => setIsOpen(false)}
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+            <div className="min-h-screen md:px-16 sm:px-4 text-center">
+              <Transition.Child as={Fragment}>
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
+
+              {/* This element is to trick the browser into centering the modal contents. */}
+              <span
+                className="inline-block h-screen align-middle"
+                aria-hidden="true"
+              >
+                &#8203;
+              </span>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-100"
+                enterFrom="opacity-0 scale-95 -translate-y-32"
+                enterTo="opacity-100 scale-100 translate-y-0"
+                leave="ease-in duration-75"
+                leaveFrom="opacity-100 scale-100 translate-y-0"
+                leaveTo="opacity-0 scale-90 -translate-y-32"
+              >
+                <div className="inline-block w-full max-w-6xl p-10 sm:p-6 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
+                  <div className="flex flex-col space-y-16 sm:-space-y-12">
+                    <h1 className="text-4xl font-semibold text-gray-800">
+                      Change Password
+                    </h1>
+                    <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
+                      <form
+                        onSubmit={handleSubmit(async (values) => {
+                          if (values.oldPassword === values.newPassword) {
+                            toast.error(
+                              "Old Password and New Password cannot be Same"
+                            );
+                            return;
+                          }
+                          if (
+                            values.newPassword !== values.confirmNewPassword
+                          ) {
+                            toast.error(
+                              "New Password and Confirm New Password Doesn't Match"
+                            );
+                            return;
+                          }
+
+                          await alert({
+                            type: "promise",
+                            promise: changePassword(
+                              values.oldPassword,
+                              values.newPassword
+                            ).then(() => {
+                              setIsOpen(false);
+                              reset();
+                            }),
+                            msgs: {
+                              loading: "Changing Password",
+                              success: "Password Changed Successfully",
+                            },
+                            id: "change-password-modal",
+                          });
+                        })}
+                        className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
+                      >
+                        <div className="space-y-8">
+                          <PrimaryInput
+                            label="Old Password"
+                            type="password"
+                            placeholder="Enter Old Password"
+                            {...register("oldPassword")}
+                          />
+                          <PrimaryInput
+                            label="New Password"
+                            type="password"
+                            placeholder="Enter New Password"
+                            {...register("newPassword")}
+                          />{" "}
+                          <PrimaryInput
+                            label="Confirm New Password"
+                            type="password"
+                            placeholder="Confirm New Password"
+                            {...register("confirmNewPassword")}
+                          />
+                        </div>
+
+                        <div className="flex space-x-4">
+                          <Button>Change</Button>
+
+                          <GrayButton onClick={() => setIsOpen(false)}>
+                            Cancel
+                          </GrayButton>
+                        </div>
+                      </form>
+
+                      <div className="w-1/2 -mt-40 sm:mt-10 flex flex-col items-center -space-y-6  sm:space-y-0 sm:w-full">
+                        <div className="relative h-8xl w-full sm:h-7xl sm:-ml-12  ">
+                          <Image
+                            src="/assets/change-password.svg"
+                            alt="Change Password"
+                            objectFit="contain"
+                            layout="fill"
+                          />
+                        </div>
+                        <div className="flex flex-col items-center sm:hidden ">
+                          <h1 className="text-2xl sm:text-xl font-semibold text-green-600">
+                            New Password must contain
+                          </h1>
+                          <div className=" text-xl sm:text-base sm:items-start font-medium text-gray-600 flex flex-col items-center">
+                            <p>At least six characters</p>
+                            <p>At least one uppercase character</p>
+                            <p>At least one number </p>
+                            <p>At least one special characer </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
         <Menu className="z-20" as="div">
           <Menu.Button>
             <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
@@ -178,24 +369,62 @@ export function MemberProfileHeader({
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="p-2">
-                <MemberToggle
-                  toggle="active"
-                  memberId={member.id}
-                  currentState={active}
-                  setCurrentState={setActive}
-                  selectedMemberDetails={member}
-                />
-              </div>
-              <div className="p-2 ">
-                <MemberToggle
-                  toggle="verified"
-                  memberId={member.id}
-                  currentState={verified}
-                  setCurrentState={setVerified}
-                  selectedMemberDetails={member}
-                />
-              </div>
+              {!member.member_id ? (
+                <>
+                  <div className="p-2">
+                    <MemberToggle
+                      toggle="active"
+                      memberId={member.id}
+                      currentState={active}
+                      setCurrentState={setActive}
+                      selectedMemberDetails={member}
+                    />
+                  </div>
+                  <div className="p-2 ">
+                    <MemberToggle
+                      toggle="verified"
+                      memberId={member.id}
+                      currentState={verified}
+                      setCurrentState={setVerified}
+                      selectedMemberDetails={member}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="p-2" onClick={() => setIsOpen(true)}>
+                    <Menu.Item as="div">
+                      {({ active: btnActive }) => (
+                        <button
+                          className={`${
+                            btnActive
+                              ? `text-green-500 bg-green-50 text-white`
+                              : "text-gray-700"
+                          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                        >
+                          Change Password
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </div>
+
+                  <div className="p-2" onClick={onLogOut}>
+                    <Menu.Item as="div">
+                      {({ active: btnActive }) => (
+                        <button
+                          className={`${
+                            btnActive
+                              ? `text-red-500 bg-red-50 text-white`
+                              : "text-gray-700"
+                          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                        >
+                          Log out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </div>
+                </>
+              )}
             </Menu.Items>
           </Transition>
         </Menu>
