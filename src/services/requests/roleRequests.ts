@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:14 PM
+ * Last Modified 2/23/22, 8:28 AM
  *
  *
  */
@@ -216,4 +216,12 @@ export const getAllRoleList = () => {
 
 export const getRoleListBySlug = (role_slug: string) => {
   return privateAgent.get<RoleListResponse>(`/role/${role_slug}`);
+};
+
+export const assignChildRole = (
+  data: { p_role_id: number; c_role_id: number }[]
+) => {
+  return privateAgent.post<NullDataResponse>("role/assignRole", {
+    data,
+  });
 };

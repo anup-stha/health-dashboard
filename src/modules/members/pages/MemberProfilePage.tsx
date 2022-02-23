@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/22/22, 9:50 PM
+ * Last Modified 2/23/22, 4:17 PM
  *
  *
  */
@@ -77,9 +77,7 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
               other_details={member.details}
             />
           ) : selectedTab === "members" ? (
-            <MembersListTab
-              parent_member_id={member.parent_member_id ?? member.id}
-            />
+            <MembersListTab parent_member_id={member.id} />
           ) : selectedTab === "devices" ? (
             <DeviceHistoryTab member_id={member.id} />
           ) : selectedTab === "tests" ? (

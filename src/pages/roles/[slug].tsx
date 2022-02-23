@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:15 PM
+ * Last Modified 2/23/22, 4:21 PM
  *
  *
  */
@@ -91,15 +91,16 @@ const RoleDetailPage = () => {
                 subtitle={
                   selectedRole &&
                   allRoleList.data.filter((role) => role.id === Number(idX))[0]
-                    .desc
+                    .slug
                 }
               />
             </div>
 
-            <hr className="border-t-[1px] border-gray-200" />
-
+            <hr className="border-t-[1px] border-gray-300" />
+            {/* <RoleAccessSection />
+            <hr className="border-t-[1px] border-gray-300" /> */}
             <Permissions />
-            <hr className="border-t-[1px] border-gray-200" />
+            <hr className="border-t-[1px] border-gray-300" />
 
             <div className="space-y-6">
               <div>
