@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:54 AM
+ * Last Modified 2/24/22, 1:51 PM
  *
  *
  */
@@ -16,7 +16,7 @@ import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { PatientExcelImport } from "@/modules/members/components/others/PatientExcelImport";
 import MemberTable from "@/modules/members/components/table/MemberTable";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { useRoleList } from "@/services/requests/roleRequests";
+import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
 
 /**
  *
@@ -25,8 +25,9 @@ import { useRoleList } from "@/services/requests/roleRequests";
 export function MemberListPage() {
   const { isLoading } = useRoleList();
   const currentRole = useCurrentMemberStore((state) => state.role);
+  const { data } = useRoleDetails(currentRole.id);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || !data) return <Loader />;
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -38,7 +39,7 @@ export function MemberListPage() {
           />
           <div className="flex sm:flex-col gap-4">
             <MemberRoleDropdown />
-            <MemberModal type="add" selectedRole={currentRole} />
+            <MemberModal type="add" selectedRole={data?.data.data} />
             {currentRole.slug === "patient" && <PatientExcelImport />}
           </div>
         </div>

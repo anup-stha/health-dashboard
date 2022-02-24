@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 10:26 AM
+ * Last Modified 2/24/22, 12:57 PM
  *
  *
  */
@@ -20,6 +20,12 @@ export type MemberRole = {
   slug: string;
   desc: string;
   permissions: Permission[];
+  role_access: {
+    id: number;
+    name: string;
+    slug: string;
+    desc: string;
+  }[];
 };
 
 export type MemberMedicalHistory = {

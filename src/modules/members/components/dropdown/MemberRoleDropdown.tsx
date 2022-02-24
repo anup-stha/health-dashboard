@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 4:29 PM
+ * Last Modified 2/24/22, 1:38 PM
  *
  *
  */
@@ -11,15 +11,15 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect } from "react";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { useRoleStore } from "@/modules/roles/useRoleStore";
 
-import { Role } from "@/types";
+import { RoleAccess } from "@/types";
 
 interface MemberRoleDropdownProps {
-  roleList?: Role[];
-  selectedRole?: Role;
-  setSelectedRole?: (selected_role: Role) => void;
+  roleList?: RoleAccess[];
+  selectedRole?: RoleAccess;
+  setSelectedRole?: (selected_role: RoleAccess) => void;
 }
 
 export const MemberRoleDropdown = ({
@@ -28,11 +28,7 @@ export const MemberRoleDropdown = ({
   setSelectedRole: _setSelectedRole,
 }: MemberRoleDropdownProps) => {
   const router = useRouter();
-  const roleList =
-    _roleList ??
-    useRoleStore
-      .getState()
-      .roleList.sort((a, b) => a.name.localeCompare(b.name));
+  const roleList = _roleList ?? useAuthStore.getState().user.role.role_access;
 
   const selected = useCurrentMemberStore((state) => state.role);
   const setSelected = useCurrentMemberStore((state) => state.setCurrentRole);

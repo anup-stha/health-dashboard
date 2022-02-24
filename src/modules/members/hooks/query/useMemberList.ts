@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:28 AM
+ * Last Modified 2/24/22, 1:56 PM
  *
  *
  */
@@ -17,13 +17,14 @@ import {
 export const useMemberList = (
   roleId: number,
   memberId?: number,
-  pageIndex = 1
+  pageIndex = 1,
+  enabled?: boolean
 ) => {
   return useQuery(
     ["member-list", roleId, pageIndex],
     () => getMembersList(roleId, pageIndex),
     {
-      enabled: roleId !== 0,
+      enabled: roleId !== 0 && enabled,
       refetchOnWindowFocus: true,
     }
   );

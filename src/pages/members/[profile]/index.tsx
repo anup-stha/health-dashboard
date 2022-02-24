@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 10:29 AM
+ * Last Modified 2/24/22, 1:31 PM
  *
  *
  */
@@ -16,13 +16,14 @@ import { Loader } from "@/components/Loader";
 import { MainHead } from "@/layout/MainHead";
 import { MembersModule } from "@/modules/members";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { useRoleDetails } from "@/services/requests/roleRequests";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 
 const MemberProfilePage = () => {
   const router = useRouter();
   const member = useCurrentMemberStore((state) => state.member);
-  const role = useCurrentMemberStore((state) => state.role);
+  const { data: role } = useRoleDetails(member.role.id);
 
   useEffect(() => {
     if (isEmpty(member)) {
@@ -31,13 +32,13 @@ const MemberProfilePage = () => {
     }
   }, [JSON.stringify(member)]);
 
-  return isEmpty(member) ? (
+  return isEmpty(member) || !role ? (
     <Loader />
   ) : (
     <>
       <MainHead title={`${member.role.name}`} />
 
-      <MembersModule.MemberProfilePage member={member} role={role} />
+      <MembersModule.MemberProfilePage member={member} role={role.data.data} />
     </>
   );
 };

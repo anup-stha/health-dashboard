@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/23/22, 8:28 AM
+ * Last Modified 2/24/22, 1:47 PM
  *
  *
  */
@@ -10,6 +10,7 @@ import { AxiosResponse } from "axios";
 import isEmpty from "lodash/isEmpty";
 import { useQuery } from "react-query";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 
@@ -26,9 +27,6 @@ import {
 
 export const listRole = () => {
   return privateAgent.get<RoleListResponse>("role/").then((response) => {
-    useCurrentMemberStore
-      .getState()
-      .setCurrentRole(response.data.data[response.data.data.length - 1]);
     return response;
   });
 };
@@ -46,15 +44,9 @@ export const useRoleList = () => {
     onSuccess: ({ data }) => {
       const role = useCurrentMemberStore.getState().role;
       if (isEmpty(role)) {
-        useCurrentMemberStore.getState().setCurrentRole(data[data.length - 1]);
-      } else {
-        const selectedRoleFromResponse = data.find(
-          (resRole) => resRole.id === role.id
-        );
-        selectedRoleFromResponse &&
-          useCurrentMemberStore
-            .getState()
-            .setCurrentRole(selectedRoleFromResponse);
+        useCurrentMemberStore
+          .getState()
+          .setCurrentRole(useAuthStore.getState().user.role.role_access[0]);
       }
     },
   });

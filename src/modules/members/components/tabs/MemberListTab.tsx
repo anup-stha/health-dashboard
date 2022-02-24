@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 1:11 PM
+ * Last Modified 2/24/22, 2:14 PM
  *
  *
  */
@@ -18,7 +18,7 @@ import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { UserTableRow } from "@/modules/members/components/table/UserTableRow";
 import { useNestedMemberList } from "@/modules/members/hooks/query/useNestedMemberList";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { useRoleListBySlug } from "@/modules/roles/hooks/useRoleListBySlug";
+import { useRoleDetails } from "@/services/requests/roleRequests";
 
 interface IMembersTable {
   parent_member_id?: number;
@@ -38,7 +38,8 @@ function Tab({ parent_member_id }: IMembersTable) {
     (state) => state.setCurrentUserRole
   );
 
-  const { data, error } = useRoleListBySlug(selectedRole.slug);
+  const { data: roleList } = useRoleDetails(Number(selectedRole.id));
+  const { data } = useRoleDetails(Number(userRole.id));
 
   const { data: usersList } = useNestedMemberList(
     userRole ? Number(userRole.id) : 0,
@@ -47,7 +48,7 @@ function Tab({ parent_member_id }: IMembersTable) {
     Number(router.query.page ?? 1)
   );
 
-  if (error) {
+  if (roleList?.data.data.role_access.length === 0) {
     return (
       <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
         <WarningOctagon size={24} /> <span>No Role Found</span>
@@ -57,7 +58,7 @@ function Tab({ parent_member_id }: IMembersTable) {
 
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
-      {data ? (
+      {roleList?.data.data.role_access && data ? (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:gap-4">
             <div>
@@ -71,13 +72,13 @@ function Tab({ parent_member_id }: IMembersTable) {
 
             <div className="flex gap-4">
               <MemberRoleDropdown
-                roleList={data?.data.data}
+                roleList={roleList?.data.data.role_access}
                 selectedRole={userRole}
                 setSelectedRole={setUserRole}
               />
               <MemberModal
                 type="add"
-                selectedRole={userRole}
+                selectedRole={data?.data.data}
                 parent_member_id={parent_member_id}
               />
             </div>
@@ -105,7 +106,7 @@ function Tab({ parent_member_id }: IMembersTable) {
                   ]}
                   searchTerms={["name", "member_code"]}
                   tableRowComponent={<UserTableRow />}
-                  loading={!data.data}
+                  loading={!roleList}
                   paginate={true}
                   paginateObject={usersList.pagination}
                 />

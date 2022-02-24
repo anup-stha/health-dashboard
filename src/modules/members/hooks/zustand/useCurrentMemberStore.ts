@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 2:24 PM
+ * Last Modified 2/24/22, 1:11 PM
  *
  *
  */
@@ -11,15 +11,15 @@ import { combine, devtools, persist } from "zustand/middleware";
 
 import { Member } from "@/modules/members/types";
 
-import { Role } from "@/types";
+import { RoleAccess } from "@/types";
 
 const selectedMemberKey = "@sunya/current-member-state";
 
 const initialState = {
   member: {} as Member,
-  role: {} as Role,
+  role: {} as RoleAccess,
   user: {} as Member,
-  userRole: {} as Role,
+  userRole: {} as RoleAccess,
 };
 
 const store = combine(initialState, (set) => ({
@@ -29,7 +29,7 @@ const store = combine(initialState, (set) => ({
     });
   },
 
-  setCurrentRole: (role: Role) => {
+  setCurrentRole: (role: RoleAccess) => {
     set({
       role,
     });
@@ -40,14 +40,14 @@ const store = combine(initialState, (set) => ({
     });
   },
 
-  setCurrentUserRole: (role: Role) => {
+  setCurrentUserRole: (role: RoleAccess) => {
     set({
       userRole: role,
     });
   },
   clearCurrentMemberStore: () => {
     set({
-      role: {} as Role,
+      role: {} as RoleAccess,
     });
   },
 }));

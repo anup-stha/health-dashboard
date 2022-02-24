@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/22/22, 9:49 PM
+ * Last Modified 2/24/22, 1:21 PM
  *
  *
  */
@@ -9,6 +9,7 @@
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Location, ProfileCircle } from "iconsax-react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   Camera,
   CircleWavyCheck,
@@ -58,6 +59,7 @@ export function MemberProfileHeader({
   member,
   role,
 }: IMemberProfileHeaderProps) {
+  const router = useRouter();
   const { handleSubmit, register, reset } = useForm<ChangePasswordFormData>();
 
   const [active, setActive] = useState(member.active);
@@ -81,7 +83,7 @@ export function MemberProfileHeader({
   return (
     <div className="flex md:flex-col justify-between md:gap-8">
       <div className="flex gap-8 sm:flex-col">
-        {user.member_id ? (
+        {router.asPath.includes("profile") ? (
           <ProfileImageModal selectedMember={user}>
             <div className="flex-shrink-0 h-56 w-56 cursor-pointer relative rounded-xl">
               {user.image ? (

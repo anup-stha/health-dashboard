@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/16/22, 3:06 PM
+ * Last Modified 2/24/22, 11:35 AM
  *
  *
  */
@@ -52,6 +52,14 @@ export type Role = {
   public: boolean;
   permissions: Permission[];
   member_detail_categories: MemberDetailCategory[];
+  role_access: { id: number; name: string; slug: string; desc: string }[];
+};
+
+export type RoleAccess = {
+  id: number;
+  name: string;
+  slug: string;
+  desc: string;
 };
 
 export type User = {
