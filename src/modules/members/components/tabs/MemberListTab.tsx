@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/24/22, 2:14 PM
+ * Last Modified 2/24/22, 2:52 PM
  *
  *
  */
@@ -39,10 +39,10 @@ function Tab({ parent_member_id }: IMembersTable) {
   );
 
   const { data: roleList } = useRoleDetails(Number(selectedRole.id));
-  const { data } = useRoleDetails(Number(userRole.id));
+  const { data, isLoading } = useRoleDetails(Number(userRole.id));
 
   const { data: usersList } = useNestedMemberList(
-    userRole ? Number(userRole.id) : 0,
+    Number(userRole.id) ?? Number(roleList?.data.data.role_access[0].id),
     currentMember.id,
     undefined,
     Number(router.query.page ?? 1)
@@ -58,7 +58,7 @@ function Tab({ parent_member_id }: IMembersTable) {
 
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
-      {roleList?.data.data.role_access && data ? (
+      {roleList?.data.data.role_access && !isLoading ? (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:gap-4">
             <div>
@@ -76,11 +76,13 @@ function Tab({ parent_member_id }: IMembersTable) {
                 selectedRole={userRole}
                 setSelectedRole={setUserRole}
               />
-              <MemberModal
-                type="add"
-                selectedRole={data?.data.data}
-                parent_member_id={parent_member_id}
-              />
+              {data && (
+                <MemberModal
+                  type="add"
+                  selectedRole={data?.data.data}
+                  parent_member_id={parent_member_id}
+                />
+              )}
             </div>
           </div>
 
