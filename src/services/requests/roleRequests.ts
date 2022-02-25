@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/25/22, 7:52 AM
+ * Last Modified 2/25/22, 2:28 PM
  *
  *
  */
@@ -66,7 +66,6 @@ const listRoleDetails = (roleId: number) => {
 export const useRoleDetails = (roleId: number, callSuccess = true) => {
   return useQuery(["role-details", roleId], () => listRoleDetails(roleId), {
     enabled: roleId !== 0,
-    staleTime: Infinity,
   });
 };
 

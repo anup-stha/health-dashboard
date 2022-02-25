@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/1/22, 4:39 PM
+ * Last Modified 2/25/22, 1:42 PM
  *
  *
  */
@@ -94,7 +94,6 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
                   className="rounded-xl"
                   objectFit="cover"
                   alt="Welcome Image"
-                  priority={true}
                 />
                 {imageIndex !== images.length - 1 && (
                   <div className="hidden">

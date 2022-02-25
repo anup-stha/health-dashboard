@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/18/22, 9:00 PM
+ * Last Modified 2/25/22, 2:36 PM
  *
  *
  */
@@ -16,6 +16,7 @@ import { withAuth } from "@/shared/hoc/withAuth";
 
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user.role;
+  console.log(role);
 
   return (
     <>

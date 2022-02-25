@@ -1,14 +1,15 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/24/22, 2:52 PM
+ * Last Modified 2/25/22, 2:17 PM
  *
  *
  */
 
+import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { WarningOctagon } from "phosphor-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { ProfileListLoadingState } from "@/components/state/ProfileSubsLoadingState";
 import { TableView } from "@/components/Table";
@@ -47,6 +48,11 @@ function Tab({ parent_member_id }: IMembersTable) {
     undefined,
     Number(router.query.page ?? 1)
   );
+  useEffect(() => {
+    roleList &&
+      isEmpty(userRole) &&
+      setUserRole(roleList?.data.data.role_access[0]);
+  }, []);
 
   if (roleList?.data.data.role_access.length === 0) {
     return (
