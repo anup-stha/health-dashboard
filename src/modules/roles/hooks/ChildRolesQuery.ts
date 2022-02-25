@@ -1,19 +1,43 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/23/22, 10:02 AM
+ * Last Modified 2/25/22, 8:34 AM
  *
  *
  */
 
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
-import { assignChildRole } from "@/services/requests/roleRequests";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
+import {
+  assignChildRole,
+  deleteChildRole,
+} from "@/services/requests/roleRequests";
 
 export const useAssign = () => {
-  return useMutation(assignChildRole);
+  const queryClient = useQueryClient();
+
+  return useMutation(assignChildRole, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("role-list");
+      await getCurrentUserProfile();
+    },
+  });
+};
+
+export const useRemove = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(deleteChildRole, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("role-list");
+      await getCurrentUserProfile();
+      // useCurrentMemberStore.getState().clearCurrentMemberStore();
+    },
+  });
 };
 
 export const ChildRolesQuery = {
   useAssign,
+  useRemove,
 };

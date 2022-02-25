@@ -1,27 +1,28 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/23/22, 4:21 PM
+ * Last Modified 2/24/22, 8:44 PM
  *
  *
  */
 
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Heading } from "@/components/Headings";
 import { PermissionPageLoadingState } from "@/components/state/PermissionLoadingState";
 
 import { MainHead } from "@/layout/MainHead";
 import { Permissions } from "@/modules/permissions";
-import { useAllRoleList } from "@/modules/roles/hooks/useAllRoleList";
 import { DeleteZone } from "@/modules/roles/others/DeleteZone";
 import { RoleMemberCategory } from "@/modules/roles/others/roleMemberCategory";
 import { UpdateZone } from "@/modules/roles/others/UpdateZone";
+import { RoleAccessSection } from "@/modules/roles/RoleAccessSection";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import {
   getAllPermissions,
   getRoleDetails,
+  useRoleList,
 } from "@/services/requests/roleRequests";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
@@ -30,11 +31,11 @@ const RoleDetailPage = () => {
   const router = useRouter();
   const idX = router.query.id;
 
-  const { isLoading } = useAllRoleList();
+  const { isLoading } = useRoleList();
 
   const {
     loading,
-    allRoleList,
+    roleList,
     setLoading,
     setSelectedRole,
     selectedRole,
@@ -78,27 +79,25 @@ const RoleDetailPage = () => {
   return (
     <>
       <MainHead title={`Roles - ${router.query.slug}`} />
-      {loading === false && !isLoading && Number(idX) !== 1 ? (
+      {loading === false && !isLoading ? (
         <div className="px-10 py-10 overflow-visible sm:p-6">
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <Heading
                 title={
                   selectedRole &&
-                  allRoleList.data.filter((role) => role.id === Number(idX))[0]
-                    .name
+                  roleList.filter((role) => role.id === Number(idX))[0].name
                 }
                 subtitle={
                   selectedRole &&
-                  allRoleList.data.filter((role) => role.id === Number(idX))[0]
-                    .slug
+                  roleList.filter((role) => role.id === Number(idX))[0].slug
                 }
               />
             </div>
 
             <hr className="border-t-[1px] border-gray-300" />
-            {/* <RoleAccessSection />
-            <hr className="border-t-[1px] border-gray-300" /> */}
+            <RoleAccessSection />
+            <hr className="border-t-[1px] border-gray-300" />
             <Permissions />
             <hr className="border-t-[1px] border-gray-300" />
 

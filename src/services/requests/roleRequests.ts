@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/24/22, 1:47 PM
+ * Last Modified 2/25/22, 7:52 AM
  *
  *
  */
@@ -216,4 +216,13 @@ export const assignChildRole = (
   return privateAgent.post<NullDataResponse>("role/assignRole", {
     data,
   });
+};
+
+export const deleteChildRole = (data: {
+  p_role_id: number;
+  c_role_id: number;
+}) => {
+  return privateAgent.delete<NullDataResponse>(
+    `role/${data.p_role_id}/remove/${data.c_role_id}`
+  );
 };

@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/2/22, 8:11 AM
+ * Last Modified 2/25/22, 8:09 AM
  *
  *
  */
 
 import times from "lodash/times";
 import React from "react";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 type MemberTableLoadingStateProps = {
   count: number;
@@ -87,6 +87,42 @@ export const RolePageLoadingState: React.FC<MemberTableLoadingStateProps> = ({
             </div>
           </div>
         </div>
+      </React.Fragment>
+    );
+  });
+
+  return rows;
+};
+
+export const RoleGridLoadingState: React.FC<MemberTableLoadingStateProps> = ({
+  count,
+}) => {
+  const rows: any = [];
+  times(count, (i) => {
+    rows.push(
+      <React.Fragment key={i}>
+        <SkeletonTheme baseColor="#fff" highlightColor="#eee">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 3xl:flex 3xl:flex-wrap gap-8">
+            <Skeleton
+              count={1}
+              duration={2}
+              height="14rem"
+              className="rounded-2xl"
+            />
+            <Skeleton
+              count={1}
+              duration={2}
+              height="14rem"
+              className="rounded-2xl"
+            />
+            <Skeleton
+              count={1}
+              duration={2}
+              height="14rem"
+              className="rounded-2xl"
+            />{" "}
+          </div>
+        </SkeletonTheme>
       </React.Fragment>
     );
   });

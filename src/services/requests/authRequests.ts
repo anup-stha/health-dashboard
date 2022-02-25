@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:19 PM
+ * Last Modified 2/25/22, 8:19 AM
  *
  *
  */
@@ -82,6 +82,7 @@ export const getCurrentUserProfile = () => {
       .get<ProfileRequestResponse>("auth/me")
       .then((response) => {
         useAuthStore.getState().setUserProfile(response.data.data);
+        resolve(response.data);
       })
       .catch((error) => {
         reject(error.response);

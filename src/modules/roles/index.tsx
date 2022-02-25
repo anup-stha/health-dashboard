@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/1/22, 4:48 PM
+ * Last Modified 2/24/22, 2:26 PM
  *
  *
  */
@@ -13,7 +13,7 @@ import RoleModal from "./modal/roleModal";
 import { useRoleStore } from "./useRoleStore";
 
 const RolePage = () => {
-  const roleList = useRoleStore((state) => state.allRoleList.data);
+  const roleList = useRoleStore((state) => state.roleList);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 space-y-8">
