@@ -1,14 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 1/11/22, 9:11 PM
+ * Last Modified 2/25/22, 4:06 PM
  *
  *
  */
 
 export const adminWelcomeSlides = [
   {
-    link: "/assets/image-slider-3.svg",
+    link: "/assets/welcome.svg",
     pos: 1,
     title: "Hello",
     subtitle:

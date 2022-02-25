@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:18 PM
+ * Last Modified 2/25/22, 6:53 PM
  *
  *
  */
@@ -23,7 +23,7 @@ import { useRoleList } from "@/services/requests/roleRequests";
 
 export const orgAdminWelcomeSlides = [
   {
-    link: "/assets/image-slider-3.svg",
+    link: "/assets/welcome.svg",
     pos: 1,
     title: "Hello",
     subtitle:

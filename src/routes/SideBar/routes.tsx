@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/22/22, 10:08 PM
+ * Last Modified 2/25/22, 7:09 PM
  *
  *
  */
@@ -122,7 +122,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
 export const orgExtraRoutes = [
   "/members/[profile]",
   "/members/[profile]/test_report",
-  // "/profile/invoice",
+  "/profile/invoice",
 ];
 export const orgNavRoutes: RouteObjectType[] = [
   {

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:19 PM
+ * Last Modified 2/25/22, 6:55 PM
  *
  *
  */
@@ -53,6 +53,7 @@ export const SubscriptionTable = () => {
         "Grace Period",
         "Sync Limit",
         "Test Limit",
+        "",
       ]}
       tableRowComponent={<SubscriptionTableRow />}
       loading={false}

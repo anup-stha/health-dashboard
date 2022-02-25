@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/25/22, 1:42 PM
+ * Last Modified 2/25/22, 7:05 PM
  *
  *
  */
@@ -61,8 +61,9 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   };
+
   return (
-    <Modal open={!guided}>
+    <Modal open={children ? false : !guided}>
       <Modal.Button type="open">{children ?? null}</Modal.Button>
       <Modal.Content width="max-w-7xl" opacity="opacity-60">
         <div className="flex flex-col justify-between space-y-4">

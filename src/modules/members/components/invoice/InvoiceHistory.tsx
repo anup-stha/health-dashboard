@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/22/22, 10:17 PM
+ * Last Modified 2/25/22, 7:09 PM
  *
  *
  */
@@ -114,7 +114,7 @@ const InvoiceHistoryItem = ({ invoice }: { invoice: Invoice }) => {
             ? router.push(
                 `/members/${selectedMember.role.slug}/invoice?id=${invoice.invoice_no}`
               )
-            : null;
+            : router.push(`/profile/invoice?id=${invoice.invoice_no}`);
         }}
       >
         <span className="font-semibold text-xl text-gray-700">

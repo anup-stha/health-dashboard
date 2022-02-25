@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/22/22, 10:06 PM
+ * Last Modified 2/25/22, 7:15 PM
  *
  *
  */
@@ -54,9 +54,13 @@ export const InvoicePage = ({
   const [discount, setDiscount] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: invoiceList, isFetching } = useInvoiceList(
-    selectedMember.member_id ?? selectedMember.id,
-    invoice_id
+  const {
+    data: invoiceList,
+    isFetching,
+    isLoading,
+  } = useInvoiceList(selectedMember.member_id ?? selectedMember.id, invoice_id);
+  const selectedSubsInvoice = invoiceList?.data.data.find(
+    (invoice) => invoice.invoice_no === invoice_id
   );
 
   const [invoiceData, setInvoiceData] = useState({
@@ -75,7 +79,11 @@ export const InvoicePage = ({
 
   const getInvoiceData = (discount_per: number, vat_per: number) => {
     if (!selectedSubscription) return;
-    const price = +selectedSubscription.plan.price;
+    const price = Number(
+      selectedSubscription.plan
+        ? selectedSubscription.plan.price
+        : selectedSubsInvoice?.subscription_detail.plan.price
+    );
     return {
       gross_amount: price,
       discount_amount: price * (discount_per / 100),
@@ -93,14 +101,12 @@ export const InvoicePage = ({
 
   useEffect(() => {
     if (invoiceList && invoice_id) {
-      console.table(invoiceList);
       const selectedInvoice = invoiceList.data.data.find(
         (invoice) => invoice.invoice_no === invoice_id
       );
 
       if (selectedInvoice) {
         setSelectedInvoice(selectedInvoice);
-        console.log(selectedInvoice);
         setInvoiceData({
           gross_amount: selectedInvoice.gross_amount,
           discount_amount: selectedInvoice.discount_amount,
@@ -124,7 +130,7 @@ export const InvoicePage = ({
     !invoice_id && useMemberStore.getState().setInvoiceId("__");
   }, []);
 
-  return !selectedSubscription ? (
+  return !selectedSubscription || isLoading ? (
     <Loader />
   ) : (
     <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -310,7 +316,9 @@ export const InvoicePage = ({
               <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8 text-lg">
                 <div className="font-semibold flex flex-col gap-2 text-gray-800 w-2/3">
                   <span className="text-xl">
-                    {selectedSubscription.plan.name}
+                    {selectedSubscription.plan
+                      ? selectedSubscription.plan.name
+                      : selectedSubsInvoice?.subscription_detail.plan.name}
                   </span>
                   <span className="text-gray-400 font-medium md:text-sm">
                     Acuity, Vitals, ECG, BMI, Urine, Glucose
@@ -324,7 +332,10 @@ export const InvoicePage = ({
                   365 days
                 </span>
                 <span className="font-semibold text-gray-700 w-1/3 text-right">
-                  Rs. {selectedSubscription?.plan?.price}
+                  Rs.{" "}
+                  {selectedSubscription?.plan
+                    ? selectedSubscription.plan.price
+                    : selectedSubsInvoice?.subscription_detail.plan.price}
                 </span>
               </div>
               <div className="w-full flex px-4 py-12 text-lg gap-8 md:flex-col-reverse md:relative">
