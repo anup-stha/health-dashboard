@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/28/22, 10:39 AM
+ * Last Modified 2/28/22, 11:22 AM
  *
  *
  */
@@ -79,6 +79,8 @@ export function MemberProfileHeader({
       id: "Login Toast",
     });
   };
+
+  console.log(user.id);
 
   return (
     <div className="flex md:flex-col justify-between md:gap-8">
@@ -356,7 +358,7 @@ export function MemberProfileHeader({
           </Dialog>
         </Transition>
 
-        {(member.id !== 1 || router.pathname === "/profile") && (
+        {(user.id === 1 || router.pathname === "/profile") && (
           <Menu className="z-20" as="div">
             <Menu.Button>
               <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
@@ -376,7 +378,7 @@ export function MemberProfileHeader({
                 id="menu-items"
                 className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
-                {member.id === 1 ? (
+                {router.pathname !== "/profile" ? (
                   <>
                     <div className="py-2">
                       <MemberToggle
@@ -398,41 +400,39 @@ export function MemberProfileHeader({
                     </div>
                   </>
                 ) : (
-                  router.pathname === "/profile" && (
-                    <>
-                      <div className="py-2" onClick={() => setIsOpen(true)}>
-                        <Menu.Item as="div">
-                          {({ active: btnActive }) => (
-                            <button
-                              className={`${
-                                btnActive
-                                  ? `text-green-500 bg-green-50 text-white`
-                                  : "text-gray-700"
-                              } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
-                            >
-                              Change Password
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
+                  <>
+                    <div className="py-2" onClick={() => setIsOpen(true)}>
+                      <Menu.Item as="div">
+                        {({ active: btnActive }) => (
+                          <button
+                            className={`${
+                              btnActive
+                                ? `text-green-500 bg-green-50 text-white`
+                                : "text-gray-700"
+                            } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                          >
+                            Change Password
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
 
-                      <div className="py-2" onClick={onLogOut}>
-                        <Menu.Item as="div">
-                          {({ active: btnActive }) => (
-                            <button
-                              className={`${
-                                btnActive
-                                  ? `text-red-500 bg-red-50 text-white`
-                                  : "text-gray-700"
-                              } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
-                            >
-                              Log out
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
-                    </>
-                  )
+                    <div className="py-2" onClick={onLogOut}>
+                      <Menu.Item as="div">
+                        {({ active: btnActive }) => (
+                          <button
+                            className={`${
+                              btnActive
+                                ? `text-red-500 bg-red-50 text-white`
+                                : "text-gray-700"
+                            } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                          >
+                            Log out
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </>
                 )}
               </Menu.Items>
             </Transition>
