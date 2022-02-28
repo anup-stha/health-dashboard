@@ -1,12 +1,12 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/6/22, 10:26 AM
+ * Last Modified 2/28/22, 9:13 AM
  *
  *
  */
 
-import { Popover, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { CaretDown } from "phosphor-react";
@@ -33,76 +33,75 @@ export const ImageAvatar: React.FC = () => {
     });
   };
   return (
-    <Popover className="relative">
-      {({ open }) => (
-        <>
-          <Popover.Button>
-            <div className="flex items-center space-x-2">
-              {user.image ? (
-                <div className="w-10 h-10 bg-white rounded-full relative overflow-hidden">
-                  <Image
-                    src={user.image}
-                    layout="fill"
-                    alt="Avatar"
-                    objectFit="cover"
-                  />
-                </div>
-              ) : (
-                <LetteredAvatar
-                  name={user.name}
-                  size="30"
-                  round={true}
-                  maxInitials={2}
-                />
-              )}
-
-              <div
-                className={`flex ${open ? "text-gray-900" : "text-gray-600"}`}
-              >
-                <span className="text-xl font-semibold">
-                  Hi, {user.name ? user.name.split(" ")[0] : ""}
-                </span>
-                <CaretDown size={22} />
-              </div>
+    <Menu as="div" className="relative">
+      <Menu.Button>
+        <div className="flex items-center space-x-2">
+          {user.image ? (
+            <div className="w-10 h-10 bg-white rounded-full relative overflow-hidden">
+              <Image
+                src={user.image}
+                layout="fill"
+                alt="Avatar"
+                objectFit="cover"
+              />
             </div>
+          ) : (
+            <LetteredAvatar
+              name={user.name}
+              size="30"
+              round={true}
+              maxInitials={2}
+            />
+          )}
 
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 -translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 -translate-y-1"
-            >
-              <Popover.Panel className="absolute z-10 p-2 mt-6 -right-1 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
-                <div className="overflow-hidden  ">
-                  <a
-                    onClick={() => {
-                      push("/profile");
-                    }}
-                    className="bg-white flex items-center  transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
-                  >
-                    <div className="py-2 text-xl flex items-center  pl-4 pr-8  gap-2 text-gray-700  group-hover:text-white truncate">
-                      <p className=" font-medium  ">View Profile</p>{" "}
-                    </div>
-                  </a>
-                </div>
-                <div className="overflow-hidden">
-                  <a
-                    onClick={() => onLogOut()}
-                    className="bg-white flex items-center  transition duration-150 ease-in-out rounded-lg group hover:bg-green-600 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-70"
-                  >
-                    <div className="py-2 text-xl flex items-center  px-4 gap-2 text-gray-700  group-hover:text-white ">
-                      <p className=" font-medium  ">Sign Out</p>{" "}
-                    </div>
-                  </a>
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover.Button>
-        </>
-      )}
-    </Popover>
+          <div className="flex text-gray-900">
+            <span className="text-xl font-semibold">
+              Hi, {user.name ? user.name.split(" ")[0] : ""}
+            </span>
+            <CaretDown size={22} />
+          </div>
+        </div>
+      </Menu.Button>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="absolute top-12 right-0 mt-2 w-64 origin-top-right divide-y divide-gray-100 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Item as="div">
+            {({ active: btnActive }) => (
+              <button
+                onClick={() => push("/profile")}
+                className={`${
+                  btnActive
+                    ? `bg-neutral-100 text-neutral-800 text-white`
+                    : "text-gray-700"
+                } group flex w-full items-center  rounded-md px-4 py-3 text-xl font-medium`}
+              >
+                View Profile
+              </button>
+            )}
+          </Menu.Item>
+          <Menu.Item as="div">
+            {({ active: btnActive }) => (
+              <button
+                onClick={onLogOut}
+                className={`${
+                  btnActive
+                    ? `bg-neutral-100 text-neutral-800 text-white`
+                    : "text-gray-700"
+                } group flex w-full items-center  rounded-md px-4 py-3 text-xl font-medium`}
+              >
+                Log out
+              </button>
+            )}
+          </Menu.Item>
+        </Menu.Items>
+      </Transition>
+    </Menu>
   );
 };

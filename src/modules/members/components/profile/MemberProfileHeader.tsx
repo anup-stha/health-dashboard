@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/24/22, 1:21 PM
+ * Last Modified 2/28/22, 10:39 AM
  *
  *
  */
@@ -355,81 +355,89 @@ export function MemberProfileHeader({
             </div>
           </Dialog>
         </Transition>
-        <Menu className="z-20" as="div">
-          <Menu.Button>
-            <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
-              <DotsThreeOutline weight="duotone" size={20} />
-            </button>
-          </Menu.Button>{" "}
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {!member.member_id ? (
-                <>
-                  <div className="p-2">
-                    <MemberToggle
-                      toggle="active"
-                      memberId={member.id}
-                      currentState={active}
-                      setCurrentState={setActive}
-                      selectedMemberDetails={member}
-                    />
-                  </div>
-                  <div className="p-2 ">
-                    <MemberToggle
-                      toggle="verified"
-                      memberId={member.id}
-                      currentState={verified}
-                      setCurrentState={setVerified}
-                      selectedMemberDetails={member}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="p-2" onClick={() => setIsOpen(true)}>
-                    <Menu.Item as="div">
-                      {({ active: btnActive }) => (
-                        <button
-                          className={`${
-                            btnActive
-                              ? `text-green-500 bg-green-50 text-white`
-                              : "text-gray-700"
-                          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
-                        >
-                          Change Password
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </div>
 
-                  <div className="p-2" onClick={onLogOut}>
-                    <Menu.Item as="div">
-                      {({ active: btnActive }) => (
-                        <button
-                          className={`${
-                            btnActive
-                              ? `text-red-500 bg-red-50 text-white`
-                              : "text-gray-700"
-                          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
-                        >
-                          Log out
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </>
-              )}
-            </Menu.Items>
-          </Transition>
-        </Menu>
+        {(member.id !== 1 || router.pathname === "/profile") && (
+          <Menu className="z-20" as="div">
+            <Menu.Button>
+              <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
+                <DotsThreeOutline weight="duotone" size={20} />
+              </button>
+            </Menu.Button>{" "}
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                id="menu-items"
+                className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              >
+                {member.id === 1 ? (
+                  <>
+                    <div className="py-2">
+                      <MemberToggle
+                        toggle="active"
+                        memberId={member.id}
+                        currentState={active}
+                        setCurrentState={setActive}
+                        selectedMemberDetails={member}
+                      />
+                    </div>
+                    <div className="py-2 ">
+                      <MemberToggle
+                        toggle="verified"
+                        memberId={member.id}
+                        currentState={verified}
+                        setCurrentState={setVerified}
+                        selectedMemberDetails={member}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  router.pathname === "/profile" && (
+                    <>
+                      <div className="py-2" onClick={() => setIsOpen(true)}>
+                        <Menu.Item as="div">
+                          {({ active: btnActive }) => (
+                            <button
+                              className={`${
+                                btnActive
+                                  ? `text-green-500 bg-green-50 text-white`
+                                  : "text-gray-700"
+                              } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                            >
+                              Change Password
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+
+                      <div className="py-2" onClick={onLogOut}>
+                        <Menu.Item as="div">
+                          {({ active: btnActive }) => (
+                            <button
+                              className={`${
+                                btnActive
+                                  ? `text-red-500 bg-red-50 text-white`
+                                  : "text-gray-700"
+                              } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                            >
+                              Log out
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </>
+                  )
+                )}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        )}
       </div>
     </div>
   );

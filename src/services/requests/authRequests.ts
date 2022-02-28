@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/25/22, 8:19 AM
+ * Last Modified 2/28/22, 9:04 AM
  *
  *
  */
@@ -107,7 +107,7 @@ export const updateUserProfile = (
         const user = useCurrentMemberStore.getState().user;
         const loggedInUser = useAuthStore.getState().user;
 
-        if (loggedInUser.member_id === response.data.data.id) {
+        if (loggedInUser.id === response.data.data.id) {
           getCurrentUserProfile().then(() => resolve(response.data.message));
         } else if (member.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentMember(response.data.data);
