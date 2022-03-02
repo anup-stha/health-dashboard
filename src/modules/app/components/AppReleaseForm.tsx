@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 5:22 PM
+ * Last Modified 3/2/22, 10:18 PM
  *
  *
  */
@@ -96,11 +96,14 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
             file_name: [values.app_file.name],
             type: "app/release",
           });
-          const fd = new FormData();
-          fd.append("file", values?.app_file, values.app_file.name);
           const put_response = await axios.put(
             response.data.data[0].put_url,
-            fd
+            values.app_file,
+            {
+              headers: {
+                "Content-Type": values.app_file.type,
+              },
+            }
           );
           if (put_response.status === 200) {
             toast.loading("Adding New App Release", { id: "toast-loading" });

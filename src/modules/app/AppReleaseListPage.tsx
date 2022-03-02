@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 4:24 PM
+ * Last Modified 3/2/22, 10:22 PM
  *
  *
  */
@@ -42,7 +42,7 @@ export function AppReleaseListPage() {
           {selectedApp?.application_id}
         </p>
       </div>
-      <div className="grid grid-cols-4 gap-12 mt-2">
+      <div className="grid grid-cols-4 sm:grid-cols-1 gap-12 mt-2">
         {appReleaseList?.map((app) => (
           <AppReleaseCard
             key={app.id}
