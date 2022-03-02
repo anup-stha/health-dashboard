@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/24/22, 11:35 AM
+ * Last Modified 2/28/22, 12:36 PM
  *
  *
  */
@@ -24,7 +24,7 @@ export type LogoutRequest = {
   refresh: string;
 };
 
-type StatusType = {
+export type StatusType = {
   status: boolean;
   message: string;
 };

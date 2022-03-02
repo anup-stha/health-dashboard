@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/28/22, 11:25 AM
+ * Last Modified 2/28/22, 5:14 PM
  *
  *
  */
@@ -24,6 +24,10 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
+    images: {
+      loader: "akamai",
+      path: "",
+    },
     domains: ["sunya-bucket.s3.us-west-2.amazonaws.com"],
   },
 });

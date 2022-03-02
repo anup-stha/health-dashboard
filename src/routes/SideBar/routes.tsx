@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/25/22, 7:09 PM
+ * Last Modified 2/28/22, 11:35 AM
  *
  *
  */
 
 import { Category2, Home } from "iconsax-react";
 import {
+  DeviceMobile,
   House,
   Polygon,
   Question,
@@ -100,6 +101,13 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         icon: <Polygon size={24} />,
         link: "/subscriptions",
       },
+      {
+        id: 6,
+        title: "App Builds",
+        icon: <DeviceMobile size={24} fontSize="duotone" />,
+        link: "/app",
+      },
+
       {
         id: 4,
         title: "Others",

@@ -1,13 +1,14 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/20/22, 2:16 PM
+ * Last Modified 3/2/22, 5:17 PM
  *
  *
  */
 
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
+import { toast } from "react-hot-toast";
 
 import { useModal } from "./useModal";
 import { Button as UIButton } from "../Button";
@@ -191,4 +192,32 @@ export const Form: React.FC<IModalFormProps> = React.memo(
   }
 );
 
+export const AsyncForm: React.FC<IModalFormProps> = React.memo(
+  ({ onSubmit, children, encType, className }) => {
+    const { setIsOpen } = useModal();
+
+    const onSubmitFn = async (e: any) => {
+      e.preventDefault();
+      try {
+        await onSubmit();
+      } catch (e) {
+        toast.error(e.message);
+        return;
+      }
+      setIsOpen(false);
+    };
+
+    return (
+      <form
+        onSubmit={(e) => onSubmitFn(e)}
+        className={className ?? `space-y-8`}
+        encType={encType}
+      >
+        {children}
+      </form>
+    );
+  }
+);
+
+AsyncForm.displayName = "AsyncForm";
 Form.displayName = "Form";
