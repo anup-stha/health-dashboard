@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 4:23 PM
+ * Last Modified 3/3/22, 8:02 PM
  *
  *
  */
@@ -26,7 +26,7 @@ export const AppListPage = () => {
   return (
     <PageContainer>
       <Heading title="App Builds" subtitle="List of All App List Releases" />
-      <div className="grid grid-cols-4 gap-12 mt-2">
+      <div className="grid grid-cols-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 justify-between gap-12 mt-2">
         {data?.map((app) => (
           <AppCard
             id={app.id}

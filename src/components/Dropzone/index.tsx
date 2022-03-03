@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 3:56 PM
+ * Last Modified 3/3/22, 7:55 PM
  *
  *
  */
@@ -70,6 +70,7 @@ export const dropdownStyles = {
 const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
+    console.log(acceptedFiles);
     onChange(acceptedFiles[0]);
   }, []);
   const {
@@ -96,7 +97,11 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
     <section className="space-y-2">
       <label className="block text-xl font-medium text-gray-700">{label}</label>
       <div {...getRootProps({ style })}>
-        <input {...getInputProps({ onChange })} style={{ display: "none" }} />
+        <input
+          accept=".apk"
+          {...getInputProps({ onChange })}
+          style={{ display: "none" }}
+        />
         {acceptedFiles.length === 0 ? (
           <p>Drag and drop resource file her, or click to select that file</p>
         ) : (

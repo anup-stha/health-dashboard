@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 10:18 PM
+ * Last Modified 3/3/22, 8:01 PM
  *
  *
  */
@@ -64,6 +64,11 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
       onSubmit={handleSubmit(async (values) => {
         if (!values.app_file && type === "add") {
           throw new Error("No Apk File Selected");
+        } else if (
+          values.app_file &&
+          values.app_file.type !== "application/vnd.android.package-archive"
+        ) {
+          throw new Error("File should be a valid .apk file");
         } else if (!values.app_file && type === "edit") {
           toast.loading("Editing App Release", { id: "toast-loading" });
 
@@ -72,7 +77,7 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
               id,
               name: values.name,
               code: values.code,
-              version: values.version,
+              version: +values.version,
               note: [values.note],
             });
             if (finalResponse) {
@@ -149,13 +154,14 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
         <PrimaryInput
           label="Application Version"
           required={true}
-          placeholder="Enter App Version"
+          placeholder="Enter App Version Name"
           {...register("version")}
         />
         <PrimaryInput
           label="Code"
+          type="number"
           required={true}
-          placeholder="Enter App Code"
+          placeholder="Enter App Version Code"
           {...register("code")}
         />
         <PrimaryInput

@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 3/2/22, 4:22 PM
+ * Last Modified 3/3/22, 8:04 PM
  *
  *
  */
@@ -40,7 +40,7 @@ export const AppAddEditModal = ({
     <Modal>
       {type === "add" ? (
         <Modal.Button type="open" width="full">
-          <div className=" text-3xl h-48 font-medium text-green-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-green-600  shadow-inner rounded-lg">
+          <div className=" text-3xl h-52 font-medium text-green-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-green-600  shadow-inner rounded-lg">
             <div className="flex flex-col items-center w-full">
               <Plus size={40} />
               <h1 className="">Add New App</h1>

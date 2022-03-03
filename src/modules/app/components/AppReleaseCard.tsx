@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/2/22, 5:24 PM
+ * Last Modified 3/3/22, 8:03 PM
  *
  *
  */
@@ -15,7 +15,7 @@ import { AppRelease } from "@/services/requests/app.service";
 
 export const AppReleaseCard = (props: AppRelease) => {
   return (
-    <div className="relative flex flex-col  h-48 items-start justify-between overflow-hidden bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
+    <div className="relative flex flex-col h-52 items-start justify-between overflow-hidden bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
       <div className="space-y-1 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
