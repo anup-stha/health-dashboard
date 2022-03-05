@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 3/2/22, 5:33 PM
+ * Last Modified 3/5/22, 8:16 PM
  *
  *
  */
@@ -147,4 +147,11 @@ export const getUserDeviceHistory = (member_id: number) => {
 
 export const deleteUserDeviceHistory = (member_id: number) => {
   return privateAgent.delete<StringResponse>(`auth/devices/${member_id}`);
+};
+
+export const resetPassword = async (member_id: number): Promise<string> => {
+  const response = await privateAgent.patch<StringResponse>(
+    `auth/reset/${member_id}`
+  );
+  return `Your new password is ${response.data.data}`;
 };

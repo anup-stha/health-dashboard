@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/31/22, 2:40 PM
+ * Last Modified 3/5/22, 8:15 PM
  *
  *
  */
@@ -21,6 +21,7 @@ export type toastProps = {
   };
   style?: CSSProperties;
   id: string;
+  duration?: number;
 };
 
 export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
@@ -52,6 +53,7 @@ export const toastAlert = ({
   promise,
   msgs,
   id,
+  duration,
 }: toastProps) => {
   return (
     promise &&
@@ -71,7 +73,7 @@ export const toastAlert = ({
               return `${data ? data.response.data.message : "Error"}`;
             },
       },
-      { id: id }
+      { id: id, duration: duration ?? 1000 }
     )
   );
 };

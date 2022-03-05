@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 3/3/22, 8:01 PM
+ * Last Modified 3/3/22, 8:04 PM
  *
  *
  */
@@ -76,8 +76,8 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
             const finalResponse = await putMutateAsync({
               id,
               name: values.name,
-              code: values.code,
-              version: +values.version,
+              code: +values.code,
+              version: values.version,
               note: [values.note],
             });
             if (finalResponse) {
@@ -118,7 +118,7 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
                 ? await postMutateAsync({
                     app_id: 1,
                     name: values.name,
-                    code: values.code,
+                    code: +values.code,
                     version: values.version,
                     note: [values.note],
                     app_url: response.data.data[0].public_url,
@@ -126,7 +126,7 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
                 : await putMutateAsync({
                     id,
                     name: values.name,
-                    code: values.code,
+                    code: +values.code,
                     version: values.version,
                     note: [values.note],
                     app_url: response.data.data[0].public_url,

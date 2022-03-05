@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/28/22, 9:13 AM
+ * Last Modified 3/5/22, 8:08 PM
  *
  *
  */
@@ -80,7 +80,7 @@ export const ImageAvatar: React.FC = () => {
                   btnActive
                     ? `bg-neutral-100 text-neutral-800 text-white`
                     : "text-gray-700"
-                } group flex w-full items-center  rounded-md px-4 py-3 text-xl font-medium`}
+                } group flex w-full items-center rounded-md px-4 py-3 text-xl font-medium`}
               >
                 View Profile
               </button>
