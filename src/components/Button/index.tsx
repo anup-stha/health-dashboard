@@ -13,7 +13,7 @@ type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
   width?: "full";
   type?: any;
   extraClassName?: string;
-  buttonSize?: "small" | "large";
+  buttonSize?: "small" | "large" | "icon";
   variant?: "info" | "warning" | "normal";
   state?: boolean;
   color?: string; // should be tailwind color;
@@ -158,7 +158,12 @@ export const RedLineButton: React.FC<ButtonProps> = ({
   variant = "normal",
   state,
 }: ButtonProps) => {
-  const buttonPadding = buttonSize === "small" ? "px-8 py-4" : "px-12 py-4";
+  const buttonPadding =
+    buttonSize === "small"
+      ? "px-8 py-4"
+      : buttonSize === "icon"
+      ? "p-4"
+      : "px-12 py-4";
 
   return (
     <button

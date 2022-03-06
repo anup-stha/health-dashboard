@@ -14,11 +14,12 @@ export const useNestedMemberList = (
   parentId: number,
   memberId?: number,
   pageNumber = 1,
-  enabled?: boolean
+  enabled?: boolean,
+  filterParams?: string
 ) => {
   return useQuery(
-    ["member-list-nested", roleId, parentId, pageNumber],
-    () => getNestedMemberList(roleId, parentId, pageNumber),
+    ["member-list-nested", roleId, parentId, pageNumber, filterParams],
+    () => getNestedMemberList(roleId, parentId, pageNumber, filterParams),
     {
       enabled: roleId !== 0 && enabled,
       refetchOnWindowFocus: true,

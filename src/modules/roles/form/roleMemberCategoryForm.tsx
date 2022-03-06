@@ -95,6 +95,7 @@ type DropdownProps = {
   label: string;
   control: any;
   options: Array<any>;
+  isDisabled?: boolean;
 };
 
 export const DropdownController: React.FC<DropdownProps> = ({
@@ -102,6 +103,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
   label,
   control,
   options,
+  isDisabled,
 }) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
@@ -168,6 +170,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
         control={control}
         render={({ field: { onChange, value, ref } }) => (
           <Select
+            isDisabled={isDisabled}
             ref={ref}
             options={options}
             value={options.find((c) => c.value === value)}

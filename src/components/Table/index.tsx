@@ -1,7 +1,7 @@
 /*
  * Created By Anup Shrestha
  * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 3/5/22, 8:32 PM
+ * Last Modified 3/5/22, 8:39 PM
  *
  *
  */
@@ -28,6 +28,7 @@ type TableViewPropsType = {
   search?: boolean;
   paginate?: boolean;
   paginateObject?: PaginationObject;
+  filterComponent?: React.ReactNode;
 };
 
 export const TableView: React.FC<TableViewPropsType> = React.memo(
@@ -40,6 +41,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
     searchTerms = ["name"],
     paginate = false,
     paginateObject,
+    filterComponent,
   }) => {
     const router = useRouter();
     const [pageIndex, setPageIndex] = useState(
@@ -60,52 +62,55 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
       <div>
         {!loading ? (
           <div className="flex flex-col  space-y-2">
-            {search && (
-              <div className=" flex space-x-6 max-w-xl relative print:hidden ml-1">
-                <SearchInput
-                  value={searchTerm}
-                  onChange={(e) => {
-                    if (e.target.value === "") {
+            <div className="flex items-center md:flex-col justify-between">
+              {search && (
+                <div className=" flex space-x-6 max-w-3xl w-1/4 relative print:hidden ml-1">
+                  <SearchInput
+                    value={searchTerm}
+                    onChange={(e) => {
+                      if (e.target.value === "") {
+                        setSearchTerm(e.target.value);
+                        setTableData(tableInitialData);
+                        return;
+                      }
                       setSearchTerm(e.target.value);
-                      setTableData(tableInitialData);
-                      return;
-                    }
-                    setSearchTerm(e.target.value);
-                    const searchedData = tableInitialData.filter((data) => {
-                      return searchTerms?.some((term) =>
-                        data[term]
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase().trim())
-                      );
-                    });
+                      const searchedData = tableInitialData.filter((data) => {
+                        return searchTerms?.some((term) =>
+                          data[term]
+                            .toLowerCase()
+                            .includes(e.target.value.toLowerCase().trim())
+                        );
+                      });
 
-                    searchedData && setTableData(searchedData);
-                  }}
-                  placeholder="Start Searching ...."
-                />
-                <div
-                  className="absolute right-4 top-[48%] -translate-y-[50%]"
-                  onClick={() => {
-                    setSearchTerm("");
-                    setTableData(tableInitialData);
-                  }}
-                >
-                  {searchTerm !== "" ? (
-                    <X
-                      stroke="transparent"
-                      className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
-                      size={24}
-                    />
-                  ) : (
-                    <MagnifyingGlass
-                      stroke="transparent"
-                      className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
-                      size={24}
-                    />
-                  )}
+                      searchedData && setTableData(searchedData);
+                    }}
+                    placeholder="Start Searching ...."
+                  />
+                  <div
+                    className="absolute right-4 top-[48%] -translate-y-[50%]"
+                    onClick={() => {
+                      setSearchTerm("");
+                      setTableData(tableInitialData);
+                    }}
+                  >
+                    {searchTerm !== "" ? (
+                      <X
+                        stroke="transparent"
+                        className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
+                        size={24}
+                      />
+                    ) : (
+                      <MagnifyingGlass
+                        stroke="transparent"
+                        className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
+                        size={24}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+              {filterComponent}
+            </div>
 
             {tableData.length === 0 ? (
               <div className="flex flex-col justify-start py-32 items-center gap-4">

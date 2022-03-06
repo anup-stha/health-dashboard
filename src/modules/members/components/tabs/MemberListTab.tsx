@@ -9,12 +9,14 @@
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 import { WarningOctagon } from "phosphor-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+import { Loader } from "@/components/Loader";
 import { ProfileListLoadingState } from "@/components/state/ProfileSubsLoadingState";
 import { TableView } from "@/components/Table";
 
 import { MemberRoleDropdown } from "@/modules/members/components/dropdown/MemberRoleDropdown";
+import { MemberFilter } from "@/modules/members/components/filter/MemberFilter";
 import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { UserTableRow } from "@/modules/members/components/table/UserTableRow";
 import { useNestedMemberList } from "@/modules/members/hooks/query/useNestedMemberList";
@@ -31,6 +33,8 @@ interface IMembersTable {
  */
 function Tab({ parent_member_id }: IMembersTable) {
   const router = useRouter();
+  const [filterParams, setFilterParams] = useState("");
+
   const selectedRole = useCurrentMemberStore((state) => state.role);
   const currentMember = useCurrentMemberStore((state) => state.member);
 
@@ -46,13 +50,17 @@ function Tab({ parent_member_id }: IMembersTable) {
     Number(userRole.id) ?? Number(roleList?.data.data.role_access[0].id),
     currentMember.id,
     undefined,
-    Number(router.query.page ?? 1)
+    Number(router.query.page ?? 1),
+    true,
+    filterParams
   );
   useEffect(() => {
     roleList &&
       isEmpty(userRole) &&
       setUserRole(roleList?.data.data.role_access[0]);
   }, []);
+
+  if (!data) return <Loader />;
 
   if (roleList?.data.data.role_access.length === 0) {
     return (
@@ -112,6 +120,12 @@ function Tab({ parent_member_id }: IMembersTable) {
                     "Address",
                     "",
                   ]}
+                  filterComponent={
+                    <MemberFilter
+                      role={data.data.data}
+                      setFilterParams={setFilterParams}
+                    />
+                  }
                   searchTerms={["name", "member_code"]}
                   tableRowComponent={<UserTableRow />}
                   loading={!roleList}

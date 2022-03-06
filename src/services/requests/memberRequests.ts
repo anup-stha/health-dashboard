@@ -34,13 +34,20 @@ export const getMembersList = (roleId: number, pageNumber = 1) => {
 export const getNestedMemberList = (
   roleId: number,
   parentId: number,
-  pageNumber: number
+  pageNumber: number,
+  filterParams?: string
 ) => {
-  return privateAgent
-    .get<MemberListResponse>(
-      `/member/list/${roleId}/${parentId}?page=${pageNumber}`
-    )
-    .then((response) => response.data.data);
+  return filterParams
+    ? privateAgent
+        .get<MemberListResponse>(
+          `/member/list/${roleId}/${parentId}?page=${pageNumber}&${filterParams}`
+        )
+        .then((response) => response.data.data)
+    : privateAgent
+        .get<MemberListResponse>(
+          `/member/list/${roleId}/${parentId}?page=${pageNumber}`
+        )
+        .then((response) => response.data.data);
 };
 
 export const postOrgMember = (body: any) => {
