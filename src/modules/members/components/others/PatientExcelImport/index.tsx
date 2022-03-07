@@ -23,11 +23,20 @@ import { dropdownStyles } from "@/modules/members/components/others/PatientExcel
 import { queryClient } from "@/pages/_app";
 import { postMemberBulk } from "@/services/requests/memberRequests";
 
-export const PatientExcelImport = () => {
+import { Role } from "@/types";
+
+interface IExcelImport {
+  role: Role;
+}
+
+export const ExcelImport = ({ role }: IExcelImport) => {
   const [open, setOpen] = useState(false);
   const [importedData, setImportedData] = useState<any[]>([]);
   const [shownDataLength, setShowDataLength] = useState(8);
+
+  const memberDetailCategories = role.member_detail_categories;
   const headers = ["name", "dob_ad", "gender", "ref_key", "patient_code"];
+  memberDetailCategories.forEach((category) => headers.push(category.slug));
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -48,32 +57,53 @@ export const PatientExcelImport = () => {
       const data: any[][] = XLSX.utils.sheet_to_json(ws, {
         header: 1,
         blankrows: false,
-        defval: "",
+        defval: undefined,
         raw: false,
       });
 
       const headersArr: any[][] = data.slice(0, 1);
       const headers: any[] = headersArr[0];
       data.shift();
+      //
+      // if (
+      //   data.some((patientData) =>
+      //     patientData.some((patientDetails) => patientDetails === "")
+      //   )
+      // ) {
+      //   toast.error("Some of field are empty. Please fill all fields");
+      //   return;
+      // }
 
-      if (
-        data.some((patientData) =>
-          patientData.some((patientDetails) => patientDetails === "")
-        )
-      ) {
-        toast.error("Some of field are empty. Please fill all fields");
-        return;
-      }
-
-      const final_data: Record<any, any>[] = [];
+      const final_data: Record<string, any>[] = [];
 
       data.forEach((member) => {
         let temp = {};
+        const detail: { detail_cat_id: number; value: string }[] = [];
+
         member.forEach((memberDetails, index) => {
-          temp = { ...temp, [headers[index]]: memberDetails };
+          if (index > 4) {
+            const excel_category = memberDetailCategories.find(
+              (category) => category.slug === headers[index]
+            );
+
+            if (!excel_category) {
+              toast.error("Invalid Excel File");
+              return;
+            }
+
+            detail.push({
+              detail_cat_id: excel_category.id,
+              value: memberDetails,
+            });
+          } else {
+            temp = { ...temp, [headers[index]]: memberDetails };
+          }
         });
+        temp = { ...temp, detail };
         final_data.push(temp);
       });
+
+      console.log(final_data);
 
       if (final_data.length === 0) {
         toast.error("Given Excel file was empty or invalid");
@@ -171,7 +201,7 @@ export const PatientExcelImport = () => {
               <div className="inline-block w-full max-w-8xl px-12 py-8 my-16 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-6">
                 <Heading
                   title="Import Members"
-                  subtitle="Please enter data into the supplied excel file, filling out all fields. Following the completion of the data. Please upload the excel file."
+                  subtitle="Please enter data into the supplied excel file, filling out all fields and don't change the headers. Following the completion of the data, upload the excel file."
                 />
 
                 {importedData.length !== 0 ? (

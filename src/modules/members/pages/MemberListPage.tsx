@@ -16,7 +16,7 @@ import { Loader } from "@/components/Loader";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberRoleDropdown } from "@/modules/members/components/dropdown/MemberRoleDropdown";
 import { MemberModal } from "@/modules/members/components/modal/MemberModal";
-import { PatientExcelImport } from "@/modules/members/components/others/PatientExcelImport";
+import { ExcelImport } from "@/modules/members/components/others/PatientExcelImport";
 import MemberTable from "@/modules/members/components/table/MemberTable";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
@@ -47,7 +47,9 @@ export function MemberListPage() {
             <div className="flex sm:flex-col gap-4">
               <MemberRoleDropdown />
               <MemberModal type="add" selectedRole={data?.data.data} />
-              {currentRole.slug === "patient" && <PatientExcelImport />}
+              {currentRole.slug === "patient" && (
+                <ExcelImport role={data.data.data} />
+              )}
             </div>
           )}
         </div>

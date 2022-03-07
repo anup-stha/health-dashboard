@@ -35,19 +35,7 @@ export const useAddPatient = () => {
 
   return useMutation(postNormalMember, {
     onSuccess: (newMember) => {
-      const role = newMember.data.data.role.id;
-
-      const previousList: any = queryClient.getQueryData([
-        "member-list",
-        role,
-        1,
-      ]);
-      previousList.list.length === 20 && previousList.list.pop();
-
-      queryClient.setQueryData(["member-list", role, 1], () => ({
-        list: [newMember.data.data, ...previousList.list],
-        pagination: previousList.pagination,
-      }));
+      queryClient.invalidateQueries("member-list");
     },
   });
 };
@@ -57,23 +45,7 @@ export const useNestedAddPatient = (parent_member_id: number) => {
 
   return useMutation(postNormalMember, {
     onSuccess: (newMember) => {
-      const role = newMember.data.data.role.id;
-
-      const previousList: any = queryClient.getQueryData([
-        "member-list-nested",
-        role,
-        parent_member_id,
-        1,
-      ]);
-      previousList.list.length === 20 && previousList.list.pop();
-
-      queryClient.setQueryData(
-        ["member-list-nested", role, parent_member_id, 1],
-        () => ({
-          list: [newMember.data.data, ...previousList.list],
-          pagination: previousList.pagination,
-        })
-      );
+      queryClient.invalidateQueries("member-list-nested");
     },
   });
 };
@@ -83,17 +55,7 @@ export const useAddUser = () => {
 
   return useMutation(postOrgMember, {
     onSuccess: (newMember) => {
-      const role = newMember.data.data.role.id;
-      const previousList: any = queryClient.getQueryData([
-        "member-list",
-        role,
-        1,
-      ]);
-      previousList.list.length === 20 && previousList.list.pop();
-      queryClient.setQueryData(["member-list", role, 1], () => ({
-        list: [newMember.data.data, ...previousList.list],
-        pagination: previousList.pagination,
-      }));
+      queryClient.invalidateQueries("member-list");
     },
   });
 };
@@ -102,22 +64,8 @@ export const useNestedAddUser = (parent_member_id: number) => {
   const queryClient = useQueryClient();
 
   return useMutation(postOrgMember, {
-    onSuccess: (newMember) => {
-      const role = newMember.data.data.role.id;
-      const previousList: any = queryClient.getQueryData([
-        "member-list-nested",
-        role,
-        parent_member_id,
-        1,
-      ]);
-      previousList.list.length === 20 && previousList.list.pop();
-      queryClient.setQueryData(
-        ["member-list-nested", role, parent_member_id, 1],
-        () => ({
-          list: [newMember.data.data, ...previousList.list],
-          pagination: previousList.pagination,
-        })
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries("member-list-nested");
     },
   });
 };
