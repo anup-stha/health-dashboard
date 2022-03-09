@@ -5,7 +5,6 @@
  *
  *
  */
-
 module.exports = {
   env: {
     browser: true,
@@ -21,6 +20,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:cypress/recommended",
     "prettier",
+    "plugin:storybook/recommended",
   ],
   rules: {
     "no-unused-vars": "off",
@@ -32,11 +32,13 @@ module.exports = {
     "react-hooks/exhaustive-deps": "off",
     "react/jsx-curly-brace-presence": [
       "warn",
-      { props: "never", children: "never" },
+      {
+        props: "never",
+        children: "never",
+      },
     ],
     "@next/next/no-img-element": "off",
     camelcase: "off",
-
     // #region  //*=========== Unused Import ===========
     "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "warn",
@@ -51,7 +53,6 @@ module.exports = {
       },
     ],
     // #endregion  //*======== Unused Import ===========
-
     // #region  //*=========== Import Sort ===========
     "simple-import-sort/exports": "warn",
     "simple-import-sort/imports": [
@@ -59,20 +60,13 @@ module.exports = {
       {
         groups: [
           // ext library & side effect imports
-          ["^@?\\w", "^\\u0000"],
-          // {s}css files
-          ["^.+\\.s?css$"],
-          // Lib and hooks
-          ["^@/lib", "^@/hooks"],
-          // static data
-          ["^@/data"],
-          // components
-          ["^@/components", "^@/container"],
-          // zustand store
-          ["^@/store"],
-          // Other imports
-          ["^@/"],
-          // relative paths up until 3 level
+          ["^@?\\w", "^\\u0000"], // {s}css files
+          ["^.+\\.s?css$"], // Lib and hooks
+          ["^@/lib", "^@/hooks"], // static data
+          ["^@/data"], // components
+          ["^@/components", "^@/container"], // zustand store
+          ["^@/store"], // Other imports
+          ["^@/"], // relative paths up until 3 level
           [
             "^\\./?$",
             "^\\.(?!/?$)",
@@ -83,13 +77,11 @@ module.exports = {
             "^\\.\\./\\.\\./\\.\\./?$",
             "^\\.\\./\\.\\./\\.\\.(?!/?$)",
           ],
-          ["^@/types"],
-          // other that didn't fit in
+          ["^@/types"], // other that didn't fit in
           ["^"],
         ],
       },
-    ],
-    // #endregion  //*======== Import Sort ===========
+    ], // #endregion  //*======== Import Sort ===========
   },
   globals: {
     React: true,

@@ -553,6 +553,7 @@ export type MemberBulkData = {
 
 export type MemberBulkDataWithDetails = {
   role_id: number;
+  parent_member_id: number;
   data: {
     name: string;
     dob_ad: string;

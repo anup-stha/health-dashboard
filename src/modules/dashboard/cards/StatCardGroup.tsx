@@ -86,7 +86,7 @@ export const OrgStatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
             <Profile2User variant="Broken" size={36} color="#fff" />{" "}
           </div>
         }
-        value={data.total_members}
+        value={data?.total_members}
         valueText="Total Members"
       />
       <StatCard
@@ -95,7 +95,7 @@ export const OrgStatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
             <SecurityUser variant="Broken" size={36} color="#fff" />{" "}
           </div>
         }
-        value={data.total_patient}
+        value={data?.total_patient}
         valueText="Total Patients"
       />
     </div>

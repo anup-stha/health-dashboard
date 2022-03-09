@@ -10,22 +10,6 @@ import React, { useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { Control, Controller } from "react-hook-form";
 
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:39 AM
- *
- *
- */
-
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:39 AM
- *
- *
- */
-
 const baseStyle = {
   flex: 1,
   display: "flex",

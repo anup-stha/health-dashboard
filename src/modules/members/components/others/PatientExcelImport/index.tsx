@@ -24,6 +24,7 @@ import { queryClient } from "@/pages/_app";
 import { postMemberBulkWithDetails } from "@/services/requests/memberRequests";
 
 import { Role } from "@/types";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 interface IExcelImport {
   role: Role;
@@ -34,6 +35,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
   const [importedData, setImportedData] = useState<any[]>([]);
   const [shownDataLength, setShowDataLength] = useState(8);
 
+  const user = useAuthStore((state) => state.user);
   const memberDetailCategories = role.member_detail_categories;
   const headers = ["name", "dob_ad", "gender", "ref_key", "patient_code"];
   memberDetailCategories.forEach((category) => headers.push(category.slug));
@@ -278,6 +280,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                       await promiseToast({
                         promise: postMemberBulkWithDetails({
                           role_id: Number(role.id),
+                          parent_member_id: Number(user.id),
                           data: importedData,
                         }),
 
