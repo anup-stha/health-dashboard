@@ -14,6 +14,7 @@ import { privateAgent } from ".";
 
 import {
   MemberBulkData,
+  MemberBulkDataWithDetails,
   MemberDetailCategoryAddResponse,
   MemberDetailCategoryBody,
   MemberDetailCategoryUpdateBody,
@@ -190,4 +191,8 @@ export const getMemberTestReportByDate = (
 
 export const postMemberBulk = (body: MemberBulkData) => {
   return privateAgent.post("member/bulk", body);
+};
+
+export const postMemberBulkWithDetails = (body: MemberBulkDataWithDetails) => {
+  return privateAgent.post("member/bulkWithDetails", body);
 };

@@ -99,10 +99,10 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
         const finalBody = requestBody.reduce((acc: any, curr) => {
           if (isNaN(Number(Object.keys(curr)[0][0]))) {
             acc = { ...acc, ...curr };
-          } else if (acc.detail) {
-            acc.detail.push(Object.values(curr)[0]);
+          } else if (acc.details) {
+            acc.details.push(Object.values(curr)[0]);
           } else {
-            acc.detail = [Object.values(curr)[0]];
+            acc.details = [Object.values(curr)[0]];
           }
 
           return acc;

@@ -47,9 +47,7 @@ export function MemberListPage() {
             <div className="flex sm:flex-col gap-4">
               <MemberRoleDropdown />
               <MemberModal type="add" selectedRole={data?.data.data} />
-              {currentRole.slug === "patient" && (
-                <ExcelImport role={data.data.data} />
-              )}
+              {user.role.id !== 1 && <ExcelImport role={data.data.data} />}
             </div>
           )}
         </div>

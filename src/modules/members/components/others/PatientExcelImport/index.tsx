@@ -14,14 +14,14 @@ import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 
-import { alert } from "@/components/Alert";
 import { Button, GrayButton } from "@/components/Button";
 import { Heading } from "@/components/Headings";
 import { TableView } from "@/components/Table";
+import { promiseToast } from "@/components/Toast";
 
 import { dropdownStyles } from "@/modules/members/components/others/PatientExcelImport/styles";
 import { queryClient } from "@/pages/_app";
-import { postMemberBulk } from "@/services/requests/memberRequests";
+import { postMemberBulkWithDetails } from "@/services/requests/memberRequests";
 
 import { Role } from "@/types";
 
@@ -57,7 +57,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
       const data: any[][] = XLSX.utils.sheet_to_json(ws, {
         header: 1,
         blankrows: false,
-        defval: undefined,
+        defval: "",
         raw: false,
       });
 
@@ -78,7 +78,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
       data.forEach((member) => {
         let temp = {};
-        const detail: { detail_cat_id: number; value: string }[] = [];
+        const details: { detail_cat_id: number; value: string }[] = [];
 
         member.forEach((memberDetails, index) => {
           if (index > 4) {
@@ -91,7 +91,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
               return;
             }
 
-            detail.push({
+            details.push({
               detail_cat_id: excel_category.id,
               value: memberDetails,
             });
@@ -99,7 +99,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
             temp = { ...temp, [headers[index]]: memberDetails };
           }
         });
-        temp = { ...temp, detail };
+        temp = { ...temp, details };
         final_data.push(temp);
       });
 
@@ -159,6 +159,30 @@ export const ExcelImport = ({ role }: IExcelImport) => {
     FileSaver.saveAs(finalData, "members.xlsx");
   };
 
+  const data: any[] = [];
+  importedData.forEach((curr) => {
+    let temp = {};
+    console.log(curr);
+    for (const key in curr) {
+      if (key === "details") {
+        let detail_temp = {};
+
+        curr.details.forEach((detail: any) => {
+          const category = memberDetailCategories.find(
+            (details) => details.id === detail.detail_cat_id
+          );
+          if (!category) return;
+          detail_temp = { ...detail_temp, [category.slug]: detail.value };
+        });
+
+        temp = { ...temp, ...detail_temp };
+      } else {
+        temp = { ...temp, [key]: curr[key] };
+      }
+    }
+    data.push(temp);
+  });
+
   return (
     <div className="flex space-x-2">
       <Button onClick={fileDownloadOnButtonClick}>Import</Button>
@@ -207,7 +231,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                 {importedData.length !== 0 ? (
                   <div className="flex flex-col gap-2">
                     <TableView
-                      data={importedData.slice(0, shownDataLength)}
+                      data={data.slice(0, shownDataLength)}
                       search={false}
                     />
 
@@ -251,16 +275,18 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                 <div className="flex gap-2">
                   <Button
                     onClick={async () => {
-                      await alert({
-                        type: "promise",
-                        promise: postMemberBulk({ data: importedData }).then(
-                          () => {
-                            closeModal();
-                            setImportedData([]);
-                            queryClient.invalidateQueries("member-list");
-                          }
-                        ),
+                      await promiseToast({
+                        promise: postMemberBulkWithDetails({
+                          role_id: Number(role.id),
+                          data: importedData,
+                        }),
 
+                        onSuccess: () => {
+                          closeModal();
+                          setImportedData([]);
+                          queryClient.invalidateQueries("member-list");
+                          queryClient.invalidateQueries("member-nested-list");
+                        },
                         msgs: {
                           loading: "Adding Patients",
                           success: "Added Patient Successfully",

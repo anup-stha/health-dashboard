@@ -550,3 +550,18 @@ export type MemberBulkData = {
     patient_code: string;
   }[];
 };
+
+export type MemberBulkDataWithDetails = {
+  role_id: number;
+  data: {
+    name: string;
+    dob_ad: string;
+    gender: string;
+    ref_key: string;
+    patient_code: string;
+    detail: {
+      value: string;
+      detail_cat_id: number;
+    }[];
+  }[];
+};
