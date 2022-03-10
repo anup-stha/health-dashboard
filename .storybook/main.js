@@ -23,6 +23,8 @@ module.exports = {
     "@storybook/addon-docs",
     "@storybook/addon-actions",
     "@storybook/addon-links",
+    "@storybook/addon-control",
+    "@storybook/addon-source",
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
@@ -39,6 +41,15 @@ module.exports = {
     // Resolve aliases like "import utils/time-utils"
     config.resolve.modules.push(process.cwd() + "/node_modules");
     config.resolve.modules.push(path.resolve(__dirname, "../src"));
+
+    /**
+     * Add support for alias-imports
+     * @see https://github.com/storybookjs/storybook/issues/11989#issuecomment-715524391
+     */
+    config.resolve.alias = {
+      ...config.resolve?.alias,
+      "@": [path.resolve(__dirname, "../src/"), path.resolve(__dirname, "../")],
+    };
 
     // Necessary to "mock" next/image in Storybook land
     config.plugins.push(
