@@ -137,7 +137,10 @@ export const putAppRelease = async (
 ): Promise<AppRelease> => {
   const response = await privateAgent.put<AppReleaseCreateResponse>(
     `app/release/${body.id}`,
-    body
+    body,
+    {
+      onUploadProgress: (progressEvent) => console.log(progressEvent.loaded),
+    }
   );
   return response?.data.data;
 };

@@ -39,6 +39,14 @@ const Home: NextPage = () => {
     <>
       <MainHead title="Login" />
       <LoginPage />
+      <button
+        type="button"
+        onClick={() => {
+          throw new Error("Sentry Frontend Error");
+        }}
+      >
+        Throw error
+      </button>
     </>
   );
 };
