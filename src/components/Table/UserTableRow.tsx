@@ -27,7 +27,7 @@
 //   return data ? (
 //     <tr
 //       key={key}
-//       className="px-16 text-xl font-medium text-gray-800 lg:text-xl sm:px-0"
+//       className="px-16 text-xl font-medium text-primary_gray-800 lg:text-xl sm:px-0"
 //     >
 //       <td>
 //         <AvatarWithEmail name={data && data.username} email={data.email} />
@@ -41,12 +41,12 @@
 //         <div className="flex items-center space-x-4">
 //           <Copy
 //             name="copy"
-//             className="text-gray-400 cursor-pointer hover:text-gray-800"
+//             className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
 //           />
 //           <Edit
 //             name="edit"
 //             onClick={() => setEdit(data.id)}
-//             className="text-gray-400 cursor-pointer hover:text-gray-800"
+//             className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
 //           />
 //           <Delete
 //             onClick={async () => {
@@ -86,15 +86,15 @@
 //           <div className="flex items-center space-x-4">
 //             <Copy
 //               name="copy"
-//               className="text-gray-400 cursor-pointer hover:text-gray-800"
+//               className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
 //             />
 //             <Edit
 //               name="edit"
-//               className="text-gray-400 cursor-pointer hover:text-gray-800"
+//               className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
 //             />
 //             <Delete
 //               name="delete"
-//               className="text-gray-400 cursor-pointer hover:text-gray-800"
+//               className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
 //             />
 //           </div>
 //         </div>

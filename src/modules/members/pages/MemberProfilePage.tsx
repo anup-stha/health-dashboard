@@ -47,8 +47,8 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
               onClick={() => setSelectedTab(tab)}
               className={`text-[1.3rem] cursor-pointer ${
                 tab === selectedTab
-                  ? "text-green-500 font-semibold"
-                  : "text-gray-400 font-semibold"
+                  ? "text-primary-500 font-medium"
+                  : "text-primary_gray-400 font-medium"
               }  pb-6 capitalize relative`}
             >
               {tab}
@@ -56,7 +56,7 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
                 <motion.div
                   transition={{ duration: 0.1 }}
                   layoutId="underline"
-                  className="h-1 w-full absolute right-0 bottom-0 bg-green-500"
+                  className="h-1 w-full absolute right-0 bottom-0 bg-primary-500"
                 />
               ) : null}
             </div>

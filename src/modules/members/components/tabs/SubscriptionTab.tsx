@@ -15,7 +15,7 @@ import React from "react";
 import { ChevronDown } from "react-feather";
 
 import { alert } from "@/components/Alert";
-import { Button, GrayButton, WarningButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
@@ -64,7 +64,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
       <div className="bg-white w-2/3 md:w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl font-semibold text-gray-800">
+            <h1 className="text-3xl font-medium text-primary_gray-800">
               Member Subscriptions
             </h1>
           </div>
@@ -76,7 +76,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                 <div className="print:hidden flex items-center text-red-500 space-x-4">
                   <WarningOctagon size={40} />{" "}
                   {user.id === 1 ? (
-                    <span className="font-semibold">
+                    <span className="font-medium">
                       No Subscription Found. Please add a subscription to this
                       role{" "}
                       <span
@@ -87,7 +87,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                       </span>
                     </span>
                   ) : (
-                    <span className="font-semibold text-xl">
+                    <span className="font-medium text-xl">
                       No Subscription Found. Please contact Sunya Health
                       Administrator
                     </span>
@@ -97,13 +97,13 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                 <>
                   <div className="flex items-end space-x-4 w-full">
                     <div className="w-1/3">
-                      <span className="text-xl font-medium text-gray-500 ">
+                      <span className="text-xl font-medium text-primary_gray-500 ">
                         Choose a Subscription
                       </span>
                       <SubscriptionDropdown />
                     </div>
                     <div className="w-1/2">
-                      <GrayButton
+                      <Button
                         onClick={async () => {
                           await alert({
                             promise: assignSubscriptionToMember(
@@ -118,14 +118,14 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                         }}
                       >
                         Link
-                      </GrayButton>
+                      </Button>
                     </div>
                   </div>
                 </>
               ) : (
                 <div className="print:hidden flex items-center text-red-500 space-x-4">
                   <WarningOctagon size={40} />
-                  <span className="font-semibold text-xl">
+                  <span className="font-medium text-xl">
                     No Subscription Found. Please contact Sunya Health
                     Administrator
                   </span>
@@ -142,15 +142,15 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                       end_date={end_date}
                     />
                     <div className="flex flex-col space-y-4 ">
-                      <h1 className="text-3xl font-semibold text-gray-800">
+                      <h1 className="text-3xl font-medium text-primary_gray-800">
                         {selectedSubscription.name}
                       </h1>
                       <div className="flex flex-col space-y-1">
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-gray-400">
+                          <span className="text-xl font-medium text-primary_gray-400">
                             Duration:
                           </span>
-                          <span className="text-xl font-semibold text-gray-600 whitespace-nowrap">
+                          <span className="text-xl font-medium text-primary_gray-600 whitespace-nowrap">
                             {moment(
                               selectedMemberSubscription.start_date * 1000
                             ).format("MMM Do, YYYY")}{" "}
@@ -162,27 +162,27 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                         </div>
 
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-gray-400">
+                          <span className="text-xl font-medium text-primary_gray-400">
                             Paid Price:
                           </span>
-                          <span className="text-xl font-semibold text-gray-600">
+                          <span className="text-xl font-medium text-primary_gray-600">
                             {selectedSubscription.price}{" "}
                             {selectedSubscription.currency}
                           </span>
                         </div>
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-gray-400">
+                          <span className="text-xl font-medium text-primary_gray-400">
                             Grace Period:
                           </span>
-                          <span className="text-xl font-semibold text-gray-600">
+                          <span className="text-xl font-medium text-primary_gray-600">
                             {selectedSubscription.grace_period} days
                           </span>
                         </div>
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-gray-400">
+                          <span className="text-xl font-medium text-primary_gray-400">
                             Test Limits:
                           </span>
-                          <span className="text-xl font-semibold text-gray-600">
+                          <span className="text-xl font-medium text-primary_gray-600">
                             {selectedSubscription.test_limit} times
                           </span>
                         </div>
@@ -190,7 +190,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                       <div className="self-start">
                         {user.id === 1 && (
                           <Button
-                            buttonSize="small"
+                            size="sm"
                             onClick={() => {
                               router.push("/members/org_admin/invoice");
                             }}
@@ -204,18 +204,18 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                   <div className="h-[0.4px] -mx-4 bg-slate-200 " />
 
                   <div className="flex flex-col space-y-4 py-8">
-                    <h1 className="text-2xl font-semibold text-gray-800">
+                    <h1 className="text-2xl font-medium text-primary_gray-800">
                       Tests Included In This Subscription
                     </h1>
                     <div className="text-lg grid grid-cols-2 gap-4">
                       {selectedMemberSubscription.plan.test_categories.map(
                         (category) => (
                           <div
-                            className="self-start py-2 px-6 bg-gray-100 w-full text-lg rounded-lg flex flex-col items-start sm:w-full sm:items-center"
+                            className="self-start py-2 px-6 bg-primary_gray-100 w-full text-lg rounded-lg flex flex-col items-start sm:w-full sm:items-center"
                             key={category.id}
                           >
                             <Disclosure>
-                              <Disclosure.Button className="py-2 w-full flex items-center justify-between font-semibold text-xl tracking-wider capitalize text-gray-800">
+                              <Disclosure.Button className="py-2 w-full flex items-center justify-between font-medium text-xl tracking-wider capitalize text-primary_gray-800">
                                 {category.name}
                                 <span>
                                   <ChevronDown />
@@ -227,7 +227,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                                     (sub_category) => (
                                       <span
                                         key={sub_category.id}
-                                        className="text-gray-500 font-medium text-lg text-gray-500 line-clamp-1 capitalize  "
+                                        className="text-primary_gray-500 font-medium text-lg text-primary_gray-500 line-clamp-1 capitalize  "
                                       >
                                         {sub_category.name}
                                       </span>
@@ -252,7 +252,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                             "Please be careful. If you unlink, this member will lose access to everything.",
                           ]}
                           closeButton={
-                            <WarningButton>Unlink Subscription</WarningButton>
+                            <Button color="error">Unlink Subscription</Button>
                           }
                           title="You are about to unlink an subscription"
                           onDelete={async () => {

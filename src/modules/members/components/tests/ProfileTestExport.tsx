@@ -12,7 +12,7 @@ import React, { useRef } from "react";
 import ReactExport from "react-data-export";
 import { useReactToPrint } from "react-to-print";
 
-import { GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 
 import { ProfileTestPrint } from "@/modules/members/components/tests/ProfileTestPrint";
 import { Member } from "@/modules/members/types";
@@ -66,11 +66,11 @@ export const ProfileTestExport = ({
         member={currentMember}
         ref={componentRef}
       />
-      <GrayButton onClick={handlePrint} buttonSize="small">
+      <Button onClick={handlePrint} size="sm">
         Print
-      </GrayButton>
+      </Button>
       <ExcelFile
-        element={<GrayButton buttonSize="small">Export to Excel</GrayButton>}
+        element={<Button size="sm">Export to Excel</Button>}
         filename={testList.list[0].test_name}
       >
         <ExcelSheet data={excelData} name={testList.list[0].test_name}>

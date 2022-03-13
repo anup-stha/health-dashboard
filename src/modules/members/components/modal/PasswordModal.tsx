@@ -11,7 +11,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
@@ -30,8 +30,8 @@ export const PasswordModal = ({ close }: { close: any }) => {
     <Modal>
       <Modal.Button type="open">
         <button
-          className={` hover:text-red-500 hover:bg-red-50 text-white text-gray-700
-               group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+          className={` hover:text-red-500 hover:bg-red-50 text-white text-primary_gray-700
+               group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
         >
           Change Password
         </button>
@@ -95,7 +95,7 @@ export const PasswordModal = ({ close }: { close: any }) => {
               <div className="flex space-x-4">
                 <Button>Change</Button>
                 <Modal.Button type="close">
-                  <GrayButton>Cancel</GrayButton>
+                  <Button color="error">Cancel</Button>
                 </Modal.Button>
               </div>
             </Modal.Form>
@@ -110,10 +110,10 @@ export const PasswordModal = ({ close }: { close: any }) => {
                 />
               </div>
               <div className="flex flex-col items-center sm:hidden ">
-                <h1 className="text-2xl sm:text-xl font-semibold text-green-600">
+                <h1 className="text-2xl sm:text-xl font-medium text-primary-600">
                   New Password must contain
                 </h1>
-                <div className=" text-xl sm:text-base sm:items-start font-medium text-gray-600 flex flex-col items-center">
+                <div className=" text-xl sm:text-base sm:items-start font-medium text-primary_gray-600 flex flex-col items-center">
                   <p>At least six characters</p>
                   <p>At least one uppercase character</p>
                   <p>At least one number </p>

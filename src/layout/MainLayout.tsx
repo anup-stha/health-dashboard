@@ -29,7 +29,7 @@ const Layout = ({ children }: any) => {
   return hydrated ? (
     <div className="relative">
       {process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? (
-        <div className="bg-triangle fixed bg-black text-white w-32 h-32 z-50 text-4xl font-semibold sm:w-24 sm:h-24 sm:text-3xl">
+        <div className="bg-triangle fixed bg-black text-white w-32 h-32 z-50 text-4xl font-medium sm:w-24 sm:h-24 sm:text-3xl">
           <span className="-rotate-45 absolute top-[1.3rem] left-2 sm:top-3.5 sm:left-1">
             DEV
           </span>

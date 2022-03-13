@@ -11,7 +11,7 @@ import Image from "next/image";
 import { wrap } from "popmotion";
 import React, { useState } from "react";
 
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -114,11 +114,11 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({
           </div>
           <div className="self-end flex justify-between w-full z-40">
             <Modal.Button type="close">
-              <GrayButton onClick={() => setGuided(true)}>Skip</GrayButton>
+              <Button onClick={() => setGuided(true)}>Skip</Button>
             </Modal.Button>
             <div className="flex space-x-2">
               {images[imageIndex].pos !== 1 && (
-                <GrayButton onClick={() => paginate(-1)}>Previous</GrayButton>
+                <Button onClick={() => paginate(-1)}>Previous</Button>
               )}
 
               {images[imageIndex].pos === images.length ? (

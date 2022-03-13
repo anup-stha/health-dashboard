@@ -11,7 +11,7 @@ import qs from "qs";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
@@ -90,11 +90,11 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                   <div className="flex flex-col gap-2">
                     <Dialog.Title
                       as="h3"
-                      className="text-4xl font-medium capitalize leading-6 text-gray-700"
+                      className="text-4xl font-medium capitalize leading-6 text-primary_gray-700"
                     >
                       Filter Members By Category
                     </Dialog.Title>
-                    <span className="text-lg text-gray-400">
+                    <span className="text-lg text-primary_gray-400">
                       Please select any of filters below
                     </span>
                   </div>
@@ -158,13 +158,13 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                               foundCategory,
                             ]);
                           }}
-                          className="w-full cursor-pointer px-4 py-4 text-2xl font-semibold rounded-lg border border-gray-300 border-dashed flex items-center justify-center text-gray-600"
+                          className="w-full cursor-pointer px-4 py-4 text-2xl font-medium rounded-lg border border-primary_gray-300 border-dashed flex items-center justify-center text-primary_gray-600"
                         >
                           Add New Category
                         </div>
                       )}
                     <div className="self-end flex gap-4">
-                      <GrayButton
+                      <Button
                         type="button"
                         onClick={() => {
                           reset({
@@ -177,7 +177,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                         }}
                       >
                         Reset
-                      </GrayButton>
+                      </Button>
                       <Button>Apply</Button>
                     </div>
                   </form>

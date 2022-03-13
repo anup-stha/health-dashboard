@@ -17,7 +17,7 @@ export const UserTableRowComponent = ({ data, key }: any) => {
     <>
       <tr
         key={key}
-        className="px-16 text-xl font-medium text-gray-800 lg:text-xl sm:px-0"
+        className="px-16 text-xl font-medium text-primary_gray-800 lg:text-xl sm:px-0"
       >
         <td>
           <DefaultAvatar name={data.name} image={data.avatar} />
@@ -45,15 +45,15 @@ export const UserTableRowComponent = ({ data, key }: any) => {
           <div className="flex items-center space-x-4">
             <Copy
               name="copy"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
             <Edit
               name="edit"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
             <MoreVertical
               name="more-vertical"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
           </div>
         </td>
@@ -99,15 +99,15 @@ export const UserCardView = ({ data, key }: any) => {
           <div className="flex items-center space-x-4">
             <Copy
               name="copy"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
             <Edit
               name="edit"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
             <MoreVertical
               name="more-vertical"
-              className="text-gray-400 cursor-pointer hover:text-gray-800"
+              className="text-primary_gray-400 cursor-pointer hover:text-primary_gray-800"
             />
           </div>
         </div>

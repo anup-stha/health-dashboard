@@ -35,10 +35,10 @@ export function AppReleaseListPage() {
   return (
     <PageContainer>
       <div>
-        <h1 className="text-4xl font-semibold text-gray-700 ">
+        <h1 className="text-4xl font-medium text-primary_gray-700 ">
           {selectedApp?.name}
         </h1>
-        <p className="text-xl font-normal tracking-wide text-gray-500">
+        <p className="text-xl font-normal tracking-wide text-primary_gray-500">
           {selectedApp?.application_id}
         </p>
       </div>

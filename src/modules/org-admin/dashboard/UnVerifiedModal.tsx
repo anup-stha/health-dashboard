@@ -46,17 +46,17 @@ export const UnVerifiedModal = () => {
                     <WarningOctagon size={48} weight="light" />
                   </div>
                   <div className="flex flex-col">
-                    <div className="text-red-600 font-semibold text-2xl">
+                    <div className="text-red-600 font-medium text-2xl">
                       Verification Error
                     </div>
-                    <div className="text-gray-500 font-regular text-lg">
+                    <div className="text-primary_gray-500 font-regular text-lg">
                       You haven&apos;t been verified yet. Please contact Sunya
                       Health to get verified.
                     </div>
                   </div>
                 </div>
                 <div
-                  className="text-gray-500 cursor-pointer"
+                  className="text-primary_gray-500 cursor-pointer"
                   onClick={() => setIsOpen(false)}
                 >
                   <X size={32} />

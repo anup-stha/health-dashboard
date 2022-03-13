@@ -39,7 +39,7 @@ export const DefaultAvatar: React.FC<AvatarProps> = ({ name, image }) => {
         />
       )}
 
-      <span className="truncate sm:text-lg sm:font-semibold sm:text-gray-700">
+      <span className="truncate sm:text-lg sm:font-medium sm:text-primary_gray-700">
         {name}
       </span>
     </div>
@@ -71,10 +71,10 @@ export const AvatarWithEmail: React.FC<AvatarProps> = ({
         />
       )}
       <div className="flex flex-col gap-y-1">
-        <span className="sm:text-xl sm:font-semibold sm:text-gray-800">
+        <span className="sm:text-xl sm:font-medium sm:text-primary_gray-800">
           {name}
         </span>
-        <span className="sm:text-base sm:font-medium sm:text-gray-600">
+        <span className="sm:text-base sm:font-medium sm:text-primary_gray-600">
           {email}
         </span>
       </div>

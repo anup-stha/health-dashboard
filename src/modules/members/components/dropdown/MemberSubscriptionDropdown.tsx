@@ -29,9 +29,9 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
       {({ open }) => (
         <>
           <div className="relative">
-            <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 text-xl">
+            <Listbox.Button className="relative w-full bg-white border border-primary_gray-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary_gray-500 focus:border-primary_gray-500 text-xl">
               <span className="flex items-center">
-                <span className="ml-3 block truncate font-semibold text-gray-700 capitalize">
+                <span className="ml-3 block truncate font-medium text-primary_gray-700 capitalize">
                   {Object.keys(selected).length !== 0
                     ? selected.name
                     : "Choose a subscription"}
@@ -39,7 +39,7 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
               </span>
               <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                 <SelectorIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 text-primary_gray-400"
                   aria-hidden="true"
                 />
               </span>
@@ -58,7 +58,9 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
                     key={subscription.id}
                     className={({ active }) =>
                       classNames(
-                        active ? "text-white bg-gray-600" : "text-gray-900",
+                        active
+                          ? "text-white bg-primary_gray-600"
+                          : "text-primary_gray-900",
                         "cursor-pointer select-none relative py-4 pl-3 pr-9"
                       )
                     }
@@ -69,7 +71,7 @@ export const SubscriptionDropdown = ({ rolId }: any) => {
                         <div className="flex items-center">
                           <span
                             className={classNames(
-                              selected ? "font-semibold" : "font-normal",
+                              selected ? "font-medium" : "font-normal",
                               "ml-3 block truncate capitalize"
                             )}
                           >

@@ -109,7 +109,6 @@ export const Button: React.FC<IButtonProps> = ({
         disabled={disabled}
         onClick={async (e) => await onClick(e).then(() => setIsOpen(false))}
         type="submit"
-        buttonSize="small"
       >
         {children}
       </UIButton>
@@ -118,7 +117,6 @@ export const Button: React.FC<IButtonProps> = ({
   return variant === "button" ? (
     <UIButton
       type="submit"
-      buttonSize="small"
       disabled={disabled}
       onSubmit={
         onClick
@@ -149,7 +147,9 @@ export interface IModalTitleProps {
 }
 
 export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
-  return <div className="text-4xl font-medium text-gray-900">{children}</div>;
+  return (
+    <div className="text-4xl font-medium text-primary_gray-900">{children}</div>
+  );
 };
 
 export interface IScrollableProps {

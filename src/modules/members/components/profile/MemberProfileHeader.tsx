@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { alert } from "@/components/Alert";
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -106,10 +106,10 @@ export function MemberProfileHeader({
               )}
               <div
                 className={`w-6 h-6 shadow-xl ${
-                  user.active ? "bg-green-500" : "bg-red-500"
+                  user.active ? "bg-primary-500" : "bg-red-500"
                 } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
               />
-              <div className="bg-white flex items-center justify-center rounded-full text-gray-850 w-10 h-10 text-3xl absolute -right-4 -top-4">
+              <div className="bg-white flex items-center justify-center rounded-full text-primary_gray-850 w-10 h-10 text-3xl absolute -right-4 -top-4">
                 <Camera weight="duotone" />
               </div>
             </div>
@@ -134,7 +134,7 @@ export function MemberProfileHeader({
             )}
             <div
               className={`w-6 h-6 shadow-xl ${
-                active ? "bg-green-500" : "bg-red-500"
+                active ? "bg-primary-500" : "bg-red-500"
               } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
             />
           </div>
@@ -144,14 +144,14 @@ export function MemberProfileHeader({
           <div className="flex items-center justify-between w-full">
             <div className="flex flex-col gap-2 md:gap-1">
               <div className="flex items-center  gap-2">
-                <h1 className="text-3xl font-bold text-gray-900 line-clamp-1">
+                <h1 className="text-3xl font-bold text-primary_gray-900 line-clamp-1">
                   {member.name}
                 </h1>
                 {verified ? (
                   <CircleWavyCheck
                     size={24}
                     weight="duotone"
-                    className="text-green-600"
+                    className="text-primary-600"
                   />
                 ) : (
                   <CircleWavyWarning
@@ -169,13 +169,13 @@ export function MemberProfileHeader({
                     variant="Bulk"
                     color="rgb(163 163 163)"
                   />
-                  <span className="text-gray-400 font-semibold text-lg">
+                  <span className="text-primary_gray-400 font-medium text-lg">
                     {role.name}
                   </span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Location size={18} variant="Bulk" color="rgb(163 163 163)" />
-                  <span className="text-gray-400 font-semibold text-lg">
+                  <span className="text-primary_gray-400 font-medium text-lg">
                     {member.address}
                   </span>
                 </div>
@@ -185,7 +185,7 @@ export function MemberProfileHeader({
                     weight="duotone"
                     color="rgb(163 163 163)"
                   />
-                  <span className="text-gray-400 font-semibold text-lg">
+                  <span className="text-primary_gray-400 font-medium text-lg">
                     {member.email}
                   </span>
                 </div>
@@ -193,19 +193,19 @@ export function MemberProfileHeader({
             </div>
           </div>
           <div className="self-start grid grid-cols-3 md:grid-cols-2 gap-4">
-            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-gray-300 flex flex-col">
-              <span className="font-Inter text-2xl font-bold text-gray-900">
+            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
+              <span className="font-Inter text-2xl font-bold text-primary_gray-900">
                 {data?.organization_operator ?? 0}
               </span>
-              <span className="text-lg font-semibold text-gray-500">
+              <span className="text-lg font-medium text-primary_gray-500">
                 Total Operators
               </span>
             </div>
-            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-gray-300 flex flex-col">
-              <span className="font-Inter text-2xl font-bold text-gray-900">
+            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
+              <span className="font-Inter text-2xl font-bold text-primary_gray-900">
                 {data?.total_members ?? 0}
               </span>
-              <span className="text-lg font-semibold text-gray-500">
+              <span className="text-lg font-medium text-primary_gray-500">
                 Total Members
               </span>
             </div>
@@ -218,7 +218,7 @@ export function MemberProfileHeader({
           memberData={member}
           selectedRole={role}
         >
-          <Button color="bg-gray-500" buttonSize="small">
+          <Button color="secondary" size="sm">
             Edit Other Details
           </Button>
         </MemberOtherDetailModal>
@@ -226,7 +226,7 @@ export function MemberProfileHeader({
           type="edit"
           selectedRole={role}
           initialData={member}
-          button={<Button buttonSize="small">Edit Profile</Button>}
+          button={<Button size="sm">Edit Profile</Button>}
         />
 
         <Transition appear show={isOpen} as={Fragment} data-testid="modal">
@@ -260,7 +260,7 @@ export function MemberProfileHeader({
               >
                 <div className="inline-block w-full max-w-6xl p-10 sm:p-6 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
                   <div className="flex flex-col space-y-16 sm:-space-y-12">
-                    <h1 className="text-4xl font-semibold text-gray-800">
+                    <h1 className="text-4xl font-medium text-primary_gray-800">
                       Change Password
                     </h1>
                     <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
@@ -323,9 +323,12 @@ export function MemberProfileHeader({
                         <div className="flex space-x-4">
                           <Button>Change</Button>
 
-                          <GrayButton onClick={() => setIsOpen(false)}>
+                          <Button
+                            color="error"
+                            onClick={() => setIsOpen(false)}
+                          >
                             Cancel
-                          </GrayButton>
+                          </Button>
                         </div>
                       </form>
 
@@ -339,10 +342,10 @@ export function MemberProfileHeader({
                           />
                         </div>
                         <div className="flex flex-col items-center sm:hidden ">
-                          <h1 className="text-2xl sm:text-xl font-semibold text-green-600">
+                          <h1 className="text-2xl sm:text-xl font-medium text-primary-600">
                             New Password must contain
                           </h1>
-                          <div className=" text-xl sm:text-base sm:items-start font-medium text-gray-600 flex flex-col items-center">
+                          <div className=" text-xl sm:text-base sm:items-start font-medium text-primary_gray-600 flex flex-col items-center">
                             <p>At least six characters</p>
                             <p>At least one uppercase character</p>
                             <p>At least one number </p>
@@ -361,7 +364,7 @@ export function MemberProfileHeader({
         {(user.id === 1 || router.pathname === "/profile") && (
           <Menu className="z-20" as="div">
             <Menu.Button>
-              <button className=" py-3.5 px-4 text-xl text-green-600 rounded-lg bg-slate-200 hover:bg-gray-300">
+              <button className=" py-3.5 px-4 text-xl text-primary-600 rounded-lg bg-slate-200 hover:bg-primary_gray-300">
                 <DotsThreeOutline weight="duotone" size={20} />
               </button>
             </Menu.Button>{" "}
@@ -376,7 +379,7 @@ export function MemberProfileHeader({
             >
               <Menu.Items
                 id="menu-items"
-                className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-primary_gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {router.pathname !== "/profile" ? (
                   <>
@@ -407,9 +410,9 @@ export function MemberProfileHeader({
                           <button
                             className={`${
                               btnActive
-                                ? `text-green-500 bg-green-50 text-white`
-                                : "text-gray-700"
-                            } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                                ? `text-primary-500 bg-primary-50 text-white`
+                                : "text-primary_gray-700"
+                            } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
                           >
                             Change Password
                           </button>
@@ -424,8 +427,8 @@ export function MemberProfileHeader({
                             className={`${
                               btnActive
                                 ? `text-red-500 bg-red-50 text-white`
-                                : "text-gray-700"
-                            } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+                                : "text-primary_gray-700"
+                            } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
                           >
                             Log out
                           </button>

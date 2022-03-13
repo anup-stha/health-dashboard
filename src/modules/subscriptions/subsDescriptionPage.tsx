@@ -14,7 +14,7 @@ import React, { Fragment, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
-import { Button, RedLineButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
@@ -84,10 +84,10 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 w-full space-y-8">
       <Heading title={selected.name ?? ""} subtitle={selected.slug ?? ""} />
 
-      <hr className="border-t-[1px] border-gray-200" />
+      <hr className="border-t-[1px] border-primary_gray-200" />
       <div className="space-y-4">
         <div className="flex flex-col">
-          <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
+          <h1 className="text-3xl font-medium text-neutral-800 capitalize">
             Tests
           </h1>
         </div>
@@ -105,8 +105,8 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                         }}
                         className={classNames(
                           selected
-                            ? "w-full py-4 px-6 border-green-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
-                            : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
+                            ? "w-full py-4 px-6 border-primary-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
+                            : '"w-full py-4 px-6 border-primary-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-primary_gray-200 border-r-4 border-r-transparent'
                         )}
                       >
                         <div className="flex items-center justify-between">
@@ -121,7 +121,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                                 size={24}
                                 weight="duotone"
                                 className={classNames(
-                                  selected ? "text-green-400" : "text-green-700"
+                                  selected
+                                    ? "text-primary-400"
+                                    : "text-primary-700"
                                 )}
                               />
                             ) : (
@@ -149,7 +151,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                         <div className="w-full flex flex-col space-y-2">
                           <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                             <div className="flex flex-col">
-                              <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                              <h1 className="text-3xl font-medium text-neutral-700 capitalize">
                                 {selectedTest.name}
                               </h1>
                               <div className="flex space-x-2">
@@ -183,7 +185,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                               />
                             </div>
                           </div>
-                          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+                          <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
                             <WarningOctagon size={24} />{" "}
                             <span>No Test Assigned</span>
                           </div>
@@ -203,7 +205,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                       <div className="space-y-4 w-full">
                         <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                           <div className="space-y-1">
-                            <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
+                            <h1 className="text-3xl font-medium text-neutral-700 capitalize">
                               {test.name}
                             </h1>
                             <div className="flex space-x-2">
@@ -256,17 +258,19 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
             </Tab.Group>
           </div>
         ) : (
-          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+          <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
             <WarningOctagon size={24} /> <span>No Test Details Found</span>
           </div>
         )}
       </div>
 
-      <hr className="border-t-[1px] border-gray-200" />
+      <hr className="border-t-[1px] border-primary_gray-200" />
       <div className="space-y-2">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900">Alert Zone</h1>
-          <p className="text-lg font-semibold text-gray-500">
+          <h1 className="text-3xl font-medium text-primary_gray-900">
+            Alert Zone
+          </h1>
+          <p className="text-lg font-medium text-primary_gray-500">
             Please be careful with anything you do here
           </p>
         </div>
@@ -287,10 +291,10 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="">
-            <div className="text-xl font-semibold text-gray-900 w-full capitalize">
+            <div className="text-xl font-medium text-primary_gray-900 w-full capitalize">
               {data.name}
             </div>
-            <div className="text-lg font-medium text-gray-500">
+            <div className="text-lg font-medium text-primary_gray-500">
               {data.category_name}
             </div>
           </div>
@@ -304,7 +308,9 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       </td>
       <td className="px-6 py-4">{data.desc}</td>
       <td className="font-medium px-6 py-4 whitespace-nowrap text-lg flex items-center justify-end">
-        <RedLineButton
+        <Button
+          variant="outline"
+          color="error"
           onClick={async () =>
             alert({
               type: "promise",
@@ -321,7 +327,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
           }
         >
           Remove Test
-        </RedLineButton>
+        </Button>
       </td>
     </tr>
   ) : (

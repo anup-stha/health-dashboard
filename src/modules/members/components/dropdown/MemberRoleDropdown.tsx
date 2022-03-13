@@ -30,11 +30,13 @@ export const MemberRoleDropdown = ({
   const router = useRouter();
   const roleList = _roleList ?? useAuthStore.getState().user.role.role_access;
 
-  const selected = useCurrentMemberStore((state) => state.role);
-  const setSelected = useCurrentMemberStore((state) => state.setCurrentRole);
+  const selectedRole = useCurrentMemberStore((state) => state.role);
+  const setSelectedRole = useCurrentMemberStore(
+    (state) => state.setCurrentRole
+  );
 
   useEffect(() => {
-    Object.keys(selected).length !== 0 &&
+    Object.keys(selectedRole).length !== 0 &&
       router.isReady &&
       router.replace(
         {
@@ -43,23 +45,23 @@ export const MemberRoleDropdown = ({
         undefined,
         { shallow: true }
       );
-  }, [selected.slug, _selectedRole?.slug]);
+  }, [selectedRole.slug, _selectedRole?.slug]);
 
   return (
     <div className="w-64 capitalize z-10">
       <Listbox
-        value={_selectedRole ?? selected}
-        onChange={_setSelectedRole ?? setSelected}
+        value={_selectedRole ?? selectedRole}
+        onChange={_setSelectedRole ?? setSelectedRole}
       >
         <div className="relative">
           <Listbox.Button
             data-testid="role-dropdown-btn"
-            className="cursor-pointer relative w-full py-4 px-6 text-left bg-white rounded-sm shadow-E500 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-green-300 focus-visible:ring-offset-2 focus-visible:border-green-500 text-xl font-semibold text-gray-500"
+            className="cursor-pointer relative w-full py-5 px-6 text-left bg-white rounded-md shadow-sm ring-1 ring-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-primary-300 focus-visible:ring-offset-2 focus-visible:border-primary-500 text-xl font-medium text-gray-500"
           >
             <span className="block truncate">
               {_selectedRole && Object.values(_selectedRole).length !== 0
                 ? _selectedRole.name
-                : selected.name}
+                : selectedRole.name}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
@@ -70,17 +72,20 @@ export const MemberRoleDropdown = ({
           </Listbox.Button>
           <Transition
             as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-2 overflow-auto text-lg bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Listbox.Options className="absolute w-full py-1 mt-2 overflow-auto text-lg bg-white rounded-md shadow-sm max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
               {roleList.map((role) => (
                 <Listbox.Option
                   key={role.id}
                   data-testid={`${role.name}-btn`}
                   className={({ active }) =>
-                    `${active ? "text-green-900 bg-green-100" : "text-gray-900"}
+                    `${active ? "text-primary-500 bg-gray-50" : "text-gray-900"}
                           cursor-pointer select-none relative py-4 pl-10 pr-4 `
                   }
                   value={role}
@@ -90,18 +95,13 @@ export const MemberRoleDropdown = ({
                       <>
                         <span
                           className={`${
-                            selected ? "font-medium" : "font-normal"
-                          }  block truncate capitalize`}
+                            role.id === selectedRole.id && "text-primary-500"
+                          } block truncate capitalize`}
                         >
                           {role.name}
                         </span>
-                        {selected ? (
-                          <span
-                            className={`${
-                              active ? "text-green-600" : "text-green-600"
-                            }
-                                absolute inset-y-0 left-0 flex items-center pl-3`}
-                          >
+                        {role.id === selectedRole.id ? (
+                          <span className="text-primary-600 absolute inset-y-0 left-0 flex items-center pl-3">
                             <CheckIcon className="w-5 h-5" aria-hidden="true" />
                           </span>
                         ) : null}

@@ -37,7 +37,7 @@ export const ListBox: React.FC<ListBoxProps> = ({
             <span className="block capitalize truncate">{selected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
-                className="w-5 h-5 text-gray-400"
+                className="w-5 h-5 text-primary_gray-400"
                 aria-hidden="true"
               />
             </span>
@@ -53,7 +53,11 @@ export const ListBox: React.FC<ListBoxProps> = ({
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `${active ? "text-gray-800 bg-gray-100" : "text-gray-900"}
+                    `${
+                      active
+                        ? "text-primary_gray-800 bg-primary_gray-100"
+                        : "text-primary_gray-900"
+                    }
                           cursor-default select-none relative py-2 pl-10 pr-4 `
                   }
                   value={item}
