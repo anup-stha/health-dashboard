@@ -194,7 +194,7 @@ export type OrgFinalBody = {
   dob_bs?: number;
   gender: string;
   marital_status: string;
-  detail?: { detail_cat_id: number; value: string }[];
+  detail?: { detail_category_id: number; value: string }[];
 };
 
 export type OrgMemberAddRes = { data: BasicMember & { role: Role } };
@@ -562,7 +562,7 @@ export type MemberBulkDataWithDetails = {
     patient_code: string;
     detail: {
       value: string;
-      detail_cat_id: number;
+      detail_category_id: number;
     }[];
   }[];
 };

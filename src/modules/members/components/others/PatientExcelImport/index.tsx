@@ -19,12 +19,12 @@ import { Heading } from "@/components/Headings";
 import { TableView } from "@/components/Table";
 import { promiseToast } from "@/components/Toast";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { dropdownStyles } from "@/modules/members/components/others/PatientExcelImport/styles";
 import { queryClient } from "@/pages/_app";
 import { postMemberBulkWithDetails } from "@/services/requests/memberRequests";
 
 import { Role } from "@/types";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 interface IExcelImport {
   role: Role;
@@ -80,7 +80,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
       data.forEach((member) => {
         let temp = {};
-        const details: { detail_cat_id: number; value: string }[] = [];
+        const details: { detail_category_id: number; value: string }[] = [];
 
         member.forEach((memberDetails, index) => {
           if (index > 4) {
@@ -94,7 +94,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
             }
 
             details.push({
-              detail_cat_id: excel_category.id,
+              detail_category_id: excel_category.id,
               value: memberDetails,
             });
           } else {
@@ -171,7 +171,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
         curr.details.forEach((detail: any) => {
           const category = memberDetailCategories.find(
-            (details) => details.id === detail.detail_cat_id
+            (details) => details.id === detail.detail_category_id
           );
           if (!category) return;
           detail_temp = { ...detail_temp, [category.slug]: detail.value };

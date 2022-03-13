@@ -81,7 +81,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
             return {
               [`${element[0]}-detail`]: {
-                detail_cat_id: Number(element.split("-")[0]),
+                detail_category_id: Number(element.split("-")[0]),
                 value: values[index],
               },
             };

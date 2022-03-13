@@ -124,7 +124,7 @@ export const addDetailsToMember = (
   const requestBody: any[] = [];
   requestBody.push(
     ...keys.map((element, index) => ({
-      detail_cat_id: element.split("-")[0],
+      detail_category_id: element.split("-")[0],
       value: values[index],
     }))
   );

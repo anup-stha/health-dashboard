@@ -92,19 +92,19 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
             acc = { ...acc, ...obj };
           } else if (acc.detail && curr.split("-")[2] === "details") {
             acc.detail.push({
-              detail_cat_id: curr.split("-")[0],
+              detail_category_id: curr.split("-")[0],
               value: body[curr],
             });
           } else if (curr.split("-")[2] === "details") {
             acc.detail = [
               {
-                detail_cat_id: curr.split("-")[0],
+                detail_category_id: curr.split("-")[0],
                 value: body[curr],
               },
             ];
           } else if (acc.medical_history && curr.split("-")[2] === "note") {
             acc.medical_history = acc.medical_history.map((element: any) =>
-              element.detail_cat_id === Number(curr.split("-")[0])
+              element.detail_category_id === Number(curr.split("-")[0])
                 ? {
                     ...element,
                     note: element.value === "No" ? "N/A" : body[curr],
@@ -113,14 +113,14 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
             );
           } else if (acc.medical_history) {
             acc.medical_history.push({
-              detail_cat_id: Number(curr.split("-")[0]),
+              detail_category_id: Number(curr.split("-")[0]),
               value: body[curr] ? "Yes" : "No",
               note: "N/A",
             });
           } else {
             acc.medical_history = [
               {
-                detail_cat_id: Number(curr.split("-")[0]),
+                detail_category_id: Number(curr.split("-")[0]),
                 value: body[curr] ? "Yes" : "No",
                 note: "N/A",
               },

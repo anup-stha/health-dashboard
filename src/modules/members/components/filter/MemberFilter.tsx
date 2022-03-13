@@ -44,7 +44,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
     }[]
   >([]);
 
-  const detail_cat_watch = watch(`data.${totalInputs - 1}.detail_cat_id`);
+  const detail_cat_watch = watch(`data.${totalInputs - 1}.detail_category_id`);
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
@@ -115,7 +115,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                         <div className="flex items-end space-x-4" key={index}>
                           <div className="w-1/2">
                             <DropdownController
-                              name={`data.${index}.detail_cat_id`}
+                              name={`data.${index}.detail_category_id`}
                               label="Select a category"
                               control={control}
                               isDisabled={index + 1 !== totalInputs}
@@ -168,7 +168,9 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                         type="button"
                         onClick={() => {
                           reset({
-                            data: [{ detail_cat_id: categoryList[0].value }],
+                            data: [
+                              { detail_category_id: categoryList[0].value },
+                            ],
                           });
                           setTotalInputs(1);
                           setSelectedCategory([]);
