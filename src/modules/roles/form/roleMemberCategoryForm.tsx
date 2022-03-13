@@ -108,7 +108,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
-      color: "gray",
+      color: "primary_gray",
       background: state.isFocused ? "#dcfce7" : "white",
       padding: "0.4rem 1.5rem",
       cursor: "pointer",
@@ -195,7 +195,7 @@ export const MultiDropdown: React.FC<DropdownProps> = ({
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
-      color: "gray",
+      color: "primary_gray",
       background: state.isFocused ? "#dcfce7" : "white",
       padding: "0.4rem 1.5rem",
       cursor: "pointer",

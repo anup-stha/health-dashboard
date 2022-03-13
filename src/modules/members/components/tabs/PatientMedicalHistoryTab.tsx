@@ -25,10 +25,10 @@ export const PatientMedicalHistory = ({
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
       <div className="print:hidden space-y-8">
         <div className="print:hidden">
-          <h1 className="text-gray-900 font-semibold text-3xl tracking-wider sm:text-2xl">
+          <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">
             Patient Medical History
           </h1>
-          <h1 className="text-gray-500 font-medium text-lg print:hidden">
+          <h1 className="text-primary_gray-500 font-medium text-lg print:hidden">
             Medical History of Patient taken from Sunya Health Apps
           </h1>
         </div>
@@ -40,7 +40,7 @@ export const PatientMedicalHistory = ({
             )}
           />
         ) : (
-          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+          <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
             <WarningOctagon size={24} />{" "}
             <span>No Patient Medical Details Found</span>
           </div>

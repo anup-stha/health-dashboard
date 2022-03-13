@@ -35,10 +35,10 @@ export const SubscriptionTable = () => {
         />{" "}
       </div>
       <div className="flex flex-col items-center">
-        <div className="text-3xl font-semibold text-green-600">
+        <div className="text-3xl font-medium text-primary-600">
           No Subscription found
         </div>
-        <div className="text-lg font-medium text-gray-500">
+        <div className="text-lg font-medium text-primary_gray-500">
           Please switch role or add a new subscription.
         </div>
       </div>
@@ -81,10 +81,10 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <div>
-              <div className="text-xl font-semibold text-gray-900 w-full capitalize">
+              <div className="text-xl font-medium text-primary_gray-900 w-full capitalize">
                 {data.name}
               </div>
-              <div className="text-lg font-medium text-gray-500">
+              <div className="text-lg font-medium text-primary_gray-500">
                 {data.slug}
               </div>
             </div>
@@ -94,20 +94,20 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({
           <BooleanTag type="info" trueStatement={data.price} />
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-gray-900 font-semibold capitalize">
+          <div className="text-lg text-primary_gray-900 font-medium capitalize">
             {data.interval_type}
           </div>
-          <div className="text-lg text-gray-500 font-medium">
+          <div className="text-lg text-primary_gray-500 font-medium">
             {data.interval_value} times
           </div>
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
           {data.grace_period} days
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
           {data.sync_limit} times
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
           {data.test_limit} times
         </td>
         <td className="font-medium px-6 py-5 whitespace-nowrap text-lg">

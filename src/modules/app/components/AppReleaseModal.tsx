@@ -43,7 +43,7 @@ export const AppReleaseModal = ({
     <Modal>
       {type === "add" ? (
         <Modal.Button type="open" width="full">
-          <div className=" text-3xl h-52 font-medium text-green-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-green-600  shadow-inner rounded-lg">
+          <div className=" text-3xl h-52 font-medium text-primary-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-primary-600  shadow-inner rounded-lg">
             <div className="flex flex-col items-center w-full">
               <Plus size={40} />
               <h1 className="">Add App Release</h1>
@@ -52,7 +52,7 @@ export const AppReleaseModal = ({
         </Modal.Button>
       ) : (
         <Modal.Button type="open">
-          <div className="text-xl font-semibold text-neutral-700 hover:underline hover:text-neutral-800 px-4 cursor-pointer">
+          <div className="text-xl font-medium text-neutral-700 hover:underline hover:text-neutral-800 px-4 cursor-pointer">
             Edit App
           </div>
         </Modal.Button>

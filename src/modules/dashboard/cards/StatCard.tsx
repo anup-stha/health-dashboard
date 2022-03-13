@@ -23,8 +23,8 @@ export const StatCard: React.FC<StatCardProps> = ({
       {icon}
 
       <div className=" flex flex-col items-center space-y-2">
-        <p className=" text-5xl text-gray-800 font-medium">{value}</p>
-        <h1 className=" text-xl text-gray-500 font-semibold sm:text-xl text-center">
+        <p className=" text-5xl text-primary_gray-800 font-medium">{value}</p>
+        <h1 className=" text-xl text-primary_gray-500 font-medium sm:text-xl text-center">
           {valueText}
         </h1>
       </div>

@@ -42,11 +42,13 @@ export const ProfileImageModal = ({
       <Modal.Content onClose={() => setIsNewImage(false)}>
         <div className="space-y-10 flex flex-col justify-center">
           <div className="space-y-4 ">
-            <h1 className="text-3xl font-medium text-gray-700">Change Photo</h1>
+            <h1 className="text-3xl font-medium text-primary_gray-700">
+              Change Photo
+            </h1>
             <hr />
           </div>
           <div className="self-center flex flex-col items-center space-y-8">
-            <h1 className="text-2xl font-semibold text-gray-800">
+            <h1 className="text-2xl font-medium text-primary_gray-800">
               {selectedMember.name.split(" ")[0]}, Keep your profile fresh
             </h1>
             <div
@@ -78,7 +80,7 @@ export const ProfileImageModal = ({
                 </div>
               ))}
 
-            <h1 className="text-xl font-medium text-gray-700 text-center">
+            <h1 className="text-xl font-medium text-primary_gray-700 text-center">
               Take a photo or upload a photo that really represents you. <br />
               File size must be less than 1Mb.
             </h1>

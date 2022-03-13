@@ -14,7 +14,7 @@ import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
 import { TableView } from "@/components/Table";
 import { promiseToast } from "@/components/Toast";
@@ -244,7 +244,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                             ? setShowDataLength(8)
                             : setShowDataLength(importedData.length)
                         }
-                        className="self-end cursor-pointer text-xl border-t-[1px] py-4 pl-36 border-gray-400/20 font-semibold text-gray-700 space-x-2 flex items-center"
+                        className="self-end cursor-pointer text-xl border-t-[1px] py-4 pl-36 border-primary_gray-400/20 font-medium text-primary_gray-700 space-x-2 flex items-center"
                       >
                         {shownDataLength === importedData.length ? (
                           <>
@@ -301,14 +301,15 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                     Import
                   </Button>
                   {importedData.length !== 0 && (
-                    <GrayButton
+                    <Button
+                      color="secondary"
                       onClick={() => {
                         setImportedData([]);
                         setShowDataLength(8);
                       }}
                     >
                       Clear
-                    </GrayButton>
+                    </Button>
                   )}
                 </div>
               </div>

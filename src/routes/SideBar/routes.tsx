@@ -111,7 +111,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
       {
         id: 4,
         title: "Others",
-        icon: <Category2 variant="Broken" size={24} color="gray" />,
+        icon: <Category2 variant="Broken" size={24} color="primary_gray" />,
         link: "/others",
       },
       {

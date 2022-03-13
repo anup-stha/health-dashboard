@@ -48,7 +48,7 @@ export const orgAdminWelcomeSlides = [
     pos: 4,
     title: "Organization Patients",
     subtitle:
-      "After clicking on patients, you get a list of patients. Click on the green button to add patients. Click on patient to view more details of that patient",
+      "After clicking on patients, you get a list of patients. Click on the primary button to add patients. Click on patient to view more details of that patient",
   },
   {
     link: "https://sunya-bucket.s3.us-west-2.amazonaws.com/assets/howtouse/welcome-4.svg",
@@ -85,10 +85,10 @@ export const OrgAdminDashboard = () => {
       {user.verified || user.id === 1 ? null : <UnVerifiedModal />}
 
       <div>
-        <h1 className="text-[2.5rem] text-gray-800 font-semibold ">
+        <h1 className="text-[2.5rem] text-primary_gray-800 font-medium ">
           Hello, {user.name}
         </h1>
-        <p className="text-xl text-gray-500 font-medium">
+        <p className="text-xl text-primary_gray-500 font-medium">
           Welcome Back To Dashboard!
         </p>
       </div>

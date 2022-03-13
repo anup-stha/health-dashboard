@@ -1,38 +1,31 @@
+/*
+ * Created By Anup Shrestha
+ * Copyright (c) 2022. All rights reserved.
+ * Last Modified 1/3/22, 11:31 AM
+ *
+ *
+ */
+
 const path = require("path");
 const webpack = require("webpack");
-
 module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/addon-actions",
-    "@storybook/addon-docs",
-    "@storybook/addon-storysource",
-    "@storybook/addon-controls",
-  ],
   core: {
     builder: "webpack5",
   },
-  module: {
-    rules: [
-      {
-        test: /\.(sass|less|css)$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              plugins: () => [require("autoprefixer")()],
-            },
-          },
-          "sass-loader",
-        ],
+  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: [
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        backgrounds: false,
       },
-    ],
-  },
+    },
+    "@storybook/addon-docs",
+    "@storybook/addon-actions",
+    "@storybook/addon-links",
+    "@storybook/addon-control",
+    "@storybook/addon-source",
+  ],
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,

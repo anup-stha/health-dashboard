@@ -12,7 +12,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import { toastAlert } from "@/components/Alert";
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { RoleGridLoadingState } from "@/components/state/rolePageLoadingState";
@@ -40,8 +40,10 @@ export const RoleAccessSection = () => {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900">Role Access</h1>
-          <p className="text-lg font-semibold text-gray-500">
+          <h1 className="text-3xl font-medium text-primary_gray-900">
+            Role Access
+          </h1>
+          <p className="text-lg font-medium text-primary_gray-500">
             Choose a role to give access of that to role to current role.
           </p>
         </div>
@@ -93,7 +95,7 @@ export const RoleAccessSection = () => {
       ) : selectedRole.role_access.length === 0 ? (
         <div className="print:hidden flex items-center text-red-500 space-x-4">
           <WarningOctagon size={40} />
-          <span className="font-semibold text-xl">
+          <span className="font-medium text-xl">
             No Role Found. Please assign role.
           </span>
         </div>
@@ -107,7 +109,7 @@ export const RoleAccessSection = () => {
               <div className="space-y-2 w-full">
                 <div className="flex flex-col justify-between w-full space-y-1">
                   <div className="flex justify-between items-center w-full">
-                    <h1 className="text-3xl font-semibold text-gray-800 capitalize">
+                    <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">
                       {role.name}
                     </h1>
                     <h1 className="whitespace-nowrap text-base">
@@ -119,7 +121,7 @@ export const RoleAccessSection = () => {
                   </div>
                 </div>
 
-                <p className="text-lg font-semibold text-gray-500 w-4/5 line-clamp-2">
+                <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">
                   {roleList[0].desc} {/** 92 CHARS */}
                 </p>
               </div>
@@ -144,7 +146,9 @@ export const RoleAccessSection = () => {
                 ]}
                 disabled={false}
                 closeButton={
-                  <GrayButton buttonSize="small">Remove Role</GrayButton>
+                  <Button size="sm" color="error">
+                    Remove Role
+                  </Button>
                 }
               />
             </div>

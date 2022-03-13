@@ -10,56 +10,86 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-800 px-6 py-4 bg-white rounded-sm border-b-[1px] border-0 border-green-500 border-solid w-full block;
+    @apply text-lg text-gray-500 px-6 py-5 bg-white rounded-md  border border-gray-25 border-b-primary-500 border-solid w-full block;
 
     &:focus {
       outline: none;
-      @apply shadow-E300;
-      @apply border-b-4 border-0 border-green-500 bg-white text-gray-700;
+      @apply shadow-E100  border border-gray-200 border-b-primary-600 bg-white text-gray-600;
     }
 
     &:focus:invalid {
-      @apply border-b-2 border-0 border-red-600;
+      @apply border-b border-0 border-error-600;
     }
+
     &::-webkit-input-placeholder {
-      @apply text-gray-700;
+      @apply text-gray-500;
+    }
+  }
+
+  &_icon_container {
+    @apply text-lg text-gray-500 pl-[4.5rem] pr-6 py-5 rounded-md border border-gray-200 border-b-primary-500 border-solid w-full block;
+    &:focus {
+      outline: none;
+      @apply shadow-E100  border border-gray-200 border-b-primary-600 bg-white text-gray-600;
+    }
+
+    &:focus:invalid {
+      @apply border-b border-0 border-error-600;
+    }
+
+    &::-webkit-input-placeholder {
+      @apply text-gray-500;
+    }
+  }
+
+  &_icon_error {
+    @apply text-lg  text-gray-500 pl-[4.5rem] pr-6 py-5 rounded-md border border-gray-200  border-b-error-500 border-solid w-full block;
+
+    &:focus {
+      outline: none;
+      @apply shadow-E100  border border-gray-200 border-b-error-600 bg-white text-gray-600;
+    }
+
+    &:focus:invalid {
+      @apply border-b border-0 border-error-600;
+    }
+
+    &::-webkit-input-placeholder {
+      @apply text-gray-500;
     }
   }
 
   &_error {
-    @apply text-lg text-gray-700 px-6 py-4 bg-white rounded-sm border-b-[3px] border-0 border-red-700 border-solid w-full block;
+    @apply text-lg shadow-E100 text-gray-500 px-6 py-5 rounded-md border border-gray-200 border-b-error-500 border-solid w-full block;
 
     &:focus {
       outline: none;
-      box-shadow: 0 1rem 4rem rgba(black, 0.2);
-      @apply border-b-4 border-0 border-red-700 bg-white text-gray-700;
+      @apply shadow-E100  border border-gray-200 border-b-error-600 bg-white text-gray-600;
     }
 
     &:focus:invalid {
-      @apply border-b-2 border-0 border-red-400;
+      @apply border-b border-0 border-error-600;
     }
+
     &::-webkit-input-placeholder {
       @apply text-gray-500;
     }
   }
 
   &_label {
-    margin-left: 0.1rem;
-
-    @apply text-gray-500 font-semibold text-lg;
+    @apply text-gray-500 font-medium mb-1 text-lg;
     display: block;
     transition: all 0.3s;
   }
 
-  &_container:placeholder-shown + &_label {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0rem);
+  &_container:placeholder-shown + &_label,
+  &_icon_container:placeholder-shown + &_label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(5rem);
   }
+
   &_label {
     order: -1;
-  }
-  &_textarea {
-    height: 16rem;
   }
 }

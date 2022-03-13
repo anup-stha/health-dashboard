@@ -55,7 +55,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
     <Modal>
       <Modal.Button type="open">
         {children ?? (
-          <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+          <div className="p-6    text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
             {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Other
             Details
           </div>
@@ -72,7 +72,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
           selectedRole.member_detail_categories.length === 0) ? (
           <div className="flex items-center text-red-500 space-x-4">
             <WarningOctagon size={40} />{" "}
-            <span className="font-semibold text-xl">
+            <span className="font-medium text-xl">
               No Member Details Field Found.
               {user.id === 1 ? (
                 <>

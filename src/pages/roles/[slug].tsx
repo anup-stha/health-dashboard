@@ -95,18 +95,18 @@ const RoleDetailPage = () => {
               />
             </div>
 
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
             <RoleAccessSection />
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
             <Permissions />
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
 
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl font-semibold text-gray-900">
+                <h1 className="text-3xl font-medium text-primary_gray-900">
                   Alert Zone
                 </h1>
-                <p className="text-lg font-semibold text-gray-500">
+                <p className="text-lg font-medium text-primary_gray-500">
                   Please be careful with anything you do here
                 </p>
               </div>{" "}
@@ -114,7 +114,7 @@ const RoleDetailPage = () => {
               <UpdateZone idX={idX} />
               <DeleteZone />
             </div>
-            <hr className="border-t-[1px] border-gray-200" />
+            <hr className="border-t-[1px] border-primary_gray-200" />
           </div>
         </div>
       ) : (

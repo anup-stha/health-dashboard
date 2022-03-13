@@ -11,7 +11,7 @@ import Link from "next/link";
 import { WarningOctagon } from "phosphor-react";
 import React from "react";
 
-import { GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { TableView } from "@/components/Table";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -40,12 +40,12 @@ export const ProfileTestTab = ({
   const user = useAuthStore((state) => state.user);
 
   const activeClassName =
-    "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-semibold";
+    "py-3 px-10 rounded-sm text-xl bg-primary_gray-800 text-white font-medium";
   const inactiveClassName =
-    "py-3 px-10 rounded-sm text-xl text-gray-700 font-semibold hover:bg-gray-200";
+    "py-3 px-10 rounded-sm text-xl text-primary_gray-700 font-medium hover:bg-primary_gray-200";
 
   return !testList ? (
-    <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+    <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
       <WarningOctagon size={24} /> <span>No Test Details Found</span>
     </div>
   ) : (
@@ -76,21 +76,21 @@ export const ProfileTestTab = ({
           {selectedMember.role && selectedMember.role.slug === "patient" ? (
             user.id === 1 ? (
               <Link href="/member/org_admin/patient/test_report" passHref>
-                <GrayButton className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                <Button className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
                   Generate Test Report
-                </GrayButton>
+                </Button>
               </Link>
             ) : (
               <Link href="/member/patient/test_report" passHref>
-                <GrayButton className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+                <Button className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
                   Generate Test Report
-                </GrayButton>
+                </Button>
               </Link>
             )
           ) : null}
         </div>
       </div>
-      <hr className="border-t-[1px] border-gray-200 " />
+      <hr className="border-t-[1px] border-primary_gray-200 " />
       {testList && (
         <>
           <Tab.Panels>

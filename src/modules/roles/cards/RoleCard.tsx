@@ -40,7 +40,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
+            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">
               {title}
             </h1>
             <h1 className="whitespace-nowrap text-base">
@@ -48,13 +48,13 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
             </h1>
           </div>
 
-          <div className="self-start text-lg text-gray-500 font-normal">
+          <div className="self-start text-lg text-primary_gray-500 font-normal">
             Member Limit: {memberLimit} | Permissions: {permissionCount} |{" "}
             {isPublic ? "Public" : "Not Public"}
           </div>
         </div>
 
-        <p className="text-lg font-semibold text-gray-500 w-4/5 line-clamp-2">
+        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">
           {description} {/** 92 CHARS */}
         </p>
       </div>
@@ -70,7 +70,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
           <Button
-            buttonSize="small"
+            size="sm"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);
               useRoleStore.getState().setSelectedId(Number(id));
@@ -86,7 +86,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
+            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">
               {title}
             </h1>
             <h1 className="whitespace-nowrap text-base">
@@ -99,7 +99,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
           </div>
         </div>
 
-        <p className="text-lg font-medium text-gray-700 w-4/5 line-clamp-2">
+        <p className="text-lg font-medium text-primary_gray-700 w-4/5 line-clamp-2">
           {description}
         </p>
       </div>
@@ -115,7 +115,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
           <Button
-            buttonSize="small"
+            size="sm"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);
               useRoleStore.getState().setSelectedId(Number(id));

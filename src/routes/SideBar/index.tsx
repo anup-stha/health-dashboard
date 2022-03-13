@@ -37,7 +37,7 @@ export const Sidebar: React.FC<any> = () => {
           enterFrom="opacity-0 -translate-y-24 "
           enterTo="opacity-100 translate-y-0"
         >
-          <div className=" w-full bg-white ring-1 ring-gray-400/40 rounded-md p-4 flex items-center space-x-2">
+          <div className=" w-full bg-white ring-1 ring-primary_gray-400/40 rounded-md p-4 flex items-center space-x-2">
             {user.image ? (
               <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
                 <Image
@@ -59,10 +59,10 @@ export const Sidebar: React.FC<any> = () => {
             )}
 
             <div className="flex flex-col w-3/4">
-              <span className="text-black font-semibold text-xl line-clamp-1">
+              <span className="text-black font-medium text-xl line-clamp-1">
                 {user.name}
               </span>
-              <span className="text-gray-500 font-semibold tracking-wider text-base ">
+              <span className="text-primary_gray-500 font-medium tracking-wider text-base ">
                 {user.role && user.role.name}
               </span>
             </div>
@@ -111,10 +111,10 @@ export const Sidebar: React.FC<any> = () => {
           </div>
 
           <div>
-            <div className="text-sm text-gray-700 font-bold text-center">
+            <div className="text-sm text-primary_gray-700 font-bold text-center">
               &#169; Copyright by Sunya Health Pvt. Ltd.
             </div>{" "}
-            <div className="text-sm text-gray-500 font-semibold  text-center">
+            <div className="text-sm text-primary_gray-500 font-medium  text-center">
               System Version: {systemVersion.toUpperCase()}
             </div>
           </div>

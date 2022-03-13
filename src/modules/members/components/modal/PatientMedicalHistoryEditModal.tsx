@@ -61,7 +61,7 @@ export const PatientMedicalHistoryModal = ({
   return (
     <Modal>
       <Modal.Button type="open">
-        <div className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+        <div className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
           {textState} Patient Medical History
         </div>
       </Modal.Button>
@@ -127,7 +127,7 @@ export const MedicalHistoryForm = ({
 
   return (
     <>
-      <label className="text-xl font-semibold text-gray-700 w-1/3">
+      <label className="text-xl font-medium text-primary_gray-700 w-1/3">
         {name}
       </label>
       <div className="w-2/3 space-y-4">

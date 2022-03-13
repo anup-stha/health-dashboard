@@ -36,10 +36,10 @@ export const CheckBoxCard: React.FC<CheckBoxCardProps> = ({
           />
         </div>
         <div className="flex flex-col space-y-1">
-          <span className="text-2xl text-gray-800 font-semibold line-clamp-1 ">
+          <span className="text-2xl text-primary_gray-800 font-medium line-clamp-1 ">
             {title}
           </span>
-          <span className="text-lg text-gray-500 font-medium w-3/4 line-clamp-2">
+          <span className="text-lg text-primary_gray-500 font-medium w-3/4 line-clamp-2">
             {subtitle}
           </span>
         </div>
@@ -47,7 +47,7 @@ export const CheckBoxCard: React.FC<CheckBoxCardProps> = ({
       <div className="max-w-sm mx-auto">
         <label className="inline-flex items-center">
           <input
-            className="text-green-500 w-8 h-8 mr-2 cursor-pointer focus:ring-green-400 focus:ring-opacity-25 border border-gray-300 rounded-lg"
+            className="text-primary-500 w-8 h-8 mr-2 cursor-pointer focus:ring-primary-400 focus:ring-opacity-25 border border-primary_gray-300 rounded-lg"
             type="checkbox"
             checked={checked}
             onChange={onCheckChange}

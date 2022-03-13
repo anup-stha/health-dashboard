@@ -22,7 +22,7 @@ export const MedicalHistoryForm = ({
 
   return (
     <>
-      <label className="text-xl font-semibold text-gray-700 w-1/3">
+      <label className="text-xl font-medium text-primary_gray-700 w-1/3">
         {name}
       </label>
       <div className="w-2/3 space-y-4">

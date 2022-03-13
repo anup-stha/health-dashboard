@@ -14,7 +14,7 @@ import LetteredAvatar from "react-avatar";
 import { useForm } from "react-hook-form";
 import { useReactToPrint } from "react-to-print";
 
-import { GrayButton, PrimaryButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 import { Loader } from "@/components/Loader";
 import { TableView } from "@/components/Table";
@@ -116,20 +116,20 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
               />
             </div>
             <div className="flex flex-col mt-10">
-              <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-3xl">
                 {current_member?.name}
               </h1>
-              <p className="text-gray-500 font-semibold text-xl sm:text-lg">
+              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">
                 {current_member?.email}
               </p>
             </div>
           </div>
           <div className="mt-36 py-4 px-8 space-y-6">
             <div className="flex flex-col">
-              <h1 className="capitalize text-gray-700 font-semibold text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-primary_gray-700 font-medium text-3xl tracking-wider sm:text-3xl">
                 Patient Test Report
               </h1>
-              <p className="text-gray-500 font-semibold text-xl sm:text-lg">
+              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">
                 Please choose start date and end date to generate report.
               </p>
             </div>
@@ -164,20 +164,20 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                     max={now.toISOString().slice(0, 16)}
                     {...register("end_date")}
                   />
-                  <PrimaryButton className="px-12 py-[1.05rem] text-xl font-semibold">
+                  <Button className="px-12 py-[1.05rem] text-xl font-medium">
                     Search
-                  </PrimaryButton>
+                  </Button>
                 </form>
                 {!error && data && (
                   <div className="flex space-x-4">
-                    <GrayButton onClick={handlePrint}>Print Report</GrayButton>
+                    <Button onClick={handlePrint}>Print Report</Button>
                   </div>
                 )}
               </div>
             </div>
 
             {(error || !data) && (
-              <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+              <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
                 <WarningOctagon size={24} /> <span>No Details Found</span>
               </div>
             )}
