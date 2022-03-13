@@ -7,16 +7,10 @@
  */
 
 import create from "zustand";
-import {
-  combine,
-  devtools,
-  persist,
-  subscribeWithSelector,
-} from "zustand/middleware";
-
-import { Member } from "@/modules/members/types";
+import { combine, devtools, persist, subscribeWithSelector } from "zustand/middleware";
 
 import { LoginResponse } from "@/types";
+import { Member } from "@/modules/members/types";
 
 const userDataKey = "@sunya/user-data";
 const initialState = {

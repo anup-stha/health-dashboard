@@ -23,10 +23,7 @@ export const InputErrorPop: React.FC<any> = ({ error }: any) => {
     >
       <Popover className="relative flex no_animation">
         <Popover.Button className="cursor-pointer">
-          <AlertTriangle
-            size={20}
-            onClick={() => setIsOpen((prevState) => !prevState)}
-          />
+          <AlertTriangle size={20} onClick={() => setIsOpen((prevState) => !prevState)} />
         </Popover.Button>
 
         {isOpen && (

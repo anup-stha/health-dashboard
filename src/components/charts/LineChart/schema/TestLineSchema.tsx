@@ -14,25 +14,13 @@ export const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   try {
-    return utcToZonedTime(
-      new Date(date).getTime() * 1000,
-      timezone
-    ).toLocaleString();
+    return utcToZonedTime(new Date(date).getTime() * 1000, timezone).toLocaleString();
   } catch {
     return "Not Available";
   }
 };
 
-const color = [
-  "#8b5cf6",
-  "#a855f7",
-  "#22c55e",
-  "#eab308",
-  "#3b82f6",
-  "#f97316",
-  "#8b5cf6",
-  "#22c55e",
-];
+const color = ["#8b5cf6", "#a855f7", "#22c55e", "#eab308", "#3b82f6", "#f97316", "#8b5cf6", "#22c55e"];
 
 type ChartData = {
   values: number[];

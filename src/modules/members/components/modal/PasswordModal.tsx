@@ -43,22 +43,15 @@ export const PasswordModal = ({ close }: { close: any }) => {
             <Modal.Form
               onSubmit={handleSubmit(async (values) => {
                 if (values.oldPassword === values.newPassword) {
-                  throw new Error(
-                    "Old Password and New Password cannot be Same"
-                  );
+                  throw new Error("Old Password and New Password cannot be Same");
                 }
                 if (values.newPassword !== values.confirmNewPassword) {
-                  throw new Error(
-                    "New Password and Confirm New Password Doesn't Match"
-                  );
+                  throw new Error("New Password and Confirm New Password Doesn't Match");
                 }
 
                 await alert({
                   type: "promise",
-                  promise: changePassword(
-                    values.oldPassword,
-                    values.newPassword
-                  ).then(() => {
+                  promise: changePassword(values.oldPassword, values.newPassword).then(() => {
                     close();
                     reset();
                   }),
@@ -102,17 +95,10 @@ export const PasswordModal = ({ close }: { close: any }) => {
 
             <div className="w-1/2 -mt-40 sm:mt-10 flex flex-col items-center -space-y-6  sm:space-y-0 sm:w-full">
               <div className="relative h-8xl w-full sm:h-7xl sm:-ml-12  ">
-                <Image
-                  src="/assets/change-password.svg"
-                  alt="Change Password"
-                  objectFit="contain"
-                  layout="fill"
-                />
+                <Image src="/assets/change-password.svg" alt="Change Password" objectFit="contain" layout="fill" />
               </div>
               <div className="flex flex-col items-center sm:hidden ">
-                <h1 className="text-2xl sm:text-xl font-medium text-primary-600">
-                  New Password must contain
-                </h1>
+                <h1 className="text-2xl sm:text-xl font-medium text-primary-600">New Password must contain</h1>
                 <div className=" text-xl sm:text-base sm:items-start font-medium text-primary_gray-600 flex flex-col items-center">
                   <p>At least six characters</p>
                   <p>At least one uppercase character</p>

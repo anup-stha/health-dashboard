@@ -22,11 +22,7 @@ interface ITestDropdown {
   setSelectedTest: (testList: Test) => void;
 }
 
-export const ProfileTestDropdown = ({
-  testList,
-  selectedTest,
-  setSelectedTest,
-}: ITestDropdown) => {
+export const ProfileTestDropdown = ({ testList, selectedTest, setSelectedTest }: ITestDropdown) => {
   return (
     <Listbox value={selectedTest} onChange={setSelectedTest}>
       {({ open }) => (
@@ -35,16 +31,11 @@ export const ProfileTestDropdown = ({
             <Listbox.Button className="relative w-full bg-white border border-primary_gray-300 rounded-md shadow-sm pl-4 pr-12 py-4 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary_gray-500 focus:border-primary_gray-500 text-xl">
               <span className="flex items-center">
                 <span className="ml-3 block truncate font-medium text-primary_gray-700 capitalize">
-                  {selectedTest && Object.keys(selectedTest).length !== 0
-                    ? selectedTest.name
-                    : "Please choose a test"}
+                  {selectedTest && Object.keys(selectedTest).length !== 0 ? selectedTest.name : "Please choose a test"}
                 </span>
               </span>
               <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <SelectorIcon
-                  className="h-5 w-5 text-primary_gray-400"
-                  aria-hidden="true"
-                />
+                <SelectorIcon className="h-5 w-5 text-primary_gray-400" aria-hidden="true" />
               </span>
             </Listbox.Button>
 
@@ -61,9 +52,7 @@ export const ProfileTestDropdown = ({
                     key={test.id}
                     className={({ active }) =>
                       classNames(
-                        active
-                          ? "text-white bg-primary_gray-600"
-                          : "text-primary_gray-900",
+                        active ? "text-white bg-primary_gray-600" : "text-primary_gray-900",
                         "cursor-pointer select-none relative py-4 pl-3 pr-9 font-medium"
                       )
                     }

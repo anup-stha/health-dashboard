@@ -14,10 +14,7 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import {
-  postMemberCategoryToast,
-  postUpdateMemberCategoryToast,
-} from "@/modules/roles/toasts/membersToast";
+import { postMemberCategoryToast, postUpdateMemberCategoryToast } from "@/modules/roles/toasts/membersToast";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { useGlobalState } from "@/modules/useGlobalState";
 
@@ -26,13 +23,9 @@ type memberCategoryFormProps = {
   id: number;
 };
 
-export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
-  type,
-  id,
-}) => {
+export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type, id }) => {
   const { selectedRole, memberCategoryList } = useRoleStore();
-  const categoryInitialData =
-    id && memberCategoryList.filter((category) => category.id === id)[0];
+  const categoryInitialData = id && memberCategoryList.filter((category) => category.id === id)[0];
 
   const { register, handleSubmit, control } = useForm({
     defaultValues: categoryInitialData
@@ -42,9 +35,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
         },
   });
 
-  const options = useGlobalState
-    .getState()
-    .base.data_types.map((element) => ({ value: element, label: element }));
+  const options = useGlobalState.getState().base.data_types.map((element) => ({ value: element, label: element }));
 
   return (
     <Modal.Form
@@ -66,24 +57,9 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({
       })}
     >
       <div className="space-y-4">
-        <DropdownController
-          options={options}
-          name="value_type"
-          label="Select Value Type"
-          control={control}
-        />
-        <PrimaryInput
-          label="Name"
-          type="text"
-          placeholder="Enter Name"
-          {...register("name")}
-        />
-        <SwitchInput
-          label="Required"
-          type="checkbox"
-          placeholder="Enter Required Field"
-          {...register("required")}
-        />
+        <DropdownController options={options} name="value_type" label="Select Value Type" control={control} />
+        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
+        <SwitchInput label="Required" type="checkbox" placeholder="Enter Required Field" {...register("required")} />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"} Category</Button>
@@ -98,13 +74,7 @@ type DropdownProps = {
   isDisabled?: boolean;
 };
 
-export const DropdownController: React.FC<DropdownProps> = ({
-  name,
-  label,
-  control,
-  options,
-  isDisabled,
-}) => {
+export const DropdownController: React.FC<DropdownProps> = ({ name, label, control, options, isDisabled }) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -157,8 +127,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
       color: "#262626",
       fontSize: "1.125rem",
       textTransform: "capitalize",
-      boxShadow:
-        "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
+      boxShadow: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
     }),
   };
 
@@ -186,12 +155,7 @@ export const DropdownController: React.FC<DropdownProps> = ({
   );
 };
 
-export const MultiDropdown: React.FC<DropdownProps> = ({
-  name,
-  label,
-  control,
-  options,
-}) => {
+export const MultiDropdown: React.FC<DropdownProps> = ({ name, label, control, options }) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -249,8 +213,7 @@ export const MultiDropdown: React.FC<DropdownProps> = ({
       color: "#262626",
       fontSize: "1.125rem",
       textTransform: "capitalize",
-      boxShadow:
-        "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
+      boxShadow: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
     }),
   };
 
@@ -265,12 +228,8 @@ export const MultiDropdown: React.FC<DropdownProps> = ({
             ref={ref}
             options={options}
             value={options.filter((option) => value?.includes(option.value))}
-            defaultValue={options.filter((option) =>
-              value?.includes(option.value)
-            )}
-            onChange={(options) =>
-              onChange(options?.map((option: any) => option.value))
-            }
+            defaultValue={options.filter((option) => value?.includes(option.value))}
+            onChange={(options) => onChange(options?.map((option: any) => option.value))}
             isSearchable={false}
             styles={customStyles}
             isMulti={true}

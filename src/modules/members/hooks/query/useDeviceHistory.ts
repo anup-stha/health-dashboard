@@ -8,10 +8,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import {
-  deleteUserDeviceHistory,
-  getUserDeviceHistory,
-} from "@/services/requests/authRequests";
+import { deleteUserDeviceHistory, getUserDeviceHistory } from "@/services/requests/authRequests";
 
 const useDelete = (member_id: number) => {
   const queryClient = useQueryClient();
@@ -24,15 +21,11 @@ const useDelete = (member_id: number) => {
 };
 
 const useList = (member_id: number) => {
-  return useQuery(
-    ["device-list", member_id],
-    () => getUserDeviceHistory(member_id),
-    {
-      enabled: !!member_id,
-      refetchOnWindowFocus: true,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["device-list", member_id], () => getUserDeviceHistory(member_id), {
+    enabled: !!member_id,
+    refetchOnWindowFocus: true,
+    staleTime: Infinity,
+  });
 };
 
 export const DeviceHistoryQuery = { useDelete, useList };

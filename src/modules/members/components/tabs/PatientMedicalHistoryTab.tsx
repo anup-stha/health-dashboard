@@ -18,9 +18,7 @@ interface IProfileTestSection {
   selectedMember: Member;
 }
 
-export const PatientMedicalHistory = ({
-  selectedMember,
-}: IProfileTestSection) => {
+export const PatientMedicalHistory = ({ selectedMember }: IProfileTestSection) => {
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
       <div className="print:hidden space-y-8">
@@ -35,14 +33,11 @@ export const PatientMedicalHistory = ({
 
         {selectedMember.medical_history.length !== 0 ? (
           <TableView
-            data={selectedMember.medical_history.map((element) =>
-              omit(element, ["id", "detail_category_id"])
-            )}
+            data={selectedMember.medical_history.map((element) => omit(element, ["id", "detail_category_id"]))}
           />
         ) : (
           <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
-            <WarningOctagon size={24} />{" "}
-            <span>No Patient Medical Details Found</span>
+            <WarningOctagon size={24} /> <span>No Patient Medical Details Found</span>
           </div>
         )}
       </div>

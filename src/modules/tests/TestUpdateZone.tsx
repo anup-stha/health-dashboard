@@ -6,26 +6,20 @@
  *
  */
 
-import { TestModal } from "@/modules/tests/testAddModal";
-
 import { Test } from "@/types";
+import { TestModal } from "@/modules/tests/testAddModal";
 
 type TestUpdateZoneProps = {
   selectedTest: Test;
 };
 
-export const TestUpdateZone: React.FC<TestUpdateZoneProps> = ({
-  selectedTest,
-}) => {
+export const TestUpdateZone: React.FC<TestUpdateZoneProps> = ({ selectedTest }) => {
   return (
     <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center lg:w-full">
       <div>
-        <h1 className="text-2xl font-medium text-primary_gray-900">
-          Edit this test
-        </h1>
+        <h1 className="text-2xl font-medium text-primary_gray-900">Edit this test</h1>
         <p className="text-lg font-medium text-primary_gray-500">
-          Once you edit a test, you cannot edit this test for 3 days. Please be
-          certain.
+          Once you edit a test, you cannot edit this test for 3 days. Please be certain.
         </p>
       </div>
       <TestModal variant="test" type="edit" selectedTest={selectedTest} />

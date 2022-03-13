@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { TestLineChart } from "@/components/charts/LineChart";
 import { Loader } from "@/components/Loader";
 
+import { Test } from "@/types";
 import { ProfileTestDropdown } from "@/modules/members/components/dropdown/ProfileTestDropdown";
 import { ProfileTestTab } from "@/modules/members/components/tests/ProfileTestTab";
 import { useMemberTestList } from "@/modules/members/hooks/query/useMemberTestList";
@@ -19,8 +20,6 @@ import { Member } from "@/modules/members/types";
 import { getChartData } from "@/modules/members/utils/getChartData";
 import { testStore } from "@/modules/tests/testStore";
 import { useTestList } from "@/services/requests/testRequests";
-
-import { Test } from "@/types";
 
 interface IProfileTestSection {
   selectedMember: Member;
@@ -51,31 +50,20 @@ const Tab = ({ selectedMember }: IProfileTestSection) => {
           <div className="flex flex-col space-y-8 sm:space-y-4">
             <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
               <div className="print:hidden">
-                <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">
-                  Tests
-                </h1>
+                <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Tests</h1>
                 <h1 className="text-primary_gray-500 font-medium text-lg print:hidden">
                   Please choose a test to show results of that test
                 </h1>
               </div>
-              <ProfileTestDropdown
-                testList={testList}
-                selectedTest={selectedTest}
-                setSelectedTest={setSelectedTest}
-              />
+              <ProfileTestDropdown testList={testList} selectedTest={selectedTest} setSelectedTest={setSelectedTest} />
             </div>
             <div className="space-y-4">
               {testLoading ? (
                 <Loader />
               ) : (
                 <>
-                  {Object.keys(chartData).length !== 0 && (
-                    <TestLineChart datas={chartData} />
-                  )}
-                  <ProfileTestTab
-                    testList={testDetailsList}
-                    selectedMember={selectedMember}
-                  />
+                  {Object.keys(chartData).length !== 0 && <TestLineChart datas={chartData} />}
+                  <ProfileTestTab testList={testDetailsList} selectedMember={selectedMember} />
                 </>
               )}
             </div>

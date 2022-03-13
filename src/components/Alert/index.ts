@@ -48,13 +48,7 @@ export const alert = ({ type = "promise", promise, msgs, id }: toastProps) => {
   );
 };
 
-export const toastAlert = ({
-  type = "promise",
-  promise,
-  msgs,
-  id,
-  duration,
-}: toastProps) => {
+export const toastAlert = ({ type = "promise", promise, msgs, id, duration }: toastProps) => {
   return (
     promise &&
     msgs &&

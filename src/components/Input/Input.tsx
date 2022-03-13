@@ -8,10 +8,7 @@ type ExtraInputProps = {
   error?: string;
 };
 
-type HookInputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
+type HookInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
   ExtraInputProps;
 
 export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
@@ -29,9 +26,7 @@ export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
       <>
         <div className="input relative">
           {hasIcons && (
-            <div className="absolute top-1/2 left-6 -translate-y-0.5 text-gray-500">
-              {icon ?? icons[type]}
-            </div>
+            <div className="absolute top-1/2 left-6 -translate-y-0.5 text-gray-500">{icon ?? icons[type]}</div>
           )}
 
           {error && (
@@ -40,11 +35,7 @@ export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
             </div>
           )}
 
-          {error && (
-            <span className="absolute top-0 right-0 text-lg text-red-500">
-              {error}
-            </span>
-          )}
+          {error && <span className="absolute top-0 right-0 text-lg text-red-500">{error}</span>}
 
           {isPassword && (
             <button
@@ -52,11 +43,7 @@ export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
               className="absolute top-1/2 right-6 -translate-y-0.5 text-gray-500 cursor-pointer hover:text-gray-600"
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              {showPassword ? (
-                <Eye size={20} weight="duotone" />
-              ) : (
-                <EyeSlash size={20} weight="duotone" />
-              )}
+              {showPassword ? <Eye size={20} weight="duotone" /> : <EyeSlash size={20} weight="duotone" />}
             </button>
           )}
 

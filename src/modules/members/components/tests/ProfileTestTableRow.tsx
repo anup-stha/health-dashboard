@@ -13,10 +13,9 @@ import React from "react";
 
 import { TableView } from "@/components/Table";
 
+import { MemberTestListData, MemberTestReport } from "@/types";
 import { utcDateToLocal } from "@/modules/members/utils/utcDateToLocal";
 import { isValidHttpUrl } from "@/utils/isValidHttpUrl";
-
-import { MemberTestListData, MemberTestReport } from "@/types";
 
 type ProfileTestData = {
   id: number;
@@ -31,9 +30,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
     <tr key={data.id}>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700 align-top">
         <div className="flex flex-col space-y-2">
-          <span>
-            {moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}
-          </span>
+          <span>{moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}</span>
 
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
@@ -58,12 +55,8 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
 
           return (
             <div key={index} className="flex space-x-2 text-primary_gray-700">
-              <span className="font-medium text-primary_gray-500">
-                {Object.keys(element)[0]} :{" "}
-              </span>
-              <span className="font-medium line-clamp-1">
-                {Object.values(element)[0]}
-              </span>
+              <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
+              <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
             </div>
           );
         })}
@@ -71,20 +64,16 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-primary_gray-600">
         {data.tests.map((element, index) => (
           <div key={index} className=" text-primary_gray-700 flex space-x-2">
-            <span className="font-medium text-primary_gray-500">
-              {Object.keys(element)[1]} :{" "}
-            </span>
+            <span className="font-medium text-primary_gray-500">{Object.keys(element)[1]} : </span>
             <span className="font-medium flex flex-col">
               {Object.values(element)[1].length === 0
                 ? "N/A"
-                : Object.values(element)[1].map(
-                    (element: any, index: number) => (
-                      <span key={index} className="line-clamp-2">
-                        {" "}
-                        {element}{" "}
-                      </span>
-                    )
-                  )}
+                : Object.values(element)[1].map((element: any, index: number) => (
+                    <span key={index} className="line-clamp-2">
+                      {" "}
+                      {element}{" "}
+                    </span>
+                  ))}
             </span>
           </div>
         ))}
@@ -97,9 +86,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
 type ProfileTestGridViewProps = {
   testDetails: MemberTestListData;
 };
-export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
-  testDetails,
-}) => {
+export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({ testDetails }) => {
   return (
     <div className="grid grid-cols-2 gap-8 items-stretch justify-stretch sm:grid-cols-1 sm:gap-6 print:grid-cols-1">
       {Object.keys(testDetails).length !== 0 &&
@@ -161,9 +148,7 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({
 type ProfileTestGridTableRowProps = {
   data?: MemberTestReport;
 };
-export const ProfileTestGridTableRow: React.FC<
-  ProfileTestGridTableRowProps
-> = ({ data }) => {
+export const ProfileTestGridTableRow: React.FC<ProfileTestGridTableRowProps> = ({ data }) => {
   return data ? (
     <tr>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">
@@ -171,14 +156,10 @@ export const ProfileTestGridTableRow: React.FC<
           <span>{data.name} </span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">
-        {data.value}
-      </td>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">{data.value}</td>
 
       <td className="capitalize px-6 py-4 text-xl font-medium text-primary_gray-700 truncate">
-        {data.note.length === 0
-          ? "N/A"
-          : data.note.map((note, index) => <span key={index}> {note} </span>)}
+        {data.note.length === 0 ? "N/A" : data.note.map((note, index) => <span key={index}> {note} </span>)}
       </td>
     </tr>
   ) : (

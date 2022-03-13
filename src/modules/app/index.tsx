@@ -41,8 +41,7 @@ export function AppPost() {
 
     console.log(response.status);
   }, []);
-  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({ onDrop });
+  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject } = useDropzone({ onDrop });
 
   const style = useMemo(
     () => ({
@@ -60,9 +59,7 @@ export function AppPost() {
     <section className="">
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} style={{ display: "none" }} />
-        <p>
-          Drag and drop filled excel file here, or click to select that file
-        </p>
+        <p>Drag and drop filled excel file here, or click to select that file</p>
       </div>
     </section>
   );

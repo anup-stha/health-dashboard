@@ -23,12 +23,7 @@ type toastProps = {
   id: string;
 };
 
-export const promiseToast = async ({
-  promise,
-  msgs,
-  id,
-  onSuccess,
-}: toastProps) => {
+export const promiseToast = async ({ promise, msgs, id, onSuccess }: toastProps) => {
   toast.loading(msgs.loading, { id: id });
   try {
     const response = await promise;

@@ -17,10 +17,7 @@ const RolePage = () => {
 
   return (
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 space-y-8">
-      <Heading
-        title="Roles"
-        subtitle="Click on any role to add, update or delete permissions."
-      />
+      <Heading title="Roles" subtitle="Click on any role to add, update or delete permissions." />
       <div className="w-full grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-6">
         {roleList.map((role) => (
           <RoleCard

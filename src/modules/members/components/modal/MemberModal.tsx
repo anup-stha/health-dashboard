@@ -14,13 +14,12 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
+import { Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberAddEditForm } from "@/modules/members/components/form/MemberAddEditForm";
 import { PatientAddForm } from "@/modules/members/components/form/PatientAddForm";
 import { UserAddForm } from "@/modules/members/components/form/UserAddForm";
 import { Member } from "@/modules/members/types";
-
-import { Role } from "@/types";
 
 interface MemberModalProps {
   type: "add" | "edit";
@@ -40,22 +39,14 @@ interface MemberModalProps {
  * @param {number} parent_member_id
  * @return {JSX.Element}
  */
-export function MemberModal({
-  type,
-  initialData,
-  button,
-  selectedRole,
-  parent_member_id,
-}: MemberModalProps) {
+export function MemberModal({ type, initialData, button, selectedRole, parent_member_id }: MemberModalProps) {
   const currentUser = useAuthStore((state) => state.user);
-  const { register, handleSubmit, control, reset, watch, unregister } = useForm(
-    {
-      defaultValues: {
-        ...initialData,
-        dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
-      },
-    }
-  );
+  const { register, handleSubmit, control, reset, watch, unregister } = useForm({
+    defaultValues: {
+      ...initialData,
+      dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+    },
+  });
 
   useEffect(() => {
     unregister();
@@ -65,34 +56,24 @@ export function MemberModal({
     if (currentUser.id === 1 || type === "edit") {
       return true;
     } else if (selectedRole.slug === "patient") {
-      return currentUser.role.permissions.some(
-        (permission) => permission.slug === "create_patient"
-      );
+      return currentUser.role.permissions.some((permission) => permission.slug === "create_patient");
     } else if (selectedRole.slug === "org_operator") {
-      return currentUser.role.permissions.some(
-        (permission) => permission.slug === "create_operator"
-      );
+      return currentUser.role.permissions.some((permission) => permission.slug === "create_operator");
     }
     return false;
   };
 
   return (
     <Modal>
-      <Modal.Button
-        type="open"
-        disabled={selectedRole.id === 0 || !getIfPermitted()}
-      >
+      <Modal.Button type="open" disabled={selectedRole.id === 0 || !getIfPermitted()}>
         {type === "add" ? (
           <Button
             onClick={() => {
               !getIfPermitted() &&
-                toast.error(
-                  "You don't have the permission to add. Please contact Sunya Health",
-                  {
-                    duration: 4000,
-                    id: "permission-error",
-                  }
-                );
+                toast.error("You don't have the permission to add. Please contact Sunya Health", {
+                  duration: 4000,
+                  id: "permission-error",
+                });
             }}
             data-testid={`${type}-modal-open-btn`}
           >
@@ -109,8 +90,7 @@ export function MemberModal({
 
       <Modal.Content>
         <Modal.Title>
-          {type === "add" ? "Add" : "Edit"} {selectedRole && selectedRole.name}{" "}
-          User
+          {type === "add" ? "Add" : "Edit"} {selectedRole && selectedRole.name} User
         </Modal.Title>
         <div className="flex flex-col space-y-4 ">
           {selectedRole && selectedRole.slug === "patient" && type === "add" ? (
@@ -125,9 +105,7 @@ export function MemberModal({
             />
           ) : selectedRole &&
             selectedRole.permissions &&
-            selectedRole.permissions.some(
-              (element) => element.slug === "login"
-            ) &&
+            selectedRole.permissions.some((element) => element.slug === "login") &&
             type === "add" ? (
             <UserAddForm
               handleSubmit={handleSubmit}

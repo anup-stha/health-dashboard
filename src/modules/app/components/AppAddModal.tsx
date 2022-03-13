@@ -31,11 +31,7 @@ type AppAddEditModalProps =
       defaultValues: AppForm;
     };
 
-export const AppAddEditModal = ({
-  type,
-  id,
-  defaultValues,
-}: AppAddEditModalProps) => {
+export const AppAddEditModal = ({ type, id, defaultValues }: AppAddEditModalProps) => {
   return (
     <Modal>
       {type === "add" ? (

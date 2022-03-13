@@ -12,9 +12,8 @@ import React from "react";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
-import { TestAddEditForm } from "@/modules/tests/testAddEditForm";
-
 import { Test } from "@/types";
+import { TestAddEditForm } from "@/modules/tests/testAddEditForm";
 
 type RoleModalProps = {
   variant: "test" | "subtest";
@@ -25,13 +24,7 @@ type RoleModalProps = {
   children?: React.ReactNode;
 };
 
-export const TestModal: React.FC<RoleModalProps> = ({
-  type,
-  id,
-  variant,
-  selectedTest,
-  children,
-}) => {
+export const TestModal: React.FC<RoleModalProps> = ({ type, id, variant, selectedTest, children }) => {
   return (
     <Modal>
       {type === "add" ? (
@@ -45,11 +38,7 @@ export const TestModal: React.FC<RoleModalProps> = ({
         </Modal.Button>
       ) : (
         <Modal.Button type="open">
-          {children ? (
-            children
-          ) : (
-            <Button color="secondary">&nbsp;&nbsp;Edit&nbsp;&nbsp; </Button>
-          )}
+          {children ? children : <Button color="secondary">&nbsp;&nbsp;Edit&nbsp;&nbsp; </Button>}
         </Modal.Button>
       )}
 
@@ -57,12 +46,7 @@ export const TestModal: React.FC<RoleModalProps> = ({
         <Modal.Title>
           {type === "add" ? "Add" : "Edit"} A Test {selectedTest && "Category"}
         </Modal.Title>
-        <TestAddEditForm
-          variant={variant}
-          type={type ?? "add"}
-          id={id}
-          selectedTest={selectedTest}
-        />
+        <TestAddEditForm variant={variant} type={type ?? "add"} id={id} selectedTest={selectedTest} />
       </Modal.Content>
     </Modal>
   );

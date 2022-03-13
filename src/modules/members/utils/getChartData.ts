@@ -24,9 +24,7 @@ export const getChartData = (testList: MemberTestList[]) => {
       }
     );
   });
-  const tempData = chartData
-    ? chartData.map((element) => Object.values(element))
-    : [];
+  const tempData = chartData ? chartData.map((element) => Object.values(element)) : [];
   const initialData: any = [];
   tempData.forEach((element) => initialData.push(...element));
 

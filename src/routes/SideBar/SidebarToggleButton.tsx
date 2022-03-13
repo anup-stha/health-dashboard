@@ -18,9 +18,7 @@ export const SideBarToggleButton = () => {
       <div
         onClick={() => toggleOpen()}
         className={`z-50 fixed w-11 h-11 top-6 bg-primary-500 text-2xl ${
-          !open
-            ? "left-28 sm:hidden"
-            : "left-[19.6%] translate-x-[-50%] sm:hidden md:left-[37.5%] lg:left-[28%]"
+          !open ? "left-28 sm:hidden" : "left-[19.6%] translate-x-[-50%] sm:hidden md:left-[37.5%] lg:left-[28%]"
         } print:hidden rounded-full flex justify-center items-center text-white shadow-E200 cursor-pointer transition-all duration-100`}
       >
         {!open ? <CaretRight weight="bold" /> : <CaretLeft weight="bold" />}

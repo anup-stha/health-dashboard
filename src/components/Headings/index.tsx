@@ -14,7 +14,7 @@ interface IHeadingProps {
 export const Heading = ({ title, subtitle }: IHeadingProps) => {
   return (
     <div>
-      <h1 className="text-5xl font-medium text-gray-800">{title}</h1>
+      <h1 className="text-5xl font-medium text-gray-700">{title}</h1>
       <p className="text-lg text-gray-500">{subtitle}</p>
     </div>
   );

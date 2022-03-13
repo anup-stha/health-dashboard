@@ -34,11 +34,7 @@ type AppReleaseModalProps =
       defaultValues: AppForm;
     };
 
-export const AppReleaseModal = ({
-  type,
-  id,
-  defaultValues,
-}: AppReleaseModalProps) => {
+export const AppReleaseModal = ({ type, id, defaultValues }: AppReleaseModalProps) => {
   return (
     <Modal>
       {type === "add" ? (

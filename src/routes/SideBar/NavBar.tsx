@@ -14,13 +14,7 @@ import { orgNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
   const role = useAuthStore().user.role;
-  const navBarRoutes = role
-    ? role.id === 1
-      ? superAdminNavRoutes
-      : role.id === 2
-      ? orgNavRoutes
-      : []
-    : [];
+  const navBarRoutes = role ? (role.id === 1 ? superAdminNavRoutes : role.id === 2 ? orgNavRoutes : []) : [];
 
   return (
     <div className="w-full text-sm">
@@ -39,12 +33,7 @@ export const NavBar = () => {
           }
 
           if (route.children) {
-            return (
-              <NavDropdown
-                subRoutes={route}
-                key={`${route.id}-${route.title}`}
-              />
-            );
+            return <NavDropdown subRoutes={route} key={`${route.id}-${route.title}`} />;
           }
 
           return <NavItem route={route} key={`${route.id}-${route.title}`} />;

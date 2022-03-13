@@ -6,18 +6,10 @@
  *
  */
 
+import { Invoice, InvoiceListResponse, InvoiceResponse, NullDataResponse } from "@/types";
 import { privateAgent } from "@/services/requests/index";
 
-import {
-  Invoice,
-  InvoiceListResponse,
-  InvoiceResponse,
-  NullDataResponse,
-} from "@/types";
-
-export const postInvoice = (
-  invoice_data: Omit<Invoice, "invoice_no" | "id">
-) => {
+export const postInvoice = (invoice_data: Omit<Invoice, "invoice_no" | "id">) => {
   return privateAgent.post<InvoiceResponse>(`invoice`, {
     ...invoice_data,
     subscription_detail: JSON.stringify(invoice_data.subscription_detail),

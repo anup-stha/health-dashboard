@@ -19,10 +19,7 @@ export const Loader = () => {
 
 export const MainLoader = () => {
   return (
-    <div
-      className="h-screen flex items-center justify-center"
-      data-testid="loader"
-    >
+    <div className="h-screen flex items-center justify-center" data-testid="loader">
       <LoaderComponent type="Bars" />
     </div>
   );

@@ -37,6 +37,4 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useGlobalState = create(
-  devtools(persist(store, { name: "@sunya/globals" }), { name: "globals" })
-);
+export const useGlobalState = create(devtools(persist(store, { name: "@sunya/globals" }), { name: "globals" }));

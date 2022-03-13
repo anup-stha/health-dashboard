@@ -20,9 +20,7 @@ export type NavDropdownPropType = {
 
 export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
   const { pathname } = useRouter();
-  const isPathSelected = subRoutes.children?.some(
-    (route) => route.link && pathname.includes(route.link)
-  );
+  const isPathSelected = subRoutes.children?.some((route) => route.link && pathname.includes(route.link));
   const [expand, setExpand] = useState(isPathSelected);
 
   const { open } = useSideBarStore();
@@ -59,9 +57,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
           <div
             className={`flex relative items-center  ${
-              !open
-                ? "opacity-100 -translate-x-8 transition-opacity duration-500 px-4"
-                : "opacity-0 w-0 p-0"
+              !open ? "opacity-100 -translate-x-8 transition-opacity duration-500 px-4" : "opacity-0 w-0 p-0"
             }  `}
           >
             <div className="sm:hidden">{subRoutes.icon}</div>
@@ -76,11 +72,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
       </li>
 
       {expand && (
-        <div
-          className={
-            open ? "border-primary_gray-300 border-l-2 ml-8 space-y-1" : ""
-          }
-        >
+        <div className={open ? "border-primary_gray-300 border-l-2 ml-8 space-y-1" : ""}>
           {expand &&
             subRoutes.children &&
             subRoutes.children.map((route) => {
@@ -103,20 +95,11 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
               }
 
               if (route.children) {
-                return (
-                  <NavDropdown
-                    subRoutes={route}
-                    key={`${route.id}-${route.title}`}
-                  />
-                );
+                return <NavDropdown subRoutes={route} key={`${route.id}-${route.title}`} />;
               }
 
               return (
-                <NavItem
-                  key={`${route.id}-${route.title}`}
-                  route={route}
-                  containerClassName={open ? `pl-4` : ""}
-                />
+                <NavItem key={`${route.id}-${route.title}`} route={route} containerClassName={open ? `pl-4` : ""} />
               );
             })}
         </div>

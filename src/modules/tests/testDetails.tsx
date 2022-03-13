@@ -25,20 +25,12 @@ export const TestDetails = () => {
       <hr className="border-t-[1px] border-primary_gray-200" />
 
       <div className="space-y-4">
-        <h1 className="text-3xl font-medium text-primary_gray-700">
-          Test Sub Categories
-        </h1>
+        <h1 className="text-3xl font-medium text-primary_gray-700">Test Sub Categories</h1>
         <div className="w-full grid grid-cols-3 lg:grid-cols-2 sm:grid-cols-1 gap-6">
           {selectedTest.sub_categories &&
             selectedTest.sub_categories.map((test) => (
               <div key={test.id}>
-                <TestCard
-                  id={test.id}
-                  name={test.name}
-                  desc={test.desc}
-                  slug={test.slug}
-                  isPublic={test.public}
-                />
+                <TestCard id={test.id} name={test.name} desc={test.desc} slug={test.slug} isPublic={test.public} />
               </div>
             ))}
           <TestModal variant="subtest" type="add" selectedTest={selectedTest} />
@@ -48,12 +40,8 @@ export const TestDetails = () => {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-medium text-primary_gray-900">
-            Alert Zone
-          </h1>
-          <p className="text-lg font-medium text-primary_gray-500">
-            Please be careful with anything you do here
-          </p>
+          <h1 className="text-3xl font-medium text-primary_gray-900">Alert Zone</h1>
+          <p className="text-lg font-medium text-primary_gray-500">Please be careful with anything you do here</p>
         </div>{" "}
         <TestUpdateZone selectedTest={selectedTest} />
         <TestDeleteZone />

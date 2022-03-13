@@ -20,48 +20,24 @@ interface IProfileOverviewTabProps {
  * @param {MemberOtherDetails} other_details - other details that are not required on not included in primary details
  * @return {JSX.Element}
  */
-export function ProfileOverviewTab({
-  other_details,
-  primary_details,
-}: IProfileOverviewTabProps) {
+export function ProfileOverviewTab({ other_details, primary_details }: IProfileOverviewTabProps) {
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
-      <h1 className="text-3xl font-medium text-primary_gray-800">
-        Profile Overview
-      </h1>
+      <h1 className="text-3xl font-medium text-primary_gray-800">Profile Overview</h1>
       <div className="h-0.5 bg-slate-200 w-full absolute left-0 top-20" />
       <div className="flex flex-col mt-12">
         <div className="grid grid-cols-2 gap-4 w-1/2 md:w-full">
           <div className="flex flex-col gap-8">
-            <div className="text-xl font-medium text-primary_gray-400">
-              Member Code
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Full Name
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Email Address
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Phone Number
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Date of Birth
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Address
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Gender
-            </div>
-            <div className="text-xl font-medium text-primary_gray-400">
-              Marital Status
-            </div>
+            <div className="text-xl font-medium text-primary_gray-400">Member Code</div>
+            <div className="text-xl font-medium text-primary_gray-400">Full Name</div>
+            <div className="text-xl font-medium text-primary_gray-400">Email Address</div>
+            <div className="text-xl font-medium text-primary_gray-400">Phone Number</div>
+            <div className="text-xl font-medium text-primary_gray-400">Date of Birth</div>
+            <div className="text-xl font-medium text-primary_gray-400">Address</div>
+            <div className="text-xl font-medium text-primary_gray-400">Gender</div>
+            <div className="text-xl font-medium text-primary_gray-400">Marital Status</div>
             {other_details.map((detail) => (
-              <div
-                key={detail.id}
-                className="text-xl font-medium text-primary_gray-400"
-              >
+              <div key={detail.id} className="text-xl font-medium text-primary_gray-400">
                 {detail.name}
               </div>
             ))}
@@ -70,9 +46,7 @@ export function ProfileOverviewTab({
             <div className="text-xl font-Inter line-clamp-1 font-medium text-primary_gray-800">
               {primary_details.member_code}
             </div>
-            <div className="text-xl font-medium line-clamp-1 text-primary_gray-800">
-              {primary_details.name}
-            </div>
+            <div className="text-xl font-medium line-clamp-1 text-primary_gray-800">{primary_details.name}</div>
             <a
               href={`mailto: ${primary_details.email}`}
               className="text-xl font-medium line-clamp-1 text-primary_gray-800"
@@ -88,20 +62,13 @@ export function ProfileOverviewTab({
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {epochToDate(primary_details.dob_ad)}
             </div>
-            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
-              {primary_details.address}
-            </div>
-            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
-              {primary_details.gender}
-            </div>
+            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">{primary_details.address}</div>
+            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">{primary_details.gender}</div>
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {primary_details.marital_status}
             </div>
             {other_details.map((detail) => (
-              <div
-                key={detail.id}
-                className="text-xl font-medium line-clamp-1 text-primary_gray-850"
-              >
+              <div key={detail.id} className="text-xl font-medium line-clamp-1 text-primary_gray-850">
                 {detail.value}
               </div>
             ))}

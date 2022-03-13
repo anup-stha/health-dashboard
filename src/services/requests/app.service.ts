@@ -8,9 +8,8 @@
 
 import { AxiosResponse } from "axios";
 
-import { privateAgent } from "@/services/requests/index";
-
 import { StatusType } from "@/types";
+import { privateAgent } from "@/services/requests/index";
 
 type SignedUrlBody = {
   member_id: number;
@@ -84,10 +83,7 @@ export const getSignedUrl = ({
   });
 };
 
-export const putFile = (
-  put_url: string,
-  { file }: putUrlBody
-): Promise<AxiosResponse> => {
+export const putFile = (put_url: string, { file }: putUrlBody): Promise<AxiosResponse> => {
   return privateAgent.put(put_url, {
     file: file,
   });
@@ -105,9 +101,7 @@ export const postApp = async (body: Omit<App, "id" | "slug">): Promise<App> => {
   return response?.data.data;
 };
 
-export const putApp = async (
-  body: Omit<App, "slug" | "application_id">
-): Promise<App> => {
+export const putApp = async (body: Omit<App, "slug" | "application_id">): Promise<App> => {
   const response = await privateAgent.put<AppCreateResponse>(`app/${body.id}`, {
     name: body.name,
     secret_key: body.secret_key,
@@ -116,31 +110,18 @@ export const putApp = async (
 };
 
 export const getAppReleaseList = async (id: number): Promise<AppRelease[]> => {
-  const response = await privateAgent.get<AppReleaseListResponse>(
-    `app/release/all/${id}`
-  );
+  const response = await privateAgent.get<AppReleaseListResponse>(`app/release/all/${id}`);
   return response?.data.data;
 };
 
-export const postAppRelease = async (
-  body: AppReleaseBody
-): Promise<AppRelease> => {
-  const response = await privateAgent.post<AppReleaseCreateResponse>(
-    "app/release",
-    body
-  );
+export const postAppRelease = async (body: AppReleaseBody): Promise<AppRelease> => {
+  const response = await privateAgent.post<AppReleaseCreateResponse>("app/release", body);
   return response?.data.data;
 };
 
-export const putAppRelease = async (
-  body: Partial<AppRelease>
-): Promise<AppRelease> => {
-  const response = await privateAgent.put<AppReleaseCreateResponse>(
-    `app/release/${body.id}`,
-    body,
-    {
-      onUploadProgress: (progressEvent) => console.log(progressEvent.loaded),
-    }
-  );
+export const putAppRelease = async (body: Partial<AppRelease>): Promise<AppRelease> => {
+  const response = await privateAgent.put<AppReleaseCreateResponse>(`app/release/${body.id}`, body, {
+    onUploadProgress: (progressEvent) => console.log(progressEvent.loaded),
+  });
   return response?.data.data;
 };

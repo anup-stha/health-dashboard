@@ -9,14 +9,8 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
+import { MemberDetailCategory, Permission, Role, RoleListResponse } from "@/types";
 import { getAllPermissions, listRole } from "@/services/requests/roleRequests";
-
-import {
-  MemberDetailCategory,
-  Permission,
-  Role,
-  RoleListResponse,
-} from "@/types";
 
 type roleInitialStateProps = {
   allRoleList: {
@@ -130,13 +124,7 @@ const store = combine(initialState, (set) => ({
     set({ allPermission: permission });
   },
 
-  setSelectedPermission: ({
-    current,
-    initial,
-    selected,
-    deselected,
-    all,
-  }: any) => {
+  setSelectedPermission: ({ current, initial, selected, deselected, all }: any) => {
     set((state) => ({
       selectedPermission: {
         current: current ?? state.selectedPermission.current,
@@ -148,9 +136,7 @@ const store = combine(initialState, (set) => ({
     }));
   },
   getAllPermission: async (): Promise<any> => {
-    await getAllPermissions().then((response) =>
-      useRoleStore.getState().setAllPermission(response.data.data)
-    );
+    await getAllPermissions().then((response) => useRoleStore.getState().setAllPermission(response.data.data));
     return useRoleStore.getState().allPermission;
   },
 }));

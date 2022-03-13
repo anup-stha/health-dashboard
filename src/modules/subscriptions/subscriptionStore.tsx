@@ -61,6 +61,4 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useSubscriptionStore = create(
-  devtools(store, { name: "subscription" })
-);
+export const useSubscriptionStore = create(devtools(store, { name: "subscription" }));

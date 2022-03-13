@@ -62,9 +62,7 @@ export const ToastComponent = () => {
 
                   <div className="px-4 py-3">
                     <div className="flex flex-col">
-                      <span className="text-2xl font-Inter font-medium text-red-600 #dark:text-primary-400">
-                        Error
-                      </span>
+                      <span className="text-2xl font-Inter font-medium text-red-600 #dark:text-primary-400">Error</span>
                       <p className="max-w-lg text-xl font-Inter text-primary_gray-500 #dark:text-primary_gray-200  line-clamp-2 ">
                         {resolveValue(t.message, t)}
                       </p>

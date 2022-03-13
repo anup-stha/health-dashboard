@@ -19,12 +19,11 @@ import { Heading } from "@/components/Headings";
 import { TableView } from "@/components/Table";
 import { promiseToast } from "@/components/Toast";
 
+import { Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { dropdownStyles } from "@/modules/members/components/others/PatientExcelImport/styles";
 import { queryClient } from "@/pages/_app";
 import { postMemberBulkWithDetails } from "@/services/requests/memberRequests";
-
-import { Role } from "@/types";
 
 interface IExcelImport {
   role: Role;
@@ -84,9 +83,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
         member.forEach((memberDetails, index) => {
           if (index > 4) {
-            const excel_category = memberDetailCategories.find(
-              (category) => category.slug === headers[index]
-            );
+            const excel_category = memberDetailCategories.find((category) => category.slug === headers[index]);
 
             if (!excel_category) {
               toast.error("Invalid Excel File");
@@ -121,8 +118,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
       reader.readAsArrayBuffer(acceptedFiles[0]);
     }
   }, []);
-  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({ onDrop });
+  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject } = useDropzone({ onDrop });
 
   const style = useMemo(
     () => ({
@@ -170,9 +166,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
         let detail_temp = {};
 
         curr.details.forEach((detail: any) => {
-          const category = memberDetailCategories.find(
-            (details) => details.id === detail.detail_category_id
-          );
+          const category = memberDetailCategories.find((details) => details.id === detail.detail_category_id);
           if (!category) return;
           detail_temp = { ...detail_temp, [category.slug]: detail.value };
         });
@@ -189,11 +183,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
     <div className="flex space-x-2">
       <Button onClick={fileDownloadOnButtonClick}>Import</Button>
       <Transition appear show={open} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
-          onClose={closeModal}
-        >
+        <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" onClose={closeModal}>
           <div className="min-h-screen px-4 text-center">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
             <Transition.Child
@@ -209,10 +199,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+            <span className="inline-block h-screen align-middle" aria-hidden="true">
               &#8203;
             </span>
             <Transition.Child
@@ -232,10 +219,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
                 {importedData.length !== 0 ? (
                   <div className="flex flex-col gap-2">
-                    <TableView
-                      data={data.slice(0, shownDataLength)}
-                      search={false}
-                    />
+                    <TableView data={data.slice(0, shownDataLength)} search={false} />
 
                     {importedData.length > 8 && (
                       <div
@@ -253,10 +237,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                           </>
                         ) : (
                           <>
-                            <span>
-                              Show other {importedData.length - shownDataLength}{" "}
-                              patients
-                            </span>
+                            <span>Show other {importedData.length - shownDataLength} patients</span>
                             <CaretCircleDown size={24} weight="fill" />
                           </>
                         )}
@@ -267,10 +248,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                   <section className="">
                     <div {...getRootProps({ style })}>
                       <input {...getInputProps()} style={{ display: "none" }} />
-                      <p>
-                        Drag and drop filled excel file here, or click to select
-                        that file
-                      </p>
+                      <p>Drag and drop filled excel file here, or click to select that file</p>
                     </div>
                   </section>
                 )}

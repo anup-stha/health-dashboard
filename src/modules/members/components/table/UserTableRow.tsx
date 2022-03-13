@@ -29,16 +29,10 @@ type OrgTableRowType = {
   loading?: boolean;
 };
 
-export const UserTableRow: React.FC<OrgTableRowType> = ({
-  data,
-  key,
-  loading,
-}) => {
+export const UserTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }) => {
   const router = useRouter();
   const member = useCurrentMemberStore((state) => state.member);
-  const setCurrentMember = useCurrentMemberStore(
-    (state) => state.setCurrentUser
-  );
+  const setCurrentMember = useCurrentMemberStore((state) => state.setCurrentUser);
 
   console.log(data);
 
@@ -54,10 +48,7 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
       <tr key={key}>
         <td className="px-6 py-4">
           <div className="flex items-center ">
-            <div
-              className="relative flex-shrink-0 h-16 w-16 cursor-pointer"
-              onClick={onMemberClick}
-            >
+            <div className="relative flex-shrink-0 h-16 w-16 cursor-pointer" onClick={onMemberClick}>
               <div
                 className={`${
                   data.active ? "bg-primary-500" : "bg-red-700"
@@ -65,23 +56,13 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
               />
               {data.image ? (
                 <div className="w-[4.2rem] h-[4.2rem] rounded-full object-contain overflow-hidden relative">
-                  <Image
-                    src={data.image}
-                    layout="fill"
-                    objectFit="cover"
-                    alt="profile"
-                  />
+                  <Image src={data.image} layout="fill" objectFit="cover" alt="profile" />
                 </div>
               ) : (
-                <LetteredAvatar
-                  name={data.name}
-                  size="50"
-                  round={true}
-                  maxInitials={2}
-                />
+                <LetteredAvatar name={data.name} size="50" round={true} maxInitials={2} />
               )}
             </div>
-            <div className="ml-4 flex flex-col">
+            <div className="ml-4 gap-1 flex flex-col">
               <div
                 className="text-xl font-medium text-primary_gray-900  capitalize cursor-pointer"
                 onClick={onMemberClick}
@@ -90,7 +71,7 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
               </div>
               <a
                 href={`mailto: ${data.email}`}
-                className="text-lg font-medium text-primary_gray-500 hover:text-primary_gray-800"
+                className="text-base tracking-wide text-primary_gray-500 hover:text-primary_gray-800"
               >
                 {data.email}
               </a>
@@ -110,15 +91,9 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-primary_gray-700 font-medium capitalize">
-            {data.address.slice(0, 30)}
-          </div>
+          <div className="text-lg text-primary_gray-700 font-medium capitalize">{data.address.slice(0, 30)}</div>
           <div className="text-lg text-primary_gray-500 font-medium">
-            <a
-              target="_blank"
-              href={`https://maps.google.com/?q=${data.lat},${data.lng}`}
-              rel="noreferrer"
-            >
+            <a target="_blank" href={`https://maps.google.com/?q=${data.lat},${data.lng}`} rel="noreferrer">
               <span className="flex items-center cursor-pointer hover:text-primary_gray-800">
                 Google Maps <CaretDoubleRight size={16} />
               </span>
@@ -149,10 +124,8 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
                   <Popover.Panel className="cursor-pointer absolute z-10 w-52 py-2 mt-3 right-2 bg-white ring-1 ring-black ring-opacity-5 rounded-sm shadow-lg space-y-2">
                     <div className="overflow-hidden" onClick={onMemberClick}>
                       <div className="bg-white flex items-center transition duration-150 ease-in-out group hover:bg-neutral-100 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-70">
-                        <div className="py-3 text-xl flex items-center px-4 gap-2 text-neutral-800 group-hover:text-neutral-900 ">
-                          <p className=" font-medium whitespace-nowrap  ">
-                            View Profile
-                          </p>
+                        <div className="py-3 text-xl flex items-center px-4 gap-2 text-neutral-700 group-hover:text-neutral-900 ">
+                          <p className=" font-medium whitespace-nowrap  ">View Profile</p>
                         </div>
                       </div>
                     </div>
@@ -172,10 +145,8 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
                         }}
                       >
                         <a className="bg-white flex items-center transition duration-150 ease-in-out group hover:bg-neutral-100 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-70">
-                          <div className="py-3 text-xl flex items-center px-4 gap-2 text-neutral-800 group-hover:text-neutral-900 ">
-                            <p className=" font-medium whitespace-nowrap  ">
-                              Reset Password
-                            </p>
+                          <div className="py-3 text-xl flex items-center px-4 gap-2 text-neutral-700 group-hover:text-neutral-900 ">
+                            <p className=" font-medium whitespace-nowrap  ">Reset Password</p>
                           </div>
                         </a>
                       </div>

@@ -13,10 +13,7 @@ import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
-import {
-  addPermissionToRole,
-  removePermissionFromRole,
-} from "@/services/requests/roleRequests";
+import { addPermissionToRole, removePermissionFromRole } from "@/services/requests/roleRequests";
 
 import { useRoleStore } from "../../roles/useRoleStore";
 
@@ -27,34 +24,23 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
   return (
     <Modal>
       <Modal.Button type="open">
-        <Button
-          disabled={
-            selectedPermission.deselected.length === 0 &&
-            selectedPermission.selected.length === 0
-          }
-        >
+        <Button disabled={selectedPermission.deselected.length === 0 && selectedPermission.selected.length === 0}>
           Save Permissions
         </Button>
       </Modal.Button>
       <Modal.Content width="max-w-6xl">
         <div className="space-y-2">
           <Modal.Title>Save Permission</Modal.Title>
-          <p className="text-xl font-medium text-primary_gray-500">
-            You are about to save the following permissions
-          </p>
+          <p className="text-xl font-medium text-primary_gray-500">You are about to save the following permissions</p>
         </div>
         <Modal.Scrollable>
           <div className="flex flex-col space-y-8">
             {selectedPermission.selected.length !== 0 && (
               <div>
-                <div className="font-medium text-primary_gray-600 text-xl mb-2">
-                  Added Permissions
-                </div>
+                <div className="font-medium text-primary_gray-600 text-xl mb-2">Added Permissions</div>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
                   {selectedPermission.selected.map((permissionId) => {
-                    const permissionDetail = selectedPermission.all.filter(
-                      (element) => element.id === permissionId
-                    )[0];
+                    const permissionDetail = selectedPermission.all.filter((element) => element.id === permissionId)[0];
 
                     return (
                       <div
@@ -90,14 +76,10 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
             )}
             {selectedPermission.deselected.length !== 0 && (
               <div>
-                <div className="font-medium text-red-600 text-xl mb-2">
-                  Removed Permissions
-                </div>
+                <div className="font-medium text-red-600 text-xl mb-2">Removed Permissions</div>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
                   {selectedPermission.deselected.map((permissionId) => {
-                    const permissionDetail = selectedPermission.all.filter(
-                      (element) => element.id === permissionId
-                    )[0];
+                    const permissionDetail = selectedPermission.all.filter((element) => element.id === permissionId)[0];
 
                     return (
                       <div
@@ -148,10 +130,7 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
                   );
                   selectedPermission.selected.length !== 0 &&
                     (await alert({
-                      promise: addPermissionToRole(
-                        Number(selectedRole.id),
-                        selectedPermission.selected
-                      ),
+                      promise: addPermissionToRole(Number(selectedRole.id), selectedPermission.selected),
                       msgs: {
                         loading: "Saving Permission",
                         success: "Saved Permission",

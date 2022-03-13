@@ -42,12 +42,7 @@ export const Table: React.FC<TableProps> = ({
   ) : (
     <>
       <div className="mb-6">
-        <ListBox
-          items={items}
-          selected={selectedItem}
-          setSelected={setSelectedItem}
-          onlyMobile={true}
-        />
+        <ListBox items={items} selected={selectedItem} setSelected={setSelectedItem} onlyMobile={true} />
       </div>
 
       <div
@@ -60,10 +55,7 @@ export const Table: React.FC<TableProps> = ({
             <tr className="px-2 border-b border-primary_gray-200">
               {tableHeadings &&
                 tableHeadings.map((heading) => (
-                  <th
-                    className="p-6 text-xl font-bold text-left text-primary_gray-800 lg:text-xl"
-                    key={heading}
-                  >
+                  <th className="p-6 text-xl font-bold text-left text-primary_gray-800 lg:text-xl" key={heading}>
                     {heading}
                   </th>
                 ))}

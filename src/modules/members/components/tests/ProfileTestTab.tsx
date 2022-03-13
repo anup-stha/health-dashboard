@@ -14,35 +14,24 @@ import React from "react";
 import { Button } from "@/components/Button";
 import { TableView } from "@/components/Table";
 
+import { MemberTestList, PaginationObject } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { ProfileTestExport } from "@/modules/members/components/tests/ProfileTestExport";
-import {
-  ProfileTestGridView,
-  ProfileTestTableRow,
-} from "@/modules/members/components/tests/ProfileTestTableRow";
+import { ProfileTestGridView, ProfileTestTableRow } from "@/modules/members/components/tests/ProfileTestTableRow";
 import { Member } from "@/modules/members/types";
 import { getSubTestList } from "@/modules/members/utils/getSubTestList";
 
-import { MemberTestList, PaginationObject } from "@/types";
-
 interface IProfileTestTabProps {
-  testList:
-    | { list: MemberTestList[]; pagination: PaginationObject }
-    | undefined;
+  testList: { list: MemberTestList[]; pagination: PaginationObject } | undefined;
   selectedMember: Member;
 }
 
-export const ProfileTestTab = ({
-  testList,
-  selectedMember,
-}: IProfileTestTabProps) => {
+export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProps) => {
   const subTestList = testList ? getSubTestList(testList.list) : [];
   const user = useAuthStore((state) => state.user);
 
-  const activeClassName =
-    "py-3 px-10 rounded-sm text-xl bg-primary_gray-800 text-white font-medium";
-  const inactiveClassName =
-    "py-3 px-10 rounded-sm text-xl text-primary_gray-700 font-medium hover:bg-primary_gray-200";
+  const activeClassName = "py-3 px-10 rounded-sm text-xl bg-primary_gray-800 text-white font-medium";
+  const inactiveClassName = "py-3 px-10 rounded-sm text-xl text-primary_gray-700 font-medium hover:bg-primary_gray-200";
 
   return !testList ? (
     <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
@@ -52,27 +41,14 @@ export const ProfileTestTab = ({
     <Tab.Group>
       <div className="flex justify-between items-center">
         <Tab.List className="space-x-4 print:hidden">
-          <Tab
-            className={({ selected }) =>
-              selected ? activeClassName : inactiveClassName
-            }
-          >
+          <Tab className={({ selected }) => (selected ? activeClassName : inactiveClassName)}>
             <div className="">Table</div>
           </Tab>
 
-          <Tab
-            className={({ selected }) =>
-              selected ? activeClassName : inactiveClassName
-            }
-          >
-            Grid
-          </Tab>
+          <Tab className={({ selected }) => (selected ? activeClassName : inactiveClassName)}>Grid</Tab>
         </Tab.List>
         <div className="flex items-start space-x-2">
-          <ProfileTestExport
-            testList={testList}
-            selectedMember={selectedMember}
-          />{" "}
+          <ProfileTestExport testList={testList} selectedMember={selectedMember} />{" "}
           {selectedMember.role && selectedMember.role.slug === "patient" ? (
             user.id === 1 ? (
               <Link href="/member/org_admin/patient/test_report" passHref>
@@ -97,12 +73,7 @@ export const ProfileTestTab = ({
             <Tab.Panel>
               <TableView
                 data={subTestList}
-                tableHeadings={[
-                  "Test Date",
-                  "Temperature",
-                  "Test Result",
-                  "Test Notes",
-                ]}
+                tableHeadings={["Test Date", "Temperature", "Test Result", "Test Notes"]}
                 search={false}
                 tableRowComponent={<ProfileTestTableRow />}
                 paginate={true}

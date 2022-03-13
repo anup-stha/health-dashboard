@@ -16,21 +16,17 @@ import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
+import { ImageUploadResponse } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Member } from "@/modules/members/types";
 import { privateAgent } from "@/services/requests";
-
-import { ImageUploadResponse } from "@/types";
 
 interface IProfileImageModalProps {
   children: React.ReactNode;
   selectedMember: Member;
 }
 
-export const ProfileImageModal = ({
-  children,
-  selectedMember,
-}: IProfileImageModalProps) => {
+export const ProfileImageModal = ({ children, selectedMember }: IProfileImageModalProps) => {
   const fileInput = React.createRef<any>();
   const { handleSubmit } = useForm();
 
@@ -42,9 +38,7 @@ export const ProfileImageModal = ({
       <Modal.Content onClose={() => setIsNewImage(false)}>
         <div className="space-y-10 flex flex-col justify-center">
           <div className="space-y-4 ">
-            <h1 className="text-3xl font-medium text-primary_gray-700">
-              Change Photo
-            </h1>
+            <h1 className="text-3xl font-medium text-primary_gray-700">Change Photo</h1>
             <hr />
           </div>
           <div className="self-center flex flex-col items-center space-y-8">
@@ -62,21 +56,11 @@ export const ProfileImageModal = ({
             {!isNewImage &&
               (selectedMember.image ? (
                 <div className="w-40 h-40 rounded-full object-contain overflow-hidden relative">
-                  <Image
-                    alt="profile"
-                    src={selectedMember.image}
-                    layout="fill"
-                    objectFit="contain"
-                  />
+                  <Image alt="profile" src={selectedMember.image} layout="fill" objectFit="contain" />
                 </div>
               ) : (
                 <div>
-                  <LetteredAvatar
-                    name={selectedMember.name}
-                    size="120"
-                    round={true}
-                    maxInitials={2}
-                  />
+                  <LetteredAvatar name={selectedMember.name} size="120" round={true} maxInitials={2} />
                 </div>
               ))}
 
@@ -92,22 +76,16 @@ export const ProfileImageModal = ({
               encType="multipart/form-data"
               onSubmit={handleSubmit(async () => {
                 const fd = new FormData();
-                fd.append(
-                  "image",
-                  fileInput.current.files[0],
-                  fileInput.current.files[0].name
-                );
+                fd.append("image", fileInput.current.files[0], fileInput.current.files[0].name);
                 await alert({
                   type: "promise",
-                  promise: privateAgent
-                    .post<ImageUploadResponse>("member/avatar", fd)
-                    .then((response) => {
-                      useAuthStore.getState().setUserProfile({
-                        ...selectedMember,
-                        image: response.data.data as string,
-                      });
-                      setIsNewImage(false);
-                    }),
+                  promise: privateAgent.post<ImageUploadResponse>("member/avatar", fd).then((response) => {
+                    useAuthStore.getState().setUserProfile({
+                      ...selectedMember,
+                      image: response.data.data as string,
+                    });
+                    setIsNewImage(false);
+                  }),
                   msgs: {
                     loading: "Uploading Profile",
                     success: "Upload Successfully",
@@ -125,9 +103,7 @@ export const ProfileImageModal = ({
                   onChange={(e) => {
                     const reader = new FileReader();
                     reader.onload = function () {
-                      const output = document.getElementById(
-                        "output"
-                      ) as HTMLImageElement;
+                      const output = document.getElementById("output") as HTMLImageElement;
                       setIsNewImage(true);
                       if (typeof reader.result === "string") {
                         output.src = reader.result;

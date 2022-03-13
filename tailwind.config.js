@@ -11,10 +11,7 @@ const colors = require("tailwindcss/colors");
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  content: [
-    "./src/components/**/*.{js,jsx,ts,tsx}",
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/components/**/*.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "media", // or 'media' or 'class'
   theme: {
     screens: {
@@ -200,7 +197,7 @@ module.exports = {
         default: "0.5rem",
       },
       fontFamily: {
-        primary: "Sofia Pro",
+        primary: "Be Vietnam Pro",
         vietnam: "Be Vietnam Pro",
       },
     },

@@ -47,29 +47,14 @@ export default function MemberTable() {
   }, [router.query.page]);
 
   return !currentRole ? (
-    <ErrorState
-      title="No Member Found"
-      subtitle="Please switch role or add a new member"
-    />
+    <ErrorState title="No Member Found" subtitle="Please switch role or add a new member" />
   ) : (
     <>
       {usersList && roleData ? (
         <TableView
           data={usersList.list}
-          tableHeadings={[
-            "Member Name",
-            "Member Code",
-            "Verified",
-            "Phone Number",
-            "Address",
-            "",
-          ]}
-          filterComponent={
-            <MemberFilter
-              role={roleData.data.data}
-              setFilterParams={setFilterParams}
-            />
-          }
+          tableHeadings={["Member Name", "Member Code", "Verified", "Phone Number", "Address", ""]}
+          filterComponent={<MemberFilter role={roleData.data.data} setFilterParams={setFilterParams} />}
           loading={isLoading}
           searchTerms={["name", "member_code"]}
           tableRowComponent={<MemberTableRow />}

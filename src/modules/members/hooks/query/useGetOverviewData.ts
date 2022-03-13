@@ -11,12 +11,8 @@ import { useQuery } from "react-query";
 import { getOverviewData } from "@/services/requests/globalRequests";
 
 export const useGetOverviewData = (memberId: number) => {
-  return useQuery(
-    ["overview-data", memberId],
-    () => getOverviewData(memberId),
-    {
-      enabled: !!memberId,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["overview-data", memberId], () => getOverviewData(memberId), {
+    enabled: !!memberId,
+    staleTime: Infinity,
+  });
 };

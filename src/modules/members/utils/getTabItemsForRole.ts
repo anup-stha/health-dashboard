@@ -8,12 +8,7 @@
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 
-type RoleType =
-  | "org_admin"
-  | "org_operator"
-  | "patient"
-  | "individual"
-  | string;
+type RoleType = "org_admin" | "org_operator" | "patient" | "individual" | string;
 type TabType =
   | "overview"
   | "members"

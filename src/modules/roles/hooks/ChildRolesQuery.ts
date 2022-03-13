@@ -10,10 +10,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { getCurrentUserProfile } from "@/services/requests/authRequests";
-import {
-  assignChildRole,
-  deleteChildRole,
-} from "@/services/requests/roleRequests";
+import { assignChildRole, deleteChildRole } from "@/services/requests/roleRequests";
 
 export const useAssign = () => {
   const queryClient = useQueryClient();

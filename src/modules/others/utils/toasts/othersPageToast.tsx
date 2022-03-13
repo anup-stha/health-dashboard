@@ -8,13 +8,9 @@
 
 import { alert } from "@/components/Alert";
 
-import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
-import {
-  postOtherFieldDetails,
-  putOtherFieldDetails,
-} from "@/services/requests/otherFieldsRequests";
-
 import { OtherFieldsPostBody } from "@/types";
+import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
+import { postOtherFieldDetails, putOtherFieldDetails } from "@/services/requests/otherFieldsRequests";
 
 export const postOtherFieldToast = (data: OtherFieldsPostBody) => {
   const postOtherFieldPromise = new Promise((resolve, reject) =>
@@ -38,10 +34,7 @@ export const postOtherFieldToast = (data: OtherFieldsPostBody) => {
   });
 };
 
-export const putOtherFieldToast = (
-  detailId: number,
-  data: OtherFieldsPostBody
-) => {
+export const putOtherFieldToast = (detailId: number, data: OtherFieldsPostBody) => {
   const putOtherFieldPromise = new Promise((resolve, reject) =>
     putOtherFieldDetails(detailId, data)
       .then((response) => {

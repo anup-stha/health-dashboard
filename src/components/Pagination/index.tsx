@@ -21,12 +21,7 @@ type paginationProps = {
   paginateObject?: PaginationObject;
 };
 
-export const Pagination = ({
-  totalPageNumber,
-  pageIndex,
-  setPageIndex,
-  pageName,
-}: paginationProps): JSX.Element => {
+export const Pagination = ({ totalPageNumber, pageIndex, setPageIndex, pageName }: paginationProps): JSX.Element => {
   // Pagination States for Handling Form Input and UI
   const [pageArray, setPageArray] = useState([1, 2, 3, 4, 5]);
   const [enteredPage, setEnteredPage] = useState<number | "">(1);
@@ -98,10 +93,8 @@ export const Pagination = ({
       return;
     }
 
-    if (page > 3 && page <= totalPageNumber - 3)
-      setPageArray([page - 2, page - 1, page, page + 1, page + 2]);
-    else if (page <= 4)
-      setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
+    if (page > 3 && page <= totalPageNumber - 3) setPageArray([page - 2, page - 1, page, page + 1, page + 2]);
+    else if (page <= 4) setPageArray([page, page + 1, page + 2, page + 3, page + 4]);
     else setPageArray([page - 4, page - 3, page - 2, page - 1, page]);
   }, [pageIndex, totalPageNumber, setPageIndex]);
 
@@ -110,11 +103,7 @@ export const Pagination = ({
       <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-2 sm:flex-col sm:space-y-4 sm:px-0 sm:text-xl">
         <ul className="flex items-center space-x-2 sm:space-x-2">
           <li>
-            <button
-              className="button-nav"
-              onClick={leftClickHandler}
-              disabled={pageIndex === 1}
-            >
+            <button className="button-nav" onClick={leftClickHandler} disabled={pageIndex === 1}>
               <ArrowLeft />
             </button>
           </li>
@@ -139,11 +128,7 @@ export const Pagination = ({
           ))}
 
           <li>
-            <button
-              className="button-nav"
-              disabled={pageIndex === totalPageNumber}
-              onClick={rightClickHandler}
-            >
+            <button className="button-nav" disabled={pageIndex === totalPageNumber} onClick={rightClickHandler}>
               <ArrowRight />
             </button>
           </li>

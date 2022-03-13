@@ -24,10 +24,7 @@ const usePost = () => {
 
   return useMutation([APP_LIST_MUTATION_KEY], postApp, {
     onSuccess: (data) => {
-      queryClient.setQueryData([APP_LIST_QUERY_KEY], (prevList: any) => [
-        ...prevList,
-        data,
-      ]);
+      queryClient.setQueryData([APP_LIST_QUERY_KEY], (prevList: any) => [...prevList, data]);
     },
   });
 };

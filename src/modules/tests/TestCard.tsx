@@ -13,9 +13,8 @@ import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 
-import { TestModal } from "@/modules/tests/testAddModal";
-
 import { TestSubCategory } from "@/types";
+import { TestModal } from "@/modules/tests/testAddModal";
 
 type TestCardPropsType = {
   id: number | string;
@@ -26,29 +25,18 @@ type TestCardPropsType = {
   subCategories?: Array<TestSubCategory>;
 };
 
-export const TestCard: React.FC<TestCardPropsType> = ({
-  id,
-  name,
-  desc,
-  slug,
-  isPublic,
-  subCategories,
-}) => {
+export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, isPublic, subCategories }) => {
   const router = useRouter();
 
   return (
     <div className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
       <div className="space-y-1">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">
-            {name}
-          </h1>
+          <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{name}</h1>
         </div>
 
         <div className="space-y-3">
-          <div className="text-lg font-medium text-primary_gray-600 w-full line-clamp-2">
-            {desc}
-          </div>
+          <div className="text-lg font-medium text-primary_gray-600 w-full line-clamp-2">{desc}</div>
           <div className=" text-base text-primary_gray-500 font-normal space-x-2">
             <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             <BooleanTag type="info" trueStatement={`Public: ${isPublic}`} />
@@ -99,10 +87,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({
           <div className="text-lg font-medium text-primary_gray-500 hover:text-red-600 cursor-pointer">
             <DeleteModal
               title="You are about to delete a test category"
-              subTitles={[
-                "This will delete your test forever",
-                "Are you sure ?",
-              ]}
+              subTitles={["This will delete your test forever", "Are you sure ?"]}
               closeButton={
                 <div className="flex items-center">
                   <Trash size={22} />

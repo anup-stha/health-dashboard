@@ -44,9 +44,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
     filterComponent,
   }) => {
     const router = useRouter();
-    const [pageIndex, setPageIndex] = useState(
-      router.query.page ? +router.query.page : 1
-    );
+    const [pageIndex, setPageIndex] = useState(router.query.page ? +router.query.page : 1);
     const [tableData, setTableData] = useState(tableInitialData);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -54,9 +52,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
       setTableData(tableInitialData);
     }, [tableInitialData]);
 
-    const headings = tableHeadings
-      ? tableHeadings
-      : tableData.length !== 0 && Object.keys(tableData[0]);
+    const headings = tableHeadings ? tableHeadings : tableData.length !== 0 && Object.keys(tableData[0]);
 
     return (
       <div>
@@ -76,9 +72,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                       setSearchTerm(e.target.value);
                       const searchedData = tableInitialData.filter((data) => {
                         return searchTerms?.some((term) =>
-                          data[term]
-                            .toLowerCase()
-                            .includes(e.target.value.toLowerCase().trim())
+                          data[term].toLowerCase().includes(e.target.value.toLowerCase().trim())
                         );
                       });
 
@@ -124,9 +118,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                   />{" "}
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-3xl font-medium text-primary-600">
-                    No Data found
-                  </div>
+                  <div className="text-3xl font-medium text-primary-600">No Data found</div>
                   <div className="text-lg font-medium text-primary_gray-500">
                     Please change your search to find more data.
                   </div>
@@ -169,16 +161,14 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                             : tableData.map((data: any, index: number) => {
                                 return (
                                   <tr key={index}>
-                                    {Object.values(data).map(
-                                      (d: any, index) => (
-                                        <td
-                                          key={index}
-                                          className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-primary_gray-850"
-                                        >
-                                          {d.toString()}
-                                        </td>
-                                      )
-                                    )}
+                                    {Object.values(data).map((d: any, index) => (
+                                      <td
+                                        key={index}
+                                        className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-primary_gray-850"
+                                      >
+                                        {d.toString()}
+                                      </td>
+                                    ))}
                                   </tr>
                                 );
                               })}

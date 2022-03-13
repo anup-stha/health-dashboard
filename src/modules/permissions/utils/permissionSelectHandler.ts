@@ -16,13 +16,7 @@ type SelectedPermission = {
   deselected: number[];
 };
 
-type SetSelectedPermission = ({
-  current,
-  initial,
-  selected,
-  deselected,
-  all,
-}: any) => void;
+type SetSelectedPermission = ({ current, initial, selected, deselected, all }: any) => void;
 
 type PermissionSelectHandlerProps = {
   permissionId: number;
@@ -35,12 +29,8 @@ export const permissionSelectHandler = ({
   selectedPermission,
   setSelectedPermission,
 }: PermissionSelectHandlerProps) => {
-  const clickedItem = selectedPermission.all.filter(
-    (element) => element.id === permissionId
-  )[0];
-  const alreadyClickedItem = selectedPermission.current.filter(
-    (element) => element.id === permissionId
-  );
+  const clickedItem = selectedPermission.all.filter((element) => element.id === permissionId)[0];
+  const alreadyClickedItem = selectedPermission.current.filter((element) => element.id === permissionId);
 
   if (alreadyClickedItem.length === 0) {
     setSelectedPermission({
@@ -48,23 +38,17 @@ export const permissionSelectHandler = ({
     });
   } else {
     setSelectedPermission({
-      current: selectedPermission.current.filter(
-        (selected) => selected.id !== alreadyClickedItem[0].id
-      ),
+      current: selectedPermission.current.filter((selected) => selected.id !== alreadyClickedItem[0].id),
     });
   }
 
-  if (
-    selectedPermission.initial.some((element) => element.id === permissionId)
-  ) {
+  if (selectedPermission.initial.some((element) => element.id === permissionId)) {
     !selectedPermission.deselected.includes(permissionId)
       ? setSelectedPermission({
           deselected: [...selectedPermission.deselected, permissionId],
         })
       : setSelectedPermission({
-          deselected: selectedPermission.deselected.filter(
-            (deselected) => deselected !== permissionId
-          ),
+          deselected: selectedPermission.deselected.filter((deselected) => deselected !== permissionId),
         });
   } else {
     !selectedPermission.selected.includes(permissionId)
@@ -72,9 +56,7 @@ export const permissionSelectHandler = ({
           selected: [...selectedPermission.selected, permissionId],
         })
       : setSelectedPermission({
-          selected: selectedPermission.selected.filter(
-            (selected) => selected !== permissionId
-          ),
+          selected: selectedPermission.selected.filter((selected) => selected !== permissionId),
         });
   }
 };

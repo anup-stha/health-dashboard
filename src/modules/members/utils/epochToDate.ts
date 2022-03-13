@@ -8,5 +8,4 @@
 
 import moment from "moment";
 
-export const epochToDate = (epochInSec: number) =>
-  moment(epochInSec * 1000).format("MMMM Do, YYYY");
+export const epochToDate = (epochInSec: number) => moment(epochInSec * 1000).format("MMMM Do, YYYY");

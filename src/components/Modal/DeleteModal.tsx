@@ -34,21 +34,11 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
       {!disabled ? (
         <Modal.Button type="open">
           <div className={`${disabled && "cursor-not-allowed"}`}>
-            {closeButton ?? (
-              <Trash
-                name="delete"
-                className="text-primary_gray-400 hover:text-primary_gray-800"
-              />
-            )}
+            {closeButton ?? <Trash name="delete" className="text-primary_gray-400 hover:text-primary_gray-800" />}
           </div>
         </Modal.Button>
       ) : (
-        closeButton ?? (
-          <Trash
-            name="delete"
-            className="text-primary_gray-400 hover:text-primary_gray-800"
-          />
-        )
+        closeButton ?? <Trash name="delete" className="text-primary_gray-400 hover:text-primary_gray-800" />
       )}
 
       <Modal.Content width="max-w-3xl">
@@ -62,8 +52,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
               {title ?? "You are about to delete a organisation"}
             </h1>
             <div className="text-center text-xl font-medium text-primary_gray-500 space-y-1">
-              {subTitles &&
-                subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
+              {subTitles && subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
             </div>
           </div>
 

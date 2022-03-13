@@ -15,16 +15,12 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
+import { MemberDetailCategory, Role } from "@/types";
 import { MedicalHistoryForm } from "@/modules/members/components/form/MedicalHistoryForm";
-import {
-  useAddPatient,
-  useNestedAddPatient,
-} from "@/modules/members/hooks/query/useMemberList";
+import { useAddPatient, useNestedAddPatient } from "@/modules/members/hooks/query/useMemberList";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-
-import { MemberDetailCategory, Role } from "@/types";
 
 interface UserAddFormData {
   name: string;
@@ -39,12 +35,7 @@ interface UserAddFormData {
 }
 
 interface UserAddFormProps
-  extends Partial<
-    Pick<
-      UseFormReturn<any>,
-      "register" | "handleSubmit" | "control" | "reset" | "watch"
-    >
-  > {
+  extends Partial<Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch">> {
   type?: "edit" | "add";
   selectedRole: Role;
   parent_member_id?: number;
@@ -61,14 +52,10 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
   parent_member_id,
 }) => {
   useGetOtherFieldsList();
-  const medicalHistoryFields = useOtherFieldsStore(
-    (state) => state.othersFieldList.data
-  );
+  const medicalHistoryFields = useOtherFieldsStore((state) => state.othersFieldList.data);
 
   const { mutateAsync: mutate } = useAddPatient();
-  const { mutateAsync: nestedmutate } = useNestedAddPatient(
-    parent_member_id ?? 0
-  );
+  const { mutateAsync: nestedmutate } = useNestedAddPatient(parent_member_id ?? 0);
 
   type patientDetails = {
     [key: string]: any;
@@ -153,22 +140,11 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
     >
       <Modal.Scrollable>
         <div className="space-y-4">
-          <PrimaryInput
-            label="Name"
-            type="text"
-            placeholder="Enter Name"
-            required={true}
-            {...register("name")}
-          />
+          <PrimaryInput label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
           <div className="flex gap-x-6">
             <div className="w-1/2">
-              <PrimaryInput
-                label="Phone"
-                type="text"
-                placeholder="Enter Phone"
-                {...register("phone")}
-              />
+              <PrimaryInput label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} />
             </div>
             <div className="w-1/2">
               <PrimaryInput
@@ -179,12 +155,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
               />
             </div>
           </div>
-          <PrimaryInput
-            label="Address"
-            type="text"
-            placeholder="Enter Address"
-            {...register("address")}
-          />
+          <PrimaryInput label="Address" type="text" placeholder="Enter Address" {...register("address")} />
           <div className="flex gap-x-6">
             <div className="w-1/2">
               <DropdownController
@@ -234,37 +205,30 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
             </div>
           </div>
 
-          <PrimaryInput
-            label="Email"
-            type="email"
-            placeholder="Enter email"
-            {...register("email")}
-          />
+          <PrimaryInput label="Email" type="email" placeholder="Enter email" {...register("email")} />
 
           {selectedRole &&
             selectedRole.member_detail_categories &&
-            selectedRole.member_detail_categories.map(
-              (category: MemberDetailCategory) => (
-                <Fragment key={category.id}>
-                  {category.value_type.toLowerCase() === "boolean" ? (
-                    <SwitchInput
-                      label={category.name}
-                      type="number"
-                      placeholder={`Enter ${category.name}`}
-                      {...register(`${category.id}-${category.slug}-details`)}
-                    />
-                  ) : (
-                    <PrimaryInput
-                      label={category.name}
-                      type={category.value_type}
-                      required={!!category.required}
-                      placeholder={`Enter ${category.name}`}
-                      {...register(`${category.id}-${category.slug}-details`)}
-                    />
-                  )}
-                </Fragment>
-              )
-            )}
+            selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
+              <Fragment key={category.id}>
+                {category.value_type.toLowerCase() === "boolean" ? (
+                  <SwitchInput
+                    label={category.name}
+                    type="number"
+                    placeholder={`Enter ${category.name}`}
+                    {...register(`${category.id}-${category.slug}-details`)}
+                  />
+                ) : (
+                  <PrimaryInput
+                    label={category.name}
+                    type={category.value_type}
+                    required={!!category.required}
+                    placeholder={`Enter ${category.name}`}
+                    {...register(`${category.id}-${category.slug}-details`)}
+                  />
+                )}
+              </Fragment>
+            ))}
 
           <div className="grid grid-cols-1 gap-y-10 w-full">
             {medicalHistoryFields.map((field) => (

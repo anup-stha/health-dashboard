@@ -18,26 +18,19 @@ type NavItemProps = {
   containerClassName?: string;
 };
 
-export const NavItem: React.FC<NavItemProps> = ({
-  route,
-  containerClassName,
-}) => {
+export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) => {
   const { open, toggleOpen } = useSideBarStore();
   const { pathname, push } = useRouter();
 
   const activeStyles =
-    "font-bold text-primary_gray-900 bg-primary_gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-primary_gray-200 ";
+    "font-medium text-primary_gray-900  bg-primary_gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-primary_gray-200 ";
   const inactiveStyles =
     "font-medium text-primary_gray-500 hover:text-primary_gray-900 relative py-2.5 rounded-lg cursor-pointer hover:bg-primary_gray-50   ";
 
   return (
     <div className={containerClassName}>
       <li
-        className={
-          route.link && pathname.includes(route.link)
-            ? activeStyles
-            : inactiveStyles
-        }
+        className={route.link && pathname.includes(route.link) ? activeStyles : inactiveStyles}
         onClick={() => {
           route.link &&
             push(route.link).then(() => {
@@ -60,9 +53,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 
           <div
             className={`flex relative items-center ${
-              !open
-                ? "opacity-100 -translate-x-8 transition-opacity duration-500  px-4 "
-                : "opacity-0 w-0 p-0"
+              !open ? "opacity-100 -translate-x-8 transition-opacity duration-500  px-4 " : "opacity-0 w-0 p-0"
             }  `}
           >
             <div className="sm:hidden">{route.icon}</div>
