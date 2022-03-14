@@ -23,6 +23,8 @@ module.exports = {
     "@storybook/addon-docs",
     "@storybook/addon-actions",
     "@storybook/addon-links",
+    "@storybook/addon-control",
+    "@storybook/addon-source",
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
@@ -35,6 +37,20 @@ module.exports = {
         "sass-loader",
       ],
     });
+    /**
+     * Add support for alias-imports
+     * @see https://github.com/storybookjs/storybook/issues/11989#issuecomment-715524391
+     */
+    config.resolve.alias = {
+      ...config.resolve?.alias,
+      "@": [path.resolve(__dirname, "../src/"), path.resolve(__dirname, "../")],
+    };
+
+    /**
+     * Fixes font import with /
+     * @see https://github.com/storybookjs/storybook/issues/12844#issuecomment-867544160
+     */
+    config.resolve.roots = [path.resolve(__dirname, "../public"), "node_modules"];
 
     // Resolve aliases like "import utils/time-utils"
     config.resolve.modules.push(process.cwd() + "/node_modules");
@@ -54,4 +70,5 @@ module.exports = {
     );
     return config;
   },
+  framework: "@storybook/react",
 };

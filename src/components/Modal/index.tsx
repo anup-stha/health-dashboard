@@ -16,14 +16,7 @@ import { Button as UIButton } from "../Button";
 export type IModalProps = {
   title?: string;
   children: React.ReactNode;
-  width?:
-    | "max-w-2xl"
-    | "max-w-3xl"
-    | "max-w-4xl"
-    | "max-w-5xl"
-    | "max-w-6xl"
-    | "max-w-7xl"
-    | "max-w-8xl";
+  width?: "max-w-2xl" | "max-w-3xl" | "max-w-4xl" | "max-w-5xl" | "max-w-6xl" | "max-w-7xl" | "max-w-8xl";
   opacity?: string;
   onClose?: () => void;
 };
@@ -47,10 +40,7 @@ export const ModalContent: React.FC<IModalProps> = React.memo(
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+            <span className="inline-block h-screen align-middle" aria-hidden="true">
               &#8203;
             </span>
             <Transition.Child
@@ -87,15 +77,7 @@ export interface IButtonProps {
   disabled?: boolean;
 }
 
-export const Button: React.FC<IButtonProps> = ({
-  children,
-  type,
-  onClick,
-  width,
-  variant,
-  async,
-  disabled,
-}) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, onClick, width, variant, async, disabled }) => {
   const { setIsOpen } = useModal();
 
   const onClickFn = async (e: any) => {
@@ -105,12 +87,7 @@ export const Button: React.FC<IButtonProps> = ({
 
   if (async === true)
     return (
-      <UIButton
-        disabled={disabled}
-        onClick={async (e) => await onClick(e).then(() => setIsOpen(false))}
-        type="submit"
-        buttonSize="small"
-      >
+      <UIButton disabled={disabled} onClick={async (e) => await onClick(e).then(() => setIsOpen(false))} type="submit">
         {children}
       </UIButton>
     );
@@ -118,23 +95,14 @@ export const Button: React.FC<IButtonProps> = ({
   return variant === "button" ? (
     <UIButton
       type="submit"
-      buttonSize="small"
       disabled={disabled}
-      onSubmit={
-        onClick
-          ? (e: any) => onClickFn(e)
-          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
-      }
+      onSubmit={onClick ? (e: any) => onClickFn(e) : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))}
     >
       {children}
     </UIButton>
   ) : !disabled ? (
     <div
-      onClick={
-        onClick
-          ? (e) => onClickFn(e)
-          : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))
-      }
+      onClick={onClick ? (e) => onClickFn(e) : () => (type === "open" ? setIsOpen(true) : setIsOpen(false))}
       className={`w-${width}`}
     >
       {children}
@@ -149,7 +117,7 @@ export interface IModalTitleProps {
 }
 
 export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
-  return <div className="text-4xl font-medium text-gray-900">{children}</div>;
+  return <div className="text-4xl font-medium text-primary_gray-900">{children}</div>;
 };
 
 export interface IScrollableProps {
@@ -157,11 +125,7 @@ export interface IScrollableProps {
 }
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
-  return (
-    <div className="overflow-y-auto max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">
-      {children}
-    </div>
-  );
+  return <div className="overflow-y-scroll max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">{children}</div>;
 };
 
 export interface IModalFormProps {
@@ -171,53 +135,41 @@ export interface IModalFormProps {
   encType?: string;
 }
 
-export const Form: React.FC<IModalFormProps> = React.memo(
-  ({ onSubmit, children, encType, className }) => {
-    const { setIsOpen } = useModal();
+export const Form: React.FC<IModalFormProps> = React.memo(({ onSubmit, children, encType, className }) => {
+  const { setIsOpen } = useModal();
 
-    const onSubmitFn = async (e: any) => {
-      e.preventDefault();
-      await onSubmit().then(() => setIsOpen(false));
-    };
+  const onSubmitFn = async (e: any) => {
+    e.preventDefault();
+    await onSubmit().then(() => setIsOpen(false));
+  };
 
-    return (
-      <form
-        onSubmit={(e) => onSubmitFn(e)}
-        className={className ?? `space-y-8`}
-        encType={encType}
-      >
-        {children}
-      </form>
-    );
-  }
-);
+  return (
+    <form onSubmit={(e) => onSubmitFn(e)} className={className ?? `space-y-8`} encType={encType}>
+      {children}
+    </form>
+  );
+});
 
-export const AsyncForm: React.FC<IModalFormProps> = React.memo(
-  ({ onSubmit, children, encType, className }) => {
-    const { setIsOpen } = useModal();
+export const AsyncForm: React.FC<IModalFormProps> = React.memo(({ onSubmit, children, encType, className }) => {
+  const { setIsOpen } = useModal();
 
-    const onSubmitFn = async (e: any) => {
-      e.preventDefault();
-      try {
-        await onSubmit();
-      } catch (e) {
-        toast.error(e.message);
-        return;
-      }
-      setIsOpen(false);
-    };
+  const onSubmitFn = async (e: any) => {
+    e.preventDefault();
+    try {
+      await onSubmit();
+    } catch (e) {
+      toast.error(e.message);
+      return;
+    }
+    setIsOpen(false);
+  };
 
-    return (
-      <form
-        onSubmit={(e) => onSubmitFn(e)}
-        className={className ?? `space-y-8`}
-        encType={encType}
-      >
-        {children}
-      </form>
-    );
-  }
-);
+  return (
+    <form onSubmit={(e) => onSubmitFn(e)} className={className ?? `space-y-8`} encType={encType}>
+      {children}
+    </form>
+  );
+});
 
 AsyncForm.displayName = "AsyncForm";
 Form.displayName = "Form";

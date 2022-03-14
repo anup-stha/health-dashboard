@@ -46,9 +46,7 @@ type AppAddEditForm = {
 export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
   const router = useRouter();
 
-  const { mutateAsync: postMutateAsync } = AppReleaseQuery.usePost(
-    Number(router.query.id)
-  );
+  const { mutateAsync: postMutateAsync } = AppReleaseQuery.usePost(Number(router.query.id));
   const { mutateAsync: putMutateAsync } = AppReleaseQuery.usePut();
 
   const { handleSubmit, register, control } = useForm<AppForm>({
@@ -64,10 +62,7 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
       onSubmit={handleSubmit(async (values) => {
         if (!values.app_file && type === "add") {
           throw new Error("No Apk File Selected");
-        } else if (
-          values.app_file &&
-          values.app_file.type !== "application/vnd.android.package-archive"
-        ) {
+        } else if (values.app_file && values.app_file.type !== "application/vnd.android.package-archive") {
           throw new Error("File should be a valid .apk file");
         } else if (!values.app_file && type === "edit") {
           toast.loading("Editing App Release", { id: "toast-loading" });
@@ -101,15 +96,11 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
             file_name: [values.app_file.name],
             type: "app/release",
           });
-          const put_response = await axios.put(
-            response.data.data[0].put_url,
-            values.app_file,
-            {
-              headers: {
-                "Content-Type": values.app_file.type,
-              },
-            }
-          );
+          const put_response = await axios.put(response.data.data[0].put_url, values.app_file, {
+            headers: {
+              "Content-Type": values.app_file.type,
+            },
+          });
           if (put_response.status === 200) {
             toast.loading("Adding New App Release", { id: "toast-loading" });
 
@@ -164,12 +155,7 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
           placeholder="Enter App Version Code"
           {...register("code")}
         />
-        <PrimaryInput
-          label="Note "
-          required={true}
-          placeholder="Enter App Note"
-          {...register("note")}
-        />
+        <PrimaryInput label="Note " required={true} placeholder="Enter App Note" {...register("note")} />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"}</Button>

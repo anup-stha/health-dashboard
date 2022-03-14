@@ -1,31 +1,45 @@
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/13/21, 5:01 PM
- *
- *
- */
-
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
-import { PrimaryInput as Input } from "./index";
+import { Input } from "@/components/Input/Input";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Components/Input",
   component: Input,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    onClick: { action: "clicked" },
+    type: {
+      control: {
+        type: "select",
+        options: ["email", "password", "text"],
+      },
+    },
   },
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+const Template: ComponentStory<typeof Input> = (args) => {
+  return <Input {...args} />;
+};
 
-export const PrimaryInput = Template.bind({});
-PrimaryInput.args = {
-  id: "Primary Input",
-  className: "w-1/2",
-  placeholder: "Primary Input",
+export const BaseInput = Template.bind({});
+BaseInput.args = {
+  type: "text",
+  label: "Enter Anything*",
+};
+
+export const EmailInput = Template.bind({});
+EmailInput.args = {
+  type: "email",
+  label: "Email*",
+};
+
+export const PasswordInput = Template.bind({});
+PasswordInput.args = {
+  type: "password",
+  label: "Password*",
+};
+
+export const ErrorInput = Template.bind({});
+ErrorInput.args = {
+  type: "text",
+  error: "This is a invalid field. Please type something valid.",
+  label: "Password*",
 };

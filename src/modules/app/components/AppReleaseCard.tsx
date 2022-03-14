@@ -19,20 +19,16 @@ export const AppReleaseCard = (props: AppRelease) => {
       <div className="space-y-1 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
-              {props.name}
-            </h1>
+            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{props.name}</h1>
           </div>
         </div>
 
-        <p className="text-lg font-medium text-gray-500 w-4/5 line-clamp-2">
-          Code: {props.code}
-        </p>
+        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">Code: {props.code}</p>
       </div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
           <a href={props.app_url} download>
-            <Button buttonSize="small">Download</Button>
+            <Button size="sm">Download</Button>
           </a>
           <AppReleaseModal type="edit" defaultValues={props} id={props.id} />
         </div>

@@ -10,8 +10,9 @@ import { TrashSimple } from "phosphor-react";
 import React from "react";
 import { Trash } from "react-feather";
 
+import { Button } from "@/components/Button";
+
 import { Modal } from "./useModal";
-import { WarningButton } from "../Button";
 
 type DeleteModalProps = {
   onDelete?: () => void;
@@ -33,18 +34,11 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
       {!disabled ? (
         <Modal.Button type="open">
           <div className={`${disabled && "cursor-not-allowed"}`}>
-            {closeButton ?? (
-              <Trash
-                name="delete"
-                className="text-gray-400 hover:text-gray-800"
-              />
-            )}
+            {closeButton ?? <Trash name="delete" className="text-primary_gray-400 hover:text-primary_gray-800" />}
           </div>
         </Modal.Button>
       ) : (
-        closeButton ?? (
-          <Trash name="delete" className="text-gray-400 hover:text-gray-800" />
-        )
+        closeButton ?? <Trash name="delete" className="text-primary_gray-400 hover:text-primary_gray-800" />
       )}
 
       <Modal.Content width="max-w-3xl">
@@ -57,22 +51,21 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
             <h1 className="text-2xl font-bold text-black text-center">
               {title ?? "You are about to delete a organisation"}
             </h1>
-            <div className="text-center text-xl font-semibold text-gray-500 space-y-1">
-              {subTitles &&
-                subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
+            <div className="text-center text-xl font-medium text-primary_gray-500 space-y-1">
+              {subTitles && subTitles.map((subtitle) => <p key={subtitle}> {subtitle} </p>)}
             </div>
           </div>
 
           <div className="flex space-x-4 self-end pt-2">
             <Modal.Button type="close">
-              <div className="p-4 text-xl font-bold text-gray-500 hover:text-gray-700 cursor-pointer">
+              <div className="p-4 text-xl font-bold text-primary_gray-500 hover:text-primary_gray-700 cursor-pointer">
                 Cancel
               </div>
             </Modal.Button>
             <Modal.Button type="close">
-              <WarningButton onClick={() => onDelete && onDelete()}>
+              <Button color="error" onClick={() => onDelete && onDelete()}>
                 Delete
-              </WarningButton>
+              </Button>
             </Modal.Button>
           </div>
         </div>

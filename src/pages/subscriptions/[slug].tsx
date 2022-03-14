@@ -15,10 +15,7 @@ import { Loader } from "@/components/Loader";
 import { MainHead } from "@/layout/MainHead";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { SubsDescriptionPage } from "@/modules/subscriptions/subsDescriptionPage";
-import {
-  listSubscriptionDetail,
-  useSubscriptionList,
-} from "@/services/requests/subscriptionRequests";
+import { listSubscriptionDetail, useSubscriptionList } from "@/services/requests/subscriptionRequests";
 import { useTestList } from "@/services/requests/testRequests";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
@@ -50,11 +47,7 @@ const SubscriptionDetailsPage: NextPage = () => {
     <>
       <MainHead title={`Subscriptions - ${slug}`} />
 
-      {subsLoading || testLoading || loading ? (
-        <Loader />
-      ) : (
-        <SubsDescriptionPage selected={selectedSubscription} />
-      )}
+      {subsLoading || testLoading || loading ? <Loader /> : <SubsDescriptionPage selected={selectedSubscription} />}
     </>
   );
 };

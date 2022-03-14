@@ -10,22 +10,6 @@ import React, { useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { Control, Controller } from "react-hook-form";
 
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:39 AM
- *
- *
- */
-
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 9:39 AM
- *
- *
- */
-
 const baseStyle = {
   flex: 1,
   display: "flex",
@@ -73,14 +57,7 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
     console.log(acceptedFiles);
     onChange(acceptedFiles[0]);
   }, []);
-  const {
-    getInputProps,
-    getRootProps,
-    isFocused,
-    isDragAccept,
-    isDragReject,
-    acceptedFiles,
-  } = useDropzone({ onDrop });
+  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject, acceptedFiles } = useDropzone({ onDrop });
 
   const style = useMemo(
     () => ({
@@ -95,13 +72,9 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
 
   return (
     <section className="space-y-2">
-      <label className="block text-xl font-medium text-gray-700">{label}</label>
+      <label className="block text-xl font-medium text-primary_gray-700">{label}</label>
       <div {...getRootProps({ style })}>
-        <input
-          accept=".apk"
-          {...getInputProps({ onChange })}
-          style={{ display: "none" }}
-        />
+        <input accept=".apk" {...getInputProps({ onChange })} style={{ display: "none" }} />
         {acceptedFiles.length === 0 ? (
           <p>Drag and drop resource file her, or click to select that file</p>
         ) : (
@@ -124,9 +97,7 @@ export const DropZoneField = ({
 }) => {
   return (
     <Controller
-      render={({ field: { onChange } }) => (
-        <Dropzone onChange={onChange} label={label} {...rest} />
-      )}
+      render={({ field: { onChange } }) => <Dropzone onChange={onChange} label={label} {...rest} />}
       name={name}
       control={control}
       defaultValue=""

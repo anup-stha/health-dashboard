@@ -1,37 +1,44 @@
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2021. All rights reserved.
- * Last Modified 12/11/21, 9:58 AM
- *
- *
- */
-
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
-import { Button } from "./index";
+import { Button } from "@/components/Button";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Components/Button",
   component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    onClick: { action: "clicked" },
+    onClick: {
+      action: "clicked",
+    },
   },
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof Button> = (args) => {
+  return (
+    <div className="flex items-start space-x-4">
+      <Button size="sm" {...args} />
+      <Button size="md" {...args} />
+      <Button size="lg" {...args} />
+    </div>
+  );
+};
 
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
-  loading: false,
   children: "Button",
+  variant: "fill",
+  color: "primary",
 };
 
-export const LoadingButton = Template.bind({});
-LoadingButton.args = {
-  loading: true,
-  children: "Loader",
-  disabled: true,
+export const WarningButton = Template.bind({});
+WarningButton.args = {
+  children: "Button",
+  variant: "fill",
+  color: "warning",
+};
+
+export const ErrorButton = Template.bind({});
+ErrorButton.args = {
+  children: "Button",
+  variant: "fill",
+  color: "error",
 };

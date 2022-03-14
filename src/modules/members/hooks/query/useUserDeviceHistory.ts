@@ -11,13 +11,9 @@ import { useQuery } from "react-query";
 import { getUserDeviceHistory } from "@/services/requests/authRequests";
 
 export const useUserDeviceHistory = (memberId: number) => {
-  return useQuery(
-    ["device-list", memberId],
-    () => getUserDeviceHistory(memberId),
-    {
-      enabled: !!memberId,
-      refetchOnWindowFocus: true,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["device-list", memberId], () => getUserDeviceHistory(memberId), {
+    enabled: !!memberId,
+    refetchOnWindowFocus: true,
+    staleTime: Infinity,
+  });
 };

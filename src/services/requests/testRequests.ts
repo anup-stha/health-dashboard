@@ -10,10 +10,6 @@ import { AxiosResponse } from "axios";
 import Router from "next/router";
 import { useQuery } from "react-query";
 
-import { testStore } from "@/modules/tests/testStore";
-
-import { privateAgent } from ".";
-
 import {
   AddTestBody,
   AddTestCategoryBody,
@@ -22,18 +18,19 @@ import {
   ListTestResponse,
   UpdateTestCategoryBody,
 } from "@/types";
+import { testStore } from "@/modules/tests/testStore";
+
+import { privateAgent } from ".";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
   return privateAgent.get("test/categories/");
 };
 
 export const listTests = () => {
-  return privateAgent
-    .get<ListTestResponse>(`test/categories/`)
-    .then((response) => {
-      testStore.getState().setTestList(response.data.data);
-      return response.data.data;
-    });
+  return privateAgent.get<ListTestResponse>(`test/categories/`).then((response) => {
+    testStore.getState().setTestList(response.data.data);
+    return response.data.data;
+  });
 };
 
 export const useTestList = () => {
@@ -48,9 +45,7 @@ export const addTest = (body: AddTestBody) => {
         public: body.public ? 1 : 0,
       })
       .then((response) => {
-        testStore
-          .getState()
-          .setTestList([...testStore.getState().testList, response.data.data]);
+        testStore.getState().setTestList([...testStore.getState().testList, response.data.data]);
         resolve("Added");
       })
       .catch((error) => reject(error.response))
@@ -69,11 +64,7 @@ export const updateTest = (id: number, body: AddTestBody) => {
         testStore
           .getState()
           .setTestList(
-            testStore
-              .getState()
-              .testList.map((test) =>
-                test.id === response.data.data.id ? response.data.data : test
-              )
+            testStore.getState().testList.map((test) => (test.id === response.data.data.id ? response.data.data : test))
           );
         testStore.getState().setSelectedTest(response.data.data);
 
@@ -103,19 +94,14 @@ export const addTestCategory = (body: AddTestCategoryBody) => {
           sub_categories: [...subCategories, newCategory],
         });
 
-        testStore
-          .getState()
-          .setTestList([...testStore.getState().testList, newTest]);
+        testStore.getState().setTestList([...testStore.getState().testList, newTest]);
         resolve("Added");
       })
       .catch((error) => reject(error.response))
   );
 };
 
-export const updateTestCategory = (
-  id: number,
-  body: UpdateTestCategoryBody
-) => {
+export const updateTestCategory = (id: number, body: UpdateTestCategoryBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .put<AddTestCategoryResponse>(`test/subcategory/${id}`, {
@@ -127,9 +113,7 @@ export const updateTestCategory = (
         const newCategory = response.data.data;
         testStore.getState().setSelectedTest({
           ...testStore.getState().selectedTest,
-          sub_categories: subCategories.map((category) =>
-            category.id === newCategory.id ? newCategory : category
-          ),
+          sub_categories: subCategories.map((category) => (category.id === newCategory.id ? newCategory : category)),
         });
 
         resolve(response.data.message);

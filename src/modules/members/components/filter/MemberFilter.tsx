@@ -11,12 +11,11 @@ import qs from "qs";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button, GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 
-import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-
 import { Role } from "@/types";
+import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 
 interface IMemberFilter {
   setFilterParams: Dispatch<SetStateAction<string>>;
@@ -34,9 +33,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
     value: category.id,
   }));
 
-  const [categoryList, setCategoryList] = useState(
-    categoryOptions ?? [{ label: "0", value: 0 }]
-  );
+  const [categoryList, setCategoryList] = useState(categoryOptions ?? [{ label: "0", value: 0 }]);
   const [selectedCategory, setSelectedCategory] = useState<
     {
       label: string;
@@ -44,7 +41,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
     }[]
   >([]);
 
-  const detail_cat_watch = watch(`data.${totalInputs - 1}.detail_cat_id`);
+  const detail_cat_watch = watch(`data.${totalInputs - 1}.detail_category_id`);
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
@@ -59,11 +56,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
         Filter Members
       </Button>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed right-0 top-0 z-50 overflow-y-auto"
-          onClose={closeModal}
-        >
+        <Dialog as="div" className="fixed right-0 top-0 z-50 overflow-y-auto" onClose={closeModal}>
           <div className="min-h-screen text-center">
             <Transition.Child
               as={Fragment}
@@ -88,15 +81,10 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
               <div className="flex h-screen w-full max-w-7xl transform flex-col space-y-10 overflow-hidden bg-white px-12 py-12 text-left align-middle shadow-xl transition">
                 <div className="flex w-[50rem] flex-col gap-8">
                   <div className="flex flex-col gap-2">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-4xl font-medium capitalize leading-6 text-gray-700"
-                    >
+                    <Dialog.Title as="h3" className="text-4xl font-medium capitalize leading-6 text-primary_gray-700">
                       Filter Members By Category
                     </Dialog.Title>
-                    <span className="text-lg text-gray-400">
-                      Please select any of filters below
-                    </span>
+                    <span className="text-lg text-primary_gray-400">Please select any of filters below</span>
                   </div>
                   <form
                     className="flex flex-col space-y-8"
@@ -115,7 +103,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                         <div className="flex items-end space-x-4" key={index}>
                           <div className="w-1/2">
                             <DropdownController
-                              name={`data.${index}.detail_cat_id`}
+                              name={`data.${index}.detail_category_id`}
                               label="Select a category"
                               control={control}
                               isDisabled={index + 1 !== totalInputs}
@@ -123,10 +111,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                                 selectedCategory.length === 0
                                   ? categoryList
                                   : categoryList.filter(
-                                      (category) =>
-                                        !selectedCategory.find(
-                                          (el) => el.value === category.value
-                                        )
+                                      (category) => !selectedCategory.find((el) => el.value === category.value)
                                     )
                               }
                             />
@@ -142,33 +127,27 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                       );
                     })}
 
-                    {detail_cat_watch &&
-                      totalInputs !== categoryOptions?.length && (
-                        <div
-                          onClick={() => {
-                            const foundCategory = categoryOptions?.find(
-                              (option) => option.value === detail_cat_watch
-                            );
+                    {detail_cat_watch && totalInputs !== categoryOptions?.length && (
+                      <div
+                        onClick={() => {
+                          const foundCategory = categoryOptions?.find((option) => option.value === detail_cat_watch);
 
-                            if (!foundCategory) return;
+                          if (!foundCategory) return;
 
-                            setTotalInputs((prev) => prev + 1);
-                            setSelectedCategory([
-                              ...selectedCategory,
-                              foundCategory,
-                            ]);
-                          }}
-                          className="w-full cursor-pointer px-4 py-4 text-2xl font-semibold rounded-lg border border-gray-300 border-dashed flex items-center justify-center text-gray-600"
-                        >
-                          Add New Category
-                        </div>
-                      )}
+                          setTotalInputs((prev) => prev + 1);
+                          setSelectedCategory([...selectedCategory, foundCategory]);
+                        }}
+                        className="w-full cursor-pointer px-4 py-4 text-2xl font-medium rounded-lg border border-primary_gray-300 border-dashed flex items-center justify-center text-primary_gray-600"
+                      >
+                        Add New Category
+                      </div>
+                    )}
                     <div className="self-end flex gap-4">
-                      <GrayButton
+                      <Button
                         type="button"
                         onClick={() => {
                           reset({
-                            data: [{ detail_cat_id: categoryList[0].value }],
+                            data: [{ detail_category_id: categoryList[0].value }],
                           });
                           setTotalInputs(1);
                           setSelectedCategory([]);
@@ -177,7 +156,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                         }}
                       >
                         Reset
-                      </GrayButton>
+                      </Button>
                       <Button>Apply</Button>
                     </div>
                   </form>

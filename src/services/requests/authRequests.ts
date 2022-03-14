@@ -8,15 +8,6 @@
 
 import Router from "next/router";
 
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { DeviceListResponse, StringResponse } from "@/modules/members/types";
-import { useGlobalState } from "@/modules/useGlobalState";
-import { queryClient } from "@/pages/_app";
-import { getGlobalStates } from "@/services/requests/globalRequests";
-
-import { privateAgent, publicAgent } from ".";
-
 import {
   LoginRequest,
   LoginResponse,
@@ -26,6 +17,14 @@ import {
   NullDataResponse,
   ProfileRequestResponse,
 } from "@/types";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { DeviceListResponse, StringResponse } from "@/modules/members/types";
+import { useGlobalState } from "@/modules/useGlobalState";
+import { queryClient } from "@/pages/_app";
+import { getGlobalStates } from "@/services/requests/globalRequests";
+
+import { privateAgent, publicAgent } from ".";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>
@@ -38,8 +37,7 @@ export const login = (loginRequest: LoginRequest) => {
       })
       .then(async (response) => {
         useAuthStore.getState().setUserData(response.data);
-        if (!useAuthStore.getState().guided)
-          useAuthStore.getState().setGuided(false);
+        if (!useAuthStore.getState().guided) useAuthStore.getState().setGuided(false);
 
         Router.push("/dashboard");
         await getGlobalStates();
@@ -95,10 +93,7 @@ export const getDashboardData = (url: string) =>
     return response.data.data;
   });
 
-export const updateUserProfile = (
-  profileId: number,
-  body: MemberUpdateBody
-) => {
+export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => {
   return new Promise((resolve, reject) => {
     privateAgent
       .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
@@ -140,9 +135,7 @@ export const changePassword = (old_password: string, new_password: string) => {
 };
 
 export const getUserDeviceHistory = (member_id: number) => {
-  return privateAgent
-    .get<DeviceListResponse>(`auth/devices/${member_id}`)
-    .then((response) => response.data.data);
+  return privateAgent.get<DeviceListResponse>(`auth/devices/${member_id}`).then((response) => response.data.data);
 };
 
 export const deleteUserDeviceHistory = (member_id: number) => {
@@ -150,8 +143,6 @@ export const deleteUserDeviceHistory = (member_id: number) => {
 };
 
 export const resetPassword = async (member_id: number): Promise<string> => {
-  const response = await privateAgent.patch<StringResponse>(
-    `auth/reset/${member_id}`
-  );
+  const response = await privateAgent.patch<StringResponse>(`auth/reset/${member_id}`);
   return `Your new password is ${response.data.data}`;
 };

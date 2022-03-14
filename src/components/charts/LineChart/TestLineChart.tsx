@@ -22,7 +22,7 @@ type LineChartProps = {
 };
 
 export const LineChart: React.FC<LineChartProps> = ({
-  color = ["#7358C3", "#FF668F", "green"],
+  color = ["#7358C3", "#FF668F", "primary"],
   datas,
   xAxisType,
   logarithmic = false,
@@ -149,13 +149,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 
   return (
     <div className="">
-      <Chart
-        options={options}
-        series={state.series}
-        type="area"
-        width="100%"
-        height="400"
-      />
+      <Chart options={options} series={state.series} type="area" width="100%" height="400" />
     </div>
   );
 };

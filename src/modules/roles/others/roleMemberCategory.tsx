@@ -22,24 +22,17 @@ export const RoleMemberCategory = () => {
         <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left lg:w-full">
           <Disclosure.Button className="w-full flex text-left justify-between items-center">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">
-                Member Detail Category
-              </h1>
-              <p className="text-lg font-semibold text-gray-500">
-                Click on any field to add, update or remove details fied for{" "}
-                {selectedRole.name}
+              <h1 className="text-2xl font-medium text-primary_gray-900">Member Detail Category</h1>
+              <p className="text-lg font-medium text-primary_gray-500">
+                Click on any field to add, update or remove details fied for {selectedRole.name}
               </p>
             </div>
             <div className="flex items-center">
-              <ChevronUpIcon
-                className={`${
-                  open ? "transform rotate-180" : ""
-                } w-12 h-12 text-green-500`}
-              />
+              <ChevronUpIcon className={`${open ? "transform rotate-180" : ""} w-12 h-12 text-primary-500`} />
             </div>
           </Disclosure.Button>
 
-          <Disclosure.Panel className=" pt-4 pb-2 text-sm text-gray-500">
+          <Disclosure.Panel className=" pt-4 pb-2 text-sm text-primary_gray-500">
             <Transition
               enter="transition duration-100 ease-out"
               enterFrom="transform scale-95 opacity-0"
@@ -50,9 +43,7 @@ export const RoleMemberCategory = () => {
             >
               <div className="w-full flex flex-col space-y-4">
                 <RoleMemberCategoryTable />
-                <div className="self-end">
-                  {open && <RoleMemberCategoryModal type="add" />}
-                </div>
+                <div className="self-end">{open && <RoleMemberCategoryModal type="add" />}</div>
               </div>
             </Transition>
           </Disclosure.Panel>

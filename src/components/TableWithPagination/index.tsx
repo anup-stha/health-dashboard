@@ -10,10 +10,7 @@ import React from "react";
 import useSWR from "swr";
 
 import { Pagination } from "../Pagination";
-import {
-  UserCardView,
-  UserTableRowComponent,
-} from "../Table/DefaultUserTableRow";
+import { UserCardView, UserTableRowComponent } from "../Table/DefaultUserTableRow";
 import { Table } from "../Table/Table";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
@@ -21,15 +18,10 @@ const fetcher = (url: any) => fetch(url).then((res) => res.json());
 export const TableWithPagination: React.FC = () => {
   const [pageIndex, setPageIndex] = React.useState<number>(1);
 
-  const { data } = useSWR(
-    `https://612f63c05fc50700175f15d8.mockapi.io/users?page=${pageIndex}&limit=10`,
-    fetcher
-  );
+  const { data } = useSWR(`https://612f63c05fc50700175f15d8.mockapi.io/users?page=${pageIndex}&limit=10`, fetcher);
 
   const { data: nextPageData } = useSWR(
-    `https://612f63c05fc50700175f15d8.mockapi.io/users?page=${
-      pageIndex + 1
-    }&limit=10`,
+    `https://612f63c05fc50700175f15d8.mockapi.io/users?page=${pageIndex + 1}&limit=10`,
     fetcher
   );
 
@@ -50,11 +42,7 @@ export const TableWithPagination: React.FC = () => {
         />
       </div>
       <div className="mt-8">
-        <Pagination
-          totalPageNumber={10}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-        />
+        <Pagination totalPageNumber={10} pageIndex={pageIndex} setPageIndex={setPageIndex} />
       </div>
     </div>
   );

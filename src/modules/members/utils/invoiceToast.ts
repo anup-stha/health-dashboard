@@ -10,26 +10,18 @@ import Router from "next/router";
 
 import { alert } from "@/components/Alert";
 
+import { Invoice } from "@/types";
 import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
 import { queryClient } from "@/pages/_app";
-import {
-  postInvoice,
-  putInvoiceAsPaid,
-} from "@/services/requests/invoiceRequest";
-
-import { Invoice } from "@/types";
+import { postInvoice, putInvoiceAsPaid } from "@/services/requests/invoiceRequest";
 
 export const postInvoiceToast = (body: Omit<Invoice, "invoice_no" | "id">) => {
   const postInvoiceToastPromise = new Promise((resolve, reject) =>
     postInvoice(body)
       .then((response) => {
-        useMemberStore
-          .getState()
-          .setInvoiceId(`${response.data.data.invoice_no}`);
+        useMemberStore.getState().setInvoiceId(`${response.data.data.invoice_no}`);
         queryClient.invalidateQueries("invoice-list");
-        Router.push(
-          `/member/org_admin/invoice?id=${response.data.data.invoice_no}`
-        );
+        Router.push(`/member/org_admin/invoice?id=${response.data.data.invoice_no}`);
         resolve(response.data.message);
       })
       .catch((error) => {

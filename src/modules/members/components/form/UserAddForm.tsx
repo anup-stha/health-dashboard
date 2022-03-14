@@ -15,13 +15,9 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import {
-  useAddUser,
-  useNestedAddUser,
-} from "@/modules/members/hooks/query/useMemberList";
-import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
-
 import { MemberDetailCategory, Role } from "@/types";
+import { useAddUser, useNestedAddUser } from "@/modules/members/hooks/query/useMemberList";
+import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 
 interface UserAddFormData {
   name: string;
@@ -36,12 +32,7 @@ interface UserAddFormData {
 }
 
 interface UserAddFormProps
-  extends Partial<
-    Pick<
-      UseFormReturn<any>,
-      "register" | "handleSubmit" | "control" | "reset" | "watch"
-    >
-  > {
+  extends Partial<Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch">> {
   type?: "edit" | "add";
   parent_member_id?: number;
   selectedRole: Role;
@@ -81,7 +72,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
             return {
               [`${element[0]}-detail`]: {
-                detail_cat_id: Number(element.split("-")[0]),
+                detail_category_id: Number(element.split("-")[0]),
                 value: values[index],
               },
             };
@@ -227,35 +218,31 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
           {selectedRole &&
             selectedRole.member_detail_categories &&
-            selectedRole.member_detail_categories.map(
-              (category: MemberDetailCategory) => (
-                <Fragment key={category.id}>
-                  {category.value_type.toLowerCase() === "boolean" ? (
-                    <SwitchInput
-                      label={category.name}
-                      type="number"
-                      placeholder={`Enter ${category.name}`}
-                      {...register(`${category.id}-${category.slug}`)}
-                    />
-                  ) : (
-                    <PrimaryInput
-                      label={category.name}
-                      data-testid={`${category.id}-${category.slug}`}
-                      type={category.value_type}
-                      required={!!category.required}
-                      placeholder={`Enter ${category.name}`}
-                      {...register(`${category.id}-${category.slug}`)}
-                    />
-                  )}
-                </Fragment>
-              )
-            )}
+            selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
+              <Fragment key={category.id}>
+                {category.value_type.toLowerCase() === "boolean" ? (
+                  <SwitchInput
+                    label={category.name}
+                    type="number"
+                    placeholder={`Enter ${category.name}`}
+                    {...register(`${category.id}-${category.slug}`)}
+                  />
+                ) : (
+                  <PrimaryInput
+                    label={category.name}
+                    data-testid={`${category.id}-${category.slug}`}
+                    type={category.value_type}
+                    required={!!category.required}
+                    placeholder={`Enter ${category.name}`}
+                    {...register(`${category.id}-${category.slug}`)}
+                  />
+                )}
+              </Fragment>
+            ))}
         </div>
       </Modal.Scrollable>
       <div className="px-2">
-        <Button data-testid="member-add-btn">
-          {type === "add" ? "Add" : "Edit"} User
-        </Button>
+        <Button data-testid="member-add-btn">{type === "add" ? "Add" : "Edit"} User</Button>
       </div>
     </Modal.Form>
   ) : null;

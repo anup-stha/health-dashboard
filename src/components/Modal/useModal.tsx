@@ -36,9 +36,7 @@ interface IModalComposition {
   AsyncForm: React.FC<IModalFormProps>;
 }
 
-export const ModalContext = React.createContext<IModalContext | undefined>(
-  undefined
-);
+export const ModalContext = React.createContext<IModalContext | undefined>(undefined);
 
 interface IModalContainerProps {
   open?: boolean;
@@ -54,11 +52,7 @@ const Modal: React.FC<IModalContainerProps> & IModalComposition = (props) => {
     [isOpen, setIsOpen]
   );
 
-  return (
-    <ModalContext.Provider value={memoizedContextValue}>
-      {props.children}
-    </ModalContext.Provider>
-  );
+  return <ModalContext.Provider value={memoizedContextValue}>{props.children}</ModalContext.Provider>;
 };
 
 export const useModal = (): IModalContext => {

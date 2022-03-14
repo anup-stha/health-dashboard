@@ -18,26 +18,19 @@ type NavItemProps = {
   containerClassName?: string;
 };
 
-export const NavItem: React.FC<NavItemProps> = ({
-  route,
-  containerClassName,
-}) => {
+export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) => {
   const { open, toggleOpen } = useSideBarStore();
   const { pathname, push } = useRouter();
 
   const activeStyles =
-    "font-bold text-gray-900 bg-gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-200 ";
+    "font-medium text-primary_gray-900  bg-primary_gray-100 relative py-2.5 rounded-lg cursor-pointer hover:bg-primary_gray-200 ";
   const inactiveStyles =
-    "font-semibold text-gray-500 hover:text-gray-900 relative py-2.5 rounded-lg cursor-pointer hover:bg-gray-50   ";
+    "font-medium text-primary_gray-500 hover:text-primary_gray-900 relative py-2.5 rounded-lg cursor-pointer hover:bg-primary_gray-50   ";
 
   return (
     <div className={containerClassName}>
       <li
-        className={
-          route.link && pathname.includes(route.link)
-            ? activeStyles
-            : inactiveStyles
-        }
+        className={route.link && pathname.includes(route.link) ? activeStyles : inactiveStyles}
         onClick={() => {
           route.link &&
             push(route.link).then(() => {
@@ -60,9 +53,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 
           <div
             className={`flex relative items-center ${
-              !open
-                ? "opacity-100 -translate-x-8 transition-opacity duration-500  px-4 "
-                : "opacity-0 w-0 p-0"
+              !open ? "opacity-100 -translate-x-8 transition-opacity duration-500  px-4 " : "opacity-0 w-0 p-0"
             }  `}
           >
             <div className="sm:hidden">{route.icon}</div>
@@ -70,7 +61,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         </div>
 
         {!open && (
-          <div className="pointer-events-none text-gray-50 rounded-md shadow-E200 bg-gray-800 font-normal h-10 absolute top-0 translate-y-1/4 left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+          <div className="pointer-events-none text-primary_gray-50 rounded-md shadow-E200 bg-primary_gray-800 font-normal h-10 absolute top-0 translate-y-1/4 left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
             {route.title}
           </div>
         )}

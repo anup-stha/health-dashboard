@@ -10,11 +10,7 @@ import { useQuery } from "react-query";
 
 import { getMemberTestList } from "@/services/requests/memberRequests";
 
-export const useMemberTestList = (
-  memberId: number,
-  testCategoryId: number,
-  pageNumber?: number
-) => {
+export const useMemberTestList = (memberId: number, testCategoryId: number, pageNumber?: number) => {
   return useQuery(
     ["member-test-list", memberId, testCategoryId, pageNumber],
     () => getMemberTestList(memberId, testCategoryId, pageNumber),

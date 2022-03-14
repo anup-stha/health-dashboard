@@ -12,14 +12,13 @@ import React, { useRef } from "react";
 import ReactExport from "react-data-export";
 import { useReactToPrint } from "react-to-print";
 
-import { GrayButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 
+import { MemberTestList, PaginationObject } from "@/types";
 import { ProfileTestPrint } from "@/modules/members/components/tests/ProfileTestPrint";
 import { Member } from "@/modules/members/types";
 import { getSubTestList } from "@/modules/members/utils/getSubTestList";
 import { utcDateToLocal } from "@/modules/members/utils/utcDateToLocal";
-
-import { MemberTestList, PaginationObject } from "@/types";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -30,10 +29,7 @@ interface IProfileTestExport {
   selectedMember: Member;
 }
 
-export const ProfileTestExport = ({
-  testList,
-  selectedMember: currentMember,
-}: IProfileTestExport) => {
+export const ProfileTestExport = ({ testList, selectedMember: currentMember }: IProfileTestExport) => {
   const componentRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({ content: () => componentRef.current });
 
@@ -46,9 +42,7 @@ export const ProfileTestExport = ({
               test_name: element.test_name,
               test_app: element.app_slug,
               temperature: element.temperature,
-              test_date: moment(utcDateToLocal(element.test_date)).format(
-                "YYYY/MM/DD"
-              ),
+              test_date: moment(utcDateToLocal(element.test_date)).format("YYYY/MM/DD"),
             },
             ...element.report.map((sub) => ({
               [sub.name]: sub.value,
@@ -66,21 +60,14 @@ export const ProfileTestExport = ({
         member={currentMember}
         ref={componentRef}
       />
-      <GrayButton onClick={handlePrint} buttonSize="small">
+      <Button onClick={handlePrint} size="sm">
         Print
-      </GrayButton>
-      <ExcelFile
-        element={<GrayButton buttonSize="small">Export to Excel</GrayButton>}
-        filename={testList.list[0].test_name}
-      >
+      </Button>
+      <ExcelFile element={<Button size="sm">Export to Excel</Button>} filename={testList.list[0].test_name}>
         <ExcelSheet data={excelData} name={testList.list[0].test_name}>
-          {Object.keys(omit(excelData[0], "note")).map(
-            (element: any, index: number) => {
-              return (
-                <ExcelColumn key={index} label={element} value={element} />
-              );
-            }
-          )}
+          {Object.keys(omit(excelData[0], "note")).map((element: any, index: number) => {
+            return <ExcelColumn key={index} label={element} value={element} />;
+          })}
           <ExcelColumn label="Test Note" value="note" />
         </ExcelSheet>
       </ExcelFile>

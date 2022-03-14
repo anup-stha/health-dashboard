@@ -7,27 +7,14 @@
  */
 
 import { Category2, Home } from "iconsax-react";
-import {
-  DeviceMobile,
-  House,
-  Polygon,
-  Question,
-  Sliders,
-  TestTube,
-  UserList,
-  Users,
-} from "phosphor-react";
+import { DeviceMobile, Polygon, Question, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
 
 import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
 import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
 import { orgAdminWelcomeSlides } from "@/modules/org-admin/dashboard";
 
-const convertToLink = (
-  json: RouteObjectType[],
-  ansArray: string[],
-  extra?: string[]
-) => {
+const convertToLink = (json: RouteObjectType[], ansArray: string[], extra?: string[]) => {
   json.map((element) => {
     if ("link" in element) {
       ansArray.push(element.link ? element["link"] : "");
@@ -69,7 +56,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <House size={24} />,
+    icon: <Home size={24} variant="Broken" />,
     link: "/dashboard",
   },
   {
@@ -111,7 +98,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
       {
         id: 4,
         title: "Others",
-        icon: <Category2 variant="Broken" size={24} color="gray" />,
+        icon: <Category2 variant="Broken" size={24} color="primary_gray" />,
         link: "/others",
       },
       {
@@ -119,19 +106,13 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         title: "How To Use",
         icon: <Question size={24} />,
         link: false,
-        modal: ({ children }) => (
-          <WelcomeModal images={adminWelcomeSlides}> {children}</WelcomeModal>
-        ),
+        modal: ({ children }) => <WelcomeModal images={adminWelcomeSlides}> {children}</WelcomeModal>,
       },
     ],
   },
 ];
 
-export const orgExtraRoutes = [
-  "/members/[profile]",
-  "/members/[profile]/test_report",
-  "/profile/invoice",
-];
+export const orgExtraRoutes = ["/members/[profile]", "/members/[profile]/test_report", "/profile/invoice"];
 export const orgNavRoutes: RouteObjectType[] = [
   {
     id: 1,
@@ -150,15 +131,9 @@ export const orgNavRoutes: RouteObjectType[] = [
     title: "How To Use",
     icon: <Question size={24} />,
     link: false,
-    modal: ({ children }) => (
-      <WelcomeModal images={orgAdminWelcomeSlides}> {children}</WelcomeModal>
-    ),
+    modal: ({ children }) => <WelcomeModal images={orgAdminWelcomeSlides}> {children}</WelcomeModal>,
   },
 ];
 
-export const adminRoutes = convertToLink(
-  superAdminNavRoutes,
-  [],
-  adminExtraRoute
-);
+export const adminRoutes = convertToLink(superAdminNavRoutes, [], adminExtraRoute);
 export const orgRoutes = convertToLink(orgNavRoutes, [], orgExtraRoutes);

@@ -47,9 +47,7 @@ context("Members Page", () => {
 
     cy.wait("@getRoles").then((interception) => {
       cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
-      interception.response.body.data.forEach((role) =>
-        cy.get(`[data-testid=${role.name}-btn]`).contains(role.name)
-      );
+      interception.response.body.data.forEach((role) => cy.get(`[data-testid=${role.name}-btn]`).contains(role.name));
     });
   });
 
@@ -71,9 +69,7 @@ context("Members Page", () => {
     cy.get(`[data-testid=individual-btn]`).click({ force: true });
     cy.get("[data-testid=add-modal-open-btn]").click({ force: true });
     cy.get("[data-testid=member-add-btn]").click();
-    cy.get("[data-testid=name]")
-      .invoke("prop", "validationMessage")
-      .should("equal", "Please fill out this field.");
+    cy.get("[data-testid=name]").invoke("prop", "validationMessage").should("equal", "Please fill out this field.");
   });
 
   it("Submit form correctly if all data is filled", () => {
@@ -101,14 +97,10 @@ context("Members Page", () => {
     cy.get("[data-testid=email]").type(`test${phone}@test.com`);
     cy.get("[data-testid=password]").type("test1234 ");
     cy.wait("@getRoles").then((interception) => {
-      const selectedRole = interception.response.body.data.filter(
-        (role) => role.id === 2
-      );
+      const selectedRole = interception.response.body.data.filter((role) => role.id === 2);
 
       selectedRole[0].member_detail_categories.map((detail_category) =>
-        cy
-          .get(`[data-testid=${detail_category.id}-${detail_category.slug}]`)
-          .type("Test Detail")
+        cy.get(`[data-testid=${detail_category.id}-${detail_category.slug}]`).type("Test Detail")
       );
     });
 

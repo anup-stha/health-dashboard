@@ -28,16 +28,14 @@ import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
 export function MemberListPage() {
   const { isLoading } = useRoleList();
   const currentRole = useCurrentMemberStore((state) => state.role);
-  const { data, isLoading: roleLoading } = useRoleDetails(
-    isEmpty(currentRole) ? 0 : currentRole.id
-  );
+  const { data, isLoading: roleLoading } = useRoleDetails(isEmpty(currentRole) ? 0 : currentRole.id);
   const user = useAuthStore((state) => state.user);
 
   if (isLoading || roleLoading) return <Loader />;
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-8">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:space-y-4">
           <Heading
             title="Members"
@@ -52,9 +50,7 @@ export function MemberListPage() {
           )}
         </div>
         {data && <MemberTable />}
-        {user.role.role_access.length === 0 && (
-          <ErrorState title="No Roles Found" />
-        )}
+        {user.role.role_access.length === 0 && <ErrorState title="No Roles Found" />}
       </div>
     </div>
   );

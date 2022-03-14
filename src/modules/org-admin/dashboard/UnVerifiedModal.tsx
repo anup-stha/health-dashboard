@@ -14,12 +14,7 @@ export const UnVerifiedModal = () => {
 
   return (
     <Transition appear show={isOpen} as={Fragment} data-testid="modal">
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-50"
-        onClose={() => setIsOpen(false)}
-        open={true}
-      >
+      <Dialog as="div" className="fixed inset-0 z-50" onClose={() => setIsOpen(false)} open={true}>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
         <div className="min-h-screen md:px-16 sm:px-4 text-center">
           <Transition.Child as={Fragment}>
@@ -46,19 +41,13 @@ export const UnVerifiedModal = () => {
                     <WarningOctagon size={48} weight="light" />
                   </div>
                   <div className="flex flex-col">
-                    <div className="text-red-600 font-semibold text-2xl">
-                      Verification Error
-                    </div>
-                    <div className="text-gray-500 font-regular text-lg">
-                      You haven&apos;t been verified yet. Please contact Sunya
-                      Health to get verified.
+                    <div className="text-red-600 font-medium text-2xl">Verification Error</div>
+                    <div className="text-primary_gray-500 font-regular text-lg">
+                      You haven&apos;t been verified yet. Please contact Sunya Health to get verified.
                     </div>
                   </div>
                 </div>
-                <div
-                  className="text-gray-500 cursor-pointer"
-                  onClick={() => setIsOpen(false)}
-                >
+                <div className="text-primary_gray-500 cursor-pointer" onClick={() => setIsOpen(false)}>
                   <X size={32} />
                 </div>
               </div>

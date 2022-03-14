@@ -8,25 +8,16 @@
 
 import { alert } from "@/components/Alert";
 
+import { MemberDetailCategoryBody, MemberDetailCategoryUpdateBody } from "@/types";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import {
-  postMemberCategory,
-  postUpdateMemberCategory,
-} from "@/services/requests/memberRequests";
-
-import {
-  MemberDetailCategoryBody,
-  MemberDetailCategoryUpdateBody,
-} from "@/types";
+import { postMemberCategory, postUpdateMemberCategory } from "@/services/requests/memberRequests";
 
 export const postMemberCategoryToast = (body: MemberDetailCategoryBody) => {
   const postMemberCategoryPromise = new Promise((resolve, reject) =>
     postMemberCategory(body)
       .then((response) => {
         const memberDetail = useRoleStore.getState().memberCategoryList;
-        useRoleStore
-          .getState()
-          .addMemberDetail([response.data.data, ...memberDetail]);
+        useRoleStore.getState().addMemberDetail([response.data.data, ...memberDetail]);
         resolve(response.data.message);
       })
       .catch((error) => {
@@ -43,19 +34,14 @@ export const postMemberCategoryToast = (body: MemberDetailCategoryBody) => {
   });
 };
 
-export const postUpdateMemberCategoryToast = (
-  body: MemberDetailCategoryUpdateBody,
-  category_id: number
-) => {
+export const postUpdateMemberCategoryToast = (body: MemberDetailCategoryUpdateBody, category_id: number) => {
   const postUpdateMemberCategoryPromise = new Promise((resolve, reject) =>
     postUpdateMemberCategory(body, category_id)
       .then((response) => {
         const updatedArray = useRoleStore
           .getState()
           .memberCategoryList.map((category) =>
-            category.id === response.data.data.id
-              ? response.data.data
-              : category
+            category.id === response.data.data.id ? response.data.data : category
           );
 
         useRoleStore.getState().addMemberDetail(updatedArray);

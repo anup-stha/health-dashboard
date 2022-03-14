@@ -9,11 +9,7 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
-import {
-  OtherFields,
-  OtherFieldsGetResponse,
-  OtherFieldsPostResponse,
-} from "@/types";
+import { OtherFields, OtherFieldsGetResponse, OtherFieldsPostResponse } from "@/types";
 
 const initialState = {
   othersFieldList: {
@@ -55,6 +51,4 @@ const store = combine(initialState, (set) => ({
   },
 }));
 
-export const useOtherFieldsStore = create(
-  devtools(store, { name: "other_fields" })
-);
+export const useOtherFieldsStore = create(devtools(store, { name: "other_fields" }));

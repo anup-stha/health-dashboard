@@ -14,7 +14,7 @@ import LetteredAvatar from "react-avatar";
 import { useForm } from "react-hook-form";
 import { useReactToPrint } from "react-to-print";
 
-import { GrayButton, PrimaryButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 import { Loader } from "@/components/Loader";
 import { TableView } from "@/components/Table";
@@ -45,11 +45,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
   const start_date = useMemberStore((state) => state.test_report.start_date);
   const end_date = useMemberStore((state) => state.test_report.end_date);
 
-  const { data, refetch, isFetching, error } = useTestReportByDate(
-    current_member.id,
-    start_date,
-    end_date
-  );
+  const { data, refetch, isFetching, error } = useTestReportByDate(current_member.id, start_date, end_date);
 
   useEffect(() => {
     start_date !== 0 && refetch();
@@ -86,12 +82,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
   return (
     <>
       {current_member && (
-        <ProfileAllTestPrint
-          test_name="Test Report"
-          test={subTestGroups}
-          member={current_member}
-          ref={componentRef}
-        />
+        <ProfileAllTestPrint test_name="Test Report" test={subTestGroups} member={current_member} ref={componentRef} />
       )}
 
       <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -108,28 +99,21 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
 
           <div className="absolute left-[1.7%] top-40 z-0 flex items-center gap-x-6">
             <div className="ring-4 ring-white rounded-full">
-              <LetteredAvatar
-                name={current_member?.name}
-                size="120"
-                round={true}
-                maxInitials={2}
-              />
+              <LetteredAvatar name={current_member?.name} size="120" round={true} maxInitials={2} />
             </div>
             <div className="flex flex-col mt-10">
-              <h1 className="capitalize text-gray-900 font-semibold text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-3xl">
                 {current_member?.name}
               </h1>
-              <p className="text-gray-500 font-semibold text-xl sm:text-lg">
-                {current_member?.email}
-              </p>
+              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">{current_member?.email}</p>
             </div>
           </div>
           <div className="mt-36 py-4 px-8 space-y-6">
             <div className="flex flex-col">
-              <h1 className="capitalize text-gray-700 font-semibold text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-primary_gray-700 font-medium text-3xl tracking-wider sm:text-3xl">
                 Patient Test Report
               </h1>
-              <p className="text-gray-500 font-semibold text-xl sm:text-lg">
+              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">
                 Please choose start date and end date to generate report.
               </p>
             </div>
@@ -143,9 +127,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                     const start_date = +new Date(values.start_date);
                     const end_date = +new Date(values.end_date);
 
-                    useMemberStore
-                      .getState()
-                      .setTestReportDate(start_date / 1000, end_date / 1000);
+                    useMemberStore.getState().setTestReportDate(start_date / 1000, end_date / 1000);
                   })}
                   className="flex items-end space-x-4"
                 >
@@ -164,20 +146,18 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                     max={now.toISOString().slice(0, 16)}
                     {...register("end_date")}
                   />
-                  <PrimaryButton className="px-12 py-[1.05rem] text-xl font-semibold">
-                    Search
-                  </PrimaryButton>
+                  <Button className="px-12 py-[1.05rem] text-xl font-medium">Search</Button>
                 </form>
                 {!error && data && (
                   <div className="flex space-x-4">
-                    <GrayButton onClick={handlePrint}>Print Report</GrayButton>
+                    <Button onClick={handlePrint}>Print Report</Button>
                   </div>
                 )}
               </div>
             </div>
 
             {(error || !data) && (
-              <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+              <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
                 <WarningOctagon size={24} /> <span>No Details Found</span>
               </div>
             )}

@@ -14,23 +14,19 @@ import React, { Fragment, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
-import { Button, RedLineButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
+import { TestSubCategory } from "@/types";
 import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
 import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { testStore } from "@/modules/tests/testStore";
-import {
-  assignTestToSubscriptionBulk,
-  removeTestFromSubscription,
-} from "@/services/requests/subscriptionRequests";
+import { assignTestToSubscriptionBulk, removeTestFromSubscription } from "@/services/requests/subscriptionRequests";
 
 import { MultiDropdown } from "../roles/form/roleMemberCategoryForm";
-
-import { TestSubCategory } from "@/types";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -40,36 +36,25 @@ type SubsDescriptionPage = {
   selected: any;
 };
 
-export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
-  selected,
-}) => {
+export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected }) => {
   const { testList } = testStore();
 
   const { subscriptionDetails } = useSubscriptionStore();
-  const [selectedId, setSelectedId] = useState(
-    testList[0] ? testList[0].id : 0
-  );
+  const [selectedId, setSelectedId] = useState(testList[0] ? testList[0].id : 0);
 
   const selectedTest = useMemo(
     () => testList.filter((element) => element.id === selectedId)[0],
     [selectedId, testList]
   );
 
-  const getTestSubCategory = (testId: number) =>
-    testList.filter((element) => element.id === testId)[0].sub_categories;
+  const getTestSubCategory = (testId: number) => testList.filter((element) => element.id === testId)[0].sub_categories;
 
   const getFilteredTestCategory = (testId: number) => {
     const testList = getTestSubCategory(testId);
 
-    const testIndexInSubs = subscriptionDetails.findIndex(
-      (element) => element.id === testId
-    );
+    const testIndexInSubs = subscriptionDetails.findIndex((element) => element.id === testId);
 
-    return differenceWith(
-      testList,
-      subscriptionDetails[testIndexInSubs].sub_categories,
-      isEqual
-    );
+    return differenceWith(testList, subscriptionDetails[testIndexInSubs].sub_categories, isEqual);
   };
 
   const tabs = testList.map(
@@ -84,12 +69,10 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 w-full space-y-8">
       <Heading title={selected.name ?? ""} subtitle={selected.slug ?? ""} />
 
-      <hr className="border-t-[1px] border-gray-200" />
+      <hr className="border-t-[1px] border-primary_gray-200" />
       <div className="space-y-4">
         <div className="flex flex-col">
-          <h1 className="text-3xl font-semibold text-neutral-800 capitalize">
-            Tests
-          </h1>
+          <h1 className="text-3xl font-medium text-neutral-800 capitalize">Tests</h1>
         </div>
 
         {testList.length !== 0 ? (
@@ -105,32 +88,24 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                         }}
                         className={classNames(
                           selected
-                            ? "w-full py-4 px-6 border-green-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
-                            : '"w-full py-4 px-6 border-green-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
+                            ? "w-full py-4 px-6 border-primary-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
+                            : '"w-full py-4 px-6 border-primary-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-primary_gray-200 border-r-4 border-r-transparent'
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xl font-medium capitalize">
-                            {test.name}
-                          </span>
+                          <span className="text-xl font-medium capitalize">{test.name}</span>
                           <span>
-                            {subscriptionDetails.some(
-                              (element) => element.id === test.id
-                            ) ? (
+                            {subscriptionDetails.some((element) => element.id === test.id) ? (
                               <CheckCircle
                                 size={24}
                                 weight="duotone"
-                                className={classNames(
-                                  selected ? "text-green-400" : "text-green-700"
-                                )}
+                                className={classNames(selected ? "text-primary-400" : "text-primary-700")}
                               />
                             ) : (
                               <XCircle
                                 size={24}
                                 weight="duotone"
-                                className={classNames(
-                                  selected ? "text-red-400" : "text-red-700"
-                                )}
+                                className={classNames(selected ? "text-red-400" : "text-red-700")}
                               />
                             )}
                           </span>
@@ -149,27 +124,17 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                         <div className="w-full flex flex-col space-y-2">
                           <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                             <div className="flex flex-col">
-                              <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
-                                {selectedTest.name}
-                              </h1>
+                              <h1 className="text-3xl font-medium text-neutral-700 capitalize">{selectedTest.name}</h1>
                               <div className="flex space-x-2">
+                                <BooleanTag type="info" trueStatement={`Slug: ${selectedTest.slug}`} />
                                 <BooleanTag
                                   type="info"
-                                  trueStatement={`Slug: ${selectedTest.slug}`}
-                                />
-                                <BooleanTag
-                                  type="info"
-                                  trueStatement={`Public:${
-                                    selectedTest.public ? " Yes" : " No"
-                                  }`}
+                                  trueStatement={`Public:${selectedTest.public ? " Yes" : " No"}`}
                                 />
                                 <BooleanTag
                                   type="info"
                                   trueStatement={`${
-                                    subscriptionDetails.some(
-                                      (element) =>
-                                        element.id === selectedTest.id
-                                    )
+                                    subscriptionDetails.some((element) => element.id === selectedTest.id)
                                       ? "Assigned"
                                       : "Not Assigned"
                                   }`}
@@ -183,46 +148,31 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                               />
                             </div>
                           </div>
-                          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
-                            <WarningOctagon size={24} />{" "}
-                            <span>No Test Assigned</span>
+                          <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
+                            <WarningOctagon size={24} /> <span>No Test Assigned</span>
                           </div>
                         </div>
                       </Tab.Panel>
                     );
-                  const subCategories = test.sub_categories.map(
-                    (subTest: any) => ({
-                      ...subTest,
-                      category_name: test.name,
-                      category_desc: test.desc,
-                    })
-                  );
+                  const subCategories = test.sub_categories.map((subTest: any) => ({
+                    ...subTest,
+                    category_name: test.name,
+                    category_desc: test.desc,
+                  }));
 
                   return (
                     <Tab.Panel key={index}>
                       <div className="space-y-4 w-full">
                         <div className="flex items-center justify-between w-full lg:flex-col lg:items-start lg:space-y-4">
                           <div className="space-y-1">
-                            <h1 className="text-3xl font-semibold text-neutral-700 capitalize">
-                              {test.name}
-                            </h1>
+                            <h1 className="text-3xl font-medium text-neutral-700 capitalize">{test.name}</h1>
                             <div className="flex space-x-2">
-                              <BooleanTag
-                                type="info"
-                                trueStatement={`Slug: ${test.slug}`}
-                              />
-                              <BooleanTag
-                                type="info"
-                                trueStatement={`Public:${
-                                  test.public ? " Yes" : " No"
-                                }`}
-                              />{" "}
+                              <BooleanTag type="info" trueStatement={`Slug: ${test.slug}`} />
+                              <BooleanTag type="info" trueStatement={`Public:${test.public ? " Yes" : " No"}`} />{" "}
                               <BooleanTag
                                 type="info"
                                 trueStatement={`${
-                                  subscriptionDetails.some(
-                                    (element) => element.id === selectedTest.id
-                                  )
+                                  subscriptionDetails.some((element) => element.id === selectedTest.id)
                                     ? "Assigned"
                                     : "Not Assigned"
                                 }`}
@@ -230,21 +180,13 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
                             </div>
                           </div>{" "}
                           <div className="flex">
-                            <SubsTestDropdown
-                              options={getFilteredTestCategory(test.id)}
-                            />
+                            <SubsTestDropdown options={getFilteredTestCategory(test.id)} />
                           </div>
                         </div>
 
                         <TableView
                           data={subCategories}
-                          tableHeadings={[
-                            "Name",
-                            "Slug",
-                            "Public",
-                            "Description",
-                            "",
-                          ]}
+                          tableHeadings={["Name", "Slug", "Public", "Description", ""]}
                           tableRowComponent={<SubscriptionSubTestTableRow />}
                           loading={false}
                         />
@@ -256,19 +198,17 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({
             </Tab.Group>
           </div>
         ) : (
-          <div className="flex  items-center text-xl font-semibold text-red-400 space-x-2 ">
+          <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
             <WarningOctagon size={24} /> <span>No Test Details Found</span>
           </div>
         )}
       </div>
 
-      <hr className="border-t-[1px] border-gray-200" />
+      <hr className="border-t-[1px] border-primary_gray-200" />
       <div className="space-y-2">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900">Alert Zone</h1>
-          <p className="text-lg font-semibold text-gray-500">
-            Please be careful with anything you do here
-          </p>
+          <h1 className="text-3xl font-medium text-primary_gray-900">Alert Zone</h1>
+          <p className="text-lg font-medium text-primary_gray-500">Please be careful with anything you do here</p>
         </div>
         <div className="space-y-4">
           <SubscriptionUpdateZone />
@@ -287,12 +227,8 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="">
-            <div className="text-xl font-semibold text-gray-900 w-full capitalize">
-              {data.name}
-            </div>
-            <div className="text-lg font-medium text-gray-500">
-              {data.category_name}
-            </div>
+            <div className="text-xl font-medium text-primary_gray-900 w-full capitalize">{data.name}</div>
+            <div className="text-lg font-medium text-primary_gray-500">{data.category_name}</div>
           </div>
         </div>
       </td>
@@ -304,15 +240,13 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       </td>
       <td className="px-6 py-4">{data.desc}</td>
       <td className="font-medium px-6 py-4 whitespace-nowrap text-lg flex items-center justify-end">
-        <RedLineButton
+        <Button
+          variant="outline"
+          color="error"
           onClick={async () =>
             alert({
               type: "promise",
-              promise: removeTestFromSubscription(
-                Number(router.query.id),
-                data.category_id,
-                data.id
-              ),
+              promise: removeTestFromSubscription(Number(router.query.id), data.category_id, data.id),
               msgs: {
                 loading: "Removing Test",
               },
@@ -321,7 +255,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
           }
         >
           Remove Test
-        </RedLineButton>
+        </Button>
       </td>
     </tr>
   ) : (
@@ -334,10 +268,7 @@ type SubTestDropdown = {
   label?: string;
 };
 
-export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
-  options,
-  label = "",
-}) => {
+export const SubsTestDropdown: React.FC<SubTestDropdown> = ({ options, label = "" }) => {
   const { handleSubmit, control, formState, reset } = useForm();
   const router = useRouter();
   const { isDirty, isValid } = formState;
@@ -374,12 +305,7 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({
       className="flex lg:w-full space-x-4 items-end"
     >
       <div className="w-96">
-        <MultiDropdown
-          options={subtestOptions}
-          name="sub_test"
-          label={label}
-          control={control}
-        />
+        <MultiDropdown options={subtestOptions} name="sub_test" label={label} control={control} />
       </div>
 
       <Button disabled={!isDirty || !isValid}>Assign</Button>

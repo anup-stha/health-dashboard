@@ -17,10 +17,7 @@ import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurren
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
 import { useGlobalState } from "@/modules/useGlobalState";
-import {
-  addSubscription,
-  updateSubscription,
-} from "@/services/requests/subscriptionRequests";
+import { addSubscription, updateSubscription } from "@/services/requests/subscriptionRequests";
 
 type memberCategoryFormProps = {
   type: "add" | "edit";
@@ -37,16 +34,11 @@ type SubscriptionFormData = {
   sync_limit: number | undefined;
 };
 
-export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
-  type,
-  id,
-}) => {
+export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }) => {
   const selectedRole = useCurrentMemberStore((state) => state.role);
 
   const { subscriptionList } = useSubscriptionStore();
-  const data: any = subscriptionList.list.filter(
-    (element) => element.id === id
-  )[0];
+  const data: any = subscriptionList.list.filter((element) => element.id === id)[0];
 
   const { register, handleSubmit, control } = useForm<SubscriptionFormData>({
     defaultValues:
@@ -71,12 +63,10 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
           },
   });
 
-  const options = useGlobalState
-    .getState()
-    .base.subscription_intervals.map((element) => ({
-      value: element,
-      label: element,
-    }));
+  const options = useGlobalState.getState().base.subscription_intervals.map((element) => ({
+    value: element,
+    label: element,
+  }));
 
   return (
     <Modal.Form
@@ -119,27 +109,12 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({
       })}
     >
       <div className="space-y-4">
-        <PrimaryInput
-          label="Name"
-          type="text"
-          placeholder="Enter Name"
-          required={true}
-          {...register("name")}
-        />
-        <PrimaryInput
-          label="Price"
-          placeholder="Enter Price"
-          {...register("price")}
-        />
+        <PrimaryInput label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
+        <PrimaryInput label="Price" placeholder="Enter Price" {...register("price")} />
 
         <div className="flex space-x-4">
           <div className="w-1/2">
-            <DropdownController
-              options={options}
-              name="interval_type"
-              label="Interval Type"
-              control={control}
-            />
+            <DropdownController options={options} name="interval_type" label="Interval Type" control={control} />
           </div>
           <div className="w-1/2">
             <PrimaryInput

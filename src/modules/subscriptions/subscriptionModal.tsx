@@ -20,14 +20,9 @@ type subscriptionModalProps = {
   id?: number;
 };
 
-export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
-  type,
-  id,
-}) => {
+export const SubscriptionModal: React.FC<subscriptionModalProps> = ({ type, id }) => {
   const { role: selectedRole } = useCurrentMemberStore();
-  const data: any = useSubscriptionStore
-    .getState()
-    .subscriptionList.list.filter((element) => element.id === id)[0];
+  const data: any = useSubscriptionStore.getState().subscriptionList.list.filter((element) => element.id === id)[0];
 
   return (
     <Modal>
@@ -42,10 +37,7 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({
       )}
 
       <Modal.Content width="max-w-3xl">
-        <Modal.Title>
-          {type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`}{" "}
-          Subscription
-        </Modal.Title>
+        <Modal.Title>{type === "edit" ? `Edit ${data.name}` : `Add ${selectedRole.name}`} Subscription</Modal.Title>
 
         <SubscriptionForm type={type} id={id} />
       </Modal.Content>

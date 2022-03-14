@@ -6,14 +6,14 @@
  *
  */
 
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 
 import { login } from "@/services/requests/authRequests";
 
@@ -27,10 +27,12 @@ const schema = yup.object().shape({
     .string()
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Not a valid Email"
+      "Not a valid email address"
     )
-    .email("Not a Valid Email")
-    .required("Required field"),
+    .email("Not a valid email address")
+    .required("This field is required"),
+
+  password: yup.string().required("This field is required"),
 });
 
 const LoginForm: React.FC<any> = () => {
@@ -41,7 +43,6 @@ const LoginForm: React.FC<any> = () => {
     reset,
   } = useForm<LoginFormValues>({
     resolver: yupResolver(schema),
-    mode: "onChange",
   });
 
   return (
@@ -57,28 +58,27 @@ const LoginForm: React.FC<any> = () => {
           id: "Login Toast",
         });
       })}
-      className="space-y-8 fadeInLogin"
+      className="space-y-8 flex flex-col fadeInLogin"
     >
       <div className="space-y-4 fadeInLogin">
-        <PrimaryInput
-          label="Email"
+        <Input
+          label="Email Address"
           type="email"
           data-testid="email"
-          placeholder="Enter email"
           {...register("email")}
           error={errors.email?.message}
         />
-        <PrimaryInput
+        <Input
           label="Password"
           type="password"
           data-testid="password"
           placeholder="Enter Password"
-          {...register("password")}
+          {...register("password", { required: true })}
           error={errors.password?.message}
         />
       </div>
-      <Button loading={isSubmitting} data-testid="login">
-        Log In
+      <Button size="lg" loading={isSubmitting} data-testid="login">
+        Login To Dashboard
       </Button>
     </form>
   );

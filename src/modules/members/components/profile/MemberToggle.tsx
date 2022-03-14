@@ -13,10 +13,7 @@ import { alert } from "@/components/Alert";
 
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { Member } from "@/modules/members/types";
-import {
-  toggleActiveForMember,
-  toggleVerifiedForMember,
-} from "@/services/requests/memberRequests";
+import { toggleActiveForMember, toggleVerifiedForMember } from "@/services/requests/memberRequests";
 
 type MemberToggleProps = {
   toggle: "active" | "verified";
@@ -33,8 +30,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   setCurrentState,
   selectedMemberDetails,
 }) => {
-  const { member, user, setCurrentMember, setCurrentUser } =
-    useCurrentMemberStore();
+  const { member, user, setCurrentMember, setCurrentUser } = useCurrentMemberStore();
 
   const onToggleActive = (status: boolean) => {
     if (member.id === memberId) {
@@ -55,14 +51,12 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   };
   const promise = () =>
     toggle === "active"
-      ? toggleActiveForMember(
-          Number(memberId),
-          selectedMemberDetails.active ? 0 : 1
-        ).then(() => onToggleActive(!currentState))
-      : toggleVerifiedForMember(
-          Number(memberId),
-          selectedMemberDetails.verified ? 0 : 1
-        ).then(() => onToggleVerified(!currentState));
+      ? toggleActiveForMember(Number(memberId), selectedMemberDetails.active ? 0 : 1).then(() =>
+          onToggleActive(!currentState)
+        )
+      : toggleVerifiedForMember(Number(memberId), selectedMemberDetails.verified ? 0 : 1).then(() =>
+          onToggleVerified(!currentState)
+        );
 
   const onToggleHandler = async () => {
     await alert({
@@ -81,15 +75,10 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       {({ active: btnActive }) => (
         <button
           className={`${
-            btnActive ? `text-red-500 bg-red-50 text-white` : "text-gray-700"
-          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+            btnActive ? `text-red-500 bg-red-50 text-white` : "text-primary_gray-700"
+          } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
         >
-          <span>
-            Mark{" "}
-            {currentState
-              ? `${toggle === "active" ? "Inactive" : "Not Verified"}`
-              : toggle}
-          </span>
+          <span>Mark {currentState ? `${toggle === "active" ? "Inactive" : "Not Verified"}` : toggle}</span>
         </button>
       )}
     </Menu.Item>
@@ -98,15 +87,10 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       {({ active }) => (
         <button
           className={`${
-            active ? "text-green-500 bg-green-50" : "text-gray-900"
-          } group flex rounded-md items-center w-full font-semibold px-4 py-3 text-lg`}
+            active ? "text-primary-500 bg-primary-50" : "text-primary_gray-900"
+          } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
         >
-          <span>
-            Mark{" "}
-            {currentState
-              ? `${toggle === "active" ? "active" : "Verified"}`
-              : toggle}
-          </span>
+          <span>Mark {currentState ? `${toggle === "active" ? "active" : "Verified"}` : toggle}</span>
         </button>
       )}
     </Menu.Item>

@@ -44,9 +44,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
     filterComponent,
   }) => {
     const router = useRouter();
-    const [pageIndex, setPageIndex] = useState(
-      router.query.page ? +router.query.page : 1
-    );
+    const [pageIndex, setPageIndex] = useState(router.query.page ? +router.query.page : 1);
     const [tableData, setTableData] = useState(tableInitialData);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -54,9 +52,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
       setTableData(tableInitialData);
     }, [tableInitialData]);
 
-    const headings = tableHeadings
-      ? tableHeadings
-      : tableData.length !== 0 && Object.keys(tableData[0]);
+    const headings = tableHeadings ? tableHeadings : tableData.length !== 0 && Object.keys(tableData[0]);
 
     return (
       <div>
@@ -76,9 +72,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                       setSearchTerm(e.target.value);
                       const searchedData = tableInitialData.filter((data) => {
                         return searchTerms?.some((term) =>
-                          data[term]
-                            .toLowerCase()
-                            .includes(e.target.value.toLowerCase().trim())
+                          data[term].toLowerCase().includes(e.target.value.toLowerCase().trim())
                         );
                       });
 
@@ -96,13 +90,13 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                     {searchTerm !== "" ? (
                       <X
                         stroke="transparent"
-                        className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
+                        className="cursor-pointer stroke-2 text-primary_gray-500 hover:text-primary_gray-700 peer-focus-visible:text-red-500"
                         size={24}
                       />
                     ) : (
                       <MagnifyingGlass
                         stroke="transparent"
-                        className="cursor-pointer stroke-2 text-gray-500 hover:text-gray-700 peer-focus-visible:text-red-500"
+                        className="cursor-pointer stroke-2 text-primary_gray-500 hover:text-primary_gray-700 peer-focus-visible:text-red-500"
                         size={24}
                       />
                     )}
@@ -124,10 +118,8 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                   />{" "}
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-3xl font-semibold text-green-600">
-                    No Data found
-                  </div>
-                  <div className="text-lg font-medium text-gray-500">
+                  <div className="text-3xl font-medium text-primary-600">No Data found</div>
+                  <div className="text-lg font-medium text-primary_gray-500">
                     Please change your search to find more data.
                   </div>
                 </div>
@@ -136,16 +128,16 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
               <div className="flex flex-col">
                 <div className="md:overflow-x-auto md:overflow-y-auto print:sidebar -mx-1">
                   <div className="px-1 py-2 align-middle inline-block min-w-full print:p-0">
-                    <div className="shadow-E100 border-b border-gray-200 sm:rounded-lg rounded-sm">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-100">
+                    <div className="shadow-E100 border-b border-primary_gray-200 sm:rounded-lg rounded-sm">
+                      <table className="min-w-full divide-y divide-primary_gray-200">
+                        <thead className="bg-primary_gray-100">
                           <tr>
                             {headings &&
                               headings.map((heading, index) => (
                                 <th
                                   scope="col"
                                   key={index}
-                                  className="px-6 pb-3 pt-4 text-left text-base font-semibold text-gray-600 uppercase tracking-wider"
+                                  className="px-6 pb-3 pt-4 text-left text-base font-medium text-primary_gray-600 uppercase tracking-wider"
                                 >
                                   {heading}
                                 </th>
@@ -153,7 +145,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                           </tr>
                         </thead>
 
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-primary_gray-200">
                           {tableRowComponent
                             ? loading === false
                               ? tableData.map((data: any) =>
@@ -169,16 +161,14 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                             : tableData.map((data: any, index: number) => {
                                 return (
                                   <tr key={index}>
-                                    {Object.values(data).map(
-                                      (d: any, index) => (
-                                        <td
-                                          key={index}
-                                          className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-gray-850"
-                                        >
-                                          {d.toString()}
-                                        </td>
-                                      )
-                                    )}
+                                    {Object.values(data).map((d: any, index) => (
+                                      <td
+                                        key={index}
+                                        className="capitalize px-6 py-4 whitespace-nowrap text-xl font-medium text-primary_gray-850"
+                                      >
+                                        {d.toString()}
+                                      </td>
+                                    ))}
                                   </tr>
                                 );
                               })}

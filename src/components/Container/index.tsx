@@ -13,9 +13,5 @@ interface IPageContainerProps {
 }
 
 export const PageContainer = ({ children }: IPageContainerProps) => {
-  return (
-    <div className="px-10 py-10 overflow-visible sm:p-6 space-y-6">
-      {children}
-    </div>
-  );
+  return <div className="px-10 py-10 overflow-visible sm:p-6 space-y-6">{children}</div>;
 };

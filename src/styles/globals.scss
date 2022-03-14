@@ -9,10 +9,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
 @import "../components/Table/Table.scss";
 @import "./checbox.scss";
 @import "../components/Input/input.scss";
 
+@import "utils";
+@import "fonts/SofiaPro";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -20,8 +23,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background: #eeeeee;
-  @apply print:bg-white;
+  background: #f6f6f6;
+  @apply print:bg-white font-primary;
 }
 
 html {
@@ -29,7 +32,7 @@ html {
 }
 
 * {
-  font-family: "Raleway", sans-serif;
+  @apply font-primary;
   line-height: normal;
 }
 
@@ -101,20 +104,20 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  @apply text-xl text-gray-500 font-semibold hover:text-gray-900;
+  @apply text-xl text-primary_gray-500 font-medium hover:text-primary_gray-900;
 }
 
 // PAGINATION
 .inactive_item {
-  @apply text-gray-500 hover:bg-gray-200 cursor-pointer p-5 hover:text-gray-800 rounded-lg  sm:text-xl;
+  @apply text-primary_gray-500 hover:bg-primary_gray-200 cursor-pointer p-5 hover:text-primary_gray-800 rounded-lg  sm:text-xl;
 }
 
 .active_item {
-  @apply text-gray-800 bg-white shadow-sm cursor-pointer p-5 hover:bg-gray-400 rounded-lg  sm:text-xl;
+  @apply text-primary_gray-800 bg-white shadow-sm cursor-pointer p-5 hover:bg-primary_gray-400 rounded-lg  sm:text-xl;
 }
 
 .button-nav {
-  @apply cursor-pointer rounded-lg py-4 px-4 bg-gray-50 hover:bg-gray-200 active:inset-4 active:bg-gray-200 disabled:cursor-not-allowed;
+  @apply cursor-pointer rounded-lg py-4 px-4 bg-primary_gray-50 hover:bg-primary_gray-200 active:inset-4 active:bg-primary_gray-200 disabled:cursor-not-allowed;
 }
 
 // login
@@ -200,40 +203,6 @@ input[type="file"] {
   }
 }
 
-// button spinner
-.loading {
-  display: inline-block;
-  @apply w-xs h-xs;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
-}
-
-// button spinner
-.loading_md {
-  display: inline-block;
-  @apply w-md h-md;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
 .sidebar::-webkit-scrollbar {
   display: none;
 }
@@ -251,7 +220,7 @@ input[type="file"] {
 
 input:checked ~ .dot {
   transform: translateX(100%);
-  @apply bg-green-600;
+  @apply bg-primary-600;
 }
 
 datalist {
@@ -285,7 +254,7 @@ datalist {
 }
 
 .permission_card_active {
-  @apply w-full bg-white shadow-E100 flex flex-col rounded-md px-4 py-6 ring-2 ring-opacity-90 ring-green-600 text-white transition-all duration-100;
+  @apply w-full bg-white shadow-E100 flex flex-col rounded-md px-4 py-6 ring-2 ring-opacity-90 ring-primary-600 text-white transition-all duration-100;
 }
 
 .example-container {
@@ -422,4 +391,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .bg-triangle {
   clip-path: polygon(0 100%, 0 0, 100% 0);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

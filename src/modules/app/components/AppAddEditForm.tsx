@@ -64,12 +64,7 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
       })}
     >
       <div className="space-y-6">
-        <PrimaryInput
-          label="App Name"
-          required={true}
-          placeholder="Enter App Name"
-          {...register(`name`)}
-        />
+        <PrimaryInput label="App Name" required={true} placeholder="Enter App Name" {...register(`name`)} />
         {type === "add" && (
           <PrimaryInput
             label="Application Id"
@@ -79,12 +74,7 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
           />
         )}
 
-        <PrimaryInput
-          label="Secret Key"
-          required={true}
-          placeholder="Enter Secret Key"
-          {...register("secret_key")}
-        />
+        <PrimaryInput label="Secret Key" required={true} placeholder="Enter Secret Key" {...register("secret_key")} />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"}</Button>

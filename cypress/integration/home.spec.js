@@ -55,9 +55,7 @@ context("Login", () => {
 
   it("Login Email Validation", () => {
     cy.get("[data-testid=login-form]").submit();
-    cy.get("[data-testid=email]")
-      .invoke("prop", "validationMessage")
-      .should("equal", "Please fill out this field.");
+    cy.get("[data-testid=email]").invoke("prop", "validationMessage").should("equal", "Please fill out this field.");
   });
 
   for (let index = 0; index < emails.length; index++) {
@@ -91,9 +89,7 @@ context("Login", () => {
 
     cy.url()
       .should("include", "/dashboard")
-      .should(() =>
-        expect(localStorage.getItem("@sunya/user-data")).contains("Bearer")
-      );
+      .should(() => expect(localStorage.getItem("@sunya/user-data")).contains("Bearer"));
 
     localStorage.clear();
   });

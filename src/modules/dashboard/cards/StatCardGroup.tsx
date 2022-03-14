@@ -6,15 +6,7 @@
  *
  */
 
-import {
-  Box2,
-  Buildings,
-  ChemicalGlass,
-  Health,
-  People,
-  Profile2User,
-  SecurityUser,
-} from "iconsax-react";
+import { Box2, Buildings, ChemicalGlass, Health, People, Profile2User, SecurityUser } from "iconsax-react";
 import React from "react";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -86,7 +78,7 @@ export const OrgStatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
             <Profile2User variant="Broken" size={36} color="#fff" />{" "}
           </div>
         }
-        value={data.total_members}
+        value={data?.total_members}
         valueText="Total Members"
       />
       <StatCard
@@ -95,24 +87,18 @@ export const OrgStatCardGroup: React.FC<StatCardGroupProps> = ({ data }) => {
             <SecurityUser variant="Broken" size={36} color="#fff" />{" "}
           </div>
         }
-        value={data.total_patient}
+        value={data?.total_patient}
         valueText="Total Patients"
       />
     </div>
   );
 };
 
-export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
-  data,
-}) => {
+export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({ data }) => {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div
-      className={`w-full  grid ${
-        user.id ? "grid-cols-2" : ""
-      } gap-6 lg:grid-cols-1 sm:gap-4`}
-    >
+    <div className={`w-full  grid ${user.id ? "grid-cols-2" : ""} gap-6 lg:grid-cols-1 sm:gap-4`}>
       <div className={`flex ${user.id ? "flex-col" : ""}   gap-6 h-full`}>
         <StatCardRect
           icon={
@@ -121,10 +107,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
             </div>
           }
           value={data.total_test_taken}
-          valueText={[
-            "Total Test Count",
-            "Total Tests taken through Sunya Apps",
-          ]}
+          valueText={["Total Test Count", "Total Tests taken through Sunya Apps"]}
         />
         <StatCardRect
           icon={
@@ -133,10 +116,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({
             </div>
           }
           value={data.organization_operator}
-          valueText={[
-            "Organization Operators",
-            "Total Operators added by Organizations",
-          ]}
+          valueText={["Organization Operators", "Total Operators added by Organizations"]}
         />
       </div>
       {user.id === 1 ? <StatCardApp /> : null}

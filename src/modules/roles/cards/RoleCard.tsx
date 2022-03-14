@@ -43,21 +43,18 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
-              {title}
-            </h1>
+            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{title}</h1>
             <h1 className="whitespace-nowrap text-base">
               <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
 
-          <div className="self-start text-lg text-gray-500 font-normal">
-            Member Limit: {memberLimit} | Permissions: {permissionCount} |{" "}
-            {isPublic ? "Public" : "Not Public"}
+          <div className="self-start text-lg text-primary_gray-500 font-normal">
+            Member Limit: {memberLimit} | Permissions: {permissionCount} | {isPublic ? "Public" : "Not Public"}
           </div>
         </div>
 
-        <p className="text-lg font-semibold text-gray-500 w-4/5 line-clamp-2">
+        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">
           {description} {/** 92 CHARS */}
         </p>
       </div>
@@ -74,7 +71,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             data-testid={`${title}-button`}
-            buttonSize="small"
+            size="sm"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);
               useRoleStore.getState().setSelectedId(Number(id));
@@ -86,10 +83,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
     </div>
   ) : (
-    <div
-      data-testid={`${title}-card`}
-      className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10"
-    >
+    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10">
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
@@ -106,9 +100,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
           </div>
         </div>
 
-        <p className="text-lg font-medium text-gray-700 w-4/5 line-clamp-2">
-          {description}
-        </p>
+        <p className="text-lg font-medium text-primary_gray-700 w-4/5 line-clamp-2">{description}</p>
       </div>
       {/*  <div className="absolute -right-10 -bottom-4">
         <div className="w-44 h-44 relative">
@@ -123,7 +115,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
         <div className="flex items-center space-x-2">
           <Button
             data-testid={`${title}-button`}
-            buttonSize="small"
+            size="sm"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);
               useRoleStore.getState().setSelectedId(Number(id));

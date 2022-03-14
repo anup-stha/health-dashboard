@@ -6,12 +6,6 @@
  *
  */
 
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { getCurrentUserProfile } from "@/services/requests/authRequests";
-
-import { privateAgent } from ".";
-
 import {
   MemberBulkData,
   MemberBulkDataWithDetails,
@@ -25,6 +19,11 @@ import {
   NullDataResponse,
   OrgMemberAddRes,
 } from "@/types";
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
+
+import { privateAgent } from ".";
 
 export const getMembersList = (roleId: number, pageNumber = 1) => {
   return privateAgent
@@ -32,22 +31,13 @@ export const getMembersList = (roleId: number, pageNumber = 1) => {
     .then((response) => response.data.data);
 };
 
-export const getNestedMemberList = (
-  roleId: number,
-  parentId: number,
-  pageNumber: number,
-  filterParams?: string
-) => {
+export const getNestedMemberList = (roleId: number, parentId: number, pageNumber: number, filterParams?: string) => {
   return filterParams
     ? privateAgent
-        .get<MemberListResponse>(
-          `/member/list/${roleId}/${parentId}?page=${pageNumber}&${filterParams}`
-        )
+        .get<MemberListResponse>(`/member/list/${roleId}/${parentId}?page=${pageNumber}&${filterParams}`)
         .then((response) => response.data.data)
     : privateAgent
-        .get<MemberListResponse>(
-          `/member/list/${roleId}/${parentId}?page=${pageNumber}`
-        )
+        .get<MemberListResponse>(`/member/list/${roleId}/${parentId}?page=${pageNumber}`)
         .then((response) => response.data.data);
 };
 
@@ -60,20 +50,11 @@ export const postNormalMember = (body: any) => {
 };
 
 export const postMemberCategory = (body: MemberDetailCategoryBody) => {
-  return privateAgent.post<MemberDetailCategoryAddResponse>(
-    "member/detail/category/store",
-    body
-  );
+  return privateAgent.post<MemberDetailCategoryAddResponse>("member/detail/category/store", body);
 };
 
-export const postUpdateMemberCategory = (
-  body: MemberDetailCategoryUpdateBody,
-  category_id: number
-) => {
-  return privateAgent.post<MemberDetailCategoryUpdateResponse>(
-    `member/detail/category/update/${category_id}`,
-    body
-  );
+export const postUpdateMemberCategory = (body: MemberDetailCategoryUpdateBody, category_id: number) => {
+  return privateAgent.post<MemberDetailCategoryUpdateResponse>(`member/detail/category/update/${category_id}`, body);
 };
 
 export const toggleActiveForMember = (memberId: number, active: 1 | 0) => {
@@ -109,22 +90,16 @@ export const toggleVerifiedForMember = (memberId: number, verified: 1 | 0) => {
 };
 
 export const getMemberDetails = (memberId: number) => {
-  return privateAgent.get<MemberDetailsListResponse>(
-    `member/detail/${memberId}`
-  );
+  return privateAgent.get<MemberDetailsListResponse>(`member/detail/${memberId}`);
 };
 
-export const addDetailsToMember = (
-  roleId: number,
-  memberId: number,
-  data: Record<string, any>
-) => {
+export const addDetailsToMember = (roleId: number, memberId: number, data: Record<string, any>) => {
   const values = Object.values(data);
   const keys = Object.keys(data);
   const requestBody: any[] = [];
   requestBody.push(
     ...keys.map((element, index) => ({
-      detail_cat_id: element.split("-")[0],
+      detail_category_id: element.split("-")[0],
       value: values[index],
     }))
   );
@@ -149,9 +124,7 @@ export const addDetailsToMember = (
             details: response.data.data,
           });
         } else if (currentUser.id === memberId) {
-          useCurrentMemberStore
-            .getState()
-            .setCurrentUser({ ...currentUser, details: response.data.data });
+          useCurrentMemberStore.getState().setCurrentUser({ ...currentUser, details: response.data.data });
         }
 
         resolve(response.data.message);
@@ -162,23 +135,13 @@ export const addDetailsToMember = (
   });
 };
 
-export const getMemberTestList = (
-  memberId: number,
-  testCategoryId: number,
-  pageNumber = 1
-) => {
+export const getMemberTestList = (memberId: number, testCategoryId: number, pageNumber = 1) => {
   return privateAgent
-    .get<MemberTestListResponse>(
-      `test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`
-    )
+    .get<MemberTestListResponse>(`test/member?mid=${memberId}&tcid=${testCategoryId}&page=${pageNumber}`)
     .then((response) => response.data.data);
 };
 
-export const getMemberTestReportByDate = (
-  memberId: number,
-  from_time_stamp: number,
-  to_time_stamp?: number
-) => {
+export const getMemberTestReportByDate = (memberId: number, from_time_stamp: number, to_time_stamp?: number) => {
   if (!to_time_stamp) {
     return privateAgent.get<MemberTestListResponse>(
       `test/report?from_time_stamp=${from_time_stamp}&member_id=${memberId}`

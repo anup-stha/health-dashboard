@@ -14,42 +14,34 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, RadioInputController } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
+import { MedicalHistory } from "@/types";
 import { Member } from "@/modules/members/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { postMedicalHistoryToPatient } from "@/services/requests/otherFieldsRequests";
 
-import { MedicalHistory } from "@/types";
-
 interface IPatientMedicalHistoryEditModal {
   selectedMember: Member;
 }
 
-export const PatientMedicalHistoryModal = ({
-  selectedMember,
-}: IPatientMedicalHistoryEditModal) => {
+export const PatientMedicalHistoryModal = ({ selectedMember }: IPatientMedicalHistoryEditModal) => {
   const { handleSubmit, control, watch, register, reset } = useForm();
   const { isLoading } = useGetOtherFieldsList();
 
-  const textState =
-    selectedMember.medical_history.length === 0 ? "Add" : "Update";
-  const medicalHistoryFields = useOtherFieldsStore(
-    (state) => state.othersFieldList.data
-  );
+  const textState = selectedMember.medical_history.length === 0 ? "Add" : "Update";
+  const medicalHistoryFields = useOtherFieldsStore((state) => state.othersFieldList.data);
 
   useEffect(() => {
     reset(
       Object.assign(
         {},
         ...selectedMember.medical_history.map((element: MedicalHistory) => ({
-          [`${element.detail_category_id}-${element.slug}`]:
-            element.value === "Yes" ? 1 : 0,
+          [`${element.detail_category_id}-${element.slug}`]: element.value === "Yes" ? 1 : 0,
         })),
         ...selectedMember.medical_history.map((element: MedicalHistory) => {
           if (element.value === "Yes") {
             return {
-              [`${element.detail_category_id}-${element.slug}-note`]:
-                element.note === "N/A" ? "" : element.note,
+              [`${element.detail_category_id}-${element.slug}-note`]: element.note === "N/A" ? "" : element.note,
             };
           }
         })
@@ -61,7 +53,7 @@ export const PatientMedicalHistoryModal = ({
   return (
     <Modal>
       <Modal.Button type="open">
-        <div className="p-6 text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
+        <div className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
           {textState} Patient Medical History
         </div>
       </Modal.Button>
@@ -72,19 +64,12 @@ export const PatientMedicalHistoryModal = ({
           onSubmit={handleSubmit((data) =>
             alert({
               type: "promise",
-              promise: postMedicalHistoryToPatient(
-                selectedMember.id,
-                data
-              ).then(async () => {
+              promise: postMedicalHistoryToPatient(selectedMember.id, data).then(async () => {
                 reset();
               }),
               msgs: {
-                loading: `${
-                  textState === "Update" ? "Updating" : "Adding"
-                } Medical History`,
-                success: `Successfully ${
-                  textState === "Update" ? "Updated" : "Added"
-                } Medical History`,
+                loading: `${textState === "Update" ? "Updating" : "Adding"} Medical History`,
+                success: `Successfully ${textState === "Update" ? "Updated" : "Added"} Medical History`,
               },
               id: "medical-history",
             })
@@ -115,21 +100,12 @@ export const PatientMedicalHistoryModal = ({
   );
 };
 
-export const MedicalHistoryForm = ({
-  id,
-  slug,
-  name,
-  control,
-  watch,
-  register,
-}: any) => {
+export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }: any) => {
   const note = watch(`${id}-${slug}`);
 
   return (
     <>
-      <label className="text-xl font-semibold text-gray-700 w-1/3">
-        {name}
-      </label>
+      <label className="text-xl font-medium text-primary_gray-700 w-1/3">{name}</label>
       <div className="w-2/3 space-y-4">
         <RadioInputController
           name={`${id}-${slug}`}
@@ -141,11 +117,7 @@ export const MedicalHistoryForm = ({
         />
         {note === 1 && (
           <div className="col-span-2">
-            <PrimaryInput
-              placeholder={`Note for ${name} `}
-              defaultValue=""
-              {...register(`${id}-${slug}-note`)}
-            />
+            <PrimaryInput placeholder={`Note for ${name} `} defaultValue="" {...register(`${id}-${slug}-note`)} />
           </div>
         )}
       </div>

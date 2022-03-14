@@ -19,11 +19,7 @@ import { RoleMemberCategory } from "@/modules/roles/others/roleMemberCategory";
 import { UpdateZone } from "@/modules/roles/others/UpdateZone";
 import { RoleAccessSection } from "@/modules/roles/RoleAccessSection";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
-import {
-  getAllPermissions,
-  getRoleDetails,
-  useRoleList,
-} from "@/services/requests/roleRequests";
+import { getAllPermissions, getRoleDetails, useRoleList } from "@/services/requests/roleRequests";
 import { withAuth } from "@/shared/hoc/withAuth";
 import { withRole } from "@/shared/hoc/withRole";
 
@@ -33,14 +29,7 @@ const RoleDetailPage = () => {
 
   const { isLoading } = useRoleList();
 
-  const {
-    loading,
-    roleList,
-    setLoading,
-    setSelectedRole,
-    selectedRole,
-    setSelectedPermission,
-  } = useRoleStore();
+  const { loading, roleList, setLoading, setSelectedRole, selectedRole, setSelectedPermission } = useRoleStore();
 
   useEffect(() => {
     if (!idX) {
@@ -84,37 +73,27 @@ const RoleDetailPage = () => {
           <div className="flex flex-col space-y-8">
             <div className="flex items-end space-x-2 ">
               <Heading
-                title={
-                  selectedRole &&
-                  roleList.filter((role) => role.id === Number(idX))[0].name
-                }
-                subtitle={
-                  selectedRole &&
-                  roleList.filter((role) => role.id === Number(idX))[0].slug
-                }
+                title={selectedRole && roleList.filter((role) => role.id === Number(idX))[0].name}
+                subtitle={selectedRole && roleList.filter((role) => role.id === Number(idX))[0].slug}
               />
             </div>
 
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
             <RoleAccessSection />
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
             <Permissions />
-            <hr className="border-t-[1px] border-gray-300" />
+            <hr className="border-t-[1px] border-primary_gray-300" />
 
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl font-semibold text-gray-900">
-                  Alert Zone
-                </h1>
-                <p className="text-lg font-semibold text-gray-500">
-                  Please be careful with anything you do here
-                </p>
+                <h1 className="text-3xl font-medium text-primary_gray-900">Alert Zone</h1>
+                <p className="text-lg font-medium text-primary_gray-500">Please be careful with anything you do here</p>
               </div>{" "}
               <RoleMemberCategory />
               <UpdateZone idX={idX} />
               <DeleteZone />
             </div>
-            <hr className="border-t-[1px] border-gray-200" />
+            <hr className="border-t-[1px] border-primary_gray-200" />
           </div>
         </div>
       ) : (

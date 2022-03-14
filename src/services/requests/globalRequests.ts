@@ -6,10 +6,9 @@
  *
  */
 
+import { GlobalStateResponse } from "@/types";
 import { useGlobalState } from "@/modules/useGlobalState";
 import { privateAgent } from "@/services/requests/index";
-
-import { GlobalStateResponse } from "@/types";
 
 export const getGlobalStates = () => {
   return new Promise((resolve, reject) =>
@@ -26,7 +25,5 @@ export const getGlobalStates = () => {
 };
 
 export const getOverviewData = (member_id: number) => {
-  return privateAgent
-    .get<any>(`dashboard/org_overview/${member_id}`)
-    .then((response) => response.data.data);
+  return privateAgent.get<any>(`dashboard/org_overview/${member_id}`).then((response) => response.data.data);
 };

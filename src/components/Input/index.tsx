@@ -18,16 +18,62 @@ type ExtraInputProps = {
   error?: string;
 };
 
-type HookInputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
+type HookInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
   ExtraInputProps;
 
-export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
-  ({ label, error, ...props }, ref) => {
-    const [showPassword, setShowPassword] = React.useState(false);
+export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(({ label, error, ...props }, ref) => {
+  const [showPassword, setShowPassword] = React.useState(false);
 
+  return (
+    <div className={` w-full input`}>
+      <div className="relative w-full">
+        <input
+          {...props}
+          autoComplete={props.autoComplete ?? "off"}
+          required={props.required !== false}
+          className={error ? "input_error relative shadow-E200" : "input_container shadow-E200"}
+          ref={ref}
+          type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
+        />
+
+        {props.type === "password" && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowPassword(!showPassword);
+            }}
+            className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
+          >
+            <div className="relative flex ">
+              <div className={`${!showPassword ? "absolute opacity-100" : "opacity-0"}`}>
+                <Eye size={18} weight="bold" />
+              </div>
+              <div className={`${showPassword ? "absolute opacity-100" : "opacity-0"} `}>
+                <EyeClosed size={18} weight="bold" />
+              </div>
+            </div>
+          </button>
+        )}
+        {error && <InputErrorPop error={error} />}
+      </div>
+
+      {/* // {showLabel && ( */}
+      <label htmlFor={props.id} className="input_label text-gray-700">
+        {label}
+      </label>
+      {/* // )} **/}
+    </div>
+  );
+});
+
+type HookSearchInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+  label?: string;
+  error?: string;
+};
+
+export const SearchInput = React.forwardRef<HTMLInputElement, HookSearchInputProps>(
+  ({ label, error, ...props }, ref) => {
     return (
       <div className={` w-full input`}>
         <div className="relative w-full">
@@ -36,94 +82,19 @@ export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(
             autoComplete={props.autoComplete ?? "off"}
             required={props.required !== false}
             className={
-              error
-                ? "input_error relative shadow-E200"
-                : "input_container shadow-E200"
+              error ? "input_error relative pr-32 shadow-lg" : "input_container pr-32 shadow-sm ring-1 ring-gray-400/20"
             }
             ref={ref}
-            type={
-              props.type === "password"
-                ? showPassword
-                  ? "text"
-                  : "password"
-                : props.type
-            }
           />
-
-          {props.type === "password" && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowPassword(!showPassword);
-              }}
-              className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
-            >
-              <div className="relative flex ">
-                <div
-                  className={`${
-                    !showPassword ? "absolute opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <Eye size={18} weight="bold" />
-                </div>
-                <div
-                  className={`${
-                    showPassword ? "absolute opacity-100" : "opacity-0"
-                  } `}
-                >
-                  <EyeClosed size={18} weight="bold" />
-                </div>
-              </div>
-            </button>
-          )}
-          {error && <InputErrorPop error={error} />}
         </div>
 
-        {/* // {showLabel && ( */}
         <label htmlFor={props.id} className="input_label text-gray-700">
           {label}
         </label>
-        {/* // )} **/}
       </div>
     );
   }
 );
-
-type HookSearchInputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
-  label?: string;
-  error?: string;
-};
-
-export const SearchInput = React.forwardRef<
-  HTMLInputElement,
-  HookSearchInputProps
->(({ label, error, ...props }, ref) => {
-  return (
-    <div className={` w-full input`}>
-      <div className="relative w-full">
-        <input
-          {...props}
-          autoComplete={props.autoComplete ?? "off"}
-          required={props.required !== false}
-          className={
-            error
-              ? "input_error relative pr-32 shadow-lg"
-              : "input_container pr-32 shadow-sm ring-1 ring-gray-400/20"
-          }
-          ref={ref}
-        />
-      </div>
-
-      <label htmlFor={props.id} className="input_label text-gray-700">
-        {label}
-      </label>
-    </div>
-  );
-});
 
 export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   ({ label, error, checked, ...props }, ref) => {
@@ -133,14 +104,7 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
           <div className="input_label capitalize mr-4">{label}</div>
 
           <div className="relative">
-            <input
-              {...props}
-              id={label}
-              type="checkbox"
-              className="sr-only"
-              checked={checked}
-              ref={ref}
-            />
+            <input {...props} id={label} type="checkbox" className="sr-only" checked={checked} ref={ref} />
             <div className="w-14 h-6 bg-gray-400 rounded-full shadow-inner" />
 
             <div className="dot absolute w-8 h-8 bg-red-500 rounded-full shadow -left-1 -top-1 transition" />
@@ -171,11 +135,7 @@ type RadioInputProps = {
   }[];
 };
 
-export const RadioInputController: React.FC<RadioInputProps> = ({
-  name,
-  control,
-  labelOptions,
-}) => {
+export const RadioInputController: React.FC<RadioInputProps> = ({ name, control, labelOptions }) => {
   return (
     <Controller
       name={name}
@@ -210,19 +170,8 @@ export const FileInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   ({ label, error, onChange, ...props }, ref) => {
     return (
       <div className="flex space-x-2">
-        <input
-          {...props}
-          type="file"
-          ref={ref}
-          onChange={onChange}
-          className="hidden"
-          id="file"
-        />
-        <button
-          type="button"
-          className="text-xl capitalize"
-          onClick={() => document.getElementById("file")?.click()}
-        >
+        <input {...props} type="file" ref={ref} onChange={onChange} className="hidden" id="file" />
+        <button type="button" className="text-xl capitalize" onClick={() => document.getElementById("file")?.click()}>
           Choose Photo
         </button>
       </div>

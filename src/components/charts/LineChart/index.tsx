@@ -11,10 +11,7 @@ import dynamic from "next/dynamic";
 import * as React from "react";
 import { useEffect, useState } from "react";
 
-import {
-  ChartDateTimeData,
-  lineChartOptions,
-} from "@/components/charts/LineChart/schema/TestLineSchema";
+import { ChartDateTimeData, lineChartOptions } from "@/components/charts/LineChart/schema/TestLineSchema";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -46,14 +43,8 @@ export const TestLineChart: React.FC<LineChartProps> = ({ datas }) => {
   if (typeof window === undefined) return null;
 
   return (
-    <div className="p-4 sm:px-0 mb-12 shadow-xl ring-1 ring-gray-300/40 rounded-lg print:hidden">
-      <Chart
-        options={state.options}
-        series={state.series}
-        type="line"
-        width="100%"
-        height="450"
-      />
+    <div className="p-4 sm:px-0 mb-12 shadow-xl ring-1 ring-primary_gray-300/40 rounded-lg print:hidden">
+      <Chart options={state.options} series={state.series} type="line" width="100%" height="450" />
     </div>
   );
 };

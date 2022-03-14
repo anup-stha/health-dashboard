@@ -38,3 +38,21 @@ yarn-error.log*
 .vercel
 tsconfig.tsbuildinfo
 /.idea/
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc

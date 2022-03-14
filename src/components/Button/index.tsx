@@ -1,211 +1,67 @@
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 3/2/22, 4:04 PM
- *
- *
- */
+import clsx from "clsx";
 import React from "react";
 
-type ButtonProps = React.HTMLProps<HTMLButtonElement> & {
+// Default Button props
+interface ButtonProps
+  extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+    React.AriaAttributes {}
+
+// Custom Props
+type ButtonSize = "sm" | "md" | "lg";
+type ButtonVariant = "fill" | "outline";
+type ButtonColor = "primary" | "warning" | "secondary" | "error";
+
+interface ButtonProps {
+  size?: ButtonSize;
+  variant?: ButtonVariant;
+  color?: ButtonColor;
   loading?: boolean;
-  children: React.ReactNode;
-  width?: "full";
-  type?: any;
-  extraClassName?: string;
-  buttonSize?: "small" | "large" | "icon";
-  variant?: "info" | "warning" | "normal";
-  state?: boolean;
-  color?: string; // should be tailwind color;
+}
+
+const buttonConfig = {
+  primary: {
+    fill: "bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white hover:text-gray-100",
+    outline: "border-2 border-primary-500 text-primary-500  bg-opacity-0 hover:bg-primary-25",
+  },
+  secondary: {
+    fill: "bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white hover:text-gray-100",
+    outline: "border-2 border-gray-500 text-gray-500  bg-opacity-0 hover:bg-secondary-25",
+  },
+  error: {
+    fill: "bg-error-500 hover:bg-error-600 active:bg-error-700 text-white hover:text-gray-100",
+    outline: "border-2 border-error-500 text-error-500  bg-opacity-0 hover:bg-error-25",
+  },
+  warning: {
+    fill: "bg-warning-500 hover:bg-warning-600 active:bg-warning-700 text-white hover:text-gray-100",
+    outline: "border-2 border-warning-500 text-warning-500  bg-opacity-0 hover:bg-warning-25",
+  },
+
+  sm: "px-6 py-4 text-lg rounded-md active:shadow-sm",
+  md: "px-10 py-5 text-xl rounded-md active:shadow-md",
+  lg: "px-12 py-6 text-xl rounded-md active:shadow-md",
 };
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   children,
-  loading,
-  disabled,
-  onClick,
-  width,
-  type = "submit",
-  buttonSize = "large",
-  color = "bg-green-500",
+  size = "md",
+  color = "primary",
+  variant = "fill",
+  loading = false,
   ...props
-}: ButtonProps) => {
-  const buttonPadding =
-    buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-sm text-lg rounded-lg"
-      : "px-12 py-4 sm:px-8 shadow-E400 rounded-sm";
-
+}: ButtonProps): JSX.Element => {
   return (
     <button
+      className={clsx(
+        "cursor-pointer flex items-center justify-center gap-2 transition-colors transition-shadow duration-200 font-primary disabled:cursor-not-allowed disabled:bg-opacity-70",
+        buttonConfig[size],
+        {
+          [buttonConfig[color].fill]: variant === "fill",
+          [buttonConfig[color].outline]: variant === "outline",
+        }
+      )}
       {...props}
-      type={type}
-      onClick={onClick}
-      disabled={disabled ?? loading}
-      className={`flex items-center ${buttonPadding} ${
-        width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer justify-center text-center text-xl font-semibold text-white ${color}  disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
     >
       {loading ? <div className="loading" /> : null}
-      <span className="sm:line-clamp-1">{children}</span>
-    </button>
-  );
-};
-
-export const IconButton: React.FC<ButtonProps> = ({
-  children,
-  loading,
-  disabled,
-  onClick,
-}) => {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex items-center px-3 py-3 text-lg font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed"
-      disabled={disabled ?? loading}
-    >
-      {loading ? <div className="loading_md" /> : null}
-      {children}
-    </button>
-  );
-};
-
-export const PrimaryButton: React.FC<ButtonProps> = ({
-  children,
-  className,
-  onClick,
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className={`${className} flex items-center  font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 hover:bg-green-600 shadow-E400 disabled:cursor-not-allowed`}
-    >
-      {children}
-    </button>
-  );
-};
-
-export const GrayButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-  width,
-  buttonSize = "large",
-}) => {
-  const buttonPadding =
-    buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-md"
-      : "px-12 py-4 sm:px-8 shadow-E400";
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex  ${
-        width && "w-full justify-center py-4"
-      } capitalize items-center ${buttonPadding} text-xl text-center  font-medium text-white bg-gray-700 rounded-md disabled:opacity-80 gap-x-2 hover:bg-gray-800 shadow-lg disabled:cursor-not-allowed`}
-    >
-      {children}
-    </button>
-  );
-};
-
-export const WarningButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-  width,
-  ...props
-}) => {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={props.disabled}
-      className={`flex items-center  ${
-        width && "w-full justify-center py-4"
-      } capitalize px-12 py-4 justify-center text-center text-xl font-medium text-white bg-red-600 rounded-md disabled:opacity-80 gap-x-2 hover:bg-red-800 shadow-lg disabled:cursor-not-allowed`}
-    >
-      {children}
-    </button>
-  );
-};
-
-export const InfoButton: React.FC<ButtonProps> = ({
-  children,
-  extraClassName,
-  onClick,
-}) => {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex items-center px-12 py-4  text-center text-xl font-medium text-white bg-green-500 rounded-sm disabled:opacity-80 gap-x-2 hover:bg-green-600 shadow-E200 disabled:cursor-not-allowed"
-    >
-      {children}
-    </button>
-  );
-};
-
-export const RedLineButton: React.FC<ButtonProps> = ({
-  children,
-  loading,
-  disabled,
-  onClick,
-  width,
-  type = "submit",
-  buttonSize = "large",
-  variant = "normal",
-  state,
-}: ButtonProps) => {
-  const buttonPadding =
-    buttonSize === "small"
-      ? "px-8 py-4"
-      : buttonSize === "icon"
-      ? "p-4"
-      : "px-12 py-4";
-
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled ?? loading}
-      className={`flex items-center ${buttonPadding} ${
-        width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer text-center text-xl font-medium text-red-700 border-red-500 border-2 bg-transparent rounded-lg disabled:opacity-80 gap-x-2 hover:bg-red-500 hover:text-white disabled:cursor-not-allowed transition-all duration-200`}
-    >
-      {loading ? <div className="loading"></div> : null}
-      {children}
-    </button>
-  );
-};
-
-export const GreenLineButton: React.FC<ButtonProps> = ({
-  children,
-  loading,
-  disabled,
-  onClick,
-  width,
-  type = "submit",
-  buttonSize = "large",
-  variant = "normal",
-  state,
-}: ButtonProps) => {
-  const buttonPadding =
-    buttonSize === "small"
-      ? "px-8 py-4 sm:px-8 shadow-sm text-lg rounded-lg"
-      : "px-12 py-4 sm:px-8 shadow-E400 rounded-sm";
-
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled ?? loading}
-      className={`flex items-center ${buttonPadding} ${
-        width ? "w-full justify-center py-4" : ""
-      } capitalize cursor-pointer text-center font-medium text-green-700 border-green-600 border-2 bg-transparent rounded-lg disabled:opacity-80 gap-x-2 hover:bg-green-600 hover:text-white disabled:cursor-not-allowed transition-all duration-200`}
-    >
-      {loading ? <div className="loading"></div> : null}
       {children}
     </button>
   );

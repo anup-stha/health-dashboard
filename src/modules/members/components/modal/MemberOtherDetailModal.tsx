@@ -16,11 +16,10 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
+import { MemberDetailCategory, MemberDetails, Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Member } from "@/modules/members/types";
 import { addDetailsToMember } from "@/services/requests/memberRequests";
-
-import { MemberDetailCategory, MemberDetails, Role } from "@/types";
 
 type MemberDetailAddModalProps = {
   otherDetails: MemberDetails[];
@@ -55,33 +54,27 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
     <Modal>
       <Modal.Button type="open">
         {children ?? (
-          <div className="p-6    text-gray-500 text-xl font-semibold cursor-pointer hover:text-gray-850 hover:text-gray-800">
-            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Other
-            Details
+          <div className="p-6    text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
+            {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Other Details
           </div>
         )}
       </Modal.Button>
       <Modal.Content>
         <Modal.Title>
-          {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member Details{" "}
-          {memberData.name}
+          {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Member Details {memberData.name}
           &apos;s Details
         </Modal.Title>
         {selectedRole &&
-        (!selectedRole.member_detail_categories ||
-          selectedRole.member_detail_categories.length === 0) ? (
+        (!selectedRole.member_detail_categories || selectedRole.member_detail_categories.length === 0) ? (
           <div className="flex items-center text-red-500 space-x-4">
             <WarningOctagon size={40} />{" "}
-            <span className="font-semibold text-xl">
+            <span className="font-medium text-xl">
               No Member Details Field Found.
               {user.id === 1 ? (
                 <>
                   Please add a member details field to this role{" "}
                   {router.query.role && (
-                    <span
-                      onClick={() => router.push(`/roles/${router.query.role}`)}
-                      className="cursor-pointer"
-                    >
+                    <span onClick={() => router.push(`/roles/${router.query.role}`)} className="cursor-pointer">
                       here
                     </span>
                   )}
@@ -113,28 +106,26 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
               <div className="space-y-4">
                 {selectedRole &&
                   selectedRole.member_detail_categories &&
-                  selectedRole.member_detail_categories.map(
-                    (category: MemberDetailCategory) => (
-                      <Fragment key={category.id}>
-                        {category.value_type.toLowerCase() === "boolean" ? (
-                          <SwitchInput
-                            label={category.name}
-                            type="number"
-                            placeholder={`Enter ${category.name}`}
-                            {...register(`${category.id}-${category.slug}`)}
-                          />
-                        ) : (
-                          <PrimaryInput
-                            label={category.name}
-                            type={category.value_type}
-                            required={!!category.required}
-                            placeholder={`Enter ${category.name}`}
-                            {...register(`${category.id}-${category.slug}`)}
-                          />
-                        )}
-                      </Fragment>
-                    )
-                  )}
+                  selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
+                    <Fragment key={category.id}>
+                      {category.value_type.toLowerCase() === "boolean" ? (
+                        <SwitchInput
+                          label={category.name}
+                          type="number"
+                          placeholder={`Enter ${category.name}`}
+                          {...register(`${category.id}-${category.slug}`)}
+                        />
+                      ) : (
+                        <PrimaryInput
+                          label={category.name}
+                          type={category.value_type}
+                          required={!!category.required}
+                          placeholder={`Enter ${category.name}`}
+                          {...register(`${category.id}-${category.slug}`)}
+                        />
+                      )}
+                    </Fragment>
+                  ))}
               </div>
             </Modal.Scrollable>{" "}
             <Button>Update Details</Button>

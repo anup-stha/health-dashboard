@@ -1,18 +1,13 @@
-/*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/28/22, 5:14 PM
- *
- *
- */
+// This file sets a custom webpack configuration to use your Next.js app
+// with Sentry.
+// https://nextjs.org/docs/api-reference/next.config.js/introduction
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-/** @type {import("next").NextConfig} */
+const { withSentryConfig } = require("@sentry/nextjs");
 const path = require("path");
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
 
-module.exports = withBundleAnalyzer({
+const moduleExports = {
+  // Your existing module.exports
   webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false, crypto: false };
@@ -30,4 +25,22 @@ module.exports = withBundleAnalyzer({
     },
     domains: ["sunya-bucket.s3.us-west-2.amazonaws.com"],
   },
-});
+};
+
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  silent: false, // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+};
+
+// Make sure adding Sentry options is the last code to run before exporting, to
+// ensure that your source maps include changes from all other Webpack plugins
+module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);

@@ -15,26 +15,17 @@ type BooleanTagProps = {
   falseStatement?: string;
 };
 
-export const BooleanTag: React.FC<BooleanTagProps> = ({
-  type,
-  condition,
-  trueStatement,
-  falseStatement,
-}) => {
+export const BooleanTag: React.FC<BooleanTagProps> = ({ type, condition, trueStatement, falseStatement }) => {
   return (
     <>
       {type === "error" ? (
         condition ? (
-          <span className="px-4 py-1  font-bold text-green-700 bg-green-100 rounded-lg">
-            {trueStatement}
-          </span>
+          <span className="px-4 py-1  font-bold text-primary-700 bg-primary-100 rounded-lg">{trueStatement}</span>
         ) : (
-          <span className="px-4 py-1 bg-red-50 font-bold text-red-500 rounded-lg">
-            {falseStatement}
-          </span>
+          <span className="px-4 py-1 bg-red-50 font-bold text-red-500 rounded-lg">{falseStatement}</span>
         )
       ) : type === "info" ? (
-        <span className="px-2 py-1  font-bold text-gray-600 bg-gray-100 rounded-lg">
+        <span className="px-2 py-1  font-bold text-primary_gray-600 bg-primary_gray-100 rounded-lg">
           {trueStatement}
         </span>
       ) : (

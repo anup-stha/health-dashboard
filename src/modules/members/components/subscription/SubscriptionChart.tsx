@@ -18,10 +18,7 @@ interface ISubscriptionChart {
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export const SubscriptionChart = ({
-  start_date,
-  end_date,
-}: ISubscriptionChart) => {
+export const SubscriptionChart = ({ start_date, end_date }: ISubscriptionChart) => {
   const start = moment(start_date * 1000);
   const end = moment(end_date * 1000);
   const leftDays = end.diff(new Date(), "days");
@@ -63,9 +60,7 @@ export const SubscriptionChart = ({
               return end.diff(new Date(), "hours") < 0
                 ? "0"
                 : `${
-                    end.diff(new Date(), "days") === 0
-                      ? end.diff(new Date(), "hours")
-                      : end.diff(new Date(), "days")
+                    end.diff(new Date(), "days") === 0 ? end.diff(new Date(), "hours") : end.diff(new Date(), "days")
                   }`;
             },
             color: "#555",
@@ -94,9 +89,7 @@ export const SubscriptionChart = ({
     },
     series: [(leftDays / totalDays) * 100],
     labels: [
-      end.diff(new Date(), "hours") < 0
-        ? "Expired"
-        : `${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`,
+      end.diff(new Date(), "hours") < 0 ? "Expired" : `${end.diff(new Date(), "days") === 0 ? "Hours" : "Days"} Left`,
     ],
   };
 
@@ -107,12 +100,6 @@ export const SubscriptionChart = ({
   }, [start_date]);
 
   return typeof window !== "undefined" ? (
-    <Chart
-      options={options}
-      type="radialBar"
-      series={options.series}
-      width="230px"
-      height="230px"
-    />
+    <Chart options={options} type="radialBar" series={options.series} width="230px" height="230px" />
   ) : null;
 };

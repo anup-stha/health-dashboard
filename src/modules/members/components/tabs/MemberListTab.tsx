@@ -39,9 +39,7 @@ function Tab({ parent_member_id }: IMembersTable) {
   const currentMember = useCurrentMemberStore((state) => state.member);
 
   const userRole = useCurrentMemberStore((state) => state.userRole);
-  const setUserRole = useCurrentMemberStore(
-    (state) => state.setCurrentUserRole
-  );
+  const setUserRole = useCurrentMemberStore((state) => state.setCurrentUserRole);
 
   const { data: roleList } = useRoleDetails(Number(selectedRole.id));
   const { data, isLoading } = useRoleDetails(Number(userRole.id));
@@ -55,16 +53,14 @@ function Tab({ parent_member_id }: IMembersTable) {
     filterParams
   );
   useEffect(() => {
-    roleList &&
-      isEmpty(userRole) &&
-      setUserRole(roleList?.data.data.role_access[0]);
+    roleList && isEmpty(userRole) && setUserRole(roleList?.data.data.role_access[0]);
   }, []);
 
   if (!data) return <Loader />;
 
   if (roleList?.data.data.role_access.length === 0) {
     return (
-      <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+      <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
         <WarningOctagon size={24} /> <span>No Role Found</span>
       </div>
     );
@@ -76,12 +72,8 @@ function Tab({ parent_member_id }: IMembersTable) {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:gap-4">
             <div>
-              <h1 className="text-3xl font-semibold text-gray-800">
-                Members List
-              </h1>
-              <p className="text-gray-500 font-medium text-lg print:hidden">
-                List of All Organization Members
-              </p>
+              <h1 className="text-3xl font-medium text-primary_gray-800">Members List</h1>
+              <p className="text-primary_gray-500 font-medium text-lg print:hidden">List of All Organization Members</p>
             </div>
 
             <div className="flex gap-4">
@@ -90,20 +82,14 @@ function Tab({ parent_member_id }: IMembersTable) {
                 selectedRole={userRole}
                 setSelectedRole={setUserRole}
               />
-              {data && (
-                <MemberModal
-                  type="add"
-                  selectedRole={data?.data.data}
-                  parent_member_id={parent_member_id}
-                />
-              )}
+              {data && <MemberModal type="add" selectedRole={data?.data.data} parent_member_id={parent_member_id} />}
             </div>
           </div>
 
           <div>
             {usersList ? (
               usersList.list.length === 0 ? (
-                <div className="flex items-center text-xl font-semibold text-red-400 space-x-2 ">
+                <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
                   <WarningOctagon size={24} /> <span>No Details Found</span>
                 </div>
               ) : (
@@ -113,19 +99,8 @@ function Tab({ parent_member_id }: IMembersTable) {
                     role_id: selectedRole.id,
                     role_slug: selectedRole.slug,
                   }))}
-                  tableHeadings={[
-                    "Member Name",
-                    "Code",
-                    "Phone Number",
-                    "Address",
-                    "",
-                  ]}
-                  filterComponent={
-                    <MemberFilter
-                      role={data.data.data}
-                      setFilterParams={setFilterParams}
-                    />
-                  }
+                  tableHeadings={["Member Name", "Code", "Phone Number", "Address", ""]}
+                  filterComponent={<MemberFilter role={data.data.data} setFilterParams={setFilterParams} />}
                   searchTerms={["name", "member_code"]}
                   tableRowComponent={<UserTableRow />}
                   loading={!roleList}

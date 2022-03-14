@@ -8,26 +8,13 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import {
-  getMembersList,
-  postNormalMember,
-  postOrgMember,
-} from "@/services/requests/memberRequests";
+import { getMembersList, postNormalMember, postOrgMember } from "@/services/requests/memberRequests";
 
-export const useMemberList = (
-  roleId: number,
-  memberId?: number,
-  pageIndex = 1,
-  enabled?: boolean
-) => {
-  return useQuery(
-    ["member-list", roleId, pageIndex],
-    () => getMembersList(roleId, pageIndex),
-    {
-      enabled: roleId !== 0 && enabled,
-      refetchOnWindowFocus: true,
-    }
-  );
+export const useMemberList = (roleId: number, memberId?: number, pageIndex = 1, enabled?: boolean) => {
+  return useQuery(["member-list", roleId, pageIndex], () => getMembersList(roleId, pageIndex), {
+    enabled: roleId !== 0 && enabled,
+    refetchOnWindowFocus: true,
+  });
 };
 
 export const useAddPatient = () => {

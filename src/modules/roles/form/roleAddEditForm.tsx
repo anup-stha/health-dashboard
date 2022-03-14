@@ -29,10 +29,7 @@ type RoleValues = {
   description: string;
 };
 
-export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
-  type,
-  id,
-}) => {
+export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({ type, id }) => {
   const roles = useRoleStore((state) => state.allRoleList.data);
   const role = roles.filter((element) => element.id == id)[0];
 
@@ -79,13 +76,7 @@ export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
       })}
     >
       <div className="space-y-6">
-        <PrimaryInput
-          label="Title"
-          type="text"
-          required={true}
-          placeholder="Enter Role Title"
-          {...register(`title`)}
-        />
+        <PrimaryInput label="Title" type="text" required={true} placeholder="Enter Role Title" {...register(`title`)} />
         <div className="flex items-end space-x-4">
           <PrimaryInput
             label="Member Limit"
@@ -95,12 +86,7 @@ export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({
             {...register("memberLimit")}
           />
         </div>
-        <SwitchInput
-          label="Public"
-          type="checkbox"
-          placeholder="Enter Public"
-          {...register("public")}
-        />
+        <SwitchInput label="Public" type="checkbox" placeholder="Enter Public" {...register("public")} />
         <PrimaryInput
           label="Description"
           type="text"

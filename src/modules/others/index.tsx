@@ -20,22 +20,16 @@ import { Modal } from "@/components/Modal/useModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
+import { OtherFields, OtherFieldsPostBody } from "@/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
-import {
-  postOtherFieldToast,
-  putOtherFieldToast,
-} from "@/modules/others/utils/toasts/othersPageToast";
+import { postOtherFieldToast, putOtherFieldToast } from "@/modules/others/utils/toasts/othersPageToast";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useGlobalState } from "@/modules/useGlobalState";
 
-import { OtherFields, OtherFieldsPostBody } from "@/types";
-
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();
-  const otherFieldsList = useOtherFieldsStore(
-    (state) => state.othersFieldList.data
-  );
+  const otherFieldsList = useOtherFieldsStore((state) => state.othersFieldList.data);
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
@@ -57,24 +51,13 @@ export const OthersPage = () => {
         ) : otherFieldsList.length === 0 ? (
           <div className="flex justify-center">
             <div className="w-[48vw] h-[70vh] md:w-full md:h-[50vh] relative">
-              <Image
-                src="/assets/empty.svg"
-                alt="Empty State"
-                layout="fill"
-                objectFit="cover"
-                priority={true}
-              />
+              <Image src="/assets/empty.svg" alt="Empty State" layout="fill" objectFit="cover" priority={true} />
             </div>
           </div>
         ) : (
           <TableView
             data={otherFieldsList}
-            tableHeadings={[
-              "Field Name",
-              "Field Slug",
-              "Field Value Type",
-              "Required",
-            ]}
+            tableHeadings={["Field Name", "Field Slug", "Field Value Type", "Required"]}
             loading={isLoading}
             tableRowComponent={<OthersTableRow />}
           />
@@ -88,18 +71,12 @@ type OthersTableRowProps = {
   data?: any;
 };
 
-export const OthersTableRow: React.FC<OthersTableRowProps> = ({
-  data,
-}: {
-  data?: OtherFields;
-}) => {
+export const OthersTableRow: React.FC<OthersTableRowProps> = ({ data }: { data?: OtherFields }) => {
   return data ? (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">{data.name}</td>
       <td className="px-6 py-4 whitespace-nowrap"> {data.slug}</td>
-      <td className="px-6 py-4 whitespace-nowrap capitalize">
-        {data.value_type}
-      </td>
+      <td className="px-6 py-4 whitespace-nowrap capitalize">{data.value_type}</td>
       <td className="px-6 py-4 whitespace-nowrap">
         <BooleanTag type="info" trueStatement={data.required ? "Yes" : "No"} />
       </td>
@@ -130,22 +107,14 @@ type OtherFieldAddModalProps = {
   data?: OtherFields;
 };
 
-export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({
-  type,
-  data,
-}) => {
+export const OtherFieldAddEditModal: React.FC<OtherFieldAddModalProps> = ({ type, data }) => {
   return (
     <Modal>
       <Modal.Button type="open">
         {type === "add" ? (
           <Button>Add Other Field</Button>
         ) : (
-          <Edit
-            variant="Broken"
-            size={28}
-            color="#555"
-            className="cursor-pointer"
-          />
+          <Edit variant="Broken" size={28} color="#555" className="cursor-pointer" />
         )}
       </Modal.Button>
       <Modal.Content>
@@ -161,18 +130,13 @@ type OtherFieldAddEditFormProps = {
   data?: OtherFields;
 };
 
-export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
-  type,
-  data: initialData,
-}) => {
+export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({ type, data: initialData }) => {
   console.log(initialData);
 
   const { register, handleSubmit, control } = useForm<OtherFieldsPostBody>({
     defaultValues: { ...omit(initialData, "id"), required: true },
   });
-  const options = useGlobalState
-    .getState()
-    .base.data_types.map((element) => ({ value: element, label: element }));
+  const options = useGlobalState.getState().base.data_types.map((element) => ({ value: element, label: element }));
 
   return (
     <Modal.Form
@@ -187,25 +151,10 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({
       )}
     >
       <div className="space-y-4">
-        <PrimaryInput
-          label="Name"
-          type="text"
-          placeholder="Enter Name"
-          {...register("name")}
-        />
-        <DropdownController
-          options={options}
-          name="value_type"
-          label="Select Value Type"
-          control={control}
-        />
+        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
+        <DropdownController options={options} name="value_type" label="Select Value Type" control={control} />
 
-        <SwitchInput
-          label="Required"
-          type="number"
-          placeholder="Enter Required Field"
-          {...register("required")}
-        />
+        <SwitchInput label="Required" type="number" placeholder="Enter Required Field" {...register("required")} />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"} Category</Button>

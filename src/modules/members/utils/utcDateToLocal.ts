@@ -12,10 +12,7 @@ export const utcDateToLocal = (date: Date) => {
   // eslint-disable-next-line new-cap
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   try {
-    return utcToZonedTime(
-      new Date(date).getTime() * 1000,
-      timezone
-    ).toLocaleString();
+    return utcToZonedTime(new Date(date).getTime() * 1000, timezone).toLocaleString();
   } catch {
     return "Not Available";
   }

@@ -44,17 +44,13 @@ export const useRoleList = () => {
     onSuccess: ({ data }) => {
       const role = useCurrentMemberStore.getState().role;
       if (isEmpty(role)) {
-        useCurrentMemberStore
-          .getState()
-          .setCurrentRole(useAuthStore.getState().user.role.role_access[0]);
+        useCurrentMemberStore.getState().setCurrentRole(useAuthStore.getState().user.role.role_access[0]);
       }
     },
   });
 };
 
-export const getRoleDetails = (
-  id: number
-): Promise<AxiosResponse<RoleDetailResponse>> => {
+export const getRoleDetails = (id: number): Promise<AxiosResponse<RoleDetailResponse>> => {
   return privateAgent.get(`role/detail/${id}`);
 };
 
@@ -69,12 +65,7 @@ export const useRoleDetails = (roleId: number, callSuccess = true) => {
   });
 };
 
-export const addRole = ({
-  name,
-  memberLimit,
-  isPublic,
-  description,
-}: RoleAddBody) => {
+export const addRole = ({ name, memberLimit, isPublic, description }: RoleAddBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .post<RoleDetailResponse>("role/store/", {
@@ -100,13 +91,7 @@ export const addRole = ({
   );
 };
 
-export const updateRole = ({
-  id,
-  name,
-  memberLimit,
-  isPublic,
-  description,
-}: RoleUpdateBody) => {
+export const updateRole = ({ id, name, memberLimit, isPublic, description }: RoleUpdateBody) => {
   return new Promise((resolve, reject) =>
     privateAgent
       .post<RoleDetailResponse>(`role/update/${id}`, {
@@ -119,12 +104,8 @@ export const updateRole = ({
         const roles = useRoleStore.getState().roleList;
         const allRoles = useRoleStore.getState().allRoleList.data;
 
-        const updatedAllRoles = allRoles.map((role) =>
-          role.id === response.data.data.id ? response.data.data : role
-        );
-        const updatedArray = roles.map((role) =>
-          role.id === response.data.data.id ? response.data.data : role
-        );
+        const updatedAllRoles = allRoles.map((role) => (role.id === response.data.data.id ? response.data.data : role));
+        const updatedArray = roles.map((role) => (role.id === response.data.data.id ? response.data.data : role));
         useRoleStore.getState().setRoleList(updatedArray);
         useRoleStore.getState().setAllRoleList({
           data: updatedAllRoles,
@@ -139,9 +120,7 @@ export const updateRole = ({
   );
 };
 
-export const getAllPermissions = (): Promise<
-  AxiosResponse<PermissionListResponse>
-> => {
+export const getAllPermissions = (): Promise<AxiosResponse<PermissionListResponse>> => {
   return privateAgent.get("permission/");
 };
 
@@ -168,9 +147,7 @@ export const addPermissionToRole = (id: number, permId: number[]) => {
       .then(async () => {
         getRoleDetail(id);
         await getAllRoleList().then((response) => {
-          const selectedRole = response.data.data.filter(
-            (role) => role.id === Number(id)
-          )[0];
+          const selectedRole = response.data.data.filter((role) => role.id === Number(id))[0];
 
           useRoleStore.getState().setSelectedRole(selectedRole);
         });
@@ -189,9 +166,7 @@ export const removePermissionFromRole = (id: any, permId: any) => {
       .then(async () => {
         getRoleDetail(id);
         await getAllRoleList().then((response) => {
-          const selectedRole = response.data.data.filter(
-            (role) => role.id === Number(id)
-          )[0];
+          const selectedRole = response.data.data.filter((role) => role.id === Number(id))[0];
 
           useRoleStore.getState().setSelectedRole(selectedRole);
         });
@@ -209,19 +184,12 @@ export const getRoleListBySlug = (role_slug: string) => {
   return privateAgent.get<RoleListResponse>(`/role/${role_slug}`);
 };
 
-export const assignChildRole = (
-  data: { p_role_id: number; c_role_id: number }[]
-) => {
+export const assignChildRole = (data: { p_role_id: number; c_role_id: number }[]) => {
   return privateAgent.post<NullDataResponse>("role/assignRole", {
     data,
   });
 };
 
-export const deleteChildRole = (data: {
-  p_role_id: number;
-  c_role_id: number;
-}) => {
-  return privateAgent.delete<NullDataResponse>(
-    `role/${data.p_role_id}/remove/${data.c_role_id}`
-  );
+export const deleteChildRole = (data: { p_role_id: number; c_role_id: number }) => {
+  return privateAgent.delete<NullDataResponse>(`role/${data.p_role_id}/remove/${data.c_role_id}`);
 };
