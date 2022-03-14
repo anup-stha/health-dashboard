@@ -39,3 +39,21 @@ the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=
 from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Running e2e Cypress Tests
+
+Check out [Cypress Documentation](https://docs.cypress.io/) for more info
+
+```bash
+npm run test
+# or
+yarn test
+```
+
+## Technologies Used
+
+[React Query](https://react-query.tanstack.com/overview) for managing API Calls \
+[React Hook Form](https://react-hook-form.com/api) for managing form states \
+[Zustand](https://github.com/pmndrs/zustand) for managing client side data like auth \
+[TailwindCSS](https://tailwindcss.com/docs) for UI \
+[Framer Motion](https://www.framer.com/docs/) for animations
