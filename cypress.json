@@ -1,1 +1,4 @@
-{}
+{
+  "supportFile": "cypress/support/commands.ts",
+  "pluginsFile": "cypress/plugins/index.js"
+}
