@@ -14,8 +14,9 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 
-import { Role } from "@/types";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+
+import { Role } from "@/types";
 
 interface IMemberFilter {
   setFilterParams: Dispatch<SetStateAction<string>>;

@@ -13,8 +13,9 @@ import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 
-import { TestSubCategory } from "@/types";
 import { TestModal } from "@/modules/tests/testAddModal";
+
+import { TestSubCategory } from "@/types";
 
 type TestCardPropsType = {
   id: number | string;

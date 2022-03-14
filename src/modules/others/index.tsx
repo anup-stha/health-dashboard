@@ -20,12 +20,13 @@ import { Modal } from "@/components/Modal/useModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
-import { OtherFields, OtherFieldsPostBody } from "@/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { postOtherFieldToast, putOtherFieldToast } from "@/modules/others/utils/toasts/othersPageToast";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { useGlobalState } from "@/modules/useGlobalState";
+
+import { OtherFields, OtherFieldsPostBody } from "@/types";
 
 export const OthersPage = () => {
   const { isLoading } = useGetOtherFieldsList();

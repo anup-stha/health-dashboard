@@ -8,8 +8,9 @@
 
 import { AxiosResponse } from "axios";
 
-import { StatusType } from "@/types";
 import { privateAgent } from "@/services/requests/index";
+
+import { StatusType } from "@/types";
 
 type SignedUrlBody = {
   member_id: number;

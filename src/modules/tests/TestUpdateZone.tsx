@@ -6,8 +6,9 @@
  *
  */
 
-import { Test } from "@/types";
 import { TestModal } from "@/modules/tests/testAddModal";
+
+import { Test } from "@/types";
 
 type TestUpdateZoneProps = {
   selectedTest: Test;

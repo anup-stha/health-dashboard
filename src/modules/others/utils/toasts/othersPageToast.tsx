@@ -8,9 +8,10 @@
 
 import { alert } from "@/components/Alert";
 
-import { OtherFieldsPostBody } from "@/types";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { postOtherFieldDetails, putOtherFieldDetails } from "@/services/requests/otherFieldsRequests";
+
+import { OtherFieldsPostBody } from "@/types";
 
 export const postOtherFieldToast = (data: OtherFieldsPostBody) => {
   const postOtherFieldPromise = new Promise((resolve, reject) =>

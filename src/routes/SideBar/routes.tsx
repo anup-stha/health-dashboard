@@ -6,8 +6,8 @@
  *
  */
 
-import { Category2, Home } from "iconsax-react";
-import { DeviceMobile, Polygon, Question, Sliders, TestTube, UserList, Users } from "phosphor-react";
+import { Home } from "iconsax-react";
+import { DeviceMobile, DiamondsFour, Polygon, Question, Sliders, TestTube, UserList, Users } from "phosphor-react";
 import React from "react";
 
 import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
@@ -98,7 +98,7 @@ export const superAdminNavRoutes: RouteObjectType[] = [
       {
         id: 4,
         title: "Others",
-        icon: <Category2 variant="Broken" size={24} color="primary_gray" />,
+        icon: <DiamondsFour size={24} />,
         link: "/others",
       },
       {

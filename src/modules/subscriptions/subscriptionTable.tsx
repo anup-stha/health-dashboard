@@ -13,10 +13,11 @@ import React from "react";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
-import { Subscription } from "@/types";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 
 import { useSubscriptionStore } from "./subscriptionStore";
+
+import { Subscription } from "@/types";
 
 export const SubscriptionTable = () => {
   const { subscriptionList } = useSubscriptionStore();

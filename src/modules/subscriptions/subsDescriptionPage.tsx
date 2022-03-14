@@ -19,7 +19,6 @@ import { Heading } from "@/components/Headings";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { TableView } from "@/components/Table";
 
-import { TestSubCategory } from "@/types";
 import { SubscriptionDeleteZone } from "@/modules/roles/others/DeleteZone";
 import { SubscriptionUpdateZone } from "@/modules/subscriptions/AlertZone";
 import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
@@ -27,6 +26,8 @@ import { testStore } from "@/modules/tests/testStore";
 import { assignTestToSubscriptionBulk, removeTestFromSubscription } from "@/services/requests/subscriptionRequests";
 
 import { MultiDropdown } from "../roles/form/roleMemberCategoryForm";
+
+import { TestSubCategory } from "@/types";
 
 const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");

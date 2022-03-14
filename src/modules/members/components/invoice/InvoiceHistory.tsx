@@ -14,9 +14,10 @@ import React, { Fragment } from "react";
 import { BooleanTag } from "@/components/others/BooleanTag";
 import { ProfileSubsLoadingState } from "@/components/state/ProfileSubsLoadingState";
 
-import { Invoice } from "@/types";
 import { useInvoiceList } from "@/modules/members/hooks/query/useInvoiceList";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+
+import { Invoice } from "@/types";
 
 interface IPropsInvoiceHistory {
   member_id: number;

@@ -13,9 +13,10 @@ import React from "react";
 
 import { TableView } from "@/components/Table";
 
-import { MemberTestListData, MemberTestReport } from "@/types";
 import { utcDateToLocal } from "@/modules/members/utils/utcDateToLocal";
 import { isValidHttpUrl } from "@/utils/isValidHttpUrl";
+
+import { MemberTestListData, MemberTestReport } from "@/types";
 
 type ProfileTestData = {
   id: number;

@@ -16,10 +16,11 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import { MemberDetailCategory, MemberDetails, Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Member } from "@/modules/members/types";
 import { addDetailsToMember } from "@/services/requests/memberRequests";
+
+import { MemberDetailCategory, MemberDetails, Role } from "@/types";
 
 type MemberDetailAddModalProps = {
   otherDetails: MemberDetails[];

@@ -10,6 +10,10 @@ import { AxiosResponse } from "axios";
 import Router from "next/router";
 import { useQuery } from "react-query";
 
+import { testStore } from "@/modules/tests/testStore";
+
+import { privateAgent } from ".";
+
 import {
   AddTestBody,
   AddTestCategoryBody,
@@ -18,9 +22,6 @@ import {
   ListTestResponse,
   UpdateTestCategoryBody,
 } from "@/types";
-import { testStore } from "@/modules/tests/testStore";
-
-import { privateAgent } from ".";
 
 export const getTests = (): Promise<AxiosResponse<ListTestResponse>> => {
   return privateAgent.get("test/categories/");

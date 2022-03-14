@@ -10,6 +10,12 @@
 import Router from "next/router";
 import { useQuery } from "react-query";
 
+import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
+import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
+import { queryClient } from "@/pages/_app";
+
+import { privateAgent } from ".";
+
 import {
   MemberSubscriptionDetails,
   MemberSubscriptionDetailsResponse,
@@ -19,11 +25,6 @@ import {
   SubscriptionTestDetailsResponse,
   SubscriptionUpdateBody,
 } from "@/types";
-import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
-import { useSubscriptionStore } from "@/modules/subscriptions/subscriptionStore";
-import { queryClient } from "@/pages/_app";
-
-import { privateAgent } from ".";
 
 export const listSubscriptions = (roleId: number) => {
   return privateAgent

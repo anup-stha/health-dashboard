@@ -20,13 +20,14 @@ import { Heading } from "@/components/Headings";
 import { PrimaryInput } from "@/components/Input";
 import { Loader } from "@/components/Loader";
 
-import { Invoice } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useInvoiceList } from "@/modules/members/hooks/query/useInvoiceList";
 import { useMemberStore } from "@/modules/members/hooks/zustand/useMemberStore";
 import { Member } from "@/modules/members/types";
 import { postInvoiceToast, putInvoiceAsPaidToast } from "@/modules/members/utils/invoiceToast";
 import { useMemberSubsDetails } from "@/services/requests/subscriptionRequests";
+
+import { Invoice } from "@/types";
 
 interface IMemberInvoicePage {
   invoice_id?: number;

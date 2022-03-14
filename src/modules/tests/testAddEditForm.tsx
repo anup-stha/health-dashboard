@@ -14,8 +14,9 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import { Test } from "@/types";
 import { addTest, addTestCategory, updateTest, updateTestCategory } from "@/services/requests/testRequests";
+
+import { Test } from "@/types";
 
 type TestAddEditFormProps = {
   variant: "test" | "subtest";

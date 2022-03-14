@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 import { TestLineChart } from "@/components/charts/LineChart";
 import { Loader } from "@/components/Loader";
 
-import { Test } from "@/types";
 import { ProfileTestDropdown } from "@/modules/members/components/dropdown/ProfileTestDropdown";
 import { ProfileTestTab } from "@/modules/members/components/tests/ProfileTestTab";
 import { useMemberTestList } from "@/modules/members/hooks/query/useMemberTestList";
@@ -20,6 +19,8 @@ import { Member } from "@/modules/members/types";
 import { getChartData } from "@/modules/members/utils/getChartData";
 import { testStore } from "@/modules/tests/testStore";
 import { useTestList } from "@/services/requests/testRequests";
+
+import { Test } from "@/types";
 
 interface IProfileTestSection {
   selectedMember: Member;

@@ -14,11 +14,12 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, RadioInputController } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import { MedicalHistory } from "@/types";
 import { Member } from "@/modules/members/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { useOtherFieldsStore } from "@/modules/others/utils/hooks/useOtherFieldsStore";
 import { postMedicalHistoryToPatient } from "@/services/requests/otherFieldsRequests";
+
+import { MedicalHistory } from "@/types";
 
 interface IPatientMedicalHistoryEditModal {
   selectedMember: Member;

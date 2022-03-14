@@ -15,9 +15,10 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import { MemberDetailCategory, Role } from "@/types";
 import { useAddUser, useNestedAddUser } from "@/modules/members/hooks/query/useMemberList";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
+
+import { MemberDetailCategory, Role } from "@/types";
 
 interface UserAddFormData {
   name: string;

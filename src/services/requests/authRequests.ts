@@ -8,6 +8,15 @@
 
 import Router from "next/router";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { DeviceListResponse, StringResponse } from "@/modules/members/types";
+import { useGlobalState } from "@/modules/useGlobalState";
+import { queryClient } from "@/pages/_app";
+import { getGlobalStates } from "@/services/requests/globalRequests";
+
+import { privateAgent, publicAgent } from ".";
+
 import {
   LoginRequest,
   LoginResponse,
@@ -17,14 +26,6 @@ import {
   NullDataResponse,
   ProfileRequestResponse,
 } from "@/types";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { DeviceListResponse, StringResponse } from "@/modules/members/types";
-import { useGlobalState } from "@/modules/useGlobalState";
-import { queryClient } from "@/pages/_app";
-import { getGlobalStates } from "@/services/requests/globalRequests";
-
-import { privateAgent, publicAgent } from ".";
 
 export const login = (loginRequest: LoginRequest) => {
   return new Promise((resolve, reject) =>

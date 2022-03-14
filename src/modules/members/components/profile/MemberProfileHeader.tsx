@@ -20,7 +20,6 @@ import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 
-import { Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { MemberOtherDetailModal } from "@/modules/members/components/modal/MemberOtherDetailModal";
@@ -30,6 +29,8 @@ import { useGetOverviewData } from "@/modules/members/hooks/query/useGetOverview
 import { Member } from "@/modules/members/types";
 import { logoutUser } from "@/services/requests";
 import { changePassword } from "@/services/requests/authRequests";
+
+import { Role } from "@/types";
 
 interface IMemberProfileHeaderProps {
   member: Member;

@@ -8,9 +8,10 @@
 
 import { alert } from "@/components/Alert";
 
-import { MemberDetailCategoryBody, MemberDetailCategoryUpdateBody } from "@/types";
 import { useRoleStore } from "@/modules/roles/useRoleStore";
 import { postMemberCategory, postUpdateMemberCategory } from "@/services/requests/memberRequests";
+
+import { MemberDetailCategoryBody, MemberDetailCategoryUpdateBody } from "@/types";
 
 export const postMemberCategoryToast = (body: MemberDetailCategoryBody) => {
   const postMemberCategoryPromise = new Promise((resolve, reject) =>

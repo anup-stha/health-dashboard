@@ -15,12 +15,13 @@ import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
-import { MemberDetailCategory, Role } from "@/types";
 import { useAddPatient, useNestedAddPatient } from "@/modules/members/hooks/query/useMemberList";
 import { Member } from "@/modules/members/types";
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 import { updateUserProfile } from "@/services/requests/authRequests";
+
+import { MemberDetailCategory, Role } from "@/types";
 
 interface UserAddFormData {
   name: string;

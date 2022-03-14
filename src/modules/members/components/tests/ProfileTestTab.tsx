@@ -14,12 +14,13 @@ import React from "react";
 import { Button } from "@/components/Button";
 import { TableView } from "@/components/Table";
 
-import { MemberTestList, PaginationObject } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { ProfileTestExport } from "@/modules/members/components/tests/ProfileTestExport";
 import { ProfileTestGridView, ProfileTestTableRow } from "@/modules/members/components/tests/ProfileTestTableRow";
 import { Member } from "@/modules/members/types";
 import { getSubTestList } from "@/modules/members/utils/getSubTestList";
+
+import { MemberTestList, PaginationObject } from "@/types";
 
 interface IProfileTestTabProps {
   testList: { list: MemberTestList[]; pagination: PaginationObject } | undefined;

@@ -6,6 +6,12 @@
  *
  */
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
+
+import { privateAgent } from ".";
+
 import {
   MemberBulkData,
   MemberBulkDataWithDetails,
@@ -19,11 +25,6 @@ import {
   NullDataResponse,
   OrgMemberAddRes,
 } from "@/types";
-import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { getCurrentUserProfile } from "@/services/requests/authRequests";
-
-import { privateAgent } from ".";
 
 export const getMembersList = (roleId: number, pageNumber = 1) => {
   return privateAgent

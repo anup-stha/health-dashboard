@@ -14,12 +14,13 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
-import { Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberAddEditForm } from "@/modules/members/components/form/MemberAddEditForm";
 import { PatientAddForm } from "@/modules/members/components/form/PatientAddForm";
 import { UserAddForm } from "@/modules/members/components/form/UserAddForm";
 import { Member } from "@/modules/members/types";
+
+import { Role } from "@/types";
 
 interface MemberModalProps {
   type: "add" | "edit";

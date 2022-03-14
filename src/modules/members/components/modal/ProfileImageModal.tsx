@@ -16,10 +16,11 @@ import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
-import { ImageUploadResponse } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Member } from "@/modules/members/types";
 import { privateAgent } from "@/services/requests";
+
+import { ImageUploadResponse } from "@/types";
 
 interface IProfileImageModalProps {
   children: React.ReactNode;

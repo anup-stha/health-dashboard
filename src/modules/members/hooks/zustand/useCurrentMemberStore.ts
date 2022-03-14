@@ -9,8 +9,9 @@
 import create from "zustand";
 import { combine, devtools, persist } from "zustand/middleware";
 
-import { RoleAccess } from "@/types";
 import { Member } from "@/modules/members/types";
+
+import { RoleAccess } from "@/types";
 
 const selectedMemberKey = "@sunya/current-member-state";
 

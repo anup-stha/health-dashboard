@@ -9,7 +9,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
-import { Role } from "@/types";
 import { MemberProfileHeader } from "@/modules/members/components/profile/MemberProfileHeader";
 import { DeviceHistoryTab } from "@/modules/members/components/tabs/DeviceHistoryTab";
 import { MembersListTab } from "@/modules/members/components/tabs/MemberListTab";
@@ -19,6 +18,8 @@ import { TestTab } from "@/modules/members/components/tabs/ProfileTestTab";
 import { SubscriptionTab } from "@/modules/members/components/tabs/SubscriptionTab";
 import { Member, MemberProfileTabs } from "@/modules/members/types";
 import { getTabItemsForRole } from "@/modules/members/utils/getTabItemsForRole";
+
+import { Role } from "@/types";
 
 interface MemberProfilePage {
   member: Member;

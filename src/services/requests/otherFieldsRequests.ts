@@ -6,14 +6,15 @@
  *
  */
 
+import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { privateAgent } from "@/services/requests/index";
+
 import {
   MedicalHistoryGetResponse,
   OtherFieldsGetResponse,
   OtherFieldsPostBody,
   OtherFieldsPostResponse,
 } from "@/types";
-import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
-import { privateAgent } from "@/services/requests/index";
 
 export const getMedicalHistoryList = (memberId: number) => {
   return privateAgent.get<MedicalHistoryGetResponse>(`medical_history/${memberId}`);

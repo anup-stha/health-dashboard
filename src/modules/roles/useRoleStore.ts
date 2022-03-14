@@ -9,8 +9,9 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
-import { MemberDetailCategory, Permission, Role, RoleListResponse } from "@/types";
 import { getAllPermissions, listRole } from "@/services/requests/roleRequests";
+
+import { MemberDetailCategory, Permission, Role, RoleListResponse } from "@/types";
 
 type roleInitialStateProps = {
   allRoleList: {

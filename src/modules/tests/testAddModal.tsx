@@ -12,8 +12,9 @@ import React from "react";
 import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
-import { Test } from "@/types";
 import { TestAddEditForm } from "@/modules/tests/testAddEditForm";
+
+import { Test } from "@/types";
 
 type RoleModalProps = {
   variant: "test" | "subtest";

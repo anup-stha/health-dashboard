@@ -14,11 +14,12 @@ import { useReactToPrint } from "react-to-print";
 
 import { Button } from "@/components/Button";
 
-import { MemberTestList, PaginationObject } from "@/types";
 import { ProfileTestPrint } from "@/modules/members/components/tests/ProfileTestPrint";
 import { Member } from "@/modules/members/types";
 import { getSubTestList } from "@/modules/members/utils/getSubTestList";
 import { utcDateToLocal } from "@/modules/members/utils/utcDateToLocal";
+
+import { MemberTestList, PaginationObject } from "@/types";
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;

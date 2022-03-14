@@ -19,11 +19,12 @@ import { Heading } from "@/components/Headings";
 import { TableView } from "@/components/Table";
 import { promiseToast } from "@/components/Toast";
 
-import { Role } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { dropdownStyles } from "@/modules/members/components/others/PatientExcelImport/styles";
 import { queryClient } from "@/pages/_app";
 import { postMemberBulkWithDetails } from "@/services/requests/memberRequests";
+
+import { Role } from "@/types";
 
 interface IExcelImport {
   role: Role;

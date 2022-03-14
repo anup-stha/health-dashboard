@@ -11,9 +11,10 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect } from "react";
 
-import { RoleAccess } from "@/types";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+
+import { RoleAccess } from "@/types";
 
 interface MemberRoleDropdownProps {
   roleList?: RoleAccess[];
