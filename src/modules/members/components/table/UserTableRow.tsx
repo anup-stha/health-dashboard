@@ -40,8 +40,6 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({
     (state) => state.setCurrentUser
   );
 
-  console.log(data);
-
   const onMemberClick = () => {
     if (data) {
       setCurrentMember(data);

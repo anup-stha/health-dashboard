@@ -36,7 +36,10 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
 }) => {
   const router = useRouter();
   return permissionCount !== 0 ? (
-    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
+    <div
+      data-testid={`${title}-card`}
+      className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200"
+    >
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
@@ -70,6 +73,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
           <Button
+            data-testid={`${title}-button`}
             buttonSize="small"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);
@@ -82,7 +86,10 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
     </div>
   ) : (
-    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10">
+    <div
+      data-testid={`${title}-card`}
+      className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10"
+    >
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
@@ -115,6 +122,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
           <Button
+            data-testid={`${title}-button`}
             buttonSize="small"
             onClick={() => {
               router.push(`/roles/${slug}?id=${id}`);

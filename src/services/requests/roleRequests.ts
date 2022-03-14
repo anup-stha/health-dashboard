@@ -202,7 +202,7 @@ export const removePermissionFromRole = (id: any, permId: any) => {
 };
 
 export const getAllRoleList = () => {
-  return privateAgent.get<RoleListResponse>("role/all");
+  return privateAgent.get<RoleListResponse>("role");
 };
 
 export const getRoleListBySlug = (role_slug: string) => {
