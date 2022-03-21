@@ -63,7 +63,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
               </div>
             </Modal.Button>
             <Modal.Button type="close">
-              <Button color="error" onClick={() => onDelete && onDelete()}>
+              <Button data-testid="del-btn" color="error" onClick={() => onDelete && onDelete()}>
                 Delete
               </Button>
             </Modal.Button>

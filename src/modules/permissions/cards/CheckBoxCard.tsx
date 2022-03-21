@@ -31,6 +31,10 @@ export const CheckBoxCard: React.FC<CheckBoxCardProps> = ({ title, subtitle, che
       <div className="max-w-sm mx-auto">
         <label className="inline-flex items-center">
           <input
+            data-testid={`${title
+              .toLowerCase()
+              .replace(/ /g, "_")
+              .replace(/[^\w-]+/g, "")}-permission_checkbox`}
             className="text-primary-500 w-8 h-8 mr-2 cursor-pointer focus:ring-primary-400 focus:ring-opacity-25 border border-primary_gray-300 rounded-lg"
             type="checkbox"
             checked={checked}

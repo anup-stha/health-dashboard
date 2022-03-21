@@ -133,7 +133,8 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
 
   return (
     <div className="z-[100]">
-      <label className="input_label">{label}</label>
+      {label && <label className="input_label">{label}</label>}
+
       <Controller
         name={name}
         control={control}

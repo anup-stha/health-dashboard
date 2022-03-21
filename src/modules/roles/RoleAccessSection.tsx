@@ -36,7 +36,7 @@ export const RoleAccessSection = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between sm:flex-col sm:gap-4">
         <div>
           <h1 className="text-3xl font-medium text-primary_gray-900">Role Access</h1>
           <p className="text-lg font-medium text-primary_gray-500">
@@ -62,6 +62,7 @@ export const RoleAccessSection = () => {
             />
           </div>
           <Button
+            data-testid="role-access-add-btn"
             onClick={() =>
               toastAlert({
                 type: "promise",
@@ -109,7 +110,7 @@ export const RoleAccessSection = () => {
                 </div>
 
                 <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">
-                  {roleList[0].desc} {/** 92 CHARS */}
+                  {role.desc} {/** 92 CHARS */}
                 </p>
               </div>
               <DeleteModal
@@ -131,7 +132,7 @@ export const RoleAccessSection = () => {
                 subTitles={["Please be careful. If you remove, this role will lose access to every thing."]}
                 disabled={false}
                 closeButton={
-                  <Button size="sm" color="error">
+                  <Button size="sm" color="error" data-testid={`${role.name}-role_access_del_btn`}>
                     Remove Role
                   </Button>
                 }

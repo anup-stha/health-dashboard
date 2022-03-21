@@ -10,7 +10,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-500 px-6 py-5 bg-white rounded-md  border border-gray-25 border-b-primary-500 border-solid w-full block;
+    @apply text-lg text-gray-500 px-6 py-5 bg-white rounded-md  border border-gray-200 border-b-primary-500 border-solid w-full block;
 
     &:focus {
       outline: none;
@@ -80,13 +80,6 @@
     @apply text-gray-500 font-medium mb-1 text-lg;
     display: block;
     transition: all 0.3s;
-  }
-
-  &_container:placeholder-shown + &_label,
-  &_icon_container:placeholder-shown + &_label {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(5rem);
   }
 
   &_label {

@@ -24,7 +24,10 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
   return (
     <Modal>
       <Modal.Button type="open">
-        <Button disabled={selectedPermission.deselected.length === 0 && selectedPermission.selected.length === 0}>
+        <Button
+          data-testid="permission_save_btn"
+          disabled={selectedPermission.deselected.length === 0 && selectedPermission.selected.length === 0}
+        >
           Save Permissions
         </Button>
       </Modal.Button>

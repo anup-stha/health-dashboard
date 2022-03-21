@@ -96,24 +96,29 @@ export const SearchInput = React.forwardRef<HTMLInputElement, HookSearchInputPro
   }
 );
 
-export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(
-  ({ label, error, checked, ...props }, ref) => {
-    return (
-      <div className="  mb-12">
-        <label htmlFor={label} className="flex items-center cursor-pointer">
-          <div className="input_label capitalize mr-4">{label}</div>
+export const SwitchInput = React.forwardRef<HTMLInputElement, HookInputProps>(({ label, error, ...props }, ref) => {
+  return (
+    <div className="mb-12">
+      <label htmlFor={label} className="flex items-center cursor-pointer">
+        <div className="input_label capitalize mr-4">{label}</div>
 
-          <div className="relative">
-            <input {...props} id={label} type="checkbox" className="sr-only" checked={checked} ref={ref} />
-            <div className="w-14 h-6 bg-gray-400 rounded-full shadow-inner" />
-
-            <div className="dot absolute w-8 h-8 bg-red-500 rounded-full shadow -left-1 -top-1 transition" />
-          </div>
-        </label>
-      </div>
-    );
-  }
-);
+        <div className="relative">
+          <input
+            data-testid="checkbox-input"
+            id={label}
+            name={label}
+            type="checkbox"
+            className="sr-only"
+            ref={ref}
+            {...props}
+          />
+          <div className="w-14 h-6 bg-gray-400 rounded-full shadow-inner" />
+          <div className="dot absolute w-8 h-8 bg-red-500 rounded-full shadow -left-1 -top-1 transition" />
+        </div>
+      </label>
+    </div>
+  );
+});
 
 export const RadioInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   ({ label, error, value, ...props }, ref) => {

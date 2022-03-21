@@ -38,7 +38,7 @@ const buttonConfig = {
 
   sm: "px-6 py-4 text-lg rounded-md active:shadow-sm",
   md: "px-10 py-5 text-xl rounded-md active:shadow-md",
-  lg: "px-12 py-6 text-xl rounded-md active:shadow-md",
+  lg: "px-14 py-5 text-xl rounded-md active:shadow-md",
 };
 
 export const Button = ({
