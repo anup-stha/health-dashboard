@@ -23,7 +23,7 @@ export const RoleMemberCategoryModal: React.FC<memberCategoryModalProps> = ({ ty
     <Modal>
       {type === "add" ? (
         <Modal.Button type="open">
-          <Button>Add Category</Button>
+          <Button data-testid="category_modal">Add Category</Button>
         </Modal.Button>
       ) : (
         <Modal.Button type="open">

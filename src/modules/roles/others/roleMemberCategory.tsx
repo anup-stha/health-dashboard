@@ -24,23 +24,16 @@ export const RoleMemberCategory = () => {
             <div>
               <h1 className="text-2xl font-medium text-primary_gray-900">Member Detail Category</h1>
               <p className="text-lg font-medium text-primary_gray-500">
-                Click on any field to add, update or remove details fied for {selectedRole.name}
+                Click on any field to add, update or remove details field for {selectedRole.name}
               </p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center" data-testid="disclosure_open">
               <ChevronUpIcon className={`${open ? "transform rotate-180" : ""} w-12 h-12 text-primary-500`} />
             </div>
           </Disclosure.Button>
 
           <Disclosure.Panel className=" pt-4 pb-2 text-sm text-primary_gray-500">
-            <Transition
-              enter="transition duration-100 ease-out"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
-              leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0"
-            >
+            <Transition>
               <div className="w-full flex flex-col space-y-4">
                 <RoleMemberCategoryTable />
                 <div className="self-end">{open && <RoleMemberCategoryModal type="add" />}</div>

@@ -13,5 +13,11 @@ declare namespace Cypress {
      * @example cy.login()
      */
     login(): Chainable<Element>;
+
+    /**
+     *
+     * @return {Cypress.Chainable<Element>}
+     */
+    loginTest(): Chainable<Element>;
   }
 }

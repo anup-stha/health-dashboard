@@ -38,18 +38,18 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
   return permissionCount !== 0 ? (
     <div
       data-testid={`${title}-card`}
-      className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200"
+      className=" relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200"
     >
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{title}</h1>
+            <h1 className="text-3xl font-medium text-primary_gray-800 line-clamp-1 capitalize">{title}</h1>
             <h1 className="whitespace-nowrap text-base">
               <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
 
-          <div className="self-start text-lg text-primary_gray-500 font-normal">
+          <div className="self-start text-lg text-primary_gray-500 font-normal" data-testid={`${title}-card-data`}>
             Member Limit: {memberLimit} | Permissions: {permissionCount} | {isPublic ? "Public" : "Not Public"}
           </div>
         </div>
@@ -83,18 +83,19 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       </div>
     </div>
   ) : (
-    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10">
+    <div
+      data-testid={`${title}-card`}
+      className="relative flex flex-col items-start justify-between overflow-hidden h-64  bg-red-50  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200 bg-opacity-40 ring-1 ring-red-500 ring-opacity-10"
+    >
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
-              {title}
-            </h1>
+            <h1 className="text-3xl font-semibold text-gray-800 capitalize">{title}</h1>
             <h1 className="whitespace-nowrap text-base">
               <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
-          <div className="font-bold text-lg text-red-500 flex gap-x-1 items-center">
+          <div className="font-bold text-lg text-red-500 flex gap-x-1 items-center" data-testid={`${title}-card-data`}>
             <Warning size={24} weight="duotone" />
             <span>Please add permission to this user to activate it</span>
           </div>

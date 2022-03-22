@@ -30,7 +30,11 @@ export const Permissions = () => {
           const isItemSelected = selectedPermission.current.some((element: any) => element.id === permission.id);
 
           return (
-            <div className={isItemSelected ? "permission_card_active" : "permission_card_inactive"} key={permission.id}>
+            <div
+              className={isItemSelected ? "permission_card_active" : "permission_card_inactive"}
+              key={permission.id}
+              data-testid={`${permission.slug}-permission_card`}
+            >
               <CheckBoxCard
                 title={permission.name}
                 subtitle={permission.slug}
