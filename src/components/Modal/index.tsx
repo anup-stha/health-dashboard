@@ -87,7 +87,12 @@ export const Button: React.FC<IButtonProps> = ({ children, type, onClick, width,
 
   if (async === true)
     return (
-      <UIButton disabled={disabled} onClick={async (e) => await onClick(e).then(() => setIsOpen(false))} type="submit">
+      <UIButton
+        data-testid="modal_close_btn"
+        disabled={disabled}
+        onClick={async (e) => await onClick(e).then(() => setIsOpen(false))}
+        type="submit"
+      >
         {children}
       </UIButton>
     );
