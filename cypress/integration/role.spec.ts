@@ -48,12 +48,8 @@ context("Role Page", () => {
       interception.response.body.data.forEach((role: Role) => {
         cy.get(`[data-testid="${role.name}-card"]`).contains(role.name);
         cy.get(`[data-testid="${role.name}-card"]`).contains(role.member_limit);
-        cy.get(`[data-testid="${role.name}-card"]`).contains(
-          role.public ? "Public" : "Not Public"
-        );
-        cy.get(`[data-testid="${role.name}-card"]`).contains(
-          role.permissions.length
-        );
+        cy.get(`[data-testid="${role.name}-card"]`).contains(role.public ? "Public" : "Not Public");
+        cy.get(`[data-testid="${role.name}-card"]`).contains(role.permissions.length);
         cy.get(`[data-testid="${role.name}-button"]`)
           .click()
           .then(() => cy.url().should("contain"));

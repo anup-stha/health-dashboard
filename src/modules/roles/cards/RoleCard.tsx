@@ -87,9 +87,7 @@ export const RoleCard: React.FC<RoleCardPropsType> = ({
       <div className="space-y-2 w-full">
         <div className="flex flex-col justify-between space-y-2 w-full">
           <div className="flex justify-between items-center w-full ">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize">
-              {title}
-            </h1>
+            <h1 className="text-3xl font-semibold text-gray-800 capitalize">{title}</h1>
             <h1 className="whitespace-nowrap text-base">
               <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
