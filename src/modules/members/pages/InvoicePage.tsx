@@ -405,7 +405,6 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
             ) : null}
             {invoice_id ? null : (
               <Button
-                className="py-5 rounded-xl flex items-center justify-center text-xl"
                 onClick={() => {
                   postInvoiceToast({
                     ...invoiceData,

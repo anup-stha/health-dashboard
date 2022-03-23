@@ -22,7 +22,7 @@ export const postInvoiceToast = (body: Omit<Invoice, "invoice_no" | "id">) => {
       .then((response) => {
         useMemberStore.getState().setInvoiceId(`${response.data.data.invoice_no}`);
         queryClient.invalidateQueries("invoice-list");
-        Router.push(`/member/org_admin/invoice?id=${response.data.data.invoice_no}`);
+        Router.push(`/members/org_admin/invoice?id=${response.data.data.invoice_no}`);
         resolve(response.data.message);
       })
       .catch((error) => {
