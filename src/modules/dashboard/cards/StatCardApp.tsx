@@ -25,7 +25,7 @@ export const StatCardApp: React.FC = () => {
 
           <div className="flex flex-col items-center space-y-2">
             <p className="text-4xl text-primary_gray-800 font-medium">
-              <CountUp start={0} end={Number(139)} />
+              <CountUp start={0} end={Number(0)} />
             </p>
             <h1 className="text-lg text-primary_gray-500 font-medium sm:text-xl text-center">Total Downloads</h1>
           </div>
@@ -36,7 +36,7 @@ export const StatCardApp: React.FC = () => {
           </div>
           <div className="flex flex-col items-center space-y-2">
             <p className="text-4xl text-primary_gray-800 font-medium">
-              <CountUp start={0} end={Number(139)} />
+              <CountUp start={0} end={Number(0)} />
             </p>
             <h1 className="text-lg text-primary_gray-500 font-medium sm:text-xl text-center">Total Reviews</h1>
           </div>
@@ -47,7 +47,7 @@ export const StatCardApp: React.FC = () => {
           </div>
           <div className="flex flex-col items-center space-y-2">
             <p className="text-4xl text-primary_gray-800 font-medium">
-              <CountUp start={0} end={Number(139)} />
+              <CountUp start={0} end={Number(0)} />
             </p>
             <h1 className="text-lg text-primary_gray-500 font-medium sm:text-xl text-center ">Total Users</h1>
           </div>

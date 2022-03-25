@@ -366,6 +366,7 @@ export type Subscription = {
   sync_limit: number;
   test_limit: number;
   test_categories: any[];
+  [index: string]: string | number | any[];
 };
 
 export type SubscriptionListResponse = StatusType & {

@@ -45,14 +45,14 @@ export const NavItem: React.FC<NavItemProps> = ({ route, containerClassName }) =
             } transition-all duration-100 `}
           >
             <span className="flex items-center gap-x-4 text-lg">
-              <div className="sm:hidden">{route.icon}</div>
+              <div>{route.icon}</div>
 
               <span className="sm:text-lg line-clamp-1">{route.title}</span>
             </span>
           </div>
 
           <div
-            className={`flex relative items-center ${
+            className={`flex relative items-center sm:hidden ${
               !open ? "opacity-100 -translate-x-8 transition-opacity duration-500  px-4 " : "opacity-0 w-0 p-0"
             }  `}
           >

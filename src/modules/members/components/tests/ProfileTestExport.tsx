@@ -54,7 +54,7 @@ export const ProfileTestExport = ({ testList, selectedMember: currentMember }: I
       : [];
 
   return (
-    <div className="space-x-2 flex">
+    <div className="gap-2 flex">
       <ProfileTestPrint
         test_name={testList.list[0].test_name}
         test={getSubTestList(testList.list)}

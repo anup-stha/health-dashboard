@@ -40,7 +40,7 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
     </div>
   ) : (
     <Tab.Group>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center sm:flex-col sm:items-start gap-4 ">
         <Tab.List className="space-x-4 print:hidden">
           <Tab className={({ selected }) => (selected ? activeClassName : inactiveClassName)}>
             <div className="">Table</div>
@@ -48,20 +48,16 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
 
           <Tab className={({ selected }) => (selected ? activeClassName : inactiveClassName)}>Grid</Tab>
         </Tab.List>
-        <div className="flex items-start space-x-2">
+        <div className="flex items-start gap-2">
           <ProfileTestExport testList={testList} selectedMember={selectedMember} />{" "}
           {selectedMember.role && selectedMember.role.slug === "patient" ? (
             user.id === 1 ? (
               <Link href="/member/org_admin/patient/test_report" passHref>
-                <Button className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
-                  Generate Test Report
-                </Button>
+                <Button size="sm">Generate Test Report</Button>
               </Link>
             ) : (
               <Link href="/member/patient/test_report" passHref>
-                <Button className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
-                  Generate Test Report
-                </Button>
+                <Button size="sm">Generate Test Report</Button>
               </Link>
             )
           ) : null}

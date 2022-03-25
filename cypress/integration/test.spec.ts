@@ -17,14 +17,22 @@ Cypress.on("uncaught:exception", () => {
 });
 
 context("Test Page", () => {
+  /* **** LOGIN AND SETUP ***** */
+
   beforeEach(() => {
     cy.loginTest();
     cy.visit("http://localhost:3000/tests");
   });
 
+  /* **** TEST PAGE LOAD TEST ***** */
+
   it("Test Page Load Test", () => {
     cy.url().should("include", "tests");
   });
+
+  /* **** END ***** */
+
+  /* **** TEST LIST REQUEST TEST ***** */
 
   it("Test List Request Test", () => {
     cy.intercept({
@@ -39,6 +47,10 @@ context("Test Page", () => {
       assert.isArray(interception?.response?.body.data);
     });
   });
+
+  /* **** END ***** */
+
+  /* **** TEST LIST SHOULD SHOW ACCORDING TO API TEST ***** */
 
   it("Test List Should Show according To API", () => {
     cy.intercept({
@@ -62,6 +74,10 @@ context("Test Page", () => {
     });
   });
 
+  /* **** END ***** */
+
+  /* **** VALIDATION IN TEST ADD MODAL TEST ***** */
+
   it("Validation In Test Add Modal", () => {
     cy.intercept({
       method: "GET",
@@ -83,6 +99,10 @@ context("Test Page", () => {
     // Check whether switch is true or false
     cy.get('[data-testid="switch-input"]').should("have.class", "bg-primary-500");
   });
+
+  /* **** END ***** */
+
+  /* **** TEST CAN BE ADDED ***** */
 
   it("Test Can Be Added", () => {
     cy.intercept({
@@ -115,5 +135,7 @@ context("Test Page", () => {
     });
   });
 });
+
+/* **** END ***** */
 
 export {};

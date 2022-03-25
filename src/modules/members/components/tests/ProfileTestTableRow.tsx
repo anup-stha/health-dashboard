@@ -157,7 +157,18 @@ export const ProfileTestGridTableRow: React.FC<ProfileTestGridTableRowProps> = (
           <span>{data.name} </span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">{data.value}</td>
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">
+        {isValidHttpUrl(data.value) ? (
+          <a
+            href={data.value}
+            className="font-medium text-primary_gray-600 cursor-pointer underline hover:text-primary_gray-800"
+          >
+            Report Link
+          </a>
+        ) : (
+          data.value
+        )}
+      </td>
 
       <td className="capitalize px-6 py-4 text-xl font-medium text-primary_gray-700 truncate">
         {data.note.length === 0 ? "N/A" : data.note.map((note, index) => <span key={index}> {note} </span>)}

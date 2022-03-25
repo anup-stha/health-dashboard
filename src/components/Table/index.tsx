@@ -58,9 +58,9 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
       <div>
         {!loading ? (
           <div className="flex flex-col  space-y-2">
-            <div className="flex items-center md:flex-col justify-between">
+            <div className="flex items-center justify-between">
               {search && (
-                <div className=" flex space-x-6 max-w-3xl w-1/4 relative print:hidden ml-1">
+                <div className=" flex space-x-6 max-w-3xl w-1/4 md:w-1/2 relative print:hidden ml-1">
                   <SearchInput
                     value={searchTerm}
                     onChange={(e) => {

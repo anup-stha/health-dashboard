@@ -133,7 +133,7 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
                 )}
               </div>
 
-              <div className="flex md:flex-col md:gap-0 gap-4">
+              <div className="flex lg:flex-col md:gap-0 gap-4">
                 <div className="flex items-start space-x-1">
                   <ProfileCircle size={18} variant="Bulk" color="rgb(163 163 163)" />
                   <span className="text-primary_gray-400 font-medium text-lg">{role.name}</span>
@@ -149,18 +149,20 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
               </div>
             </div>
           </div>
-          <div className="self-start grid grid-cols-3 md:grid-cols-2 gap-4">
-            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
-              <span className="font-Inter text-2xl font-bold text-primary_gray-900">
-                {data?.organization_operator ?? 0}
-              </span>
-              <span className="text-lg font-medium text-primary_gray-500">Total Operators</span>
+          {role.slug === "org_admin" && (
+            <div className="self-start grid grid-cols-3 md:grid-cols-2 gap-4">
+              <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
+                <span className="font-Inter text-2xl font-bold text-primary_gray-900">
+                  {data?.organization_operator ?? 0}
+                </span>
+                <span className="text-lg font-medium text-primary_gray-500">Total Operators</span>
+              </div>
+              <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
+                <span className="font-Inter text-2xl font-bold text-primary_gray-900">{data?.total_members ?? 0}</span>
+                <span className="text-lg font-medium text-primary_gray-500">Total Members</span>
+              </div>
             </div>
-            <div className="px-4 py-2 border-[1px] rounded-md border-dashed border-primary_gray-300 flex flex-col">
-              <span className="font-Inter text-2xl font-bold text-primary_gray-900">{data?.total_members ?? 0}</span>
-              <span className="text-lg font-medium text-primary_gray-500">Total Members</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="flex-shrink-0 self-start flex space-x-4 relative">

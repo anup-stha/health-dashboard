@@ -300,7 +300,7 @@ context("Role Detail Page", () => {
 
   /* **** END ***** */
 
-  /* **** ALL PERMISSIONS ARE BEING SHOWN AND PERMISSIONS OF A ROLE SHOULD BE CHECKED OR UNCHECKED ***** */
+  /* **** ALL PERMISSIONS ARE BEING SHOWN AND PERMISSIONS  OF A ROLE SHOULD BE CHECKED OR UNCHECKED ***** */
 
   it("All Permissions are being shown and permissions of a role should be checked or unchecked.", () => {
     cy.intercept({

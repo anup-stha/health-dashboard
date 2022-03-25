@@ -43,10 +43,10 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           >
             <span
               className={`flex items-center gap-x-4 text-lg w-full ${
-                expand ? "font-bold text-primary_gray-900" : "font-medium"
+                expand ? "font-semibold text-primary_gray-900" : "font-medium"
               } `}
             >
-              <div className="sm:hidden">{subRoutes.icon}</div>
+              <div>{subRoutes.icon}</div>
 
               <div className="flex items-center justify-between w-full">
                 <span className="sm:text-lg">{subRoutes.title}</span>
@@ -57,7 +57,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
           <div
             className={`flex relative items-center  ${
-              !open ? "opacity-100 -translate-x-8 transition-opacity duration-500 px-4" : "opacity-0 w-0 p-0"
+              !open ? "opacity-100 sm:hidden -translate-x-8 transition-opacity duration-500 px-4" : "opacity-0 w-0 p-0"
             }  `}
           >
             <div className="sm:hidden">{subRoutes.icon}</div>

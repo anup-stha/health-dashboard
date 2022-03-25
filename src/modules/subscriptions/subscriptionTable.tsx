@@ -59,25 +59,48 @@ const SubscriptionTableRow: React.FC<SubscriptionTableRowProps> = ({ data, key, 
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <div>
-              <div className="text-xl font-medium text-primary_gray-900 w-full capitalize">{data.name}</div>
-              <div className="text-lg font-medium text-primary_gray-500">{data.slug}</div>
+              <div
+                className="text-xl font-medium text-primary_gray-900 w-full capitalize"
+                data-testid={`${data.slug}-subs-name`}
+              >
+                {data.name}
+              </div>
+              <div className="text-lg font-medium text-primary_gray-500" data-testid={`${data.slug}-subs-slug`}>
+                {data.slug}
+              </div>
             </div>
           </div>
         </td>
-        <td className="whitespace-nowrap text-lg">
+        <td className="whitespace-nowrap text-lg" data-testid={`${data.slug}-subs-price`}>
           <BooleanTag type="info" trueStatement={data.price} />
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-primary_gray-900 font-medium capitalize">{data.interval_type}</div>
-          <div className="text-lg text-primary_gray-500 font-medium">{data.interval_value} times</div>
+          <div
+            className="text-lg text-primary_gray-900 font-medium capitalize"
+            data-testid={`${data.slug}-subs-interval_type`}
+          >
+            {data.interval_type}
+          </div>
+          <div className="text-lg text-primary_gray-500 font-medium" data-testid={`${data.slug}-subs-interval_value`}>
+            {data.interval_value} times
+          </div>
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
+        <td
+          className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500"
+          data-testid={`${data.slug}-subs-grace_period`}
+        >
           {data.grace_period} days
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
+        <td
+          className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500"
+          data-testid={`${data.slug}-subs-sync_limit`}
+        >
           {data.sync_limit} times
         </td>
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
+        <td
+          className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500"
+          data-testid={`${data.slug}-subs-test_limit`}
+        >
           {data.test_limit} times
         </td>
         <td className="font-medium px-6 py-5 whitespace-nowrap text-lg">

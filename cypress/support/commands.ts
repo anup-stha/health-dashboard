@@ -32,10 +32,12 @@ Cypress.Commands.add("loginTest", () => {
     email: "superadmin@sunya.health",
     password: "sunya.health",
     device_type: "w",
-  }).then(async (response) => {
-    console.log(response);
-    useAuthStore.getState().setUserData(response.body);
-  });
+  })
+    .then(async (response) => {
+      console.log(response);
+      useAuthStore.getState().setUserData(response.body);
+    })
+    .as("login");
 });
 
 export {};
