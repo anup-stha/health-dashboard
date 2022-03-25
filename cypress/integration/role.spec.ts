@@ -349,10 +349,11 @@ context("Role Detail Page", () => {
 
     cy.wait("@getRoles").then((interception: any) => {
       interception.response.body.data.forEach((role: Role, index: number) => {
+        if (index > 5) return;
+
         cy.get(`[data-testid="${role.name}-button"]`)
           .click({ force: true })
           .then(() => {
-            if (index > 5) return;
             cy.url().should("include", `/roles/${role.slug}?id=${role.id}`);
 
             role.role_access.forEach((role) => {
@@ -479,7 +480,9 @@ context("Role Detail Page", () => {
     }).as("getRoles");
 
     cy.wait("@getRoles").then((interception: any) => {
-      interception.response.body.data.forEach((role: Role) => {
+      interception.response.body.data.forEach((role: Role, index: number) => {
+        if (index > 5) return;
+
         cy.get(`[data-testid="${role.name}-button"]`)
           .click({ force: true })
           .then(() => {
@@ -488,9 +491,7 @@ context("Role Detail Page", () => {
             cy.get('[data-testid="disclosure_open"]')
               .click({ force: true })
               .then(() => {
-                role.member_detail_categories.forEach((category: any, index) => {
-                  if (index > 5) return;
-
+                role.member_detail_categories.map((category: any) => {
                   Object.keys(category).forEach((key: any) => {
                     if (key === "id") return;
                     if (key === "required") {
