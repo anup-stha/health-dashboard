@@ -7,7 +7,7 @@
  */
 
 import isEmpty from "lodash/isEmpty";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ErrorState } from "@/components/Error";
 import { Heading } from "@/components/Headings";
@@ -19,6 +19,7 @@ import { MemberModal } from "@/modules/members/components/modal/MemberModal";
 import { ExcelImport } from "@/modules/members/components/others/PatientExcelImport";
 import MemberTable from "@/modules/members/components/table/MemberTable";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
+import { getCurrentUserProfile } from "@/services/requests/authRequests";
 import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
 
 /**
@@ -26,12 +27,25 @@ import { useRoleDetails, useRoleList } from "@/services/requests/roleRequests";
  * @constructor
  */
 export function MemberListPage() {
+  const [loading, setLoading] = useState<boolean>(false);
   const { isLoading } = useRoleList();
+
+  useEffect(() => {
+    const getProfile = async () => {
+      setLoading(true);
+      await getCurrentUserProfile()
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
+    };
+
+    getProfile();
+  }, []);
+
   const currentRole = useCurrentMemberStore((state) => state.role);
   const { data, isLoading: roleLoading } = useRoleDetails(isEmpty(currentRole) ? 0 : currentRole.id);
   const user = useAuthStore((state) => state.user);
 
-  if (isLoading || roleLoading) return <Loader />;
+  if (isLoading || loading || roleLoading) return <Loader />;
 
   return (
     <div className="px-10 py-10 overflow-visible sm:p-6">
