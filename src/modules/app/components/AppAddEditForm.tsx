@@ -9,7 +9,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { alert } from "@/components/Alert";
+import { toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
@@ -39,7 +39,7 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
     <Modal.Form
       onSubmit={handleSubmit(async (values) => {
         type === "add"
-          ? await alert({
+          ? await toastAlert({
               type: "promise",
               promise: postMutateAsync(values),
               msgs: {
@@ -48,7 +48,7 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
               },
               id: "new-app-add-toast",
             })
-          : await alert({
+          : await toastAlert({
               type: "promise",
               promise: putMutateAsync({
                 id: Number(id),

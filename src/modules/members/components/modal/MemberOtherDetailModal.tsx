@@ -13,12 +13,14 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { PrimaryInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
+import { Switch } from "@/components/Switch";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { Member } from "@/modules/members/types";
 import { addDetailsToMember } from "@/services/requests/memberRequests";
+import { getDirtyFields } from "@/utils/getDirtyFields";
 
 import { MemberDetailCategory, MemberDetails, Role } from "@/types";
 
@@ -36,8 +38,16 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
   otherDetails: selectedMemberDetails,
 }) => {
   const router = useRouter();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { dirtyFields, isDirty },
+  } = useForm();
   const user = useAuthStore((state) => state.user);
+
+  console.log(selectedMemberDetails);
 
   useEffect(() => {
     reset(
@@ -94,7 +104,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   promise: addDetailsToMember(
                     Number(selectedRole.id),
                     Number(memberData.member_id ?? memberData.id),
-                    values
+                    getDirtyFields(dirtyFields, values)
                   ),
                   msgs: {
                     loading: "Adding Member Details",
@@ -110,12 +120,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
                     <Fragment key={category.id}>
                       {category.value_type.toLowerCase() === "boolean" ? (
-                        <SwitchInput
-                          label={category.name}
-                          type="number"
-                          placeholder={`Enter ${category.name}`}
-                          {...register(`${category.id}-${category.slug}`)}
-                        />
+                        <Switch name={`${category.id}-${category.slug}`} control={control} label={category.name} />
                       ) : (
                         <PrimaryInput
                           label={category.name}
@@ -129,7 +134,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   ))}
               </div>
             </Modal.Scrollable>{" "}
-            <Button>Update Details</Button>
+            <Button disabled={!isDirty}>Update Details</Button>
           </Modal.Form>
         )}
       </Modal.Content>

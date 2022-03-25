@@ -57,7 +57,10 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
     console.log(acceptedFiles);
     onChange(acceptedFiles[0]);
   }, []);
-  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject, acceptedFiles } = useDropzone({ onDrop });
+  const { getInputProps, getRootProps, isFocused, isDragAccept, isDragReject, acceptedFiles } = useDropzone({
+    onDrop,
+    accept: "application/vnd.android.package-archive",
+  });
 
   const style = useMemo(
     () => ({
@@ -74,7 +77,7 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
     <section className="space-y-2">
       <label className="block text-xl font-medium text-primary_gray-700">{label}</label>
       <div {...getRootProps({ style })}>
-        <input accept=".apk" {...getInputProps({ onChange })} style={{ display: "none" }} />
+        <input {...getInputProps({ onChange })} />
         {acceptedFiles.length === 0 ? (
           <p>Drag and drop resource file her, or click to select that file</p>
         ) : (

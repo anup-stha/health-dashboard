@@ -130,7 +130,7 @@ export interface IScrollableProps {
 }
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
-  return <div className="overflow-y-scroll max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">{children}</div>;
+  return <div className="overflow-y-auto max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">{children}</div>;
 };
 
 export interface IModalFormProps {

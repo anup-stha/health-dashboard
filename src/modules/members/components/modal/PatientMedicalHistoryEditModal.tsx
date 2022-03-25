@@ -54,9 +54,7 @@ export const PatientMedicalHistoryModal = ({ selectedMember }: IPatientMedicalHi
   return (
     <Modal>
       <Modal.Button type="open">
-        <div className="p-6 text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
-          {textState} Patient Medical History
-        </div>
+        <Button>{textState}</Button>
       </Modal.Button>
       <Modal.Content>
         <Modal.Title>{textState} Patient Medical History</Modal.Title>

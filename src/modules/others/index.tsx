@@ -14,10 +14,11 @@ import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { PrimaryInput } from "@/components/Input";
 import { Loader } from "@/components/Loader";
 import { Modal } from "@/components/Modal/useModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
+import { Switch } from "@/components/Switch";
 import { TableView } from "@/components/Table";
 
 import { useGetOtherFieldsList } from "@/modules/others/utils/hooks/useOtherFieldsList";
@@ -135,7 +136,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({ type, 
   console.log(initialData);
 
   const { register, handleSubmit, control } = useForm<OtherFieldsPostBody>({
-    defaultValues: { ...omit(initialData, "id"), required: true },
+    defaultValues: { ...omit(initialData, "id"), required: type === "add" ? true : initialData?.required },
   });
   const options = useGlobalState.getState().base.data_types.map((element) => ({ value: element, label: element }));
 
@@ -155,7 +156,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({ type, 
         <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
         <DropdownController options={options} name="value_type" label="Select Value Type" control={control} />
 
-        <SwitchInput label="Required" type="number" placeholder="Enter Required Field" {...register("required")} />
+        <Switch name="required" control={control} label="Required" />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"} Category</Button>

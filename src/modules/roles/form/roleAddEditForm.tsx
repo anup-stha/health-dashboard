@@ -31,7 +31,7 @@ type RoleValues = {
 };
 
 export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({ type, id }) => {
-  const roles = useRoleStore((state) => state.allRoleList.data);
+  const roles = useRoleStore((state) => state.roleList);
   const role = roles.filter((element) => element.id == id)[0];
 
   const { handleSubmit, register, control } = useForm<RoleValues>({

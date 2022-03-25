@@ -146,7 +146,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                     max={now.toISOString().slice(0, 16)}
                     {...register("end_date")}
                   />
-                  <Button className="px-12 py-[1.05rem] text-xl font-medium">Search</Button>
+                  <Button>Search</Button>
                 </form>
                 {!error && data && (
                   <div className="flex space-x-4">

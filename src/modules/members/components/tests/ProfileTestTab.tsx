@@ -52,11 +52,11 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
           <ProfileTestExport testList={testList} selectedMember={selectedMember} />{" "}
           {selectedMember.role && selectedMember.role.slug === "patient" ? (
             user.id === 1 ? (
-              <Link href="/member/org_admin/patient/test_report" passHref>
+              <Link href="/members/org_admin/patient/test_report" passHref>
                 <Button size="sm">Generate Test Report</Button>
               </Link>
             ) : (
-              <Link href="/member/patient/test_report" passHref>
+              <Link href="/members/patient/test_report" passHref>
                 <Button size="sm">Generate Test Report</Button>
               </Link>
             )
