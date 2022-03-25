@@ -21,7 +21,7 @@ export const useNestedMemberList = (
     ["member-list-nested", roleId, parentId, pageNumber, filterParams],
     () => getNestedMemberList(roleId, parentId, pageNumber, filterParams),
     {
-      enabled: roleId !== 0 && enabled,
+      enabled: roleId !== 0 && enabled && !isNaN(roleId),
       refetchOnWindowFocus: true,
     }
   );

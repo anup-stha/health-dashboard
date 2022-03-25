@@ -41,6 +41,8 @@ function Tab({ parent_member_id }: IMembersTable) {
   const userRole = useCurrentMemberStore((state) => state.userRole);
   const setUserRole = useCurrentMemberStore((state) => state.setCurrentUserRole);
 
+  console.log(userRole?.id ?? 0, "user_id");
+
   const { data: roleList } = useRoleDetails(Number(selectedRole.id));
   const { data, isLoading } = useRoleDetails(Number(userRole?.id ?? 0));
 
