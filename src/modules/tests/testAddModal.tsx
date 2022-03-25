@@ -31,7 +31,7 @@ export const TestModal: React.FC<RoleModalProps> = ({ type, id, variant, selecte
       {type === "add" ? (
         <Modal.Button type="open" width="full">
           <div
-            data-testid="test-add-btn"
+            data-testid="test-modal-add-btn"
             className=" text-3xl font-medium text-primary-600 flex flex-col items-center justify-center overflow-hidden h-64 bg-transparent cursor-pointer border-dashed border-2 border-primary-600  shadow-inner rounded-lg"
           >
             <div className="flex flex-col items-center w-full">
