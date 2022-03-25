@@ -42,7 +42,7 @@ function Tab({ parent_member_id }: IMembersTable) {
   const setUserRole = useCurrentMemberStore((state) => state.setCurrentUserRole);
 
   const { data: roleList } = useRoleDetails(Number(selectedRole.id));
-  const { data, isLoading } = useRoleDetails(Number(userRole.id));
+  const { data, isLoading } = useRoleDetails(Number(userRole?.id ?? 0));
 
   const { data: usersList } = useNestedMemberList(
     Number(userRole.id) ?? Number(roleList?.data.data.role_access[0].id),
