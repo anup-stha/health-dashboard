@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { addTest, addTestCategory, updateTest, updateTestCategory } from "@/services/requests/testRequests";
@@ -85,7 +86,7 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({ type, selected
       )}
     >
       <div className="space-y-6">
-        <PrimaryInput label="Name" type="text" required={true} placeholder="Enter Test Title" {...register(`name`)} />
+        <Input label="Name" type="text" required={true} placeholder="Enter Test Title" {...register(`name`)} />
 
         <SwitchInput label="Public" type="checkbox" placeholder="Enter Public" {...register("public")} />
         <PrimaryInput
