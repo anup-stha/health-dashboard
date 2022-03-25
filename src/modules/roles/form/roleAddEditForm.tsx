@@ -90,7 +90,7 @@ export const RoleAddEditForm: React.FC<RoleAddEditFormProps> = ({ type, id }) =>
           data-testid="role-memberLimit-input"
           type="number"
           required={true}
-          placeholder="Enter Member Limit"
+          placeholder="Enter Role Member Limit"
           {...register("memberLimit", { required: true })}
         />
 
