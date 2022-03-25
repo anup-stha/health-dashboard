@@ -6,6 +6,8 @@
  *
  */
 
+import moment from "moment";
+
 import { Test } from "../../src/types";
 
 Cypress.on("uncaught:exception", () => {
@@ -60,8 +62,57 @@ context("Test Page", () => {
     });
   });
 
+  it("Validation In Test Add Modal", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/test/categories",
+    }).as("getTests");
+
+    cy.wait("@getTests");
+    cy.get('[data-testid="test-modal-add-btn"]').click({ force: true });
+    cy.get('[data-testid="test-add-btn"').click({ force: true });
+
+    cy.get('[data-testid="test-title-input"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="test-description-input"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    // Check whether switch is true or false
+    cy.get('[data-testid="switch-input"]').should("have.class", "bg-primary-500");
+  });
+
   it("Test Can Be Added", () => {
-    cy.get('[data-testid="test-add-btn"]').click({ force: true });
+    cy.intercept({
+      method: "POST",
+      url: "https://staging-api.sunya.health/api/v1/test/category/",
+    }).as("addTest");
+
+    cy.get('[data-testid="test-modal-add-btn"]').click({ force: true });
+    const current_date = moment().format("DDMMYYYYHHMMSS");
+
+    cy.get('[data-testid="test-title-input"').type("Test" + current_date + "1");
+    cy.get('[data-testid="test-description-input"]').type(
+      "This is test made from cypress test. Please delete it later."
+    );
+    cy.get('[data-testid="test-add-btn"').click({ force: true, multiple: true });
+
+    cy.wait("@addTest").then((interception) => {
+      const data = interception?.response?.body.data;
+
+      expect(interception.request.headers["authorization"]).contains("Bearer");
+      expect(interception?.response?.statusCode).to.equal(201);
+
+      assert.isNotNull(interception?.response?.body);
+      assert.isObject(interception?.response?.body.data);
+      expect(interception?.response?.body.data.name).to.equal("Test" + current_date + "1");
+      expect(interception?.response?.body.data.public).to.equal(true);
+
+      cy.get(`[data-testid="${data.slug}-test-card"`).contains(data.name);
+      cy.get(`[data-testid="${data.slug}-test-card"`).contains(data.slug);
+    });
   });
 });
 
