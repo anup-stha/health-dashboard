@@ -8,6 +8,7 @@
 
 import { useRouter } from "next/router";
 import { Trash } from "phosphor-react";
+import React from "react";
 
 import { Button } from "@/components/Button";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
@@ -30,7 +31,10 @@ export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, is
   const router = useRouter();
 
   return (
-    <div className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200">
+    <div
+      data-testid={`${slug}-test-card`}
+      className="relative flex flex-col items-start justify-between overflow-hidden h-64 bg-white  shadow-lg rounded-lg py-4 px-6 transition-shadow duration-200"
+    >
       <div className="space-y-1">
         <div className="flex justify-between">
           <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{name}</h1>
@@ -60,6 +64,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, is
         <div className="flex items-center space-x-2">
           {subCategories ? (
             <Button
+              data-testid={`${slug}-test-btn`}
               size="sm"
               onClick={() => {
                 router.push(`/tests/${slug}?id=${id}`);

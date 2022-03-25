@@ -16,7 +16,7 @@ Cypress.on("uncaught:exception", () => {
 
 context("Test Page", () => {
   beforeEach(() => {
-    cy.login();
+    cy.loginTest();
     cy.visit("http://localhost:3000/tests");
   });
 
