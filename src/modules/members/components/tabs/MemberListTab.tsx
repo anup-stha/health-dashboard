@@ -47,7 +47,7 @@ function Tab({ parent_member_id }: IMembersTable) {
   const { data, isLoading } = useRoleDetails(Number(userRole?.id ?? 0));
 
   const { data: usersList } = useNestedMemberList(
-    Number(userRole.id) ?? Number(roleList?.data.data.role_access[0].id),
+    Number(userRole?.id) ?? Number(roleList?.data?.data?.role_access[0]?.id),
     currentMember.id,
     undefined,
     Number(router.query.page ?? 1),
@@ -58,12 +58,14 @@ function Tab({ parent_member_id }: IMembersTable) {
     roleList && isEmpty(userRole) && setUserRole(roleList?.data.data.role_access[0]);
   }, []);
 
-  if (!data) return <Loader />;
+  if (isLoading) return <Loader />;
 
-  if (roleList?.data.data.role_access.length === 0) {
+  if (roleList?.data.data.role_access.length === 0 || !data) {
     return (
-      <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
-        <WarningOctagon size={24} /> <span>No Role Found</span>
+      <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
+        <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
+          <WarningOctagon size={24} /> <span>No Role Found</span>
+        </div>
       </div>
     );
   }
@@ -92,7 +94,7 @@ function Tab({ parent_member_id }: IMembersTable) {
             {usersList ? (
               usersList.list.length === 0 ? (
                 <div className="flex items-center text-xl font-medium text-red-400 space-x-2 ">
-                  <WarningOctagon size={24} /> <span>No Details Found</span>
+                  <WarningOctagon size={24} /> <span>No List Found</span>
                 </div>
               ) : (
                 <TableView
