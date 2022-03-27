@@ -99,7 +99,7 @@ context("Subscription Page", () => {
 
           cy.get('[data-testid="subs_modal_open_btn"]').click({ force: true });
 
-          const current_date = moment().format("DDMMYYYYHHMMSS");
+          const current_date = moment().valueOf();
 
           cy.get('[data-testid="subs_input_name"]').type("Subscription Test" + current_date + `${index}`);
           cy.get('[data-testid="subs_input_price"]').type("400");
@@ -114,7 +114,7 @@ context("Subscription Page", () => {
           cy.get('[data-testid="subs_input_syncLimit"]').type("10");
           cy.get('[data-testid="subs_input_testLimit"]').type("10");
 
-          cy.get('[data-testid="subs-add-btn"').click({ force: true });
+          cy.get('[data-testid="subs-add-btn"]').click({ force: true });
 
           cy.wait("@addSubscription").then((interception) => {
             const data = interception?.response?.body.data;
@@ -137,6 +137,50 @@ context("Subscription Page", () => {
         }
       );
     });
+  });
+
+  /* **** END ***** */
+
+  /* **** VALIDATION IN SUBSCRIPTION ADD MODAL ***** */
+
+  it("Validation In Subscription Add Modal", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/role/",
+    }).as("getRoles");
+
+    cy.intercept({
+      method: "POST",
+      url: "https://staging-api.sunya.health/api/v1/subscription/",
+    }).as("addSubscription");
+
+    cy.wait("@getRoles");
+
+    cy.get('[data-testid="subs_modal_open_btn"]').click({ force: true });
+
+    cy.get('[data-testid="subs_input_name"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="subs_input_price"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="subs_input_intervalValue"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="subs_input_gracePeriod"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="subs_input_syncLimit"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="subs_input_testLimit"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
   });
 
   /* **** END ***** */

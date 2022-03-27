@@ -115,9 +115,15 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
           type="text"
           placeholder="Enter Name"
           required={true}
-          {...register("name")}
+          {...register("name", { required: true })}
         />
-        <Input data-testid="subs_input_price" label="Price" placeholder="Enter Price" {...register("price")} />
+        <Input
+          data-testid="subs_input_price"
+          label="Price"
+          placeholder="Enter Price"
+          required={true}
+          {...register("price", { required: true })}
+        />
 
         <div className="flex space-x-4">
           <div className="w-1/2">
@@ -129,8 +135,9 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
               label="Interval Value"
               type="number"
               min="0"
+              required={true}
               placeholder="Enter Interval Value"
-              {...register("interval_value")}
+              {...register("interval_value", { required: true })}
             />
           </div>
         </div>
@@ -140,8 +147,9 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
           label="Grace Period"
           type="number"
           min="0"
+          required={true}
           placeholder="Enter Grace Period"
-          {...register("grace_period")}
+          {...register("grace_period", { required: true })}
         />
         <div className="flex space-x-4">
           <div className="w-1/2">
@@ -151,7 +159,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
               type="number"
               placeholder="Enter Sync Limit"
               min="0"
-              {...register("sync_limit")}
+              required={true}
+              {...register("sync_limit", { required: true })}
             />
           </div>
           <div className="w-1/2">
@@ -161,7 +170,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
               type="number"
               placeholder="Enter Test Limit"
               min="0"
-              {...register("test_limit")}
+              required={true}
+              {...register("test_limit", { required: true })}
             />
           </div>
         </div>
