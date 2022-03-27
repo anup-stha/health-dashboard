@@ -94,7 +94,9 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xl font-medium capitalize">{test.name}</span>
+                          <span className="text-xl font-medium capitalize" data-testid={`subs-test-${test.slug}`}>
+                            {test.name}
+                          </span>
                           <span>
                             {subscriptionDetails.some((element) => element.id === test.id) ? (
                               <CheckCircle
