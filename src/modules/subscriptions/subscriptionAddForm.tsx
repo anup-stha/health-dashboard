@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
@@ -109,15 +109,23 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
       })}
     >
       <div className="space-y-4">
-        <PrimaryInput label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
-        <PrimaryInput label="Price" placeholder="Enter Price" {...register("price")} />
+        <Input
+          data-testid="subs_input_name"
+          label="Name"
+          type="text"
+          placeholder="Enter Name"
+          required={true}
+          {...register("name")}
+        />
+        <Input data-testid="subs_input_price" label="Price" placeholder="Enter Price" {...register("price")} />
 
         <div className="flex space-x-4">
           <div className="w-1/2">
             <DropdownController options={options} name="interval_type" label="Interval Type" control={control} />
           </div>
           <div className="w-1/2">
-            <PrimaryInput
+            <Input
+              data-testid="subs_input_intervalValue"
               label="Interval Value"
               type="number"
               min="0"
@@ -127,7 +135,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
           </div>
         </div>
 
-        <PrimaryInput
+        <Input
+          data-testid="subs_input_gracePeriod"
           label="Grace Period"
           type="number"
           min="0"
@@ -136,7 +145,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
         />
         <div className="flex space-x-4">
           <div className="w-1/2">
-            <PrimaryInput
+            <Input
+              data-testid="subs_input_syncLimit"
               label="Sync Limit"
               type="number"
               placeholder="Enter Sync Limit"
@@ -145,7 +155,8 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
             />
           </div>
           <div className="w-1/2">
-            <PrimaryInput
+            <Input
+              data-testid="subs_input_testLimit"
               label="Test Limit"
               type="number"
               placeholder="Enter Test Limit"
@@ -156,7 +167,7 @@ export const SubscriptionForm: React.FC<memberCategoryFormProps> = ({ type, id }
         </div>
       </div>
 
-      <Button>{type === "add" ? "Add" : "Edit"} Subscription</Button>
+      <Button data-testid="subs-add-btn">{type === "add" ? "Add" : "Edit"} Subscription</Button>
     </Modal.Form>
   );
 };

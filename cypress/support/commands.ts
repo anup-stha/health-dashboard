@@ -7,6 +7,7 @@
  */
 
 import { useAuthStore } from "../../src/modules/auth/useTokenStore";
+import { useGlobalState } from "../../src/modules/useGlobalState";
 
 Cypress.Commands.add("login", () => {
   Cypress.log({
@@ -34,6 +35,15 @@ Cypress.Commands.add("loginTest", () => {
     device_type: "w",
   })
     .then(async (response) => {
+      cy.request({
+        method: "GET",
+        url: "https://staging-api.sunya.health/api/v1/setup",
+        headers: {
+          Authorization: `Bearer ${response.body.data.token}`,
+        },
+      }).then((response1) => {
+        useGlobalState.getState().setBasicGlobalState(response1.body.data);
+      });
       console.log(response);
       useAuthStore.getState().setUserData(response.body);
     })

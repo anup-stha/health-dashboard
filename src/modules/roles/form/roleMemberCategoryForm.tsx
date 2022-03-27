@@ -79,7 +79,7 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
-      color: "primary_gray",
+      color: "gray",
       background: state.isFocused ? "#dcfce7" : "white",
       padding: "0.4rem 1.5rem",
       cursor: "pointer",
@@ -89,6 +89,7 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
 
     valueContainer: (provide: any) => ({
       ...provide,
+      color: "rgb(115 115 115)",
       padding: 0,
     }),
 
@@ -99,6 +100,12 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
 
     dropdownIndicator: () => ({
       padding: 0,
+      width: "16px",
+      display: "flex",
+
+      alignItems: "center",
+      justifyContent: "center",
+      height: "16px",
       color: "#525252",
       cursor: "pointer",
     }),
@@ -115,20 +122,20 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
     }),
     placeholder: (provided: any) => ({
       ...provided,
-      color: "#262626",
+      color: "rgb(115 115 115)",
     }),
     control: () => ({
       background: "white",
       cursor: "pointer",
       display: "flex",
       justifyContent: "space-between",
-      borderRadius: "0.25rem",
-      borderBottom: "solid rgb(34, 197, 94) 1px",
-      padding: "1rem 1.5rem",
-      color: "#262626",
+      borderRadius: "0.375rem",
+      border: "solid rgb(229 229 229) 1px ",
+      borderBottom: "solid rgb(34 197 94) 1px",
+      padding: "1.25rem 1.5rem",
+      color: "rgb(82 82 82)",
       fontSize: "1.125rem",
       textTransform: "capitalize",
-      boxShadow: "0px 0px 1px 0px rgba(9,30,66,0.31), 0px 3px 5px 0px rgba(9,30,66,0.2)",
     }),
   };
 
