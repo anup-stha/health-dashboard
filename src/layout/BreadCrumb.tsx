@@ -25,7 +25,7 @@ const Breadcrumbs = () => {
       return string.slice(1, -1);
     }
 
-    return string.replaceAll("_", " ");
+    return string.replace(/_/g, " ");
   };
 
   useEffect(() => {
