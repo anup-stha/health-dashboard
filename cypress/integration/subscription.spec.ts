@@ -1,4 +1,3 @@
-import { useAuthStore } from "../../src/modules/auth/useTokenStore";
 import { Subscription } from "../../src/types";
 
 Cypress.on("uncaught:exception", () => {
@@ -41,23 +40,28 @@ context("Subscription Page", () => {
 
     cy.wait("@getRoles");
 
-    useAuthStore.getState().user.role.role_access.forEach((role: { name: string | number | RegExp; id: number }) => {
-      cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
-      cy.get(`[data-testid="${role.name}-btn"]`).contains(role.name).click({ force: true });
+    cy.wait("@getAuth").then((interception) => {
+      interception.response?.body.data.role.role_access.forEach(
+        (role: { name: string | number | RegExp; id: number }) => {
+          cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+          cy.get(`[data-testid="${role.name}-btn"]`).contains(role.name).click({ force: true });
 
-      cy.wait("@getSubscriptions").then((interception) => {
-        expect(interception.request.headers["authorization"]).contains("Bearer");
-        expect(interception?.response?.statusCode).to.equal(200);
+          cy.wait("@getSubscriptions").then((interception) => {
+            expect(interception.request.headers["authorization"]).contains("Bearer");
+            expect(interception?.response?.statusCode).to.equal(200);
 
-        assert.isNotNull(interception?.response?.body);
-        assert.isArray(interception?.response?.body.data);
+            assert.isNotNull(interception?.response?.body);
+            assert.isArray(interception?.response?.body.data);
 
-        interception.response?.body.data.forEach((subscription: Subscription) => {
-          Object.keys(subscription).forEach((key) => {
-            cy.get(`${subscription.slug}-subs-${key}`).should("include", subscription[key]);
+            interception.response?.body.data.forEach((subscription: Subscription) => {
+              Object.keys(subscription).forEach((key) => {
+                if (key === "id") return;
+                cy.get(`[data-testid="${subscription.slug}-subs-${key}"]`).contains(subscription[key] as string);
+              });
+            });
           });
-        });
-      });
+        }
+      );
     });
   });
 
