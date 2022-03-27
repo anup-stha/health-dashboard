@@ -24,9 +24,10 @@ context("Subscription Page", () => {
   /* **** SUBSCRIPTION PAGE LOAD TEST ***** */
 
   it("Subscription is shown for each role as data from API", () => {
-    cy.wait("@login");
-
-    const auth = useAuthStore.getState().user;
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/auth/me",
+    }).as("getAuth");
 
     cy.intercept({
       method: "GET",
