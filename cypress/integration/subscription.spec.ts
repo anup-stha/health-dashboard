@@ -230,6 +230,72 @@ context("Subscription Page", () => {
   });
 
   /* **** END **** */
+
+  /* **** ALL TEST ARE SHOWN IN TEST SELECT AREA OF SUBSCRIPTION DETAILS ***** */
+  it("Each Test is shown correctly for each subscription", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/auth/me",
+    }).as("getAuth");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/role/",
+    }).as("getRoles");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/subscription/*",
+    }).as("getSubscriptions");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/test/categories",
+    }).as("getTests");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/subscription/tests/*",
+    }).as("getSubsTests");
+
+    cy.wait("@getRoles");
+
+    cy.wait("@getAuth").then((interception) => {
+      const role = interception.response?.body.data.role.role_access[0];
+
+      cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+      cy.get(`[data-testid="${role.name}-btn"]`).contains(role.name).click({ force: true });
+
+      cy.wait("@getSubscriptions").then((interception) => {
+        interception.response?.body.data.forEach((subscription: Subscription) => {
+          console.log(subscription);
+          cy.get(`[data-testid="${subscription.slug}-subs-btn"]`).click({ force: true });
+
+          cy.url().should("include", `${subscription.slug}?id=${subscription.id}&role=${role.id}`);
+
+          cy.wait("@getSubsTests").then((subs) => {
+            cy.wait("@getTests").then((interception: any) => {
+              interception.response.body.data.forEach((test: Test) => {
+                cy.get(`[data-testid="subs-test-${test.slug}"]`).contains(test.name);
+
+                if (subs.response?.body.data.some((element: any) => element.id === test.id)) {
+                  cy.get(`[data-testid="check-${test.id}"]`).should("exist");
+                  cy.get(`[data-testid="cross-${test.id}"]`).should("not.exist");
+                } else {
+                  cy.get(`[data-testid="cross-${test.id}"]`).should("exist");
+                  cy.get(`[data-testid="check-${test.id}"]`).should("not.exist");
+                }
+              });
+            });
+          });
+
+          cy.go("back");
+        });
+      });
+    });
+  });
+
+  /* **** END **** */
 });
 
 export {};

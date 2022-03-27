@@ -100,6 +100,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                           <span>
                             {subscriptionDetails.some((element) => element.id === test.id) ? (
                               <CheckCircle
+                                data-testid={`check-${test.id}`}
                                 size={24}
                                 weight="duotone"
                                 className={classNames(selected ? "text-primary-400" : "text-primary-700")}
@@ -107,6 +108,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                             ) : (
                               <XCircle
                                 size={24}
+                                data-testid={`cross-${test.id}`}
                                 weight="duotone"
                                 className={classNames(selected ? "text-red-400" : "text-red-700")}
                               />
