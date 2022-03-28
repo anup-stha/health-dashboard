@@ -77,6 +77,44 @@ context("App Build Page", () => {
   });
 
   /* **** END ***** */
+
+  /* **** APP RELEASE CAN BE DOWNLOADED **** */
+
+  it("App release can be downloaded", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/app/all",
+    }).as("getApps");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/app/release/all/*",
+    }).as("getAppReleases");
+
+    cy.wait("@getApps").then((interception) => {
+      expect(interception.request.headers["authorization"]).contains("Bearer");
+      expect(interception?.response?.statusCode).to.equal(201);
+
+      assert.isNotNull(interception?.response?.body);
+      assert.isArray(interception?.response?.body.data);
+
+      const app: AppCardProps = interception.response?.body.data[0];
+
+      cy.get(`[data-testid="${app.slug}-app-release_btn`).should("exist").click({ force: true });
+      cy.url().should("include", `app/release?id=${app.id}`);
+
+      cy.wait("@getAppReleases").then((interception) => {
+        const release: AppRelease = interception.response?.body.data[0];
+
+        cy.get(`[data-testid="${release.id}-app_release_app_url"]`).should("have.attr", "href", release.app_url);
+        cy.get(`[data-testid="${release.id}-app_release_app_url"]`).should("have.attr", "download");
+      });
+
+      cy.go("back");
+    });
+  });
+
+  /* **** END ***** */
 });
 
 export {};
