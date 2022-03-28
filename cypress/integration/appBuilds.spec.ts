@@ -1,3 +1,5 @@
+import moment from "moment";
+
 type AppCardProps = {
   id: number;
   name: string;
@@ -114,6 +116,46 @@ context("App Build Page", () => {
     });
   });
 
+  /* **** END ***** */
+
+  /* **** APP BUILD CAN BE ADDED AND EDITED **** */
+
+  it("App Builds List And Release is shown as data from API", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/app/all",
+    }).as("getApps");
+
+    cy.intercept({
+      method: "POST",
+      url: "https://staging-api.sunya.health/api/v1/app",
+    }).as("addNewApp");
+
+    cy.wait("@getApps");
+    const current_date = moment().valueOf();
+
+    cy.get('[data-testid="app_add_modal_btn"]').click({ force: true });
+    cy.get('[data-testid="app_name"]').type("Test App" + current_date);
+    cy.get('[data-testid="application_id"]').type("app.test." + current_date);
+    cy.get('[data-testid="secret_key"]').type("test");
+    cy.get('[data-testid="app_add_btn"]').click({ force: true });
+
+    cy.wait("@addNewApp").then((interception) => {
+      const app = interception.response?.body.data;
+      expect(interception.request.headers["authorization"]).contains("Bearer");
+      expect(interception?.response?.statusCode).to.equal(201);
+
+      assert.isNotNull(interception?.response?.body);
+      assert.isObject(interception?.response?.body.data);
+
+      expect(app.name).to.equal("Test App" + current_date);
+      expect(app.slug).to.equal("test_app" + current_date);
+
+      cy.get(`[data-testid="${app.slug}-app-name"]`).contains(app.name);
+      cy.get(`[data-testid="${app.slug}-app-app_id"]`).contains(app.application_id);
+      cy.get(`[data-testid="${app.slug}-app-release_btn`).should("exist");
+    });
+  });
   /* **** END ***** */
 });
 

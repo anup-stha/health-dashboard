@@ -36,7 +36,10 @@ export const AppAddEditModal = ({ type, id, defaultValues }: AppAddEditModalProp
     <Modal>
       {type === "add" ? (
         <Modal.Button type="open" width="full">
-          <div className=" text-3xl h-52 font-medium text-primary-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-primary-600  shadow-inner rounded-lg">
+          <div
+            data-testid="app_add_modal_btn"
+            className=" text-3xl h-52 font-medium text-primary-500 flex flex-col items-center justify-center overflow-hidden gap-12  bg-transparent cursor-pointer border-dashed border-2 border-primary-600  shadow-inner rounded-lg"
+          >
             <div className="flex flex-col items-center w-full">
               <Plus size={40} />
               <h1 className="">Add New App</h1>

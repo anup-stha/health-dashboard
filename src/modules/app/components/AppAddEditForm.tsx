@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 
 import { toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { AppQuery } from "@/modules/app/hooks/AppQuery";
@@ -64,9 +64,16 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
       })}
     >
       <div className="space-y-6">
-        <PrimaryInput label="App Name" required={true} placeholder="Enter App Name" {...register(`name`)} />
+        <Input
+          data-testid="app_name"
+          label="App Name"
+          required={true}
+          placeholder="Enter App Name"
+          {...register(`name`)}
+        />
         {type === "add" && (
-          <PrimaryInput
+          <Input
+            data-testid="application_id"
             label="Application Id"
             required={true}
             placeholder="Enter Application Id"
@@ -74,10 +81,16 @@ export const AppAddEditForm = ({ type, id, defaultValues }: AppAddEditForm) => {
           />
         )}
 
-        <PrimaryInput label="Secret Key" required={true} placeholder="Enter Secret Key" {...register("secret_key")} />
+        <Input
+          data-testid="secret_key"
+          label="Secret Key"
+          required={true}
+          placeholder="Enter Secret Key"
+          {...register("secret_key")}
+        />
       </div>
 
-      <Button>{type === "add" ? "Add" : "Edit"}</Button>
+      <Button data-testid="app_add_btn">{type === "add" ? "Add" : "Edit"}</Button>
     </Modal.Form>
   );
 };
