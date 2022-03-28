@@ -364,7 +364,6 @@ context("Subscription Page", () => {
         ).then(() => {
           cy.wait("@getTests").then((interception) => {
             const test_name = interception.response?.body.data[0].sub_categories[3].name;
-            const test_slug = interception.response?.body.data[0].sub_categories[3].slug;
             const test_id = interception.response?.body.data[0].sub_categories[3].id;
             cy.get('[class*="-Control"]')
               .click(0, 0, { force: true })
@@ -380,6 +379,94 @@ context("Subscription Page", () => {
                 cy.get(`[data-testid="${test_id}-test-name"]`).should("not.exist");
                 cy.get(`[data-testid="${test_id}-test-remove-btn"]`).should("not.exist");
               });
+            });
+          });
+        });
+      });
+    });
+  });
+
+  /* **** END ***** */
+
+  /* **** ADDED TESTS ARE NOT SHOWN IN TEST DROPDOWN ***** */
+
+  it("Added Tests are not shown in test dropdown", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/auth/me",
+    }).as("getAuth");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/role/",
+    }).as("getRoles");
+
+    cy.intercept({
+      method: "POST",
+      url: "https://staging-api.sunya.health/api/v1/subscription/",
+    }).as("addSubscription");
+
+    cy.intercept({
+      method: "POST",
+      url: "https://staging-api.sunya.health/api/v1/subscription/tests",
+    }).as("addSubscriptionTest");
+
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/test/categories",
+    }).as("getTests");
+
+    cy.intercept({
+      method: "DELETE",
+      url: "https://staging-api.sunya.health/api/v1/subscription/*/*/*",
+    }).as("removeSubsTest");
+
+    cy.wait("@getRoles");
+
+    cy.wait("@getAuth").then((interception) => {
+      const role = interception.response?.body.data.role.role_access[0];
+
+      cy.get("[data-testid=role-dropdown-btn]").click({ force: true });
+      cy.get(`[data-testid="${role.name}-btn"]`).contains(role.name).click({ force: true });
+
+      cy.get('[data-testid="subs_modal_open_btn"]').click({ force: true });
+
+      const current_date = moment().valueOf();
+
+      cy.get('[data-testid="subs_input_name"]').type("Subscription Test" + current_date);
+      cy.get('[data-testid="subs_input_price"]').type("400");
+      cy.get('[class*="-Control"]')
+        .click(0, 0, { force: true })
+        .get('[class*="-menu"]')
+        .find('[class*="-option"]')
+        .eq(2)
+        .click(0, 0, { force: true });
+      cy.get('[data-testid="subs_input_intervalValue"]').type("40");
+      cy.get('[data-testid="subs_input_gracePeriod"]').type("10");
+      cy.get('[data-testid="subs_input_syncLimit"]').type("10");
+      cy.get('[data-testid="subs_input_testLimit"]').type("10");
+
+      cy.get('[data-testid="subs-add-btn"]').click({ force: true });
+
+      cy.wait("@addSubscription").then((interception) => {
+        cy.visit(
+          `http://localhost:3000/subscriptions/${interception.response?.body.data.slug}?id=${interception.response?.body.data.id}&role=${role.id}`
+        ).then(() => {
+          cy.wait("@getTests").then((interception) => {
+            const test_name = interception.response?.body.data[0].sub_categories[3].name;
+            cy.get('[class*="-Control"]')
+              .click(0, 0, { force: true })
+              .get('[class*="-menu"]')
+              .find('[class*="-option"]')
+              .contains(test_name)
+              .click(0, 0, { force: true });
+            cy.get(`[data-testid="subs-test-add-btn"]`).click({ force: true });
+            cy.wait("@addSubscriptionTest").then(() => {
+              cy.get('[class*="-Control"]')
+                .click(0, 0, { force: true })
+                .get('[class*="-menu"]')
+                .find('[class*="-option"]')
+                .should("not.contain", test_name);
             });
           });
         });
