@@ -30,18 +30,26 @@ export const AppCard = ({ id, name, secret_key, slug, application_id }: AppCardP
       <div className="space-y-1 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{name}</h1>
+            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize" data-testid={`${slug}-app-name`}>
+              {name}
+            </h1>
             <h1 className="whitespace-nowrap text-base">
               <BooleanTag type="info" trueStatement={`Slug: ${slug}`} />
             </h1>
           </div>
         </div>
 
-        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">{application_id}</p>
+        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2" data-testid={`${slug}-app-app_id`}>
+          {application_id}
+        </p>
       </div>
       <div className="flex justify-between w-full items-center">
         <div className="flex items-center space-x-2">
-          <Button size="sm" onClick={() => router.push(`/app/release?id=${id}`)}>
+          <Button
+            data-testid={`${slug}-app-release_btn`}
+            size="sm"
+            onClick={() => router.push(`/app/release?id=${id}`)}
+          >
             View App Releases
           </Button>
 
