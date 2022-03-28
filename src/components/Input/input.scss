@@ -10,7 +10,7 @@
   @apply flex flex-col items-start;
 
   &_container {
-    @apply text-lg text-gray-500 px-6 py-5 bg-white rounded-md  border border-gray-200 border-b-primary-500 border-solid w-full block;
+    @apply text-lg text-gray-600 px-6 py-5 bg-white rounded-md  border border-gray-200 border-b-primary-500 border-solid w-full block;
 
     &:focus {
       outline: none;

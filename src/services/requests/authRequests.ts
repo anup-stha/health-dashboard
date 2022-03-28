@@ -7,6 +7,7 @@
  */
 
 import Router from "next/router";
+import { toast } from "react-hot-toast";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
@@ -37,12 +38,17 @@ export const login = (loginRequest: LoginRequest) => {
         device_details: window.navigator.userAgent,
       })
       .then(async (response) => {
-        useAuthStore.getState().setUserData(response.data);
-        if (!useAuthStore.getState().guided) useAuthStore.getState().setGuided(false);
-
-        Router.push("/dashboard");
-        await getGlobalStates();
-        resolve("Logged In Successfully");
+        try {
+          const globalStateResponse = await getGlobalStates();
+          if (globalStateResponse) {
+            useAuthStore.getState().setUserData(response.data);
+            if (!useAuthStore.getState().guided) useAuthStore.getState().setGuided(false);
+            Router.push("/dashboard");
+            resolve("Logged In Successfully");
+          }
+        } catch (e) {
+          toast.error(e.response.data.message);
+        }
       })
       .catch((error) => {
         reject(error.response);

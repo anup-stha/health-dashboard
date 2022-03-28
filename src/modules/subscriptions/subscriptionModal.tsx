@@ -28,7 +28,9 @@ export const SubscriptionModal: React.FC<subscriptionModalProps> = ({ type, id }
     <Modal>
       {type === "add" ? (
         <Modal.Button type="open">
-          <Button disabled={selectedRole.id === 0}> Add Subscription</Button>
+          <Button disabled={selectedRole.id === 0} data-testid="subs_modal_open_btn">
+            Add Subscription
+          </Button>
         </Modal.Button>
       ) : (
         <Modal.Button type="open">

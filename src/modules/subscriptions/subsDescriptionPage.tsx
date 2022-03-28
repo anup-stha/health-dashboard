@@ -94,10 +94,13 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xl font-medium capitalize">{test.name}</span>
+                          <span className="text-xl font-medium capitalize" data-testid={`subs-test-${test.slug}`}>
+                            {test.name}
+                          </span>
                           <span>
                             {subscriptionDetails.some((element) => element.id === test.id) ? (
                               <CheckCircle
+                                data-testid={`check-${test.id}`}
                                 size={24}
                                 weight="duotone"
                                 className={classNames(selected ? "text-primary-400" : "text-primary-700")}
@@ -105,6 +108,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                             ) : (
                               <XCircle
                                 size={24}
+                                data-testid={`cross-${test.id}`}
                                 weight="duotone"
                                 className={classNames(selected ? "text-red-400" : "text-red-700")}
                               />
@@ -228,7 +232,12 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="">
-            <div className="text-xl font-medium text-primary_gray-900 w-full capitalize">{data.name}</div>
+            <div
+              className="text-xl font-medium text-primary_gray-900 w-full capitalize"
+              data-testid={`${data.id}-test-name`}
+            >
+              {data.name}
+            </div>
             <div className="text-lg font-medium text-primary_gray-500">{data.category_name}</div>
           </div>
         </div>
@@ -244,6 +253,7 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
         <Button
           variant="outline"
           color="error"
+          data-testid={`${data.id}-test-remove-btn`}
           onClick={async () =>
             alert({
               type: "promise",
@@ -309,7 +319,9 @@ export const SubsTestDropdown: React.FC<SubTestDropdown> = ({ options, label = "
         <MultiDropdown options={subtestOptions} name="sub_test" label={label} control={control} />
       </div>
 
-      <Button disabled={!isDirty || !isValid}>Assign</Button>
+      <Button data-testid="subs-test-add-btn" disabled={!isDirty || !isValid}>
+        Assign
+      </Button>
     </form>
   );
 };
