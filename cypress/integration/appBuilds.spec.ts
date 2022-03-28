@@ -118,9 +118,33 @@ context("App Build Page", () => {
 
   /* **** END ***** */
 
+  /* **** Validation In App Build Add Modal **** */
+
+  it("Validation In App Build Add Modal", () => {
+    cy.intercept({
+      method: "GET",
+      url: "https://staging-api.sunya.health/api/v1/app/all",
+    }).as("getApps");
+
+    cy.get('[data-testid="app_add_modal_btn"]').click({ force: true });
+    cy.get('[data-testid="app_name"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="application_id"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+
+    cy.get('[data-testid="secret_key"]')
+      .invoke("prop", "validationMessage")
+      .should("equal", "Please fill out this field.");
+  });
+
+  /* **** END **** */
+
   /* **** APP BUILD CAN BE ADDED AND EDITED **** */
 
-  it("App Builds List And Release is shown as data from API", () => {
+  it("App Build Can Be Added And Edited", () => {
     cy.intercept({
       method: "GET",
       url: "https://staging-api.sunya.health/api/v1/app/all",
