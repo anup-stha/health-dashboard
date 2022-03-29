@@ -14,6 +14,7 @@ import { alert, toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
+import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 
 import { useAddPatient, useNestedAddPatient } from "@/modules/members/hooks/query/useMemberList";
 import { Member } from "@/modules/members/types";
@@ -36,7 +37,9 @@ interface UserAddFormData {
 }
 
 interface UserAddFormProps
-  extends Partial<Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch">> {
+  extends Required<
+    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField">
+  > {
   type?: "edit" | "add";
   initialData?: Member;
   selectedRole: Role;
@@ -52,13 +55,24 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
   initialData,
   selectedRole,
   parent_member_id,
+  resetField,
+  watch,
 }) => {
   useGetOtherFieldsList();
   const { mutateAsync: mutate } = useAddPatient();
 
   const { mutateAsync: nestedmutate } = useNestedAddPatient(parent_member_id ?? 0);
 
-  return handleSubmit && register && control && reset ? (
+  const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
+  const hasProvinceDistrictCity = member_detail_categories.some(
+    (category) => category.slug === "province" || category.slug === "district" || category.slug === "city"
+  );
+
+  const province_id = member_detail_categories.find((category) => category.slug === "province")?.id;
+  const district_id = member_detail_categories.find((category) => category.slug === "district")?.id;
+  const city_id = member_detail_categories.find((category) => category.slug === "city")?.id;
+
+  return (
     <Modal.Form
       onSubmit={handleSubmit<UserAddFormData>(async (data: any) => {
         const body = {
@@ -218,32 +232,50 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
 
           {type === "add" &&
             selectedRole &&
-            selectedRole.member_detail_categories &&
-            selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
-              <Fragment key={category.id}>
-                {category.value_type.toLowerCase() === "boolean" ? (
-                  <SwitchInput
-                    label={category.name}
-                    type="number"
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}-details`)}
-                  />
-                ) : (
-                  <PrimaryInput
-                    label={category.name}
-                    type={category.value_type}
-                    required={!!category.required}
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}-details`)}
-                  />
-                )}
-              </Fragment>
-            ))}
+            member_detail_categories.map((category: MemberDetailCategory) => {
+              if (category.slug === "district" || category.slug === "city") return;
+
+              if (hasProvinceDistrictCity && category.slug === "province") {
+                return (
+                  <Fragment key={category.id}>
+                    <ProvinceDropdown
+                      control={control}
+                      watch={watch}
+                      resetField={resetField}
+                      province_name={`${province_id}-province-details`}
+                      district_name={`${district_id}-district-details`}
+                      city_name={`${city_id}-city-details`}
+                    />
+                  </Fragment>
+                );
+              }
+
+              return (
+                <Fragment key={category.id}>
+                  {category.value_type.toLowerCase() === "boolean" ? (
+                    <SwitchInput
+                      label={category.name}
+                      type="number"
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  ) : (
+                    <PrimaryInput
+                      label={category.name}
+                      type={category.value_type}
+                      required={!!category.required}
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  )}
+                </Fragment>
+              );
+            })}
         </div>
       </Modal.Scrollable>
       <div className="px-2">
         <Button> {type === "add" ? "Add" : "Edit"} User</Button>
       </div>
     </Modal.Form>
-  ) : null;
+  );
 };

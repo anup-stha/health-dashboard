@@ -42,7 +42,7 @@ interface MemberModalProps {
  */
 export function MemberModal({ type, initialData, button, selectedRole, parent_member_id }: MemberModalProps) {
   const currentUser = useAuthStore((state) => state.user);
-  const { register, handleSubmit, control, reset, watch, unregister } = useForm({
+  const { register, handleSubmit, control, reset, watch, unregister, resetField } = useForm({
     defaultValues: {
       ...initialData,
       dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
@@ -102,6 +102,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
               control={control}
               register={register}
               reset={reset}
+              resetField={resetField}
               watch={watch}
             />
           ) : selectedRole &&
@@ -114,6 +115,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
               register={register}
               reset={reset}
               watch={watch}
+              resetField={resetField}
               selectedRole={selectedRole}
               parent_member_id={parent_member_id}
             />
@@ -127,6 +129,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
               register={register}
               reset={reset}
               watch={watch}
+              resetField={resetField}
             />
           )}
         </div>

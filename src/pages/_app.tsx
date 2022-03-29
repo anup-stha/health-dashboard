@@ -127,6 +127,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <link key={linkProps.href} {...linkProps} />
         ))}
       </Head>
+
       <QueryClientProvider client={queryClient}>
         <NextNProgress
           color="#22c55e"

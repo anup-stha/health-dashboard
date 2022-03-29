@@ -14,6 +14,7 @@ import { toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
+import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 
 import { useAddUser, useNestedAddUser } from "@/modules/members/hooks/query/useMemberList";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
@@ -33,7 +34,9 @@ interface UserAddFormData {
 }
 
 interface UserAddFormProps
-  extends Partial<Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch">> {
+  extends Required<
+    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField">
+  > {
   type?: "edit" | "add";
   parent_member_id?: number;
   selectedRole: Role;
@@ -47,12 +50,22 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
   reset,
   watch,
   parent_member_id,
+  resetField,
   selectedRole,
 }) => {
   const { mutateAsync: mutate } = useAddUser();
   const { mutateAsync: nestedmutate } = useNestedAddUser(parent_member_id ?? 0);
 
-  return handleSubmit && register && control && reset ? (
+  const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
+  const hasProvinceDistrictCity = member_detail_categories.some(
+    (category) => category.slug === "province" || category.slug === "district" || category.slug === "city"
+  );
+
+  const province_id = member_detail_categories.find((category) => category.slug === "province")?.id;
+  const district_id = member_detail_categories.find((category) => category.slug === "district")?.id;
+  const city_id = member_detail_categories.find((category) => category.slug === "city")?.id;
+
+  return (
     <Modal.Form
       onSubmit={handleSubmit<UserAddFormData>(async (data) => {
         const body = {
@@ -217,34 +230,52 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
             />
           )}
 
-          {selectedRole &&
-            selectedRole.member_detail_categories &&
-            selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
-              <Fragment key={category.id}>
-                {category.value_type.toLowerCase() === "boolean" ? (
-                  <SwitchInput
-                    label={category.name}
-                    type="number"
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}`)}
-                  />
-                ) : (
-                  <PrimaryInput
-                    label={category.name}
-                    data-testid={`${category.id}-${category.slug}`}
-                    type={category.value_type}
-                    required={!!category.required}
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}`)}
-                  />
-                )}
-              </Fragment>
-            ))}
+          {type === "add" &&
+            selectedRole &&
+            member_detail_categories.map((category: MemberDetailCategory) => {
+              if (category.slug === "district" || category.slug === "city") return;
+
+              if (hasProvinceDistrictCity && category.slug === "province") {
+                return (
+                  <Fragment key={category.id}>
+                    <ProvinceDropdown
+                      control={control}
+                      watch={watch}
+                      resetField={resetField}
+                      province_name={`${province_id}-province-details`}
+                      district_name={`${district_id}-district-details`}
+                      city_name={`${city_id}-city-details`}
+                    />
+                  </Fragment>
+                );
+              }
+
+              return (
+                <Fragment key={category.id}>
+                  {category.value_type.toLowerCase() === "boolean" ? (
+                    <SwitchInput
+                      label={category.name}
+                      type="number"
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  ) : (
+                    <PrimaryInput
+                      label={category.name}
+                      type={category.value_type}
+                      required={!!category.required}
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  )}
+                </Fragment>
+              );
+            })}
         </div>
       </Modal.Scrollable>
       <div className="px-2">
         <Button data-testid="member-add-btn">{type === "add" ? "Add" : "Edit"} User</Button>
       </div>
     </Modal.Form>
-  ) : null;
+  );
 };
