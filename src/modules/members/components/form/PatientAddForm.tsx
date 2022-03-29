@@ -91,13 +91,13 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
           if (isNaN(Number(curr.split("-")[0]))) {
             const obj = { [curr]: body[curr] };
             acc = { ...acc, ...obj };
-          } else if (acc.detail && curr.split("-")[2] === "details") {
-            acc.detail.push({
+          } else if (acc.details && curr.split("-")[2] === "details") {
+            acc.details.push({
               detail_category_id: curr.split("-")[0],
               value: body[curr],
             });
           } else if (curr.split("-")[2] === "details") {
-            acc.detail = [
+            acc.details = [
               {
                 detail_category_id: curr.split("-")[0],
                 value: body[curr],
