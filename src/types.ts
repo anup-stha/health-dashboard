@@ -160,6 +160,9 @@ export type MemberUpdateBody = {
   email: string;
   dob_ad: number;
   dob_bs?: number;
+  province?: string;
+  district?: string;
+  city?: string;
   gender: "Male" | "Female" | "Others";
   marital_status: "Single" | "Married";
 };

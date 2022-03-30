@@ -42,10 +42,20 @@ interface MemberModalProps {
  */
 export function MemberModal({ type, initialData, button, selectedRole, parent_member_id }: MemberModalProps) {
   const currentUser = useAuthStore((state) => state.user);
+
+  const { address, ...rest } = initialData || {};
+
+  const street_address = address?.split(" - ")[1] ?? address;
+  const other_address = address?.split(" - ")[0];
+
   const { register, handleSubmit, control, reset, watch, unregister, resetField } = useForm({
     defaultValues: {
-      ...initialData,
+      ...rest,
       dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
+      address: street_address,
+      city: other_address?.split(", ")[0],
+      district: other_address?.split(", ")[1],
+      province: other_address?.split(", ")[2],
     },
   });
 

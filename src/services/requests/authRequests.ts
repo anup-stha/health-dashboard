@@ -101,9 +101,14 @@ export const getDashboardData = (url: string) =>
   });
 
 export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => {
+  const { district, province, city, address, ...rest } = body;
+
   return new Promise((resolve, reject) => {
     privateAgent
-      .post<MemberUpdateResponse>(`member/update/${profileId}`, body)
+      .post<MemberUpdateResponse>(`member/update/${profileId}`, {
+        ...rest,
+        address: `${city ?? ""}, ${district ?? ""}, ${province ?? ""} - ${address}`,
+      })
       .then((response) => {
         const member = useCurrentMemberStore.getState().member;
         const user = useCurrentMemberStore.getState().user;
