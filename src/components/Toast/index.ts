@@ -30,8 +30,10 @@ export const promiseToast = async ({ promise, msgs, id, onSuccess }: toastProps)
     if (response) {
       onSuccess && onSuccess(response);
       toast.success(msgs.success, { id: id });
+      return response;
     }
   } catch (e) {
     toast.error(e.response.data.message, { id: id });
+    throw new Error(e);
   }
 };

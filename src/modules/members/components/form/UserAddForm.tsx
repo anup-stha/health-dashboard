@@ -10,11 +10,11 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { PrimaryInput, SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
+import { promiseToast } from "@/components/Toast";
 
 import { useAddUser, useNestedAddUser } from "@/modules/members/hooks/query/useMemberList";
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
@@ -57,13 +57,6 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
   const { mutateAsync: nestedmutate } = useNestedAddUser(parent_member_id ?? 0);
 
   const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
-  const hasProvinceDistrictCity = member_detail_categories.some(
-    (category) => category.slug === "province" || category.slug === "district" || category.slug === "city"
-  );
-
-  const province_id = member_detail_categories.find((category) => category.slug === "province")?.id;
-  const district_id = member_detail_categories.find((category) => category.slug === "district")?.id;
-  const city_id = member_detail_categories.find((category) => category.slug === "city")?.id;
 
   return (
     <Modal.Form
@@ -104,19 +97,17 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
           return acc;
         }, {});
-        parent_member_id
-          ? await toastAlert({
-              type: "promise",
-              promise: nestedmutate(finalBody).then(() => reset()),
+        const response = parent_member_id
+          ? await promiseToast({
+              promise: nestedmutate(finalBody),
               msgs: {
                 loading: "Adding Member",
                 success: "Added Successfully",
               },
               id: "patient-add-toast",
             })
-          : await toastAlert({
-              type: "promise",
-              promise: mutate(finalBody).then(() => reset()),
+          : await promiseToast({
+              promise: mutate(finalBody),
               msgs: {
                 loading: "Adding Member",
                 success: "Added Successfully",
@@ -156,8 +147,10 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
               />
             </div>
           </div>
+          <ProvinceDropdown control={control} watch={watch} resetField={resetField} />
+
           <PrimaryInput
-            label="Address"
+            label="Street Address"
             type="text"
             data-testid="address"
             placeholder="Enter Address"
@@ -233,23 +226,6 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
           {type === "add" &&
             selectedRole &&
             member_detail_categories.map((category: MemberDetailCategory) => {
-              if (category.slug === "district" || category.slug === "city") return;
-
-              if (hasProvinceDistrictCity && category.slug === "province") {
-                return (
-                  <Fragment key={category.id}>
-                    <ProvinceDropdown
-                      control={control}
-                      watch={watch}
-                      resetField={resetField}
-                      province_name={`${province_id}-province-details`}
-                      district_name={`${district_id}-district-details`}
-                      city_name={`${city_id}-city-details`}
-                    />
-                  </Fragment>
-                );
-              }
-
               return (
                 <Fragment key={category.id}>
                   {category.value_type.toLowerCase() === "boolean" ? (

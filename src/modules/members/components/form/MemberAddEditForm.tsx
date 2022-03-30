@@ -64,13 +64,6 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
   const { mutateAsync: nestedmutate } = useNestedAddPatient(parent_member_id ?? 0);
 
   const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
-  const hasProvinceDistrictCity = member_detail_categories.some(
-    (category) => category.slug === "province" || category.slug === "district" || category.slug === "city"
-  );
-
-  const province_id = member_detail_categories.find((category) => category.slug === "province")?.id;
-  const district_id = member_detail_categories.find((category) => category.slug === "district")?.id;
-  const city_id = member_detail_categories.find((category) => category.slug === "city")?.id;
 
   return (
     <Modal.Form
@@ -224,6 +217,8 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
             </div>
           </div>
 
+          <ProvinceDropdown control={control} watch={watch} resetField={resetField} />
+
           <PrimaryInput label="Address" type="text" placeholder="Enter Address" {...register("address")} />
 
           {type === "add" && (
@@ -233,23 +228,6 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
           {type === "add" &&
             selectedRole &&
             member_detail_categories.map((category: MemberDetailCategory) => {
-              if (category.slug === "district" || category.slug === "city") return;
-
-              if (hasProvinceDistrictCity && category.slug === "province") {
-                return (
-                  <Fragment key={category.id}>
-                    <ProvinceDropdown
-                      control={control}
-                      watch={watch}
-                      resetField={resetField}
-                      province_name={`${province_id}-province-details`}
-                      district_name={`${district_id}-district-details`}
-                      city_name={`${city_id}-city-details`}
-                    />
-                  </Fragment>
-                );
-              }
-
               return (
                 <Fragment key={category.id}>
                   {category.value_type.toLowerCase() === "boolean" ? (

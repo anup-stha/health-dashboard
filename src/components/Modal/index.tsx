@@ -145,7 +145,12 @@ export const Form: React.FC<IModalFormProps> = React.memo(({ onSubmit, children,
 
   const onSubmitFn = async (e: any) => {
     e.preventDefault();
-    await onSubmit().then(() => setIsOpen(false));
+    try {
+      await onSubmit();
+      setIsOpen(false);
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   return (

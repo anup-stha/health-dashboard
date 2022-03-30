@@ -26,8 +26,8 @@ export function ProfileOverviewTab({ other_details, primary_details }: IProfileO
       <h1 className="text-3xl font-medium text-primary_gray-800">Profile Overview</h1>
       <div className="h-0.5 bg-slate-200 w-full absolute left-0 top-20" />
       <div className="flex flex-col mt-12">
-        <div className="grid grid-cols-2 gap-4 w-1/2 md:w-full">
-          <div className="flex flex-col gap-8">
+        <div className="flex gap-4 w-full md:w-full">
+          <div className="flex flex-col w-1/6 sm:w-1/2 gap-8">
             <div className="text-xl font-medium text-primary_gray-400">Member Code</div>
             <div className="text-xl font-medium text-primary_gray-400">Full Name</div>
             <div className="text-xl font-medium text-primary_gray-400">Email Address</div>
@@ -42,7 +42,7 @@ export function ProfileOverviewTab({ other_details, primary_details }: IProfileO
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col w-5/6 sm:w-1/2 gap-8">
             <div className="text-xl font-Inter line-clamp-1 font-medium text-primary_gray-800">
               {primary_details.member_code}
             </div>
@@ -62,7 +62,7 @@ export function ProfileOverviewTab({ other_details, primary_details }: IProfileO
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {epochToDate(primary_details.dob_ad)}
             </div>
-            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">{primary_details.address}</div>
+            <div className="text-xl font-medium text-primary_gray-850">{primary_details.address}</div>
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">{primary_details.gender}</div>
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {primary_details.marital_status}
