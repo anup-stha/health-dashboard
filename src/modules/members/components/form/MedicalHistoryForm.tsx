@@ -8,7 +8,8 @@
 
 import React from "react";
 
-import { PrimaryInput, RadioInputController } from "@/components/Input";
+import { RadioInputController } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 
 export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }: any) => {
   const note = watch(`${id}-${slug}`);
@@ -27,7 +28,7 @@ export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }:
         />
         {note === 1 && (
           <div className="col-span-2">
-            <PrimaryInput placeholder={`Note for ${name} `} defaultValue="" {...register(`${id}-${slug}-note`)} />
+            <Input placeholder={`Note for ${name} `} defaultValue="" {...register(`${id}-${slug}-note`)} />
           </div>
         )}
       </div>

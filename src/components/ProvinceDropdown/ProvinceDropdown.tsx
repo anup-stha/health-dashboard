@@ -48,8 +48,20 @@ export const ProvinceDropdown = ({
   return (
     <>
       <Dropdown name={province_name} label="Province" control={control} options={provinceOptions} />
-      <Dropdown name={district_name} label="District" control={control} options={districts} />
-      <Dropdown name={city_name} label="City" control={control} options={cities} />
+      <Dropdown
+        name={district_name}
+        label="District"
+        control={control}
+        options={districts}
+        noOptionMessage="Please select Province first"
+      />
+      <Dropdown
+        name={city_name}
+        label="City"
+        control={control}
+        options={cities}
+        noOptionMessage="Please select District first"
+      />
     </>
   );
 };

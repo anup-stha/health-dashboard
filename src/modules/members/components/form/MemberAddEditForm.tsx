@@ -12,7 +12,8 @@ import { UseFormReturn } from "react-hook-form";
 
 import { alert, toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { SwitchInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 
@@ -140,16 +141,16 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
       })}
     >
       <Modal.Scrollable>
-        <div className="space-y-4">
-          <PrimaryInput label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
+        <div className="space-y-8">
+          <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
           {type === "add" ? (
             <div className="flex gap-x-6">
               <div className="w-1/2">
-                <PrimaryInput label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} />
+                <Input label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} required={true} />
               </div>
               <div className="w-1/2">
-                <PrimaryInput
+                <Input
                   label="Date of Birth In AD"
                   type="date"
                   max={new Date().toISOString().split("T")[0]}
@@ -159,7 +160,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
             </div>
           ) : (
             <div className="w-full">
-              <PrimaryInput
+              <Input
                 label="Date of Birth In AD"
                 type="date"
                 max={new Date().toISOString().split("T")[0]}
@@ -219,11 +220,9 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
 
           <ProvinceDropdown control={control} watch={watch} resetField={resetField} />
 
-          <PrimaryInput label="Address" type="text" placeholder="Enter Address" {...register("address")} />
+          <Input label="Street Address" type="text" placeholder="Enter Street Address" {...register("address")} />
 
-          {type === "add" && (
-            <PrimaryInput label="Email" type="email" placeholder="Enter email" {...register("email")} />
-          )}
+          {type === "add" && <Input label="Email" type="email" placeholder="Enter email" {...register("email")} />}
 
           {type === "add" &&
             selectedRole &&
@@ -238,7 +237,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
                       {...register(`${category.id}-${category.slug}-details`)}
                     />
                   ) : (
-                    <PrimaryInput
+                    <Input
                       label={category.name}
                       type={category.value_type}
                       required={!!category.required}

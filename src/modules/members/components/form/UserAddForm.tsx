@@ -11,7 +11,8 @@ import React, { Fragment } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/Button";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { SwitchInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 import { promiseToast } from "@/components/Toast";
@@ -118,7 +119,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
     >
       <Modal.Scrollable>
         <div className="space-y-4">
-          <PrimaryInput
+          <Input
             label="Name"
             type="text"
             placeholder="Enter Name"
@@ -129,16 +130,10 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
 
           <div className="flex gap-x-6">
             <div className="w-1/2">
-              <PrimaryInput
-                label="Phone"
-                type="text"
-                data-testid="phone"
-                placeholder="Enter Phone"
-                {...register("phone")}
-              />
+              <Input label="Phone" type="text" data-testid="phone" placeholder="Enter Phone" {...register("phone")} />
             </div>
             <div className="w-1/2">
-              <PrimaryInput
+              <Input
                 label="Date of Birth In AD"
                 type="date"
                 data-testid="dob"
@@ -149,7 +144,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
           </div>
           <ProvinceDropdown control={control} watch={watch} resetField={resetField} />
 
-          <PrimaryInput
+          <Input
             label="Street Address"
             type="text"
             data-testid="address"
@@ -205,15 +200,9 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
             </div>
           </div>
 
-          <PrimaryInput
-            label="Email"
-            type="email"
-            data-testid="email"
-            placeholder="Enter email"
-            {...register("email")}
-          />
+          <Input label="Email" type="email" data-testid="email" placeholder="Enter email" {...register("email")} />
           {type === "add" && (
-            <PrimaryInput
+            <Input
               label="Password"
               type="password"
               data-testid="password"
@@ -236,7 +225,7 @@ export const UserAddForm: React.FC<UserAddFormProps> = ({
                       {...register(`${category.id}-${category.slug}-details`)}
                     />
                   ) : (
-                    <PrimaryInput
+                    <Input
                       label={category.name}
                       type={category.value_type}
                       required={!!category.required}
