@@ -10,16 +10,20 @@ import React from "react";
 
 import { MainHead } from "@/layout/MainHead";
 import { MembersModule } from "@/modules/members";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 /**
  *
  * @constructor
  */
-export default function MembersListNextPage() {
+const MembersListNextPage = () => {
   return (
     <>
       <MainHead title="Members" />
       <MembersModule.MemberListPage />
     </>
   );
-}
+};
+
+export default withAuth(withRole(MembersListNextPage));
