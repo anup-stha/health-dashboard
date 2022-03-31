@@ -43,11 +43,19 @@ export const getNestedMemberList = (roleId: number, parentId: number, pageNumber
 };
 
 export const postOrgMember = (body: any) => {
-  return privateAgent.post<OrgMemberAddRes>("user/store", body);
+  const { district, province, city, address, ...rest } = body;
+  return privateAgent.post<OrgMemberAddRes>("user/store", {
+    ...rest,
+    address: `${city ?? ""}, ${district ?? ""}, ${province ?? ""} - ${address}`,
+  });
 };
 
 export const postNormalMember = (body: any) => {
-  return privateAgent.post<OrgMemberAddRes>("member/store", body);
+  const { district, province, city, address, ...rest } = body;
+  return privateAgent.post<OrgMemberAddRes>("member/store", {
+    ...rest,
+    address: `${city ?? ""}, ${district ?? ""}, ${province ?? ""} - ${address}`,
+  });
 };
 
 export const postMemberCategory = (body: MemberDetailCategoryBody) => {

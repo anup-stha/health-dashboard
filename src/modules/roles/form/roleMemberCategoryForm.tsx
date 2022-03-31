@@ -73,9 +73,17 @@ type DropdownProps = {
   control: any;
   options: Array<any>;
   isDisabled?: boolean;
+  noOptionMessage?: string;
 };
 
-export const DropdownController: React.FC<DropdownProps> = ({ name, label, control, options, isDisabled }) => {
+export const DropdownController: React.FC<DropdownProps> = ({
+  name,
+  label,
+  control,
+  options,
+  isDisabled,
+  noOptionMessage = "No Options Found",
+}) => {
   const customStyles: any = {
     option: (provided: any, state: any) => ({
       ...provided,
@@ -89,7 +97,6 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
 
     valueContainer: (provide: any) => ({
       ...provide,
-      color: "rgb(115 115 115)",
       padding: 0,
     }),
 
@@ -102,7 +109,6 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
       padding: 0,
       width: "16px",
       display: "flex",
-
       alignItems: "center",
       justifyContent: "center",
       height: "16px",
@@ -113,7 +119,8 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
       ...provide,
       padding: 0,
     }),
-    input: () => ({
+    input: (provide: any) => ({
+      ...provide,
       padding: "0",
     }),
     singleValue: (provided: any) => ({
@@ -149,14 +156,17 @@ export const DropdownController: React.FC<DropdownProps> = ({ name, label, contr
         render={({ field: { onChange, value, ref } }) => (
           <Select
             isDisabled={isDisabled}
+            key={`my_unique_select_key__${value}`}
             ref={ref}
+            placeholder="Choose"
             options={options}
             value={options.find((c) => c.value === value)}
             onChange={(val: any) => {
               onChange(val.value);
             }}
-            isSearchable={false}
+            isSearchable={true}
             styles={customStyles}
+            noOptionsMessage={({ inputValue }) => (!inputValue ? noOptionMessage : "No results found")}
           />
         )}
       />

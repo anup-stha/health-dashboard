@@ -12,7 +12,7 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 
@@ -118,11 +118,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                             />
                           </div>
                           <div className="w-1/2">
-                            <PrimaryInput
-                              label="Enter Value"
-                              placeholder="Enter Value"
-                              {...register(`data.${index}.value`)}
-                            />
+                            <Input label="Enter Value" placeholder="Enter Value" {...register(`data.${index}.value`)} />
                           </div>
                         </div>
                       );

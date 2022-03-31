@@ -122,7 +122,7 @@ export interface IModalTitleProps {
 }
 
 export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
-  return <div className="text-4xl font-medium text-primary_gray-900">{children}</div>;
+  return <div className="text-[2.5rem] text-gray-900">{children}</div>;
 };
 
 export interface IScrollableProps {
@@ -130,7 +130,7 @@ export interface IScrollableProps {
 }
 
 export const Scrollable: React.FC<IScrollableProps> = ({ children }) => {
-  return <div className="overflow-y-auto max-h-[50vh] px-2 pb-4 scrollbar-1 z-[-1]">{children}</div>;
+  return <div className="overflow-y-auto max-h-[65vh] px-2 pb-4 scrollbar-1 z-[-1]">{children}</div>;
 };
 
 export interface IModalFormProps {
@@ -145,7 +145,12 @@ export const Form: React.FC<IModalFormProps> = React.memo(({ onSubmit, children,
 
   const onSubmitFn = async (e: any) => {
     e.preventDefault();
-    await onSubmit().then(() => setIsOpen(false));
+    try {
+      await onSubmit();
+      setIsOpen(false);
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   return (

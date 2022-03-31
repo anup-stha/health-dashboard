@@ -10,10 +10,12 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput, SwitchInput } from "@/components/Input";
+import { SwitchInput } from "@/components/Input";
+import { Input } from "@/components/Input/Input";
 import { Modal } from "@/components/Modal/useModal";
+import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
+import { promiseToast } from "@/components/Toast";
 
 import { MedicalHistoryForm } from "@/modules/members/components/form/MedicalHistoryForm";
 import { useAddPatient, useNestedAddPatient } from "@/modules/members/hooks/query/useMemberList";
@@ -36,7 +38,9 @@ interface UserAddFormData {
 }
 
 interface UserAddFormProps
-  extends Partial<Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch">> {
+  extends Required<
+    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField">
+  > {
   type?: "edit" | "add";
   selectedRole: Role;
   parent_member_id?: number;
@@ -50,6 +54,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
   reset,
   watch,
   selectedRole,
+  resetField,
   parent_member_id,
 }) => {
   useGetOtherFieldsList();
@@ -62,7 +67,9 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
     [key: string]: any;
   };
 
-  return handleSubmit && register && control && reset ? (
+  const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
+
+  return (
     <Modal.Form
       onSubmit={handleSubmit<UserAddFormData>(async (data: any) => {
         const body = {
@@ -78,13 +85,13 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
           if (isNaN(Number(curr.split("-")[0]))) {
             const obj = { [curr]: body[curr] };
             acc = { ...acc, ...obj };
-          } else if (acc.detail && curr.split("-")[2] === "details") {
-            acc.detail.push({
+          } else if (acc.details && curr.split("-")[2] === "details") {
+            acc.details.push({
               detail_category_id: curr.split("-")[0],
               value: body[curr],
             });
           } else if (curr.split("-")[2] === "details") {
-            acc.detail = [
+            acc.details = [
               {
                 detail_category_id: curr.split("-")[0],
                 value: body[curr],
@@ -118,9 +125,8 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
           return acc;
         }, {});
 
-        parent_member_id
-          ? await toastAlert({
-              type: "promise",
+        return parent_member_id
+          ? await promiseToast({
               promise: nestedmutate(finalBody).then(() => reset()),
               msgs: {
                 loading: "Adding Member",
@@ -128,8 +134,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
               },
               id: "patient-add-toast",
             })
-          : await toastAlert({
-              type: "promise",
+          : await promiseToast({
               promise: mutate(finalBody).then(() => reset()),
               msgs: {
                 loading: "Adding Member",
@@ -141,14 +146,14 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
     >
       <Modal.Scrollable>
         <div className="space-y-4">
-          <PrimaryInput label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
+          <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
           <div className="flex gap-x-6">
             <div className="w-1/2">
-              <PrimaryInput label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} />
+              <Input label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} />
             </div>
             <div className="w-1/2">
-              <PrimaryInput
+              <Input
                 label="Date of Birth In AD"
                 type="date"
                 max={new Date().toISOString().split("T")[0]}
@@ -156,7 +161,8 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
               />
             </div>
           </div>
-          <PrimaryInput label="Address" type="text" placeholder="Enter Address" {...register("address")} />
+          <ProvinceDropdown control={control} watch={watch} resetField={resetField} />
+          <Input label="Street Address" type="text" placeholder="Enter Street Address" {...register("address")} />
           <div className="flex gap-x-6">
             <div className="w-1/2">
               <DropdownController
@@ -206,30 +212,32 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
             </div>
           </div>
 
-          <PrimaryInput label="Email" type="email" placeholder="Enter email" {...register("email")} />
+          <Input label="Email" type="email" placeholder="Enter email" {...register("email")} />
 
-          {selectedRole &&
-            selectedRole.member_detail_categories &&
-            selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
-              <Fragment key={category.id}>
-                {category.value_type.toLowerCase() === "boolean" ? (
-                  <SwitchInput
-                    label={category.name}
-                    type="number"
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}-details`)}
-                  />
-                ) : (
-                  <PrimaryInput
-                    label={category.name}
-                    type={category.value_type}
-                    required={!!category.required}
-                    placeholder={`Enter ${category.name}`}
-                    {...register(`${category.id}-${category.slug}-details`)}
-                  />
-                )}
-              </Fragment>
-            ))}
+          {type === "add" &&
+            selectedRole &&
+            member_detail_categories.map((category: MemberDetailCategory) => {
+              return (
+                <Fragment key={category.id}>
+                  {category.value_type.toLowerCase() === "boolean" ? (
+                    <SwitchInput
+                      label={category.name}
+                      type="number"
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  ) : (
+                    <Input
+                      label={category.name}
+                      type={category.value_type}
+                      required={false}
+                      placeholder={`Enter ${category.name}`}
+                      {...register(`${category.id}-${category.slug}-details`)}
+                    />
+                  )}
+                </Fragment>
+              );
+            })}
 
           <div className="grid grid-cols-1 gap-y-10 w-full">
             {medicalHistoryFields.map((field) => (
@@ -251,5 +259,5 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
         <Button> {type === "add" ? "Add" : "Edit"} User</Button>
       </div>
     </Modal.Form>
-  ) : null;
+  );
 };
