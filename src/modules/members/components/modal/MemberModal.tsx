@@ -99,7 +99,12 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
         )}
       </Modal.Button>
 
-      <Modal.Content width="max-w-4xl">
+      <Modal.Content
+        width="max-w-4xl"
+        onModalClose={() => {
+          reset();
+        }}
+      >
         <Modal.Title>
           {type === "add" ? "Add" : "Edit"} {selectedRole && selectedRole.name} User
         </Modal.Title>

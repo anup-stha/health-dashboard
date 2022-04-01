@@ -7,7 +7,7 @@
  */
 
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
 import { useModal } from "./useModal";
@@ -19,16 +19,24 @@ export type IModalProps = {
   width?: "max-w-2xl" | "max-w-3xl" | "max-w-4xl" | "max-w-5xl" | "max-w-6xl" | "max-w-7xl" | "max-w-8xl";
   opacity?: string;
   onClose?: () => void;
+  onModalClose?: () => void;
 };
 
 export const ModalContent: React.FC<IModalProps> = React.memo(
-  ({ children, width = "max-w-3xl", opacity = "opacity-30", onClose }) => {
+  ({ children, width = "max-w-3xl", opacity = "opacity-30", onClose, onModalClose }) => {
     const { setIsOpen, isOpen } = useModal();
 
     const closeModal = () => {
       onClose && onClose();
       setIsOpen(false);
     };
+
+    useEffect(() => {
+      if (!isOpen) {
+        console.log(isOpen);
+        onModalClose && onModalClose();
+      }
+    }, [isOpen]);
 
     return (
       <Transition appear show={isOpen} as={Fragment} data-testid="modal">
