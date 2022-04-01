@@ -8,8 +8,7 @@
 
 import React from "react";
 
-import { RadioInputController } from "@/components/Input";
-import { Input } from "@/components/Input/Input";
+import Input, { RadioInputController } from "@/components/Input";
 
 export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }: any) => {
   const note = watch(`${id}-${slug}`);

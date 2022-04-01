@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Loader } from "@/components/Loader";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -224,7 +224,7 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                             closeModal();
                           })}
                         >
-                          <PrimaryInput
+                          <Input
                             min={0}
                             max={100}
                             label="Discount"
@@ -232,7 +232,7 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                             placeholder="Enter Discount %"
                             {...register("discount")}
                           />
-                          <PrimaryInput
+                          <Input
                             min={0}
                             max={100}
                             label="VAT"

@@ -12,7 +12,7 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
-import { Input } from "@/components/Input/Input";
+import Input from "@/components/Input";
 
 import { DropdownController } from "@/modules/roles/form/roleMemberCategoryForm";
 

@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 import { Button } from "@/components/Button";
 import { DropZoneField } from "@/components/Dropzone";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { AppReleaseQuery } from "@/modules/app/hooks/AppReleaseQuery";
@@ -56,7 +56,6 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
     },
   });
 
-  console.log(defaultValues);
   return (
     <Modal.AsyncForm
       onSubmit={handleSubmit(async (values) => {
@@ -136,26 +135,15 @@ export const AppReleaseForm = ({ type, id, defaultValues }: AppAddEditForm) => {
     >
       <div className="space-y-6">
         <DropZoneField label="Add App File" name="app_file" control={control} />
-        <PrimaryInput
-          label="App Release Name"
-          required={true}
-          placeholder="Enter App Release Name"
-          {...register(`name`)}
-        />
-        <PrimaryInput
+        <Input label="App Release Name" required={true} placeholder="Enter App Release Name" {...register(`name`)} />
+        <Input
           label="Application Version"
           required={true}
           placeholder="Enter App Version Name"
           {...register("version")}
         />
-        <PrimaryInput
-          label="Code"
-          type="number"
-          required={true}
-          placeholder="Enter App Version Code"
-          {...register("code")}
-        />
-        <PrimaryInput label="Note " required={true} placeholder="Enter App Note" {...register("note")} />
+        <Input label="Code" type="number" required={true} placeholder="Enter App Version Code" {...register("code")} />
+        <Input label="Note " required={true} placeholder="Enter App Note" {...register("note")} />
       </div>
 
       <Button>{type === "add" ? "Add" : "Edit"}</Button>

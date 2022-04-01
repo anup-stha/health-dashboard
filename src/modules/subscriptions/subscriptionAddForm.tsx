@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { Input } from "@/components/Input/Input";
+import Input from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
