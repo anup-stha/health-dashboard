@@ -53,6 +53,7 @@ export type Member = {
   uuid: string;
   name: string;
   lat: number;
+  age?: number;
   lng: number;
   phone: string;
   dob_ad: number;

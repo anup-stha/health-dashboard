@@ -37,7 +37,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
 
   const user = useAuthStore((state) => state.user);
   const memberDetailCategories = role.member_detail_categories;
-  const headers = ["name", "dob_ad", "gender", "ref_key", "patient_code"];
+  const headers = ["name", "dob_ad", "age", "gender", "ref_key", "patient_code"];
   memberDetailCategories.forEach((category) => headers.push(category.slug));
 
   const inputRef = useRef<HTMLInputElement>(null);

@@ -33,6 +33,7 @@ export function ProfileOverviewTab({ other_details, primary_details }: IProfileO
             <div className="text-xl font-medium text-primary_gray-400">Email Address</div>
             <div className="text-xl font-medium text-primary_gray-400">Phone Number</div>
             <div className="text-xl font-medium text-primary_gray-400">Date of Birth</div>
+            <div className="text-xl font-medium text-primary_gray-400">Age</div>
             <div className="text-xl font-medium text-primary_gray-400">Address</div>
             <div className="text-xl font-medium text-primary_gray-400">Gender</div>
             <div className="text-xl font-medium text-primary_gray-400">Marital Status</div>
@@ -62,8 +63,12 @@ export function ProfileOverviewTab({ other_details, primary_details }: IProfileO
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {epochToDate(primary_details.dob_ad)}
             </div>
+            <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
+              {primary_details?.age ?? 0} years
+            </div>
             <div className="text-xl font-medium text-primary_gray-850">{primary_details.address}</div>
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">{primary_details.gender}</div>
+
             <div className="text-xl font-medium line-clamp-1 text-primary_gray-850">
               {primary_details.marital_status}
             </div>

@@ -7,7 +7,7 @@
  */
 
 import moment from "moment";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/Button";
@@ -38,7 +38,7 @@ interface UserAddFormData {
 
 interface UserAddFormProps
   extends Required<
-    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField">
+    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField" | "setValue">
   > {
   type?: "edit" | "add";
   selectedRole: Role;
@@ -54,6 +54,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
   watch,
   selectedRole,
   resetField,
+  setValue,
   parent_member_id,
 }) => {
   useGetOtherFieldsList();
@@ -67,6 +68,12 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
   };
 
   const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
+
+  const dob = watch("dob_ad");
+
+  useEffect(() => {
+    setValue("age", moment(new Date()).diff(dob, "years"));
+  }, [dob]);
 
   return (
     <Modal.Form
@@ -147,10 +154,9 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
         <div className="space-y-4">
           <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
+          <Input label="Phone" type="number" placeholder="Enter Phone" {...register("phone")} />
+
           <div className="flex gap-x-6">
-            <div className="w-1/2">
-              <Input label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} />
-            </div>
             <div className="w-1/2">
               <Input
                 label="Date of Birth In AD"
@@ -158,6 +164,9 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
                 max={new Date().toISOString().split("T")[0]}
                 {...register("dob_ad")}
               />
+            </div>
+            <div className="w-1/2">
+              <Input label="Age" type="number" placeholder="Enter Age" {...register("age")} />
             </div>
           </div>
           <ProvinceDropdown control={control} watch={watch} resetField={resetField} />

@@ -48,7 +48,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
   const street_address = address?.split(" - ")[1] ?? address;
   const other_address = address?.split(" - ")[0];
 
-  const { register, handleSubmit, control, reset, watch, unregister, resetField } = useForm({
+  const { register, handleSubmit, control, reset, watch, unregister, resetField, setValue } = useForm({
     defaultValues: {
       ...rest,
       dob_ad: moment(Number(initialData?.dob_ad) * 1000).format("YYYY-MM-DD"),
@@ -113,6 +113,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
             <PatientAddForm
               selectedRole={selectedRole}
               handleSubmit={handleSubmit}
+              setValue={setValue}
               parent_member_id={parent_member_id}
               control={control}
               register={register}
@@ -125,6 +126,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
             selectedRole.permissions.some((element) => element.slug === "login") &&
             type === "add" ? (
             <UserAddForm
+              setValue={setValue}
               handleSubmit={handleSubmit}
               control={control}
               register={register}
@@ -137,6 +139,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
           ) : (
             <MemberAddEditForm
               type={type}
+              setValue={setValue}
               selectedRole={selectedRole}
               initialData={initialData}
               handleSubmit={handleSubmit}

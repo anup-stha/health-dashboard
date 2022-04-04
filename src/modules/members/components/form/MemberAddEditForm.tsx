@@ -7,7 +7,7 @@
  */
 
 import moment from "moment";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { alert, toastAlert } from "@/components/Alert";
@@ -38,7 +38,7 @@ interface UserAddFormData {
 
 interface UserAddFormProps
   extends Required<
-    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField">
+    Pick<UseFormReturn<any>, "register" | "handleSubmit" | "control" | "reset" | "watch" | "resetField" | "setValue">
   > {
   type?: "edit" | "add";
   initialData?: Member;
@@ -53,6 +53,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
   register,
   reset,
   initialData,
+  setValue,
   selectedRole,
   parent_member_id,
   resetField,
@@ -64,6 +65,12 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
   const { mutateAsync: nestedmutate } = useNestedAddPatient(parent_member_id ?? 0);
 
   const member_detail_categories = selectedRole.member_detail_categories && selectedRole.member_detail_categories;
+
+  const dob = watch("dob_ad");
+
+  useEffect(() => {
+    setValue("age", moment(new Date()).diff(dob, "years"));
+  }, [dob]);
 
   return (
     <Modal.Form
@@ -144,21 +151,11 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
           <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
           {type === "add" ? (
-            <div className="flex gap-x-6">
-              <div className="w-1/2">
-                <Input label="Phone" type="text" placeholder="Enter Phone" {...register("phone")} required={true} />
-              </div>
-              <div className="w-1/2">
-                <Input
-                  label="Date of Birth In AD"
-                  type="date"
-                  max={new Date().toISOString().split("T")[0]}
-                  {...register("dob_ad")}
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="w-full">
+            <Input label="Phone" type="number" placeholder="Enter Phone" {...register("phone")} required={true} />
+          ) : null}
+
+          <div className="flex gap-x-6">
+            <div className="w-1/2">
               <Input
                 label="Date of Birth In AD"
                 type="date"
@@ -166,7 +163,10 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
                 {...register("dob_ad")}
               />
             </div>
-          )}
+            <div className="w-1/2">
+              <Input label="Age" type="number" placeholder="Enter Age" {...register("age")} />
+            </div>
+          </div>
 
           <div className="flex gap-x-6">
             <div className="w-1/2">
