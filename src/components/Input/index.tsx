@@ -7,11 +7,10 @@
  */
 
 import { RadioGroup } from "@headlessui/react";
-import { Eye, EyeClosed } from "phosphor-react";
 import React from "react";
 import { Controller } from "react-hook-form";
 
-import InputErrorPop from "../PopOver";
+import { Input } from "./Input";
 
 type ExtraInputProps = {
   label?: string;
@@ -20,52 +19,6 @@ type ExtraInputProps = {
 
 type HookInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
   ExtraInputProps;
-
-export const PrimaryInput = React.forwardRef<HTMLInputElement, HookInputProps>(({ label, error, ...props }, ref) => {
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  return (
-    <div className={` w-full input`}>
-      <div className="relative w-full">
-        <input
-          {...props}
-          autoComplete={props.autoComplete ?? "off"}
-          required={props.required !== false}
-          className={error ? "input_error relative shadow-E200" : "input_container shadow-E200"}
-          ref={ref}
-          type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
-        />
-
-        {props.type === "password" && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowPassword(!showPassword);
-            }}
-            className="absolute text-gray-400 -translate-y-1/2 cursor-pointer right-6 top-1/2 hover:text-gray-600 nofadeInLogin"
-          >
-            <div className="relative flex ">
-              <div className={`${!showPassword ? "absolute opacity-100" : "opacity-0"}`}>
-                <Eye size={18} weight="bold" />
-              </div>
-              <div className={`${showPassword ? "absolute opacity-100" : "opacity-0"} `}>
-                <EyeClosed size={18} weight="bold" />
-              </div>
-            </div>
-          </button>
-        )}
-        {error && <InputErrorPop error={error} />}
-      </div>
-
-      {/* // {showLabel && ( */}
-      <label htmlFor={props.id} className="input_label text-gray-700">
-        {label}
-      </label>
-      {/* // )} **/}
-    </div>
-  );
-});
 
 type HookSearchInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   label?: string;
@@ -179,8 +132,9 @@ export const FileInput = React.forwardRef<HTMLInputElement, HookInputProps>(
   }
 );
 
-PrimaryInput.displayName = "PrimaryInput";
 SwitchInput.displayName = "SwitchInput";
 RadioInput.displayName = "RadioInput";
 SearchInput.displayName = "SearchInput";
 FileInput.displayName = "FileInput";
+
+export default Input;

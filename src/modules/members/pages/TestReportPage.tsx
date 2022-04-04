@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { useReactToPrint } from "react-to-print";
 
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Loader } from "@/components/Loader";
 import { TableView } from "@/components/Table";
 
@@ -131,14 +131,14 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                   })}
                   className="flex items-end space-x-4"
                 >
-                  <PrimaryInput
+                  <Input
                     label="Enter Start Date"
                     type="datetime-local"
-                    required={true}
+                    required={false}
                     max={now.toISOString().slice(0, 16)}
                     {...register("start_date")}
                   />
-                  <PrimaryInput
+                  <Input
                     label="Enter End Date"
                     type="datetime-local"
                     required={false}

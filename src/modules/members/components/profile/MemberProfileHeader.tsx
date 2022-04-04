@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { MemberModal } from "@/modules/members/components/modal/MemberModal";
@@ -230,19 +230,19 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
                         className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
                       >
                         <div className="space-y-8">
-                          <PrimaryInput
+                          <Input
                             label="Old Password"
                             type="password"
                             placeholder="Enter Old Password"
                             {...register("oldPassword")}
                           />
-                          <PrimaryInput
+                          <Input
                             label="New Password"
                             type="password"
                             placeholder="Enter New Password"
                             {...register("newPassword")}
-                          />{" "}
-                          <PrimaryInput
+                          />
+                          <Input
                             label="Confirm New Password"
                             type="password"
                             placeholder="Confirm New Password"

@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { Switch } from "@/components/Switch";
 
@@ -122,7 +122,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                       {category.value_type.toLowerCase() === "boolean" ? (
                         <Switch name={`${category.id}-${category.slug}`} control={control} label={category.name} />
                       ) : (
-                        <PrimaryInput
+                        <Input
                           label={category.name}
                           type={category.value_type}
                           required={!!category.required}

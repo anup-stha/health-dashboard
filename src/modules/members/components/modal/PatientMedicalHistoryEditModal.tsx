@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput, RadioInputController } from "@/components/Input";
+import Input, { RadioInputController } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { Member } from "@/modules/members/types";
@@ -116,7 +116,7 @@ export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }:
         />
         {note === 1 && (
           <div className="col-span-2">
-            <PrimaryInput placeholder={`Note for ${name} `} defaultValue="" {...register(`${id}-${slug}-note`)} />
+            <Input placeholder={`Note for ${name} `} defaultValue="" {...register(`${id}-${slug}-note`)} />
           </div>
         )}
       </div>

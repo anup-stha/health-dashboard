@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 
 import { changePassword } from "@/services/requests/authRequests";
@@ -65,19 +65,22 @@ export const PasswordModal = ({ close }: { close: any }) => {
               className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
             >
               <div className="space-y-8">
-                <PrimaryInput
+                <Input
                   label="Old Password"
                   type="password"
+                  required={true}
                   placeholder="Enter Old Password"
                   {...register("oldPassword")}
                 />
-                <PrimaryInput
+                <Input
                   label="New Password"
                   type="password"
+                  required={true}
                   placeholder="Enter New Password"
                   {...register("newPassword")}
-                />{" "}
-                <PrimaryInput
+                />
+                <Input
+                  required={true}
                   label="Confirm New Password"
                   type="password"
                   placeholder="Confirm New Password"

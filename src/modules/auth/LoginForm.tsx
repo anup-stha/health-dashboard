@@ -13,7 +13,7 @@ import * as yup from "yup";
 
 import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { Input } from "@/components/Input/Input";
+import Input from "@/components/Input";
 
 import { login } from "@/services/requests/authRequests";
 

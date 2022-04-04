@@ -11,8 +11,7 @@ import React, { Fragment } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/Button";
-import { SwitchInput } from "@/components/Input";
-import { Input } from "@/components/Input/Input";
+import Input, { SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 import { promiseToast } from "@/components/Toast";

@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/Button";
 import { Heading } from "@/components/Headings";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Loader } from "@/components/Loader";
 import { Modal } from "@/components/Modal/useModal";
 import { BooleanTag } from "@/components/others/BooleanTag";
@@ -153,7 +153,7 @@ export const OtherFieldAddForm: React.FC<OtherFieldAddEditFormProps> = ({ type, 
       )}
     >
       <div className="space-y-4">
-        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
+        <Input label="Name" type="text" placeholder="Enter Name" {...register("name")} />
         <DropdownController options={options} name="value_type" label="Select Value Type" control={control} />
 
         <Switch name="required" control={control} label="Required" />

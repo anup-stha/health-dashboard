@@ -11,7 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 
 import { Button } from "@/components/Button";
-import { PrimaryInput } from "@/components/Input";
+import Input from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { Switch } from "@/components/Switch";
 
@@ -59,7 +59,7 @@ export const RoleMemberCategoryForm: React.FC<memberCategoryFormProps> = ({ type
     >
       <div className="space-y-4">
         <DropdownController options={options} name="value_type" label="Select Value Type" control={control} />
-        <PrimaryInput label="Name" type="text" placeholder="Enter Name" {...register("name")} />
+        <Input required={true} label="Name" type="text" placeholder="Enter Name" {...register("name")} />
         <Switch name="required" control={control} label=" Required " />
       </div>
 

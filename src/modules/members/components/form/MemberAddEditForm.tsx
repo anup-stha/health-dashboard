@@ -12,8 +12,7 @@ import { UseFormReturn } from "react-hook-form";
 
 import { alert, toastAlert } from "@/components/Alert";
 import { Button } from "@/components/Button";
-import { SwitchInput } from "@/components/Input";
-import { Input } from "@/components/Input/Input";
+import Input, { SwitchInput } from "@/components/Input";
 import { Modal } from "@/components/Modal/useModal";
 import { ProvinceDropdown } from "@/components/ProvinceDropdown/ProvinceDropdown";
 

@@ -54,7 +54,6 @@ export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
               input_container: !hasIcons && !error,
               input_error: !hasIcons && !!error,
             })}
-            required={true}
             type={!showPassword ? type : "text"}
             placeholder={label}
             id={label}
@@ -63,7 +62,7 @@ export const Input = React.forwardRef<HTMLInputElement, HookInputProps>(
           />
 
           <label htmlFor={label} className="input_label">
-            {label}
+            {label} {props.required ? <span className="text-lg text-error-600"> *</span> : null}
           </label>
         </div>
       </>
