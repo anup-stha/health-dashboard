@@ -101,14 +101,14 @@ export const superAdminNavRoutes: RouteObjectType[] = [
         icon: <DiamondsFour size={24} />,
         link: "/others",
       },
-      {
-        id: 5,
-        title: "How To Use",
-        icon: <Question size={24} />,
-        link: false,
-        modal: ({ children }) => <WelcomeModal images={adminWelcomeSlides}> {children}</WelcomeModal>,
-      },
     ],
+  },
+  {
+    id: 5,
+    title: "How To Use",
+    icon: <Question size={24} />,
+    link: false,
+    modal: ({ children }) => <WelcomeModal images={adminWelcomeSlides}> {children}</WelcomeModal>,
   },
 ];
 
