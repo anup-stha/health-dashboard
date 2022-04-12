@@ -8,13 +8,20 @@
 
 import { HambergerMenu } from "iconsax-react";
 import { useRouter } from "next/router";
+import { Question } from "phosphor-react";
+import React from "react";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
+import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
+import { WelcomeModal } from "@/modules/dashboard/modal/WelcomeModal";
+import { orgAdminWelcomeSlides } from "@/modules/org-admin/dashboard";
 import { useSideBarStore } from "@/routes/SideBar/useSideBarStore";
 import { ImageAvatar } from "@/services/Avatar";
 
 import Breadcrumbs from "./BreadCrumb";
 
 export const MainHeader: React.FC = () => {
+  const user = useAuthStore((state) => state.user);
   const router = useRouter();
   const { open, toggleOpen } = useSideBarStore();
 
@@ -40,7 +47,15 @@ export const MainHeader: React.FC = () => {
           )}
         </div>
 
-        <ImageAvatar />
+        <div className="flex items-center gap-8">
+          <WelcomeModal images={user?.role?.id === 1 ? adminWelcomeSlides : orgAdminWelcomeSlides}>
+            <div className="text-gray-600 hover:text-gray-900 cursor-pointer" title="How to Use">
+              <Question size={32} />
+            </div>
+          </WelcomeModal>
+
+          <ImageAvatar />
+        </div>
       </div>
       <hr className="border-t-[1px] border-primary_gray-200" />{" "}
       {router.asPath !== "/dashboard" && (

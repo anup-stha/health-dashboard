@@ -88,7 +88,7 @@ export const WelcomeModal: React.FC<IWelcomeModalProps> = ({ children, images })
                   src={images[imageIndex].link + "?ap=em"}
                   layout="fill"
                   className="rounded-xl"
-                  objectFit="cover"
+                  objectFit="contain"
                   alt="Welcome Image"
                 />
                 {imageIndex !== images.length - 1 && (

@@ -37,7 +37,7 @@ export const ImageAvatar: React.FC = () => {
       <Menu.Button>
         <div className="flex items-center space-x-2">
           {user.image ? (
-            <div className="w-10 h-10 bg-white rounded-full relative overflow-hidden">
+            <div className="w-8 h-8 bg-white rounded-full relative overflow-hidden">
               <Image src={user.image} layout="fill" alt="Avatar" objectFit="cover" />
             </div>
           ) : (
