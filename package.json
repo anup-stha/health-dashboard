@@ -35,7 +35,6 @@
     "@hookform/devtools": "^4.0.1",
     "@hookform/resolvers": "^2.8.4",
     "@iconscout/react-unicons": "^1.1.6",
-    "@sentry/nextjs": "^6.18.2",
     "@storybook/addon-docs": "^6.4.19",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
