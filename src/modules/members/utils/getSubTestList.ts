@@ -17,6 +17,7 @@ export const getSubTestList = (testList: MemberTestList[]) => {
         app_slug: element.app_slug,
         test_date: element.test_date,
         temperature: element.temperature,
+        test_name: element.test_name,
 
         tests: element.report.map((sub) => {
           return {

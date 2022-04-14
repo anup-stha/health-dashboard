@@ -18,6 +18,40 @@ import { isValidHttpUrl } from "@/utils/isValidHttpUrl";
 
 import { MemberTestListData, MemberTestReport } from "@/types";
 
+export const URINE_ORDER = [
+  "uro",
+  "bil",
+  "ket",
+  "cre",
+  "blo",
+  "pro",
+  "alb",
+  "nit",
+  "leu",
+  "glu",
+  "sg",
+  "ph",
+  "vc",
+  "ca",
+];
+
+export const URINE_TEST: { [key: string]: string } = {
+  uro: "Urobilinogen",
+  bil: "Bilirubin",
+  ket: "Ketone",
+  cre: "Creatinine",
+  blo: "Blood",
+  pro: "Protein",
+  alb: "Micro Albumin",
+  nit: "Nitrite",
+  leu: "Leukocytes",
+  glu: "Glucose",
+  sg: "Specific Gravity",
+  ph: "ph",
+  vc: "Ascorbate",
+  ca: "Calcium",
+};
+
 type ProfileTestData = {
   id: number;
   app_slug: string;
@@ -40,27 +74,42 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
         {data.temperature ?? "N/A"}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
-        {data.tests.map((element, index) => {
-          if (isValidHttpUrl(Object.values(element)[0])) {
-            return (
-              <div key={index} className="flex space-x-2">
-                <a
-                  href={Object.values(element)[0]}
-                  className="font-medium text-primary_gray-600 cursor-pointer underline hover:text-primary_gray-800"
-                >
-                  Report Link
-                </a>
-              </div>
-            );
-          }
+        {data.test_name.toLowerCase() === "urine"
+          ? URINE_ORDER.map((element, index) => {
+              return (
+                <div key={index} className="flex space-x-2 text-primary_gray-700">
+                  <span className="font-medium text-primary_gray-500">{URINE_TEST[element]} : </span>
+                  <span className="font-medium line-clamp-1">
+                    {
+                      data.tests.find((test) =>
+                        Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                      )?.[element]
+                    }
+                  </span>
+                </div>
+              );
+            })
+          : data.tests.map((element, index) => {
+              if (isValidHttpUrl(Object.values(element)[0])) {
+                return (
+                  <div key={index} className="flex space-x-2">
+                    <a
+                      href={Object.values(element)[0]}
+                      className="font-medium text-primary_gray-600 cursor-pointer underline hover:text-primary_gray-800"
+                    >
+                      Report Link
+                    </a>
+                  </div>
+                );
+              }
 
-          return (
-            <div key={index} className="flex space-x-2 text-primary_gray-700">
-              <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
-              <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
-            </div>
-          );
-        })}
+              return (
+                <div key={index} className="flex space-x-2 text-primary_gray-700">
+                  <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
+                  <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
+                </div>
+              );
+            })}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 text-primary_gray-600">
         {data.tests.map((element, index) => (
