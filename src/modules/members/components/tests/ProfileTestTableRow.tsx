@@ -52,8 +52,6 @@ export const URINE_TEST: { [key: string]: string } = {
   ca: "Calcium",
 };
 
-export const VITALS_TEST: { [key: string]: string } = {};
-
 type ProfileTestData = {
   id: number;
   app_slug: string;
