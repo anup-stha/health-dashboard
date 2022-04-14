@@ -10,12 +10,14 @@ import moment from "moment";
 import Image from "next/image";
 import React from "react";
 
+import { URINE_ORDER, URINE_TEST } from "@/modules/members/components/tests/ProfileTestTableRow";
 import { Member } from "@/modules/members/types";
 import { utcDateToLocal } from "@/modules/members/utils/utcDateToLocal";
 import { isServer } from "@/services/isServer";
 
 type ProfileTestData = {
   app_slug: string;
+  test_name: string;
   test_date: Date;
   temperature: number | null;
   tests: { [p: string]: any }[];
@@ -45,6 +47,9 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(({ 
                   </h1>
                   <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
                     Address: {member.address}
+                  </h1>
+                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
+                    Age: {member.age} years
                   </h1>
                   <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
                     Gender: {member.gender}
@@ -112,12 +117,31 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(({ 
                 </div>
               </td>
               <td className="capitalize py-4 text-xl space-y-2 break-words ">
-                {data.tests.map((element, index) => (
-                  <div key={index} className="text-primary_gray-700">
-                    <span className="inline font-medium text-primary_gray-500 block">{Object.keys(element)[0]} : </span>
-                    <span className="inline font-medium block text-lg ">{Object.values(element)[0]}</span>
-                  </div>
-                ))}
+                {data.test_name.toLowerCase() === "urine"
+                  ? URINE_ORDER.map((element, index) => {
+                      console.log();
+
+                      return (
+                        <div key={index} className="flex space-x-2 text-primary_gray-700">
+                          <span className="font-medium text-primary_gray-500">{URINE_TEST[element]} : </span>
+                          <span className="font-medium line-clamp-1">
+                            {
+                              data.tests.find((test) =>
+                                Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                              )?.[element]
+                            }
+                          </span>
+                        </div>
+                      );
+                    })
+                  : data.tests.map((element, index) => (
+                      <div key={index} className="text-primary_gray-700">
+                        <span className="inline font-medium text-primary_gray-500 block">
+                          {Object.keys(element)[0]} :{" "}
+                        </span>
+                        <span className="inline font-medium block text-lg ">{Object.values(element)[0]}</span>
+                      </div>
+                    ))}
               </td>
               <td className="capitalize py-4 text-xl space-y-2 text-primary_gray-600 break-words">
                 {data.tests.map((element, index) => (
