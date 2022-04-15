@@ -87,7 +87,6 @@ export const ExcelImport = ({ role }: IExcelImport) => {
             const excel_category = memberDetailCategories.find((category) => category.slug === headers[index]);
 
             if (!excel_category) {
-              toast.error("Invalid Excel File");
               return;
             }
 
@@ -99,7 +98,9 @@ export const ExcelImport = ({ role }: IExcelImport) => {
             temp = { ...temp, [headers[index]]: memberDetails };
           }
         });
-        temp = { ...temp, details };
+        if (details.length !== 0) {
+          temp = { ...temp, details };
+        }
         final_data.push(temp);
       });
 
@@ -267,7 +268,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                           closeModal();
                           setImportedData([]);
                           queryClient.invalidateQueries("member-list");
-                          queryClient.invalidateQueries("member-nested-list");
+                          queryClient.invalidateQueries("member-list-nested");
                         },
                         msgs: {
                           loading: "Adding Patients",

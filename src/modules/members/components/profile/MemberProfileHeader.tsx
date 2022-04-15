@@ -379,6 +379,30 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
               </Link>
             )
           ) : null}
+
+          {member.role && member.role.slug === "teacher" ? (
+            user.id === 1 ? (
+              <Link href="/members/school_admin/teacher/test_report" passHref>
+                <Button size="sm">Test Report</Button>
+              </Link>
+            ) : (
+              <Link href="/members/teacher/test_report" passHref>
+                <Button size="sm">Test Report</Button>
+              </Link>
+            )
+          ) : null}
+
+          {member.role && member.role.slug === "student" ? (
+            user.id === 1 ? (
+              <Link href="/members/school_admin/student/test_report" passHref>
+                <Button size="sm">Test Report</Button>
+              </Link>
+            ) : (
+              <Link href="/members/student/test_report" passHref>
+                <Button size="sm">Test Report</Button>
+              </Link>
+            )
+          ) : null}
         </div>
       </div>
     </div>
