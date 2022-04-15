@@ -215,7 +215,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
               <div className="inline-block w-full max-w-8xl px-12 py-8 my-16 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-6">
                 <Heading
                   title="Import Members"
-                  subtitle="Please enter data into the supplied excel file, filling out all fields and don't change the headers. Following the completion of the data, upload the excel file."
+                  subtitle="Please enter data into the supplied excel file, filling out all fields and don't change the headers. Following the completion of the data, upload the excel file. Date format is YYYY-MM-DD"
                 />
 
                 {importedData.length !== 0 ? (
