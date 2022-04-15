@@ -151,7 +151,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
           <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
 
           {type === "add" ? (
-            <Input label="Phone" type="number" placeholder="Enter Phone" {...register("phone")} required={true} />
+            <Input label="Phone" type="number" placeholder="Enter Phone" {...register("phone")} />
           ) : null}
 
           <div className="flex gap-x-6">
