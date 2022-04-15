@@ -10,11 +10,19 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 import { NavDropdown } from "./NavDropdown";
 import { NavItem } from "./NavItem";
-import { orgNavRoutes, superAdminNavRoutes } from "./routes";
+import { orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
   const role = useAuthStore().user.role;
-  const navBarRoutes = role ? (role.id === 1 ? superAdminNavRoutes : role.id === 2 ? orgNavRoutes : []) : [];
+  const navBarRoutes = role
+    ? role.id === 1
+      ? superAdminNavRoutes
+      : role.id === 2
+      ? orgNavRoutes
+      : role.slug === "school_admin"
+      ? schoolAdminNavRoutes
+      : []
+    : [];
 
   return (
     <div className="w-full text-sm">

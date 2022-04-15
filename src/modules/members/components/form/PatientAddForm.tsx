@@ -152,7 +152,7 @@ export const PatientAddForm: React.FC<UserAddFormProps> = ({
     >
       <Modal.Scrollable>
         <div className="space-y-4">
-          <Input label="Name" type="text" placeholder="Enter Name" required={true} {...register("name")} />
+          <Input label="Name" type="text" placeholder="Enter Name" {...register("name")} />
 
           <Input label="Phone" type="number" placeholder="Enter Phone" {...register("phone")} />
 

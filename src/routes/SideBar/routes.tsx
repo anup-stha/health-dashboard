@@ -135,5 +135,28 @@ export const orgNavRoutes: RouteObjectType[] = [
   },
 ];
 
+export const schoolAdminNavRoutes: RouteObjectType[] = [
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: <Home size={24} />,
+    link: "/dashboard",
+  },
+  {
+    id: 21,
+    title: "Members",
+    icon: <UserList size={24} />,
+    link: "/members",
+  },
+  {
+    id: 3,
+    title: "How To Use",
+    icon: <Question size={24} />,
+    link: false,
+    modal: ({ children }) => <WelcomeModal images={orgAdminWelcomeSlides}> {children}</WelcomeModal>,
+  },
+];
+
 export const adminRoutes = convertToLink(superAdminNavRoutes, [], adminExtraRoute);
 export const orgRoutes = convertToLink(orgNavRoutes, [], orgExtraRoutes);
+export const schoolRoutes = convertToLink(schoolAdminNavRoutes, [], []);

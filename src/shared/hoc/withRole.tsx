@@ -25,6 +25,8 @@ export const withRole = (WrappedComponent: React.FC) => {
           setRolePermitted(true);
         } else if (role.id === 2 && orgRoutes.includes(router.pathname)) {
           setRolePermitted(true);
+        } else if (role.slug === "school_admin" && orgRoutes.includes(router.pathname)) {
+          setRolePermitted(true);
         } else {
           router.push("/404");
         }
