@@ -7,6 +7,7 @@
  */
 
 import Router from "next/router";
+import { Cookies } from "react-cookie";
 import { toast } from "react-hot-toast";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
@@ -29,6 +30,8 @@ import {
 } from "@/types";
 
 export const login = (loginRequest: LoginRequest) => {
+  const cookies = new Cookies();
+
   return new Promise((resolve, reject) =>
     publicAgent
       .post<LoginResponse>(`auth/login`, {
@@ -38,6 +41,8 @@ export const login = (loginRequest: LoginRequest) => {
         device_details: window.navigator.userAgent,
       })
       .then(async (response) => {
+        cookies.set("token", response.data.data.token);
+        cookies.set("token", response.data.data.token, { domain: "https://school.sunya.health" });
         try {
           const globalStateResponse = await getGlobalStates();
           if (globalStateResponse) {
