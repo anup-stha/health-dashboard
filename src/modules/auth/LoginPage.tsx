@@ -9,10 +9,17 @@
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
+import { useCookies } from "react-cookie";
+
+import { Button } from "@/components/Button";
 
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
+  console.log(cookies);
+
   return (
     <div
       suppressHydrationWarning={true}
@@ -41,6 +48,16 @@ export const LoginPage = () => {
             </p>
           </div>
           <LoginForm />
+          <Button
+            onClick={() => {
+              console.log("Clicked");
+
+              setCookie("token", "134130");
+              setCookie("token", "134130", { domain: "school.sunya.health" });
+            }}
+          >
+            Set Cookie
+          </Button>
           <div className="pt-8 gap-2 flex flex-col items-start fadeInLogin">
             <div className="text-base font-medium text-gray-600">&#169; Copyright by Sunya Health Pvt. Ltd.</div>
             <p className="text-base font-medium text-gray-400">
