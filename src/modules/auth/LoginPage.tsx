@@ -52,6 +52,8 @@ export const LoginPage = () => {
             onClick={() => {
               console.log("Clicked");
 
+              document.cookie = "real=123; domain=school.sunya.health";
+
               setCookie("token", "134130");
               setCookie("token", "134130", { domain: "school.sunya.health" });
             }}
