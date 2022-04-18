@@ -41,7 +41,7 @@ export const login = (loginRequest: LoginRequest) => {
         device_details: window.navigator.userAgent,
       })
       .then(async (response) => {
-        cookies.set("token", response.data.data.token, { domain: "school.sunya.health" });
+        cookies.set("token", response.data.data.token, { domain: "https://school.sunya.health" });
         try {
           const globalStateResponse = await getGlobalStates();
           if (globalStateResponse) {
