@@ -42,21 +42,17 @@ export const login = (loginRequest: LoginRequest) => {
         Cookies.set("test_token", response.data.data.token, {
           domain: "school.sunya.health",
           sameSite: "none",
-          secure: false,
+          secure: true,
           path: "/",
         });
 
         Cookies.set("token", response.data.data.token, {
           domain: ".sunya.health",
-          sameSite: "none",
-          secure: false,
           path: "/",
         });
 
         Cookies.set("redirect_url", "https://school.sunya.health", {
           domain: ".sunya.health",
-          sameSite: "None",
-          secure: false,
           path: "/",
         });
 
