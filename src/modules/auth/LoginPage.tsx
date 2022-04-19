@@ -6,13 +6,10 @@
  *
  */
 
-import Cookies from "js-cookie";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
 import { useCookies } from "react-cookie";
-
-import { Button } from "@/components/Button";
 
 import LoginForm from "./LoginForm";
 
@@ -47,23 +44,7 @@ export const LoginPage = () => {
             </p>
           </div>
           <LoginForm />
-          <Button
-            onClick={() => {
-              console.log("Clicked");
 
-              try {
-                Cookies.set("token", "123", {
-                  domain: "school.sunya.health",
-                  path: "/",
-                });
-                setCookies("real", "abc", { httpOnly: true });
-              } catch (e) {
-                window.alert(e);
-              }
-            }}
-          >
-            Set Cookie
-          </Button>
           <div className="pt-8 gap-2 flex flex-col items-start fadeInLogin">
             <div className="text-base font-medium text-gray-600">&#169; Copyright by Sunya Health Pvt. Ltd.</div>
             <p className="text-base font-medium text-gray-400">
