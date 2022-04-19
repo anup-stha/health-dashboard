@@ -10,12 +10,15 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
+import { useCookies } from "react-cookie";
 
 import { Button } from "@/components/Button";
 
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
+  const [cookies, setCookies] = useCookies();
+
   return (
     <div
       suppressHydrationWarning={true}
@@ -50,9 +53,10 @@ export const LoginPage = () => {
 
               try {
                 Cookies.set("token", "123", {
-                  domain: "school.sunya.health",
+                  domain: ".sunya.health",
                   path: "/",
                 });
+                setCookies("real", "abc", { httpOnly: true });
               } catch (e) {
                 window.alert(e);
               }
