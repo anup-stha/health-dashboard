@@ -53,7 +53,7 @@ export const LoginPage = () => {
 
               try {
                 Cookies.set("token", "123", {
-                  domain: ".sunya.health",
+                  domain: "school.sunya.health",
                   path: "/",
                 });
                 setCookies("real", "abc", { httpOnly: true });
