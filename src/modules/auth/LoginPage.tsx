@@ -6,20 +6,16 @@
  *
  */
 
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
-import { useCookies } from "react-cookie";
 
 import { Button } from "@/components/Button";
 
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
-  const [cookies, setCookie] = useCookies(["token"]);
-
-  console.log(cookies);
-
   return (
     <div
       suppressHydrationWarning={true}
@@ -52,10 +48,14 @@ export const LoginPage = () => {
             onClick={() => {
               console.log("Clicked");
 
-              document.cookie = "real=123; domain=school.sunya.health";
-
-              setCookie("token", "134130");
-              setCookie("token", "134130", { domain: "school.sunya.health" });
+              try {
+                Cookies.set("token", "123", {
+                  domain: "school.sunya.health",
+                  path: "/",
+                });
+              } catch (e) {
+                window.alert(e);
+              }
             }}
           >
             Set Cookie

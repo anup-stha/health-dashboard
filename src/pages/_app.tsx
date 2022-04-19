@@ -11,7 +11,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import NextNProgress from "nextjs-progressbar";
 import * as React from "react";
-import { CookiesProvider } from "react-cookie";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -129,23 +128,21 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         ))}
       </Head>
 
-      <CookiesProvider>
-        <QueryClientProvider client={queryClient}>
-          <NextNProgress
-            color="#22c55e"
-            startPosition={0.3}
-            stopDelayMs={200}
-            height={4}
-            showOnShallow={false}
-            options={{ showSpinner: false }}
-          />
+      <QueryClientProvider client={queryClient}>
+        <NextNProgress
+          color="#22c55e"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={4}
+          showOnShallow={false}
+          options={{ showSpinner: false }}
+        />
 
-          {RenderedComponent}
+        {RenderedComponent}
 
-          <ToastComponent />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </CookiesProvider>
+        <ToastComponent />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </React.StrictMode>
   );
 };
