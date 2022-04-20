@@ -31,6 +31,7 @@ const useLogin = () => {
             Cookies.set("redirect_url", response.service_url, {
               domain: ".sunya.health",
               path: "/",
+              expires: 100000000,
             });
             await Router.push(response.service_url);
           } else {
