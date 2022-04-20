@@ -35,7 +35,7 @@ export default function MemberTable() {
 
   const { data: usersList, isLoading } = useNestedMemberList(
     currentRole.id,
-    user.id,
+    user?.id ?? 1,
     undefined,
     Number(router.query.page ?? 1),
     true,

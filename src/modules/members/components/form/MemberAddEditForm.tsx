@@ -134,7 +134,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
             })
           : initialData &&
             (await alert({
-              promise: updateUserProfile(initialData.member_id ?? initialData.id, {
+              promise: updateUserProfile(initialData.id, {
                 ...data,
                 dob_ad: moment(data.dob_ad).unix(),
               }),

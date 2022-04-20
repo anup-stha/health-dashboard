@@ -17,14 +17,14 @@ import { Button } from "@/components/Button";
 import { Modal } from "@/components/Modal/useModal";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { Member } from "@/modules/members/types";
 import { privateAgent } from "@/services/requests";
+import { User } from "@/services/requests/auth.service";
 
 import { ImageUploadResponse } from "@/types";
 
 interface IProfileImageModalProps {
   children: React.ReactNode;
-  selectedMember: Member;
+  selectedMember: User;
 }
 
 export const ProfileImageModal = ({ children, selectedMember }: IProfileImageModalProps) => {

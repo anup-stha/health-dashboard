@@ -30,13 +30,13 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
       return ["overview", "subscriptions", "tests", "devices"];
 
     case "org_admin":
-      if (useAuthStore.getState().user.id !== 1) {
+      if (useAuthStore.getState().user?.id !== 1) {
         return ["overview", "subscriptions"];
       }
       return ["overview", "members", "subscriptions", "devices"];
 
     case "org_operator":
-      if (useAuthStore.getState().user.id !== 1) {
+      if (useAuthStore.getState().user?.id !== 1) {
         return ["overview"];
       }
       return ["overview", "devices"];
@@ -45,7 +45,7 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
       return ["overview", "tests", "medical history"];
 
     case "school_admin":
-      if (useAuthStore.getState().user.id !== 1) {
+      if (useAuthStore.getState().user?.id !== 1) {
         return ["overview"];
       }
       return ["overview", "members", "subscriptions"];

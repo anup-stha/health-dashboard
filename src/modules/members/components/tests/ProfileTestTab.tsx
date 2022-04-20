@@ -51,7 +51,7 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
         <div className="flex items-start gap-2">
           <ProfileTestExport testList={testList} selectedMember={selectedMember} />{" "}
           {selectedMember.role && selectedMember.role.slug === "patient" ? (
-            user.id === 1 ? (
+            user?.id === 1 ? (
               <Link href="/members/org_admin/patient/test_report" passHref>
                 <Button size="sm">Generate Test Report</Button>
               </Link>

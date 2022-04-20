@@ -6,6 +6,8 @@
  *
  */
 
+import { Role } from "@/models/role.model";
+
 import { Permission } from "@/types";
 
 export type MemberListResponse = {
@@ -47,27 +49,26 @@ export type MemberOtherDetails = {
 
 export type Member = {
   id: number;
-  member_code: string;
   parent_member_id: number;
-  member_id?: number;
-  uuid: string;
   name: string;
+  uuid: string;
+  member_code: string;
   lat: number;
-  age?: number;
   lng: number;
-  phone: string;
   dob_ad: number;
-  dob_bs: string;
+  dob_bs?: number;
+  age: number;
+  phone: string;
+  address: string;
   gender: string;
   marital_status: string;
-  address: string;
+  image: string;
   active: boolean;
   verified: boolean;
   email: string;
-  can_login: boolean;
+  can_login: string;
   ref_key: string;
-  role: MemberRole;
-  image: string;
+  role: Role;
   medical_history: MemberMedicalHistory[];
   details: MemberOtherDetails[];
 };

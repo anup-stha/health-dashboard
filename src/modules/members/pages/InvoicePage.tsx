@@ -39,18 +39,14 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
   const user = useAuthStore((state) => state.user);
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const invoiceId = useMemberStore((state) => state.invoice_id);
-  const { data: selectedSubscription } = useMemberSubsDetails(selectedMember.member_id ?? selectedMember.id);
+  const { data: selectedSubscription } = useMemberSubsDetails(selectedMember.id);
   const [paid, setPaid] = useState(false);
 
   const [vat, setVat] = useState(13);
   const [discount, setDiscount] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
 
-  const {
-    data: invoiceList,
-    isFetching,
-    isLoading,
-  } = useInvoiceList(selectedMember.member_id ?? selectedMember.id, invoice_id);
+  const { data: invoiceList, isFetching, isLoading } = useInvoiceList(selectedMember.id, invoice_id);
   const selectedSubsInvoice = invoiceList?.data.data.find((invoice) => invoice.invoice_no === invoice_id);
 
   const [invoiceData, setInvoiceData] = useState({
@@ -128,9 +124,9 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
             <div className="flex items-center justify-between">
               <div className="flex items-center ">
                 <div className="relative h-20 w-20 cursor-pointer">
-                  {user.id === 1 && user.image ? (
+                  {user?.id === 1 && user?.image ? (
                     <div className="w-20 h-20 rounded-full object-contain overflow-hidden relative">
-                      <Image src={user.image} layout="fill" objectFit="cover" alt="profile" />
+                      <Image src={user?.image} layout="fill" objectFit="cover" alt="profile" />
                     </div>
                   ) : (
                     <LetteredAvatar name="Sunya Health" size="60" round={true} maxInitials={2} />
@@ -386,7 +382,7 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                     ? moment.unix(selectedInvoice.transaction_date / 1000).format("DD MMM YYYY")
                     : moment().add(15, "days").format("DD MMM YYYY")}
                 </div>
-                {!paid && user.id === 1 ? (
+                {!paid && user?.id === 1 ? (
                   <>
                     <hr className="border-t-[1px] border-primary_gray-400/40" />
                     <div>

@@ -69,10 +69,10 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
           <div className="h-[0.4px] bg-slate-200 -mx-8" />
           {isEmpty(selectedMemberSubscription) ? (
             <>
-              {(subscriptionList.list.length === 0 || user.id !== 1) && isEmpty(selectedSubscription) ? (
+              {(subscriptionList.list.length === 0 || user?.id !== 1) && isEmpty(selectedSubscription) ? (
                 <div className="print:hidden flex items-center text-red-500 space-x-4">
                   <WarningOctagon size={40} />{" "}
-                  {user.id === 1 ? (
+                  {user?.id === 1 ? (
                     <span className="font-medium">
                       No Subscription Found. Please add a subscription to this role{" "}
                       <span onClick={() => router.push("/subscriptions")} className="cursor-pointer">
@@ -85,7 +85,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                     </span>
                   )}
                 </div>
-              ) : user.id === 1 ? (
+              ) : user?.id === 1 ? (
                 <>
                   <div className="flex items-end space-x-4 w-full">
                     <div className="w-1/3">
@@ -155,7 +155,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                         </div>
                       </div>
                       <div className="self-start">
-                        {user.id === 1 && (
+                        {user?.id === 1 && (
                           <Button
                             size="sm"
                             onClick={() => {
@@ -205,7 +205,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
 
                   <div className="h-[0.4px] -mx-4 bg-slate-200 " />
                   <div className="self-end pt-4">
-                    {user.id === 1 && (
+                    {user?.id === 1 && (
                       <>
                         <DeleteModal
                           disabled={false}

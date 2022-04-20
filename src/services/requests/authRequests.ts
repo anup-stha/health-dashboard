@@ -118,7 +118,7 @@ export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => 
           getCurrentUserProfile().then(() => resolve(response.data.message));
         } else if (member.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentMember(response.data.data);
-        } else if (user.id === response.data.data.id) {
+        } else if (user?.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentUser(response.data.data);
         }
 

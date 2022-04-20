@@ -35,7 +35,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   const onToggleActive = (status: boolean) => {
     if (member.id === memberId) {
       setCurrentMember({ ...member, active: status });
-    } else if (user.id === memberId) {
+    } else if (user?.id === memberId) {
       setCurrentUser({ ...user, active: status });
     }
     setCurrentState(status);
@@ -44,7 +44,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
   const onToggleVerified = (status: boolean) => {
     if (member.id === memberId) {
       setCurrentMember({ ...member, verified: status });
-    } else if (user.id === memberId) {
+    } else if (user?.id === memberId) {
       setCurrentUser({ ...user, verified: status });
     }
     setCurrentState(status);

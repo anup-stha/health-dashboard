@@ -78,7 +78,7 @@ export const OrgAdminDashboard = () => {
     return (
       <div className="px-10 pb-8 sm:px-6 sm:py-6 -mt-2 space-y-14 w-full sm:-mt-12 dashboard-bg">
         <div>
-          <h1 className="text-5xl text-primary_gray-800 font-medium sm:text-2xl ">Hello, {user.name}</h1>
+          <h1 className="text-5xl text-primary_gray-800 font-medium sm:text-2xl ">Hello, {user?.name}</h1>
           <p className="text-xl text-primary_gray-500 font-medium">Welcome Back To Dashboard!</p>
         </div>
       </div>
@@ -87,16 +87,16 @@ export const OrgAdminDashboard = () => {
 
   return (
     <div className="px-10 pb-8 sm:px-6 sm:py-6 -mt-2 space-y-14 w-full sm:-mt-12 dashboard-bg">
-      {user.verified || user.id === 1 ? null : <UnVerifiedModal />}
+      {user?.verified || user?.id === 1 ? null : <UnVerifiedModal />}
 
       <div>
-        <h1 className="text-5xl text-primary_gray-800 font-medium sm:text-2xl ">Hello, {user.name}</h1>
+        <h1 className="text-5xl text-primary_gray-800 font-medium sm:text-2xl ">Hello, {user?.name}</h1>
         <p className="text-xl text-primary_gray-500 font-medium">Welcome Back To Dashboard!</p>
       </div>
 
       <div className="w-full flex items-start gap-6 md:flex-col relative sm:gap-4">
         <div className="w-5/6 h-full flex flex-col gap-6 md:w-full md:gap-4">
-          {user.id === 1 ? <StatCardGroup data={data} /> : <OrgStatCardGroup data={data} />}
+          {user?.id === 1 ? <StatCardGroup data={data} /> : <OrgStatCardGroup data={data} />}
 
           <StatCardGroupVariant2 data={data} />
         </div>

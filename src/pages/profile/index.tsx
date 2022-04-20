@@ -32,7 +32,7 @@ const Profile = () => {
     getProfile();
   }, []);
 
-  const { isLoading } = useMemberSubsDetails(user.member_id ?? 0);
+  const { isLoading } = useMemberSubsDetails(user?.id ?? 0);
 
   return (
     <>

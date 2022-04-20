@@ -132,7 +132,7 @@ export const addDetailsToMember = (roleId: number, memberId: number, data: Recor
             ...currentMember,
             details: response.data.data,
           });
-        } else if (currentUser.id === memberId) {
+        } else if (currentUser?.id === memberId) {
           useCurrentMemberStore.getState().setCurrentUser({ ...currentUser, details: response.data.data });
         }
 

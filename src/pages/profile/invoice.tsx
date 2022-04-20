@@ -18,12 +18,12 @@ const ProfileInvoice = () => {
   const { query } = useRouter();
   const user = useAuthStore((state) => state.user);
 
-  return (
+  return user ? (
     <MembersModule.InvoicePage
       selectedMember={user}
       invoice_id={isNaN(Number(query.id)) ? undefined : Number(query.id)}
     />
-  );
+  ) : null;
 };
 
 export default withAuth(withRole(ProfileInvoice));
