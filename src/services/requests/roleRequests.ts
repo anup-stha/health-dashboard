@@ -43,8 +43,9 @@ export const useRoleList = () => {
     refetchOnWindowFocus: true,
     onSuccess: ({ data }) => {
       const role = useCurrentMemberStore.getState().role;
-      if (isEmpty(role)) {
-        useCurrentMemberStore.getState().setCurrentRole(useAuthStore.getState().user.role.role_access[0]);
+      const role_access = useAuthStore.getState().user?.role.role_access[0];
+      if (isEmpty(role) && role_access) {
+        useCurrentMemberStore.getState().setCurrentRole(role_access);
       }
     },
   });

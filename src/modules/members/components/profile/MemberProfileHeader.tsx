@@ -72,28 +72,26 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
     });
   };
 
-  console.log(user.id);
-
   return (
     <div className="flex md:flex-col justify-between md:gap-8">
       <div className="flex gap-8 sm:flex-col">
-        {router.asPath.includes("profile") ? (
+        {router.asPath.includes("profile") && user ? (
           <ProfileImageModal selectedMember={user}>
             <div className="flex-shrink-0 h-56 w-56 cursor-pointer relative rounded-xl">
-              {user.image ? (
+              {user?.image ? (
                 <Image
-                  src={user.image}
+                  src={user?.image}
                   layout="fill"
                   objectFit="cover"
                   className="rounded-xl shadow-sm"
                   alt="profile image"
                 />
               ) : (
-                <LetteredAvatar name={user.name} size="100%" className="rounded-xl overflow-hidden" maxInitials={2} />
+                <LetteredAvatar name={user?.name} size="100%" className="rounded-xl overflow-hidden" maxInitials={2} />
               )}
               <div
                 className={`w-6 h-6 shadow-xl ${
-                  user.active ? "bg-primary-500" : "bg-red-500"
+                  user?.active ? "bg-primary-500" : "bg-red-500"
                 } ring-[3px] ring-white rounded-full absolute z-20 inset-y-1/2 -right-3`}
               />
               <div className="bg-white flex items-center justify-center rounded-full text-primary_gray-850 w-10 h-10 text-3xl absolute -right-4 -top-4">
@@ -290,7 +288,7 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
             </Dialog>
           </Transition>
 
-          {(user.id === 1 || router.pathname === "/profile") && (
+          {(user?.id === 1 || router.pathname === "/profile") && (
             <Menu className="z-20" as="div">
               <Menu.Button>
                 <button className=" py-3.5 px-4 text-xl text-primary-600 rounded-lg bg-slate-200 hover:bg-primary_gray-300">
@@ -369,7 +367,7 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
         </div>
         <div className="self-end">
           {member.role && member.role.slug === "patient" ? (
-            user.id === 1 ? (
+            user?.id === 1 ? (
               <Link href="/members/org_admin/patient/test_report" passHref>
                 <Button size="sm">Test Report</Button>
               </Link>
@@ -381,7 +379,7 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
           ) : null}
 
           {member.role && member.role.slug === "teacher" ? (
-            user.id === 1 ? (
+            user?.id === 1 ? (
               <Link href="/members/school_admin/teacher/test_report" passHref>
                 <Button size="sm">Test Report</Button>
               </Link>
@@ -393,7 +391,7 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
           ) : null}
 
           {member.role && member.role.slug === "student" ? (
-            user.id === 1 ? (
+            user?.id === 1 ? (
               <Link href="/members/school_admin/student/test_report" passHref>
                 <Button size="sm">Test Report</Button>
               </Link>

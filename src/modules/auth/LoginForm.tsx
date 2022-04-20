@@ -11,11 +11,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input";
+import { promiseToast } from "@/components/Toast";
 
-import { login } from "@/services/requests/authRequests";
+import { AuthQuery } from "./query/AuthQuery";
 
 interface LoginFormValues {
   email: string;
@@ -36,6 +36,7 @@ const schema = yup.object().shape({
 });
 
 const LoginForm: React.FC<any> = () => {
+  const { mutateAsync: login } = AuthQuery.useLogin();
   const {
     register,
     handleSubmit,
@@ -45,21 +46,21 @@ const LoginForm: React.FC<any> = () => {
     resolver: yupResolver(schema),
   });
 
+  const loginSubmitHandler = handleSubmit(async (data) => {
+    await promiseToast({
+      promise: login(data),
+      onSuccess: () => reset(),
+      msgs: {
+        loading: "Logging In",
+        success: "Logged In Successfully",
+      },
+      isModal: false,
+      id: "login-toast",
+    });
+  });
+
   return (
-    <form
-      data-testid="login-form"
-      onSubmit={handleSubmit(async (data) => {
-        await alert({
-          promise: login(data).then(() => reset()),
-          msgs: {
-            loading: "Logging In",
-            success: "Logged In Successfully",
-          },
-          id: "Login Toast",
-        });
-      })}
-      className="space-y-8 flex flex-col fadeInLogin"
-    >
+    <form data-testid="login-form" onSubmit={loginSubmitHandler} className="space-y-8 flex flex-col fadeInLogin">
       <div className="space-y-4 fadeInLogin">
         <Input
           label="Email Address"

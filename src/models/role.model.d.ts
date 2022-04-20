@@ -20,15 +20,16 @@ interface RoleAccess {
   desc: string;
 }
 
-interface Role {
+export interface Role {
   id: number;
   name: string;
+  slug: string;
   desc: string;
   member_limit: number;
   public: boolean;
   permissions: Permission[];
   member_detail_categories: MemberDetailCategory[];
-  role_access: RoleAccess;
+  role_access: RoleAccess[];
 }
 
 // Post Body

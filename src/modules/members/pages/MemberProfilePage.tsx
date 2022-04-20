@@ -16,13 +16,14 @@ import { PatientMedicalHistory } from "@/modules/members/components/tabs/Patient
 import { ProfileOverviewTab } from "@/modules/members/components/tabs/ProfileOverviewTab";
 import { TestTab } from "@/modules/members/components/tabs/ProfileTestTab";
 import { SubscriptionTab } from "@/modules/members/components/tabs/SubscriptionTab";
-import { Member, MemberProfileTabs } from "@/modules/members/types";
+import { MemberProfileTabs } from "@/modules/members/types";
 import { getTabItemsForRole } from "@/modules/members/utils/getTabItemsForRole";
+import { User } from "@/services/requests/auth.service";
 
 import { Role } from "@/types";
 
 interface MemberProfilePage {
-  member: Member;
+  member: User;
   role: Role;
 }
 
@@ -78,7 +79,7 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
           ) : selectedTab === "medical history" ? (
             <PatientMedicalHistory selectedMember={member} />
           ) : selectedTab === "subscriptions" ? (
-            <SubscriptionTab member_id={member.member_id ?? member.id} role_id={member.role.id} />
+            <SubscriptionTab member_id={member.id} role_id={member.role.id} />
           ) : null}
         </motion.div>
       </AnimatePresence>

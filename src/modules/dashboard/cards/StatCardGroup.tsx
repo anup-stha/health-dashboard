@@ -98,8 +98,8 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({ data }) =>
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div className={`w-full  grid ${user.id ? "grid-cols-2" : ""} gap-6 lg:grid-cols-1 sm:gap-4`}>
-      <div className={`flex ${user.id ? "flex-col" : ""}   gap-6 h-full`}>
+    <div className={`w-full  grid ${user?.id ? "grid-cols-2" : ""} gap-6 lg:grid-cols-1 sm:gap-4`}>
+      <div className={`flex ${user?.id ? "flex-col" : ""}   gap-6 h-full`}>
         <StatCardRect
           icon={
             <div className="bg-lime-600 p-8 rounded-full">
@@ -119,7 +119,7 @@ export const StatCardGroupVariant2: React.FC<StatCardGroupProps> = ({ data }) =>
           valueText={["Organization Operators", "Total Operators added by Organizations"]}
         />
       </div>
-      {user.id === 1 ? <StatCardApp /> : null}
+      {user?.id === 1 ? <StatCardApp /> : null}
     </div>
   );
 };

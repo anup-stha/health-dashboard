@@ -59,12 +59,12 @@ export function MemberListPage() {
             <div className="flex sm:flex-col gap-4">
               <MemberRoleDropdown />
               <MemberModal type="add" selectedRole={data?.data.data} />
-              {user.role.id !== 1 && <ExcelImport role={data.data.data} />}
+              {user?.role.id !== 1 && <ExcelImport role={data.data.data} />}
             </div>
           )}
         </div>
         {data && <MemberTable />}
-        {user.role.role_access.length === 0 && <ErrorState title="No Roles Found" />}
+        {user?.role.role_access.length === 0 && <ErrorState title="No Roles Found" />}
       </div>
     </div>
   );

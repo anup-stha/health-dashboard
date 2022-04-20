@@ -260,7 +260,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                       await promiseToast({
                         promise: postMemberBulkWithDetails({
                           role_id: Number(role.id),
-                          parent_member_id: Number(user.id),
+                          parent_member_id: Number(user?.id),
                           data: importedData,
                         }),
 

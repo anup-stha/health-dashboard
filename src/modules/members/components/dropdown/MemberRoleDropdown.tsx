@@ -28,7 +28,7 @@ export const MemberRoleDropdown = ({
   setSelectedRole: _setSelectedRole,
 }: MemberRoleDropdownProps) => {
   const router = useRouter();
-  const roleList = _roleList ?? useAuthStore.getState().user.role.role_access;
+  const roleList = _roleList ?? useAuthStore.getState()?.user?.role.role_access;
 
   const selectedRole = useCurrentMemberStore((state) => state.role);
   const setSelectedRole = useCurrentMemberStore((state) => state.setCurrentRole);
@@ -70,7 +70,7 @@ export const MemberRoleDropdown = ({
             leaveTo="transform scale-95 opacity-0"
           >
             <Listbox.Options className="absolute w-full py-1 mt-2 overflow-auto text-lg bg-white rounded-md shadow-sm max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {roleList.map((role) => (
+              {roleList?.map((role) => (
                 <Listbox.Option
                   key={role.id}
                   data-testid={`${role.name}-btn`}

@@ -36,16 +36,16 @@ export const ImageAvatar: React.FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button>
         <div className="flex items-center space-x-2">
-          {user.image ? (
+          {user?.image ? (
             <div className="w-8 h-8 bg-white rounded-full relative overflow-hidden">
-              <Image src={user.image} layout="fill" alt="Avatar" objectFit="cover" />
+              <Image src={user?.image} layout="fill" alt="Avatar" objectFit="cover" />
             </div>
           ) : (
-            <LetteredAvatar name={user.name} size="30" round={true} maxInitials={2} />
+            <LetteredAvatar name={user?.name} size="30" round={true} maxInitials={2} />
           )}
 
           <div className="flex text-primary_gray-900">
-            <span className="text-xl font-medium">Hi, {user.name ? user.name.split(" ")[0] : ""}</span>
+            <span className="text-xl font-medium">Hi, {user?.name ? user?.name.split(" ")[0] : ""}</span>
             <CaretDown size={22} />
           </div>
         </div>

@@ -16,7 +16,7 @@ export const withRole = (WrappedComponent: React.FC) => {
   const RequirePermission = (props: React.Props<any>) => {
     const router = useRouter();
 
-    const role = useAuthStore.getState().user.role;
+    const role = useAuthStore.getState().user?.role;
     const [rolePermitted, setRolePermitted] = useState(false);
 
     useEffect(() => {

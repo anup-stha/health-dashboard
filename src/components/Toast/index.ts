@@ -19,11 +19,14 @@ type toastProps = {
     success: ValueOrFunction<Renderable, unknown>;
     error?: ValueOrFunction<Renderable, any>;
   };
+  isModal?: boolean;
   style?: CSSProperties;
   id: string;
 };
 
-export const promiseToast = async ({ promise, msgs, id, onSuccess }: toastProps) => {
+export const promiseToast = async ({ promise, msgs, id, onSuccess, isModal = true }: toastProps) => {
+  const errMsg = msgs.error ?? "Something Went Wrong.";
+
   toast.loading(msgs.loading, { id: id });
   try {
     const response = await promise;
@@ -33,7 +36,9 @@ export const promiseToast = async ({ promise, msgs, id, onSuccess }: toastProps)
       return response;
     }
   } catch (e) {
-    toast.error(e.response.data.message, { id: id });
-    throw new Error(e);
+    toast.error(e?.response?.data?.message ?? errMsg, { id: id });
+    if (isModal) {
+      throw new Error(e?.response?.data?.message ?? errMsg);
+    }
   }
 };

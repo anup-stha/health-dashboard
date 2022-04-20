@@ -13,7 +13,7 @@ import { NavItem } from "./NavItem";
 import { orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
-  const role = useAuthStore().user.role;
+  const role = useAuthStore()?.user?.role;
   const navBarRoutes = role
     ? role.id === 1
       ? superAdminNavRoutes

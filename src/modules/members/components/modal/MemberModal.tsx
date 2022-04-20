@@ -64,13 +64,13 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
   }, [selectedRole.id]);
 
   const getIfPermitted = () => {
-    if (currentUser.id === 1 || type === "edit") {
+    if (currentUser?.id === 1 || type === "edit") {
       return true;
     } else if (selectedRole.slug === "patient") {
-      return currentUser.role.permissions.some((permission) => permission.slug === "create_patient");
+      return currentUser?.role.permissions.some((permission) => permission.slug === "create_patient");
     } else if (selectedRole.slug === "org_operator") {
-      return currentUser.role.permissions.some((permission) => permission.slug === "create_operator");
-    } else if (currentUser.role.slug === "school_admin") {
+      return currentUser?.role.permissions.some((permission) => permission.slug === "create_operator");
+    } else if (currentUser?.role.slug === "school_admin") {
       return true;
     }
     return false;

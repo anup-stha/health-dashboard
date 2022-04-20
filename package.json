@@ -106,6 +106,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.0",
+    "@types/js-cookie": "^3.0.1",
     "@types/node": "^16.10.2",
     "@types/react": "17.0.27",
     "@typescript-eslint/eslint-plugin": "^4.33.0",

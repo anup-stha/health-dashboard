@@ -81,7 +81,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
             <WarningOctagon size={40} />{" "}
             <span className="font-medium text-xl">
               No Member Details Field Found.
-              {user.id === 1 ? (
+              {user?.id === 1 ? (
                 <>
                   Please add a member details field to this role{" "}
                   {router.query.role && (
@@ -103,7 +103,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   type: "promise",
                   promise: addDetailsToMember(
                     Number(selectedRole.id),
-                    Number(memberData.member_id ?? memberData.id),
+                    Number(memberData.id),
                     getDirtyFields(dirtyFields, values)
                   ),
                   msgs: {

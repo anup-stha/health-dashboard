@@ -1,3 +1,14 @@
+import {
+  Permission,
+  Role,
+  RoleAddPermission,
+  RoleAssignBody,
+  RoleCreateBody,
+  RoleDetailsResponse,
+  RoleListResponse,
+  RoleMutateResponse,
+  RoleUpdateBody,
+} from "@/models/role.model";
 import { privateAgent } from "@/services/requests";
 
 export const getAllRole = async (): Promise<Role[]> => {
