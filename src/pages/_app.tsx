@@ -139,6 +139,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         />
 
         {RenderedComponent}
+
         <ToastComponent />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

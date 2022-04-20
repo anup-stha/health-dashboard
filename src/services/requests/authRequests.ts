@@ -6,6 +6,7 @@
  *
  */
 
+import Cookies from "js-cookie";
 import Router from "next/router";
 import { toast } from "react-hot-toast";
 
@@ -38,6 +39,23 @@ export const login = (loginRequest: LoginRequest) => {
         device_details: window.navigator.userAgent,
       })
       .then(async (response) => {
+        Cookies.set("test_token", response.data.data.token, {
+          domain: ".school.sunya.health",
+          sameSite: "none",
+          secure: true,
+          path: "/",
+        });
+
+        Cookies.set("token", response.data.data.token, {
+          domain: ".sunya.health",
+          path: "/",
+        });
+
+        Cookies.set("redirect_url", "https://school.sunya.health", {
+          domain: ".sunya.health",
+          path: "/",
+        });
+
         try {
           const globalStateResponse = await getGlobalStates();
           if (globalStateResponse) {

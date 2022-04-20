@@ -14,9 +14,7 @@ import { useCookies } from "react-cookie";
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
-  const [cookies, setCookie] = useCookies(["token"]);
-
-  console.log(cookies);
+  const [cookies, setCookies] = useCookies();
 
   return (
     <div
@@ -46,6 +44,7 @@ export const LoginPage = () => {
             </p>
           </div>
           <LoginForm />
+
           <div className="pt-8 gap-2 flex flex-col items-start fadeInLogin">
             <div className="text-base font-medium text-gray-600">&#169; Copyright by Sunya Health Pvt. Ltd.</div>
             <p className="text-base font-medium text-gray-400">
