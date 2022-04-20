@@ -40,7 +40,7 @@ export const login = (loginRequest: LoginRequest) => {
       })
       .then(async (response) => {
         Cookies.set("test_token", response.data.data.token, {
-          domain: "school.sunya.health",
+          domain: ".school.sunya.health",
           sameSite: "none",
           secure: true,
           path: "/",
