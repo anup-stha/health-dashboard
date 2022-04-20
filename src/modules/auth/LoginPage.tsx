@@ -9,10 +9,15 @@
 import Image from "next/image";
 import { CaretCircleRight } from "phosphor-react";
 import React from "react";
+import { useCookies } from "react-cookie";
 
 import LoginForm from "./LoginForm";
 
 export const LoginPage = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
+  console.log(cookies);
+
   return (
     <div
       suppressHydrationWarning={true}

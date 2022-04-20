@@ -41,7 +41,7 @@ export const login = (loginRequest: LoginRequest) => {
         try {
           const globalStateResponse = await getGlobalStates();
           if (globalStateResponse) {
-            useAuthStore.getState().setUserData(response.data);
+            useAuthStore.getState().setUserData(response.data.data.user);
             if (!useAuthStore.getState().guided) useAuthStore.getState().setGuided(false);
             Router.push("/dashboard");
             resolve("Logged In Successfully");
@@ -114,7 +114,7 @@ export const updateUserProfile = (profileId: number, body: MemberUpdateBody) => 
         const user = useCurrentMemberStore.getState().user;
         const loggedInUser = useAuthStore.getState().user;
 
-        if (loggedInUser.id === response.data.data.id) {
+        if (loggedInUser?.id === response.data.data.id) {
           getCurrentUserProfile().then(() => resolve(response.data.message));
         } else if (member.id === response.data.data.id) {
           useCurrentMemberStore.getState().setCurrentMember(response.data.data);

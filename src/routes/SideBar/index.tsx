@@ -36,30 +36,30 @@ export const Sidebar: React.FC<any> = () => {
           enterTo="opacity-100 translate-y-0"
         >
           <div className=" w-full bg-white ring-1 ring-primary_gray-400/40 rounded-md p-4 flex items-center space-x-2">
-            {user.image ? (
+            {user?.image ? (
               <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
-                <Image src={user.image} layout="fill" alt="Avatar" objectFit="cover" />
+                <Image src={user?.image} layout="fill" alt="Avatar" objectFit="cover" />
               </div>
             ) : (
-              user.name && <LetteredAvatar name={user.name} size="50" round={true} maxInitials={2} />
+              user?.name && <LetteredAvatar name={user?.name} size="50" round={true} maxInitials={2} />
             )}
 
             <div className="flex flex-col w-3/4">
-              <span className="text-black font-medium text-xl line-clamp-1">{user.name}</span>
+              <span className="text-black font-medium text-xl line-clamp-1">{user?.name}</span>
               <span className="text-primary_gray-500 font-medium tracking-wider text-base ">
-                {user.role && user.role.name}
+                {user?.role && user?.role.name}
               </span>
             </div>
           </div>
         </Transition>
         <Transition show={!open}>
           <div className="py-4 sm:hidden">
-            {user.image ? (
+            {user?.image ? (
               <div className="w-16 h-16 bg-white rounded-full relative overflow-hidden">
-                <Image src={user.image} layout="fill" alt="Avatar" objectFit="cover" />
+                <Image src={user?.image} layout="fill" alt="Avatar" objectFit="cover" />
               </div>
             ) : (
-              user.name && <LetteredAvatar name={user.name} size="50" round={true} maxInitials={2} />
+              user?.name && <LetteredAvatar name={user?.name} size="50" round={true} maxInitials={2} />
             )}
           </div>
         </Transition>

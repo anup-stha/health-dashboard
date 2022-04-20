@@ -20,9 +20,10 @@ interface RoleAccess {
   desc: string;
 }
 
-interface Role {
+export interface Role {
   id: number;
   name: string;
+  slug: string;
   desc: string;
   member_limit: number;
   public: boolean;

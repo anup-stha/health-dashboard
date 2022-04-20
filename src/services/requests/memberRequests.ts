@@ -125,7 +125,7 @@ export const addDetailsToMember = (roleId: number, memberId: number, data: Recor
         const currentUser = useCurrentMemberStore.getState().user;
         const loggedInUser = useAuthStore.getState().user;
 
-        if (loggedInUser.member_id === memberId) {
+        if (loggedInUser?.id === memberId) {
           getCurrentUserProfile().then(() => resolve(response.data.message));
         } else if (currentMember.id === memberId) {
           useCurrentMemberStore.getState().setCurrentMember({

@@ -9,16 +9,22 @@
 import create from "zustand";
 import { combine, devtools, persist, subscribeWithSelector } from "zustand/middleware";
 
-import { Member } from "@/modules/members/types";
-
-import { LoginResponse } from "@/types";
+import type { User } from "@/services/requests/auth.service";
 
 const userDataKey = "@sunya/user-data";
-const initialState = {
-  status: false,
+
+type InitialStateType = {
+  token?: string;
+  user?: User;
+  guided: boolean;
+  service_url?: string;
+};
+
+const initialState: InitialStateType = {
   token: "",
-  user: {} as Member,
+  user: undefined,
   guided: false,
+  service_url: undefined,
 };
 
 export const store = combine(initialState, (set) => ({
@@ -28,14 +34,25 @@ export const store = combine(initialState, (set) => ({
     });
   },
 
-  setUserData: (res: LoginResponse) => {
+  setUserData: (user: User) => {
     set({
-      status: res.status,
-      token: res.data.token,
-      user: res.data.user,
+      user,
     });
   },
-  setUserProfile: (res: Member) => {
+
+  setToken: (token: string) => {
+    set({
+      token: token,
+    });
+  },
+
+  setServiceUrl: (service_url: string) => {
+    set({
+      service_url,
+    });
+  },
+
+  setUserProfile: (res: User) => {
     set((state) => ({
       ...state,
       user: res,
@@ -44,14 +61,9 @@ export const store = combine(initialState, (set) => ({
 
   removeUserData: () => {
     set({
-      status: false,
+      service_url: undefined,
       token: "",
-      user: {} as Member,
-    });
-  },
-  setToken: (token: string) => {
-    set({
-      token: token,
+      user: undefined,
     });
   },
 }));
