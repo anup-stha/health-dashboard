@@ -299,6 +299,7 @@ export type AddTestBody = {
 export type AddTestCategoryBody = {
   name: string;
   desc: string;
+  unit: string;
   test_category_id: number;
   public: 1 | 0 | true | false;
 };
@@ -306,6 +307,7 @@ export type AddTestCategoryBody = {
 export type UpdateTestCategoryBody = {
   name: string;
   desc: string;
+  unit: string;
   public: 1 | 0 | true | false;
 };
 
@@ -319,6 +321,7 @@ export type AddTestResponse = StatusType & {
     name: string;
     desc: string;
     slug: string;
+    unit: string;
     public: boolean;
     sub_categories: Array<TestSubCategory>;
   };
@@ -330,6 +333,7 @@ export type TestSubCategory = {
   desc: string;
   slug: string;
   public: boolean;
+  unit: string;
   category_id: Id;
 };
 
@@ -340,6 +344,7 @@ export type AddTestCategoryResponse = StatusType & {
     desc: string;
     slug: string;
     public: boolean;
+    unit: string;
     category_id: Id;
   };
 };
@@ -350,6 +355,7 @@ export type Test = {
   desc: string;
   slug: string;
   public: boolean;
+  unit?: string;
   sub_categories: Array<TestSubCategory>;
 };
 

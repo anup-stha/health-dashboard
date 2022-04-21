@@ -1,15 +1,15 @@
-interface ApiDefaultResponse {
+export interface ApiDefaultResponse {
   status: string;
   message: string;
 }
 
-interface ApiNullResponse {
+export interface ApiNullResponse {
   status: string;
   message: string;
   data: null;
 }
 
-interface ApiEmptyArrayResponse {
+export interface ApiEmptyArrayResponse {
   status: string;
   message: string;
   data: [];

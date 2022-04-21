@@ -1,4 +1,6 @@
-interface Permission {
+import { ApiDefaultResponse } from "./api.model";
+
+export interface Permission {
   id: number;
   name: string;
   slug: string;
@@ -34,7 +36,7 @@ export interface Role {
 
 // Post Body
 
-interface RoleCreateBody {
+export interface RoleCreateBody {
   name: string;
   desc: string;
   member_limit: number;
@@ -42,14 +44,14 @@ interface RoleCreateBody {
   permissions?: number; // permission id -> is nullable
 }
 
-interface RoleUpdateBody {
+export interface RoleUpdateBody {
   id: number;
   name?: string;
   member_limit?: number;
   public?: boolean;
 }
 
-interface RoleAssignBody {
+export interface RoleAssignBody {
   data: {
     p_role_id: number; // Parent Role ID
     c_role_id: number; // Child Role ID
@@ -58,18 +60,18 @@ interface RoleAssignBody {
 
 // Role API Response
 
-interface RoleListResponse extends ApiDefaultResponse {
+export interface RoleListResponse extends ApiDefaultResponse {
   data: Role[];
 }
 
-interface RoleDetailsResponse extends ApiDefaultResponse {
+export interface RoleDetailsResponse extends ApiDefaultResponse {
   data: Role;
 }
 
-interface RoleMutateResponse extends ApiDefaultResponse {
+export interface RoleMutateResponse extends ApiDefaultResponse {
   data: Role;
 }
 
-interface RoleAddPermission extends ApiDefaultResponse {
+export interface RoleAddPermission extends ApiDefaultResponse {
   data: Permission[];
 }

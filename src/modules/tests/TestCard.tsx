@@ -24,10 +24,11 @@ type TestCardPropsType = {
   desc: string;
   slug: string;
   isPublic: boolean;
+  unit?: string;
   subCategories?: Array<TestSubCategory>;
 };
 
-export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, isPublic, subCategories }) => {
+export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, unit, slug, isPublic, subCategories }) => {
   const router = useRouter();
 
   return (
@@ -37,7 +38,9 @@ export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, is
     >
       <div className="space-y-1">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{name}</h1>
+          <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">
+            {name} <span className="text-base text-gray-500">{unit} </span>
+          </h1>
         </div>
 
         <div className="space-y-3">
@@ -82,6 +85,7 @@ export const TestCard: React.FC<TestCardPropsType> = ({ id, name, desc, slug, is
                 desc,
                 public: isPublic,
                 slug,
+                unit,
                 sub_categories: subCategories ?? [],
               }}
             >
