@@ -80,15 +80,18 @@ export const MemberRoleDropdown = ({
                   }
                   value={role}
                 >
-                  {({ selected, active }) => {
+                  {() => {
                     return (
                       <>
                         <span
-                          className={`${role.id === selectedRole.id && "text-primary-500"} block truncate capitalize`}
+                          className={`${
+                            (_selectedRole ? role.id === _selectedRole?.id : role.id === selectedRole.id) &&
+                            "text-primary-500"
+                          } block truncate capitalize`}
                         >
                           {role.name}
                         </span>
-                        {role.id === selectedRole.id ? (
+                        {(_selectedRole ? role.id === _selectedRole?.id : role.id === selectedRole.id) ? (
                           <span className="text-primary-600 absolute inset-y-0 left-0 flex items-center pl-3">
                             <CheckIcon className="w-5 h-5" aria-hidden="true" />
                           </span>
