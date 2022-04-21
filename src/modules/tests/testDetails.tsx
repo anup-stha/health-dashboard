@@ -30,7 +30,14 @@ export const TestDetails = () => {
           {selectedTest.sub_categories &&
             selectedTest.sub_categories.map((test) => (
               <div key={test.id}>
-                <TestCard id={test.id} name={test.name} desc={test.desc} slug={test.slug} isPublic={test.public} />
+                <TestCard
+                  id={test.id}
+                  name={test.name}
+                  desc={test.desc}
+                  slug={test.slug}
+                  isPublic={test.public}
+                  unit={test.unit}
+                />
               </div>
             ))}
           <TestModal variant="subtest" type="add" selectedTest={selectedTest} />

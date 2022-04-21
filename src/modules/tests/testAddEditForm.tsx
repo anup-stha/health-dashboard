@@ -29,6 +29,7 @@ type TestAddEditFormProps = {
 type TestFormData = {
   name: string;
   desc: string;
+  unit: string;
   public: boolean;
 };
 
@@ -38,8 +39,11 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({ type, selected
       name: selectedTest && type === "edit" ? selectedTest.name : "",
       desc: selectedTest && type === "edit" ? selectedTest.desc : "",
       public: selectedTest && type === "edit" ? selectedTest.public : true,
+      unit: selectedTest && type === "edit" ? selectedTest.unit : "",
     },
   });
+
+  console.log(selectedTest);
 
   const onSubmit = handleSubmit(async (values) => {
     variant === "test"
@@ -97,6 +101,17 @@ export const TestAddEditForm: React.FC<TestAddEditFormProps> = ({ type, selected
         />
 
         <Switch name="public" control={control} label="Public" />
+
+        {variant === "subtest" ? (
+          <Input
+            data-testid="test-unit-input"
+            label="Unit"
+            type="text"
+            required={true}
+            placeholder="Enter Test Unit"
+            {...register("unit")}
+          />
+        ) : null}
 
         <Input
           data-testid="test-description-input"

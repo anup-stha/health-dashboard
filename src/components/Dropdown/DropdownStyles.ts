@@ -1,5 +1,7 @@
 import { StylesConfig } from "react-select";
 
+import { OptionType } from "@/models/utils.model";
+
 type isMulti = false;
 
 export const dropdownStyles: StylesConfig<OptionType, isMulti> = {
