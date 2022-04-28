@@ -116,8 +116,6 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                   <td className="capitalize py-4 text-xl space-y-2 break-words ">
                     {report.test_name.toLowerCase() === "urine"
                       ? URINE_ORDER.map((element, index) => {
-                          console.log();
-
                           return (
                             <div key={index} className="flex space-x-2 text-primary_gray-700">
                               <span className="font-medium text-primary_gray-500">{URINE_TEST[element]} : </span>
@@ -133,34 +131,28 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                             </div>
                           );
                         })
-                      : report.tests.map((value: any, index: number) => (
-                          <div key={index} className="text-primary_gray-700">
-                            <span className="inline font-medium text-primary_gray-500 block">
-                              {Object.keys(value)[0]} :{" "}
-                            </span>
-                            <span className="inline font-medium block text-lg ">{Object.values(value)[0] as any}</span>
+                      : report.tests.map((value: Record<any, any>, index: number) => (
+                          <div key={index} className="flex flex-col gap-4 text-gray-700">
+                            <div className="flex gap-2">
+                              <span className="font-medium text-primary_gray-500">{Object.keys(value)[0]} : </span>
+                              <span className="font-medium line-clamp-1">{Object.values(value)[0]}</span>
+                            </div>
+
+                            {Object.values(value)[1].length !== 0 && (
+                              <div className="flex gap-2">
+                                <span className="font-medium text-primary_gray-500">Notes:</span>
+                                <div className="flex flex-col">
+                                  {Object.values(value)[1].map((element: any, index: number) => (
+                                    <span key={index} className="line-clamp-2">
+                                      {" "}
+                                      {element}{" "}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         ))}
-                  </td>
-                  <td className="capitalize py-4 text-xl space-y-2 text-primary_gray-600 break-words">
-                    {report.tests.map((element: any, index: any) => {
-                      const note = Object.values(element)[1] as string[];
-                      return (
-                        <div key={index} className="text-primary_gray-700 ">
-                          <span className="font-medium text-primary_gray-500 inline">{Object.keys(element)[1]} : </span>
-                          <span className="font-medium block text-lg inline">
-                            {note.length === 0
-                              ? "N/A"
-                              : note.map((element: any, index: number) => (
-                                  <span key={index} className="line-clamp-1 block">
-                                    {" "}
-                                    {element}{" "}
-                                  </span>
-                                ))}
-                          </span>
-                        </div>
-                      );
-                    })}
                   </td>
                 </tr>
               ))}

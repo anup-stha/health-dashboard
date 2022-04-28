@@ -168,12 +168,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
                   <div className="flex flex-col space-y-2" key={element}>
                     <TableView
                       data={subTestGroups[element]}
-                      tableHeadings={[
-                        `${element} Test Date`,
-                        "Temperature",
-                        `${element} Test Result`,
-                        `${element} Test Notes`,
-                      ]}
+                      tableHeadings={[`${element} Test Date`, "Temperature", `${element} Test Result`]}
                       search={false}
                       tableRowComponent={<ProfileTestTableRow />}
                       loading={isFetching}

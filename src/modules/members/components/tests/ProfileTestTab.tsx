@@ -28,6 +28,8 @@ interface IProfileTestTabProps {
 }
 
 export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProps) => {
+  console.log(testList?.list);
+
   const subTestList = testList ? getSubTestList(testList.list) : [];
   const user = useAuthStore((state) => state.user);
 
@@ -70,7 +72,7 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
             <Tab.Panel>
               <TableView
                 data={subTestList}
-                tableHeadings={["Test Date", "Temperature", "Test Result", "Test Notes"]}
+                tableHeadings={["Test Date", "Temperature", "Test Result"]}
                 search={false}
                 tableRowComponent={<ProfileTestTableRow />}
                 paginate={true}

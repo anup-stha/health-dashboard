@@ -61,6 +61,8 @@ type ProfileTestData = {
   tests: { [p: string]: any }[];
 };
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
+  console.log(data);
+
   return data ? (
     <tr key={data.id}>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700 align-top">
@@ -104,29 +106,28 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
               }
 
               return (
-                <div key={index} className="flex space-x-2 text-primary_gray-700">
-                  <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
-                  <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
+                <div key={index} className="flex flex-col gap-4 text-gray-700">
+                  <div className="flex gap-2">
+                    <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
+                    <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
+                  </div>
+
+                  {Object.values(element)[1].length !== 0 && (
+                    <div className="flex gap-2">
+                      <span className="font-medium text-primary_gray-500">Notes:</span>
+                      <div className="flex flex-col">
+                        {Object.values(element)[1].map((element: any, index: number) => (
+                          <span key={index} className="line-clamp-2">
+                            {" "}
+                            {element}{" "}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
-      </td>
-      <td className="capitalize px-6 py-4 text-xl space-y-2 text-primary_gray-600">
-        {data.tests.map((element, index) => (
-          <div key={index} className=" text-primary_gray-700 flex space-x-2">
-            <span className="font-medium text-primary_gray-500">{Object.keys(element)[1]} : </span>
-            <span className="font-medium flex flex-col">
-              {Object.values(element)[1].length === 0
-                ? "N/A"
-                : Object.values(element)[1].map((element: any, index: number) => (
-                    <span key={index} className="line-clamp-2">
-                      {" "}
-                      {element}{" "}
-                    </span>
-                  ))}
-            </span>
-          </div>
-        ))}
       </td>
     </tr>
   ) : (
