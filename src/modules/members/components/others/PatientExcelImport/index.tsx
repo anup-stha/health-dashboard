@@ -230,7 +230,7 @@ export const ExcelImport = ({ role }: IExcelImport) => {
                             ? setShowDataLength(8)
                             : setShowDataLength(importedData.length)
                         }
-                        className="self-end cursor-pointer text-xl border-t-[1px] py-4 pl-36 border-primary_gray-400/20 font-medium text-primary_gray-700 space-x-2 flex items-center"
+                        className="self-end cursor-pointer text-xl border-t-[1px] py-4 pl-36 border-gray-400/20 font-medium text-gray-700 space-x-2 flex items-center"
                       >
                         {shownDataLength === importedData.length ? (
                           <>

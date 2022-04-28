@@ -136,13 +136,13 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                   <div className="text-[1.3rem] font-bold text-slate-800  capitalize cursor-pointer">Sunya Health</div>
                   <a
                     href="mailto: contact@sunya.health"
-                    className="text-lg font-medium text-primary_gray-500 hover:text-primary_gray-800"
+                    className="text-lg font-medium text-gray-500 hover:text-gray-800"
                   >
                     contact@sunya.health
                   </a>
                 </div>
               </div>
-              <div className="text-lg font-medium text-primary_gray-500 gap-1 flex flex-col text-right">
+              <div className="text-lg font-medium text-gray-500 gap-1 flex flex-col text-right">
                 <span>Kathmandu - 44700</span>
                 <span>Bagmati Province</span>
                 <span> Nepal</span>
@@ -153,11 +153,11 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                 <span className="font-medium">Invoice Number</span>
                 <span className="font-medium">INV-{invoiceId}</span>
                 <div className="flex gap-1">
-                  <span className="text-primary_gray-100">Issued Date:</span>
+                  <span className="text-gray-100">Issued Date:</span>
                   <span className="font-medium">{moment().format("DD MMM YYYY")}</span>
                 </div>
                 <div className="flex gap-1">
-                  <span className="text-primary_gray-100">Due Date:</span>
+                  <span className="text-gray-100">Due Date:</span>
                   <span className="font-medium">{moment().add(15, "days").format("DD MMM YYYY")}</span>
                 </div>
               </div>
@@ -170,14 +170,14 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
             </div>
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <span className="font-medium text-xl text-primary_gray-800">Subscription Details</span>
-                <span className="text-primary_gray-400 font-medium">Check below for subscriptions</span>
+                <span className="font-medium text-xl text-gray-800">Subscription Details</span>
+                <span className="text-gray-400 font-medium">Check below for subscriptions</span>
               </div>
 
               <button
                 onClick={openModal}
                 disabled={!!invoice_id}
-                className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-primary_gray-100 relative disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 text-lg  rounded-xl text-emerald-600 font-bold bg-gray-100 relative disabled:cursor-not-allowed"
               >
                 <Sliders size={24} />
                 <span>Customize</span>
@@ -206,8 +206,8 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                       leaveFrom="opacity-100 scale-100"
                       leaveTo="opacity-0 scale-95"
                     >
-                      <div className="inline-block w-full max-w-md p-6 my-[29vh] ml-[28vw] text-left align-middle transition-all transform bg-white shadow-lg rounded-xl ring-1 ring-primary_gray-200">
-                        <Dialog.Title as="h3" className="text-xl font-medium leading-6 text-primary_gray-900">
+                      <div className="inline-block w-full max-w-md p-6 my-[29vh] ml-[28vw] text-left align-middle transition-all transform bg-white shadow-lg rounded-xl ring-1 ring-gray-200">
+                        <Dialog.Title as="h3" className="text-xl font-medium leading-6 text-gray-900">
                           Customize Invoice
                         </Dialog.Title>
                         <form
@@ -247,28 +247,26 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
               </Transition>
             </div>
             <div className="flex flex-col -mt-6">
-              <div className="w-full border-t-[1px] border-b-[1px] border-primary_gray-400/40 text-primary_gray-500/70 flex p-4 text-lg gap-8">
+              <div className="w-full border-t-[1px] border-b-[1px] border-gray-400/40 text-gray-500/70 flex p-4 text-lg gap-8">
                 <span className="font-medium w-2/3">Subscription Name</span>
 
                 <span className="font-medium w-1/5">Total Tests</span>
                 <span className="font-medium w-1/5 ">Period</span>
                 <span className="font-medium w-1/3 text-right">Subscription Price</span>
               </div>
-              <div className="w-full border-b-[1px] border-primary_gray-400/40 flex items-center px-4 py-6 gap-8 text-lg">
-                <div className="font-medium flex flex-col gap-2 text-primary_gray-800 w-2/3">
+              <div className="w-full border-b-[1px] border-gray-400/40 flex items-center px-4 py-6 gap-8 text-lg">
+                <div className="font-medium flex flex-col gap-2 text-gray-800 w-2/3">
                   <span className="text-xl">
                     {selectedSubscription.plan
                       ? selectedSubscription.plan.name
                       : selectedSubsInvoice?.subscription_detail.plan.name}
                   </span>
-                  <span className="text-primary_gray-400 font-medium md:text-sm">
-                    Acuity, Vitals, ECG, BMI, Urine, Glucose
-                  </span>
+                  <span className="text-gray-400 font-medium md:text-sm">Acuity, Vitals, ECG, BMI, Urine, Glucose</span>
                 </div>
 
-                <span className="font-medium text-primary_gray-700 w-1/5 ">5 tests</span>
-                <span className="font-medium text-primary_gray-700 w-1/5 ">365 days</span>
-                <span className="font-medium text-primary_gray-700 w-1/3 text-right">
+                <span className="font-medium text-gray-700 w-1/5 ">5 tests</span>
+                <span className="font-medium text-gray-700 w-1/5 ">365 days</span>
+                <span className="font-medium text-gray-700 w-1/3 text-right">
                   Rs.{" "}
                   {selectedSubscription?.plan
                     ? selectedSubscription.plan.price
@@ -278,24 +276,24 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
               <div className="w-full flex px-4 py-12 text-lg gap-8 md:flex-col-reverse md:relative">
                 <div className="w-2/3 flex flex-col gap-4 md:w-full">
                   <div className="w-full flex item-center justify-between">
-                    <span className="font-medium text-xl text-primary_gray-800">Payment Information</span>
+                    <span className="font-medium text-xl text-gray-800">Payment Information</span>
                     <button disabled className="text-primary-600 font-medium disabled:cursor-not-allowed">
                       Select Payment
                     </button>
                   </div>
 
-                  <div className="bg-primary_gray-50 rounded-xl shadow-sm w-full p-6">
+                  <div className="bg-gray-50 rounded-xl shadow-sm w-full p-6">
                     <div className="flex flex-col">
-                      <span className="font-medium text-primary_gray-800 pb-3">Cash Payment</span>
-                      <div className="font-medium text-primary_gray-500 pb-2">
-                        Name: <span className="font-medium text-primary_gray-600">{selectedMember.name} </span>
+                      <span className="font-medium text-gray-800 pb-3">Cash Payment</span>
+                      <div className="font-medium text-gray-500 pb-2">
+                        Name: <span className="font-medium text-gray-600">{selectedMember.name} </span>
                       </div>
-                      <div className="font-medium text-primary_gray-500 pb-2">
-                        Phone: <span className="font-medium text-primary_gray-600">{selectedMember.phone} </span>
+                      <div className="font-medium text-gray-500 pb-2">
+                        Phone: <span className="font-medium text-gray-600">{selectedMember.phone} </span>
                       </div>
-                      <div className="font-medium text-primary_gray-500">
+                      <div className="font-medium text-gray-500">
                         Payment Received:{" "}
-                        <span className="font-medium text-primary_gray-600">Rs. {invoiceData.net_amount}</span>
+                        <span className="font-medium text-gray-600">Rs. {invoiceData.net_amount}</span>
                       </div>
                     </div>
                   </div>
@@ -303,24 +301,24 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
 
                 <div className="w-1/5 md:w-0" />
 
-                <div className="w-1/5 md:w-full font-medium text-primary_gray-800 flex flex-col gap-4 md:absolute md:top-12">
-                  <span className="font-medium text-primary_gray-800 ">Sub Total</span>
+                <div className="w-1/5 md:w-full font-medium text-gray-800 flex flex-col gap-4 md:absolute md:top-12">
+                  <span className="font-medium text-gray-800 ">Sub Total</span>
                   <div className="flex flex-col gap-4">
-                    <span className="font-medium text-primary_gray-400 whitespace-nowrap">Discount Amt.</span>
-                    <span className="font-medium text-primary_gray-400">Total Tax</span>
+                    <span className="font-medium text-gray-400 whitespace-nowrap">Discount Amt.</span>
+                    <span className="font-medium text-gray-400">Total Tax</span>
                   </div>
-                  <span className="font-medium mt-10 pt-6 border-t-[1px] md:border-0 border-primary_gray-400/40 text-primary_gray-400">
+                  <span className="font-medium mt-10 pt-6 border-t-[1px] md:border-0 border-gray-400/40 text-gray-400">
                     Total Amount
                   </span>
                 </div>
 
-                <div className="font-medium flex flex-col text-primary_gray-700 w-1/3 gap-4 text-right md:w-full  ">
+                <div className="font-medium flex flex-col text-gray-700 w-1/3 gap-4 text-right md:w-full  ">
                   <span> Rs. {invoiceData.gross_amount}</span>
                   <div className="flex flex-col gap-4">
-                    <span className="font-medium text-primary_gray-700">Rs. {invoiceData.discount_amount}</span>
-                    <span className="font-medium text-primary_gray-700">Rs. {invoiceData.vat_amount}</span>
+                    <span className="font-medium text-gray-700">Rs. {invoiceData.discount_amount}</span>
+                    <span className="font-medium text-gray-700">Rs. {invoiceData.vat_amount}</span>
                   </div>
-                  <span className="font-medium mt-10 pt-4 border-t-[1px] border-primary_gray-400/40 text-primary_gray-800 -ml-8 text-2xl">
+                  <span className="font-medium mt-10 pt-4 border-t-[1px] border-gray-400/40 text-gray-800 -ml-8 text-2xl">
                     Rs. <span className="font-Inter">{invoiceData.net_amount}</span>
                   </span>
                 </div>
@@ -330,7 +328,7 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
 
           <div className="w-1/4 gap-8 flex flex-col md:w-full">
             <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
-              <span className="font-medium text-xl text-primary_gray-800">Customer Details</span>
+              <span className="font-medium text-xl text-gray-800">Customer Details</span>
               <div className="flex items-center ">
                 <div className="relative h-20 w-20 cursor-pointer">
                   {selectedMember.image ? (
@@ -347,30 +345,30 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                   </div>
                   <a
                     href={`mailto: ${selectedMember.email}`}
-                    className="text-lg font-medium text-primary_gray-500 hover:text-primary_gray-800"
+                    className="text-lg font-medium text-gray-500 hover:text-gray-800"
                   >
                     {selectedMember.email}
                   </a>
                 </div>
               </div>
-              <hr className="border-t-[1px] border-primary_gray-400/40" />
+              <hr className="border-t-[1px] border-gray-400/40" />
               <div className="flex flex-col">
-                <span className="font-medium text-xl text-primary_gray-800">Phone: {selectedMember.phone}</span>
-                <span className="font-medium text-xl text-primary_gray-400">{selectedMember.address}</span>
+                <span className="font-medium text-xl text-gray-800">Phone: {selectedMember.phone}</span>
+                <span className="font-medium text-xl text-gray-400">{selectedMember.address}</span>
               </div>
             </div>
 
             {selectedInvoice ? (
               <div className=" rounded-lg bg-white shadow-md p-6 flex flex-col gap-4">
                 <div className="text-lg capitalize flex gap-1">
-                  <span className="font-medium text-primary_gray-900">Amount {paid ? "Paid" : "Due"} </span>
-                  <span className="font-medium text-primary_gray-400">(NPR)</span>
+                  <span className="font-medium text-gray-900">Amount {paid ? "Paid" : "Due"} </span>
+                  <span className="font-medium text-gray-400">(NPR)</span>
                 </div>
                 <div className="text-xl capitalize flex items-end gap-1">
                   <span className="font-medium text-3xl leading-7 font-Inter text-slate-900">
                     Rs. {invoiceData.net_amount}
                   </span>
-                  <span className="font-medium text-base text-primary_gray-400">(Tax Incl.)</span>
+                  <span className="font-medium text-base text-gray-400">(Tax Incl.)</span>
                 </div>
                 <div
                   className={`py-3 px-6 rounded-xl ${
@@ -384,7 +382,7 @@ export const InvoicePage = ({ invoice_id, selectedMember }: IMemberInvoicePage) 
                 </div>
                 {!paid && user?.id === 1 ? (
                   <>
-                    <hr className="border-t-[1px] border-primary_gray-400/40" />
+                    <hr className="border-t-[1px] border-gray-400/40" />
                     <div>
                       <Button
                         color="secondary"

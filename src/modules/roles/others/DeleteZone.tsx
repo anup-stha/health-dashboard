@@ -13,8 +13,8 @@ export const DeleteZone = () => {
   return (
     <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center lg:w-full sm:px-6">
       <div>
-        <h1 className="text-2xl font-medium text-primary_gray-900">Delete this role</h1>
-        <p className="text-lg font-medium text-primary_gray-500">
+        <h1 className="text-2xl font-medium text-gray-900">Delete this role</h1>
+        <p className="text-lg font-medium text-gray-500">
           Once you delete a role, there is no going back. Please be certain.
         </p>
       </div>
@@ -35,8 +35,8 @@ export const TestDeleteZone = () => {
   return (
     <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center lg:w-full sm:px-6">
       <div>
-        <h1 className="text-2xl font-medium text-primary_gray-900">Delete this test</h1>
-        <p className="text-lg font-medium text-primary_gray-500">
+        <h1 className="text-2xl font-medium text-gray-900">Delete this test</h1>
+        <p className="text-lg font-medium text-gray-500">
           Once you delete a test, there is no going back. Please be certain.
         </p>
       </div>
@@ -57,8 +57,8 @@ export const SubscriptionDeleteZone = () => {
   return (
     <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex justify-between items-center lg:w-full sm:px-6">
       <div>
-        <h1 className="text-2xl font-medium text-primary_gray-900">Delete this subscription</h1>
-        <p className="text-lg font-medium text-primary_gray-500">
+        <h1 className="text-2xl font-medium text-gray-900">Delete this subscription</h1>
+        <p className="text-lg font-medium text-gray-500">
           Once you delete a subscription, there is no going back. Please be certain.
         </p>
       </div>

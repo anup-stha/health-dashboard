@@ -25,8 +25,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
 
   const { open } = useSideBarStore();
 
-  const mainItemStyles =
-    "text-primary_gray-500 hover:text-primary_gray-900 py-2.5 rounded-lg cursor-pointer hover:bg-white relative";
+  const mainItemStyles = "text-gray-500 hover:text-gray-900 py-2.5 rounded-lg cursor-pointer hover:bg-white relative";
 
   const onExpandChange = () => {
     setExpand((expand) => !expand);
@@ -43,7 +42,7 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
           >
             <span
               className={`flex items-center gap-x-4 text-lg w-full ${
-                expand ? "font-semibold text-primary_gray-900" : "font-medium"
+                expand ? "font-semibold text-gray-900" : "font-medium"
               } `}
             >
               <div>{subRoutes.icon}</div>
@@ -65,14 +64,14 @@ export const NavDropdown: React.FC<NavDropdownPropType> = ({ subRoutes }) => {
         </div>
 
         {!open && (
-          <div className="pointer-events-none text-primary_gray-50 rounded-md shadow-E200 transition-all bg-primary_gray-800 h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
+          <div className="pointer-events-none text-gray-50 rounded-md shadow-E200 transition-all bg-gray-800 h-10 top-0 translate-y-1/4 absolute left-[150%] opacity-0 w-0 peer-hover:w-36 peer-hover:opacity-100 transition-all duration-300 z-0 text-lg flex items-center justify-center">
             {subRoutes.title}
           </div>
         )}
       </li>
 
       {expand && (
-        <div className={open ? "border-primary_gray-300 border-l-2 ml-8 space-y-1" : ""}>
+        <div className={open ? "border-gray-300 border-l-2 ml-8 space-y-1" : ""}>
           {expand &&
             subRoutes.children &&
             subRoutes.children.map((route) => {

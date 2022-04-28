@@ -65,7 +65,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
     <Modal>
       <Modal.Button type="open">
         {children ?? (
-          <div className="p-6    text-primary_gray-500 text-xl font-medium cursor-pointer hover:text-primary_gray-850 hover:text-primary_gray-800">
+          <div className="p-6    text-gray-500 text-xl font-medium cursor-pointer hover:text-gray-850 hover:text-gray-800">
             {selectedMemberDetails.length !== 0 ? "Update" : "Add"} Other Details
           </div>
         )}

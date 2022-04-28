@@ -51,7 +51,7 @@ export function ErrorState({ title, subtitle, image, height, containerClassName 
       </div>
       <div className="flex flex-col items-center">
         <div className="text-3xl font-medium text-primary-600">{title}</div>
-        <div className="text-lg font-medium text-primary_gray-500">{subtitle}</div>
+        <div className="text-lg font-medium text-gray-500">{subtitle}</div>
       </div>
     </div>
   );

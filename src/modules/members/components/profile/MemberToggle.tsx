@@ -75,7 +75,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       {({ active: btnActive }) => (
         <button
           className={`${
-            btnActive ? `text-red-500 bg-red-50 text-white` : "text-primary_gray-700"
+            btnActive ? `text-red-500 bg-red-50 text-white` : "text-gray-700"
           } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
         >
           <span>Mark {currentState ? `${toggle === "active" ? "Inactive" : "Not Verified"}` : toggle}</span>
@@ -87,7 +87,7 @@ export const MemberToggle: React.FC<MemberToggleProps> = ({
       {({ active }) => (
         <button
           className={`${
-            active ? "text-primary-500 bg-primary-50" : "text-primary_gray-900"
+            active ? "text-primary-500 bg-primary-50" : "text-gray-900"
           } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
         >
           <span>Mark {currentState ? `${toggle === "active" ? "active" : "Verified"}` : toggle}</span>

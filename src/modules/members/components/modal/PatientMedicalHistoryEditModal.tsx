@@ -104,7 +104,7 @@ export const MedicalHistoryForm = ({ id, slug, name, control, watch, register }:
 
   return (
     <>
-      <label className="text-xl font-medium text-primary_gray-700 w-1/3">{name}</label>
+      <label className="text-xl font-medium text-gray-700 w-1/3">{name}</label>
       <div className="w-2/3 space-y-4">
         <RadioInputController
           name={`${id}-${slug}`}

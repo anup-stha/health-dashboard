@@ -52,8 +52,8 @@ const Breadcrumbs = () => {
   }
 
   return (
-    <ul className="flex items-center justify-center space-x-4 text-xl font-medium text-primary_gray-400 h-full">
-      <li className="hover:text-primary_gray-800">
+    <ul className="flex items-center justify-center space-x-4 text-xl font-medium text-gray-400 h-full">
+      <li className="hover:text-gray-800">
         <Link href="/dashboard">Dashboard</Link>
       </li>
 
@@ -64,7 +64,7 @@ const Breadcrumbs = () => {
             className={
               router.asPath === breadcrumb.href
                 ? "text-black capitalize border-b-4 border-primary-500 h-full flex items-center box-content mt-1 px-4"
-                : "capitalize hover:text-primary_gray-800 -mt-1 px-4"
+                : "capitalize hover:text-gray-800 -mt-1 px-4"
             }
           >
             <Link href={breadcrumb.href}>{decodeURI(breadcrumb.label).split("?")[0].replace(/_/g, " ")}</Link>

@@ -64,7 +64,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
       <div className="bg-white w-2/3 md:w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
         <div className="flex flex-col gap-6">
           <div>
-            <h1 className="text-3xl font-medium text-primary_gray-800">Member Subscriptions</h1>
+            <h1 className="text-3xl font-medium text-gray-800">Member Subscriptions</h1>
           </div>
           <div className="h-[0.4px] bg-slate-200 -mx-8" />
           {isEmpty(selectedMemberSubscription) ? (
@@ -89,7 +89,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                 <>
                   <div className="flex items-end space-x-4 w-full">
                     <div className="w-1/3">
-                      <span className="text-xl font-medium text-primary_gray-500 ">Choose a Subscription</span>
+                      <span className="text-xl font-medium text-gray-500 ">Choose a Subscription</span>
                       <SubscriptionDropdown />
                     </div>
                     <div className="w-1/2">
@@ -125,31 +125,31 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                   <div className="flex items-center sm:flex-col sm:translate-x-0  -translate-x-14 -translate-y-4 ">
                     <SubscriptionChart start_date={start_date} end_date={end_date} />
                     <div className="flex flex-col space-y-4 ">
-                      <h1 className="text-3xl font-medium text-primary_gray-800">{selectedSubscription.name}</h1>
+                      <h1 className="text-3xl font-medium text-gray-800">{selectedSubscription.name}</h1>
                       <div className="flex flex-col space-y-1">
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-primary_gray-400">Duration:</span>
-                          <span className="text-xl font-medium text-primary_gray-600 whitespace-nowrap">
+                          <span className="text-xl font-medium text-gray-400">Duration:</span>
+                          <span className="text-xl font-medium text-gray-600 whitespace-nowrap">
                             {moment(selectedMemberSubscription.start_date * 1000).format("MMM Do, YYYY")} -{" "}
                             {moment(selectedMemberSubscription.end_date * 1000).format("MMM Do, YYYY")}{" "}
                           </span>
                         </div>
 
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-primary_gray-400">Paid Price:</span>
-                          <span className="text-xl font-medium text-primary_gray-600">
+                          <span className="text-xl font-medium text-gray-400">Paid Price:</span>
+                          <span className="text-xl font-medium text-gray-600">
                             {selectedSubscription.price} {selectedSubscription.currency}
                           </span>
                         </div>
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-primary_gray-400">Grace Period:</span>
-                          <span className="text-xl font-medium text-primary_gray-600">
+                          <span className="text-xl font-medium text-gray-400">Grace Period:</span>
+                          <span className="text-xl font-medium text-gray-600">
                             {selectedSubscription.grace_period} days
                           </span>
                         </div>
                         <div className="flex align-baseline gap-2">
-                          <span className="text-xl font-medium text-primary_gray-400">Test Limits:</span>
-                          <span className="text-xl font-medium text-primary_gray-600">
+                          <span className="text-xl font-medium text-gray-400">Test Limits:</span>
+                          <span className="text-xl font-medium text-gray-600">
                             {selectedSubscription.test_limit} times
                           </span>
                         </div>
@@ -171,15 +171,15 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                   <div className="h-[0.4px] -mx-4 bg-slate-200 " />
 
                   <div className="flex flex-col space-y-4 py-8">
-                    <h1 className="text-2xl font-medium text-primary_gray-800">Tests Included In This Subscription</h1>
+                    <h1 className="text-2xl font-medium text-gray-800">Tests Included In This Subscription</h1>
                     <div className="text-lg grid grid-cols-2 gap-4">
                       {selectedMemberSubscription.plan.test_categories.map((category) => (
                         <div
-                          className="self-start py-2 px-6 bg-primary_gray-100 w-full text-lg rounded-lg flex flex-col items-start sm:w-full sm:items-center"
+                          className="self-start py-2 px-6 bg-gray-100 w-full text-lg rounded-lg flex flex-col items-start sm:w-full sm:items-center"
                           key={category.id}
                         >
                           <Disclosure>
-                            <Disclosure.Button className="py-2 w-full flex items-center justify-between font-medium text-xl tracking-wider capitalize text-primary_gray-800">
+                            <Disclosure.Button className="py-2 w-full flex items-center justify-between font-medium text-xl tracking-wider capitalize text-gray-800">
                               {category.name}
                               <span>
                                 <ChevronDown />
@@ -190,7 +190,7 @@ function Tab({ member_id, role_id }: ISubscriptionTab) {
                                 {category.sub_categories.map((sub_category) => (
                                   <span
                                     key={sub_category.id}
-                                    className="text-primary_gray-500 font-medium text-lg text-primary_gray-500 line-clamp-1 capitalize  "
+                                    className="text-gray-500 font-medium text-lg text-gray-500 line-clamp-1 capitalize  "
                                   >
                                     {sub_category.name}
                                   </span>

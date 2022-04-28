@@ -61,24 +61,30 @@ type ProfileTestData = {
   tests: { [p: string]: any }[];
 };
 export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
+  console.log(data);
+
   return data ? (
     <tr key={data.id}>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700 align-top">
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700 align-top">
         <div className="flex flex-col space-y-2">
           <span>{moment(utcDateToLocal(data.test_date)).format("MM/DD/YYYY")}</span>
 
           <span>{moment(utcDateToLocal(data.test_date)).format("h:mm A")}</span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700 align-top">
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700 align-top">
         {data.temperature ?? "N/A"}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
         {data.test_name.toLowerCase() === "urine"
           ? URINE_ORDER.map((element, index) => {
+              const unit = data.tests.find((test) =>
+                Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+              )?.unit;
+
               return (
-                <div key={index} className="flex space-x-2 text-primary_gray-700">
-                  <span className="font-medium text-primary_gray-500">{URINE_TEST[element]} : </span>
+                <div key={index} className="flex space-x-2 text-gray-700">
+                  <span className="font-medium text-gray-500">{URINE_TEST[element]} : </span>
                   <span className="font-medium line-clamp-1">
                     {
                       data.tests.find((test) =>
@@ -86,6 +92,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
                       )?.[element]
                     }
                   </span>
+                  <span className="font-medium line-clamp-1 lowercase">{unit === "n/a" ? "" : unit}</span>
                 </div>
               );
             })
@@ -95,7 +102,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
                   <div key={index} className="flex space-x-2">
                     <a
                       href={Object.values(element)[0]}
-                      className="font-medium text-primary_gray-600 cursor-pointer underline hover:text-primary_gray-800"
+                      className="font-medium text-gray-600 cursor-pointer underline hover:text-gray-800"
                     >
                       Report Link
                     </a>
@@ -104,29 +111,30 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
               }
 
               return (
-                <div key={index} className="flex space-x-2 text-primary_gray-700">
-                  <span className="font-medium text-primary_gray-500">{Object.keys(element)[0]} : </span>
-                  <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
+                <div key={index} className="flex flex-col gap-4 text-gray-700">
+                  <div className="flex gap-2">
+                    <span className="font-medium text-gray-500">{Object.keys(element)[0]} : </span>
+                    <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
+                    <span className="font-medium lowercase line-clamp-1">
+                      {Object.values(element)[2].toLowerCase() === "n/a" ? "" : Object.values(element)[2].toLowerCase()}
+                    </span>
+                  </div>
+
+                  {Object.values(element)[1].length !== 0 && (
+                    <div className="flex gap-2">
+                      <span className="font-medium text-gray-500">Notes:</span>
+                      <div className="flex flex-col">
+                        {Object.values(element)[1].map((element: any, index: number) => (
+                          <span key={index} className="line-clamp-2">
+                            {element}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
-      </td>
-      <td className="capitalize px-6 py-4 text-xl space-y-2 text-primary_gray-600">
-        {data.tests.map((element, index) => (
-          <div key={index} className=" text-primary_gray-700 flex space-x-2">
-            <span className="font-medium text-primary_gray-500">{Object.keys(element)[1]} : </span>
-            <span className="font-medium flex flex-col">
-              {Object.values(element)[1].length === 0
-                ? "N/A"
-                : Object.values(element)[1].map((element: any, index: number) => (
-                    <span key={index} className="line-clamp-2">
-                      {" "}
-                      {element}{" "}
-                    </span>
-                  ))}
-            </span>
-          </div>
-        ))}
       </td>
     </tr>
   ) : (
@@ -143,41 +151,35 @@ export const ProfileTestGridView: React.FC<ProfileTestGridViewProps> = ({ testDe
         testDetails.list.length !== 0 &&
         testDetails.list.map((test) => (
           <div className="flex items-stretch" key={test.id}>
-            <div className="p-4 bg-primary_gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
-              <h1 className="text-primary_gray-900 font-medium text-2xl tracking-wider capitalize print:hidden">
+            <div className="p-4 bg-gray-50 w-full text-xl rounded-lg flex flex-col gap-8 sm:w-full">
+              <h1 className="text-gray-900 font-medium text-2xl tracking-wider capitalize print:hidden">
                 {test.test_name} Report
               </h1>
               <div className="space-y-2">
                 <div className="flex space-x-4 items-center">
-                  <p className="text-primary_gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
+                  <p className="text-gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
                     <GooglePlayLogo size={18} />
 
                     <span>App:</span>
                   </p>
-                  <h1 className="text-primary_gray-500 font-medium text-xl tracking-wider capitalize">
-                    {test.app_slug}
-                  </h1>
+                  <h1 className="text-gray-500 font-medium text-xl tracking-wider capitalize">{test.app_slug}</h1>
                 </div>
 
                 <div className="flex space-x-4 items-center">
-                  <p className="text-primary_gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
+                  <p className="text-gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
                     <Calendar size={18} />
 
                     <span>Test Date:</span>
                   </p>
-                  <h1 className="text-primary_gray-500 font-medium text-xl tracking-wider">
-                    {utcDateToLocal(test.test_date)}
-                  </h1>
+                  <h1 className="text-gray-500 font-medium text-xl tracking-wider">{utcDateToLocal(test.test_date)}</h1>
                 </div>
                 <div className="flex space-x-4 items-center">
-                  <p className="text-primary_gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
+                  <p className="text-gray-700 font-medium text-xl tracking-wider flex items-center space-x-2">
                     <Thermometer size={18} weight="duotone" />
 
                     <span>Temperature:</span>
                   </p>
-                  <h1 className="text-primary_gray-500 font-medium text-xl tracking-wider">
-                    {test.temperature ?? "N/A"}
-                  </h1>
+                  <h1 className="text-gray-500 font-medium text-xl tracking-wider">{test?.temperature}</h1>
                 </div>
 
                 <div className="flex flex-col  space-y-2 ">
@@ -201,17 +203,14 @@ type ProfileTestGridTableRowProps = {
 export const ProfileTestGridTableRow: React.FC<ProfileTestGridTableRowProps> = ({ data }) => {
   return data ? (
     <tr>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         <div className="flex flex-col">
           <span>{data.name} </span>
         </div>
       </td>
-      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-primary_gray-700">
+      <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700">
         {isValidHttpUrl(data.value) ? (
-          <a
-            href={data.value}
-            className="font-medium text-primary_gray-600 cursor-pointer underline hover:text-primary_gray-800"
-          >
+          <a href={data.value} className="font-medium text-gray-600 cursor-pointer underline hover:text-gray-800">
             Report Link
           </a>
         ) : (
@@ -219,7 +218,7 @@ export const ProfileTestGridTableRow: React.FC<ProfileTestGridTableRowProps> = (
         )}
       </td>
 
-      <td className="capitalize px-6 py-4 text-xl font-medium text-primary_gray-700 truncate">
+      <td className="capitalize px-6 py-4 text-xl font-medium text-gray-700 truncate">
         {data.note.length === 0 ? "N/A" : data.note.map((note, index) => <span key={index}> {note} </span>)}
       </td>
     </tr>

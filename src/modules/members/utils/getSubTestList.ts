@@ -22,7 +22,9 @@ export const getSubTestList = (testList: MemberTestList[]) => {
         tests: element.report.map((sub) => {
           return {
             [sub.name]: sub.value,
+
             [`Note`]: sub.note,
+            unit: sub.unit,
           };
         }),
       }

@@ -140,10 +140,9 @@ module.exports = {
           600: "#525252",
           700: "#424242",
           800: "#292929",
+          850: "#383838",
           900: "#141414",
         },
-        // TODO(WILL BE REMOVED)
-        primary_gray: { ...colors.neutral, 850: "#383838" },
 
         green: {
           ...colors.green,

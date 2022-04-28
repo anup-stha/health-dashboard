@@ -61,38 +61,32 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }) 
               )}
             </div>
             <div className="ml-4 gap-1 flex flex-col">
-              <div
-                className="text-xl font-medium text-primary_gray-900  capitalize cursor-pointer"
-                onClick={onMemberClick}
-              >
+              <div className="text-xl font-medium text-gray-900  capitalize cursor-pointer" onClick={onMemberClick}>
                 {data.name}
               </div>
-              <a
-                href={`mailto: ${data.email}`}
-                className="text-base tracking-wide text-primary_gray-500 hover:text-primary_gray-800"
-              >
+              <a href={`mailto: ${data.email}`} className="text-base tracking-wide text-gray-500 hover:text-gray-800">
                 {data.email}
               </a>
             </div>
           </div>
         </td>
         <td className="  px-6 py-4 whitespace-nowrap font-mono text-base">
-          <span className="px-2 py-1  font-Inter font-bold tracking-wider text-primary_gray-600 bg-primary_gray-100 rounded-lg">
+          <span className="px-2 py-1  font-Inter font-bold tracking-wider text-gray-600 bg-gray-100 rounded-lg">
             {data.member_code}
           </span>
         </td>
 
-        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-primary_gray-500">
-          <div className="flex hover:text-primary_gray-800 items-center gap-2">
+        <td className="font-medium px-6 py-4 whitespace-nowrap text-lg text-gray-500">
+          <div className="flex hover:text-gray-800 items-center gap-2">
             <PhoneCall weight="duotone" size={18} />
             <a href={`tel:${data.phone}`}>{data.phone.slice(0, 15)}</a>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
-          <div className="text-lg text-primary_gray-700 font-medium capitalize">{data.address.slice(0, 30)}</div>
-          <div className="text-lg text-primary_gray-500 font-medium">
+          <div className="text-lg text-gray-700 font-medium capitalize">{data.address.slice(0, 30)}</div>
+          <div className="text-lg text-gray-500 font-medium">
             <a target="_blank" href={`https://maps.google.com/?q=${data.lat},${data.lng}`} rel="noreferrer">
-              <span className="flex items-center cursor-pointer hover:text-primary_gray-800">
+              <span className="flex items-center cursor-pointer hover:text-gray-800">
                 Google Maps <CaretDoubleRight size={16} />
               </span>
             </a>
@@ -106,7 +100,7 @@ export const UserTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }) 
                 <Popover.Button>
                   <MoreVertical
                     name="more-vertical"
-                    className=" text-primary_gray-400 cursor-pointer hover:text-primary_gray-800 -ml-2 mt-1"
+                    className=" text-gray-400 cursor-pointer hover:text-gray-800 -ml-2 mt-1"
                   />
                 </Popover.Button>
 

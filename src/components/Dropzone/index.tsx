@@ -75,7 +75,7 @@ const Dropzone = ({ onChange, label }: { onChange: any; label?: string }) => {
 
   return (
     <section className="space-y-2">
-      <label className="block text-xl font-medium text-primary_gray-700">{label}</label>
+      <label className="block text-xl font-medium text-gray-700">{label}</label>
       <div {...getRootProps({ style })}>
         <input {...getInputProps({ onChange })} />
         {acceptedFiles.length === 0 ? (

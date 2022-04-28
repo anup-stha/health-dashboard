@@ -41,8 +41,8 @@ export const DeviceHistoryTab = ({ member_id }: IDeviceHistory) => {
       <div className="print:hidden w-full sm:w-full space-y-8">
         <div className="flex justify-between items-center">
           <div className="print:hidden">
-            <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Device History</h1>
-            <h1 className="text-primary_gray-500 font-medium text-lg print:hidden">
+            <h1 className="text-gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Device History</h1>
+            <h1 className="text-gray-500 font-medium text-lg print:hidden">
               List of all Devices that user has logged into.
             </h1>
           </div>
@@ -97,52 +97,48 @@ const DeviceHistoryTableRow = ({ data }: { data?: Device }) => {
             <Image src="/android.png" layout="fill" objectFit="cover" alt="profile" />
           </div>
           <div className="ml-4 flex flex-col ">
-            <div className="text-xl font-medium text-primary_gray-900  capitalize">
+            <div className="text-xl font-medium text-gray-900  capitalize">
               {data.os_type} {data.device_detail["Version Code"]}
             </div>
-            <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800">
-              {data.app_slug}
-            </div>
+            <div className="text-base font-medium text-gray-500 hover:text-gray-800">{data.app_slug}</div>
           </div>
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap align-top">
         <div className="flex flex-col">
-          <div className="text-xl font-medium text-primary_gray-700  capitalize">
-            {data.device_detail.Model ?? "N/A"}
-          </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-xl font-medium text-gray-700  capitalize">{data.device_detail.Model ?? "N/A"}</div>
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             {data.device_detail.Brand ?? "N/A"} - {data.device_detail.Board ?? ""}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             SDK : {data.device_detail.SDK ?? "N/A"}
           </div>
         </div>
       </td>
       <td className="px-6 py-4 align-top whitespace-nowrap">
         <div className="inline">
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Device Id: {data.device_id === "none" ? data.device_id : data.device_id.split(" ")[1]}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Base: {data.device_detail.Base ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Id: {data.device_detail.ID ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Host: {data.device_detail.Host ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Incremental: {data.device_detail.Incremental ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Manufacture: {data.device_detail.Manufacture ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             User: {data.device_detail.User ?? "N/A"}
           </div>
-          <div className="text-base font-medium text-primary_gray-500 hover:text-primary_gray-800 capitalize">
+          <div className="text-base font-medium text-gray-500 hover:text-gray-800 capitalize">
             Type: {data.device_detail.Type ?? "N/A"}
           </div>
         </div>

@@ -22,8 +22,8 @@ export const RoleMemberCategory = () => {
         <div className="bg-white shadow-sm w-2/3 py-8 px-8 rounded-sm flex flex-col text-left lg:w-full">
           <Disclosure.Button className="w-full flex text-left justify-between items-center">
             <div>
-              <h1 className="text-2xl font-medium text-primary_gray-900">Member Detail Category</h1>
-              <p className="text-lg font-medium text-primary_gray-500">
+              <h1 className="text-2xl font-medium text-gray-900">Member Detail Category</h1>
+              <p className="text-lg font-medium text-gray-500">
                 Click on any field to add, update or remove details field for {selectedRole.name}
               </p>
             </div>
@@ -32,7 +32,7 @@ export const RoleMemberCategory = () => {
             </div>
           </Disclosure.Button>
 
-          <Disclosure.Panel className=" pt-4 pb-2 text-sm text-primary_gray-500">
+          <Disclosure.Panel className=" pt-4 pb-2 text-sm text-gray-500">
             <Transition>
               <div className="w-full flex flex-col space-y-4">
                 <RoleMemberCategoryTable />

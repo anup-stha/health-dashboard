@@ -31,7 +31,7 @@ export const ListBox: React.FC<ListBoxProps> = ({ items, selected, setSelected, 
           <Listbox.Button className=" relative w-full py-4 pl-4 pr-10 text-left bg-white rounded-sm cursor-default shadow-E200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-lg">
             <span className="block capitalize truncate">{selected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon className="w-5 h-5 text-primary_gray-400" aria-hidden="true" />
+              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
           <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
@@ -40,7 +40,7 @@ export const ListBox: React.FC<ListBoxProps> = ({ items, selected, setSelected, 
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `${active ? "text-primary_gray-800 bg-primary_gray-100" : "text-primary_gray-900"}
+                    `${active ? "text-gray-800 bg-gray-100" : "text-gray-900"}
                           cursor-default select-none relative py-2 pl-10 pr-4 `
                   }
                   value={item}

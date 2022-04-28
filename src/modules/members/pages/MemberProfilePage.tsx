@@ -45,7 +45,7 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
               key={tab}
               onClick={() => setSelectedTab(tab)}
               className={`text-[1.3rem] cursor-pointer ${
-                tab === selectedTab ? "text-primary-500 font-medium" : "text-primary_gray-400 font-medium"
+                tab === selectedTab ? "text-primary-500 font-medium" : "text-gray-400 font-medium"
               }  pb-6 capitalize relative`}
             >
               {tab}
