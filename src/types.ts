@@ -439,6 +439,7 @@ export type MemberTestReport = {
   name: string;
   value: string;
   slug: string;
+  unit: string;
   note: string[];
 };
 

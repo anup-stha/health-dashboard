@@ -25,10 +25,8 @@ export const PatientMedicalHistory = ({ selectedMember }: IProfileTestSection) =
       <div className="print:hidden space-y-8">
         <div className="flex items-center justify-between">
           <div className="print:hidden">
-            <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">
-              Patient Medical History
-            </h1>
-            <h1 className="text-primary_gray-500 font-medium text-lg print:hidden">
+            <h1 className="text-gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Patient Medical History</h1>
+            <h1 className="text-gray-500 font-medium text-lg print:hidden">
               Medical History of Patient taken from Sunya Health Apps
             </h1>
           </div>

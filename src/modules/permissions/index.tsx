@@ -20,8 +20,8 @@ export const Permissions = () => {
   return (
     <div className="flex flex-col space-y-8">
       <div>
-        <h1 className="text-3xl font-medium text-primary_gray-900">Permissions</h1>
-        <p className="text-lg font-medium text-primary_gray-500">
+        <h1 className="text-3xl font-medium text-gray-900">Permissions</h1>
+        <p className="text-lg font-medium text-gray-500">
           Click on any permission to add, update or remove permissions for super user
         </p>
       </div>

@@ -27,7 +27,7 @@ export const DefaultAvatar: React.FC<AvatarProps> = ({ name, image }) => {
         <Image src={Avatar} alt={name} className="rounded-full" height="48" width="48" />
       )}
 
-      <span className="truncate sm:text-lg sm:font-medium sm:text-primary_gray-700">{name}</span>
+      <span className="truncate sm:text-lg sm:font-medium sm:text-gray-700">{name}</span>
     </div>
   );
 };
@@ -41,8 +41,8 @@ export const AvatarWithEmail: React.FC<AvatarProps> = ({ name, image, email }) =
         <Image src={Avatar} alt={name} className="rounded-full" height="48" width="48" />
       )}
       <div className="flex flex-col gap-y-1">
-        <span className="sm:text-xl sm:font-medium sm:text-primary_gray-800">{name}</span>
-        <span className="sm:text-base sm:font-medium sm:text-primary_gray-600">{email}</span>
+        <span className="sm:text-xl sm:font-medium sm:text-gray-800">{name}</span>
+        <span className="sm:text-base sm:font-medium sm:text-gray-600">{email}</span>
       </div>
     </div>
   );

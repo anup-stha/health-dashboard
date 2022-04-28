@@ -19,17 +19,14 @@ export const AppReleaseCard = (props: AppRelease) => {
       <div className="space-y-1 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1
-              className="text-3xl font-medium text-primary_gray-800 capitalize"
-              data-testid={`${props.id}-app_release_name`}
-            >
+            <h1 className="text-3xl font-medium text-gray-800 capitalize" data-testid={`${props.id}-app_release_name`}>
               {props.name}
             </h1>
           </div>
         </div>
 
         <p
-          className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2"
+          className="text-lg font-medium text-gray-500 w-4/5 line-clamp-2"
           data-testid={`${props.id}-app_release_code`}
         >
           Code: {props.code}

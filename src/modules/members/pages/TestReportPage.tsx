@@ -67,6 +67,7 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
               tests: element.report.map((sub) => ({
                 [sub.name]: sub.value,
                 [`Note`]: sub.note,
+                unit: sub.unit,
               })),
             }
           );
@@ -102,18 +103,18 @@ export const TestReportPage = ({ current_member }: IMemberTest) => {
               <LetteredAvatar name={current_member?.name} size="120" round={true} maxInitials={2} />
             </div>
             <div className="flex flex-col mt-10">
-              <h1 className="capitalize text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-gray-900 font-medium text-3xl tracking-wider sm:text-3xl">
                 {current_member?.name}
               </h1>
-              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">{current_member?.email}</p>
+              <p className="text-gray-500 font-medium text-xl sm:text-lg">{current_member?.email}</p>
             </div>
           </div>
           <div className="mt-36 py-4 px-8 space-y-6">
             <div className="flex flex-col">
-              <h1 className="capitalize text-primary_gray-700 font-medium text-3xl tracking-wider sm:text-3xl">
+              <h1 className="capitalize text-gray-700 font-medium text-3xl tracking-wider sm:text-3xl">
                 Patient Test Report
               </h1>
-              <p className="text-primary_gray-500 font-medium text-xl sm:text-lg">
+              <p className="text-gray-500 font-medium text-xl sm:text-lg">
                 Please choose start date and end date to generate report.
               </p>
             </div>

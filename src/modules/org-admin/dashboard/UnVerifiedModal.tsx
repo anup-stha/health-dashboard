@@ -42,12 +42,12 @@ export const UnVerifiedModal = () => {
                   </div>
                   <div className="flex flex-col">
                     <div className="text-red-600 font-medium text-2xl">Verification Error</div>
-                    <div className="text-primary_gray-500 font-regular text-lg">
+                    <div className="text-gray-500 font-regular text-lg">
                       You haven&apos;t been verified yet. Please contact Sunya Health to get verified.
                     </div>
                   </div>
                 </div>
-                <div className="text-primary_gray-500 cursor-pointer" onClick={() => setIsOpen(false)}>
+                <div className="text-gray-500 cursor-pointer" onClick={() => setIsOpen(false)}>
                   <X size={32} />
                 </div>
               </div>

@@ -51,8 +51,8 @@ const Tab = ({ selectedMember }: IProfileTestSection) => {
           <div className="flex flex-col space-y-8 sm:space-y-4">
             <div className=" flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
               <div className="print:hidden">
-                <h1 className="text-primary_gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Tests</h1>
-                <h1 className="text-primary_gray-500 font-medium text-lg print:hidden">
+                <h1 className="text-gray-900 font-medium text-3xl tracking-wider sm:text-2xl">Tests</h1>
+                <h1 className="text-gray-500 font-medium text-lg print:hidden">
                   Please choose a test to show results of that test
                 </h1>
               </div>
