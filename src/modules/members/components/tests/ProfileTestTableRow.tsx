@@ -73,7 +73,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
         </div>
       </td>
       <td className="capitalize px-6 py-4 text-xl whitespace-nowrap font-medium text-gray-700 align-top">
-        {data.temperature ?? "N/A"}
+        {data.temperature} {data.temperature && <>&deg; F</>}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
         {data.test_name.toLowerCase() === "urine"
