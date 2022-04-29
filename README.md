@@ -6,8 +6,12 @@ with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/
 First, run the development server:
 
 ```bash
+cp .env.example .env
+npm install
 npm run dev
 # or
+cp .env.example .env
+yarn install
 yarn dev
 ```
 
