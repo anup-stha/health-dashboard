@@ -38,8 +38,8 @@ export const RoleAccessSection = () => {
     <div className="space-y-8">
       <div className="flex items-center justify-between sm:flex-col sm:gap-4">
         <div>
-          <h1 className="text-3xl font-medium text-primary_gray-900">Role Access</h1>
-          <p className="text-lg font-medium text-primary_gray-500">
+          <h1 className="text-3xl font-medium text-gray-900">Role Access</h1>
+          <p className="text-lg font-medium text-gray-500">
             Choose a role to give access of that to role to current role.
           </p>
         </div>
@@ -102,14 +102,14 @@ export const RoleAccessSection = () => {
               <div className="space-y-2 w-full">
                 <div className="flex flex-col justify-between w-full space-y-1">
                   <div className="flex justify-between items-center w-full">
-                    <h1 className="text-3xl font-medium text-primary_gray-800 capitalize">{role.name}</h1>
+                    <h1 className="text-3xl font-medium text-gray-800 capitalize">{role.name}</h1>
                     <h1 className="whitespace-nowrap text-base">
                       <BooleanTag type="info" trueStatement={`Slug: ${role.slug}`} />
                     </h1>
                   </div>
                 </div>
 
-                <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2">
+                <p className="text-lg font-medium text-gray-500 w-4/5 line-clamp-2">
                   {role.desc} {/** 92 CHARS */}
                 </p>
               </div>

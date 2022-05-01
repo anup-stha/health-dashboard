@@ -82,10 +82,10 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
               <div className="flex h-screen w-full max-w-7xl transform flex-col space-y-10 overflow-hidden bg-white px-12 py-12 text-left align-middle shadow-xl transition">
                 <div className="flex w-[50rem] flex-col gap-8">
                   <div className="flex flex-col gap-2">
-                    <Dialog.Title as="h3" className="text-4xl font-medium capitalize leading-6 text-primary_gray-700">
+                    <Dialog.Title as="h3" className="text-4xl font-medium capitalize leading-6 text-gray-700">
                       Filter Members By Category
                     </Dialog.Title>
-                    <span className="text-lg text-primary_gray-400">Please select any of filters below</span>
+                    <span className="text-lg text-gray-400">Please select any of filters below</span>
                   </div>
                   <form
                     className="flex flex-col space-y-8"
@@ -134,7 +134,7 @@ export const MemberFilter = ({ setFilterParams, role }: IMemberFilter) => {
                           setTotalInputs((prev) => prev + 1);
                           setSelectedCategory([...selectedCategory, foundCategory]);
                         }}
-                        className="w-full cursor-pointer px-4 py-4 text-2xl font-medium rounded-lg border border-primary_gray-300 border-dashed flex items-center justify-center text-primary_gray-600"
+                        className="w-full cursor-pointer px-4 py-4 text-2xl font-medium rounded-lg border border-gray-300 border-dashed flex items-center justify-center text-gray-600"
                       >
                         Add New Category
                       </div>

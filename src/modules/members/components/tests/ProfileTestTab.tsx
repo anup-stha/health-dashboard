@@ -28,11 +28,13 @@ interface IProfileTestTabProps {
 }
 
 export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProps) => {
+  console.log(testList?.list);
+
   const subTestList = testList ? getSubTestList(testList.list) : [];
   const user = useAuthStore((state) => state.user);
 
-  const activeClassName = "py-3 px-10 rounded-sm text-xl bg-primary_gray-800 text-white font-medium";
-  const inactiveClassName = "py-3 px-10 rounded-sm text-xl text-primary_gray-700 font-medium hover:bg-primary_gray-200";
+  const activeClassName = "py-3 px-10 rounded-sm text-xl bg-gray-800 text-white font-medium";
+  const inactiveClassName = "py-3 px-10 rounded-sm text-xl text-gray-700 font-medium hover:bg-gray-200";
 
   return !testList ? (
     <div className="flex  items-center text-xl font-medium text-red-400 space-x-2 ">
@@ -63,14 +65,14 @@ export const ProfileTestTab = ({ testList, selectedMember }: IProfileTestTabProp
           ) : null}
         </div>
       </div>
-      <hr className="border-t-[1px] border-primary_gray-200 " />
+      <hr className="border-t-[1px] border-gray-200 " />
       {testList && (
         <>
           <Tab.Panels>
             <Tab.Panel>
               <TableView
                 data={subTestList}
-                tableHeadings={["Test Date", "Temperature", "Test Result", "Test Notes"]}
+                tableHeadings={["Test Date", "Temperature", "Test Result"]}
                 search={false}
                 tableRowComponent={<ProfileTestTableRow />}
                 paginate={true}

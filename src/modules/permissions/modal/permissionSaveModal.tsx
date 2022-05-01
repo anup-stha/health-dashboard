@@ -34,13 +34,13 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
       <Modal.Content width="max-w-6xl">
         <div className="space-y-2">
           <Modal.Title>Save Permission</Modal.Title>
-          <p className="text-xl font-medium text-primary_gray-500">You are about to save the following permissions</p>
+          <p className="text-xl font-medium text-gray-500">You are about to save the following permissions</p>
         </div>
         <Modal.Scrollable>
           <div className="flex flex-col space-y-8">
             {selectedPermission.selected.length !== 0 && (
               <div>
-                <div className="font-medium text-primary_gray-600 text-xl mb-2">Added Permissions</div>
+                <div className="font-medium text-gray-600 text-xl mb-2">Added Permissions</div>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
                   {selectedPermission.selected.map((permissionId) => {
                     const permissionDetail = selectedPermission.all.filter((element) => element.id === permissionId)[0];
@@ -61,13 +61,13 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
                           />
                         </div>
                         <div className="flex flex-col space-y-1">
-                          <span className="text-2xl text-primary_gray-850 font-medium line-clamp-1">
+                          <span className="text-2xl text-gray-850 font-medium line-clamp-1">
                             {permissionDetail.name}
                           </span>
-                          <span className="text-base text-primary_gray-500 font-medium w-4/5 line-clamp-3">
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.slug}
                           </span>
-                          <span className="text-base text-primary_gray-500 font-medium w-4/5 line-clamp-3">
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.description}
                           </span>
                         </div>
@@ -100,13 +100,13 @@ const PermissionSaveModal: React.FC<PermissionSaveModalPropType> = () => {
                           />
                         </div>
                         <div className="flex flex-col space-y-1">
-                          <span className="text-2xl text-primary_gray-850 font-medium line-clamp-1">
+                          <span className="text-2xl text-gray-850 font-medium line-clamp-1">
                             {permissionDetail.name}
                           </span>
-                          <span className="text-base text-primary_gray-500 font-medium w-4/5 line-clamp-3">
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.slug}
                           </span>
-                          <span className="text-base text-primary_gray-500 font-medium w-4/5 line-clamp-3">
+                          <span className="text-base text-gray-500 font-medium w-4/5 line-clamp-3">
                             {permissionDetail.description}
                           </span>
                         </div>

@@ -104,20 +104,20 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  @apply text-xl text-primary_gray-500 font-medium hover:text-primary_gray-900;
+  @apply text-xl text-gray-500 font-medium hover:text-gray-900;
 }
 
 // PAGINATION
 .inactive_item {
-  @apply text-primary_gray-500 hover:bg-primary_gray-200 cursor-pointer p-5 hover:text-primary_gray-800 rounded-lg  sm:text-xl;
+  @apply text-gray-500 hover:bg-gray-200 cursor-pointer p-5 hover:text-gray-800 rounded-lg  sm:text-xl;
 }
 
 .active_item {
-  @apply text-primary_gray-800 bg-white shadow-sm cursor-pointer p-5 hover:bg-primary_gray-400 rounded-lg  sm:text-xl;
+  @apply text-gray-800 bg-white shadow-sm cursor-pointer p-5 hover:bg-gray-400 rounded-lg  sm:text-xl;
 }
 
 .button-nav {
-  @apply cursor-pointer rounded-lg py-4 px-4 bg-primary_gray-50 hover:bg-primary_gray-200 active:inset-4 active:bg-primary_gray-200 disabled:cursor-not-allowed;
+  @apply cursor-pointer rounded-lg py-4 px-4 bg-gray-50 hover:bg-gray-200 active:inset-4 active:bg-gray-200 disabled:cursor-not-allowed;
 }
 
 // login
@@ -315,7 +315,12 @@ datalist {
 
 .page-header,
 .page-header-space {
-  height: 145px;
+  height: 200px;
+}
+
+.page-header-all,
+.page-header-space-all {
+  height: 140px;
 }
 
 .page-footer,

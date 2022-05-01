@@ -31,22 +31,14 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
         <div className="flex flex-col space-y-4 w-full">
           <div className="flex justify-between items-center w-full">
             <div className="flex flex-col gap-4 pt-2">
-              <h1 className="text-primary_gray-900 font-medium text-4xl tracking-wider">Test Report</h1>
+              <h1 className="text-gray-900 font-medium text-4xl tracking-wider">Test Report</h1>
               {member && (
                 <div>
-                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider capitalize">
-                    Name: {member.name}
-                  </h1>
-                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
-                    Address: {member.address}
-                  </h1>
-                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
-                    Gender: {member.gender}
-                  </h1>
-                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider ">
-                    Age: {member.age} years
-                  </h1>
-                  <h1 className="text-primary_gray-700 font-medium text-2xl tracking-wider">
+                  <h1 className="text-gray-700 font-medium text-2xl tracking-wider capitalize">Name: {member.name}</h1>
+                  <h1 className="text-gray-700 font-medium text-2xl tracking-wider ">Address: {member.address}</h1>
+                  <h1 className="text-gray-700 font-medium text-2xl tracking-wider ">Gender: {member.gender}</h1>
+                  <h1 className="text-gray-700 font-medium text-2xl tracking-wider ">Age: {member.age} years</h1>
+                  <h1 className="text-gray-700 font-medium text-2xl tracking-wider">
                     Date of birth: {moment(member.dob_ad * 1000).format("DD/MM/YYYY")}
                   </h1>
                 </div>
@@ -88,16 +80,26 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
             </td>
           </tr>
         </thead>
-        <tbody className="w-screen divide-primary_gray-700/20 divide-y-[1px] shadow-E500">
+        <tbody className="w-screen divide-gray-700/20 divide-y-[1px] shadow-E500">
           {Object.keys(test).map((element, index) => (
             <Fragment key={index}>
-              <tr className="w-full bg-primary_gray-700">
+              <tr className="w-full bg-gray-700">
                 <td className="capitalize py-4 text-xl text-white font-medium space-y-2 whitespace-nowrap">
                   {element} Test Report
                 </td>
                 <td />
                 <td />
-                <td />
+              </tr>
+              <tr>
+                <td>
+                  <span className="text-gray-600 text-2xl"> Test Date </span>
+                </td>
+                <td>
+                  <span className="text-gray-600 text-2xl"> Temperature </span>
+                </td>
+                <td>
+                  <span className="text-gray-600 text-2xl"> Test Result </span>
+                </td>
               </tr>
               {test[element].map((report: Record<any, any>, index: number) => (
                 <tr key={index}>
@@ -109,58 +111,62 @@ export const ProfileAllTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(
                   </td>
                   <td className="capitalize py-4 text-xl space-y-2 whitespace-nowrap align-top ">
                     <div className="">
-                      <span className="text-primary_gray-600"> Temperature </span>
-                      <span className="block">{report.temperature ?? "N/A"}</span>
+                      <span className="block">
+                        {report.temperature} {report.temperature && <>&deg; F</>}{" "}
+                      </span>
                     </div>
                   </td>
                   <td className="capitalize py-4 text-xl space-y-2 break-words ">
                     {report.test_name.toLowerCase() === "urine"
                       ? URINE_ORDER.map((element, index) => {
-                          console.log();
+                          const unit = report.tests.find((test: any) =>
+                            Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                          )?.unit;
+
+                          const value = report.tests.find((test: any) =>
+                            Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                          )?.[element];
 
                           return (
-                            <div key={index} className="flex space-x-2 text-primary_gray-700">
-                              <span className="font-medium text-primary_gray-500">{URINE_TEST[element]} : </span>
-                              <span className="font-medium line-clamp-1">
-                                {
-                                  report.tests.find((test: any) =>
-                                    Object.keys(test).find(
-                                      (sub_test) => sub_test.toLowerCase() === element.toLowerCase()
-                                    )
-                                  )?.[element]
-                                }
-                              </span>
-                            </div>
+                            value.toLowerCase() !== "n/a" && (
+                              <div key={index} className="flex space-x-2 text-gray-700">
+                                <span className="font-medium text-gray-500">{URINE_TEST[element]} : </span>
+                                <span className="font-medium line-clamp-1">{value}</span>
+                                <span className="font-medium line-clamp-1 lowercase">{unit === "n/a" ? "" : unit}</span>
+                              </div>
+                            )
                           );
                         })
-                      : report.tests.map((value: any, index: number) => (
-                          <div key={index} className="text-primary_gray-700">
-                            <span className="inline font-medium text-primary_gray-500 block">
-                              {Object.keys(value)[0]} :{" "}
-                            </span>
-                            <span className="inline font-medium block text-lg ">{Object.values(value)[0] as any}</span>
-                          </div>
-                        ))}
-                  </td>
-                  <td className="capitalize py-4 text-xl space-y-2 text-primary_gray-600 break-words">
-                    {report.tests.map((element: any, index: any) => {
-                      const note = Object.values(element)[1] as string[];
-                      return (
-                        <div key={index} className="text-primary_gray-700 ">
-                          <span className="font-medium text-primary_gray-500 inline">{Object.keys(element)[1]} : </span>
-                          <span className="font-medium block text-lg inline">
-                            {note.length === 0
-                              ? "N/A"
-                              : note.map((element: any, index: number) => (
-                                  <span key={index} className="line-clamp-1 block">
-                                    {" "}
-                                    {element}{" "}
+                      : report.tests.map(
+                          (value: Record<any, any>, index: number) =>
+                            Object.values(value)[0].toLowerCase() !== "n/a" && (
+                              <div key={index} className="flex flex-col gap-4 text-gray-700">
+                                <div className="flex gap-2">
+                                  <span className="font-medium text-gray-500">{Object.keys(value)[0]} : </span>
+                                  <span className="font-medium line-clamp-1">{Object.values(value)[0]}</span>
+                                  <span className="font-medium lowercase line-clamp-1">
+                                    {Object.values(value)[2].toLowerCase() === "n/a"
+                                      ? ""
+                                      : Object.values(value)[2].toLowerCase()}
                                   </span>
-                                ))}
-                          </span>
-                        </div>
-                      );
-                    })}
+                                </div>
+
+                                {Object.values(value)[1].length !== 0 && (
+                                  <div className="flex gap-2">
+                                    <span className="font-medium text-gray-500">Notes:</span>
+                                    <div className="flex flex-col">
+                                      {Object.values(value)[1].map((element: any, index: number) => (
+                                        <span key={index} className="line-clamp-2">
+                                          {" "}
+                                          {element}{" "}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )
+                        )}
                   </td>
                 </tr>
               ))}

@@ -36,8 +36,8 @@ export function AppReleaseListPage() {
   return (
     <PageContainer>
       <div>
-        <h1 className="text-4xl font-medium text-primary_gray-700 ">{selectedApp?.name}</h1>
-        <p className="text-xl font-normal tracking-wide text-primary_gray-500">{selectedApp?.application_id}</p>
+        <h1 className="text-4xl font-medium text-gray-700 ">{selectedApp?.name}</h1>
+        <p className="text-xl font-normal tracking-wide text-gray-500">{selectedApp?.application_id}</p>
       </div>
       <div className="grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-12 mt-2">
         {appReleaseList?.map((app) => (

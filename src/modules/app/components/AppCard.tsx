@@ -30,7 +30,7 @@ export const AppCard = ({ id, name, secret_key, slug, application_id }: AppCardP
       <div className="space-y-1 w-full">
         <div className="flex flex-col justify-between w-full space-y-1">
           <div className="flex justify-between items-center w-full">
-            <h1 className="text-3xl font-medium text-primary_gray-800 capitalize" data-testid={`${slug}-app-name`}>
+            <h1 className="text-3xl font-medium text-gray-800 capitalize" data-testid={`${slug}-app-name`}>
               {name}
             </h1>
             <h1 className="whitespace-nowrap text-base">
@@ -39,7 +39,7 @@ export const AppCard = ({ id, name, secret_key, slug, application_id }: AppCardP
           </div>
         </div>
 
-        <p className="text-lg font-medium text-primary_gray-500 w-4/5 line-clamp-2" data-testid={`${slug}-app-app_id`}>
+        <p className="text-lg font-medium text-gray-500 w-4/5 line-clamp-2" data-testid={`${slug}-app-app_id`}>
           {application_id}
         </p>
       </div>

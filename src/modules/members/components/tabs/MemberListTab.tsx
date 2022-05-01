@@ -74,8 +74,8 @@ function Tab({ parent_member_id }: IMembersTable) {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start sm:gap-4">
             <div>
-              <h1 className="text-3xl font-medium text-primary_gray-800">Members List</h1>
-              <p className="text-primary_gray-500 font-medium text-lg print:hidden">List of All Organization Members</p>
+              <h1 className="text-3xl font-medium text-gray-800">Members List</h1>
+              <p className="text-gray-500 font-medium text-lg print:hidden">List of All Organization Members</p>
             </div>
 
             <div className="flex gap-4">

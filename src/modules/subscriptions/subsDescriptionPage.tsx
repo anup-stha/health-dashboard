@@ -70,7 +70,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
     <div className="px-10 py-10 overflow-visible sm:px-6 sm:py-6 w-full space-y-8">
       <Heading title={selected.name ?? ""} subtitle={selected.slug ?? ""} />
 
-      <hr className="border-t-[1px] border-primary_gray-200" />
+      <hr className="border-t-[1px] border-gray-200" />
       <div className="space-y-4">
         <div className="flex flex-col">
           <h1 className="text-3xl font-medium text-neutral-800 capitalize">Tests</h1>
@@ -90,7 +90,7 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
                         className={classNames(
                           selected
                             ? "w-full py-4 px-6 border-primary-500 border-r-4 bg-neutral-700 text-white cursor-pointer text-left"
-                            : '"w-full py-4 px-6 border-primary-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-primary_gray-200 border-r-4 border-r-transparent'
+                            : '"w-full py-4 px-6 border-primary-500 text-neutral-700 border-b-[1px] text-left border-neutral-200 cursor-pointer hover:bg-gray-200 border-r-4 border-r-transparent'
                         )}
                       >
                         <div className="flex items-center justify-between">
@@ -209,11 +209,11 @@ export const SubsDescriptionPage: React.FC<SubsDescriptionPage> = ({ selected })
         )}
       </div>
 
-      <hr className="border-t-[1px] border-primary_gray-200" />
+      <hr className="border-t-[1px] border-gray-200" />
       <div className="space-y-2">
         <div>
-          <h1 className="text-3xl font-medium text-primary_gray-900">Alert Zone</h1>
-          <p className="text-lg font-medium text-primary_gray-500">Please be careful with anything you do here</p>
+          <h1 className="text-3xl font-medium text-gray-900">Alert Zone</h1>
+          <p className="text-lg font-medium text-gray-500">Please be careful with anything you do here</p>
         </div>
         <div className="space-y-4">
           <SubscriptionUpdateZone />
@@ -232,13 +232,10 @@ const SubscriptionSubTestTableRow = ({ data }: any) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="">
-            <div
-              className="text-xl font-medium text-primary_gray-900 w-full capitalize"
-              data-testid={`${data.id}-test-name`}
-            >
+            <div className="text-xl font-medium text-gray-900 w-full capitalize" data-testid={`${data.id}-test-name`}>
               {data.name}
             </div>
-            <div className="text-lg font-medium text-primary_gray-500">{data.category_name}</div>
+            <div className="text-lg font-medium text-gray-500">{data.category_name}</div>
           </div>
         </div>
       </td>

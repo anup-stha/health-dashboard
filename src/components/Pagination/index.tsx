@@ -99,7 +99,7 @@ export const Pagination = ({ totalPageNumber, pageIndex, setPageIndex, pageName 
   }, [pageIndex, totalPageNumber, setPageIndex]);
 
   return (
-    <div className="flex items-center justify-center mx-auto leading-6 text-primary_gray-800">
+    <div className="flex items-center justify-center mx-auto leading-6 text-gray-800">
       <div className="flex items-center px-2 py-1 space-x-8 text-lg font-bold rounded-xl sm:space-x-2 sm:flex-col sm:space-y-4 sm:px-0 sm:text-xl">
         <ul className="flex items-center space-x-2 sm:space-x-2">
           <li>
@@ -134,7 +134,7 @@ export const Pagination = ({ totalPageNumber, pageIndex, setPageIndex, pageName 
           </li>
         </ul>
         <form
-          className="flex items-center space-x-4 text-primary_gray-500 sm:text-xl"
+          className="flex items-center space-x-4 text-gray-500 sm:text-xl"
           onSubmit={(e) => {
             e.preventDefault();
 
@@ -178,9 +178,9 @@ export const Pagination = ({ totalPageNumber, pageIndex, setPageIndex, pageName 
             }}
             type="number"
             value={enteredPage.toString()}
-            className="bg-primary_gray-100 rounded-lg shadow-sm ring-1 ring-primary_gray-500/50 text-center px-4 py-xs w-14"
+            className="bg-gray-100 rounded-lg shadow-sm ring-1 ring-gray-500/50 text-center px-4 py-xs w-14"
           />
-          <button className="flex items-center font-bold cursor-pointer hover:text-primary_gray-800">
+          <button className="flex items-center font-bold cursor-pointer hover:text-gray-800">
             <span>Go</span>
           </button>
         </form>
