@@ -17,8 +17,7 @@ const useLogin = () => {
         if (globalStateResponse) {
           if (!useAuthStore.getState().guided) useAuthStore.getState().setGuided(false);
 
-          if (shouldRedirect) {
-            console.log(response.user);
+          if (!!response?.service_url && shouldRedirect) {
             useAuthStore.getState().setUserData(response.user);
             useAuthStore.getState().setServiceUrl(response.service_url);
             Cookies.set("token", response.token, {
