@@ -10,9 +10,7 @@ import { getGlobalStates } from "@/services/requests/globalRequests";
 const useLogin = () => {
   return useMutation(login, {
     onSuccess: async (response) => {
-      const shouldRedirect = !response.service_url.includes("app.sunya.health");
-
-      console.log(shouldRedirect);
+      const shouldRedirect = !response?.service_url?.includes("app.sunya.health");
 
       try {
         const globalStateResponse = await getGlobalStates();
