@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/20/22, 2:01 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 5/2/22, 3:21 PM
  *
  */
 
@@ -17,7 +16,8 @@ type TabType =
   | "tests"
   | "devices"
   | "settings"
-  | "medical history";
+  | "medical history"
+  | "doctors";
 
 /**
  *
@@ -33,7 +33,7 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
       if (useAuthStore.getState().user?.id !== 1) {
         return ["overview", "subscriptions"];
       }
-      return ["overview", "members", "subscriptions", "devices"];
+      return ["overview", "members", "doctors", "subscriptions", "devices"];
 
     case "org_operator":
       if (useAuthStore.getState().user?.id !== 1) {
