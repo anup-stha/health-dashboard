@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 3/2/22, 5:17 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
  *
  */
 
@@ -130,7 +129,7 @@ export interface IModalTitleProps {
 }
 
 export const ModalTitle: React.FC<IModalTitleProps> = ({ children }) => {
-  return <div className="text-[2.5rem] text-gray-900">{children}</div>;
+  return <div className="text-[2.5rem] font-medium text-gray-800">{children}</div>;
 };
 
 export interface IScrollableProps {

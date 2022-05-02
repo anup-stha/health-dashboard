@@ -1,3 +1,10 @@
+/*
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
+ *
+ */
+
 // Map RHF's dirtyFields over the `data` received by `handleSubmit` and return the changed subset of that data.
 /**
  *

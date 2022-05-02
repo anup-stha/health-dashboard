@@ -1,3 +1,10 @@
+/*
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 5/1/22, 4:14 PM
+ *
+ */
+
 import Cookies from "js-cookie";
 import Router from "next/router";
 import { toast } from "react-hot-toast";
