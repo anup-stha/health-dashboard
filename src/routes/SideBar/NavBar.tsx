@@ -9,7 +9,7 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 import { NavDropdown } from "./NavDropdown";
 import { NavItem } from "./NavItem";
-import { orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
+import { doctorNavRoutes, orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
   const role = useAuthStore()?.user?.role;
@@ -20,6 +20,8 @@ export const NavBar = () => {
       ? orgNavRoutes
       : role.slug === "school_admin"
       ? schoolAdminNavRoutes
+      : role.slug === "accessor"
+      ? doctorNavRoutes
       : []
     : [];
 
