@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import { useAuthStore } from "@/modules/auth/useTokenStore";
-import { adminRoutes, orgRoutes } from "@/routes/SideBar/routes";
+import { adminRoutes, doctorRoutes, orgRoutes } from "@/routes/SideBar/routes";
 
 export const withRole = (WrappedComponent: React.FC) => {
   const RequirePermission = (props: React.Props<any>) => {
@@ -25,6 +25,8 @@ export const withRole = (WrappedComponent: React.FC) => {
         } else if (role.id === 2 && orgRoutes.includes(router.pathname)) {
           setRolePermitted(true);
         } else if (role.slug === "school_admin" && orgRoutes.includes(router.pathname)) {
+          setRolePermitted(true);
+        } else if (role.slug === "accessor" && doctorRoutes.includes(router.pathname)) {
           setRolePermitted(true);
         } else {
           router.push("/404");
