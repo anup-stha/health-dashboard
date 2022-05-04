@@ -16,6 +16,12 @@ type AssignDoctorParams = {
   member_id: number;
 };
 
+export type GetPatientsParams = {
+  patient_role_id?: number;
+  patient_parent_id: number;
+  page?: number;
+};
+
 type DoctorsList = {
   list: Member[];
   pagination: PaginationObject;
@@ -23,6 +29,12 @@ type DoctorsList = {
 
 type DoctorListResponse = StatusType & {
   data: DoctorsList;
+};
+
+type OrganizationList = Member[];
+
+type OrganizationListResponse = StatusType & {
+  data: OrganizationList;
 };
 
 export const postAssignDoctorToOrganization = async ({ doctor_id, member_id }: AssignDoctorParams): Promise<[]> => {
@@ -34,5 +46,21 @@ export const postAssignDoctorToOrganization = async ({ doctor_id, member_id }: A
 
 export const getAllDoctors = async (): Promise<DoctorsList> => {
   const response = await privateAgent.get<DoctorListResponse>("reportAccess/lists/all");
+  return response?.data.data;
+};
+
+export const getAllOrganizations = async (member_id: number): Promise<OrganizationList> => {
+  const response = await privateAgent.get<OrganizationListResponse>(`reportAccess/organizations?mid=${member_id}`);
+  return response?.data.data;
+};
+
+export const getAllPatients = async ({
+  patient_parent_id,
+  patient_role_id = 5,
+  page,
+}: GetPatientsParams): Promise<DoctorsList> => {
+  const response = await privateAgent.get<DoctorListResponse>(
+    `reportAccess/members/${patient_role_id}/${patient_parent_id}?page=${page}`
+  );
   return response?.data.data;
 };

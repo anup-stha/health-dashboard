@@ -132,4 +132,5 @@ export type MemberProfileTabs =
   | "devices"
   | "settings"
   | "doctors"
-  | "medical history";
+  | "medical history"
+  | "patients";
