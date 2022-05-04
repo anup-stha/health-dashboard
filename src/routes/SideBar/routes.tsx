@@ -1,13 +1,22 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/28/22, 11:35 AM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
  *
  */
 
 import { Home } from "iconsax-react";
-import { DeviceMobile, DiamondsFour, Polygon, Question, Sliders, TestTube, UserList, Users } from "phosphor-react";
+import {
+  Buildings,
+  DeviceMobile,
+  DiamondsFour,
+  Polygon,
+  Question,
+  Sliders,
+  TestTube,
+  UserList,
+  Users,
+} from "phosphor-react";
 import React from "react";
 
 import { adminWelcomeSlides } from "@/modules/dashboard/adminWelcomeSlides";
@@ -157,6 +166,30 @@ export const schoolAdminNavRoutes: RouteObjectType[] = [
   },
 ];
 
+export const doctorNavRoutes: RouteObjectType[] = [
+  {
+    id: 1,
+    title: "Dashboard",
+    icon: <Home size={24} />,
+    link: "/dashboard",
+  },
+  {
+    id: 2,
+    title: "Organizations",
+    icon: <Buildings size={24} />,
+    link: "/organizations",
+  },
+  {
+    id: 3,
+    title: "How To Use",
+    icon: <Question size={24} />,
+    link: false,
+    modal: ({ children }) => <WelcomeModal images={orgAdminWelcomeSlides}> {children}</WelcomeModal>,
+  },
+];
+
+const doctorExtraRoutes = ["/organizations/patients", "/organizations/patients/[name]"];
+
 export const adminRoutes = convertToLink(superAdminNavRoutes, [], adminExtraRoute);
 export const orgRoutes = convertToLink(orgNavRoutes, [], orgExtraRoutes);
-export const schoolRoutes = convertToLink(schoolAdminNavRoutes, [], []);
+export const doctorRoutes = convertToLink(doctorNavRoutes, [], doctorExtraRoutes);

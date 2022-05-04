@@ -1,16 +1,17 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/23/22, 4:17 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 5/1/22, 3:54 PM
  *
  */
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
+import { PatientTab } from "@/modules/doctor/components/tabs/PatientTab";
 import { MemberProfileHeader } from "@/modules/members/components/profile/MemberProfileHeader";
 import { DeviceHistoryTab } from "@/modules/members/components/tabs/DeviceHistoryTab";
+import { DoctorListTab } from "@/modules/members/components/tabs/DoctorListTab";
 import { MembersListTab } from "@/modules/members/components/tabs/MemberListTab";
 import { PatientMedicalHistory } from "@/modules/members/components/tabs/PatientMedicalHistoryTab";
 import { ProfileOverviewTab } from "@/modules/members/components/tabs/ProfileOverviewTab";
@@ -32,7 +33,7 @@ interface MemberProfilePage {
  * @constructor
  */
 export function MemberProfilePage({ member, role }: MemberProfilePage) {
-  const [selectedTab, setSelectedTab] = useState<MemberProfileTabs>("overview");
+  const [selectedTab, setSelectedTab] = useState<MemberProfileTabs>(getTabItemsForRole(role.slug)[0]);
   const [tabList] = useState<MemberProfileTabs[]>(getTabItemsForRole(role.slug));
 
   return (
@@ -80,6 +81,16 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
             <PatientMedicalHistory selectedMember={member} />
           ) : selectedTab === "subscriptions" ? (
             <SubscriptionTab member_id={member.id} role_id={member.role.id} />
+          ) : selectedTab === "doctors" ? (
+            <>
+              {/** This tab is for doctor/accessor role. Relevant code is in doctor module. **/}
+              <DoctorListTab />
+            </>
+          ) : selectedTab === "patients" ? (
+            <>
+              {/** This tab is for doctor/accessor role. Relevant code is in doctor module. **/}
+              <PatientTab parent_member_id={member.id} />
+            </>
           ) : null}
         </motion.div>
       </AnimatePresence>

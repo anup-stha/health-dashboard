@@ -1,3 +1,10 @@
+/*
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
+ *
+ */
+
 import { Switch as DefaultSwitch } from "@headlessui/react";
 import React from "react";
 import { Control, Controller } from "react-hook-form";

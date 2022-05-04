@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/25/22, 2:28 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
  *
  */
 
@@ -43,7 +42,7 @@ export const useRoleList = () => {
     refetchOnWindowFocus: true,
     onSuccess: ({ data }) => {
       const role = useCurrentMemberStore.getState().role;
-      const role_access = useAuthStore.getState().user?.role.role_access[0];
+      const role_access = useAuthStore.getState().user?.role?.role_access?.[0];
       if (isEmpty(role) && role_access) {
         useCurrentMemberStore.getState().setCurrentRole(role_access);
       }

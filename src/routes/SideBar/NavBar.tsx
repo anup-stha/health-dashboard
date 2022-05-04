@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 1/21/22, 3:22 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
  *
  */
 
@@ -10,7 +9,7 @@ import { useAuthStore } from "@/modules/auth/useTokenStore";
 
 import { NavDropdown } from "./NavDropdown";
 import { NavItem } from "./NavItem";
-import { orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
+import { doctorNavRoutes, orgNavRoutes, schoolAdminNavRoutes, superAdminNavRoutes } from "./routes";
 
 export const NavBar = () => {
   const role = useAuthStore()?.user?.role;
@@ -21,6 +20,8 @@ export const NavBar = () => {
       ? orgNavRoutes
       : role.slug === "school_admin"
       ? schoolAdminNavRoutes
+      : role.slug === "accessor"
+      ? doctorNavRoutes
       : []
     : [];
 

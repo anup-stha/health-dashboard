@@ -1,3 +1,10 @@
+/*
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
+ *
+ */
+
 import { Role } from "@/models/role.model";
 import { MemberMedicalHistory, MemberOtherDetails } from "@/modules/members/types";
 import { privateAgent } from "@/services/requests/index";
@@ -30,6 +37,7 @@ export type User = {
   email: string;
   can_login: string;
   ref_key: string;
+  role_id: number;
   role: Role;
   medical_history: MemberMedicalHistory[];
   details: MemberOtherDetails[];

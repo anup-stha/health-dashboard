@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2022. All rights reserved.
- * Last Modified 2/24/22, 12:57 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 5/2/22, 3:07 PM
  *
  */
 
@@ -68,6 +67,7 @@ export type Member = {
   email: string;
   can_login: string;
   ref_key: string;
+  role_id: number;
   role: Role;
   medical_history: MemberMedicalHistory[];
   details: MemberOtherDetails[];
@@ -131,4 +131,6 @@ export type MemberProfileTabs =
   | "tests"
   | "devices"
   | "settings"
-  | "medical history";
+  | "doctors"
+  | "medical history"
+  | "patients";

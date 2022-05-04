@@ -1,8 +1,7 @@
 /*
- * Created By Anup Shrestha
- * Copyright (c) 2021-2022. All rights reserved.
- * Last Modified 2/25/22, 2:36 PM
- *
+ * Created by Anup Shrestha (anup.stha012@gmail.com)
+ * Copyright (c) 2022.  All rights reserved.
+ * Last modified 4/28/22, 1:27 PM
  *
  */
 
@@ -16,7 +15,6 @@ import { withAuth } from "@/shared/hoc/withAuth";
 
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user?.role;
-  console.log(role);
 
   return (
     <>
