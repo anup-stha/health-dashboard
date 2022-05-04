@@ -17,7 +17,8 @@ type TabType =
   | "devices"
   | "settings"
   | "medical history"
-  | "doctors";
+  | "doctors"
+  | "patients";
 
 /**
  *
@@ -30,6 +31,9 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
       return ["overview", "subscriptions", "tests", "devices"];
 
     case "org_admin":
+      if (useAuthStore.getState().user?.role.slug === "accessor") {
+        return ["patients"];
+      }
       if (useAuthStore.getState().user?.id !== 1) {
         return ["overview", "subscriptions"];
       }

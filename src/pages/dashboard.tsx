@@ -15,7 +15,6 @@ import { withAuth } from "@/shared/hoc/withAuth";
 
 const Dashboard: NextPage = () => {
   const role = useAuthStore.getState().user?.role;
-  console.log(role);
 
   return (
     <>

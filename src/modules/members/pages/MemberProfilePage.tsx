@@ -8,6 +8,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
+import { PatientTab } from "@/modules/doctor/components/tabs/PatientTab";
 import { MemberProfileHeader } from "@/modules/members/components/profile/MemberProfileHeader";
 import { DeviceHistoryTab } from "@/modules/members/components/tabs/DeviceHistoryTab";
 import { DoctorListTab } from "@/modules/members/components/tabs/DoctorListTab";
@@ -32,7 +33,7 @@ interface MemberProfilePage {
  * @constructor
  */
 export function MemberProfilePage({ member, role }: MemberProfilePage) {
-  const [selectedTab, setSelectedTab] = useState<MemberProfileTabs>("overview");
+  const [selectedTab, setSelectedTab] = useState<MemberProfileTabs>(getTabItemsForRole(role.slug)[0]);
   const [tabList] = useState<MemberProfileTabs[]>(getTabItemsForRole(role.slug));
 
   return (
@@ -81,7 +82,15 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
           ) : selectedTab === "subscriptions" ? (
             <SubscriptionTab member_id={member.id} role_id={member.role.id} />
           ) : selectedTab === "doctors" ? (
-            <DoctorListTab />
+            <>
+              {/** This tab is for doctor/accessor role. Relevant code is in doctor module. **/}
+              <DoctorListTab />
+            </>
+          ) : selectedTab === "patients" ? (
+            <>
+              {/** This tab is for doctor/accessor role. Relevant code is in doctor module. **/}
+              <PatientTab parent_member_id={member.id} />
+            </>
           ) : null}
         </motion.div>
       </AnimatePresence>

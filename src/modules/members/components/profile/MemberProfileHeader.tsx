@@ -162,243 +162,223 @@ export function MemberProfileHeader({ member, role }: IMemberProfileHeaderProps)
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="flex-shrink-0 self-start flex space-x-4 relative">
-          <MemberOtherDetailModal otherDetails={member.details} memberData={member} selectedRole={role}>
-            <Button color="secondary" size="sm">
-              Edit Other Details
-            </Button>
-          </MemberOtherDetailModal>
-          <MemberModal
-            type="edit"
-            selectedRole={role}
-            initialData={member}
-            button={<Button size="sm">Edit Profile</Button>}
-          />
+        {user?.id === 1 || user?.role.slug === "org_admin" ? (
+          <>
+            <div className="flex-shrink-0 self-start flex space-x-4 relative">
+              <MemberOtherDetailModal otherDetails={member.details} memberData={member} selectedRole={role}>
+                <Button color="secondary" size="sm">
+                  Edit Other Details
+                </Button>
+              </MemberOtherDetailModal>
+              <MemberModal
+                type="edit"
+                selectedRole={role}
+                initialData={member}
+                button={<Button size="sm">Edit Profile</Button>}
+              />
 
-          <Transition appear show={isOpen} as={Fragment} data-testid="modal">
-            <Dialog as="div" open={isOpen} className="fixed inset-0 z-50" onClose={() => setIsOpen(false)}>
-              <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
-              <div className="min-h-screen md:px-16 sm:px-4 text-center">
-                <Transition.Child as={Fragment}>
-                  <Dialog.Overlay className="fixed inset-0" />
-                </Transition.Child>
+              <Transition appear show={isOpen} as={Fragment} data-testid="modal">
+                <Dialog as="div" open={isOpen} className="fixed inset-0 z-50" onClose={() => setIsOpen(false)}>
+                  <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+                  <div className="min-h-screen md:px-16 sm:px-4 text-center">
+                    <Transition.Child as={Fragment}>
+                      <Dialog.Overlay className="fixed inset-0" />
+                    </Transition.Child>
 
-                {/* This element is to trick the browser into centering the modal contents. */}
-                <span className="inline-block h-screen align-middle" aria-hidden="true">
-                  &#8203;
-                </span>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-100"
-                  enterFrom="opacity-0 scale-95 -translate-y-32"
-                  enterTo="opacity-100 scale-100 translate-y-0"
-                  leave="ease-in duration-75"
-                  leaveFrom="opacity-100 scale-100 translate-y-0"
-                  leaveTo="opacity-0 scale-90 -translate-y-32"
-                >
-                  <div className="inline-block w-full max-w-6xl p-10 sm:p-6 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
-                    <div className="flex flex-col space-y-16 sm:-space-y-12">
-                      <h1 className="text-4xl font-medium text-gray-800">Change Password</h1>
-                      <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
-                        <form
-                          onSubmit={handleSubmit(async (values) => {
-                            if (values.oldPassword === values.newPassword) {
-                              toast.error("Old Password and New Password cannot be Same");
-                              return;
-                            }
-                            if (values.newPassword !== values.confirmNewPassword) {
-                              toast.error("New Password and Confirm New Password Doesn't Match");
-                              return;
-                            }
+                    {/* This element is to trick the browser into centering the modal contents. */}
+                    <span className="inline-block h-screen align-middle" aria-hidden="true">
+                      &#8203;
+                    </span>
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-100"
+                      enterFrom="opacity-0 scale-95 -translate-y-32"
+                      enterTo="opacity-100 scale-100 translate-y-0"
+                      leave="ease-in duration-75"
+                      leaveFrom="opacity-100 scale-100 translate-y-0"
+                      leaveTo="opacity-0 scale-90 -translate-y-32"
+                    >
+                      <div className="inline-block w-full max-w-6xl p-10 sm:p-6 space-y-8 overflow-hidden sidebar text-left align-middle transition-all transform bg-white shadow-E600 rounded-2xl">
+                        <div className="flex flex-col space-y-16 sm:-space-y-12">
+                          <h1 className="text-4xl font-medium text-gray-800">Change Password</h1>
+                          <div className="flex items-center w-full space-x-8 sm:flex-col-reverse">
+                            <form
+                              onSubmit={handleSubmit(async (values) => {
+                                if (values.oldPassword === values.newPassword) {
+                                  toast.error("Old Password and New Password cannot be Same");
+                                  return;
+                                }
+                                if (values.newPassword !== values.confirmNewPassword) {
+                                  toast.error("New Password and Confirm New Password Doesn't Match");
+                                  return;
+                                }
 
-                            await alert({
-                              type: "promise",
-                              promise: changePassword(values.oldPassword, values.newPassword).then(() => {
-                                setIsOpen(false);
-                                reset();
-                              }),
-                              msgs: {
-                                loading: "Changing Password",
-                                success: "Password Changed Successfully",
-                              },
-                              id: "change-password-modal",
-                            });
-                          })}
-                          className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
-                        >
-                          <div className="space-y-8">
-                            <Input
-                              label="Old Password"
-                              type="password"
-                              placeholder="Enter Old Password"
-                              {...register("oldPassword")}
-                            />
-                            <Input
-                              label="New Password"
-                              type="password"
-                              placeholder="Enter New Password"
-                              {...register("newPassword")}
-                            />
-                            <Input
-                              label="Confirm New Password"
-                              type="password"
-                              placeholder="Confirm New Password"
-                              {...register("confirmNewPassword")}
-                            />
-                          </div>
+                                await alert({
+                                  type: "promise",
+                                  promise: changePassword(values.oldPassword, values.newPassword).then(() => {
+                                    setIsOpen(false);
+                                    reset();
+                                  }),
+                                  msgs: {
+                                    loading: "Changing Password",
+                                    success: "Password Changed Successfully",
+                                  },
+                                  id: "change-password-modal",
+                                });
+                              })}
+                              className="w-1/2 space-y-16 sm:w-full sm:space-y-8"
+                            >
+                              <div className="space-y-8">
+                                <Input
+                                  label="Old Password"
+                                  type="password"
+                                  placeholder="Enter Old Password"
+                                  {...register("oldPassword")}
+                                />
+                                <Input
+                                  label="New Password"
+                                  type="password"
+                                  placeholder="Enter New Password"
+                                  {...register("newPassword")}
+                                />
+                                <Input
+                                  label="Confirm New Password"
+                                  type="password"
+                                  placeholder="Confirm New Password"
+                                  {...register("confirmNewPassword")}
+                                />
+                              </div>
 
-                          <div className="flex space-x-4">
-                            <Button>Change</Button>
+                              <div className="flex space-x-4">
+                                <Button>Change</Button>
 
-                            <Button color="error" onClick={() => setIsOpen(false)}>
-                              Cancel
-                            </Button>
-                          </div>
-                        </form>
+                                <Button color="error" onClick={() => setIsOpen(false)}>
+                                  Cancel
+                                </Button>
+                              </div>
+                            </form>
 
-                        <div className="w-1/2 -mt-40 sm:mt-10 flex flex-col items-center -space-y-6  sm:space-y-0 sm:w-full">
-                          <div className="relative h-8xl w-full sm:h-7xl sm:-ml-12  ">
-                            <Image
-                              src="/assets/change-password.svg"
-                              alt="Change Password"
-                              objectFit="contain"
-                              layout="fill"
-                            />
-                          </div>
-                          <div className="flex flex-col items-center sm:hidden ">
-                            <h1 className="text-2xl sm:text-xl font-medium text-primary-600">
-                              New Password must contain
-                            </h1>
-                            <div className=" text-xl sm:text-base sm:items-start font-medium text-gray-600 flex flex-col items-center">
-                              <p>At least six characters</p>
-                              <p>At least one uppercase character</p>
-                              <p>At least one number </p>
-                              <p>At least one special characer </p>
+                            <div className="w-1/2 -mt-40 sm:mt-10 flex flex-col items-center -space-y-6  sm:space-y-0 sm:w-full">
+                              <div className="relative h-8xl w-full sm:h-7xl sm:-ml-12  ">
+                                <Image
+                                  src="/assets/change-password.svg"
+                                  alt="Change Password"
+                                  objectFit="contain"
+                                  layout="fill"
+                                />
+                              </div>
+                              <div className="flex flex-col items-center sm:hidden ">
+                                <h1 className="text-2xl sm:text-xl font-medium text-primary-600">
+                                  New Password must contain
+                                </h1>
+                                <div className=" text-xl sm:text-base sm:items-start font-medium text-gray-600 flex flex-col items-center">
+                                  <p>At least six characters</p>
+                                  <p>At least one uppercase character</p>
+                                  <p>At least one number </p>
+                                  <p>At least one special characer </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Transition.Child>
                   </div>
-                </Transition.Child>
-              </div>
-            </Dialog>
-          </Transition>
-
-          {(user?.id === 1 || router.pathname === "/profile") && (
-            <Menu className="z-20" as="div">
-              <Menu.Button>
-                <button className=" py-3.5 px-4 text-xl text-primary-600 rounded-lg bg-slate-200 hover:bg-gray-300">
-                  <DotsThreeOutline weight="duotone" size={20} />
-                </button>
-              </Menu.Button>{" "}
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items
-                  id="menu-items"
-                  className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                >
-                  {router.pathname !== "/profile" ? (
-                    <>
-                      <div className="py-2">
-                        <MemberToggle
-                          toggle="active"
-                          memberId={member.id}
-                          currentState={active}
-                          setCurrentState={setActive}
-                          selectedMemberDetails={member}
-                        />
-                      </div>
-                      <div className="py-2 ">
-                        <MemberToggle
-                          toggle="verified"
-                          memberId={member.id}
-                          currentState={verified}
-                          setCurrentState={setVerified}
-                          selectedMemberDetails={member}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="py-2" onClick={() => setIsOpen(true)}>
-                        <Menu.Item as="div">
-                          {({ active: btnActive }) => (
-                            <button
-                              className={`${
-                                btnActive ? `text-primary-500 bg-primary-50 text-white` : "text-gray-700"
-                              } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
-                            >
-                              Change Password
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
-
-                      <div className="py-2" onClick={onLogOut}>
-                        <Menu.Item as="div">
-                          {({ active: btnActive }) => (
-                            <button
-                              className={`${
-                                btnActive ? `text-red-500 bg-red-50 text-white` : "text-gray-700"
-                              } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
-                            >
-                              Log out
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
-                    </>
-                  )}
-                </Menu.Items>
+                </Dialog>
               </Transition>
-            </Menu>
-          )}
-        </div>
-        <div className="self-end">
-          {member.role && member.role.slug === "patient" ? (
-            user?.id === 1 ? (
-              <Link href="/members/org_admin/patient/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            ) : (
-              <Link href="/members/patient/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            )
-          ) : null}
 
-          {member.role && member.role.slug === "teacher" ? (
-            user?.id === 1 ? (
-              <Link href="/members/school_admin/teacher/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            ) : (
-              <Link href="/members/teacher/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            )
-          ) : null}
+              {(user?.id === 1 || router.pathname === "/profile") && (
+                <Menu className="z-20" as="div">
+                  <Menu.Button>
+                    <button className=" py-3.5 px-4 text-xl text-primary-600 rounded-lg bg-slate-200 hover:bg-gray-300">
+                      <DotsThreeOutline weight="duotone" size={20} />
+                    </button>
+                  </Menu.Button>{" "}
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items
+                      id="menu-items"
+                      className="absolute top-16 right-0 w-72 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
+                      {router.pathname !== "/profile" ? (
+                        <>
+                          <div className="py-2">
+                            <MemberToggle
+                              toggle="active"
+                              memberId={member.id}
+                              currentState={active}
+                              setCurrentState={setActive}
+                              selectedMemberDetails={member}
+                            />
+                          </div>
+                          <div className="py-2 ">
+                            <MemberToggle
+                              toggle="verified"
+                              memberId={member.id}
+                              currentState={verified}
+                              setCurrentState={setVerified}
+                              selectedMemberDetails={member}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="py-2" onClick={() => setIsOpen(true)}>
+                            <Menu.Item as="div">
+                              {({ active: btnActive }) => (
+                                <button
+                                  className={`${
+                                    btnActive ? `text-primary-500 bg-primary-50 text-white` : "text-gray-700"
+                                  } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
+                                >
+                                  Change Password
+                                </button>
+                              )}
+                            </Menu.Item>
+                          </div>
 
-          {member.role && member.role.slug === "student" ? (
-            user?.id === 1 ? (
-              <Link href="/members/school_admin/student/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            ) : (
-              <Link href="/members/student/test_report" passHref>
-                <Button size="sm">Test Report</Button>
-              </Link>
-            )
-          ) : null}
-        </div>
+                          <div className="py-2" onClick={onLogOut}>
+                            <Menu.Item as="div">
+                              {({ active: btnActive }) => (
+                                <button
+                                  className={`${
+                                    btnActive ? `text-red-500 bg-red-50 text-white` : "text-gray-700"
+                                  } group flex rounded-md items-center w-full font-medium px-4 py-3 text-lg`}
+                                >
+                                  Log out
+                                </button>
+                              )}
+                            </Menu.Item>
+                          </div>
+                        </>
+                      )}
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              )}
+            </div>
+            <div className="self-end">
+              {member.role && member.role.slug === "patient" ? (
+                user?.id === 1 ? (
+                  <Link href="/members/org_admin/patient/test_report" passHref>
+                    <Button size="sm">Test Report</Button>
+                  </Link>
+                ) : (
+                  <Link href="/members/patient/test_report" passHref>
+                    <Button size="sm">Test Report</Button>
+                  </Link>
+                )
+              ) : null}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );
