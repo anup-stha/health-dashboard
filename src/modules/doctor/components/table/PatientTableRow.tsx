@@ -36,7 +36,7 @@ export const PatientTableRow: React.FC<OrgTableRowType> = ({ data, key, loading 
   const onMemberClick = () => {
     if (data) {
       setCurrentMember(data);
-      router.push(`/organizations/patients/${member.name}`);
+      router.push(`/organizations/patients/${data.name}`);
     }
   };
 

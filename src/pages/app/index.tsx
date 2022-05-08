@@ -8,6 +8,8 @@
 import { NextPage } from "next";
 
 import { AppListPage } from "@/modules/app/AppListPage";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const AppBuildNextPage: NextPage = () => {
   return (
@@ -17,4 +19,4 @@ const AppBuildNextPage: NextPage = () => {
   );
 };
 
-export default AppBuildNextPage;
+export default withAuth(withRole(AppBuildNextPage));

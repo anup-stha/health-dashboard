@@ -7,9 +7,20 @@
 
 import React from "react";
 
-import { DoctorAssignModal } from "@/modules/members/components/modal/DoctorAssignModal";
+import { Loader } from "@/components/Loader";
+import { TableView } from "@/components/Table";
 
-export const DoctorListTab = () => {
+import { PatientTableRow } from "@/modules/doctor/components/table/PatientTableRow";
+import { DoctorAssignModal } from "@/modules/members/components/modal/DoctorAssignModal";
+import { useGetOrganizationDoctors } from "@/modules/members/hooks/query/AccessorQuery";
+
+interface IDoctorsListTab {
+  organization_id: number;
+}
+
+export const DoctorListTab = ({ organization_id }: IDoctorsListTab) => {
+  const { data } = useGetOrganizationDoctors(organization_id);
+
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
       <div className="flex flex-col gap-4">
@@ -20,8 +31,22 @@ export const DoctorListTab = () => {
               List of All Doctors Assigned To This Organization
             </p>
           </div>
+
           <DoctorAssignModal />
         </div>
+        {data ? (
+          <TableView
+            data={data?.list}
+            tableHeadings={["Member Name", "Code", "Phone Number", "Address", ""]}
+            searchTerms={["name", "member_code"]}
+            tableRowComponent={<PatientTableRow />}
+            loading={!data}
+            paginate={true}
+            paginateObject={data.pagination}
+          />
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   );
