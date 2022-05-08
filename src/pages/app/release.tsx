@@ -8,6 +8,8 @@
 import { NextPage } from "next";
 
 import { AppReleaseListPage } from "@/modules/app/AppReleaseListPage";
+import { withAuth } from "@/shared/hoc/withAuth";
+import { withRole } from "@/shared/hoc/withRole";
 
 const AppReleaseNextPage: NextPage = () => {
   return (
@@ -17,4 +19,4 @@ const AppReleaseNextPage: NextPage = () => {
   );
 };
 
-export default AppReleaseNextPage;
+export default withAuth(withRole(AppReleaseNextPage));

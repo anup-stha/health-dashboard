@@ -84,7 +84,7 @@ export function MemberProfilePage({ member, role }: MemberProfilePage) {
           ) : selectedTab === "doctors" ? (
             <>
               {/** This tab is for doctor/accessor role. Relevant code is in doctor module. **/}
-              <DoctorListTab />
+              <DoctorListTab organization_id={member.id} />
             </>
           ) : selectedTab === "patients" ? (
             <>

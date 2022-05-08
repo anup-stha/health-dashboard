@@ -22,7 +22,7 @@ export type GetPatientsParams = {
   page?: number;
 };
 
-type DoctorsList = {
+export type DoctorsList = {
   list: Member[];
   pagination: PaginationObject;
 };
@@ -62,5 +62,10 @@ export const getAllPatients = async ({
   const response = await privateAgent.get<DoctorListResponse>(
     `reportAccess/members/${patient_role_id}/${patient_parent_id}?page=${page}`
   );
+  return response?.data.data;
+};
+
+export const getOrganizationDoctors = async (organization_id: number): Promise<DoctorsList> => {
+  const response = await privateAgent.get<DoctorListResponse>(`reportAccess/lists/accessors/${organization_id}`);
   return response?.data.data;
 };

@@ -115,11 +115,13 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                     layout="fill"
                     objectFit="contain"
                     priority={true}
-                  />{" "}
+                  />
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="text-3xl font-medium text-primary-600">No Data found</div>
-                  <div className="text-lg font-medium text-gray-500">Please change your search to find more data.</div>
+                  <div className="text-lg font-medium text-gray-500">
+                    Please change your search to find more data or data does not exist.
+                  </div>
                 </div>
               </div>
             ) : (

@@ -12,7 +12,7 @@ import LetteredAvatar from "react-avatar";
 import { Button } from "@/components/Button";
 import { promiseToast } from "@/components/Toast";
 
-import { AccessorQuery } from "@/modules/members/hooks/query/AccessorQuery";
+import { AccessorQuery, useGetOrganizationDoctors } from "@/modules/members/hooks/query/AccessorQuery";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { Member } from "@/modules/members/types";
 
@@ -22,8 +22,11 @@ type DoctorTableRowProps = {
 export const DoctorTableRow = ({ data }: DoctorTableRowProps) => {
   const { mutateAsync: assignDoctor, isLoading } = AccessorQuery.useAssign();
   const organization = useCurrentMemberStore((state) => state.member);
+  const { data: assignedDoctors } = useGetOrganizationDoctors(organization.id);
 
   if (!data) return null;
+
+  const isDoctorAssigned = assignedDoctors?.list.some((doctor) => doctor.id === data.id);
 
   return (
     <tr key={data?.id}>
@@ -57,8 +60,9 @@ export const DoctorTableRow = ({ data }: DoctorTableRowProps) => {
       <td className="flex justify-end">
         <Button
           loading={isLoading}
+          disabled={isDoctorAssigned || isLoading}
           size="sm"
-          color={isLoading ? "secondary" : "primary"}
+          color={isLoading || isDoctorAssigned ? "secondary" : "primary"}
           onClick={() =>
             promiseToast({
               isModal: false,
@@ -74,7 +78,7 @@ export const DoctorTableRow = ({ data }: DoctorTableRowProps) => {
             })
           }
         >
-          {isLoading ? "" : "Assign"}
+          {isLoading ? "" : isDoctorAssigned ? "Already Assigned" : "Assign"}
         </Button>
       </td>
     </tr>

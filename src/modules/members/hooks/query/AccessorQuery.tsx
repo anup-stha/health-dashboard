@@ -5,29 +5,31 @@
  *
  */
 
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { getAllDoctors, postAssignDoctorToOrganization } from "@/services/api/doctor.service";
+import { getAllDoctors, getOrganizationDoctors, postAssignDoctorToOrganization } from "@/services/api/doctor.service";
 
 export const useAssign = () => {
+  const queryClient = useQueryClient();
   return useMutation(postAssignDoctorToOrganization, {
     onSuccess: (data) => {
-      console.info("SUCCESS");
-      console.log(data);
+      queryClient.invalidateQueries("doctors-list");
     },
   });
 };
 
 export const useGetAllDoctors = () => {
-  return useQuery(["doctors-list"], getAllDoctors, {
-    onSuccess: (data) => {
-      console.info("SUCCESS");
-      console.log(data);
-    },
-  });
+  return useQuery(["doctors-list"], getAllDoctors);
+};
+
+export const useGetOrganizationDoctors = (organization_id?: number) => {
+  return useQuery(["doctors-list", organization_id], () =>
+    organization_id ? getOrganizationDoctors(organization_id) : null
+  );
 };
 
 export const AccessorQuery = {
   useAssign,
   useGetAllDoctors,
+  useGetOrganizationDoctors,
 };
