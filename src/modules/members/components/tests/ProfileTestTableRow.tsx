@@ -75,10 +75,10 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
         {data.temperature} {data.temperature && <>&deg; F</>}
       </td>
       <td className="capitalize px-6 py-4 text-xl space-y-2 whitespace-nowrap align-top">
-        {data.test_name.toLowerCase() === "urine"
+        {data?.test_name?.toLowerCase() === "urine"
           ? URINE_ORDER.map((element, index) => {
               const unit = data.tests.find((test) =>
-                Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                Object.keys(test)?.find((sub_test) => sub_test?.toLowerCase() === element?.toLowerCase())
               )?.unit;
 
               return (
@@ -87,7 +87,7 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
                   <span className="font-medium line-clamp-1">
                     {
                       data.tests.find((test) =>
-                        Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                        Object.keys(test)?.find((sub_test) => sub_test?.toLowerCase() === element?.toLowerCase())
                       )?.[element]
                     }
                   </span>
@@ -115,7 +115,9 @@ export const ProfileTestTableRow = ({ data }: { data?: ProfileTestData }) => {
                     <span className="font-medium text-gray-500">{Object.keys(element)[0]} : </span>
                     <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
                     <span className="font-medium lowercase line-clamp-1">
-                      {Object.values(element)[2].toLowerCase() === "n/a" ? "" : Object.values(element)[2].toLowerCase()}
+                      {Object.values(element)?.[2]?.toLowerCase() === "n/a"
+                        ? ""
+                        : Object.values(element)?.[2]?.toLowerCase()}
                     </span>
                   </div>
 

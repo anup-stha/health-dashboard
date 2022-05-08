@@ -118,17 +118,17 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(({ 
                 </div>
               </td>
               <td className="capitalize py-4 text-xl space-y-2 break-words ">
-                {data.test_name.toLowerCase() === "urine"
+                {data.test_name?.toLowerCase() === "urine"
                   ? URINE_ORDER.map((element, index) => {
                       const unit = data.tests.find((test) =>
-                        Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                        Object.keys(test).find((sub_test) => sub_test?.toLowerCase() === element?.toLowerCase())
                       )?.unit;
                       const value = data.tests.find((test: any) =>
-                        Object.keys(test).find((sub_test) => sub_test.toLowerCase() === element.toLowerCase())
+                        Object.keys(test).find((sub_test) => sub_test?.toLowerCase() === element?.toLowerCase())
                       )?.[element];
 
                       return (
-                        value.toLowerCase() !== "n/a" && (
+                        value?.toLowerCase() !== "n/a" && (
                           <div key={index} className="flex space-x-2 text-gray-700">
                             <span className="font-medium text-gray-500">{URINE_TEST[element]} : </span>
                             <span className="font-medium line-clamp-1">{value}</span>
@@ -139,15 +139,15 @@ export const ProfileTestPrint = React.forwardRef<HTMLDivElement, PrintProps>(({ 
                     })
                   : data.tests.map(
                       (element, index) =>
-                        Object.values(element)?.[0].toLowerCase() !== "n/a" && (
+                        Object.values(element)?.[0]?.toLowerCase() !== "n/a" && (
                           <div key={index} className="flex flex-col gap-4 text-gray-700">
                             <div className="flex gap-2">
                               <span className="font-medium text-gray-500">{Object.keys(element)[0]} : </span>
                               <span className="font-medium line-clamp-1">{Object.values(element)[0]}</span>
                               <span className="font-medium lowercase line-clamp-1">
-                                {Object.values(element)[2].toLowerCase() === "n/a"
+                                {Object.values(element)[2]?.toLowerCase() === "n/a"
                                   ? ""
-                                  : Object.values(element)[2].toLowerCase()}
+                                  : Object.values(element)[2]?.toLowerCase()}
                               </span>
                             </div>
 

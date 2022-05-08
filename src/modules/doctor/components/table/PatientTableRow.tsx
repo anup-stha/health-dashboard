@@ -18,6 +18,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { toastAlert } from "@/components/Alert";
 import { MemberTableLoadingState } from "@/components/state/TableLoadingState";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { useCurrentMemberStore } from "@/modules/members/hooks/zustand/useCurrentMemberStore";
 import { Member } from "@/modules/members/types";
 import { resetPassword } from "@/services/requests/authRequests";
@@ -30,13 +31,17 @@ type OrgTableRowType = {
 
 export const PatientTableRow: React.FC<OrgTableRowType> = ({ data, key, loading }) => {
   const router = useRouter();
-  const member = useCurrentMemberStore((state) => state.member);
+  const user = useAuthStore((state) => state.user);
   const setCurrentMember = useCurrentMemberStore((state) => state.setCurrentUser);
 
   const onMemberClick = () => {
     if (data) {
       setCurrentMember(data);
-      router.push(`/organizations/patients/${data.name}`);
+      if (user?.role.id === 1) {
+        return;
+      } else {
+        router.push(`/organizations/patients/${data.name}`);
+      }
     }
   };
 

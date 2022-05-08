@@ -10,6 +10,7 @@ import React from "react";
 import { Loader } from "@/components/Loader";
 import { TableView } from "@/components/Table";
 
+import { useAuthStore } from "@/modules/auth/useTokenStore";
 import { PatientTableRow } from "@/modules/doctor/components/table/PatientTableRow";
 import { DoctorAssignModal } from "@/modules/members/components/modal/DoctorAssignModal";
 import { useGetOrganizationDoctors } from "@/modules/members/hooks/query/AccessorQuery";
@@ -20,6 +21,7 @@ interface IDoctorsListTab {
 
 export const DoctorListTab = ({ organization_id }: IDoctorsListTab) => {
   const { data } = useGetOrganizationDoctors(organization_id);
+  const user = useAuthStore((state) => state.user);
 
   return (
     <div className="bg-white w-full rounded-2xl shadow-sm p-8 flex flex-col relative">
@@ -32,7 +34,7 @@ export const DoctorListTab = ({ organization_id }: IDoctorsListTab) => {
             </p>
           </div>
 
-          <DoctorAssignModal />
+          {user?.role.id === 1 && <DoctorAssignModal />}
         </div>
         {data ? (
           <TableView

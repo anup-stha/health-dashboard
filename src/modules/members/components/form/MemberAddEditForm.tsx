@@ -227,7 +227,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
             member_detail_categories.map((category: MemberDetailCategory) => {
               return (
                 <Fragment key={category.id}>
-                  {category.value_type.toLowerCase() === "boolean" ? (
+                  {category.value_type?.toLowerCase() === "boolean" ? (
                     <SwitchInput
                       label={category.name}
                       type="number"

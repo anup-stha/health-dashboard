@@ -72,7 +72,7 @@ export const TableView: React.FC<TableViewPropsType> = React.memo(
                       setSearchTerm(e.target.value);
                       const searchedData = tableInitialData.filter((data) => {
                         return searchTerms?.some((term) =>
-                          data[term].toLowerCase().includes(e.target.value.toLowerCase().trim())
+                          data[term]?.toLowerCase().includes(e.target.value?.toLowerCase().trim())
                         );
                       });
 

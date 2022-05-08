@@ -118,7 +118,7 @@ export const MemberOtherDetailModal: React.FC<MemberDetailAddModalProps> = ({
                   selectedRole.member_detail_categories &&
                   selectedRole.member_detail_categories.map((category: MemberDetailCategory) => (
                     <Fragment key={category.id}>
-                      {category.value_type.toLowerCase() === "boolean" ? (
+                      {category.value_type?.toLowerCase() === "boolean" ? (
                         <Switch name={`${category.id}-${category.slug}`} control={control} label={category.name} />
                       ) : (
                         <Input

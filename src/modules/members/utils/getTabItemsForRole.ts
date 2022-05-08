@@ -35,7 +35,7 @@ export function getTabItemsForRole(role: RoleType): TabType[] {
         return ["patients"];
       }
       if (useAuthStore.getState().user?.id !== 1) {
-        return ["overview", "subscriptions"];
+        return ["overview", "subscriptions", "doctors"];
       }
       return ["overview", "members", "doctors", "subscriptions", "devices"];
 
