@@ -3,13 +3,20 @@ with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/
 
 ## Getting Started
 
+Prerequisites:
+
+- Node 14+
+- Yarn 1.22+
+
 First, run the development server:
 
 ```bash
 cp .env.example .env
 npm install
 npm run dev
+
 # or
+
 cp .env.example .env
 yarn install
 yarn dev
@@ -49,11 +56,11 @@ yarn test
 
 ## Technologies Used
 
-[React Query](https://react-query.tanstack.com/overview) for managing API Calls \
-[React Hook Form](https://react-hook-form.com/api) for managing form states \
-[Zustand](https://github.com/pmndrs/zustand) for managing client side data like auth \
-[TailwindCSS](https://tailwindcss.com/docs) for UI \
-[Framer Motion](https://www.framer.com/docs/) for animations
+[React Query v3](https://react-query.tanstack.com/overview) for managing API Calls \
+[React Hook Form v7](https://react-hook-form.com/api) for managing form states \
+[Zustand v3](https://github.com/pmndrs/zustand) for managing client side data like auth \
+[TailwindCSS v3](https://tailwindcss.com/docs) for UI \
+[Framer Motion v5](https://www.framer.com/docs/) for animations
 
 ## Folder Structure
 
