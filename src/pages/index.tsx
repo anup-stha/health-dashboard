@@ -14,6 +14,7 @@ import { MainLoader } from "@/components/Loader";
 import { MainHead } from "@/layout/MainHead";
 import { LoginPage } from "@/modules/auth/LoginPage";
 import { useAuthStore } from "@/modules/auth/useTokenStore";
+import axios from "axios";
 
 const Home: NextPage = () => {
   const router = useRouter();

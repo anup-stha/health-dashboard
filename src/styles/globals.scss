@@ -256,47 +256,6 @@ datalist {
   @apply w-full bg-white shadow-E100 flex flex-col rounded-md px-4 py-6 ring-2 ring-opacity-90 ring-primary-600 text-white transition-all duration-100;
 }
 
-.example-container {
-  height: 60vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.next,
-.prev {
-  top: calc(50% - 20px);
-  position: absolute;
-  background: white;
-  border-radius: 30px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 18px;
-  z-index: 2;
-}
-
-.next {
-  right: 10px;
-}
-
-.prev {
-  left: 10px;
-  transform: scale(-1);
-}
-
-.slider-img {
-  position: absolute;
-  height: 100%;
-  border-radius: 8px;
-}
-
 .refresh {
   padding: 10px;
   position: absolute;

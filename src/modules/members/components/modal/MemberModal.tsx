@@ -141,6 +141,7 @@ export function MemberModal({ type, initialData, button, selectedRole, parent_me
             <MemberAddEditForm
               type={type}
               setValue={setValue}
+              parent_member_id={parent_member_id}
               selectedRole={selectedRole}
               initialData={initialData}
               handleSubmit={handleSubmit}

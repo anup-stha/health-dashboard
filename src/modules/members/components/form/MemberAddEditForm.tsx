@@ -78,6 +78,7 @@ export const MemberAddEditForm: React.FC<UserAddFormProps> = ({
           ...data,
           dob_ad: moment(data.dob_ad).unix(),
           role_id: selectedRole.id,
+          parent_member_id,
         };
 
         const values = Object.values(body);
